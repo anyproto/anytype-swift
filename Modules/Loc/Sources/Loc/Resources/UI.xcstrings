@@ -9912,8 +9912,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Вы уверены, что хотите удалить %#@объект@?"
+            "state" : "translated",
+            "value" : "Вы уверены, что хотите удалить %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -26460,7 +26460,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Brankas ini akan dihapus dalam %#@ hari@"
+            "value" : "Brankas ini akan dihapus dalam %#@days@"
           },
           "substitutions" : {
             "days" : {
@@ -26783,8 +26783,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Это хранилище будет удалено через %#@дней@ "
+            "state" : "translated",
+            "value" : "Это хранилище будет удалено через %#@days@"
           },
           "substitutions" : {
             "days" : {
@@ -29631,7 +29631,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@perangkat@ terhubung"
+            "value" : "%#@device@ terhubung"
           },
           "substitutions" : {
             "device" : {
@@ -29894,8 +29894,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%#@устройство@ подключено"
+            "state" : "translated",
+            "value" : "%#@device@ подключено"
           },
           "substitutions" : {
             "device" : {
@@ -38842,7 +38842,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@mengunggah berkas@"
+            "value" : "%#@file@"
           },
           "substitutions" : {
             "file" : {
@@ -39105,8 +39105,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%#@файл@ загружается"
+            "state" : "translated",
+            "value" : "%#@file@ загружается"
           },
           "substitutions" : {
             "file" : {
@@ -48503,7 +48503,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@sinkronisasi item@"
+            "value" : "%#@item@"
           },
           "substitutions" : {
             "item" : {
@@ -48766,8 +48766,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%#@элемент@  синхронизируется..."
+            "state" : "translated",
+            "value" : "%#@item@ синхронизируется..."
           },
           "substitutions" : {
             "item" : {
@@ -48776,26 +48776,26 @@
                 "plural" : {
                   "few" : {
                     "stringUnit" : {
-                      "state" : "new",
-                      "value" : "%a элементы организации"
+                      "state" : "translated",
+                      "value" : "%arg элементы организации"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
-                      "state" : "new",
-                      "value" : "%a элементы организации"
+                      "state" : "translated",
+                      "value" : "%arg элементы организации"
                     }
                   },
                   "one" : {
                     "stringUnit" : {
-                      "state" : "new",
-                      "value" : "%a элемент организации"
+                      "state" : "translated",
+                      "value" : "%arg элемент организации"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
-                      "state" : "new",
-                      "value" : "%a элементы организации"
+                      "state" : "translated",
+                      "value" : "%arg элементы организации"
                     }
                   }
                 }
@@ -60624,7 +60624,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@objek@ terpilih"
+            "value" : "%#@object@ terpilih"
           },
           "substitutions" : {
             "object" : {
@@ -60887,8 +60887,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%#@объект@ выбран"
+            "state" : "translated",
+            "value" : "%#@object@ выбран"
           },
           "substitutions" : {
             "object" : {
@@ -66283,7 +66283,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@hari@"
+            "value" : "per %#@day@"
           },
           "substitutions" : {
             "day" : {
@@ -66546,8 +66546,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "за %#@день@"
+            "state" : "translated",
+            "value" : "за %#@day@"
           },
           "substitutions" : {
             "day" : {
@@ -66972,7 +66972,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@bulan@"
+            "value" : "per %#@month@"
           },
           "substitutions" : {
             "month" : {
@@ -67235,8 +67235,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "за %#@месяц@"
+            "state" : "translated",
+            "value" : "за %#@month@"
           },
           "substitutions" : {
             "month" : {
@@ -67661,7 +67661,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@minggu@"
+            "value" : "per %#@week@"
           },
           "substitutions" : {
             "week" : {
@@ -67924,8 +67924,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "за %#@неделю@"
+            "state" : "translated",
+            "value" : "за %#@week@"
           },
           "substitutions" : {
             "week" : {
@@ -68350,7 +68350,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@tahun@"
+            "value" : "per %#@year@"
           },
           "substitutions" : {
             "year" : {
@@ -68613,8 +68613,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "за %#@год@"
+            "state" : "translated",
+            "value" : "за %#@year@"
           },
           "substitutions" : {
             "year" : {
@@ -82849,6 +82849,453 @@
         }
       }
     },
+    "Settings.AnyId.BottomSheet.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explore plans"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explorar planes"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jelajahi paket-paket"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Изучить планы"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Planları keşfet"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        }
+      }
+    },
+    "Settings.AnyId.BottomSheet.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Suscríbete para que tu ID sea legible y otras personas puedan encontrarte y ponerse en contacto contigo fácilmente."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Menjadi anggota agar ID Anda dapat mudah dibaca oleh orang lain, sehingga anggota lain dapat dengan mudah menemukan dan terhubung dengan Anda."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Станьте участником, чтобы сделать свой ID читаемым для людей — так другие участники смогут легко найти вас и связаться."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Üye olup kimliğini insanlar tarafından okunabilir hale getirebilirsin. Böylece diğer üyeler seni kolayca bulup seninle bağlantı kurabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        }
+      }
+    },
+    "Settings.AnyId.BottomSheet.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Este es tu ID ANY"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ini ANY ID-mu"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Это Ваш ANY ID"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bu senin ANY ID'ndir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        }
+      }
+    },
     "Settings.AutoCreateTypeWidgets" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -84038,453 +84485,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Space information updated"
-          }
-        }
-      }
-    },
-    "Settings.AnyId.BottomSheet.button" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Explore plans"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explorar planes"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Jelajahi paket-paket"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Изучить планы"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Planları keşfet"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        }
-      }
-    },
-    "Settings.AnyId.BottomSheet.description" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Suscríbete para que tu ID sea legible y otras personas puedan encontrarte y ponerse en contacto contigo fácilmente."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Menjadi anggota agar ID Anda dapat mudah dibaca oleh orang lain, sehingga anggota lain dapat dengan mudah menemukan dan terhubung dengan Anda."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Станьте участником, чтобы сделать свой ID читаемым для людей — так другие участники смогут легко найти вас и связаться."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Üye olup kimliğini insanlar tarafından okunabilir hale getirebilirsin. Böylece diğer üyeler seni kolayca bulup seninle bağlantı kurabilir."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        }
-      }
-    },
-    "Settings.AnyId.BottomSheet.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Este es tu ID ANY"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Ini ANY ID-mu"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Это Ваш ANY ID"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Bu senin ANY ID'ndir"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
           }
         }
       }
