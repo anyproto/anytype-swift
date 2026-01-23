@@ -1,3 +1,7 @@
+---
+allowed-tools:
+---
+
 USE EXTENDED THINKING
 
 # iOS Release Impact Analysis & Comprehensive Changelog Generator
@@ -351,8 +355,8 @@ Questions? Reach out in the community or support channels.
 
 **Content Guidelines:**
 - **Critical alerts at top**: iOS version drops, breaking changes, data migrations
-  - Format: `!!! [Alert text] !!!`
-  - Example: `!!! Since this release we dropping Support of iOS 16 and now only support iOS 17.0 and later !!!`
+  - Format: "!!! [Alert text] !!!"
+  - Example: "!!! Since this release we dropping Support of iOS 16 and now only support iOS 17.0 and later !!!"
 - **Features section**:
   - 5-7 key features maximum
   - One line each, no descriptions
