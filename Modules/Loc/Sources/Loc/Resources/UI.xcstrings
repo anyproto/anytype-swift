@@ -616,7 +616,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "App version: %@"
+            "value" : "App-Version: %@"
           }
         },
         "en" : {
@@ -1063,7 +1063,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Device: %@"
+            "value" : "Gerät: %@"
           }
         },
         "en" : {
@@ -1808,7 +1808,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Library version: %@"
+            "value" : "Bibliotheksversion: %@"
           }
         },
         "en" : {
@@ -1957,7 +1957,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\n\nTechnical information\n%@"
+            "value" : "\n\nTechnische Informationen\n%@"
           }
         },
         "en" : {
@@ -2255,7 +2255,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "OS version: %@"
+            "value" : "Betriebssystem-Version: %@"
           }
         },
         "en" : {
@@ -9503,7 +9503,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg objects"
+                      "value" : "%arg Objekte"
                     }
                   }
                 }
@@ -9551,7 +9551,7 @@
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg object"
+                      "value" : "%arg objeto"
                     }
                   },
                   "other" : {
@@ -21530,7 +21530,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ copied to clipboard"
+            "value" : "%@ in die Zwischenanlage kopiert"
           }
         },
         "en" : {
@@ -22723,7 +22723,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new object \"%@\""
+            "value" : "Neues Objekt „%@“ erstellen"
           }
         },
         "en" : {
@@ -23319,7 +23319,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create option ‘%@’"
+            "value" : "Option ‚%@‘ erstellen"
           }
         },
         "en" : {
@@ -23468,7 +23468,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create property ‘%@’"
+            "value" : "Eigenschaft ‚%@‘ erstellen"
           }
         },
         "en" : {
@@ -27167,7 +27167,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mime Types - %@"
+            "value" : "Tipos de dato - %@"
           }
         },
         "fa" : {
@@ -27304,7 +27304,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Release: %@, %@"
+            "value" : "Veröffentlichung: %@, %@"
           }
         },
         "en" : {
@@ -27316,7 +27316,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Release: %@, %@"
+            "value" : "Versión: %@, %@"
           }
         },
         "fa" : {
@@ -29485,7 +29485,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg devices"
+                      "value" : "%arg Geräte"
                     }
                   }
                 }
@@ -29523,7 +29523,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@device@ connected"
+            "value" : "%#@device@ conectado"
           },
           "substitutions" : {
             "device" : {
@@ -29533,13 +29533,13 @@
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg device"
+                      "value" : "%arg dispositivo"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg devices"
+                      "value" : "%arg dispositivos"
                     }
                   }
                 }
@@ -32178,7 +32178,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed. This content is not available on mobile"
+            "value" : "Incrustación de %@. Este contenido no está disponible en el móvil"
           }
         },
         "fa" : {
@@ -32327,7 +32327,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed. Opens in external app or browser"
+            "value" : "Incrustación de %@. Se abre en una aplicación externa o en el navegador."
           }
         },
         "fa" : {
@@ -32476,7 +32476,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed is empty"
+            "value" : "La incrustación de %@ está vacía."
           }
         },
         "fa" : {
@@ -38696,7 +38696,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg files"
+                      "value" : "%arg Dateien"
                     }
                   }
                 }
@@ -38734,7 +38734,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@ uploading"
+            "value" : "Cargando %#@file@"
           },
           "substitutions" : {
             "file" : {
@@ -38744,13 +38744,13 @@
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg file"
+                      "value" : "%arg archivo"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg files"
+                      "value" : "%arg archivos"
                     }
                   }
                 }
@@ -40037,7 +40037,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Free | %@"
+            "value" : "Frei | %@"
           }
         },
         "en" : {
@@ -40049,7 +40049,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Free | %@"
+            "value" : "Libre | %@"
           }
         },
         "fa" : {
@@ -40198,7 +40198,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Other spaces | %@"
+            "value" : "Otros espacios | %@"
           }
         },
         "fa" : {
@@ -40645,7 +40645,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ used"
+            "value" : "%@ usados"
           }
         },
         "fa" : {
@@ -41539,7 +41539,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ of %@ used"
+            "value" : "Usado: %@ de %@"
           }
         },
         "fa" : {
@@ -42584,7 +42584,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Made by @%@"
+            "value" : "Realizada por @%@"
           }
         },
         "fa" : {
@@ -43180,7 +43180,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum."
+            "value" : "¡Huy! «%@» no se ha instalado. Comprueba tu conexión a Internet e inténtalo de nuevo o publica un informe en nuestro foro."
           }
         },
         "fa" : {
@@ -43329,7 +43329,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Experience was successfully installed to the \"%@\" space. You can now open and start using it."
+            "value" : "La experiencia se ha instalado en el espacio «%@». Ya puedes abrirla y empezar a usarla."
           }
         },
         "fa" : {
@@ -48395,7 +48395,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@ syncing..."
+            "value" : "%#@item@ sincronizando…"
           },
           "substitutions" : {
             "item" : {
@@ -48405,13 +48405,13 @@
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg item"
+                      "value" : "%arg elemento"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg items"
+                      "value" : "%arg elementos"
                     }
                   }
                 }
@@ -54290,7 +54290,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d Mitglieder"
                 }
               }
             }
@@ -54320,13 +54320,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d member"
+                  "value" : "%d miembro"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d miembros"
                 }
               }
             }
@@ -55005,7 +55005,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Min %@ characters"
+            "value" : "Mín. %@ caracteres"
           }
         },
         "fa" : {
@@ -59029,7 +59029,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No type “%@” found. Change your request or create new type."
+            "value" : "No se ha encontrado el tipo «%@». Cambia la consulta o crea un tipo nuevo."
           }
         },
         "fa" : {
@@ -60478,7 +60478,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg objects"
+                      "value" : "%arg Objekte"
                     }
                   }
                 }
@@ -60516,7 +60516,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ selected"
+            "value" : "%#@object@ seleccionado"
           },
           "substitutions" : {
             "object" : {
@@ -60526,7 +60526,7 @@
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg object"
+                      "value" : "%arg objeto"
                     }
                   },
                   "other" : {
@@ -63495,7 +63495,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Not supported type \"%@\". You can open it via desktop."
+            "value" : "No se admite el tipo «%@». Puedes abrirlo en la versión de escritorio."
           }
         },
         "fa" : {
@@ -64389,7 +64389,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Paid by %@"
+            "value" : "Pagado por %@"
           }
         },
         "fa" : {
@@ -66175,7 +66175,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@day@"
+            "value" : "cada %#@day@"
           },
           "substitutions" : {
             "day" : {
@@ -66810,7 +66810,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@month@"
+            "value" : "pro %#@month@"
           },
           "substitutions" : {
             "month" : {
@@ -66864,7 +66864,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@month@"
+            "value" : "cada %#@month@"
           },
           "substitutions" : {
             "month" : {
@@ -67499,7 +67499,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@week@"
+            "value" : "pro %#@week@"
           },
           "substitutions" : {
             "week" : {
@@ -67553,7 +67553,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@week@"
+            "value" : "cada %#@week@"
           },
           "substitutions" : {
             "week" : {
@@ -68188,7 +68188,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@year@"
+            "value" : "pro %#@year@"
           },
           "substitutions" : {
             "year" : {
@@ -68242,7 +68242,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@year@"
+            "value" : "cada %#@year@"
           },
           "substitutions" : {
             "year" : {
@@ -69556,7 +69556,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %d pinned spaces."
+            "value" : "Has alcanzado el límite de %d espacios anclados."
           }
         },
         "fa" : {
@@ -72228,7 +72228,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create %@"
+            "value" : "%@ erstellen"
           }
         },
         "en" : {
@@ -72240,7 +72240,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create %@"
+            "value" : "Crear %@"
           }
         },
         "fa" : {
@@ -74951,7 +74951,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Resend in %@ sec"
+            "value" : "Reenviar dentro de %@ s"
           }
         },
         "fa" : {
@@ -77338,7 +77338,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Related to: %@"
+            "value" : "Relacionado con: %@"
           }
         },
         "fa" : {
@@ -79809,13 +79809,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d selected block"
+                  "value" : "%d bloque seleccionado"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d selected blocks"
+                  "value" : "%d bloques seleccionados"
                 }
               }
             }
@@ -82420,7 +82420,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Query of %@"
+            "value" : "Abfrage von %@"
           }
         },
         "en" : {
@@ -82432,7 +82432,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Query of %@"
+            "value" : "Consulta de %@"
           }
         },
         "fa" : {
@@ -90321,7 +90321,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ deleted successfully"
+            "value" : "%@ erfolgreich gelöscht"
           }
         },
         "en" : {
@@ -90333,7 +90333,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ deleted successfully"
+            "value" : "Eliminación de %@ realizada"
           }
         },
         "fa" : {
@@ -94534,7 +94534,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New template was added to the type %@"
+            "value" : "Se ha añadido una nueva plantilla al tipo %@"
           }
         },
         "fa" : {
@@ -97665,7 +97665,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is no object named %@"
+            "value" : "No hay ningún objeto llamado %@"
           }
         },
         "fa" : {
@@ -97814,7 +97814,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is no property named %@"
+            "value" : "No hay ninguna propiedad llamada %@"
           }
         },
         "fa" : {
@@ -97963,7 +97963,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is no type named %@"
+            "value" : "No hay ningún tipo llamado %@"
           }
         },
         "fa" : {
@@ -103614,7 +103614,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Valid until %@"
+            "value" : "Gültig bis %@"
           }
         },
         "en" : {
@@ -103626,7 +103626,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Valid until %@"
+            "value" : "Válido hasta: %@"
           }
         },
         "fa" : {
@@ -104509,7 +104509,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Version %@ was restored"
+            "value" : "Version %@ wurde wiederhergestellt"
           }
         },
         "en" : {
@@ -104521,7 +104521,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Version %@ was restored"
+            "value" : "Versión %@ restaurada"
           }
         },
         "fa" : {
@@ -108128,7 +108128,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget %@ was added"
+            "value" : "Widget %@ wurde hinzugefügt"
           }
         },
         "en" : {
@@ -108140,7 +108140,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget %@ was added"
+            "value" : "Widget %@ añadido"
           }
         },
         "fa" : {
@@ -111865,7 +111865,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You joined %@"
+            "value" : "Te has unido a %@"
           }
         },
         "fa" : {
