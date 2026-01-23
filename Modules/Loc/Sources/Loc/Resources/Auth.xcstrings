@@ -103,7 +103,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
+            "value" : "Ao continuar, você concorda com os [Termos de Uso](%@) e com a [Política de Privacidade](%@)"
           }
         },
         "pt-PT" : {
@@ -115,7 +115,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
+            "value" : "Продолжая, вы соглашаетесь с нашими [условиями пользования](%@) и [политикой конфиденциальности](%@)"
           }
         },
         "tr" : {
@@ -2141,7 +2141,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It’s your login and password"
+            "value" : "Ini adalah nama pengguna dan kata sandi anda"
           }
         },
         "it" : {
@@ -2189,7 +2189,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It’s your login and password"
+            "value" : "É seu login e senha"
           }
         },
         "pt-PT" : {
@@ -2487,7 +2487,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Whoever has the key, has access"
+            "value" : "Quem tiver a chave, tem acesso"
           }
         },
         "pt-PT" : {
@@ -2785,7 +2785,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Only you responsible for it"
+            "value" : "Somente você é responsável por elas."
           }
         },
         "pt-PT" : {
@@ -3233,7 +3233,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select one role or background that best fits you"
+            "value" : "Selecione um papel ou área que melhor descreva você"
           }
         },
         "pt-PT" : {
@@ -3382,7 +3382,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tell Us About Yourself"
+            "value" : "Conte-nos sobre você"
           }
         },
         "pt-PT" : {
@@ -3531,7 +3531,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Artist / Content Creator"
+            "value" : "Artista / Criador de Conteúdo"
           }
         },
         "pt-PT" : {
@@ -3680,7 +3680,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Consultant"
+            "value" : "Consultor"
           }
         },
         "pt-PT" : {
@@ -3978,7 +3978,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Software Developer"
+            "value" : "Desenvolvedor de Software"
           }
         },
         "pt-PT" : {
@@ -4127,7 +4127,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Founder / Entrepreneur"
+            "value" : "Fundador / Empreendedor"
           }
         },
         "pt-PT" : {
@@ -4276,7 +4276,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Manager / IT Professional"
+            "value" : "Gestor / Profissional de TI"
           }
         },
         "pt-PT" : {
@@ -4425,7 +4425,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Marketer"
+            "value" : "Profissional de Marketing"
           }
         },
         "pt-PT" : {
@@ -4574,7 +4574,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Researcher / Academic"
+            "value" : "Pesquisador / Acadêmico"
           }
         },
         "pt-PT" : {
@@ -4723,7 +4723,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Student"
+            "value" : "Estudante"
           }
         },
         "pt-PT" : {
@@ -4872,7 +4872,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Writer / Journalist"
+            "value" : "Escritor / Jornalista"
           }
         },
         "pt-PT" : {
@@ -5021,7 +5021,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Habit tracking"
+            "value" : "Rastreamento de hábitos"
           }
         },
         "pt-PT" : {
@@ -5170,7 +5170,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal knowledge base / PKM"
+            "value" : "Base de conhecimento pessoal / PKM"
           }
         },
         "pt-PT" : {
@@ -5319,7 +5319,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Life planning"
+            "value" : "Planejamento de vida"
           }
         },
         "pt-PT" : {
@@ -5468,7 +5468,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Messaging & group chats"
+            "value" : "Mensagens & conversas em grupo"
           }
         },
         "pt-PT" : {
@@ -5617,7 +5617,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal note-taking"
+            "value" : "Notas pessoais"
           }
         },
         "pt-PT" : {
@@ -5766,7 +5766,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Projects & tasks management"
+            "value" : "Gerenciamento de projetos & tarefas"
           }
         },
         "pt-PT" : {
@@ -5915,7 +5915,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Team work & shared docs"
+            "value" : "Trabalho em equipe e documentos compartilhados"
           }
         },
         "pt-PT" : {
@@ -6064,7 +6064,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pick one use case that fits you best"
+            "value" : "Escolha um caso de uso que melhor se encaixa a você"
           }
         },
         "pt-PT" : {
@@ -6213,7 +6213,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "What do you want to use Anytype for?"
+            "value" : "Para que você quer usar o Anytype?"
           }
         },
         "pt-PT" : {
@@ -6511,7 +6511,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "or enter with"
+            "value" : "ou acesse com"
           }
         },
         "pt-PT" : {
@@ -7257,7 +7257,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Encrypted, local,"
+            "value" : "Criptografado, local,"
           }
         },
         "pt-PT" : {
@@ -7406,7 +7406,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "yours forever"
+            "value" : "seu para sempre"
           }
         },
         "pt-PT" : {
@@ -9804,7 +9804,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Please clear approximately %@ of space and run the process again."
+            "value" : "Пожалуйста, освободите %@ места и запустите процесс снова."
           }
         },
         "tr" : {
