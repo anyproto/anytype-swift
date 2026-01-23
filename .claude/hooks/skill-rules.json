@@ -687,6 +687,41 @@
           "enum ViewState"
         ]
       }
+    },
+    "confidence-check": {
+      "type": "workflow",
+      "priority": "high",
+      "description": "Pre-implementation confidence assessment to prevent wrong-direction work. Evaluates readiness across 5 weighted criteria before proceeding with implementation.",
+      "promptTriggers": {
+        "keywords": [
+          "implement",
+          "build feature",
+          "create feature",
+          "add feature",
+          "new feature",
+          "confidence check",
+          "before implementing",
+          "should I proceed",
+          "ready to implement",
+          "implementation plan",
+          "start implementing",
+          "begin implementation",
+          "complex task",
+          "big change",
+          "major refactor",
+          "significant change"
+        ],
+        "intentPatterns": [
+          "(implement|build|create|add).*?(feature|functionality|component|screen|view)",
+          "(before|ready to|should I).*?(implement|start|begin|proceed)",
+          "(complex|big|major|significant).*?(task|change|refactor|implementation)",
+          "(plan|planning).*?(implement|build|create)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [],
+        "contentPatterns": []
+      }
     }
   },
   "config": {

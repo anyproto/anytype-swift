@@ -281,6 +281,26 @@ Skills provide **automatic activation** based on your prompts and file context, 
 
 ---
 
+### 14. **confidence-check** (Workflow Gate)
+**Purpose**: Pre-implementation confidence assessment to prevent wrong-direction work
+
+**Auto-activates when**:
+- About to implement new features or significant changes
+- Keywords: implement, build feature, create feature, major refactor, complex task
+
+**Provides**:
+- 5-check weighted assessment (duplicates, patterns, docs, design system, root cause)
+- Decision thresholds (>=90% proceed, 70-89% pause, <70% stop)
+- Quick checklist format
+- ROI rationale (100-200 tokens assessment saves 5,000-50,000 tokens)
+- Example assessment walkthrough
+
+**Location**: `.claude/skills/confidence-check/SKILL.md`
+
+**Attribution**: Pattern adapted from [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework).
+
+---
+
 ## 📊 Progressive Disclosure Architecture
 
 This documentation system follows the principle of **progressive disclosure** - load only what's needed, when it's needed.
@@ -411,6 +431,9 @@ Read the file .claude/skills/ios-dev-guidelines/SKILL.md
 │   ├── SKILL.md (smart router)
 │   └── references/
 │       └── mv-patterns.md
+│
+├── confidence-check/
+│   └── SKILL.md (workflow gate)
 │
 └── claudemd-maintainer/
     └── SKILL.md (smart router - meta!)
