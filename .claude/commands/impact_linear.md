@@ -78,13 +78,28 @@ For EACH task in the hierarchy:
 - Backward compatibility concerns
 - Testing coverage needs (with test plan links if available)
 
-#### E. Sub-task Analysis with Full Hierarchy
-The hierarchy is automatically built in Step 2:
+#### E. Sub-task Analysis with Full Hierarchy (RECURSIVE)
+The hierarchy is built in Step 2, but **check ALL levels recursively**:
 - Level 0: Release task
-- Level 1: Direct subtasks (standalone tasks + epics)
-- Level 2: Subtasks of epics (implementation tasks)
+- Level 1: Direct subtasks (standalone tasks + umbrella groups)
+- Level 2: Subtasks of umbrella groups (implementation tasks)
+- **Level 3+: Check if ANY task has its own subtasks**
+
+**CRITICAL**: Non-epic umbrella tasks (like "leftovers", "polish", "multi-chat") often contain important feature subtasks. Always recurse into them.
+
+**Example of missed hierarchy**:
+```
+Release Task (fetched ✓)
+├── Platform (subtasks fetched ✓)
+├── Navigation (subtasks fetched ✓)
+├── Multi chats leftovers (HAS subtasks but wasn't recursed!)
+│   ├── IOS-5337 Settings menu for chat ← MISSED!
+│   ├── IOS-5556 Unread section ← MISSED!
+│   └── IOS-5330 Chat creation ← MISSED!
+```
+
 - **Capture full parent-child URL relationships**
-- **Create a URL hierarchy map**
+- **Create a URL hierarchy map showing full depth**
 
 ### Step 4: Cross-Platform Context with Links
 - Find related Desktop/Web releases (with Linear URLs)
@@ -344,9 +359,9 @@ Release: IOS-XXXX "[Title]" - [URL]
 ## Validation Checklist
 Before finalizing analysis:
 - [ ] **Release task fetched with full details**
-- [ ] **All level-1 subtasks fetched** (standalone tasks + epics)
-- [ ] **All epics identified** (title contains `[epic]`)
-- [ ] **All level-2 subtasks fetched** (for each epic)
+- [ ] **All level-1 subtasks fetched** (standalone tasks + umbrella groups)
+- [ ] **All level-2 subtasks fetched** (for each umbrella group)
+- [ ] **RECURSIVE CHECK: Non-epic umbrella tasks checked for children** (e.g., "leftovers", "multi-chat", "polish")
 - [ ] **Every task has identifier (IOS-XXXX) and Linear URL**
 - [ ] **PR links extracted from attachments field**
 - [ ] **External links captured** (Figma, docs from descriptions)
