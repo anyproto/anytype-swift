@@ -9,6 +9,20 @@ Anytype is a privacy-focused, local-first workspace application for iOS. Built w
 3. **NEVER run destructive git operations** without explicit approval (`--amend`, `reset --hard`, `push --force`, `clean -fd`)
 4. **Always present action plan** before implementing multi-step changes and await approval
 
+## 🔒 Pre-Implementation Gate
+When `confidence-check` skill activates, **ALWAYS run the 5-check assessment before writing implementation code**:
+```
+CONFIDENCE CHECK:
+[ ] No duplicates found (25%)
+[ ] Follows MVVM/Coordinator/DI patterns (25%)
+[ ] Verified existing code/docs (20%)
+[ ] Uses Loc/Color/Image design system (15%)
+[ ] Root cause understood (15%)
+
+Score: ___% → PROCEED (≥90%) | PAUSE (70-89%) | STOP (<70%)
+```
+Present results to user. If score <90%, discuss gaps before proceeding.
+
 ## 🚀 Quick Start
 
 ### Development Setup
@@ -48,6 +62,7 @@ After making code changes, report them to the user who will verify compilation i
 | `liquid-glass-developer` | iOS 26 glass effects | Auto-activates |
 | `swiftui-performance-developer` | Performance issues | Auto-activates (from Dimillian/Skills) |
 | `swiftui-patterns-developer` | View structure/MV | Auto-activates (from Dimillian/Skills) |
+| `confidence-check` | Implementation tasks | Auto-activates (from SuperClaude) |
 
 **When you see "Relevant Skill: X"** in system reminders → Read `.claude/skills/X/SKILL.md` and apply its patterns.
 
