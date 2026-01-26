@@ -46,19 +46,19 @@ Commits the current changes, performs a code review, applies fixes if needed, th
 - Apply CODE_REVIEW_GUIDE.md standards
 - Check for bugs, best practices violations, performance issues, security concerns
 
-### 3. Review Findings and Auto-Proceed
+### 3. Review Findings - ALWAYS Wait for Approval
 - Present review results to developer
-- If issues found, **STOP and discuss** with developer:
+- **If ANY issues found (including minor/non-blocking)**: STOP and wait for developer decision:
   - Should we fix the issues now?
   - Are the findings valid or false positives?
   - Should we proceed anyway?
-- **Developer decides next steps** - never auto-amend commits
-- **If review is approved (✅)**: Automatically proceed to push and PR without asking
+- **Developer decides next steps** - never auto-amend commits, never auto-proceed to push/PR
+- Only proceed to step 4 when developer explicitly approves
 
-### 4. Push and PR (auto-proceed when approved)
+### 4. Push and PR (only after explicit approval)
 - Push to remote with tracking
 - Create pull request with summary
-- No confirmation needed when code review is approved
+- **Requires explicit approval** - do not auto-proceed even for "clean" reviews with minor notes
 
 ## Branch Handling
 When a branch name is provided:

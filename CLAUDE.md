@@ -9,6 +9,20 @@ Anytype is a privacy-focused, local-first workspace application for iOS. Built w
 3. **NEVER run destructive git operations** without explicit approval (`--amend`, `reset --hard`, `push --force`, `clean -fd`)
 4. **Always present action plan** before implementing multi-step changes and await approval
 
+## 🔒 Pre-Implementation Gate
+When `confidence-check` skill activates, **ALWAYS run the 5-check assessment before writing implementation code**:
+```
+CONFIDENCE CHECK:
+[ ] No duplicates found (25%)
+[ ] Follows MVVM/Coordinator/DI patterns (25%)
+[ ] Verified existing code/docs (20%)
+[ ] Uses Loc/Color/Image design system (15%)
+[ ] Root cause understood (15%)
+
+Score: ___% → PROCEED (≥90%) | PAUSE (70-89%) | STOP (<70%)
+```
+Present results to user. If score <90%, discuss gaps before proceeding.
+
 ## 🚀 Quick Start
 
 ### Development Setup
@@ -46,10 +60,19 @@ After making code changes, report them to the user who will verify compilation i
 | `analytics-developer` | Analytics events | Auto-activates |
 | `feature-toggle-developer` | Feature flags | Auto-activates |
 | `liquid-glass-developer` | iOS 26 glass effects | Auto-activates |
+| `swift-concurrency-developer` | Concurrency/actors | Auto-activates (from Dimillian/Skills + AvdLee) |
+| `swiftui-performance-developer` | Performance issues | Auto-activates (from Dimillian/Skills) |
+| `swiftui-patterns-developer` | View structure/MV | Auto-activates (from Dimillian/Skills) |
+| `confidence-check` | Implementation tasks | Auto-activates (from SuperClaude) |
 
 **When you see "Relevant Skill: X"** in system reminders → Read `.claude/skills/X/SKILL.md` and apply its patterns.
 
 **Learn more**: `.claude/skills/README.md`
+
+### Hooks & Skill Activation
+- Skills auto-activate based on prompt keywords (see `.claude/hooks/skill-rules.json`)
+- Scoring: keywords=2pts, intents=3pts, threshold=3
+- Tuning guide: `.claude/skills/skills-manager/SKILL.md`
 
 ## 🎯 Core Guidelines
 
@@ -59,6 +82,12 @@ After making code changes, report them to the user who will verify compilation i
 - **Never push directly to develop/main** - Always use feature branches
 - **Remove unused code after refactoring** - Delete unreferenced properties, functions, files
 - **Update tests and mocks when refactoring** - Search and update all references in `AnyTypeTests/`, `PreviewMocks/`
+
+### Code Change Principles
+- **Read before edit** - Always read the full file/context before making changes
+- **Minimize diffs** - Prefer the smallest change that solves the problem
+- **Investigate before diagnosing** - Understand the actual issue, don't guess
+- **No speculative fallbacks** - Don't add error handling for scenarios that can't happen
 
 ### Quick References
 
@@ -108,6 +137,7 @@ Modules/                 # Swift packages (AnytypeCore, Loc, Assets, Services)
 - **Main branch**: `develop`
 - **Feature branches**: `ios-XXXX-description`
 - **Commit messages**: Single line, no AI signatures
+- **Commit tone**: Direct, technical, no buzzwords. Focus on what changed and why.
 - **PR format**: `## Summary` + 1-3 bullet points (no test plan needed)
 - **Release branches**: Target release branch in PR, add "Release" label
 
@@ -129,6 +159,7 @@ gh pr diff <PR_NUMBER> --repo anyproto/anytype-swift
 - Use `rg` for searching large files
 - Feature flags for all new features
 - `Loc` is pre-imported; import `AnytypeCore` for feature flags
+- When stuck after 2-3 attempts, step back and try a different approach
 
 ## ⚠️ Common Mistakes
 
@@ -140,6 +171,10 @@ gh pr diff <PR_NUMBER> --repo anyproto/anytype-swift
 1. Search: `rg "oldName" --type swift`
 2. Update all references in tests, mocks, DI registrations
 3. Report to user for compilation verification
+
+**Over-Engineering (pattern)**: Adding "defensive" code, extra abstractions, or configurability that wasn't requested. Three similar lines > premature abstraction. Only validate at system boundaries.
+
+**Guessing Before Reading (pattern)**: Making assumptions about code behavior without reading it first. Always read the file before suggesting changes.
 
 ---
 

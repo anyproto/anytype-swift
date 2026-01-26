@@ -12,9 +12,8 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
         output: some ObjectSettingsModelOutput,
         @ViewBuilder labelView: () -> LabelView
     ) {
-        let settingsVM = ObjectSettingsViewModel(objectId: objectId, spaceId: spaceId, output: output)
-        let actionsVM = ObjectActionsViewModel(objectId: objectId, spaceId: spaceId, output: settingsVM)
-        self._viewModel = State(wrappedValue: ObjectSettingsMenuViewModel(settingsViewModel: settingsVM, actionsViewModel: actionsVM))
+        let vm = ObjectSettingsViewModel(objectId: objectId, spaceId: spaceId, output: output)
+        self._viewModel = State(wrappedValue: ObjectSettingsMenuViewModel(viewModel: vm))
         self.labelView = labelView()
     }
 

@@ -2113,6 +2113,17 @@
         }
       }
     },
+    "Chat.InviteMembers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invite members"
+          }
+        }
+      }
+    },
     "Chat.Empty.Feature.AvailableOffline" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -24,7 +24,6 @@ final class ChatHeaderViewModel {
     var chatLoading = false
     var spaceLoading = false
     var muted = false
-    var showAddMembersButton: Bool = false
     private(set) var isMultiChatSpace: Bool = false
     private(set) var isOneToOne: Bool = false
     var anytypeName: String = ""
@@ -41,8 +40,6 @@ final class ChatHeaderViewModel {
     private let onTapOpenWidgets: () -> Void
     @ObservationIgnored
     private let onTapOpenSpaceSettings: () -> Void
-    @ObservationIgnored
-    private let onTapAddMembers: (() -> Void)
     @ObservationIgnored
     private let chatObject: any BaseDocumentProtocol
 
@@ -63,14 +60,12 @@ final class ChatHeaderViewModel {
         spaceId: String,
         chatId: String,
         onTapOpenWidgets: @escaping () -> Void,
-        onTapOpenSpaceSettings: @escaping () -> Void,
-        onTapAddMembers: @escaping (() -> Void)
+        onTapOpenSpaceSettings: @escaping () -> Void
     ) {
         self.spaceId = spaceId
         self.chatId = chatId
         self.onTapOpenWidgets = onTapOpenWidgets
         self.onTapOpenSpaceSettings = onTapOpenSpaceSettings
-        self.onTapAddMembers = onTapAddMembers
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
     }
     
@@ -88,8 +83,6 @@ final class ChatHeaderViewModel {
 
     func tapOpenSpaceSettings() { onTapOpenSpaceSettings() }
 
-    func tapAddMembers() { onTapAddMembers() }
-    
     // MARK: - Private
     
     private func subscribeOnSpaceView() async {
@@ -102,7 +95,6 @@ final class ChatHeaderViewModel {
             spaceTitle = spaceView.title
             spaceIcon = spaceView.objectIconImage
             muted = !spaceView.effectiveNotificationMode(for: chatId).isUnmutedAll
-            showAddMembersButton = participantSpaceView.participant?.permission == .owner
             updateHeaderDisplay()
             updateOneToOneParticipant()
         }

@@ -237,6 +237,70 @@ Skills provide **automatic activation** based on your prompts and file context, 
 
 ---
 
+### 12. **swiftui-performance-developer** (Smart Router)
+**Purpose**: Routes to SwiftUI performance audit patterns for diagnosing and fixing rendering issues
+
+**Auto-activates when**:
+- Diagnosing slow rendering, janky scrolling, or stuttering
+- Profiling with Instruments
+- Keywords: performance, slow, jank, hitch, laggy, CPU, memory, view update, invalidation
+
+**Provides**:
+- Code-first review workflow
+- Common performance code smells (formatters in body, unstable identity, etc.)
+- Instruments profiling guidance
+- Remediation patterns and checklist
+- **→ Routes to**: `references/demystify-swiftui-performance-wwdc23.md` for WWDC guidance
+
+**Location**: `.claude/skills/swiftui-performance-developer/SKILL.md`
+
+**Attribution**: Patterns adapted from [Dimillian/Skills](https://github.com/Dimillian/Skills) repository.
+
+---
+
+### 13. **swiftui-patterns-developer** (Smart Router)
+**Purpose**: Routes to SwiftUI view structure and MV (Model-View) patterns
+
+**Auto-activates when**:
+- Refactoring SwiftUI view structure
+- Organizing view file layout
+- Deciding between MV vs MVVM
+- Keywords: view structure, view ordering, MV pattern, split view, extract subview
+
+**Provides**:
+- View property ordering rules (top -> bottom)
+- MV pattern guidance (prefer over MVVM)
+- Subview extraction patterns
+- ViewState enum pattern
+- Environment injection best practices
+- **→ Routes to**: `references/mv-patterns.md` for detailed MV rationale
+
+**Location**: `.claude/skills/swiftui-patterns-developer/SKILL.md`
+
+**Attribution**: Patterns adapted from [Dimillian/Skills](https://github.com/Dimillian/Skills) repository and Thomas Ricouard's work.
+
+---
+
+### 14. **confidence-check** (Workflow Gate)
+**Purpose**: Pre-implementation confidence assessment to prevent wrong-direction work
+
+**Auto-activates when**:
+- About to implement new features or significant changes
+- Keywords: implement, build feature, create feature, major refactor, complex task
+
+**Provides**:
+- 5-check weighted assessment (duplicates, patterns, docs, design system, root cause)
+- Decision thresholds (>=90% proceed, 70-89% pause, <70% stop)
+- Quick checklist format
+- ROI rationale (100-200 tokens assessment saves 5,000-50,000 tokens)
+- Example assessment walkthrough
+
+**Location**: `.claude/skills/confidence-check/SKILL.md`
+
+**Attribution**: Pattern adapted from [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework).
+
+---
+
 ## 📊 Progressive Disclosure Architecture
 
 This documentation system follows the principle of **progressive disclosure** - load only what's needed, when it's needed.
@@ -350,7 +414,26 @@ Read the file .claude/skills/ios-dev-guidelines/SKILL.md
 │   └── SKILL.md (smart router)
 │
 ├── swift-concurrency-developer/
-│   └── SKILL.md (smart router)
+│   ├── SKILL.md (smart router)
+│   └── references/
+│       ├── approachable-concurrency.md
+│       ├── swift-6-2-concurrency.md
+│       └── swiftui-concurrency-tour.md
+│
+├── swiftui-performance-developer/
+│   ├── SKILL.md (smart router)
+│   └── references/
+│       ├── demystify-swiftui-performance-wwdc23.md
+│       ├── optimizing-swiftui-performance-instruments.md
+│       └── understanding-improving-swiftui-performance.md
+│
+├── swiftui-patterns-developer/
+│   ├── SKILL.md (smart router)
+│   └── references/
+│       └── mv-patterns.md
+│
+├── confidence-check/
+│   └── SKILL.md (workflow gate)
 │
 └── claudemd-maintainer/
     └── SKILL.md (smart router - meta!)
@@ -641,12 +724,13 @@ For comprehensive coverage of:
 The skills system provides:
 - ✅ **Progressive disclosure architecture** - 3 levels of documentation
 - ✅ **Automatic skill suggestions** based on context - Zero friction
-- ✅ **11 smart router skills** - Lightweight and fast
+- ✅ **13 smart router skills** - Lightweight and fast (including 2 from Dimillian/Skills)
 - ✅ **Hook-based activation** - Analyzed prompts trigger relevant skills
 - ✅ **Context token efficiency** - Load only what's needed
 - ✅ **Single Source of Truth** - Each piece of knowledge lives in one place
 - ✅ **Self-documenting** - skills-manager skill helps you manage the system
 - ✅ **Logging and monitoring** for debugging
+- ✅ **Reference files** - WWDC summaries and detailed patterns for deep dives
 
 **Start using it**: Just work normally - skills auto-activate when relevant and route you to comprehensive docs!
 

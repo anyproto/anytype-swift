@@ -180,7 +180,57 @@ Defines which skills activate for which patterns:
 - `intentPatterns`: Regex for action patterns
 - `pathPatterns`: File paths that activate skill
 - `contentPatterns`: Code patterns to match
+- `excludePatterns`: Patterns that prevent skill activation (optional)
 - `maxSkillsPerPrompt`: Limit suggestions (default: 2)
+
+### Scoring System
+
+The skill activation hook uses a scoring system to rank and filter skill suggestions:
+
+**Scoring Formula**:
+```
+score = (keyword_matches × keywordWeight) + (intent_matches × intentWeight)
+```
+
+**Confidence Levels**:
+| Level | Score Range | Badge |
+|-------|-------------|-------|
+| HIGH | ≥ 6 (configurable) | 🟢 |
+| MEDIUM | ≥ 4 (configurable) | 🟡 |
+| LOW | < 4 | 🟠 |
+
+Skills with scores below the `confidenceThreshold` (default: 3) are not displayed.
+
+**Configurable Parameters** (in `skill-rules.json`):
+```json
+"config": {
+  "scoring": {
+    "keywordWeight": 2,        // Points per keyword match
+    "intentWeight": 3,         // Points per intent pattern match
+    "confidenceThreshold": 3,  // Minimum score to display
+    "highConfidenceScore": 6,  // Threshold for HIGH confidence
+    "mediumConfidenceScore": 4 // Threshold for MEDIUM confidence
+  }
+}
+```
+
+**Tuning Tips**:
+- Increase `intentWeight` if intent patterns are more reliable than keywords
+- Raise `confidenceThreshold` to reduce false positives
+- Lower `highConfidenceScore` if you want more HIGH badges
+- Add keywords to skills that aren't activating when expected
+- Add `excludePatterns` to prevent false activations (e.g., "text field" for localization)
+
+**Exclusion Patterns**:
+Use `excludePatterns` to prevent a skill from activating on certain prompts even if keywords match:
+```json
+"excludePatterns": [
+  "text style.*font",  // Matches "text style with font"
+  "UITextField",       // Exact match
+  "TextField("         // UI component pattern
+]
+```
+These are regex patterns matched against the lowercase prompt.
 
 ### Hook Configuration
 

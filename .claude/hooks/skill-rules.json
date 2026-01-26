@@ -4,6 +4,7 @@
       "type": "domain",
       "priority": "high",
       "description": "Smart router to Swift/iOS development patterns (→ IOS_DEVELOPMENT_GUIDE.md). Critical rules, MVVM/Coordinator patterns, code style",
+      "relatedSkills": ["design-system-developer", "localization-developer", "tests-developer"],
       "promptTriggers": {
         "keywords": [
           "swift",
@@ -83,6 +84,14 @@
           "(remove|delete).*?(localization|string|key)",
           "(search|find).*?(localization|string|key)",
           "(how to|where).*?(localization|string|text)"
+        ],
+        "excludePatterns": [
+          "UITextField",
+          "UITextView",
+          "TextField(",
+          "TextEditor(",
+          "custom font",
+          "font family"
         ]
       },
       "fileTriggers": {
@@ -152,6 +161,7 @@
       "type": "domain",
       "priority": "medium",
       "description": "Smart router to design system (→ DESIGN_SYSTEM_MAPPING.md, TYPOGRAPHY_MAPPING.md). Icons (x18-x40), typography mapping, spacing formula",
+      "relatedSkills": ["ios-dev-guidelines", "localization-developer"],
       "promptTriggers": {
         "keywords": [
           "icon",
@@ -598,11 +608,142 @@
           "Quick Start"
         ]
       }
+    },
+    "swiftui-performance-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to SwiftUI performance audit patterns. Diagnose slow rendering, view invalidation, layout thrash",
+      "promptTriggers": {
+        "keywords": [
+          "performance",
+          "slow",
+          "jank",
+          "hitch",
+          "laggy",
+          "stuttering",
+          "CPU",
+          "memory",
+          "view update",
+          "body update",
+          "invalidation",
+          "re-render",
+          "ForEach performance",
+          "list performance",
+          "scroll performance",
+          "instruments",
+          "profile",
+          "frame drop",
+          "layout thrash",
+          "_printChanges"
+        ],
+        "intentPatterns": [
+          "(diagnose|fix|optimize).*?(performance|slow|lag|jank|hitch)",
+          "(why is|debug).*?(slow|laggy|stuttering)",
+          "(profile|instrument).*?(swiftui|view|app)",
+          "(reduce|minimize).*?(update|render|body)",
+          "(improve|optimize).*?(list|scroll|animation)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/*.swift"
+        ],
+        "contentPatterns": [
+          "ForEach\\(",
+          "List\\s*\\{",
+          "@Observable",
+          "@State",
+          "\\.task\\(",
+          "body.*some View"
+        ]
+      }
+    },
+    "swiftui-patterns-developer": {
+      "type": "domain",
+      "priority": "medium",
+      "description": "Smart router to SwiftUI view structure and composition. View ordering, subview extraction, @ViewBuilder patterns",
+      "promptTriggers": {
+        "keywords": [
+          "view structure",
+          "view ordering",
+          "split view",
+          "extract subview",
+          "view organization",
+          "view file",
+          "body too long",
+          "large view",
+          "refactor view",
+          "ViewState",
+          "view composition",
+          "@ViewBuilder",
+          "subview extraction"
+        ],
+        "intentPatterns": [
+          "(organize|structure|order).*?(view|swiftui)",
+          "(split|extract|break).*?(view|body|subview)",
+          "(refactor|clean up).*?(view|swiftui)",
+          "(large|long|big).*?(view|body|file)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/PresentationLayer/**/*.swift"
+        ],
+        "contentPatterns": [
+          "struct.*View",
+          "var body.*some View",
+          "@Environment\\(",
+          "@State private var",
+          "enum ViewState"
+        ]
+      }
+    },
+    "confidence-check": {
+      "type": "workflow",
+      "priority": "high",
+      "description": "Pre-implementation confidence assessment to prevent wrong-direction work. Evaluates readiness across 5 weighted criteria before proceeding with implementation.",
+      "promptTriggers": {
+        "keywords": [
+          "implement",
+          "build feature",
+          "create feature",
+          "add feature",
+          "new feature",
+          "confidence check",
+          "before implementing",
+          "should I proceed",
+          "ready to implement",
+          "implementation plan",
+          "start implementing",
+          "begin implementation",
+          "complex task",
+          "big change",
+          "major refactor",
+          "significant change"
+        ],
+        "intentPatterns": [
+          "(implement|build|create|add).*?(feature|functionality|component|screen|view)",
+          "(before|ready to|should I).*?(implement|start|begin|proceed)",
+          "(complex|big|major|significant).*?(task|change|refactor|implementation)",
+          "(plan|planning).*?(implement|build|create)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [],
+        "contentPatterns": []
+      }
     }
   },
   "config": {
     "maxSkillsPerPrompt": 2,
     "logActivations": true,
-    "logPath": ".claude/logs/skill-activations.log"
+    "logPath": ".claude/logs/skill-activations.log",
+    "scoring": {
+      "keywordWeight": 2,
+      "intentWeight": 3,
+      "confidenceThreshold": 3,
+      "highConfidenceScore": 6,
+      "mediumConfidenceScore": 4
+    }
   }
 }
