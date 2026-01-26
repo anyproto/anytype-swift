@@ -2,15 +2,21 @@ import Services
 import AnytypeCore
 
 protocol ObjectSettingsBuilderProtocol {
-    func build(details: ObjectDetails, permissions: ObjectPermissions) -> [ObjectSetting]
+    func build(details: ObjectDetails, permissions: ObjectPermissions, spaceUxType: SpaceUxType?) -> [ObjectSetting]
 }
 
 final class ObjectSettingsBuilder: ObjectSettingsBuilderProtocol {
     @Injected(\.objectSettingsConflictManager)
     private var conflictManager: any ObjectSettingsPrimitivesConflictManagerProtocol
     
-    func build(details: ObjectDetails, permissions: ObjectPermissions) -> [ObjectSetting] {
-        .builder {
+    func build(details: ObjectDetails, permissions: ObjectPermissions, spaceUxType: SpaceUxType?) -> [ObjectSetting] {
+        let canShowVersionHistory = details.isVisibleLayout(spaceUxType: spaceUxType)
+            && details.resolvedLayoutValue != .participant
+            && !details.resolvedLayoutValue.isChat
+            && !details.templateIsBundled
+            && !details.isObjectType
+
+        return .builder {
            
             if permissions.canChangeIcon {
                 ObjectSetting.icon
@@ -37,7 +43,7 @@ final class ObjectSettingsBuilder: ObjectSettingsBuilderProtocol {
                 ObjectSetting.webPublishing
             }
             
-            if permissions.canShowVersionHistory {
+            if canShowVersionHistory {
                 ObjectSetting.history
             }
             
