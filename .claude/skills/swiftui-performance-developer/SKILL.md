@@ -87,6 +87,8 @@ Image(uiImage: UIImage(data: data)!)
 | `id: \.self` on non-stable values | Identity churn | Use stable ID property |
 | `UUID()` per render | New identity every time | Store ID in model |
 | `GeometryReader` deep in tree | Layout thrash | Move up or use fixed sizes |
+| `if condition { View }` in ForEach | Variable view count forces full build | Use `opacity(0)` or pre-filter |
+| `AnyView` in List rows | Hides identity and view count | Use `@ViewBuilder` or concrete types |
 
 ## Instruments Profiling Guidance
 
