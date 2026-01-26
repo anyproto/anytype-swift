@@ -52,6 +52,194 @@ func example() async {
 - Continuations instead of blocking
 - CPU cores stay busy efficiently
 
+## Thread Explosion: The GCD Problem
+
+Understanding why Swift Concurrency exists requires understanding GCD's fundamental weakness.
+
+### How GCD spawns threads
+
+When GCD work blocks (waiting for lock, semaphore, I/O), the system spawns new threads to maintain parallelism:
+
+```
+Initial state: 6 threads (matching 6 CPU cores)
+
+Thread 1 blocks on semaphore → System spawns Thread 7
+Thread 2 blocks on lock      → System spawns Thread 8
+Thread 3 blocks on I/O       → System spawns Thread 9
+...continues until thread explosion
+```
+
+**Real example**: 100 concurrent feed updates on a 6-core iPhone could create **16x overcommit** (96+ threads for 6 cores).
+
+### Memory overhead of blocked threads
+
+Each blocked thread consumes resources even while doing nothing:
+
+- **Stack memory**: Typically 512KB per thread
+- **Kernel structures**: Thread state, scheduling data
+- **Locks held**: Memory pressure from synchronization primitives
+- **Page table entries**: Virtual memory overhead
+
+100 blocked threads = 50MB+ of memory just for stacks.
+
+### Scheduling overhead
+
+More threads means more context switching:
+
+- **Direct cost**: Saving/restoring registers, TLB flushes
+- **Cache pollution**: Each context switch invalidates CPU caches
+- **Time-sharing overhead**: More threads = less time per thread = more frequent switches
+- **Priority inversion**: Low-priority threads holding resources needed by high-priority threads
+
+### Why Swift Concurrency solves this
+
+Instead of blocking threads and spawning more, tasks **suspend** and **yield** the thread:
+
+```swift
+// GCD: Thread blocks, system spawns another
+semaphore.wait() // ❌ Thread blocked
+
+// Swift Concurrency: Task suspends, thread freed
+await someAsyncWork() // ✅ Thread available for other work
+```
+
+## Continuations: The Suspension Mechanism
+
+When a task suspends, Swift creates a **continuation** - a lightweight object that tracks where to resume.
+
+### How continuations work
+
+```
+Task executing → hits await → saves state to continuation → thread freed
+
+Thread picks up work → finds ready continuation → resumes from saved state
+```
+
+**Key insight**: Switching between continuations is like a function call. Much cheaper than a full thread context switch.
+
+### Continuation vs context switch
+
+| Operation | Cost |
+|-----------|------|
+| Function call | ~1-5 nanoseconds |
+| Continuation switch | ~10-100 nanoseconds |
+| Thread context switch | ~1000-10000 nanoseconds |
+
+Continuations are 10-100x cheaper than thread context switches.
+
+### Stack frame mechanics
+
+Async functions use a hybrid stack model:
+
+- **Immediate values**: Stored on thread stack (fast)
+- **Values across suspension**: Stored in async frame on heap
+- **Async calls**: Replace stack frame (not add to it)
+
+```swift
+func processData() async {
+    let temp = 42           // Thread stack (fast)
+    await networkCall()     // temp moved to heap if needed across await
+    print(temp)             // Restored from heap
+}
+```
+
+**Benefit**: Swift can still efficiently call C/Objective-C code because synchronous calls use normal stack semantics.
+
+## Runtime Contract
+
+The cooperative thread pool has a **critical contract**: threads will always make forward progress.
+
+### Safe primitives (compiler-enforced)
+
+These primitives are designed for Swift Concurrency and maintain the contract:
+
+- `await` - Suspends task, frees thread
+- Actors - Serialize access without blocking
+- Task groups - Structured concurrency with proper suspension
+- `async let` - Parallel child tasks
+
+```swift
+// ✅ Safe: Thread freed during suspension
+let data = await fetchData()
+
+// ✅ Safe: Actor serializes without blocking callers
+await account.deposit(100)
+```
+
+### Cautiously safe primitives
+
+These can be used for **tight critical sections** that complete quickly:
+
+- `os_unfair_lock` - Fast, non-recursive lock
+- `NSLock` - Standard mutex
+- `Mutex` (iOS 18+) - Modern synchronization
+
+```swift
+// ✅ Safe for very short critical sections
+mutex.withLock {
+    count += 1  // Microseconds, not milliseconds
+}
+```
+
+**Rule**: Only use for operations that complete in microseconds, never for I/O or complex computation.
+
+### Unsafe primitives (violate contract)
+
+These **hide dependencies from the runtime** and can cause deadlocks:
+
+- `DispatchSemaphore` - Blocks thread, runtime unaware
+- `pthread_cond_wait` / `NSCondition` - Same problem
+- `DispatchGroup.wait()` - Blocks until group completes
+
+```swift
+// ❌ DANGEROUS: Runtime doesn't know thread is waiting
+let semaphore = DispatchSemaphore(value: 0)
+Task {
+    await doWork()
+    semaphore.signal()
+}
+semaphore.wait() // Thread blocked, runtime may deadlock
+```
+
+**Why it's dangerous**: The runtime assumes all cooperative pool threads can make progress. If they're all blocked on semaphores waiting for signals that need cooperative pool threads to send, **deadlock**.
+
+### Debugging contract violations
+
+Use this environment variable to catch blocking calls:
+
+```
+LIBDISPATCH_COOPERATIVE_POOL_STRICT=1
+```
+
+When set, the runtime will assert/crash if code blocks the cooperative thread pool. Use during development to catch violations early.
+
+## Task Dependency Tracking
+
+The runtime tracks task dependencies to make scheduling decisions.
+
+### Explicit dependencies
+
+```swift
+// Continuation: runtime knows task waits for this
+let result = await asyncOperation()
+
+// Task group: runtime knows parent waits for children
+await withTaskGroup(of: Int.self) { group in
+    group.addTask { await fetchA() }
+    group.addTask { await fetchB() }
+}
+```
+
+### Why dependency tracking matters
+
+When the runtime knows dependencies, it can:
+
+- **Prioritize correctly**: Boost tasks that high-priority tasks wait on
+- **Avoid priority inversion**: Give blocked work the priority it needs
+- **Schedule efficiently**: Run ready work on available threads
+
+Semaphores hide dependencies, so the runtime **cannot** make these optimizations.
+
 ## Threading Mindset → Isolation Mindset
 
 ### Old way (GCD)

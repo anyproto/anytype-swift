@@ -312,6 +312,125 @@ extension PersonViewModel: @MainActor Equatable {
 
 > **Course Deep Dive**: This topic is covered in detail in [Lesson 5.6: Adding isolated conformance to protocols](https://www.swiftconcurrencycourse.com?utm_source=github&utm_medium=agent-skill&utm_campaign=lesson-reference)
 
+## Actor Hopping Internals
+
+When you `await` an actor method, the runtime performs an "actor hop". The mechanics depend on whether the actor is busy.
+
+### Uncontended case (fast path)
+
+When the actor is idle, the calling thread can directly hop to the actor:
+
+```
+Thread A calls await actor.method()
+├─ Actor idle? Yes
+├─ Thread A acquires actor isolation
+├─ Thread A executes method() directly
+└─ No context switch needed
+```
+
+**Key insight**: In the uncontended case, actor hops are nearly free - similar to a function call.
+
+### Contended case (queued path)
+
+When the actor is busy (another task is executing on it), the caller cannot block:
+
+```
+Thread A calls await actor.method()
+├─ Actor busy? Yes (Thread B is executing)
+├─ Runtime creates work item for Thread A's continuation
+├─ Work item queued on actor's internal queue
+├─ Thread A freed for other work
+└─ When actor becomes available, queued work item executes
+```
+
+**Non-blocking**: The calling thread is **never blocked**. It's freed to pick up other work while the call is queued.
+
+### Work item queuing
+
+Actors maintain an internal queue of pending work:
+
+```swift
+actor Counter {
+    var value = 0
+
+    func increment() async {
+        value += 1
+        await someAsyncWork()  // Actor releases here
+        value += 1             // May execute later, after other queued work
+    }
+}
+```
+
+When the actor suspends (at `await`), other queued work can execute. This is why actor reentrancy exists.
+
+## Reentrancy and Priority Scheduling
+
+Actors are **designed for reentrancy**. This isn't a bug - it enables better scheduling.
+
+### GCD serial queues: FIFO causes priority inversion
+
+```swift
+// GCD serial queue: strict FIFO order
+let queue = DispatchQueue(label: "serial")
+
+queue.async { /* Low priority work */ }
+queue.async { /* Low priority work */ }
+queue.async { /* HIGH PRIORITY WORK */ }  // Must wait for all low-priority work
+```
+
+High-priority work is stuck behind low-priority work. The system cannot reorder.
+
+### Actors: Reentrancy enables priority handling
+
+```swift
+actor DataStore {
+    func lowPriorityFetch() async {
+        // ... work ...
+        await networkCall()  // Actor suspends here
+        // Other work can run, including high-priority work
+    }
+
+    func highPriorityFetch() async {
+        // Can execute during lowPriorityFetch's suspension
+    }
+}
+
+// High-priority task can "jump the queue" during suspensions
+Task(priority: .high) {
+    await store.highPriorityFetch()
+}
+```
+
+### Why this design matters
+
+Because actors release during suspension:
+
+1. **Priority can be respected**: High-priority work doesn't wait behind low-priority suspensions
+2. **Responsiveness improves**: UI-related work gets priority when actors suspend
+3. **Deadlocks avoided**: Unlike serial queues, actors don't hold locks during `await`
+
+### The tradeoff
+
+The cost is that you must reason about state changes across suspension points:
+
+```swift
+actor Account {
+    var balance = 100
+
+    func withdraw(_ amount: Int) async -> Bool {
+        guard balance >= amount else { return false }
+
+        await logWithdrawal(amount)  // ⚠️ State may change here
+
+        // Another task could have modified balance!
+        balance -= amount  // May go negative if not careful
+        return true
+    }
+}
+```
+
+**Solution**: Complete state mutations before suspending, or re-validate after.
+
 ## Actor Reentrancy
 
 **Critical**: State can change between suspension points.

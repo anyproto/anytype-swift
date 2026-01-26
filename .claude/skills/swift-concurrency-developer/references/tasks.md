@@ -88,6 +88,49 @@ parent.cancel() // Both children notified
 
 Children must still check `Task.isCancelled` to stop work.
 
+### Cancellation handler for suspended tasks
+
+When a task is suspended (e.g., waiting on an async sequence), it can't poll for cancellation. Use `withTaskCancellationHandler` to respond immediately:
+
+```swift
+func processOrders(_ orders: AsyncStream<Order>) async throws {
+    try await withTaskCancellationHandler {
+        // Main operation
+        for await order in orders {
+            try Task.checkCancellation()
+            await process(order)
+        }
+    } onCancel: {
+        // Runs immediately when cancelled (even while suspended)
+        // Use this to break out of the async sequence
+        orders.finish()  // Signal stream to stop
+    }
+}
+```
+
+**Key points:**
+- Cancellation handler runs **immediately** when task is cancelled
+- Runs even if task is suspended waiting on async iteration
+- Handler runs concurrently with main operation - use synchronization for shared state
+- For state machines, use atomics/locks (not actors - can't guarantee execution order)
+
+```swift
+// State machine with atomic for safe cancellation
+final class OrderProcessor: Sendable {
+    private let isRunning = ManagedAtomic<Bool>(true)
+
+    func process(_ orders: AsyncStream<Order>) async {
+        await withTaskCancellationHandler {
+            while isRunning.load(ordering: .acquiring) {
+                // Process orders...
+            }
+        } onCancel: {
+            isRunning.store(false, ordering: .releasing)
+        }
+    }
+}
+```
+
 > **Course Deep Dive**: This topic is covered in detail in [Lesson 3.2: Task cancellation](https://www.swiftconcurrencycourse.com?utm_source=github&utm_medium=agent-skill&utm_campaign=lesson-reference)
 
 ## Error Handling
@@ -235,13 +278,68 @@ try await withThrowingTaskGroup(of: Data.self) { group in
     for id in ids {
         group.addTask { try await fetch(id) }
     }
-    
+
     // First error cancels remaining tasks
     while let data = try await group.next() {
         process(data)
     }
 }
 ```
+
+### Limiting concurrency (WWDC23)
+
+Prevent resource exhaustion by limiting concurrent tasks. Start up to max tasks, then add one as each finishes:
+
+```swift
+func processWithLimit(
+    items: [Item],
+    maxConcurrent: Int
+) async -> [Result] {
+    await withTaskGroup(of: Result.self) { group in
+        var iterator = items.makeIterator()
+        var results: [Result] = []
+
+        // 1. Start initial batch (up to max)
+        for _ in 0..<maxConcurrent {
+            guard let item = iterator.next() else { break }
+            group.addTask { await process(item) }
+        }
+
+        // 2. As each finishes, start the next
+        while let result = await group.next() {
+            results.append(result)
+
+            // Add next task if work remains
+            if let item = iterator.next() {
+                group.addTask { await process(item) }
+            }
+        }
+
+        return results
+    }
+}
+```
+
+**Pattern distilled:**
+```swift
+// Initial batch
+for _ in 0..<maxConcurrent {
+    group.addTask { /* first N tasks */ }
+}
+
+// Replace completed with new
+while let _ = await group.next() {
+    if hasMoreWork {
+        group.addTask { /* next task */ }
+    }
+}
+```
+
+**Use cases:**
+- Network requests (avoid overwhelming server)
+- File I/O (limit concurrent disk access)
+- Image processing (control memory usage)
+- Database operations (respect connection pool limits)
 
 ### Cancellation
 
@@ -264,7 +362,7 @@ let didAdd = group.addTaskUnlessCancelled {
 }
 ```
 
-## Discarding Task Groups
+## Discarding Task Groups (Swift 5.9)
 
 For fire-and-forget operations where results don't matter:
 
@@ -278,19 +376,43 @@ await withDiscardingTaskGroup { group in
 
 ### Benefits
 
-- More memory efficient (doesn't store results)
+- More memory efficient (resources freed immediately when task finishes)
 - No `next()` calls needed
 - Automatically waits for completion
-- Ideal for side effects
+- Ideal for stream processing and long-running services
 
-### Error handling
+### Automatic sibling cancellation (WWDC23)
+
+Unlike regular task groups, discarding task groups automatically cancel all siblings when one throws:
 
 ```swift
 try await withThrowingDiscardingTaskGroup { group in
-    group.addTask { try await uploadLog() }
-    group.addTask { try await syncSettings() }
+    // Start multiple workers
+    group.addTask { try await worker1() }
+    group.addTask { try await worker2() }
+    group.addTask { try await worker3() }
 }
-// First error cancels group and throws
+// If worker2 throws, worker1 and worker3 are automatically cancelled
+```
+
+This is ideal for shift/service patterns:
+
+```swift
+func runKitchenService(duration: Duration) async throws {
+    try await withThrowingDiscardingTaskGroup { group in
+        // Start cooks
+        for cook in cooks {
+            group.addTask { await cook.startShift() }
+        }
+
+        // Timer task - throws when shift is over
+        group.addTask {
+            try await Task.sleep(for: duration)
+            throw ShiftOverError()
+        }
+    }
+    // ShiftOverError automatically ends all cook shifts
+}
 ```
 
 ### Real-world pattern: Multiple notifications
@@ -430,11 +552,44 @@ Task(priority: .high) {
 }
 ```
 
-### Priority escalation
+### Priority escalation (WWDC23)
 
-System automatically elevates priority to prevent priority inversion:
-- Actor waiting on lower-priority task
-- High-priority task awaiting `.value` of lower-priority task
+System automatically elevates priority to prevent **priority inversion** (high-priority task waiting on lower-priority task).
+
+**How escalation works:**
+- Awaiting a task escalates its priority to match the waiter
+- Escalation propagates to **all child tasks** in the tree
+- Escalation is **permanent** - priority never decreases after escalation
+
+```swift
+// VIP order - high priority
+Task(priority: .high) {
+    // All children get escalated to .high when awaited
+    await makeSoup()  // Escalates makeSoup AND all its children
+}
+```
+
+**Task groups special case:**
+- Awaiting `group.next()` escalates **ALL** children in the group
+- Runtime doesn't know which child completes next, so all must be elevated
+
+```swift
+await withTaskGroup(of: Image.self) { group in
+    for url in urls {
+        group.addTask(priority: .low) { await download(url) }
+    }
+
+    // Escalates ALL download tasks (not just the first to complete)
+    while let image = await group.next() {
+        process(image)
+    }
+}
+```
+
+**Why it matters:**
+- Avoid scenarios where UI waits on background work
+- Let the runtime handle priority automatically via structured concurrency
+- Don't manually manage priority in complex task trees
 
 > **Course Deep Dive**: This topic is covered in detail in [Lesson 3.8: Managing Task priorities](https://www.swiftconcurrencycourse.com?utm_source=github&utm_medium=agent-skill&utm_campaign=lesson-reference)
 
