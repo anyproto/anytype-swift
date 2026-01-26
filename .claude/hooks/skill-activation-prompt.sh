@@ -111,7 +111,7 @@ matches_exclusion() {
     while IFS= read -r pattern; do
         if [ -n "$pattern" ]; then
             pattern_lower=$(echo "$pattern" | tr '[:upper:]' '[:lower:]')
-            if echo "$PROMPT_LOWER" | grep -qi "$pattern_lower"; then
+            if echo "$PROMPT_LOWER" | grep -qiF "$pattern_lower"; then
                 return 0  # Found exclusion match - should exclude
             fi
         fi
@@ -121,7 +121,8 @@ matches_exclusion() {
 }
 
 # Check each skill for matches with scoring
-for skill in $(jq -r '.skills | keys[]' "$SKILL_RULES"); do
+while IFS= read -r skill; do
+    [ -z "$skill" ] && continue
     # Count matches
     count_keyword_matches "$skill"
     count_intent_matches "$skill"
@@ -145,7 +146,7 @@ for skill in $(jq -r '.skills | keys[]' "$SKILL_RULES"); do
             echo "  ○ Below threshold: $skill (score=$SCORE < $CONFIDENCE_THRESHOLD)" >> "$LOG_FILE"
         fi
     fi
-done
+done < <(jq -r '.skills | keys[]' "$SKILL_RULES")
 
 # Sort matched skills by score (highest first) using parallel arrays
 if [ ${#MATCHED_SKILLS[@]} -gt 1 ]; then
@@ -200,12 +201,13 @@ if [ ${#MATCHED_SKILLS[@]} -eq 0 ]; then
         echo ""
 
         # List all skills
-        for skill in $(jq -r '.skills | keys[]' "$SKILL_RULES"); do
+        while IFS= read -r skill; do
+            [ -z "$skill" ] && continue
             description=$(jq -r --arg name "$skill" '.skills[$name].description' "$SKILL_RULES")
-            echo "   • $skill"
-            echo "     $description"
+            printf '   • %s\n' "$skill"
+            printf '     %s\n' "$description"
             echo ""
-        done
+        done < <(jq -r '.skills | keys[]' "$SKILL_RULES")
 
         echo "❓ Should any of these skills be activated for this task?"
         echo "   If yes, tell me which one and I'll extract keywords from your prompt"
@@ -266,11 +268,11 @@ for i in "${!MATCHED_SKILLS[@]}"; do
         emoji="🟠"
     fi
 
-    echo "📚 Relevant Skill: $skill"
-    echo "   Description: $description"
-    echo "   Confidence: $emoji $confidence (score: $score)"
+    printf '📚 Relevant Skill: %s\n' "$skill"
+    printf '   Description: %s\n' "$description"
+    printf '   Confidence: %s %s (score: %s)\n' "$emoji" "$confidence" "$score"
     if [ -n "$related" ]; then
-        echo "   Related: $related"
+        printf '   Related: %s\n' "$related"
     fi
     echo ""
 done
@@ -281,7 +283,7 @@ if [ ${#CUTOFF_SKILLS[@]} -gt 0 ]; then
     for i in "${!CUTOFF_SKILLS[@]}"; do
         skill="${CUTOFF_SKILLS[$i]}"
         score="${CUTOFF_SCORES[$i]}"
-        echo "   • $skill (score: $score)"
+        printf '   • %s (score: %s)\n' "$skill" "$score"
     done
     echo ""
 fi

@@ -86,9 +86,6 @@
           "(how to|where).*?(localization|string|text)"
         ],
         "excludePatterns": [
-          "text style.*font",
-          "text view.*component",
-          "text field.*input",
           "UITextField",
           "UITextView",
           "TextField(",
