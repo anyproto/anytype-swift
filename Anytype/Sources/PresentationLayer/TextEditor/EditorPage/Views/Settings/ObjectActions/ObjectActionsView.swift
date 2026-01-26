@@ -36,6 +36,8 @@ struct ObjectActionsView: View {
                             try await viewModel.deleteAction()
                         case .copyLink:
                             try await viewModel.copyLinkAction()
+                        case .inviteMembers:
+                            viewModel.inviteMembersAction()
                         }
                     }
                 }

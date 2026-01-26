@@ -49,8 +49,11 @@ final class ObjectActionsViewModel {
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     @Injected(\.workspaceService) @ObservationIgnored
     private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.participantSpacesStorage) @ObservationIgnored
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
 
     var objectActions: [ObjectAction] = []
+    private var isSpaceOwner: Bool = false
     var toastData: ToastBarData?
     var dismiss = false
     
@@ -63,8 +66,9 @@ final class ObjectActionsViewModel {
     func startSubscriptions() async {
         async let documentSub: () = startDocumentSubscription()
         async let widgetSub: () = startWidgetObjectSubscription()
-        
-        _ = await (documentSub, widgetSub)
+        async let ownerSub: () = startOwnerStatusSubscription()
+
+        _ = await (documentSub, widgetSub, ownerSub)
     }
 
     func changeArchiveState() async throws {
@@ -190,7 +194,12 @@ final class ObjectActionsViewModel {
     func undoRedoAction() {
         output?.undoRedoAction()
     }
-    
+
+    func inviteMembersAction() {
+        output?.onInviteMembersAction(spaceId: spaceId)
+        dismiss.toggle()
+    }
+
     // MARK: - Private
     
     private func startDocumentSubscription() async {
@@ -205,7 +214,14 @@ final class ObjectActionsViewModel {
             updateActions()
         }
     }
-    
+
+    private func startOwnerStatusSubscription() async {
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
+            isSpaceOwner = participantSpaceView.participant?.permission == .owner
+            updateActions()
+        }
+    }
+
     private func onObjectSelection(objectId: String, spaceId: String, currentObjectId: String) {
         Task { @MainActor in
             let targetDocument = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
@@ -247,7 +263,8 @@ final class ObjectActionsViewModel {
             isLocked: document.isLocked,
             isPinnedToWidgets: widgetObject?.widgetBlockIdFor(targetObjectId: objectId).isNotNil ?? false,
             permissions: document.permissions,
-            spaceUxType: spaceUxType
+            spaceUxType: spaceUxType,
+            isSpaceOwner: isSpaceOwner
         )
     }
 }

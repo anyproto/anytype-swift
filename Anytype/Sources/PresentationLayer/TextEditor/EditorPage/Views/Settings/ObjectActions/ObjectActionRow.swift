@@ -69,6 +69,8 @@ extension ObjectAction {
             return Loc.delete
         case .copyLink:
             return Loc.copyLink
+        case .inviteMembers:
+            return Loc.Chat.inviteMembers
         }
     }
 
@@ -94,6 +96,8 @@ extension ObjectAction {
             return .X32.delete
         case .copyLink:
             return .X32.copy
+        case .inviteMembers:
+            return .X32.Island.addMember
         }
     }
 }
