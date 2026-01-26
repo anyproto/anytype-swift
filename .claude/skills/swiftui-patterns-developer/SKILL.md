@@ -16,6 +16,50 @@ Apply consistent structure and patterns to SwiftUI views, with focus on ordering
 
 ## Core Guidelines
 
+### 0) Three Qualities of SwiftUI Views (WWDC24)
+
+Understanding these fundamentals helps you write better SwiftUI code:
+
+**1. Declarative** - Describe what you want, not how to create it:
+```swift
+// ✅ Declarative - describe the result
+List(pets) { pet in
+    HStack {
+        Text(pet.name)
+        Spacer()
+        Text(pet.species)
+    }
+}
+// No need to add/remove rows manually - SwiftUI handles it
+```
+
+**2. Compositional** - Build complex UIs from simple building blocks:
+```swift
+// ViewBuilder closures define children of containers
+HStack {           // Container view
+    Image(...)     // Child 1
+    VStack {       // Child 2 (also a container)
+        Text(...)  // Nested child
+        Text(...)  // Nested child
+    }
+    Spacer()       // Child 3
+}
+```
+
+**3. State-Driven** - UI automatically updates when state changes:
+```swift
+// SwiftUI tracks dependencies and updates views automatically
+@State private var count = 0
+
+var body: some View {
+    Button("Count: \(count)") {  // Dependency on `count`
+        count += 1                // State change triggers re-render
+    }
+}
+```
+
+**Key insight**: Views are VALUE TYPES (structs), not long-lived objects. They are descriptions of current UI state, not objects that receive commands over time. SwiftUI maintains the actual UI behind the scenes.
+
 ### 1) View Ordering (top -> bottom)
 
 Follow Anytype's property organization from IOS_DEVELOPMENT_GUIDE.md:
@@ -303,7 +347,56 @@ Anytype uses **Factory DI**, not SwiftUI Environment for services:
 - Repositories: `@Injected(\.userRepository)`
 - Any business logic dependencies
 
-### 7) Split Large Bodies
+### 7) View Modifiers and Order (WWDC24)
+
+View modifiers create a hierarchical structure. **Order matters** - modifiers are applied sequentially:
+
+```swift
+// Each modifier wraps the previous result
+Image("whiskers")
+    .clipShape(Circle())      // 1. Clip to circle first
+    .shadow(radius: 4)        // 2. Add shadow to clipped shape
+    .overlay(                 // 3. Overlay on top of shadow
+        Circle().stroke(.green, lineWidth: 2)
+    )
+```
+
+The hierarchy and order of effect is defined by the exact order of modifiers. Chaining modifiers makes it clear how results are produced and how to customize them.
+
+### 8) Adaptive Views (WWDC24)
+
+SwiftUI views describe **purpose**, not exact visual construction. This enables adaptation:
+
+**Buttons** - Same purpose (labeled action), different contexts:
+```swift
+// Adapts to: borderless, bordered, prominent styles
+// Adapts to: swipe actions, menus, forms
+Button("Edit", action: handleEdit)
+
+// In swipe actions
+.swipeActions {
+    Button("Delete", role: .destructive) { delete() }
+    Button("Archive") { archive() }
+}
+```
+
+**Toggles** - Switch, checkbox, or toggle button depending on context:
+```swift
+// Automatically shows appropriate style for platform/context
+Toggle("Notifications", isOn: $notificationsEnabled)
+```
+
+**Searchable** - Describes capability, SwiftUI handles idiomatic presentation:
+```swift
+// iOS: overlay list, macOS: dropdown menu
+List(filteredItems) { ... }
+    .searchable(text: $searchText)
+    .searchSuggestions {
+        ForEach(suggestions) { Text($0) }
+    }
+```
+
+### 9) Split Large Bodies
 
 If `body` grows beyond a screen, split into smaller subviews:
 
@@ -390,7 +483,68 @@ struct FeedView: View {
 }
 ```
 
-### 9) Task and onChange Usage
+### 11) State, Binding, and Source of Truth (WWDC24)
+
+**@State** creates internal source of data for a view:
+```swift
+struct RatingView: View {
+    @State private var rating = 0  // View owns this state
+
+    var body: some View {
+        HStack {
+            Text("\(rating)")
+            Button("+") { rating += 1 }
+            Button("-") { rating -= 1 }
+        }
+    }
+}
+```
+
+**@Binding** creates two-way reference to state owned elsewhere:
+```swift
+struct RatingContainerView: View {
+    @State private var rating = 0  // Single source of truth
+
+    var body: some View {
+        VStack {
+            Gauge(value: Double(rating), in: 0...10) {}
+            RatingEditor(rating: $rating)  // Pass binding
+        }
+    }
+}
+
+struct RatingEditor: View {
+    @Binding var rating: Int  // Two-way reference to container's state
+
+    var body: some View {
+        Button("+") { rating += 1 }  // Updates container's state
+    }
+}
+```
+
+**Key principle**: One source of truth. When multiple views need the same data, lift state up to common ancestor and pass bindings down.
+
+### 12) Animation with State Changes (WWDC24)
+
+Wrap state changes with `withAnimation` to animate resulting view updates:
+
+```swift
+Button("Rate") {
+    withAnimation {
+        rating += 1  // State change inside animation block
+    }
+}
+```
+
+Customize transitions for specific views:
+```swift
+Text("\(rating)")
+    .contentTransition(.numericText())  // Smooth number transition
+```
+
+Animations in SwiftUI build on the same data-driven updates - when state changes, views update, and `withAnimation` makes those updates animate.
+
+### 13) Task and onChange Usage
 
 ```swift
 // Initial load
@@ -409,7 +563,7 @@ struct FeedView: View {
 }
 ```
 
-### 10) Large View File Organization
+### 14) Large View File Organization
 
 When file exceeds ~300 lines:
 
@@ -430,6 +584,42 @@ private extension LargeView {
     func handleTap() { ... }
 }
 ```
+
+### 15) UIKit/AppKit Interoperability (WWDC24)
+
+SwiftUI provides seamless interop with UIKit and AppKit - no expectation that an app needs to be entirely SwiftUI.
+
+**Embed UIKit in SwiftUI** - Use `UIViewRepresentable`:
+```swift
+struct MapView: UIViewRepresentable {
+    func makeUIView(context: Context) -> MKMapView {
+        MKMapView()
+    }
+
+    func updateUIView(_ uiView: MKMapView, context: Context) {
+        // Update the view with new data
+    }
+}
+
+// Use like any SwiftUI view
+var body: some View {
+    VStack {
+        MapView()
+        Button("Center") { ... }
+    }
+}
+```
+
+**Embed SwiftUI in UIKit** - Use `UIHostingController`:
+```swift
+// In a UIKit view controller
+let swiftUIView = ProfileView(user: user)
+let hostingController = UIHostingController(rootView: swiftUIView)
+addChild(hostingController)
+view.addSubview(hostingController.view)
+```
+
+**Incremental Adoption Philosophy**: Apple's own apps use these tools to adopt SwiftUI incrementally - whether bringing SwiftUI into existing apps or incorporating UIKit views into new SwiftUI apps. All are valid approaches.
 
 ## Common Mistakes
 
@@ -501,4 +691,4 @@ private var loadingContent: some View {
 
 **Navigation**: This skill provides SwiftUI structure patterns. For full architecture guidance, see `IOS_DEVELOPMENT_GUIDE.md`.
 
-**Attribution**: View structure patterns adapted from [Dimillian/Skills](https://github.com/Dimillian/Skills), aligned with Anytype MVVM architecture.
+**Attribution**: View structure patterns adapted from [Dimillian/Skills](https://github.com/Dimillian/Skills), aligned with Anytype MVVM architecture. WWDC24 insights from "SwiftUI Essentials" session.

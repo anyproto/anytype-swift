@@ -19,9 +19,54 @@ Audit SwiftUI view performance through code review and provide guidance for Inst
 2. **Only symptoms described** -> Ask for code/context, then Code-First Review
 3. **Code review inconclusive** -> Guide user to profile with Instruments
 
+## Fundamental Performance Insight (WWDC24)
+
+SwiftUI views are **value types** (structs) that describe UI state - they are NOT long-lived objects. Breaking up one view into multiple subviews **doesn't hurt performance** because views are just declarative descriptions.
+
+**Key insight**: SwiftUI maintains an efficient data structure behind the scenes. When state changes, new view values are created and SwiftUI determines what actually needs updating. You don't need to compromise code organization for performance.
+
+```swift
+// ✅ GOOD - Splitting into subviews is FREE
+var body: some View {
+    VStack {
+        HeaderView(title: title)        // Separate view = fine
+        ContentView(items: items)       // Separate view = fine
+        FooterView(action: saveAction)  // Separate view = fine
+    }
+}
+// SwiftUI only updates the specific subview when its state changes
+```
+
 ## Code-First Review Focus
 
 Look for these common performance issues:
+
+### State-Driven Updates (WWDC24)
+
+SwiftUI tracks dependencies automatically. Any data a view reads in `body` becomes a dependency:
+
+```swift
+@Observable class PetModel {
+    var name: String = ""      // ← If read in body, becomes dependency
+    var hasAward: Bool = false // ← Only triggers update if actually read
+}
+
+struct PetRow: View {
+    let pet: PetModel
+
+    var body: some View {
+        HStack {
+            Text(pet.name)       // Dependency: name
+            if pet.hasAward {    // Dependency: hasAward
+                Image(systemName: "star.fill")
+            }
+        }
+    }
+}
+// When pet.hasAward changes, SwiftUI calls body again automatically
+```
+
+**Performance benefit**: Only views that actually read changed data get updated.
 
 ### View Invalidation Storms
 ```swift
@@ -131,4 +176,4 @@ For detailed WWDC guidance:
 
 **Navigation**: This skill provides SwiftUI performance audit patterns. For general iOS development, see `ios-dev-guidelines`.
 
-**Attribution**: Patterns adapted from [Dimillian/Skills](https://github.com/Dimillian/Skills) repository.
+**Attribution**: Patterns adapted from [Dimillian/Skills](https://github.com/Dimillian/Skills) repository. WWDC24 insights from "SwiftUI Essentials" session.

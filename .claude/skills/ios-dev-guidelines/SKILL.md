@@ -33,6 +33,30 @@ Before completing any task:
 - [ ] Feature flags applied to new features
 - [ ] No comments added (unless requested)
 
+## 🎯 SwiftUI View Fundamentals (WWDC24)
+
+SwiftUI views have three key qualities:
+
+1. **Declarative** - Describe what you want, not how to build it
+2. **Compositional** - Build complex UIs from simple building blocks
+3. **State-driven** - UI automatically updates when state changes
+
+**Key insight**: Views are VALUE TYPES (structs), not long-lived objects. They are descriptions of current UI state. Breaking views into subviews doesn't hurt performance - SwiftUI maintains efficient data structures behind the scenes.
+
+```swift
+// Declarative: describe the result, not the steps
+List(pets) { pet in
+    HStack {
+        Text(pet.name)
+        Spacer()
+        Text(pet.species)
+    }
+}
+// No need to manually add/remove rows - SwiftUI handles it
+```
+
+For detailed SwiftUI patterns, see **swiftui-patterns-developer** skill.
+
 ## 🎯 Common Patterns
 
 ### MVVM ViewModel
@@ -190,6 +214,8 @@ Refactored dependencies but forgot `MockView.swift`
 
 ## 🔗 Related Skills & Docs
 
+- **swiftui-patterns-developer** → View structure, composition, @Observable patterns
+- **swiftui-performance-developer** → Performance auditing, view invalidation
 - **localization-developer** → `LOCALIZATION_GUIDE.md` - Localization system
 - **code-generation-developer** → `CODE_GENERATION_GUIDE.md` - Feature flags, make generate
 - **design-system-developer** → `DESIGN_SYSTEM_MAPPING.md` - Icons, typography
