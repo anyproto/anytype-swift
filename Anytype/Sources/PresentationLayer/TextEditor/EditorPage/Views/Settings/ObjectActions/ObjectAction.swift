@@ -14,13 +14,24 @@ enum ObjectAction: Hashable, Identifiable {
     case copyLink
 
     // When adding to case
-    static func buildActions(details: ObjectDetails, isLocked: Bool, isPinnedToWidgets: Bool, permissions: ObjectPermissions) -> [Self] {
-        .builder {
+    static func buildActions(
+        details: ObjectDetails,
+        isLocked: Bool,
+        isPinnedToWidgets: Bool,
+        permissions: ObjectPermissions,
+        spaceUxType: SpaceUxType?
+    ) -> [Self] {
+        let canCreateWidget = details.isVisibleLayout(spaceUxType: spaceUxType)
+            && !details.isTemplate
+            && details.resolvedLayoutValue != .participant
+            && permissions.canApplyUneditableActions
+
+        return .builder {
             if permissions.canArchive {
                 ObjectAction.archive(isArchived: details.isArchived)
             }
-            
-            if permissions.canCreateWidget {
+
+            if canCreateWidget {
                 ObjectAction.pin(isPinned: isPinnedToWidgets)
             }
             

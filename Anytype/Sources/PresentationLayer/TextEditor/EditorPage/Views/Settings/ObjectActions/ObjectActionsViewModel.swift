@@ -240,12 +240,14 @@ final class ObjectActionsViewModel {
             objectActions = []
             return
         }
-        
+
+        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
         objectActions = ObjectAction.buildActions(
             details: details,
             isLocked: document.isLocked,
             isPinnedToWidgets: widgetObject?.widgetBlockIdFor(targetObjectId: objectId).isNotNil ?? false,
-            permissions: document.permissions
+            permissions: document.permissions,
+            spaceUxType: spaceUxType
         )
     }
 }

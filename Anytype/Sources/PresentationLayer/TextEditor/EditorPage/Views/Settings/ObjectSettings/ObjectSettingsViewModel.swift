@@ -52,6 +52,7 @@ final class ObjectSettingsViewModel: ObjectActionsOutput {
     var settings: [ObjectSetting] = []
     var showConflictAlert = false
     var isChat = false
+    let spaceUxType: SpaceUxType?
     
     init(
         objectId: String,
@@ -61,6 +62,8 @@ final class ObjectSettingsViewModel: ObjectActionsOutput {
         self.objectId = objectId
         self.spaceId = spaceId
         self.output = output
+        
+        spaceUxType = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)?.uxType
     }
 
     func startDocumentTask() async {
@@ -68,7 +71,8 @@ final class ObjectSettingsViewModel: ObjectActionsOutput {
             if let details = document.details {
                 settings = settingsBuilder.build(
                     details: details,
-                    permissions: document.permissions
+                    permissions: document.permissions,
+                    spaceUxType: spaceUxType
                 )
                 isChat = details.resolvedLayoutValue.isChat
             }
