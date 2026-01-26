@@ -22,6 +22,7 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
     func didCreateLinkToItself(selfName: String, data: ScreenData)
     func didCreateTemplate(templateId: String)
     func didTapUseTemplateAsDefault(templateId: String)
+    func showInviteMembers(spaceId: String)
 }
 
 @MainActor
@@ -148,5 +149,9 @@ final class ObjectSettingsViewModel: ObjectActionsOutput {
     func onLinkItselfToObjectHandler(data: ScreenData) {
         guard let documentName = document.details?.name else { return }
         output?.didCreateLinkToItself(selfName: documentName, data: data)
+    }
+
+    func onInviteMembersAction(spaceId: String) {
+        output?.showInviteMembers(spaceId: spaceId)
     }
 }

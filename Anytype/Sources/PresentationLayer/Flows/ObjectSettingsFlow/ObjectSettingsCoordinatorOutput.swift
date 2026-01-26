@@ -1,4 +1,5 @@
 import Foundation
+import AnytypeCore
 
 @MainActor
 protocol ObjectSettingsCoordinatorOutput: AnyObject {
@@ -9,4 +10,9 @@ protocol ObjectSettingsCoordinatorOutput: AnyObject {
     func didTapUseTemplateAsDefault(templateId: String)
     func didUndoRedo()
     func versionRestored(_ text: String)
+    func showInviteMembers(spaceId: String)
+}
+
+extension ObjectSettingsCoordinatorOutput {
+    func showInviteMembers(spaceId: String) { anytypeAssertionFailure("showInviteMembers is not supported") }
 }

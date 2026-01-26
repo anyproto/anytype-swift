@@ -9,4 +9,5 @@ protocol ObjectActionsOutput: AnyObject {
     func onNewTemplateCreation(templateId: String)
     func onTemplateMakeDefault(templateId: String)
     func onLinkItselfToObjectHandler(data: ScreenData)
+    func onInviteMembersAction(spaceId: String)
 }

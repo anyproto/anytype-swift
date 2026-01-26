@@ -26,7 +26,7 @@ extension ObjectMenuSectionType {
         switch action {
         case .pin:
             return isChat ? .horizontal : .mainSettings
-        case .undoRedo, .copyLink:
+        case .undoRedo, .copyLink, .inviteMembers:
             return .mainSettings
         case .linkItself, .locked, .makeAsTemplate:
             return .moreCollapsible
