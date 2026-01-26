@@ -280,6 +280,7 @@ Load these files as needed for specific topics:
 ### Advanced Patterns
 - **`async-sequences.md`** - AsyncSequence, AsyncStream, when to use vs regular async methods
 - **`async-algorithms.md`** - Swift Async Algorithms package, combining sequences
+- **`task-local-values.md`** - Task-local context propagation, tracing, logging patterns
 - **`core-data.md`** - NSManagedObject sendability, custom executors, isolation conflicts
 
 ### Quality & Migration
@@ -318,6 +319,7 @@ Load these files as needed for specific topics:
 - [Fucking Approachable Swift Concurrency](https://fuckingapproachableswiftconcurrency.com) - Office Building mental model
 - [Swift Concurrency Course](https://www.swiftconcurrencycourse.com) - Comprehensive reference (Antoine van der Lee)
 - [WWDC21: Swift Concurrency: Behind the Scenes](https://developer.apple.com/videos/play/wwdc2021/10254/) - Runtime internals, threading model, runtime contract
+- [WWDC23: Beyond the basics of structured concurrency](https://developer.apple.com/videos/play/wwdc2023/10170/) - Task groups, cancellation handlers, task locals
 - [Matt Massicotte's Blog](https://www.massicotte.org/) - Deep dives on concurrency
 - [Swift Concurrency Documentation](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/)
 
