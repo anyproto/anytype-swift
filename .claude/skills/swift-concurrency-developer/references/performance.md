@@ -534,6 +534,127 @@ actor Store {
 }
 ```
 
+## MainActor Context Switching
+
+The main thread has **special performance characteristics** that differ from the cooperative thread pool.
+
+### Main thread is disjoint from cooperative pool
+
+Unlike regular actors (which share the cooperative thread pool), MainActor runs on a dedicated thread:
+
+```
+Cooperative Thread Pool: [Thread 1] [Thread 2] [Thread 3] [Thread 4] [Thread 5] [Thread 6]
+                              ↑         ↑         ↑         ↑         ↑         ↑
+                         Regular actors and tasks share these threads
+
+Main Thread: [Main Thread] ← MainActor isolated code runs here exclusively
+                   ↑
+              Separate from pool
+```
+
+### MainActor hops always require context switch
+
+Because the main thread is separate, hopping to/from MainActor **always** requires a full context switch:
+
+```swift
+// Background task
+Task {
+    let data = await processData()  // Runs on cooperative pool
+
+    await MainActor.run {           // ⚠️ Context switch to main thread
+        updateUI(data)
+    }
+
+    await moreProcessing()          // ⚠️ Context switch back to pool
+}
+```
+
+Each crossing costs ~1-10 microseconds. Frequent crossings add up.
+
+### Batching MainActor hops
+
+Instead of hopping repeatedly, batch UI updates:
+
+```swift
+// ❌ Bad: Multiple MainActor hops
+for item in items {
+    let processed = await processItem(item)  // Cooperative pool
+    await MainActor.run {                    // Hop to main
+        displayItem(processed)
+    }                                        // Hop back to pool
+}
+
+// ✅ Good: Single MainActor hop
+let processed = await withTaskGroup(of: ProcessedItem.self) { group in
+    for item in items {
+        group.addTask { await processItem(item) }
+    }
+    return await group.reduce(into: []) { $0.append($1) }
+}
+
+await MainActor.run {
+    for item in processed {
+        displayItem(item)
+    }
+}
+```
+
+### When batching matters
+
+Batch MainActor hops when:
+- Processing collections with UI updates per item
+- Making multiple independent UI changes
+- Performing alternating compute/UI work
+
+Don't over-optimize:
+- Single UI updates are fine
+- User-initiated actions naturally batch
+- Premature optimization wastes effort
+
+## Async Frame Memory Overhead
+
+Async functions allocate state on the heap when values must survive suspension.
+
+### What gets heap-allocated
+
+```swift
+func processData() async {
+    let immediate = 42       // Thread stack (cheap)
+    let persisted = Data()   // Heap (async frame) if used after await
+
+    await networkCall()
+
+    print(persisted)         // Value was preserved in async frame
+}
+```
+
+### Memory implications
+
+- Each suspension point may require heap allocation
+- Long-running async functions with many awaits accumulate frames
+- Task groups with thousands of tasks = thousands of async frames
+
+### Minimizing overhead
+
+```swift
+// ❌ Many async frames
+func processAll() async {
+    for item in items {
+        await process(item)  // Each iteration has async frame overhead
+    }
+}
+
+// ✅ Fewer frames with batching
+func processAll() async {
+    let chunks = items.chunked(into: 100)
+    for chunk in chunks {
+        await processChunk(chunk)  // Fewer, larger operations
+    }
+}
+```
+
+**Rule**: For tight loops with trivial work, consider synchronous processing. Only use async when the work genuinely benefits from suspension.
+
 ## Best Practices
 
 1. **Profile before optimizing** - measure baseline

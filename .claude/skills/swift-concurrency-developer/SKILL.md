@@ -188,8 +188,25 @@ await MainActor.run { self.data = data }
 @MainActor func loadData() async { self.data = await fetchData() }
 ```
 
-### 4. Blocking the cooperative thread pool
-Never use `DispatchSemaphore`, `DispatchGroup.wait()` in async code. Risks deadlock.
+### 4. Blocking the cooperative thread pool (violates runtime contract)
+Never use `DispatchSemaphore`, `DispatchGroup.wait()`, or condition variables in async code.
+
+**Why**: These primitives hide dependencies from the runtime. The cooperative thread pool has a contract that threads will always make forward progress. Blocking primitives violate this contract and can cause deadlock.
+
+```swift
+// ❌ DANGEROUS: Can deadlock the cooperative pool
+let semaphore = DispatchSemaphore(value: 0)
+Task {
+    await doWork()
+    semaphore.signal()
+}
+semaphore.wait()  // Thread blocked, runtime unaware
+
+// ✅ Use async/await instead
+let result = await doWork()
+```
+
+**Debug tip**: Set `LIBDISPATCH_COOPERATIVE_POOL_STRICT=1` to catch blocking calls during development.
 
 ### 5. Creating unnecessary Tasks
 ```swift
@@ -205,6 +222,23 @@ await (users, posts)
 
 ### 6. Making everything Sendable
 Not everything needs to cross boundaries. Ask if data actually moves between isolation domains.
+
+### 7. Not batching MainActor hops
+The main thread is separate from the cooperative thread pool. Each hop to/from MainActor requires a full context switch.
+
+```swift
+// ❌ Multiple context switches
+for item in items {
+    let processed = await processItem(item)
+    await MainActor.run { displayItem(processed) }  // Context switch per item
+}
+
+// ✅ Single context switch
+let processed = await processAllItems(items)
+await MainActor.run {
+    for item in processed { displayItem(item) }
+}
+```
 
 ## Quick Reference
 
@@ -266,8 +300,11 @@ Load these files as needed for specific topics:
 3. **Use @MainActor judiciously** - Only for truly UI-related code
 4. **Make types Sendable** - Enable safe concurrent access by conforming to Sendable
 5. **Handle cancellation** - Check Task.isCancelled in long-running operations
-6. **Avoid blocking** - Never use semaphores or locks in async contexts
+6. **Avoid blocking** - Never use semaphores or locks in async contexts (violates runtime contract)
 7. **Test concurrent code** - Use proper async test methods and consider timing issues
+8. **Batch MainActor hops** - Group UI updates to minimize context switches to/from main thread
+9. **Understand the runtime contract** - Threads must always make forward progress; use safe primitives
+10. **Use LIBDISPATCH_COOPERATIVE_POOL_STRICT=1** - Debug environment variable to catch blocking calls
 
 ## Verification Checklist (When You Change Concurrency Code)
 
@@ -280,6 +317,7 @@ Load these files as needed for specific topics:
 ## Further Reading
 - [Fucking Approachable Swift Concurrency](https://fuckingapproachableswiftconcurrency.com) - Office Building mental model
 - [Swift Concurrency Course](https://www.swiftconcurrencycourse.com) - Comprehensive reference (Antoine van der Lee)
+- [WWDC21: Swift Concurrency: Behind the Scenes](https://developer.apple.com/videos/play/wwdc2021/10254/) - Runtime internals, threading model, runtime contract
 - [Matt Massicotte's Blog](https://www.massicotte.org/) - Deep dives on concurrency
 - [Swift Concurrency Documentation](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/)
 
