@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(git diff:*), Grep, Glob, Read, Edit
+allowed-tools: Bash(git diff:*), Bash(git checkout:*), Grep, Glob, Read, Edit
 ---
 
 # Polish Code
@@ -30,7 +30,19 @@ git diff origin/<base>...HEAD --name-only -- "*.swift"
 
 # Get the actual changes for each file
 git diff origin/<base>...HEAD -- "path/to/file.swift"
+
+# Also check unstaged changes for whitespace-only noise
+git diff --name-only -- "*.swift"
 ```
+
+**Categorize each file:**
+For each changed file, analyze the diff and categorize each changed line:
+1. **Real code changes** - logic changes, new code, removed code, refactoring
+2. **Whitespace-only changes** - trailing whitespace removal, empty line formatting
+
+**CRITICAL RULES:**
+- If a file has **ONLY whitespace changes** → **REVERT ENTIRE FILE** with `git checkout HEAD -- <file>`
+- If a file has **BOTH whitespace AND code changes** → **Restore original whitespace** for lines that only have whitespace changes (use `git show HEAD:<file>` to get original content and restore those specific lines)
 
 ### Step 2: Present Findings
 **Before making ANY changes**, present a summary:
@@ -55,6 +67,15 @@ All files already follow best practices. No changes needed.
 1. `OldHelper.swift` - No longer referenced after refactoring
 2. `Model.swift:15` - `unusedProperty` has no references
 3. ...
+
+### Files to Revert (whitespace-only, no real changes):
+1. `SearchWithMetaModelBuilder.swift` - Only trailing whitespace changes
+2. `BimListViewModel.swift` - Only empty line formatting
+3. ...
+
+### Whitespace to Restore (files with both code + whitespace changes):
+1. `ObjectPermissions.swift:44,48,51` - Restore original empty lines (have trailing whitespace in original)
+2. ...
 
 ### No Changes Needed:
 - `CleanFile.swift` - Already follows best practices
@@ -99,6 +120,25 @@ array.filter(\.isActive).map(\.name)
 ```
 **Use judgment**: Keypath is cleaner for simple properties; closures may be clearer for complex expressions.
 
+**⚠️ DO NOT touch formatting/whitespace:**
+- Do NOT delete or add empty lines
+- Do NOT fix trailing whitespace
+- Do NOT change code structure for formatting reasons
+- ONLY make changes that improve code LOGIC or remove unused code
+
+**Revert whitespace-only files:**
+For files where the ONLY changes are whitespace/formatting (no real code changes):
+```bash
+git checkout HEAD -- path/to/file.swift
+```
+
+**Restore original whitespace in mixed files:**
+For files with both real code changes AND whitespace-only line changes:
+1. Identify lines that only have whitespace changes (e.g., `-        ` → `+` patterns)
+2. Get the original line content: `git show HEAD:<file> | sed -n '<line>p'`
+3. Restore the original line (including its trailing whitespace) using Edit tool
+4. This keeps the real code changes while eliminating whitespace diff noise
+
 ### Step 5: Clean Up Unused Code
 
 For any renamed/removed symbols in the diff:
@@ -131,6 +171,8 @@ After user approves and changes are applied:
 ## Polish Applied ✅
 - Simplified: [list of changes made]
 - Removed: [list of unused code removed]
+- Reverted: [list of whitespace-only files reverted]
+- Whitespace restored: [list of files where original whitespace was restored]
 ```
 
 If user declines:
