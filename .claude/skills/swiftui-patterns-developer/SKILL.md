@@ -107,7 +107,182 @@ final class ChatViewModel {
 - Use `@Observable` macro (not `ObservableObject`)
 - Mark ViewModels with `@MainActor`
 
-### 3) Dependency Injection (Factory)
+### 3) How Observation Works (WWDC23)
+
+Understanding **why** `@Observable` works helps you use it correctly.
+
+**Property Access Tracking:**
+- SwiftUI tracks which properties you **access** during `body` evaluation
+- Only those accessed properties trigger view invalidation when changed
+- Properties NOT read in `body` don't cause re-renders (unlike `@Published`)
+
+```swift
+@Observable
+final class SettingsViewModel {
+    var userName: String = ""      // Accessed in body → triggers update
+    var isLoading: Bool = false    // Accessed in body → triggers update
+    var analyticsData: Data = Data()  // NOT accessed in body → no update
+}
+
+struct SettingsView: View {
+    @State private var model: SettingsViewModel
+
+    var body: some View {
+        // SwiftUI tracks: "this view reads userName and isLoading"
+        VStack {
+            Text(model.userName)           // ✓ Tracked
+            if model.isLoading {           // ✓ Tracked
+                ProgressView()
+            }
+            // model.analyticsData not read → changes won't invalidate this view
+        }
+    }
+}
+```
+
+**Per-Instance Tracking:**
+- Arrays of `@Observable` objects work efficiently
+- Only the specific instance that changed triggers updates
+- No need for `identifiable` tricks with observation
+
+```swift
+@Observable
+final class MessageViewModel {
+    var text: String
+    var isRead: Bool = false
+}
+
+// Each MessageRow only updates when ITS message changes
+List(model.messages) { message in
+    MessageRow(message: message)  // Only this row updates when message.isRead changes
+}
+```
+
+**Computed Properties Just Work:**
+- Computed properties composed from stored properties are automatically tracked
+- SwiftUI traces through to the underlying stored properties
+
+```swift
+@Observable
+final class CartViewModel {
+    var items: [Item] = []
+    var discount: Double = 0
+
+    // Computed → tracks both `items` and `discount`
+    var totalPrice: Double {
+        items.reduce(0) { $0 + $1.price } - discount
+    }
+}
+```
+
+**Performance Benefit:**
+With `@Observable`, views only update when properties they actually read change. This is more efficient than `ObservableObject` where ANY `@Published` change triggers `objectWillChange` for ALL subscribers.
+
+### 4) Property Wrapper Decision Tree
+
+When to use which wrapper with `@Observable`:
+
+| Scenario | Wrapper | Why |
+|----------|---------|-----|
+| View **owns** model lifecycle | `@State` | View creates and manages the model |
+| Model shared **app-wide** | `@Environment` | Injected at app root, read anywhere |
+| Just need **bindings** ($syntax) | `@Bindable` | Pass to TextField, Toggle, etc. |
+| Just **reading** the model | Nothing | Direct property access triggers tracking |
+
+```swift
+// View OWNS the model (creates it)
+struct ChatView: View {
+    @State private var model: ChatViewModel  // ← @State
+
+    init(chatId: String) {
+        _model = State(wrappedValue: ChatViewModel(chatId: chatId))
+    }
+}
+
+// Model passed from parent, need bindings
+struct MessageEditor: View {
+    @Bindable var draft: DraftMessage  // ← @Bindable for $draft.text
+
+    var body: some View {
+        TextField("Message", text: $draft.text)
+    }
+}
+
+// Just reading, no bindings needed
+struct MessageRow: View {
+    let message: MessageViewModel  // ← Nothing! Just read properties
+
+    var body: some View {
+        Text(message.text)
+        Image(systemName: message.isRead ? "checkmark.circle.fill" : "circle")
+    }
+}
+```
+
+**Migration from ObservableObject:**
+
+| Old | New |
+|-----|-----|
+| `@StateObject` | `@State` |
+| `@ObservedObject` | `@Bindable` or nothing |
+| `@EnvironmentObject` | `@Environment` |
+
+### 5) Migration from ObservableObject (WWDC23)
+
+Step-by-step conversion from legacy `ObservableObject`:
+
+**Before (ObservableObject):**
+```swift
+class SettingsViewModel: ObservableObject {
+    @Published var userName: String = ""
+    @Published var notifications: Bool = true
+
+    private var cancellables = Set<AnyCancellable>()
+}
+
+struct SettingsView: View {
+    @StateObject private var model = SettingsViewModel()
+
+    var body: some View {
+        TextField("Name", text: $model.userName)
+        Toggle("Notifications", isOn: $model.notifications)
+    }
+}
+```
+
+**After (@Observable):**
+```swift
+@Observable
+final class SettingsViewModel {
+    var userName: String = ""
+    var notifications: Bool = true
+
+    @ObservationIgnored
+    private var cancellables = Set<AnyCancellable>()
+}
+
+struct SettingsView: View {
+    @State private var model = SettingsViewModel()
+
+    var body: some View {
+        @Bindable var model = model  // Local binding for $ syntax
+        TextField("Name", text: $model.userName)
+        Toggle("Notifications", isOn: $model.notifications)
+    }
+}
+```
+
+**Migration Steps:**
+1. Remove `ObservableObject` conformance, add `@Observable` macro
+2. Remove `@Published` from all properties (observation is automatic)
+3. Add `@ObservationIgnored` to properties that shouldn't trigger updates
+4. Change `@StateObject` → `@State` in views
+5. For `$` binding syntax, use `@Bindable var model = model` in body
+6. Replace `@EnvironmentObject` with `@Environment`
+
+**Note:** Anytype already uses `@Observable` - this section is for understanding legacy code during migrations.
+
+### 6) Dependency Injection (Factory)
 
 Anytype uses **Factory DI**, not SwiftUI Environment for services:
 
@@ -128,7 +303,7 @@ Anytype uses **Factory DI**, not SwiftUI Environment for services:
 - Repositories: `@Injected(\.userRepository)`
 - Any business logic dependencies
 
-### 4) Split Large Bodies
+### 7) Split Large Bodies
 
 If `body` grows beyond a screen, split into smaller subviews:
 
@@ -164,7 +339,7 @@ struct HeaderSection: View {
 }
 ```
 
-### 5) ViewState Enum Pattern
+### 8) ViewState Enum Pattern
 
 For views with loading/error/loaded states:
 
@@ -215,7 +390,7 @@ struct FeedView: View {
 }
 ```
 
-### 6) Task and onChange Usage
+### 9) Task and onChange Usage
 
 ```swift
 // Initial load
@@ -234,7 +409,7 @@ struct FeedView: View {
 }
 ```
 
-### 7) Large View File Organization
+### 10) Large View File Organization
 
 When file exceeds ~300 lines:
 
