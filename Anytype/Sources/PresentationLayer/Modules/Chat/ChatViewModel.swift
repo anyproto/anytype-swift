@@ -57,7 +57,9 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.universalLinkParser) @ObservationIgnored
     private var universalLinkParser: any UniversalLinkParserProtocol
-    
+    @Injected(\.shareSuggestionService) @ObservationIgnored
+    private var shareSuggestionService: any ShareSuggestionServiceProtocol
+
     private let participantSubscription: any ParticipantsSubscriptionProtocol
     private let chatStorage: any ChatMessagesStorageProtocol
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
@@ -316,6 +318,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
             chatMessageLimits.markSentMessage()
             clearInput()
+            await donateShareSuggestion()
         } else {
             keyboardDismiss?()
             showSendLimitAlert = true
@@ -711,7 +714,12 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         replyToMessage = nil
         editMessage = nil
     }
-    
+
+    private func donateShareSuggestion() async {
+        guard let chatDetails = chatObject.details else { return }
+        await shareSuggestionService.donateInteraction(chatDetails: chatDetails, spaceId: spaceId)
+    }
+
     private func handledMentionObjects(_ mentionObjects: [MentionObject]) -> [MentionObjectModel] {
         let isYourIdentityProfileLink = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }?.identityProfileLink
         return mentionObjects.map { mentionObject in

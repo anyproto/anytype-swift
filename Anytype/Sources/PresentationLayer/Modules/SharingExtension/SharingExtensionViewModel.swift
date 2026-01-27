@@ -19,10 +19,13 @@ final class SharingExtensionViewModel {
 
     @ObservationIgnored
     private weak var output: (any SharingExtensionModuleOutput)?
+    @ObservationIgnored
+    private var suggestedSpaceId: String?
     private var allSpaces: [SpaceView] = []
 
     var spaces: [SpaceView] = []
     var selectedSpace: SpaceView?
+    var scrollToSpaceId: String?
     var comment: String = ""
     var dismiss = false
     var sendInProgress = false
@@ -44,8 +47,12 @@ final class SharingExtensionViewModel {
     func onAppear() async {
         async let spacesSub: () = await startSpacesSub()
         async let debugSub: () = await startDebugData()
-        
         _ = await (spacesSub, debugSub)
+    }
+
+    func setSuggestedSpaceId(_ spaceId: String) {
+        suggestedSpaceId = spaceId
+        applySpaceSuggestion()
     }
     
     func onTapSpace(_ space: SpaceView) {
@@ -94,7 +101,17 @@ final class SharingExtensionViewModel {
     private func startSpacesSub() async {
         for await participantSpaces in participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values {
             allSpaces = participantSpaces.filter { $0.canEdit }.map { $0.spaceView }
+            applySpaceSuggestion()
             search()
         }
+    }
+
+    private func applySpaceSuggestion() {
+        guard selectedSpace == nil,
+              let suggestedSpaceId,
+              let space = allSpaces.first(where: { $0.targetSpaceId == suggestedSpaceId }) else { return }
+        selectedSpace = space
+        scrollToSpaceId = space.id
+        self.suggestedSpaceId = nil
     }
 }

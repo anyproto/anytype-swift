@@ -3,7 +3,8 @@ import DesignKit
 
 struct SharingExtensionShareToData: Hashable, Identifiable {
     let spaceId: String
-    
+    var suggestedChatId: String?
+
     var id: Int { hashValue }
 }
 

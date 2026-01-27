@@ -315,6 +315,10 @@ extension Container {
     var chatActionService: Factory<any ChatActionServiceProtocol> {
         self { ChatActionService() }
     }
+
+    var shareSuggestionService: Factory<any ShareSuggestionServiceProtocol> {
+        self { ShareSuggestionService() }
+    }
     
     var appVersionTracker: Factory<any AppVersionTrackerProtocol> {
         self { AppVersionTracker() }.shared
