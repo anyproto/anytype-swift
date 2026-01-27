@@ -10,14 +10,14 @@ public extension DetailsLayout {
     fileprivate static let visibleLayoutsBase: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark, .date, .objectType]
     fileprivate static let visibleLayoutsWithFilesBase = visibleLayoutsBase + fileAndMediaLayouts
 
-    fileprivate static let supportedForCreationBase: [DetailsLayout] = supportedForCreationInSets + listLayouts
+    fileprivate static let supportedForCreationBase: [DetailsLayout] = supportedForCreationInSetsBase + listLayouts
     fileprivate static let supportedForSharingExtensionBase: [DetailsLayout] = [.collection] + editorLayouts
 
     fileprivate static let widgetTypeLayoutsBase = listLayouts + editorLayouts + [.bookmark] + fileAndMediaLayouts
 
     private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFilesBase + [.objectType, .participant] + chatLayouts
 
-    private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark] + listLayouts
+    private static let supportedForCreationInSetsBase: [DetailsLayout] = editorLayouts + [.bookmark] + listLayouts
     private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile, .objectType]
     private static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
     private static let chatLayouts: [DetailsLayout] = [.chatDerived]
@@ -41,6 +41,11 @@ public extension DetailsLayout {
         return supportedForCreationBase + chatLayouts
     }
 
+    static func supportedForCreationInSets(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
+        guard spaceUxType.supportsMultiChats else { return supportedForCreationInSetsBase }
+        return supportedForCreationInSetsBase + chatLayouts
+    }
+
     static func widgetTypeLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
         guard spaceUxType.supportsMultiChats else { return widgetTypeLayoutsBase }
         return widgetTypeLayoutsBase + chatLayouts
@@ -58,7 +63,6 @@ public extension DetailsLayout {
     var isEditorLayout: Bool { DetailsLayout.editorLayouts.contains(self) }
     var isFile: Bool { Self.fileLayouts.contains(self) }
     var isFileOrMedia: Bool { Self.fileAndMediaLayouts.contains(self) }
-    var isSupportedForCreationInSets: Bool { Self.supportedForCreationInSets.contains(self) }
     var isSupportedForOpening: Bool { Self.supportedForOpening.contains(self) }
     var isSupportedForCreation: Bool { Self.supportedForCreationBase.contains(self) }
     var haveIcon: Bool { Self.layoutsWithIcon.contains(self) }
@@ -76,6 +80,10 @@ public extension DetailsLayout {
 
     var isObjectType: Bool { self == .objectType }
     var isChat: Bool { Self.chatLayouts.contains(self) }
+
+    func isSupportedForCreationInSets(spaceUxType: SpaceUxType?) -> Bool {
+        Self.supportedForCreationInSets(spaceUxType: spaceUxType).contains(self)
+    }
 }
 
 public extension Optional where Wrapped == DetailsLayout {
