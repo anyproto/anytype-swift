@@ -73,6 +73,7 @@ final class SharingExtensionShareToViewModel {
         self.data = data
         self.output = output
         self.spaceView = workspacesStorage.spaceView(spaceId: data.spaceId)
+        self.selectedObjectId = data.suggestedChatId
     }
     
     func search() async {

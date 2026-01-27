@@ -7,6 +7,7 @@ public protocol SharedContentManagerProtocol: AnyObject, Sendable {
     func saveSharedContent(content: SharedContent) async throws
     func getSharedContent() async throws -> SharedContent
     func clearSharedContent() async throws
+    func setSuggestedConversationId(_ conversationId: String?) async throws
 }
 
 actor SharedContentManager: SharedContentManagerProtocol {
@@ -32,7 +33,11 @@ actor SharedContentManager: SharedContentManagerProtocol {
         let debugInfo = SharedContentDebugInfo(
             items: attachments.map { SharedContentDebugItem(mimeTypes: $0.registeredTypeIdentifiers.map { $0.description }) }
         )
-        let sharedContent = SharedContent(title: item.attributedTitle?.string, items: sortedItems, debugInfo: debugInfo)
+        let sharedContent = SharedContent(
+            title: item.attributedTitle?.string,
+            items: sortedItems,
+            debugInfo: debugInfo
+        )
         try? saveSharedContent(content: sharedContent)
         return sharedContent
     }
@@ -59,5 +64,11 @@ actor SharedContentManager: SharedContentManagerProtocol {
     func clearSharedContent() throws {
         userDefaults?.removeObject(forKey: SharedUserDefaultsKey.sharingExtension)
         try sharedFileStorage.clearStorage()
+    }
+
+    func setSuggestedConversationId(_ conversationId: String?) throws {
+        var content = try getSharedContent()
+        content.suggestedConversationId = conversationId
+        try saveSharedContent(content: content)
     }
 }
