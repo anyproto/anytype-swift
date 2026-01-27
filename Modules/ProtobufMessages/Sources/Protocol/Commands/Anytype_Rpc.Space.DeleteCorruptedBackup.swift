@@ -11,8 +11,8 @@
 import Foundation
 import SwiftProtobuf
 
-extension Anytype_Rpc.Workspace {
-    public struct Open: Sendable {
+extension Anytype_Rpc.Space {
+    public struct DeleteCorruptedBackup: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -24,10 +24,7 @@ extension Anytype_Rpc.Workspace {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var spaceID: String = String()
-
-        /// deprecated, chat will be created automatically if space is shared
-        public var withChat: Bool = false
+        public var backupPath: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -39,26 +36,14 @@ extension Anytype_Rpc.Workspace {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Workspace.Open.Response.Error {
-          get {return _error ?? Anytype_Rpc.Workspace.Open.Response.Error()}
+        public var error: Anytype_Rpc.Space.DeleteCorruptedBackup.Response.Error {
+          get {return _error ?? Anytype_Rpc.Space.DeleteCorruptedBackup.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
         public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
-
-        public var info: Anytype_Model_Account.Info {
-          get {return _info ?? Anytype_Model_Account.Info()}
-          set {_info = newValue}
-        }
-        /// Returns true if `info` has been explicitly set.
-        public var hasInfo: Bool {return self._info != nil}
-        /// Clears the value of `info`. Subsequent reads from it will return its default value.
-        public mutating func clearInfo() {self._info = nil}
-
-        /// backup paths for corrupted space storage
-        public var corruptedBackupPaths: [String] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -67,7 +52,7 @@ extension Anytype_Rpc.Workspace {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Workspace.Open.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Space.DeleteCorruptedBackup.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -78,7 +63,6 @@ extension Anytype_Rpc.Workspace {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-            case failedToLoad // = 100
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -90,7 +74,6 @@ extension Anytype_Rpc.Workspace {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 100: self = .failedToLoad
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -100,17 +83,15 @@ extension Anytype_Rpc.Workspace {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .failedToLoad: return 100
               case .UNRECOGNIZED(let i): return i
               }
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Workspace.Open.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Space.DeleteCorruptedBackup.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
-              .failedToLoad,
             ]
 
           }
@@ -120,16 +101,15 @@ extension Anytype_Rpc.Workspace {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Workspace.Open.Response.Error? = nil
-        fileprivate var _info: Anytype_Model_Account.Info? = nil
+        fileprivate var _error: Anytype_Rpc.Space.DeleteCorruptedBackup.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Workspace.Open: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Workspace.protoMessageName + ".Open"
+extension Anytype_Rpc.Space.DeleteCorruptedBackup: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Space.protoMessageName + ".DeleteCorruptedBackup"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -141,15 +121,15 @@ extension Anytype_Rpc.Workspace.Open: SwiftProtobuf.Message, SwiftProtobuf._Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Workspace.Open, rhs: Anytype_Rpc.Workspace.Open) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Space.DeleteCorruptedBackup, rhs: Anytype_Rpc.Space.DeleteCorruptedBackup) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Workspace.Open.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Workspace.Open.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}withChat\0")
+extension Anytype_Rpc.Space.DeleteCorruptedBackup.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Space.DeleteCorruptedBackup.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}backupPath\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -157,34 +137,29 @@ extension Anytype_Rpc.Workspace.Open.Request: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
-      case 2: try { try decoder.decodeSingularBoolField(value: &self.withChat) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.backupPath) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.spaceID.isEmpty {
-      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
-    }
-    if self.withChat != false {
-      try visitor.visitSingularBoolField(value: self.withChat, fieldNumber: 2)
+    if !self.backupPath.isEmpty {
+      try visitor.visitSingularStringField(value: self.backupPath, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Workspace.Open.Request, rhs: Anytype_Rpc.Workspace.Open.Request) -> Bool {
-    if lhs.spaceID != rhs.spaceID {return false}
-    if lhs.withChat != rhs.withChat {return false}
+  public static func ==(lhs: Anytype_Rpc.Space.DeleteCorruptedBackup.Request, rhs: Anytype_Rpc.Space.DeleteCorruptedBackup.Request) -> Bool {
+    if lhs.backupPath != rhs.backupPath {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Workspace.Open.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Workspace.Open.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}info\0\u{1}corruptedBackupPaths\0")
+extension Anytype_Rpc.Space.DeleteCorruptedBackup.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Space.DeleteCorruptedBackup.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -193,8 +168,6 @@ extension Anytype_Rpc.Workspace.Open.Response: SwiftProtobuf.Message, SwiftProto
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._info) }()
-      case 3: try { try decoder.decodeRepeatedStringField(value: &self.corruptedBackupPaths) }()
       default: break
       }
     }
@@ -208,26 +181,18 @@ extension Anytype_Rpc.Workspace.Open.Response: SwiftProtobuf.Message, SwiftProto
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    try { if let v = self._info {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
-    if !self.corruptedBackupPaths.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.corruptedBackupPaths, fieldNumber: 3)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Workspace.Open.Response, rhs: Anytype_Rpc.Workspace.Open.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Space.DeleteCorruptedBackup.Response, rhs: Anytype_Rpc.Space.DeleteCorruptedBackup.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs._info != rhs._info {return false}
-    if lhs.corruptedBackupPaths != rhs.corruptedBackupPaths {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Workspace.Open.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Workspace.Open.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Space.DeleteCorruptedBackup.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Space.DeleteCorruptedBackup.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -253,7 +218,7 @@ extension Anytype_Rpc.Workspace.Open.Response.Error: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Workspace.Open.Response.Error, rhs: Anytype_Rpc.Workspace.Open.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Space.DeleteCorruptedBackup.Response.Error, rhs: Anytype_Rpc.Space.DeleteCorruptedBackup.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -261,8 +226,8 @@ extension Anytype_Rpc.Workspace.Open.Response.Error: SwiftProtobuf.Message, Swif
   }
 }
 
-extension Anytype_Rpc.Workspace.Open.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}b\u{1}FAILED_TO_LOAD\0")
+extension Anytype_Rpc.Space.DeleteCorruptedBackup.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
 // If the compiler emits an error on this type, it is because this file
