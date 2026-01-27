@@ -69,6 +69,11 @@ After making code changes, report them to the user who will verify compilation i
 
 **Learn more**: `.claude/skills/README.md`
 
+### Hooks & Skill Activation
+- Skills auto-activate based on prompt keywords (see `.claude/hooks/skill-rules.json`)
+- Scoring: keywords=2pts, intents=3pts, threshold=3
+- Tuning guide: `.claude/skills/skills-manager/SKILL.md`
+
 ## 🎯 Core Guidelines
 
 ### Code Quality

@@ -4,6 +4,7 @@
       "type": "domain",
       "priority": "high",
       "description": "Smart router to Swift/iOS development patterns (→ IOS_DEVELOPMENT_GUIDE.md). Critical rules, MVVM/Coordinator patterns, code style",
+      "relatedSkills": ["design-system-developer", "localization-developer", "tests-developer"],
       "promptTriggers": {
         "keywords": [
           "swift",
@@ -83,6 +84,14 @@
           "(remove|delete).*?(localization|string|key)",
           "(search|find).*?(localization|string|key)",
           "(how to|where).*?(localization|string|text)"
+        ],
+        "excludePatterns": [
+          "UITextField",
+          "UITextView",
+          "TextField(",
+          "TextEditor(",
+          "custom font",
+          "font family"
         ]
       },
       "fileTriggers": {
@@ -152,6 +161,7 @@
       "type": "domain",
       "priority": "medium",
       "description": "Smart router to design system (→ DESIGN_SYSTEM_MAPPING.md, TYPOGRAPHY_MAPPING.md). Icons (x18-x40), typography mapping, spacing formula",
+      "relatedSkills": ["ios-dev-guidelines", "localization-developer"],
       "promptTriggers": {
         "keywords": [
           "icon",
@@ -727,6 +737,13 @@
   "config": {
     "maxSkillsPerPrompt": 2,
     "logActivations": true,
-    "logPath": ".claude/logs/skill-activations.log"
+    "logPath": ".claude/logs/skill-activations.log",
+    "scoring": {
+      "keywordWeight": 2,
+      "intentWeight": 3,
+      "confidenceThreshold": 3,
+      "highConfidenceScore": 6,
+      "mediumConfidenceScore": 4
+    }
   }
 }

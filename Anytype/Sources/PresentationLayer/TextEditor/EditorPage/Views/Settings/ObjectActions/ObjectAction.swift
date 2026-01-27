@@ -12,15 +12,28 @@ enum ObjectAction: Hashable, Identifiable {
     case templateToggleDefaultState(isDefault: Bool)
     case delete
     case copyLink
+    case inviteMembers
 
     // When adding to case
-    static func buildActions(details: ObjectDetails, isLocked: Bool, isPinnedToWidgets: Bool, permissions: ObjectPermissions) -> [Self] {
-        .builder {
+    static func buildActions(
+        details: ObjectDetails,
+        isLocked: Bool,
+        isPinnedToWidgets: Bool,
+        permissions: ObjectPermissions,
+        spaceUxType: SpaceUxType?,
+        isSpaceOwner: Bool
+    ) -> [Self] {
+        let canCreateWidget = details.isVisibleLayout(spaceUxType: spaceUxType)
+            && !details.isTemplate
+            && details.resolvedLayoutValue != .participant
+            && permissions.canApplyUneditableActions
+
+        return .builder {
             if permissions.canArchive {
                 ObjectAction.archive(isArchived: details.isArchived)
             }
-            
-            if permissions.canCreateWidget {
+
+            if canCreateWidget {
                 ObjectAction.pin(isPinned: isPinnedToWidgets)
             }
             
@@ -48,11 +61,15 @@ enum ObjectAction: Hashable, Identifiable {
             if permissions.canShare {
                 ObjectAction.copyLink
             }
-            
+
+            if details.resolvedLayoutValue.isChat && spaceUxType?.supportsMultiChats == true && isSpaceOwner {
+                ObjectAction.inviteMembers
+            }
+
             if permissions.canLock {
                 ObjectAction.locked(isLocked: isLocked)
             }
-            
+
             if permissions.canDelete {
                 ObjectAction.delete
             }
@@ -81,6 +98,8 @@ enum ObjectAction: Hashable, Identifiable {
             return "delete"
         case .copyLink:
             return "copyLink"
+        case .inviteMembers:
+            return "inviteMembers"
         }
     }
 
@@ -98,6 +117,8 @@ enum ObjectAction: Hashable, Identifiable {
             return 22
         case .locked:
             return 30
+        case .inviteMembers:
+            return 35
         case .copyLink:
             return 40
         case .duplicate:

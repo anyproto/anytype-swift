@@ -20,7 +20,7 @@ struct SharingExtensionShareToView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            NavigationHeader(title: model.title, navigationButtonType: .none)
+            NavigationHeader(title: model.title, navigationButtonType: .none, enableBackgroundBlur: false)
             SearchBar(
                 text: $model.searchText,
                 focused: false,

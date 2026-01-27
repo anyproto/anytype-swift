@@ -97,7 +97,11 @@ final class ObjectSettingsCoordinatorViewModel:
     func didTapUseTemplateAsDefault(templateId: String) {
         output?.didTapUseTemplateAsDefault(templateId: templateId)
     }
-    
+
+    func showInviteMembers(spaceId: String) {
+        output?.showInviteMembers(spaceId: spaceId)
+    }
+
     // MARK: - PropertyValueCoordinatorOutput
     
     func showEditorScreen(data: ScreenData) {

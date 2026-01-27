@@ -13,13 +13,13 @@
         "be" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Працягваючы,  вы згаджаецеся з нашымі [Умовамі Выкарыстання](%@) і [Палітыкай Прыватнасці](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Wenn Sie fortfahren, stimmen Sie den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@) zu"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "en" : {
@@ -43,13 +43,13 @@
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Jatkamalla hyväksyt [Käyttösopimuksen](%@) ja [Tietoturvaselosteen](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "En continuant, vous acceptez [Conditions d’utilisation](%@) et [Politique de confidentialité](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "id" : {
@@ -61,19 +61,19 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "続行することで[利用規約](%@)および[プライバシーポリシー](%@)に同意したものとみなします"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "계속 진행하면 [이용 약관](%@) 및 [개인정보 처리방침](%@)에 동의하는 것입니다"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "nb" : {
@@ -85,19 +85,19 @@
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "or" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "ଜାରି ରଖିବା ଦ୍ୱାରା ଆପଣ [ବ୍ୟବହାର ସର୍ତ୍ତାବଳୀ](%@) ଏବଂ [ଗୋପନୀୟତା ନୀତି](%@) ସହ ରାଜି ହୁଅନ୍ତି।"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Kontynuując, zgadzasz się na [Warunki użytkowania](%@) i [Politykę prywatności](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "pt-BR" : {
@@ -109,7 +109,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Ao continuar, está a concordar com os [Termos de Uso](%@) e com a [Política de Privacidade](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "ru" : {
@@ -121,7 +121,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Devam ederek [Kullanım Koşullarımızı](%@) ve [Gizlilik Politikamızı](%@) kabul etmiş olursunuz"
+            "value" : "Devam ederek [Kullanım Koşullarımızı](%@) ve [Gizlilik Politikamızı](%@) kabul etmiş olursun"
           }
         },
         "uk" : {
@@ -139,13 +139,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "繼續即表示同意 [使用條款](%@) 與 [隱私政策](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         }
       }
@@ -2141,7 +2141,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It’s your login and password"
+            "value" : "Ini adalah nama pengguna dan kata sandi anda"
           }
         },
         "it" : {
@@ -2189,7 +2189,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It’s your login and password"
+            "value" : "É seu login e senha"
           }
         },
         "pt-PT" : {
@@ -2487,7 +2487,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Whoever has the key, has access"
+            "value" : "Quem tiver a chave, tem acesso"
           }
         },
         "pt-PT" : {
@@ -2785,7 +2785,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Only you responsible for it"
+            "value" : "Somente você é responsável por elas."
           }
         },
         "pt-PT" : {
@@ -3233,7 +3233,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select one role or background that best fits you"
+            "value" : "Selecione um papel ou área que melhor descreva você"
           }
         },
         "pt-PT" : {
@@ -3382,7 +3382,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tell Us About Yourself"
+            "value" : "Conte-nos sobre você"
           }
         },
         "pt-PT" : {
@@ -3531,7 +3531,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Artist / Content Creator"
+            "value" : "Artista / Criador de Conteúdo"
           }
         },
         "pt-PT" : {
@@ -3680,7 +3680,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Consultant"
+            "value" : "Consultor"
           }
         },
         "pt-PT" : {
@@ -3978,7 +3978,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Software Developer"
+            "value" : "Desenvolvedor de Software"
           }
         },
         "pt-PT" : {
@@ -4127,7 +4127,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Founder / Entrepreneur"
+            "value" : "Fundador / Empreendedor"
           }
         },
         "pt-PT" : {
@@ -4276,7 +4276,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Manager / IT Professional"
+            "value" : "Gestor / Profissional de TI"
           }
         },
         "pt-PT" : {
@@ -4425,7 +4425,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Marketer"
+            "value" : "Profissional de Marketing"
           }
         },
         "pt-PT" : {
@@ -4574,7 +4574,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Researcher / Academic"
+            "value" : "Pesquisador / Acadêmico"
           }
         },
         "pt-PT" : {
@@ -4723,7 +4723,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Student"
+            "value" : "Estudante"
           }
         },
         "pt-PT" : {
@@ -4872,7 +4872,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Writer / Journalist"
+            "value" : "Escritor / Jornalista"
           }
         },
         "pt-PT" : {
@@ -5021,7 +5021,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Habit tracking"
+            "value" : "Rastreamento de hábitos"
           }
         },
         "pt-PT" : {
@@ -5170,7 +5170,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal knowledge base / PKM"
+            "value" : "Base de conhecimento pessoal / PKM"
           }
         },
         "pt-PT" : {
@@ -5319,7 +5319,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Life planning"
+            "value" : "Planejamento de vida"
           }
         },
         "pt-PT" : {
@@ -5468,7 +5468,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Messaging & group chats"
+            "value" : "Mensagens & conversas em grupo"
           }
         },
         "pt-PT" : {
@@ -5617,7 +5617,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal note-taking"
+            "value" : "Notas pessoais"
           }
         },
         "pt-PT" : {
@@ -5766,7 +5766,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Projects & tasks management"
+            "value" : "Gerenciamento de projetos & tarefas"
           }
         },
         "pt-PT" : {
@@ -5915,7 +5915,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Team work & shared docs"
+            "value" : "Trabalho em equipe e documentos compartilhados"
           }
         },
         "pt-PT" : {
@@ -6064,7 +6064,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pick one use case that fits you best"
+            "value" : "Escolha um caso de uso que melhor se encaixa a você"
           }
         },
         "pt-PT" : {
@@ -6213,7 +6213,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "What do you want to use Anytype for?"
+            "value" : "Para que você quer usar o Anytype?"
           }
         },
         "pt-PT" : {
@@ -6511,7 +6511,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "or enter with"
+            "value" : "ou acesse com"
           }
         },
         "pt-PT" : {
@@ -7257,7 +7257,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Encrypted, local,"
+            "value" : "Criptografado, local,"
           }
         },
         "pt-PT" : {
@@ -7406,7 +7406,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "yours forever"
+            "value" : "seu para sempre"
           }
         },
         "pt-PT" : {
@@ -9738,31 +9738,31 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Veuillez libérer environ %@ d'espace et relancer le processus."
+            "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Silakan bersihkan kurang lebih %@ ruang penyimpanan, lalu coba lagi."
+            "value" : "Silakan bersihkan ruang penyimpanan sebanyak %@ lalu coba lagi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Liberare circa %@ di spazio ed eseguire nuovamente il processo."
+            "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "約%@の空き容量を確保し、再度実行してください。"
+            "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "저장 공간의 약 %@를 비운 뒤, 다시 진행하세요."
+            "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
         "nb" : {
@@ -9774,7 +9774,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Maak alsjeblieft ongeveer %@ aan ruimte vrij en voer het proces opnieuw uit."
+            "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
         "or" : {
@@ -9810,7 +9810,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Lütfen yaklaşık %@ kadarlık alanı temizleyin ve işlemi tekrarlayın."
+            "value" : "Lütfen yaklaşık %@ kadarlık alanı temizle ve işlemi tekrarla."
           }
         },
         "uk" : {
@@ -9828,7 +9828,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "请清理大约  %@ 空间后重试。"
+            "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
         "zh-Hant" : {

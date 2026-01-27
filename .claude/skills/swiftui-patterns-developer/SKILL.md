@@ -16,6 +16,50 @@ Apply consistent structure and patterns to SwiftUI views, with focus on ordering
 
 ## Core Guidelines
 
+### 0) Three Qualities of SwiftUI Views (WWDC24)
+
+Understanding these fundamentals helps you write better SwiftUI code:
+
+**1. Declarative** - Describe what you want, not how to create it:
+```swift
+// ✅ Declarative - describe the result
+List(pets) { pet in
+    HStack {
+        Text(pet.name)
+        Spacer()
+        Text(pet.species)
+    }
+}
+// No need to add/remove rows manually - SwiftUI handles it
+```
+
+**2. Compositional** - Build complex UIs from simple building blocks:
+```swift
+// ViewBuilder closures define children of containers
+HStack {           // Container view
+    Image(...)     // Child 1
+    VStack {       // Child 2 (also a container)
+        Text(...)  // Nested child
+        Text(...)  // Nested child
+    }
+    Spacer()       // Child 3
+}
+```
+
+**3. State-Driven** - UI automatically updates when state changes:
+```swift
+// SwiftUI tracks dependencies and updates views automatically
+@State private var count = 0
+
+var body: some View {
+    Button("Count: \(count)") {  // Dependency on `count`
+        count += 1                // State change triggers re-render
+    }
+}
+```
+
+**Key insight**: Views are VALUE TYPES (structs), not long-lived objects. They are descriptions of current UI state, not objects that receive commands over time. SwiftUI maintains the actual UI behind the scenes.
+
 ### 1) View Ordering (top -> bottom)
 
 Follow Anytype's property organization from IOS_DEVELOPMENT_GUIDE.md:
@@ -107,7 +151,182 @@ final class ChatViewModel {
 - Use `@Observable` macro (not `ObservableObject`)
 - Mark ViewModels with `@MainActor`
 
-### 3) Dependency Injection (Factory)
+### 3) How Observation Works (WWDC23)
+
+Understanding **why** `@Observable` works helps you use it correctly.
+
+**Property Access Tracking:**
+- SwiftUI tracks which properties you **access** during `body` evaluation
+- Only those accessed properties trigger view invalidation when changed
+- Properties NOT read in `body` don't cause re-renders (unlike `@Published`)
+
+```swift
+@Observable
+final class SettingsViewModel {
+    var userName: String = ""      // Accessed in body → triggers update
+    var isLoading: Bool = false    // Accessed in body → triggers update
+    var analyticsData: Data = Data()  // NOT accessed in body → no update
+}
+
+struct SettingsView: View {
+    @State private var model: SettingsViewModel
+
+    var body: some View {
+        // SwiftUI tracks: "this view reads userName and isLoading"
+        VStack {
+            Text(model.userName)           // ✓ Tracked
+            if model.isLoading {           // ✓ Tracked
+                ProgressView()
+            }
+            // model.analyticsData not read → changes won't invalidate this view
+        }
+    }
+}
+```
+
+**Per-Instance Tracking:**
+- Arrays of `@Observable` objects work efficiently
+- Only the specific instance that changed triggers updates
+- No need for `identifiable` tricks with observation
+
+```swift
+@Observable
+final class MessageViewModel {
+    var text: String
+    var isRead: Bool = false
+}
+
+// Each MessageRow only updates when ITS message changes
+List(model.messages) { message in
+    MessageRow(message: message)  // Only this row updates when message.isRead changes
+}
+```
+
+**Computed Properties Just Work:**
+- Computed properties composed from stored properties are automatically tracked
+- SwiftUI traces through to the underlying stored properties
+
+```swift
+@Observable
+final class CartViewModel {
+    var items: [Item] = []
+    var discount: Double = 0
+
+    // Computed → tracks both `items` and `discount`
+    var totalPrice: Double {
+        items.reduce(0) { $0 + $1.price } - discount
+    }
+}
+```
+
+**Performance Benefit:**
+With `@Observable`, views only update when properties they actually read change. This is more efficient than `ObservableObject` where ANY `@Published` change triggers `objectWillChange` for ALL subscribers.
+
+### 4) Property Wrapper Decision Tree
+
+When to use which wrapper with `@Observable`:
+
+| Scenario | Wrapper | Why |
+|----------|---------|-----|
+| View **owns** model lifecycle | `@State` | View creates and manages the model |
+| Model shared **app-wide** | `@Environment` | Injected at app root, read anywhere |
+| Just need **bindings** ($syntax) | `@Bindable` | Pass to TextField, Toggle, etc. |
+| Just **reading** the model | Nothing | Direct property access triggers tracking |
+
+```swift
+// View OWNS the model (creates it)
+struct ChatView: View {
+    @State private var model: ChatViewModel  // ← @State
+
+    init(chatId: String) {
+        _model = State(wrappedValue: ChatViewModel(chatId: chatId))
+    }
+}
+
+// Model passed from parent, need bindings
+struct MessageEditor: View {
+    @Bindable var draft: DraftMessage  // ← @Bindable for $draft.text
+
+    var body: some View {
+        TextField("Message", text: $draft.text)
+    }
+}
+
+// Just reading, no bindings needed
+struct MessageRow: View {
+    let message: MessageViewModel  // ← Nothing! Just read properties
+
+    var body: some View {
+        Text(message.text)
+        Image(systemName: message.isRead ? "checkmark.circle.fill" : "circle")
+    }
+}
+```
+
+**Migration from ObservableObject:**
+
+| Old | New |
+|-----|-----|
+| `@StateObject` | `@State` |
+| `@ObservedObject` | `@Bindable` or nothing |
+| `@EnvironmentObject` | `@Environment` |
+
+### 5) Migration from ObservableObject (WWDC23)
+
+Step-by-step conversion from legacy `ObservableObject`:
+
+**Before (ObservableObject):**
+```swift
+class SettingsViewModel: ObservableObject {
+    @Published var userName: String = ""
+    @Published var notifications: Bool = true
+
+    private var cancellables = Set<AnyCancellable>()
+}
+
+struct SettingsView: View {
+    @StateObject private var model = SettingsViewModel()
+
+    var body: some View {
+        TextField("Name", text: $model.userName)
+        Toggle("Notifications", isOn: $model.notifications)
+    }
+}
+```
+
+**After (@Observable):**
+```swift
+@Observable
+final class SettingsViewModel {
+    var userName: String = ""
+    var notifications: Bool = true
+
+    @ObservationIgnored
+    private var cancellables = Set<AnyCancellable>()
+}
+
+struct SettingsView: View {
+    @State private var model = SettingsViewModel()
+
+    var body: some View {
+        @Bindable var model = model  // Local binding for $ syntax
+        TextField("Name", text: $model.userName)
+        Toggle("Notifications", isOn: $model.notifications)
+    }
+}
+```
+
+**Migration Steps:**
+1. Remove `ObservableObject` conformance, add `@Observable` macro
+2. Remove `@Published` from all properties (observation is automatic)
+3. Add `@ObservationIgnored` to properties that shouldn't trigger updates
+4. Change `@StateObject` → `@State` in views
+5. For `$` binding syntax, use `@Bindable var model = model` in body
+6. Replace `@EnvironmentObject` with `@Environment`
+
+**Note:** Anytype already uses `@Observable` - this section is for understanding legacy code during migrations.
+
+### 6) Dependency Injection (Factory)
 
 Anytype uses **Factory DI**, not SwiftUI Environment for services:
 
@@ -128,7 +347,56 @@ Anytype uses **Factory DI**, not SwiftUI Environment for services:
 - Repositories: `@Injected(\.userRepository)`
 - Any business logic dependencies
 
-### 4) Split Large Bodies
+### 7) View Modifiers and Order (WWDC24)
+
+View modifiers create a hierarchical structure. **Order matters** - modifiers are applied sequentially:
+
+```swift
+// Each modifier wraps the previous result
+Image("whiskers")
+    .clipShape(Circle())      // 1. Clip to circle first
+    .shadow(radius: 4)        // 2. Add shadow to clipped shape
+    .overlay(                 // 3. Overlay on top of shadow
+        Circle().stroke(.green, lineWidth: 2)
+    )
+```
+
+The hierarchy and order of effect is defined by the exact order of modifiers. Chaining modifiers makes it clear how results are produced and how to customize them.
+
+### 8) Adaptive Views (WWDC24)
+
+SwiftUI views describe **purpose**, not exact visual construction. This enables adaptation:
+
+**Buttons** - Same purpose (labeled action), different contexts:
+```swift
+// Adapts to: borderless, bordered, prominent styles
+// Adapts to: swipe actions, menus, forms
+Button("Edit", action: handleEdit)
+
+// In swipe actions
+.swipeActions {
+    Button("Delete", role: .destructive) { delete() }
+    Button("Archive") { archive() }
+}
+```
+
+**Toggles** - Switch, checkbox, or toggle button depending on context:
+```swift
+// Automatically shows appropriate style for platform/context
+Toggle("Notifications", isOn: $notificationsEnabled)
+```
+
+**Searchable** - Describes capability, SwiftUI handles idiomatic presentation:
+```swift
+// iOS: overlay list, macOS: dropdown menu
+List(filteredItems) { ... }
+    .searchable(text: $searchText)
+    .searchSuggestions {
+        ForEach(suggestions) { Text($0) }
+    }
+```
+
+### 9) Split Large Bodies
 
 If `body` grows beyond a screen, split into smaller subviews:
 
@@ -164,7 +432,7 @@ struct HeaderSection: View {
 }
 ```
 
-### 5) ViewState Enum Pattern
+### 8) ViewState Enum Pattern
 
 For views with loading/error/loaded states:
 
@@ -215,7 +483,68 @@ struct FeedView: View {
 }
 ```
 
-### 6) Task and onChange Usage
+### 11) State, Binding, and Source of Truth (WWDC24)
+
+**@State** creates internal source of data for a view:
+```swift
+struct RatingView: View {
+    @State private var rating = 0  // View owns this state
+
+    var body: some View {
+        HStack {
+            Text("\(rating)")
+            Button("+") { rating += 1 }
+            Button("-") { rating -= 1 }
+        }
+    }
+}
+```
+
+**@Binding** creates two-way reference to state owned elsewhere:
+```swift
+struct RatingContainerView: View {
+    @State private var rating = 0  // Single source of truth
+
+    var body: some View {
+        VStack {
+            Gauge(value: Double(rating), in: 0...10) {}
+            RatingEditor(rating: $rating)  // Pass binding
+        }
+    }
+}
+
+struct RatingEditor: View {
+    @Binding var rating: Int  // Two-way reference to container's state
+
+    var body: some View {
+        Button("+") { rating += 1 }  // Updates container's state
+    }
+}
+```
+
+**Key principle**: One source of truth. When multiple views need the same data, lift state up to common ancestor and pass bindings down.
+
+### 12) Animation with State Changes (WWDC24)
+
+Wrap state changes with `withAnimation` to animate resulting view updates:
+
+```swift
+Button("Rate") {
+    withAnimation {
+        rating += 1  // State change inside animation block
+    }
+}
+```
+
+Customize transitions for specific views:
+```swift
+Text("\(rating)")
+    .contentTransition(.numericText())  // Smooth number transition
+```
+
+Animations in SwiftUI build on the same data-driven updates - when state changes, views update, and `withAnimation` makes those updates animate.
+
+### 13) Task and onChange Usage
 
 ```swift
 // Initial load
@@ -234,7 +563,7 @@ struct FeedView: View {
 }
 ```
 
-### 7) Large View File Organization
+### 14) Large View File Organization
 
 When file exceeds ~300 lines:
 
@@ -255,6 +584,42 @@ private extension LargeView {
     func handleTap() { ... }
 }
 ```
+
+### 15) UIKit/AppKit Interoperability (WWDC24)
+
+SwiftUI provides seamless interop with UIKit and AppKit - no expectation that an app needs to be entirely SwiftUI.
+
+**Embed UIKit in SwiftUI** - Use `UIViewRepresentable`:
+```swift
+struct MapView: UIViewRepresentable {
+    func makeUIView(context: Context) -> MKMapView {
+        MKMapView()
+    }
+
+    func updateUIView(_ uiView: MKMapView, context: Context) {
+        // Update the view with new data
+    }
+}
+
+// Use like any SwiftUI view
+var body: some View {
+    VStack {
+        MapView()
+        Button("Center") { ... }
+    }
+}
+```
+
+**Embed SwiftUI in UIKit** - Use `UIHostingController`:
+```swift
+// In a UIKit view controller
+let swiftUIView = ProfileView(user: user)
+let hostingController = UIHostingController(rootView: swiftUIView)
+addChild(hostingController)
+view.addSubview(hostingController.view)
+```
+
+**Incremental Adoption Philosophy**: Apple's own apps use these tools to adopt SwiftUI incrementally - whether bringing SwiftUI into existing apps or incorporating UIKit views into new SwiftUI apps. All are valid approaches.
 
 ## Common Mistakes
 
@@ -326,4 +691,4 @@ private var loadingContent: some View {
 
 **Navigation**: This skill provides SwiftUI structure patterns. For full architecture guidance, see `IOS_DEVELOPMENT_GUIDE.md`.
 
-**Attribution**: View structure patterns adapted from [Dimillian/Skills](https://github.com/Dimillian/Skills), aligned with Anytype MVVM architecture.
+**Attribution**: View structure patterns adapted from [Dimillian/Skills](https://github.com/Dimillian/Skills), aligned with Anytype MVVM architecture. WWDC24 insights from "SwiftUI Essentials" session.

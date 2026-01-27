@@ -65,6 +65,59 @@ Button("Load") {
 - Keep time-sensitive UI logic (animations, gesture responses) synchronous
 - Separate UI code from long-running async work to improve responsiveness and testability
 
+## Observation and UI Updates (WWDC23)
+
+The `@Observable` macro integrates with SwiftUI's update cycle through property access tracking.
+
+**How Observation Connects to Updates:**
+1. During `body` evaluation, SwiftUI tracks which `@Observable` properties are accessed
+2. When any tracked property changes, SwiftUI schedules a view update
+3. This happens on the MainActor, integrating with Swift concurrency
+
+**MainActor and @Observable:**
+- ViewModels marked `@MainActor @Observable` ensure property changes happen on main thread
+- SwiftUI's view body (also MainActor) can safely read these properties
+- Async work in the ViewModel updates properties, triggering UI refresh
+
+```swift
+@MainActor
+@Observable
+final class FeedViewModel {
+    var posts: [Post] = []       // Property access tracked by SwiftUI
+    var isLoading: Bool = false  // Changes trigger view updates
+
+    func loadPosts() async {
+        isLoading = true                           // UI update (MainActor)
+        let data = await feedService.fetchPosts() // Async work
+        posts = data                               // UI update (MainActor)
+        isLoading = false                          // UI update (MainActor)
+    }
+}
+```
+
+**Observation + Sendable Closures:**
+When using APIs that require `Sendable` closures (e.g., `visualEffect`), you can't access `@Observable` properties directly. Capture values first:
+
+```swift
+struct AnimatedView: View {
+    @State private var model: AnimationModel
+
+    var body: some View {
+        let opacity = model.opacity  // Capture value
+        content
+            .visualEffect { content, proxy in
+                content.opacity(opacity)  // Use captured value, not model.opacity
+            }
+    }
+}
+```
+
+**Performance Insight:**
+`@Observable` provides better performance than `ObservableObject` because:
+- Only views reading changed properties update (not all subscribers)
+- Per-instance tracking for arrays (only affected rows re-render)
+- No `objectWillChange` broadcast overhead
+
 ---
 
-**Source**: WWDC SwiftUI Concurrency Sessions
+**Source**: WWDC SwiftUI Concurrency Sessions, WWDC23 "Discover Observation in SwiftUI"

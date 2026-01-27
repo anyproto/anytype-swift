@@ -21,7 +21,7 @@ struct SharingExtensionView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            NavigationHeader(title: Loc.Sharing.title, navigationButtonType: .none)
+            NavigationHeader(title: Loc.Sharing.title, navigationButtonType: .none, enableBackgroundBlur: false)
             
             if model.withoutSpaceState {
                 withoutSpace

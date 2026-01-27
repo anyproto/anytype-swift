@@ -169,4 +169,8 @@ final class ChatCoordinatorViewModel: ChatModuleOutput, ObjectSettingsCoordinato
     func versionRestored(_ text: String) {
         anytypeAssertionFailure("Unsupported method: versionRestored")
     }
+
+    func showInviteMembers(spaceId: String) {
+        spaceShareData = SpaceShareData(spaceId: spaceId, route: .chat)
+    }
 }

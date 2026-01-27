@@ -121,10 +121,11 @@ extension NavigationHeader where LeftContent == NavigationHeaderLeftButton, Titl
 extension NavigationHeader where LeftContent == NavigationHeaderLeftButton, TitleContent == NavigationHeaderTitle, RightContent == EmptyView {
     init(
         title: String,
-        navigationButtonType: NavigationHeaderButtonType = .back
+        navigationButtonType: NavigationHeaderButtonType = .back,
+        enableBackgroundBlur: Bool = true
     ) {
         self.isTitleInteractive = false
-        self.enableBackgroundBlur = true
+        self.enableBackgroundBlur = enableBackgroundBlur
         self.leftContent = NavigationHeaderLeftButton(type: navigationButtonType)
         self.titleContent = NavigationHeaderTitle(title: title)
         self.rightContent = EmptyView()
