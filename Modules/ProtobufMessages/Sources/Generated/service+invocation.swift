@@ -554,6 +554,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func spaceDeleteCorruptedBackup(
+        _ request: Anytype_Rpc.Space.DeleteCorruptedBackup.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.DeleteCorruptedBackup.Request, Anytype_Rpc.Space.DeleteCorruptedBackup.Response> {
+        return Invocation(messageName: "SpaceDeleteCorruptedBackup", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceDeleteCorruptedBackup(requestData) ?? Data()
+            return try Anytype_Rpc.Space.DeleteCorruptedBackup.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func publishingCreate(
         _ request: Anytype_Rpc.Publishing.Create.Request = .init()
     ) -> Invocation<Anytype_Rpc.Publishing.Create.Request, Anytype_Rpc.Publishing.Create.Response> {

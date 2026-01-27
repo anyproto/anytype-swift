@@ -1445,6 +1445,11 @@ extension Anytype_Rpc.Space.Delete.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Space.DeleteCorruptedBackup.Response: ResultWithError {}
+extension Anytype_Rpc.Space.DeleteCorruptedBackup.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Space.InviteChange.Response: ResultWithError {}
 extension Anytype_Rpc.Space.InviteChange.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

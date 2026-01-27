@@ -7168,6 +7168,29 @@ extension Anytype_Rpc.Space.Delete.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Space.DeleteCorruptedBackup.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.DeleteCorruptedBackup.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Space.InviteChange.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
