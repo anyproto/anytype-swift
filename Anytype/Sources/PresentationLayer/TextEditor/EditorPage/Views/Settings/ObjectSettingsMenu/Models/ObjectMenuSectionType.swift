@@ -15,7 +15,7 @@ extension ObjectMenuSectionType {
             return .horizontal
         case .description:
             return .descriptionSection
-        case .resolveConflict, .webPublishing:
+        case .resolveConflict, .webPublishing, .notifications:
             return .mainSettings
         case .history:
             return .moreCollapsible

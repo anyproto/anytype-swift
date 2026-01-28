@@ -43,6 +43,8 @@ struct ObjectSettingRow: View {
                 AnytypeText(isVisible ? Loc.hide : Loc.show, style: .previewTitle1Regular).foregroundStyle(Color.Text.secondary)
             case .resolveConflict:
                 EmptyView()
+            case .notifications(let mode):
+                AnytypeText(mode.titleShort, style: .previewTitle1Regular).foregroundStyle(Color.Text.secondary)
             }
         }
     }
