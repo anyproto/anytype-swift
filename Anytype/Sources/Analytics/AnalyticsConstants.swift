@@ -441,6 +441,7 @@ enum ResetToTypeDefaultRoute: String {
 enum ChangeMessageNotificationStateRoute: String {
     case spaceSettings = "ScreenSettingsSpaceIndex"
     case vault = "Vault"
+    case chatSettings = "ChatSettings"
 }
 
 enum ChatAttachmentType: String {

@@ -55,6 +55,22 @@ extension SpacePushNotificationsMode {
         }
     }
 
+    var title: String {
+        switch self {
+        case .all: return Loc.Space.Notifications.Settings.State.all
+        case .mentions: return Loc.Space.Notifications.Settings.State.mentions
+        case .nothing, .UNRECOGNIZED: return Loc.Space.Notifications.Settings.State.disabled
+        }
+    }
+
+    var titleShort: String {
+        switch self {
+        case .all: return Loc.all
+        case .mentions: return Loc.mentions
+        case .nothing, .UNRECOGNIZED: return Loc.disabled
+        }
+    }
+
     var isUnmutedAll: Bool {
         self == .all
     }

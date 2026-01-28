@@ -1,5 +1,6 @@
 import SwiftUI
 import AnytypeCore
+import Services
 
 struct ObjectSettingsMenuView<LabelView: View>: View {
 
@@ -74,19 +75,7 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
     private func renderMenuItem(_ item: ObjectMenuItem) -> some View {
         switch item {
         case .setting(let setting):
-            Button {
-                Task {
-                    await viewModel.handleSetting(setting)
-                }
-            } label: {
-                Label {
-                    Text(setting.title)
-                } icon: {
-                    Image(asset: setting.imageAsset)
-                        .renderingMode(.template)
-                        .foregroundStyle(Color.Text.primary)
-                }
-            }
+            settingMenuItem(setting)
         case .action(let action):
             Button(role: viewModel.isDestructiveAction(action) ? .destructive : nil) {
                 Task {
@@ -104,6 +93,59 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
                             .foregroundStyle(Color.Text.primary)
                     }
                 }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func settingMenuItem(_ setting: ObjectSetting) -> some View {
+        switch setting {
+        case .notifications(let mode):
+            notificationsMenuItem(mode: mode, setting: setting)
+        default:
+            defaultSettingMenuItem(setting)
+        }
+    }
+
+    private func notificationsMenuItem(mode: SpacePushNotificationsMode, setting: ObjectSetting) -> some View {
+        Menu {
+            ForEach([SpacePushNotificationsMode.all, .mentions, .nothing], id: \.self) { notificationMode in
+                Button {
+                    Task {
+                        await viewModel.handleNotificationModeChange(notificationMode)
+                    }
+                } label: {
+                    HStack {
+                        Text(notificationMode.title)
+                        if mode == notificationMode {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+            }
+        } label: {
+            Label {
+                Text(setting.title)
+            } icon: {
+                Image(systemName: "bell")
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.Text.primary)
+            }
+        }
+    }
+
+    private func defaultSettingMenuItem(_ setting: ObjectSetting) -> some View {
+        Button {
+            Task {
+                await viewModel.handleSetting(setting)
+            }
+        } label: {
+            Label {
+                Text(setting.title)
+            } icon: {
+                Image(asset: setting.imageAsset)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.Text.primary)
             }
         }
     }

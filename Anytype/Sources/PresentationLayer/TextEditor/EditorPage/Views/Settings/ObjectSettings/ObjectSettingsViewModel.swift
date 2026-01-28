@@ -94,6 +94,7 @@ final class ObjectSettingsViewModel {
 
     var objectActions: [ObjectAction] = []
     private var isSpaceOwner: Bool = false
+    private var chatNotificationMode: SpacePushNotificationsMode?
     var toastData: ToastBarData?
     var dismiss = false
 
@@ -115,7 +116,8 @@ final class ObjectSettingsViewModel {
         async let documentSub: () = startDocumentSubscription()
         async let widgetSub: () = startWidgetObjectSubscription()
         async let ownerSub: () = startOwnerStatusSubscription()
-        _ = await (documentSub, widgetSub, ownerSub)
+        async let spaceViewSub: () = startSpaceViewSubscription()
+        _ = await (documentSub, widgetSub, ownerSub, spaceViewSub)
     }
 
     private func startDocumentSubscription() async {
@@ -139,12 +141,21 @@ final class ObjectSettingsViewModel {
         }
     }
 
+    private func startSpaceViewSubscription() async {
+        guard document.details?.resolvedLayoutValue.isChat == true else { return }
+        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
+            chatNotificationMode = spaceView.effectiveNotificationMode(for: objectId)
+            updateSettings()
+        }
+    }
+
     private func updateSettings() {
         if let details = document.details {
             settings = settingsBuilder.build(
                 details: details,
                 permissions: document.permissions,
-                spaceUxType: spaceUxType
+                spaceUxType: spaceUxType,
+                chatNotificationMode: chatNotificationMode
             )
             isChat = details.resolvedLayoutValue.isChat
         }
@@ -205,7 +216,20 @@ final class ObjectSettingsViewModel {
         }
         output?.showPublising(document: document)
     }
-    
+
+    func changeNotificationMode(_ mode: SpacePushNotificationsMode) async throws {
+        try await workspaceService.pushNotificationSetChatMode(
+            spaceId: spaceId,
+            chatIds: [objectId],
+            mode: mode
+        )
+        AnytypeAnalytics.instance().logChangeMessageNotificationState(
+            type: mode.analyticsValue,
+            route: .chatSettings
+        )
+        dismiss.toggle()
+    }
+
     // MARK: - Object Actions
 
     func changeArchiveState() async throws {
