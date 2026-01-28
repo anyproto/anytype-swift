@@ -34,6 +34,9 @@ final class ChatCreateViewModel {
     @ObservationIgnored
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @ObservationIgnored
+    @Injected(\.blockService)
+    private var blockService: any BlockServiceProtocol
 
     // MARK: - State
 
@@ -104,6 +107,19 @@ final class ChatCreateViewModel {
                     contextId: collectionId,
                     objectIds: [details.id]
                 )
+            }
+
+            // Insert link block in parent document (for slash menu)
+            if let linkDocumentId = data.linkDocumentId,
+               let linkTargetBlockId = data.linkTargetBlockId {
+                let linkInfo = BlockInformation.emptyLink(targetId: details.id)
+                _ = try? await blockService.add(
+                    contextId: linkDocumentId,
+                    targetId: linkTargetBlockId,
+                    info: linkInfo,
+                    position: .replace
+                )
+                AnytypeAnalytics.instance().logCreateLink(objectType: details.analyticsType, route: data.analyticsRoute)
             }
 
             UINotificationFeedbackGenerator().notificationOccurred(.success)
