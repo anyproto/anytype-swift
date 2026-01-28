@@ -2203,9 +2203,13 @@ public enum Loc {
     }
     public enum Notifications {
       public enum Settings {
+        public static let header = Loc.tr("Workspace", "Space.Notifications.Settings.Header", fallback: "Notify me about")
+        public enum CustomChats {
+          public static let header = Loc.tr("Workspace", "Space.Notifications.Settings.CustomChats.Header", fallback: "Chat specific notifications")
+        }
         public enum State {
-          public static let all = Loc.tr("Workspace", "Space.Notifications.Settings.State.All", fallback: "All activity")
-          public static let disabled = Loc.tr("Workspace", "Space.Notifications.Settings.State.Disabled", fallback: "Disable notifications")
+          public static let all = Loc.tr("Workspace", "Space.Notifications.Settings.State.All", fallback: "All messages")
+          public static let disabled = Loc.tr("Workspace", "Space.Notifications.Settings.State.Disabled", fallback: "Disable all")
           public static let mentions = Loc.tr("Workspace", "Space.Notifications.Settings.State.Mentions", fallback: "Mentions only")
         }
       }

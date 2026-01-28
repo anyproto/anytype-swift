@@ -55379,6 +55379,28 @@
         }
       }
     },
+    "Space.Notifications.Settings.Header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notify me about"
+          }
+        }
+      }
+    },
+    "Space.Notifications.Settings.CustomChats.Header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chat specific notifications"
+          }
+        }
+      }
+    },
     "Space.Notifications.Settings.State.All" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -55403,7 +55425,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "All activity"
+            "value" : "All messages"
           }
         },
         "es" : {
@@ -55552,7 +55574,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Disable notifications"
+            "value" : "Disable all"
           }
         },
         "es" : {
