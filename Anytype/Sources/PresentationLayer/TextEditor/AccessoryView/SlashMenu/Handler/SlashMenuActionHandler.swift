@@ -56,18 +56,28 @@ final class SlashMenuActionHandler {
                 }
             case .objectType(let typeDetails):
                 let objectType = ObjectType(details: typeDetails)
-                AnytypeAnalytics.instance().logCreateLink(objectType: objectType.analyticsType, route: .slashMenu)
-                try await actionHandler
-                    .createPage(
-                        targetId: blockInformation.id,
+                if objectType.isChatType {
+                    let chatData = ChatCreateScreenData(
                         spaceId: objectType.spaceId,
-                        typeUniqueKey: objectType.uniqueKey,
-                        templateId: objectType.defaultTemplateId
+                        analyticsRoute: .slashMenu,
+                        linkDocumentId: document.objectId,
+                        linkTargetBlockId: blockInformation.id
                     )
-                    .flatMap { objectId in
-                        AnytypeAnalytics.instance().logCreateObject(objectType: objectType.analyticsType, spaceId: objectType.spaceId, route: .slashMenu)
-                        router.showEditorScreen(data: .editor(editorScreenData(objectId: objectId, objectType: objectType)))
-                    }
+                    router.showEditorScreen(data: .alert(.chatCreate(chatData)))
+                } else {
+                    AnytypeAnalytics.instance().logCreateLink(objectType: objectType.analyticsType, route: .slashMenu)
+                    try await actionHandler
+                        .createPage(
+                            targetId: blockInformation.id,
+                            spaceId: objectType.spaceId,
+                            typeUniqueKey: objectType.uniqueKey,
+                            templateId: objectType.defaultTemplateId
+                        )
+                        .flatMap { objectId in
+                            AnytypeAnalytics.instance().logCreateObject(objectType: objectType.analyticsType, spaceId: objectType.spaceId, route: .slashMenu)
+                            router.showEditorScreen(data: .editor(editorScreenData(objectId: objectId, objectType: objectType)))
+                        }
+                }
             }
         case let .relations(action):
             switch action {
