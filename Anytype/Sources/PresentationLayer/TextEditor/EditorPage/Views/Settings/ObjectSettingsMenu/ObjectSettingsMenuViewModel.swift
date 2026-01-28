@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Services
 
 @MainActor
 @Observable
@@ -109,7 +110,13 @@ final class ObjectSettingsMenuViewModel {
             viewModel.onTapResolveConflict()
         case .webPublishing:
             viewModel.onTapPublishing()
+        case .notifications:
+            break // Handled by submenu
         }
+    }
+
+    func handleNotificationModeChange(_ mode: SpacePushNotificationsMode) async {
+        try? await viewModel.changeNotificationMode(mode)
     }
 
     func handleAction(_ action: ObjectAction) async {
