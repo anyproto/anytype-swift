@@ -37,6 +37,7 @@ struct ChatHeaderView: View {
         }
         .animation(.bouncy, value: model.showLoading)
         .animation(.bouncy, value: model.muted)
+        .snackbar(toastBarData: $model.toastBarData)
     }
 
     private var titleView: some View {

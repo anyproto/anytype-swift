@@ -26,6 +26,7 @@ final class ChatHeaderViewModel {
     var chatLoading = false
     var spaceLoading = false
     var muted = false
+    var toastBarData: ToastBarData?
     private(set) var notificationMode: SpacePushNotificationsMode = .all
     private(set) var isMultiChatSpace: Bool = false
     private(set) var isOneToOne: Bool = false
@@ -87,10 +88,14 @@ final class ChatHeaderViewModel {
     func tapOpenSpaceSettings() { onTapOpenSpaceSettings() }
 
     func changeNotificationMode(_ mode: SpacePushNotificationsMode) async {
-        try? await workspaceService.pushNotificationSetSpaceMode(
-            spaceId: spaceId,
-            mode: mode
-        )
+        do {
+            try await workspaceService.pushNotificationSetSpaceMode(
+                spaceId: spaceId,
+                mode: mode
+            )
+        } catch {
+            toastBarData = ToastBarData(error.localizedDescription, type: .failure)
+        }
         AnytypeAnalytics.instance().logChangeMessageNotificationState(
             type: mode.analyticsValue,
             route: .chatSettings
