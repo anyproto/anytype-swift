@@ -55517,6 +55517,304 @@
         }
       }
     },
+    "Space.Notifications.Settings.Header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Benachrichtigen über"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notify me about"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notifícame sobre"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Beri notifikasi tentang"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Avvisami su"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Уведомить меня о"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Beni bilgilendir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notify me about"
+          }
+        }
+      }
+    },
+    "Space.Notifications.Settings.CustomChats.Header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat-spezifische Benachrichtigungen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notificaciones del chat"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pemberitahuan spesifik obrolan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notifiche specifiche della chat"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Уведомления для чата"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sohbete özel bildirimler"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat specific notifications"
+          }
+        }
+      }
+    },
     "Space.Notifications.Settings.State.All" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -55541,7 +55839,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "All activity"
+            "value" : "All messages"
           }
         },
         "es" : {
@@ -55595,7 +55893,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "All activity"
+            "value" : "All messages"
           }
         },
         "nl" : {
@@ -55690,7 +55988,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Disable notifications"
+            "value" : "Disable all"
           }
         },
         "es" : {
@@ -55744,7 +56042,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Disable notifications"
+            "value" : "Disable all"
           }
         },
         "nl" : {
