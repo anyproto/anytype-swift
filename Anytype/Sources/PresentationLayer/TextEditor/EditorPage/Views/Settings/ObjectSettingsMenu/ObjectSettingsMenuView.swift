@@ -37,6 +37,11 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
                 try await viewModel.onTapResolveConflictApprove()
             }
         }
+        .anytypeSheet(isPresented: viewModel.showDeleteChatConfirmation) {
+            ChatDeleteChatAlert {
+                try await viewModel.viewModel.changeArchiveState()
+            }
+        }
         .snackbar(toastBarData: viewModel.toastData)
     }
 

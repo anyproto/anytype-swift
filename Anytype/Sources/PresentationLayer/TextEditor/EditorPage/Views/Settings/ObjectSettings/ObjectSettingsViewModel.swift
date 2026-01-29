@@ -97,6 +97,7 @@ final class ObjectSettingsViewModel {
     private var chatNotificationMode: SpacePushNotificationsMode?
     var toastData: ToastBarData?
     var dismiss = false
+    var showDeleteChatConfirmation = false
 
     init(
         objectId: String,

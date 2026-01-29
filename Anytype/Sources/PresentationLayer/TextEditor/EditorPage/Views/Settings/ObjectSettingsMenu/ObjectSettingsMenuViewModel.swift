@@ -25,6 +25,13 @@ final class ObjectSettingsMenuViewModel {
         )
     }
 
+    var showDeleteChatConfirmation: Binding<Bool> {
+        Binding(
+            get: { self.viewModel.showDeleteChatConfirmation },
+            set: { self.viewModel.showDeleteChatConfirmation = $0 }
+        )
+    }
+
     init(viewModel: ObjectSettingsViewModel) {
         self.viewModel = viewModel
         setupSubscriptions()
@@ -121,8 +128,12 @@ final class ObjectSettingsMenuViewModel {
 
     func handleAction(_ action: ObjectAction) async {
         switch action {
-        case .archive:
-            try? await viewModel.changeArchiveState()
+        case .archive(let isArchived):
+            if viewModel.isChat && !isArchived {
+                viewModel.showDeleteChatConfirmation = true
+            } else {
+                try? await viewModel.changeArchiveState()
+            }
         case let .pin(pinned):
             try? await viewModel.changePinState(pinned)
         case .locked:
