@@ -172,6 +172,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
             createdAt: message.createdAtDate,
             modifiedAt: message.modifiedAtDate,
             attachments: attachments,
+            attachmentCount: attachmentsIds.count,
             orderId: message.orderID
         )
         

@@ -47,6 +47,7 @@ struct SetContentViewDataBuilderTests {
             createdAt: Date(),
             modifiedAt: nil,
             attachments: [],
+            attachmentCount: 0,
             orderId: "1"
         )
         var preview = ChatMessagePreview(spaceId: "space1", chatId: "chat1")
@@ -75,6 +76,7 @@ struct SetContentViewDataBuilderTests {
             createdAt: Date(),
             modifiedAt: nil,
             attachments: attachments,
+            attachmentCount: attachments.count,
             orderId: "1"
         )
         var preview = ChatMessagePreview(spaceId: "space1", chatId: "chat1")
@@ -101,6 +103,7 @@ struct SetContentViewDataBuilderTests {
             createdAt: Date(timeIntervalSince1970: 1700000000),
             modifiedAt: nil,
             attachments: [],
+            attachmentCount: 0,
             orderId: "1"
         )
         var preview = ChatMessagePreview(spaceId: "space1", chatId: "chat1")
@@ -127,6 +130,7 @@ struct SetContentViewDataBuilderTests {
             createdAt: Date(),
             modifiedAt: nil,
             attachments: [],
+            attachmentCount: 0,
             orderId: "1"
         )
         var preview = ChatMessagePreview(spaceId: "space1", chatId: "chat1")
