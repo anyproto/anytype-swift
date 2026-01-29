@@ -101,37 +101,17 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
     private func settingMenuItem(_ setting: ObjectSetting) -> some View {
         switch setting {
         case .notifications(let mode):
-            notificationsMenuItem(mode: mode, setting: setting)
+            notificationsMenuItem(mode: mode)
         default:
             defaultSettingMenuItem(setting)
         }
     }
 
-    private func notificationsMenuItem(mode: SpacePushNotificationsMode, setting: ObjectSetting) -> some View {
-        Menu {
-            ForEach([SpacePushNotificationsMode.all, .mentions, .nothing], id: \.self) { notificationMode in
-                Button {
-                    Task {
-                        await viewModel.handleNotificationModeChange(notificationMode)
-                    }
-                } label: {
-                    HStack {
-                        Text(notificationMode.title)
-                        if mode == notificationMode {
-                            Image(systemName: "checkmark")
-                        }
-                    }
-                }
-            }
-        } label: {
-            Label {
-                Text(setting.title)
-            } icon: {
-                Image(systemName: "bell")
-                    .renderingMode(.template)
-                    .foregroundStyle(Color.Text.primary)
-            }
-        }
+    private func notificationsMenuItem(mode: SpacePushNotificationsMode) -> some View {
+        NotificationModeMenu(
+            currentMode: mode,
+            onModeChange: viewModel.handleNotificationModeChange
+        )
     }
 
     private func defaultSettingMenuItem(_ setting: ObjectSetting) -> some View {

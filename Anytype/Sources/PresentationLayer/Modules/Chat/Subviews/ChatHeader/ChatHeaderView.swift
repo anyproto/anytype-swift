@@ -37,6 +37,7 @@ struct ChatHeaderView: View {
         }
         .animation(.bouncy, value: model.showLoading)
         .animation(.bouncy, value: model.muted)
+        .snackbar(toastBarData: $model.toastBarData)
     }
 
     private var titleView: some View {
@@ -102,8 +103,21 @@ struct ChatHeaderView: View {
                         .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
                 }
             } else {
-                Button {
-                    model.tapOpenSpaceSettings()
+                Menu {
+                    Button {
+                        model.tapOpenSpaceSettings()
+                    } label: {
+                        Label {
+                            Text(Loc.Chat.channelSettings)
+                        } icon: {
+                            Image(asset: .X24.spaceSettings)
+                        }
+                    }
+
+                    NotificationModeMenu(
+                        currentMode: model.notificationMode,
+                        onModeChange: model.changeNotificationMode
+                    )
                 } label: {
                     Image(asset: .X24.more)
                         .foregroundStyle(Color.Control.primary)

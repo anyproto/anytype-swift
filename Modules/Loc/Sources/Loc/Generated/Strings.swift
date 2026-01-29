@@ -1395,6 +1395,7 @@ public enum Loc {
   public static let shared = Loc.tr("Workspace", "Shared", fallback: "Shared")
   public static let task = Loc.tr("Workspace", "Task", fallback: "Task")
   public enum Chat {
+    public static let channelSettings = Loc.tr("Workspace", "Chat.ChannelSettings", fallback: "Channel Settings")
     public static let editMessage = Loc.tr("Workspace", "Chat.EditMessage", fallback: "Edit Message")
     public static let inviteMembers = Loc.tr("Workspace", "Chat.InviteMembers", fallback: "Invite members")
     public static let newMessages = Loc.tr("Workspace", "Chat.NewMessages", fallback: "New Messages")

@@ -14,6 +14,8 @@ final class ChatHeaderViewModel {
     private var syncStatusStorage: any SyncStatusStorageProtocol
     @ObservationIgnored @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @ObservationIgnored @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
     @ObservationIgnored
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     @ObservationIgnored
@@ -24,6 +26,8 @@ final class ChatHeaderViewModel {
     var chatLoading = false
     var spaceLoading = false
     var muted = false
+    var toastBarData: ToastBarData?
+    private(set) var notificationMode: SpacePushNotificationsMode = .all
     private(set) var isMultiChatSpace: Bool = false
     private(set) var isOneToOne: Bool = false
     var anytypeName: String = ""
@@ -83,6 +87,21 @@ final class ChatHeaderViewModel {
 
     func tapOpenSpaceSettings() { onTapOpenSpaceSettings() }
 
+    func changeNotificationMode(_ mode: SpacePushNotificationsMode) async {
+        do {
+            try await workspaceService.pushNotificationSetSpaceMode(
+                spaceId: spaceId,
+                mode: mode
+            )
+        } catch {
+            toastBarData = ToastBarData(error.localizedDescription, type: .failure)
+        }
+        AnytypeAnalytics.instance().logChangeMessageNotificationState(
+            type: mode.analyticsValue,
+            route: .chatSettings
+        )
+    }
+
     // MARK: - Private
     
     private func subscribeOnSpaceView() async {
@@ -94,7 +113,8 @@ final class ChatHeaderViewModel {
             oneToOneIdentity = spaceView.oneToOneIdentity
             spaceTitle = spaceView.title
             spaceIcon = spaceView.objectIconImage
-            muted = !spaceView.effectiveNotificationMode(for: chatId).isUnmutedAll
+            notificationMode = spaceView.effectiveNotificationMode(for: chatId)
+            muted = !notificationMode.isUnmutedAll
             updateHeaderDisplay()
             updateOneToOneParticipant()
         }
