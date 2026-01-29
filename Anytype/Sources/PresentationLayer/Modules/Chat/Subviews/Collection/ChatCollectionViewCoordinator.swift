@@ -196,15 +196,15 @@ final class ChatCollectionViewCoordinator<
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        isProgrammaticAnimatedScroll = false
         if let collectionView = scrollView as? UICollectionView {
-            updateStateAfterTransaction(collectionView: collectionView)
+            updateStateAfterTransaction(collectionView: collectionView, forceVisibleRangeUpdate: isProgrammaticAnimatedScroll)
         }
+        isProgrammaticAnimatedScroll = false
     }
     
     // MARK: - Private
     
-    private func updateVisibleRangeIfNeeded(collectionView: UICollectionView) {
+    private func updateVisibleRangeIfNeeded(collectionView: UICollectionView, forceUpdate: Bool = false) {
         guard let handleVisibleRange else { return }
         
         let cells = collectionView.visibleCells
@@ -228,7 +228,7 @@ final class ChatCollectionViewCoordinator<
            let lastItem = dataSource?.itemIdentifier(for: last) {
         
             let newRange = [firstItem.id, lastItem.id]
-            if oldVisibleRange != newRange {
+            if forceUpdate || oldVisibleRange != newRange {
                 oldVisibleRange = newRange
                 handleVisibleRange(firstItem, lastItem)
             }
@@ -346,8 +346,8 @@ final class ChatCollectionViewCoordinator<
         }
     }
     
-    private func updateStateAfterTransaction(collectionView: UICollectionView) {
-        updateVisibleRangeIfNeeded(collectionView: collectionView)
+    private func updateStateAfterTransaction(collectionView: UICollectionView, forceVisibleRangeUpdate: Bool = false) {
+        updateVisibleRangeIfNeeded(collectionView: collectionView, forceUpdate: forceVisibleRangeUpdate)
         updateDistanceFromTheBottom(collectionView: collectionView)
         updateHeaders(collectionView: collectionView, animated: false)
     }
