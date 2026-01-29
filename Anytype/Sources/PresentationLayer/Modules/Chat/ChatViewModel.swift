@@ -646,6 +646,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
 
         for await (canEditMessages, canEditChat) in combineLatest(permissionsSequence, deletedOrArchivedSequence) {
             canEdit = canEditMessages && canEditChat
+            await updateMessages()
         }
     }
     

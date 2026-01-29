@@ -5,6 +5,7 @@ import AnytypeCore
 struct MessageReactionView: View {
     
     let model: MessageReactionModel
+    let canToggle: Bool
     let onTap: () async throws -> Void
     let onLongTap: () -> Void
     
@@ -42,6 +43,7 @@ struct MessageReactionView: View {
                     onLongTap()
                 }
         )
+        .disabled(!canToggle)
     }
 }
 
@@ -49,11 +51,13 @@ struct MessageReactionView: View {
     VStack {
         MessageReactionView(
             model: MessageReactionModel(emoji: "😘", content: .count(4), selected: false, position: .left),
+            canToggle: true,
             onTap: {},
             onLongTap: {}
         )
         MessageReactionView(
             model: MessageReactionModel(emoji: "😁", content: .icon(.asset(.X18.delete)), selected: true, position: .right),
+            canToggle: true,
             onTap: {},
             onLongTap: {}
         )
