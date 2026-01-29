@@ -1666,6 +1666,28 @@
         }
       }
     },
+    "Chat.DeleteChat.Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        }
+      }
+    },
+    "Chat.DeleteChat.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move chat to Bin?"
+          }
+        }
+      }
+    },
     "Chat.DeleteMessage.Description" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -1422,6 +1422,10 @@ public enum Loc {
         public static let title = Loc.tr("Workspace", "Chat.CreateObject.Dismiss.Title", fallback: "Are you sure you want to close this screen?")
       }
     }
+    public enum DeleteChat {
+      public static let description = Loc.tr("Workspace", "Chat.DeleteChat.Description", fallback: "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared.")
+      public static let title = Loc.tr("Workspace", "Chat.DeleteChat.Title", fallback: "Move chat to Bin?")
+    }
     public enum DeleteMessage {
       public static let description = Loc.tr("Workspace", "Chat.DeleteMessage.Description", fallback: "It cannot be restored after confirmation")
       public static let title = Loc.tr("Workspace", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
