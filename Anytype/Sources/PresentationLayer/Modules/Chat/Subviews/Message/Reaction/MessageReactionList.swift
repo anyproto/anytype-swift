@@ -6,6 +6,7 @@ struct MessageReactionList: View {
 
     let rows: [MessageReactionModel]
     let canAddReaction: Bool
+    let canToggleReaction: Bool
     let position: MessageHorizontalPosition
     let onTapRow: (MessageReactionModel) async throws -> Void
     let onLongTapRow: (MessageReactionModel) -> Void
@@ -16,6 +17,7 @@ struct MessageReactionList: View {
             ForEach(rows.indices, id: \.self) { index in
                 MessageReactionView(
                     model: rows[index],
+                    canToggle: canToggleReaction,
                     onTap: { try await onTapRow(rows[index]) },
                     onLongTap: { onLongTapRow(rows[index]) }
                 )
@@ -35,6 +37,7 @@ struct MessageReactionList: View {
             MessageReactionModel(emoji: "😎", content: .icon(.asset(.X18.delete)), selected: false, position: .right)
         ],
         canAddReaction: true,
+        canToggleReaction: true,
         position: .right,
         onTapRow: { _ in },
         onLongTapRow: { _ in },
