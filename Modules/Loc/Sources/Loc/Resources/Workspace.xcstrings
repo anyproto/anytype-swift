@@ -921,6 +921,155 @@
         }
       }
     },
+    "Chat.ChannelSettings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Channel Settings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Channel Settings"
+          }
+        }
+      }
+    },
     "Chat.Create.namePlaceholder" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1513,6 +1662,304 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Are you sure you want to close this screen?"
+          }
+        }
+      }
+    },
+    "Chat.DeleteChat.Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Dieser Chat und alle Anhänge werden in den Papierkorb verschoben. Niemand wird in der Lage sein, neue Nachrichten zu senden. Du kannst ihn aus dem Papierkorb wiederherstellen, bevor er endgültig gelöscht wird."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Este chat y sus archivos adjuntos se moverán a la papelera. Nadie podrá enviar más mensajes. Puedes restaurarlo desde la papelera antes de que se elimine definitivamente."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Obrolan ini dan seluruh lampirannya akan dipindah ke bak sampah. Tidak ada yang akan dapat mengirimkan pesan baru. Kamu bisa mengembalikannya dari bak sampah hingga obrolan dihapus permanen."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Questa chat e tutti i suoi allegati saranno spostati nel Cestino. Nessuno potrà inviare nuovi messaggi. È possibile ripristinarla dal Cestino fino a quando non verrà eliminata definitivamente."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Этот чат и все его вложения будут перемещены в Корзину. Никто не сможет отправлять новые сообщения. Вы можете восстановить его от Бин, пока он не будет полностью очищен."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bu sohbet ve tüm ekleri Çöp Kutusu'na taşınacak. Kimse yeni mesaj gönderemeyecek. Kalıcı olarak silinene kadar Çöp Kutusu'ndan geri yükleyebilirsin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+          }
+        }
+      }
+    },
+    "Chat.DeleteChat.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat in den Papierkorb verschieben?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "¿Mover el chat a la papelera?"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Buang obrolan ke bak sampah?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Spostare la chat nel Cestino?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Переместить чат в корзину?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sohbet çöp kutusuna taşınsın mı?"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move chat to Bin?"
           }
         }
       }
@@ -55869,7 +56316,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Semua aktivitas"
+            "value" : "Semua pesan"
           }
         },
         "it" : {
@@ -56018,7 +56465,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Nonaktifkan notifikasi"
+            "value" : "Nonaktifkan semua"
           }
         },
         "it" : {
