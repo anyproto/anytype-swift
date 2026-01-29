@@ -11,7 +11,7 @@ struct CustomChatNotification: Identifiable {
     let chatId: String
     let icon: Icon
     let title: String
-    let mode: SpaceNotificationsSettingsMode
+    let mode: SpacePushNotificationsMode
     var id: String { chatId }
 }
 
@@ -35,7 +35,7 @@ final class SpaceNotificationsSettingsViewModel {
 
     // MARK: - State
 
-    var mode = SpaceNotificationsSettingsMode.allActiviy
+    var mode: SpacePushNotificationsMode = .all
     var dismiss = false
     var status: PushNotificationsSettingsStatus?
     var chatsWithCustomNotifications: [CustomChatNotification] = []
@@ -59,14 +59,13 @@ final class SpaceNotificationsSettingsViewModel {
 
     // MARK: - Actions
 
-    func onModeChange(_ mode: SpaceNotificationsSettingsMode) async throws {
-        let pushNotificationsMode = mode.asPushNotificationsMode
+    func onModeChange(_ mode: SpacePushNotificationsMode) async throws {
         try await workspaceService.pushNotificationSetSpaceMode(
             spaceId: data.spaceId,
-            mode: pushNotificationsMode
+            mode: mode
         )
         AnytypeAnalytics.instance().logChangeMessageNotificationState(
-            type: pushNotificationsMode.analyticsValue,
+            type: mode.analyticsValue,
             route: .spaceSettings
         )
         dismiss.toggle()
@@ -88,7 +87,7 @@ final class SpaceNotificationsSettingsViewModel {
     private func subscribeToParticipantSpacesStorage() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: data.spaceId).values {
             let spaceView = participantSpaceView.spaceView
-            self.mode = spaceView.pushNotificationMode.asNotificationsSettingsMode
+            self.mode = spaceView.pushNotificationMode
             self.spaceView = spaceView
             await updateChatsWithCustomNotifications()
         }
@@ -118,12 +117,12 @@ final class SpaceNotificationsSettingsViewModel {
 
         for chatId in spaceView.forceAllIds {
             if let details = await chatDetailsStorage.chat(id: chatId) {
-                chats.append(CustomChatNotification(chatId: chatId, icon: details.objectIconImage, title: details.pluralTitle, mode: .allActiviy))
+                chats.append(CustomChatNotification(chatId: chatId, icon: details.objectIconImage, title: details.pluralTitle, mode: .all))
             }
         }
         for chatId in spaceView.forceMuteIds {
             if let details = await chatDetailsStorage.chat(id: chatId) {
-                chats.append(CustomChatNotification(chatId: chatId, icon: details.objectIconImage, title: details.pluralTitle, mode: .disabled))
+                chats.append(CustomChatNotification(chatId: chatId, icon: details.objectIconImage, title: details.pluralTitle, mode: .nothing))
             }
         }
         for chatId in spaceView.forceMentionIds {

@@ -347,7 +347,7 @@ struct SpaceSettingsView: View {
     
     private func pushNotificationsSettingCaption() -> String {
         guard let status = model.pushNotificationsSettingsStatus, status.isAuthorized else {
-            return SpaceNotificationsSettingsMode.disabled.titleShort
+            return SpacePushNotificationsMode.nothing.titleShort
         }
         return model.pushNotificationsSettingsMode.titleShort
     }

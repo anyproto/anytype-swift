@@ -88,7 +88,7 @@ final class SpaceSettingsViewModel {
     var homePageState: HomePageState = .default("")
     var showIconPickerSpaceId: StringIdentifiable?
     var editingData: SettingsInfoEditingViewData?
-    var pushNotificationsSettingsMode: SpaceNotificationsSettingsMode = .allActiviy
+    var pushNotificationsSettingsMode: SpacePushNotificationsMode = .all
     var pushNotificationsSettingsStatus: PushNotificationsSettingsStatus?
     var shareInviteLink: URL?
     var qrInviteLink: URL?
@@ -344,7 +344,7 @@ final class SpaceSettingsViewModel {
         spaceName = spaceView.name
         spaceDescription = spaceView.description
 
-        pushNotificationsSettingsMode = spaceView.pushNotificationMode.asNotificationsSettingsMode
+        pushNotificationsSettingsMode = spaceView.pushNotificationMode
 
         shareSection = buildShareSection(participantSpaceView: participantSpaceView)
 
