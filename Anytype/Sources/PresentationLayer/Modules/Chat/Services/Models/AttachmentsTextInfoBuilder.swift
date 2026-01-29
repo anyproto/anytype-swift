@@ -1,12 +1,15 @@
 import Services
 
 final class AttachmentsTextInfoBuilder {
-    static func localizedAttachmentsText(attachments: [ObjectDetails]) -> String {
+    static func localizedAttachmentsText(attachments: [ObjectDetails], attachmentCount: Int = 0) -> String {
         guard attachments.allHaveSameValue(\.resolvedLayoutValue) else {
             return localizedAttachmentsTextForMixedLayouts(attachments: attachments)
         }
-        
-        guard let firstAttachment = attachments.first else { return "" }
+
+        guard let firstAttachment = attachments.first else {
+            // Fallback: attachments exist but ObjectDetails are not yet available
+            return attachmentCount > 0 ? Loc.attachment(attachmentCount) : ""
+        }
         let count = attachments.count
         
         switch firstAttachment.resolvedLayoutValue {
