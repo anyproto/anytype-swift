@@ -29,33 +29,36 @@ Commits the current changes, performs a code review, applies fixes if needed, th
 - Extract the `gitBranchName` field from the Linear issue response
 - Use this exact branch name for checkout/creation
 
-### 0.5. Polish Code (simplify + cleanup)
-- Review changed Swift files for simplification opportunities
+### 1. Stage Changes
+- Stage all changes to prepare for review and commit
+
+### 2. Polish Code (simplify + cleanup)
+- Review staged Swift files for simplification opportunities
 - **If no opportunities found**: Auto-proceed to commit (no approval needed)
 - **If opportunities found**: Present findings, wait for explicit approval before making ANY changes
-- If user approves: apply changes, then continue to commit
+- If user approves: apply changes, re-stage, then continue to commit
 - If user declines: skip polish, proceed to commit as-is
 - Key checks: guard-let early returns, keypath shorthand (where clearer), unused code removal
 
-### 1. Commit Changes
-- Stage and commit all changes with a descriptive message
+### 3. Commit Changes
+- Commit staged changes with a descriptive message
 - Follow CLAUDE.md commit message guidelines
 
-### 2. Code Review
+### 4. Code Review
 - Run automated code review using `/codeReview` workflow
 - Apply CODE_REVIEW_GUIDE.md standards
 - Check for bugs, best practices violations, performance issues, security concerns
 
-### 3. Review Findings - ALWAYS Wait for Approval
+### 5. Review Findings - ALWAYS Wait for Approval
 - Present review results to developer
 - **If ANY issues found (including minor/non-blocking)**: STOP and wait for developer decision:
   - Should we fix the issues now?
   - Are the findings valid or false positives?
   - Should we proceed anyway?
 - **Developer decides next steps** - never auto-amend commits, never auto-proceed to push/PR
-- Only proceed to step 4 when developer explicitly approves
+- Only proceed to step 6 when developer explicitly approves
 
-### 4. Push and PR (only after explicit approval)
+### 6. Push and PR (only after explicit approval)
 - Push to remote with tracking
 - Create pull request with summary
 - **Requires explicit approval** - do not auto-proceed even for "clean" reviews with minor notes
