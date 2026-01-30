@@ -301,6 +301,24 @@ Skills provide **automatic activation** based on your prompts and file context, 
 
 ---
 
+### 15. **linear-developer** (Smart Router)
+**Purpose**: Routes to Linear issue tracking using `linctl` CLI. Replaces Linear MCP tools with faster, more reliable command-line operations.
+
+**Auto-activates when**:
+- Working with Linear issues, projects, or releases
+- Keywords: linear, linctl, issue, IOS-XXXX, release task, sprint, cycle
+
+**Provides**:
+- linctl CLI command reference
+- MCP to linctl migration table
+- Common workflows (branch names, release hierarchies)
+- Priority and time filter values
+- **→ Routes to**: https://github.com/dorkitude/linctl
+
+**Location**: `.claude/skills/linear-developer/SKILL.md`
+
+---
+
 ## 📊 Progressive Disclosure Architecture
 
 This documentation system follows the principle of **progressive disclosure** - load only what's needed, when it's needed.
@@ -435,8 +453,11 @@ Read the file .claude/skills/ios-dev-guidelines/SKILL.md
 ├── confidence-check/
 │   └── SKILL.md (workflow gate)
 │
-└── claudemd-maintainer/
-    └── SKILL.md (smart router - meta!)
+├── claudemd-maintainer/
+│   └── SKILL.md (smart router - meta!)
+│
+└── linear-developer/
+    └── SKILL.md (smart router)
 ```
 
 **Note**: Resource files removed in favor of specialized documentation at Level 3.
@@ -724,7 +745,7 @@ For comprehensive coverage of:
 The skills system provides:
 - ✅ **Progressive disclosure architecture** - 3 levels of documentation
 - ✅ **Automatic skill suggestions** based on context - Zero friction
-- ✅ **13 smart router skills** - Lightweight and fast (including 2 from Dimillian/Skills)
+- ✅ **15 smart router skills** - Lightweight and fast (including 2 from Dimillian/Skills)
 - ✅ **Hook-based activation** - Analyzed prompts trigger relevant skills
 - ✅ **Context token efficiency** - Load only what's needed
 - ✅ **Single Source of Truth** - Each piece of knowledge lives in one place

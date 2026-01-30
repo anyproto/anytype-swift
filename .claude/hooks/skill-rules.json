@@ -732,6 +732,52 @@
         "pathPatterns": [],
         "contentPatterns": []
       }
+    },
+    "linear-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to Linear issue tracking using linctl CLI. Issues, projects, releases, sprints",
+      "promptTriggers": {
+        "keywords": [
+          "linear",
+          "linctl",
+          "issue",
+          "IOS-",
+          "release task",
+          "sprint",
+          "cycle",
+          "linear issue",
+          "linear task",
+          "linear project",
+          "fetch issue",
+          "get issue",
+          "list issues",
+          "branch name",
+          "gitBranchName",
+          "release context",
+          "impact linear",
+          "linear api"
+        ],
+        "intentPatterns": [
+          "(get|fetch|find).*?(issue|task|ticket|linear)",
+          "(list|search).*?(issue|task|sprint|cycle)",
+          "(create|update|assign).*?(issue|task|ticket)",
+          "(release|sprint|cycle).*?(context|task|planning)",
+          "(branch name|git branch).*?(linear|issue)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/.claude/commands/impact_linear.md",
+          "**/.claude/commands/cpp.md"
+        ],
+        "contentPatterns": [
+          "mcp__linear-server",
+          "linctl",
+          "Linear MCP",
+          "IOS-\\d+"
+        ]
+      }
     }
   },
   "config": {
