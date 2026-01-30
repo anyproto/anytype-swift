@@ -24,10 +24,26 @@ Commits the current changes, performs a code review, applies fixes if needed, th
 
 ## Workflow
 
-### 0. Determine Branch Name (if not provided)
-- If user mentions a Linear task ID (e.g., IOS-5292), fetch the issue using `mcp__linear-server__list_issues`
-- Extract the `gitBranchName` field from the Linear issue response
-- Use this exact branch name for checkout/creation
+### 0. MANDATORY: Verify Correct Branch
+**ALWAYS check the branch before any commit operations:**
+
+1. **If task name/ID is known** (from conversation context, branch name pattern, or user mention):
+   - Fetch the Linear issue using `mcp__linear-server__list_issues(query: "IOS-XXXX")`
+   - Extract the `gitBranchName` field from the response
+   - Compare with current branch (`git branch --show-current`)
+   - If mismatch: **STOP** and ask user to confirm branch switch
+
+2. **If task name/ID is NOT known**:
+   - **STOP and ask the user**: "What Linear task are you working on? (e.g., IOS-5292)"
+   - Wait for response before proceeding
+   - Then fetch and verify branch as above
+
+3. **Branch verification outcomes**:
+   - ✅ Current branch matches Linear task's `gitBranchName` → proceed
+   - ⚠️ Branch mismatch → ask user: "Switch to `<correct-branch>` or continue on current branch?"
+   - ❌ No task ID provided → do NOT proceed until user provides it
+
+**Never commit without verifying you're on the correct branch for the task.**
 
 ### 1. Stage Changes
 - Stage all changes to prepare for review and commit
@@ -49,19 +65,18 @@ Commits the current changes, performs a code review, applies fixes if needed, th
 - Apply CODE_REVIEW_GUIDE.md standards
 - Check for bugs, best practices violations, performance issues, security concerns
 
-### 5. Review Findings - ALWAYS Wait for Approval
+### 5. Review Findings
 - Present review results to developer
+- **If NO issues found AND nothing polished**: Auto-proceed to push/PR (no approval needed)
 - **If ANY issues found (including minor/non-blocking)**: STOP and wait for developer decision:
   - Should we fix the issues now?
   - Are the findings valid or false positives?
   - Should we proceed anyway?
-- **Developer decides next steps** - never auto-amend commits, never auto-proceed to push/PR
-- Only proceed to step 6 when developer explicitly approves
+- **Developer decides next steps** - never auto-amend commits
 
-### 6. Push and PR (only after explicit approval)
+### 6. Push and PR
 - Push to remote with tracking
 - Create pull request with summary
-- **Requires explicit approval** - do not auto-proceed even for "clean" reviews with minor notes
 
 ## Branch Handling
 When a branch name is provided:
@@ -69,13 +84,11 @@ When a branch name is provided:
 2. **Branch exists locally**: Switches to that branch
 3. **Branch exists only remotely**: Checks out the remote branch locally
 
-## Prerequisites
-When working with Linear tasks, Claude should fetch the branch name before running `/cpp`:
-1. User mentions task ID (e.g., "Fix IOS-2532")
-2. Claude calls `mcp__linear-server__list_issues(query: "IOS-2532", limit: 1)`
-3. Claude extracts `gitBranchName` field (e.g., "ios-2532-fix-comment-version-for-hotfix")
-4. Claude switches to that branch
-5. User runs `/cpp` on the correct branch
+## Branch Verification (Built-in)
+The `/cpp` command now **automatically verifies** the correct branch:
+1. If task ID is known (from context or branch name) → fetches Linear issue and verifies branch
+2. If task ID is unknown → **asks user before proceeding**
+3. Switches branch if needed (with user confirmation)
 
 ## Examples
 ```bash
