@@ -3128,6 +3128,29 @@ extension Anytype_Rpc.Chat.ReadMessages.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Chat.Search.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Chat.Search.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -4871,6 +4894,33 @@ extension Anytype_Rpc.MembershipV2.GetStatus.Response.Error: LocalizedError {
                 return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetStatus.canNotConnect")
             case .v2CallNotEnabled:
                 return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetStatus.v2CallNotEnabled")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.SubscribeToUpdates.badInput")
+            case .canNotConnect:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.SubscribeToUpdates.canNotConnect")
+            case .platformNotSupported:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.SubscribeToUpdates.platformNotSupported")
             case .UNRECOGNIZED:
                 return ""
         }

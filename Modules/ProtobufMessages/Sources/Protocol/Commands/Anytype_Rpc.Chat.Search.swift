@@ -11,8 +11,8 @@
 import Foundation
 import SwiftProtobuf
 
-extension Anytype_Rpc.File {
-    public struct Drop: Sendable {
+extension Anytype_Rpc.Chat {
+    public struct Search: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -24,17 +24,17 @@ extension Anytype_Rpc.File {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var contextID: String = String()
+        public var spaceID: String = String()
 
-        /// id of the simple block to insert considering position
-        public var dropTargetID: String = String()
+        public var chatID: String = String()
 
-        /// position relatively to the dropTargetId simple block
-        public var position: Anytype_Model_Block.Position = .none
+        public var sorts: [Anytype_Model_Search.Message.Sort] = []
 
-        public var style: Anytype_Model_Block.Content.File.Style = .auto
+        public var fullText: String = String()
 
-        public var localFilePaths: [String] = []
+        public var offset: Int32 = 0
+
+        public var limit: Int32 = 0
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -46,8 +46,8 @@ extension Anytype_Rpc.File {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.File.Drop.Response.Error {
-          get {return _error ?? Anytype_Rpc.File.Drop.Response.Error()}
+        public var error: Anytype_Rpc.Chat.Search.Response.Error {
+          get {return _error ?? Anytype_Rpc.Chat.Search.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -55,14 +55,7 @@ extension Anytype_Rpc.File {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
 
-        public var event: Anytype_ResponseEvent {
-          get {return _event ?? Anytype_ResponseEvent()}
-          set {_event = newValue}
-        }
-        /// Returns true if `event` has been explicitly set.
-        public var hasEvent: Bool {return self._event != nil}
-        /// Clears the value of `event`. Subsequent reads from it will return its default value.
-        public mutating func clearEvent() {self._event = nil}
+        public var results: [Anytype_Model_Search.Message.Result] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -71,7 +64,7 @@ extension Anytype_Rpc.File {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.File.Drop.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Chat.Search.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -81,8 +74,6 @@ extension Anytype_Rpc.File {
             public typealias RawValue = Int
             case null // = 0
             case unknownError // = 1
-
-            /// ...
             case badInput // = 2
             case UNRECOGNIZED(Int)
 
@@ -109,7 +100,7 @@ extension Anytype_Rpc.File {
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.File.Drop.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Chat.Search.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
@@ -122,16 +113,15 @@ extension Anytype_Rpc.File {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.File.Drop.Response.Error? = nil
-        fileprivate var _event: Anytype_ResponseEvent? = nil
+        fileprivate var _error: Anytype_Rpc.Chat.Search.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.File.Drop: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.File.protoMessageName + ".Drop"
+extension Anytype_Rpc.Chat.Search: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.protoMessageName + ".Search"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -143,15 +133,15 @@ extension Anytype_Rpc.File.Drop: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.File.Drop, rhs: Anytype_Rpc.File.Drop) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.Search, rhs: Anytype_Rpc.Chat.Search) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.File.Drop.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.File.Drop.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}dropTargetId\0\u{1}position\0\u{1}localFilePaths\0\u{1}style\0")
+extension Anytype_Rpc.Chat.Search.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.Search.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}chatId\0\u{1}sorts\0\u{1}fullText\0\u{1}offset\0\u{1}limit\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -159,49 +149,54 @@ extension Anytype_Rpc.File.Drop.Request: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.dropTargetID) }()
-      case 3: try { try decoder.decodeSingularEnumField(value: &self.position) }()
-      case 4: try { try decoder.decodeRepeatedStringField(value: &self.localFilePaths) }()
-      case 5: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.chatID) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.sorts) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.fullText) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.offset) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.contextID.isEmpty {
-      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
     }
-    if !self.dropTargetID.isEmpty {
-      try visitor.visitSingularStringField(value: self.dropTargetID, fieldNumber: 2)
+    if !self.chatID.isEmpty {
+      try visitor.visitSingularStringField(value: self.chatID, fieldNumber: 2)
     }
-    if self.position != .none {
-      try visitor.visitSingularEnumField(value: self.position, fieldNumber: 3)
+    if !self.sorts.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.sorts, fieldNumber: 3)
     }
-    if !self.localFilePaths.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.localFilePaths, fieldNumber: 4)
+    if !self.fullText.isEmpty {
+      try visitor.visitSingularStringField(value: self.fullText, fieldNumber: 4)
     }
-    if self.style != .auto {
-      try visitor.visitSingularEnumField(value: self.style, fieldNumber: 5)
+    if self.offset != 0 {
+      try visitor.visitSingularInt32Field(value: self.offset, fieldNumber: 5)
+    }
+    if self.limit != 0 {
+      try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 6)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.File.Drop.Request, rhs: Anytype_Rpc.File.Drop.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {return false}
-    if lhs.dropTargetID != rhs.dropTargetID {return false}
-    if lhs.position != rhs.position {return false}
-    if lhs.style != rhs.style {return false}
-    if lhs.localFilePaths != rhs.localFilePaths {return false}
+  public static func ==(lhs: Anytype_Rpc.Chat.Search.Request, rhs: Anytype_Rpc.Chat.Search.Request) -> Bool {
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs.sorts != rhs.sorts {return false}
+    if lhs.fullText != rhs.fullText {return false}
+    if lhs.offset != rhs.offset {return false}
+    if lhs.limit != rhs.limit {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.File.Drop.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.File.Drop.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}event\0")
+extension Anytype_Rpc.Chat.Search.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.Search.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}results\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -210,7 +205,7 @@ extension Anytype_Rpc.File.Drop.Response: SwiftProtobuf.Message, SwiftProtobuf._
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.results) }()
       default: break
       }
     }
@@ -224,22 +219,22 @@ extension Anytype_Rpc.File.Drop.Response: SwiftProtobuf.Message, SwiftProtobuf._
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    try { if let v = self._event {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
+    if !self.results.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.results, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.File.Drop.Response, rhs: Anytype_Rpc.File.Drop.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.Search.Response, rhs: Anytype_Rpc.Chat.Search.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs._event != rhs._event {return false}
+    if lhs.results != rhs.results {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.File.Drop.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.File.Drop.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Chat.Search.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.Search.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -265,7 +260,7 @@ extension Anytype_Rpc.File.Drop.Response.Error: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.File.Drop.Response.Error, rhs: Anytype_Rpc.File.Drop.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.Search.Response.Error, rhs: Anytype_Rpc.Chat.Search.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -273,7 +268,7 @@ extension Anytype_Rpc.File.Drop.Response.Error: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension Anytype_Rpc.File.Drop.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Chat.Search.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
