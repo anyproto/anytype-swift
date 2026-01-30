@@ -646,6 +646,11 @@ extension Anytype_Rpc.Chat.ReadMessages.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Chat.Search.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.Search.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: ResultWithError {}
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -967,6 +972,11 @@ extension Anytype_Rpc.MembershipV2.GetProducts.Response.Error: ResponseError {
 
 extension Anytype_Rpc.MembershipV2.GetStatus.Response: ResultWithError {}
 extension Anytype_Rpc.MembershipV2.GetStatus.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response: ResultWithError {}
+extension Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

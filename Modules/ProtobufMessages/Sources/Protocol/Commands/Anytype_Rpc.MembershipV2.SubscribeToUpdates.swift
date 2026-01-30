@@ -11,8 +11,8 @@
 import Foundation
 import SwiftProtobuf
 
-extension Anytype_Rpc.File {
-    public struct Drop: Sendable {
+extension Anytype_Rpc.MembershipV2 {
+    public struct SubscribeToUpdates: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -24,17 +24,15 @@ extension Anytype_Rpc.File {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var contextID: String = String()
+        public var email: String = String()
 
-        /// id of the simple block to insert considering position
-        public var dropTargetID: String = String()
+        public var platform: Anytype_Model_MembershipV2.Platform = .unknown
 
-        /// position relatively to the dropTargetId simple block
-        public var position: Anytype_Model_Block.Position = .none
+        /// if false - unsubscribe
+        public var subscribe: Bool = false
 
-        public var style: Anytype_Model_Block.Content.File.Style = .auto
-
-        public var localFilePaths: [String] = []
+        /// additional data
+        public var context: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -46,23 +44,14 @@ extension Anytype_Rpc.File {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.File.Drop.Response.Error {
-          get {return _error ?? Anytype_Rpc.File.Drop.Response.Error()}
+        public var error: Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.Error {
+          get {return _error ?? Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
         public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
-
-        public var event: Anytype_ResponseEvent {
-          get {return _event ?? Anytype_ResponseEvent()}
-          set {_event = newValue}
-        }
-        /// Returns true if `event` has been explicitly set.
-        public var hasEvent: Bool {return self._event != nil}
-        /// Clears the value of `event`. Subsequent reads from it will return its default value.
-        public mutating func clearEvent() {self._event = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -71,7 +60,7 @@ extension Anytype_Rpc.File {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.File.Drop.Response.Error.Code = .null
+          public var code: Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -81,9 +70,9 @@ extension Anytype_Rpc.File {
             public typealias RawValue = Int
             case null // = 0
             case unknownError // = 1
-
-            /// ...
             case badInput // = 2
+            case canNotConnect // = 3
+            case platformNotSupported // = 4
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -95,6 +84,8 @@ extension Anytype_Rpc.File {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 3: self = .canNotConnect
+              case 4: self = .platformNotSupported
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -104,15 +95,19 @@ extension Anytype_Rpc.File {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .canNotConnect: return 3
+              case .platformNotSupported: return 4
               case .UNRECOGNIZED(let i): return i
               }
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.File.Drop.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
+              .canNotConnect,
+              .platformNotSupported,
             ]
 
           }
@@ -122,16 +117,15 @@ extension Anytype_Rpc.File {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.File.Drop.Response.Error? = nil
-        fileprivate var _event: Anytype_ResponseEvent? = nil
+        fileprivate var _error: Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.File.Drop: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.File.protoMessageName + ".Drop"
+extension Anytype_Rpc.MembershipV2.SubscribeToUpdates: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.MembershipV2.protoMessageName + ".SubscribeToUpdates"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -143,15 +137,15 @@ extension Anytype_Rpc.File.Drop: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.File.Drop, rhs: Anytype_Rpc.File.Drop) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.MembershipV2.SubscribeToUpdates, rhs: Anytype_Rpc.MembershipV2.SubscribeToUpdates) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.File.Drop.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.File.Drop.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}dropTargetId\0\u{1}position\0\u{1}localFilePaths\0\u{1}style\0")
+extension Anytype_Rpc.MembershipV2.SubscribeToUpdates.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.MembershipV2.SubscribeToUpdates.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}email\0\u{1}platform\0\u{1}subscribe\0\u{1}context\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -159,49 +153,44 @@ extension Anytype_Rpc.File.Drop.Request: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.dropTargetID) }()
-      case 3: try { try decoder.decodeSingularEnumField(value: &self.position) }()
-      case 4: try { try decoder.decodeRepeatedStringField(value: &self.localFilePaths) }()
-      case 5: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.email) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.platform) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.subscribe) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.context) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.contextID.isEmpty {
-      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
+    if !self.email.isEmpty {
+      try visitor.visitSingularStringField(value: self.email, fieldNumber: 1)
     }
-    if !self.dropTargetID.isEmpty {
-      try visitor.visitSingularStringField(value: self.dropTargetID, fieldNumber: 2)
+    if self.platform != .unknown {
+      try visitor.visitSingularEnumField(value: self.platform, fieldNumber: 2)
     }
-    if self.position != .none {
-      try visitor.visitSingularEnumField(value: self.position, fieldNumber: 3)
+    if self.subscribe != false {
+      try visitor.visitSingularBoolField(value: self.subscribe, fieldNumber: 3)
     }
-    if !self.localFilePaths.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.localFilePaths, fieldNumber: 4)
-    }
-    if self.style != .auto {
-      try visitor.visitSingularEnumField(value: self.style, fieldNumber: 5)
+    if !self.context.isEmpty {
+      try visitor.visitSingularStringField(value: self.context, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.File.Drop.Request, rhs: Anytype_Rpc.File.Drop.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {return false}
-    if lhs.dropTargetID != rhs.dropTargetID {return false}
-    if lhs.position != rhs.position {return false}
-    if lhs.style != rhs.style {return false}
-    if lhs.localFilePaths != rhs.localFilePaths {return false}
+  public static func ==(lhs: Anytype_Rpc.MembershipV2.SubscribeToUpdates.Request, rhs: Anytype_Rpc.MembershipV2.SubscribeToUpdates.Request) -> Bool {
+    if lhs.email != rhs.email {return false}
+    if lhs.platform != rhs.platform {return false}
+    if lhs.subscribe != rhs.subscribe {return false}
+    if lhs.context != rhs.context {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.File.Drop.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.File.Drop.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}event\0")
+extension Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.MembershipV2.SubscribeToUpdates.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -210,7 +199,6 @@ extension Anytype_Rpc.File.Drop.Response: SwiftProtobuf.Message, SwiftProtobuf._
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
       default: break
       }
     }
@@ -224,22 +212,18 @@ extension Anytype_Rpc.File.Drop.Response: SwiftProtobuf.Message, SwiftProtobuf._
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    try { if let v = self._event {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.File.Drop.Response, rhs: Anytype_Rpc.File.Drop.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response, rhs: Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs._event != rhs._event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.File.Drop.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.File.Drop.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -265,7 +249,7 @@ extension Anytype_Rpc.File.Drop.Response.Error: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.File.Drop.Response.Error, rhs: Anytype_Rpc.File.Drop.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.Error, rhs: Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -273,8 +257,8 @@ extension Anytype_Rpc.File.Drop.Response.Error: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension Anytype_Rpc.File.Drop.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
+extension Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{1}CAN_NOT_CONNECT\0\u{1}PLATFORM_NOT_SUPPORTED\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

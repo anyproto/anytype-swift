@@ -2884,6 +2884,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func membershipV2SubscribeToUpdates(
+        _ request: Anytype_Rpc.MembershipV2.SubscribeToUpdates.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.SubscribeToUpdates.Request, Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response> {
+        return Invocation(messageName: "MembershipV2SubscribeToUpdates", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2SubscribeToUpdates(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func nameServiceUserAccountGet(
         _ request:  Anytype_Rpc.NameService.UserAccount.Get.Request = .init()
     ) -> Invocation< Anytype_Rpc.NameService.UserAccount.Get.Request, Anytype_Rpc.NameService.UserAccount.Get.Response> {
@@ -3091,6 +3101,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatReadAll(requestData) ?? Data()
             return try Anytype_Rpc.Chat.ReadAll.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func chatSearch(
+        _ request: Anytype_Rpc.Chat.Search.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.Search.Request, Anytype_Rpc.Chat.Search.Response> {
+        return Invocation(messageName: "ChatSearch", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatSearch(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.Search.Response(serializedBytes: responseData)
         }
     }
 
