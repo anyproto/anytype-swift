@@ -36,6 +36,9 @@ struct ObjectSettingsMenuContainer<Label: View>: View {
             .sheet(item: $model.publishingData) {
                 PublishToWebCoordinator(data: $0)
             }
+            .sheet(item: $model.chatEditData) { data in
+                ChatCreateView(data: data)
+            }
     }
 }
 

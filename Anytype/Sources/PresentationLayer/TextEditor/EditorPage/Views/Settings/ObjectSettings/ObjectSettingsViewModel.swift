@@ -23,6 +23,7 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
     func didCreateTemplate(templateId: String)
     func didTapUseTemplateAsDefault(templateId: String)
     func showInviteMembers(spaceId: String)
+    func showEditInfo(document: some BaseDocumentProtocol)
 }
 
 @MainActor
@@ -360,6 +361,10 @@ final class ObjectSettingsViewModel {
     func inviteMembersAction() {
         output?.showInviteMembers(spaceId: spaceId)
         dismiss.toggle()
+    }
+
+    func editInfoAction() {
+        output?.showEditInfo(document: document)
     }
 
     // MARK: - Private Action Helpers

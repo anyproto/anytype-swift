@@ -9450,6 +9450,17 @@
         }
       }
     },
+    "EditInfo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Info"
+          }
+        }
+      }
+    },
     "Editor.LinkToObject.LinkedTo" : {
       "extractionState" : "manual",
       "localizations" : {

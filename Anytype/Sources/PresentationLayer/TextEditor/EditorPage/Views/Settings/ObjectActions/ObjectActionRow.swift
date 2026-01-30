@@ -71,6 +71,8 @@ extension ObjectAction {
             return Loc.copyLink
         case .inviteMembers:
             return Loc.Chat.inviteMembers
+        case .editInfo:
+            return Loc.editInfo
         }
     }
 
@@ -98,6 +100,8 @@ extension ObjectAction {
             return .X32.copy
         case .inviteMembers:
             return .X32.Island.addMember
+        case .editInfo:
+            return .X32.edit
         }
     }
 }
