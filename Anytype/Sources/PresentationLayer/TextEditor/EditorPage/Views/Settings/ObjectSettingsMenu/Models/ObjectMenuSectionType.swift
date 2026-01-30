@@ -24,6 +24,8 @@ extension ObjectMenuSectionType {
 
     static func section(for action: ObjectAction, isChat: Bool) -> ObjectMenuSectionType {
         switch action {
+        case .editInfo:
+            return .horizontal
         case .pin:
             return isChat ? .horizontal : .mainSettings
         case .undoRedo, .copyLink, .inviteMembers:

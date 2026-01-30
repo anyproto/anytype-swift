@@ -143,6 +143,8 @@ final class ObjectSettingsMenuViewModel {
             try? await viewModel.copyLinkAction()
         case .inviteMembers:
             viewModel.inviteMembersAction()
+        case .editInfo:
+            viewModel.editInfoAction()
         }
     }
 }

@@ -1,12 +1,18 @@
 struct ObjectInfo: Hashable, Codable, Identifiable {
     let objectId: String
     let spaceId: String
-    
+
     var id: String { objectId + spaceId }
+}
+
+enum ChatCreateMode: Hashable {
+    case create
+    case edit(objectId: String, currentName: String, currentIcon: Icon)
 }
 
 struct ChatCreateScreenData: Hashable, Identifiable {
     let spaceId: String
+    let mode: ChatCreateMode
     let collectionId: String?
     let analyticsRoute: AnalyticsEventsRouteKind
     /// Document ID where to insert a link block after chat creation (for slash menu)
@@ -18,16 +24,38 @@ struct ChatCreateScreenData: Hashable, Identifiable {
 
     init(
         spaceId: String,
+        mode: ChatCreateMode = .create,
         collectionId: String? = nil,
         analyticsRoute: AnalyticsEventsRouteKind,
         linkDocumentId: String? = nil,
         linkTargetBlockId: String? = nil
     ) {
         self.spaceId = spaceId
+        self.mode = mode
         self.collectionId = collectionId
         self.analyticsRoute = analyticsRoute
         self.linkDocumentId = linkDocumentId
         self.linkTargetBlockId = linkTargetBlockId
+    }
+}
+
+extension ChatCreateScreenData {
+    var screenTitle: String {
+        switch mode {
+        case .create:
+            return Loc.createChat
+        case .edit:
+            return Loc.editInfo
+        }
+    }
+
+    var buttonTitle: String {
+        switch mode {
+        case .create:
+            return Loc.create
+        case .edit:
+            return Loc.save
+        }
     }
 }
 

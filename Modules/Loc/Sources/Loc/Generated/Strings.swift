@@ -1380,6 +1380,7 @@ public enum Loc {
   }
   public static let collaboration = Loc.tr("Workspace", "Collaboration", fallback: "Collaboration")
   public static let createChat = Loc.tr("Workspace", "CreateChat", fallback: "Create Chat")
+  public static let editInfo = Loc.tr("Workspace", "EditInfo", fallback: "Edit Info")
   public static let invite = Loc.tr("Workspace", "Invite", fallback: "Invite")
   public static let joinSpace = Loc.tr("Workspace", "Join Space", fallback: "Join Space")
   public static let joinSpaceButton = Loc.tr("Workspace", "Join Space Button", fallback: "Join Space Button")

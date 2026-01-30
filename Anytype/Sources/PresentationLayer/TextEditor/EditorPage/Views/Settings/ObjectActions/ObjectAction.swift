@@ -13,6 +13,7 @@ enum ObjectAction: Hashable, Identifiable {
     case delete
     case copyLink
     case inviteMembers
+    case editInfo
 
     // When adding to case
     static func buildActions(
@@ -62,8 +63,13 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.copyLink
             }
 
-            if details.resolvedLayoutValue.isChat && spaceUxType?.supportsMultiChats == true && isSpaceOwner {
-                ObjectAction.inviteMembers
+            if details.resolvedLayoutValue.isChat && spaceUxType?.supportsMultiChats == true {
+                if permissions.canEditDetails {
+                    ObjectAction.editInfo
+                }
+                if isSpaceOwner {
+                    ObjectAction.inviteMembers
+                }
             }
 
             if permissions.canLock {
@@ -100,11 +106,15 @@ enum ObjectAction: Hashable, Identifiable {
             return "copyLink"
         case .inviteMembers:
             return "inviteMembers"
+        case .editInfo:
+            return "editInfo"
         }
     }
 
     var menuOrder: Int {
         switch self {
+        case .editInfo:
+            return 5
         case .pin:
             return 10
         case .undoRedo:

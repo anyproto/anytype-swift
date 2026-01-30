@@ -24,7 +24,7 @@ struct ChatCreateView: View {
             }
             .sheet(item: $model.iconPickerData) { data in
                 ObjectBasicIconPicker(
-                    isRemoveButtonAvailable: data.iconSelection != nil,
+                    isRemoveButtonAvailable: data.hasRemovableIcon,
                     mediaPickerContentType: .images,
                     onSelectItemProvider: { itemProvider in
                         model.onSelectItemProvider(itemProvider)
@@ -42,7 +42,7 @@ struct ChatCreateView: View {
     private var content: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.createChat)
+            TitleView(title: model.data.screenTitle)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     iconSection
@@ -57,10 +57,10 @@ struct ChatCreateView: View {
             .safeAreaInset(edge: .bottom) {
                 StandardButton(
                     model: StandardButtonModel(
-                        text: Loc.create,
+                        text: model.data.buttonTitle,
                         inProgress: model.createLoadingState,
                         style: .primaryLarge,
-                        action: { model.onTapCreate() }
+                        action: { model.onTapSave() }
                     )
                 )
                 .disabled(model.chatName.isEmpty)
