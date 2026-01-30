@@ -14,6 +14,6 @@ struct UnreadChatsGroupedView: View {
             }
         }
         .background(Color.Background.widget)
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
     }
 }
