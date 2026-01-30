@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Services
 
 struct SpaceNotificationsSettingsView: View {
 
@@ -9,7 +10,7 @@ struct SpaceNotificationsSettingsView: View {
     init(data: SpaceNotificationsSettingsModuleData) {
         _model = State(initialValue: SpaceNotificationsSettingsViewModel(data: data))
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -33,7 +34,7 @@ struct SpaceNotificationsSettingsView: View {
             ListSectionHeaderView(title: Loc.Space.Notifications.Settings.header)
                 .padding(.horizontal, 16)
 
-            ForEach(SpaceNotificationsSettingsMode.allCases, id: \.self) { mode in
+            ForEach(SpacePushNotificationsMode.displayModes, id: \.self) { mode in
                 modeView(mode)
             }
             .padding(.horizontal, 16)
@@ -76,8 +77,8 @@ struct SpaceNotificationsSettingsView: View {
             $0.newDivider()
         }
     }
-    
-    private func modeView(_ mode: SpaceNotificationsSettingsMode) -> some View {
+
+    private func modeView(_ mode: SpacePushNotificationsMode) -> some View {
         AsyncButton {
             try await model.onModeChange(mode)
         } label: {
