@@ -5,7 +5,9 @@ USE EXTENDED THINKING
 ## Purpose
 This document guides the process of gathering comprehensive context from Linear for iOS release impact analysis and changelog generation, using a hierarchical task structure.
 
-**CRITICAL: Use ONLY Linear MCP tools (`mcp__linear-server__*`). DO NOT use git, bash, or GitHub CLI commands. All information comes from Linear API.**
+**CRITICAL: Use `linctl` CLI for all Linear operations. See `.claude/skills/linear-developer/SKILL.md` for command reference.**
+
+**Reference Repository**: https://github.com/dorkitude/linctl
 
 ## Task Hierarchy Structure
 Releases are organized as a parent task with nested subtasks:
@@ -34,10 +36,10 @@ Ask the user:
 - Example: "IOS-5467"
 
 ### Step 2: Fetch Release Task and Build Hierarchy
-1. **Get the release task**: Use `mcp__linear-server__get_issue` with the release task ID
-2. **Get all level-1 subtasks**: Use `mcp__linear-server__list_issues` with `parentId` = release task UUID
+1. **Get the release task**: `linctl issue get IOS-XXXX --json`
+2. **Get all level-1 subtasks**: `linctl issue list --parent-id <uuid> --json --include-completed`
 3. **Identify epics**: Subtasks with `[epic]` in the title contain nested work
-4. **Get level-2 subtasks**: For each epic, use `mcp__linear-server__list_issues` with `parentId` = epic UUID
+4. **Get level-2 subtasks**: For each epic: `linctl issue list --parent-id <epic-uuid> --json --include-completed`
 5. **Count total tasks** to validate completeness
 
 ### Step 3: Detailed Information Gathering with Links
@@ -332,20 +334,28 @@ Release: IOS-XXXX "[Title]" - [URL]
 1. Start by asking for:
    - The release task ID (e.g., "IOS-5467")
 2. **FETCH RELEASE TASK:**
-   - Use `mcp__linear-server__get_issue` with the release task ID
+   - Run: `linctl issue get IOS-5467 --json`
    - Extract the UUID (`id` field) for parentId queries
 3. **FETCH LEVEL-1 SUBTASKS:**
-   - Use `mcp__linear-server__list_issues` with `parentId` = release task UUID
-   - Include archived issues (`includeArchived: true`)
+   - Run: `linctl issue list --parent-id <uuid> --json --include-completed`
    - Identify epics (title contains `[epic]`)
 4. **FETCH LEVEL-2 SUBTASKS (for each epic):**
-   - Use `mcp__linear-server__list_issues` with `parentId` = epic UUID
+   - Run: `linctl issue list --parent-id <epic-uuid> --json --include-completed`
    - Capture all implementation tasks
 5. **BUILD HIERARCHY:**
    - Organize tasks into the tree structure
    - Count tasks by status
    - Extract PR links from attachments
 6. **MANDATORY:** Save as: `linear_context_release_[NUMBER].md` - do not skip this step
+
+## linctl Quick Reference
+```bash
+linctl issue get IOS-XXXX --json                              # Get issue details
+linctl issue list --parent-id <uuid> --json --include-completed  # Get subtasks
+linctl comment list IOS-XXXX --json                           # Get comments
+```
+
+Full CLI reference: `.claude/skills/linear-developer/SKILL.md`
 
 ## URL Formats to Capture
 - Linear Issues: `https://linear.app/[workspace]/issue/[ID]`

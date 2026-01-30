@@ -25,8 +25,10 @@ Commits the current changes, performs a code review, applies fixes if needed, th
 ## Workflow
 
 ### 0. Determine Branch Name (if not provided)
-- If user mentions a Linear task ID (e.g., IOS-5292), fetch the issue using `mcp__linear-server__list_issues`
-- Extract the `gitBranchName` field from the Linear issue response
+- If user mentions a Linear task ID (e.g., IOS-5292), fetch the issue using linctl CLI:
+  ```bash
+  linctl issue get IOS-5292 --json | jq -r '.gitBranchName'
+  ```
 - Use this exact branch name for checkout/creation
 
 ### 0.5. Polish Code (simplify + cleanup)
@@ -69,10 +71,12 @@ When a branch name is provided:
 ## Prerequisites
 When working with Linear tasks, Claude should fetch the branch name before running `/cpp`:
 1. User mentions task ID (e.g., "Fix IOS-2532")
-2. Claude calls `mcp__linear-server__list_issues(query: "IOS-2532", limit: 1)`
-3. Claude extracts `gitBranchName` field (e.g., "ios-2532-fix-comment-version-for-hotfix")
+2. Claude runs: `linctl issue get IOS-2532 --json | jq -r '.gitBranchName'`
+3. Claude extracts the branch name (e.g., "ios-2532-fix-comment-version-for-hotfix")
 4. Claude switches to that branch
 5. User runs `/cpp` on the correct branch
+
+**linctl reference**: `.claude/skills/linear-developer/SKILL.md`
 
 ## Examples
 ```bash

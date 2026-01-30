@@ -25,30 +25,7 @@
       "Bash(gh pr list:*)",
       "Bash(gh pr diff:*)",
 
-      "mcp__linear-server__list_teams",
-      "mcp__linear-server__get_issue",
-      "mcp__linear-server__list_comments",
-      "mcp__linear-server__create_comment",
-      "mcp__linear-server__list_cycles",
-      "mcp__linear-server__list_issues",
-      "mcp__linear-server__create_issue",
-      "mcp__linear-server__update_issue",
-      "mcp__linear-server__list_documents",
-      "mcp__linear-server__get_document",
-      "mcp__linear-server__create_document",
-      "mcp__linear-server__update_document",
-      "mcp__linear-server__list_projects",
-      "mcp__linear-server__get_project",
-      "mcp__linear-server__create_project",
-      "mcp__linear-server__update_project",
-      "mcp__linear-server__list_users",
-      "mcp__linear-server__get_user",
-      "mcp__linear-server__list_issue_statuses",
-      "mcp__linear-server__get_issue_status",
-      "mcp__linear-server__list_issue_labels",
-      "mcp__linear-server__create_issue_label",
-      "mcp__linear-server__get_team",
-      "mcp__linear-server__search_documentation",
+      "Bash(linctl:*)",
 
       "SlashCommand(/codeReview)",
 
@@ -75,9 +52,7 @@
     "deny": []
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "Linear"
-  ],
+  "enabledMcpjsonServers": [],
   "hooks": {
     "PreToolUse": [
       {
