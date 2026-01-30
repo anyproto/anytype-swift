@@ -64,6 +64,7 @@ After making code changes, report them to the user who will verify compilation i
 | `swiftui-performance-developer` | Performance issues | Auto-activates (from Dimillian/Skills) |
 | `swiftui-patterns-developer` | View structure/MV | Auto-activates (from Dimillian/Skills) |
 | `confidence-check` | Implementation tasks | Auto-activates (from SuperClaude) |
+| `linear-developer` | Linear issues/CLI | `.claude/skills/linear-developer/SKILL.md` |
 
 **When you see "Relevant Skill: X"** in system reminders → Read `.claude/skills/X/SKILL.md` and apply its patterns.
 
@@ -129,9 +130,11 @@ Modules/                 # Swift packages (AnytypeCore, Loc, Assets, Services)
 
 ### Task-Based Branching
 **First thing when starting any task**:
-1. Fetch Linear issue: `mcp__linear-server__list_issues` with task ID
-2. Extract `gitBranchName` field
+1. Fetch Linear issue: `linctl issue get IOS-XXXX --json`
+2. Extract `gitBranchName` field: `| jq -r '.gitBranchName'`
 3. Switch immediately: `git checkout <branch-name>`
+
+**linctl reference**: `.claude/skills/linear-developer/SKILL.md` | https://github.com/dorkitude/linctl
 
 ### Branches & PRs
 - **Main branch**: `develop`

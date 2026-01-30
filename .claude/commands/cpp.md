@@ -28,8 +28,10 @@ Commits the current changes, performs a code review, applies fixes if needed, th
 **ALWAYS check the branch before any commit operations:**
 
 1. **If task name/ID is known** (from conversation context, branch name pattern, or user mention):
-   - Fetch the Linear issue using `mcp__linear-server__list_issues(query: "IOS-XXXX")`
-   - Extract the `gitBranchName` field from the response
+   - Fetch the Linear issue using linctl CLI:
+     ```bash
+     linctl issue get IOS-XXXX --json | jq -r '.gitBranchName'
+     ```
    - Compare with current branch (`git branch --show-current`)
    - If mismatch: **STOP** and ask user to confirm branch switch
 
@@ -85,10 +87,12 @@ When a branch name is provided:
 3. **Branch exists only remotely**: Checks out the remote branch locally
 
 ## Branch Verification (Built-in)
-The `/cpp` command now **automatically verifies** the correct branch:
-1. If task ID is known (from context or branch name) → fetches Linear issue and verifies branch
+The `/cpp` command **automatically verifies** the correct branch:
+1. If task ID is known (from context or branch name) → fetches via linctl and verifies branch
 2. If task ID is unknown → **asks user before proceeding**
 3. Switches branch if needed (with user confirmation)
+
+**linctl reference**: `.claude/skills/linear-developer/SKILL.md`
 
 ## Examples
 ```bash
