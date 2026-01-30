@@ -53,7 +53,7 @@ struct WidgetSwipeActionView<Content: View>: View {
         ZStack {
                     ZStack(alignment: .trailing) {
                         Color.Widget.actionsBackground
-                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
                         
                         if isEnable {
                             VStack(spacing: 0) {
@@ -73,7 +73,7 @@ struct WidgetSwipeActionView<Content: View>: View {
                     .mask {
                         Rectangle()
                             .overlay {
-                                RoundedRectangle(cornerRadius: 16)
+                                RoundedRectangle(cornerRadius: 24)
                                     .offset(x: -contentOffset)
                                     .blendMode(.destinationOut)
                             }
