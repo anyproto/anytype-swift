@@ -444,6 +444,11 @@ enum ChangeMessageNotificationStateRoute: String {
     case chatSettings = "ChatSettings"
 }
 
+enum ChangeMessageNotificationStateUxType: String {
+    case chat = "Chat"
+    case space = "Space"
+}
+
 enum ChatAttachmentType: String {
     case object = "Object"
     case photo = "Photo"

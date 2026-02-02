@@ -66,7 +66,8 @@ final class SpaceNotificationsSettingsViewModel {
         )
         AnytypeAnalytics.instance().logChangeMessageNotificationState(
             type: mode.analyticsValue,
-            route: .spaceSettings
+            route: .spaceSettings,
+            uxType: .space
         )
         dismiss.toggle()
     }
