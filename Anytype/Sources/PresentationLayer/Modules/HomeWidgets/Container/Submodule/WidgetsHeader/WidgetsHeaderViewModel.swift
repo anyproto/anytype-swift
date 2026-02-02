@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import UIKit
+import AnytypeCore
 
 @MainActor
 @Observable
@@ -128,8 +129,12 @@ final class WidgetsHeaderViewModel {
 
     func onNotificationModeChanged(_ mode: SpacePushNotificationsMode) {
         Task {
-            try await workspaceService.pushNotificationSetSpaceMode(spaceId: accountSpaceId, mode: mode)
-            AnytypeAnalytics.instance().logChangeMessageNotificationState(type: mode.analyticsValue, route: .vault)
+            do {
+                try await workspaceService.pushNotificationSetSpaceMode(spaceId: accountSpaceId, mode: mode)
+                AnytypeAnalytics.instance().logChangeMessageNotificationState(type: mode.analyticsValue, route: .vault)
+            } catch {
+                anytypeAssertionFailure("Failed to set notification mode: \(error)")
+            }
         }
     }
 

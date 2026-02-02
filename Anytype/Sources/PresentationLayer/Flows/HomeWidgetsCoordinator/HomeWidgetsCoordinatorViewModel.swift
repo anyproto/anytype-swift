@@ -65,10 +65,6 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         deleteSystemWidgetConfirmationData = data
     }
 
-    func onSpaceChatSettingsSelected(spaceId: String) {
-        pageNavigation?.open(.spaceInfo(.settings(spaceId: spaceId)))
-    }
-
     func onSpaceChatMembersSelected(spaceId: String, route: SettingsSpaceShareRoute) {
         spaceShareData = SpaceShareData(spaceId: spaceId, route: route)
     }
