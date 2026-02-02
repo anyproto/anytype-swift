@@ -98,7 +98,8 @@ final class ChatHeaderViewModel {
         }
         AnytypeAnalytics.instance().logChangeMessageNotificationState(
             type: mode.analyticsValue,
-            route: .chatSettings
+            route: .chatSettings,
+            uxType: .chat
         )
     }
 
