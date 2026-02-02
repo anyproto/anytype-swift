@@ -57807,6 +57807,17 @@
         }
       }
     },
+    "New type" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New type"
+          }
+        }
+      }
+    },
     "NewObject" : {
       "extractionState" : "manual",
       "localizations" : {

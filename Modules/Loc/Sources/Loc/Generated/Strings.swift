@@ -442,6 +442,7 @@ public enum Loc {
   public static let newField = Loc.tr("UI", "New field", fallback: "New property")
   public static let newPage = Loc.tr("UI", "New Page", fallback: "New Page")
   public static let newSet = Loc.tr("UI", "New set", fallback: "New query")
+  public static let newType = Loc.tr("UI", "New type", fallback: "New type")
   public static let newObject = Loc.tr("UI", "NewObject", fallback: "New Object")
   public static let next = Loc.tr("UI", "Next", fallback: "Next")
   public static let noConnection = Loc.tr("UI", "No connection", fallback: "No connection")
