@@ -17,7 +17,6 @@ struct HomeWidgetsView: View {
 private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
     @State var widgetsDndState = DragState()
-    @State var typesDndState = DragState()
 
     let context: WidgetScreenContext
     weak var panelOutput: (any HomeBottomNavigationPanelModuleOutput)?
@@ -136,22 +135,18 @@ private struct HomeWidgetsInternalView: View {
     
     @ViewBuilder
     private var objectTypeWidgets: some View {
-        HomeWidgetsGroupView(title: Loc.objectTypes, onTap: {
+        HomeWidgetsGroupView(title: Loc.objects, onTap: {
             model.onTapObjectTypeHeader()
-        }, onCreate: model.canCreateObjectType ? {
-            model.onCreateObjectType()
-        } : nil)
+        }, onCreate: nil)
         if model.objectTypeSectionIsExpanded {
             VStack(spacing: 12) {
-                ForEach(model.objectTypeWidgets) { info in
-                    ObjectTypeWidgetView(info: info, output: model.output)
-                }
+                ObjectTypesUnifiedWidgetView(
+                    typeInfos: model.objectTypeWidgets,
+                    canCreateType: model.canCreateObjectType,
+                    onCreateType: { model.onCreateObjectType() },
+                    output: model.output
+                )
                 BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
-            }
-            .anytypeVerticalDrop(data: model.objectTypeWidgets, state: $typesDndState) { from, to in
-                model.typesDropUpdate(from: from, to: to)
-            } dropFinish: { from, to in
-                model.typesDropFinish(from: from, to: to)
             }
         }
     }

@@ -31,8 +31,6 @@ final class HomeWidgetsViewModel {
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
     @Injected(\.objectTypeProvider) @ObservationIgnored
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.objectTypeService) @ObservationIgnored
-    private var objectTypeService: any ObjectTypeServiceProtocol
     @Injected(\.expandedService) @ObservationIgnored
     private var expandedService: any ExpandedServiceProtocol
     @Injected(\.chatMessagesPreviewsStorage) @ObservationIgnored
@@ -40,8 +38,6 @@ final class HomeWidgetsViewModel {
 
     @ObservationIgnored
     weak var output: (any HomeWidgetsModuleOutput)?
-    @ObservationIgnored
-    private var typesDropTask: Task<Void, any Error>?
     
     // MARK: - State
     
@@ -108,20 +104,6 @@ final class HomeWidgetsViewModel {
                 dropPositionblockId: to.data.id,
                 position: to.index > from.index ? .bottom : .top
             )
-        }
-    }
-    
-    func typesDropUpdate(from: DropDataElement<ObjectTypeWidgetInfo>, to: DropDataElement<ObjectTypeWidgetInfo>) {
-        objectTypeWidgets.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
-    }
-    
-    func typesDropFinish(from: DropDataElement<ObjectTypeWidgetInfo>, to: DropDataElement<ObjectTypeWidgetInfo>) {
-        typesDropTask?.cancel()
-        typesDropTask = Task {
-            // Middleware notify state with delay and we ome time show old state. Making fewer requests
-            try await Task.sleep(seconds: 2)
-            let typeIds = objectTypeWidgets.map { $0.objectTypeId }
-            try await objectTypeService.setOrder(spaceId: spaceId, typeIds: typeIds)
         }
     }
     
