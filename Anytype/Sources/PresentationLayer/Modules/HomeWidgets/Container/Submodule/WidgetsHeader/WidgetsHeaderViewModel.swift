@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import UIKit
 
 @MainActor
 @Observable
@@ -11,7 +12,21 @@ final class WidgetsHeaderViewModel {
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @ObservationIgnored
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored
+    @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
+    @ObservationIgnored
+    @Injected(\.universalLinkParser)
+    private var universalLinkParser: any UniversalLinkParserProtocol
+
+    @ObservationIgnored
     private let onSpaceSelected: () -> Void
+    @ObservationIgnored
+    private let onMembersSelected: (String, SettingsSpaceShareRoute) -> Void
+    @ObservationIgnored
+    private let onQrCodeSelected: (URL) -> Void
 
     @ObservationIgnored
     private let accountSpaceId: String
@@ -19,14 +34,44 @@ final class WidgetsHeaderViewModel {
     // MARK: - State
 
     var canEdit = false
+    var toastBarData: ToastBarData?
+    private(set) var spaceView: SpaceView?
+    private(set) var inviteLink: URL?
 
-    init(spaceId: String, onSpaceSelected: @escaping () -> Void) {
+    // MARK: - Computed Properties
+
+    var isSharedSpace: Bool {
+        spaceView?.spaceAccessType == .shared
+    }
+
+    var isPrivateSpace: Bool {
+        spaceView?.spaceAccessType == .private
+    }
+
+    var hasInviteLink: Bool {
+        inviteLink != nil
+    }
+
+    var currentNotificationMode: SpacePushNotificationsMode {
+        spaceView?.pushNotificationMode ?? .all
+    }
+
+    init(
+        spaceId: String,
+        onSpaceSelected: @escaping () -> Void,
+        onMembersSelected: @escaping (String, SettingsSpaceShareRoute) -> Void,
+        onQrCodeSelected: @escaping (URL) -> Void
+    ) {
         self.accountSpaceId = spaceId
         self.onSpaceSelected = onSpaceSelected
+        self.onMembersSelected = onMembersSelected
+        self.onQrCodeSelected = onQrCodeSelected
     }
 
     func startSubscriptions() async {
-        await startParticipantSpaceViewTask()
+        async let participantTask: () = startParticipantSpaceViewTask()
+        async let spaceViewTask: () = startSpaceViewSubscription()
+        (_, _) = await (participantTask, spaceViewTask)
     }
 
     private func startParticipantSpaceViewTask() async {
@@ -35,7 +80,67 @@ final class WidgetsHeaderViewModel {
         }
     }
 
-    func onTapSpaceSettings() {
+    private func startSpaceViewSubscription() async {
+        for await spaceViews in workspaceStorage.allSpaceViewsPublisher.values {
+            if let spaceView = spaceViews.first(where: { $0.targetSpaceId == accountSpaceId }) {
+                self.spaceView = spaceView
+                await updateInviteLinkIfNeeded()
+            }
+        }
+    }
+
+    private func updateInviteLinkIfNeeded() async {
+        guard isSharedSpace else {
+            inviteLink = nil
+            return
+        }
+        guard let spaceView, !spaceView.uxType.isOneToOne else {
+            inviteLink = nil
+            return
+        }
+
+        do {
+            let invite: SpaceInvite
+            if spaceView.uxType.isStream {
+                invite = try await workspaceService.getGuestInvite(spaceId: accountSpaceId)
+            } else {
+                invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
+            }
+            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+        } catch {
+            inviteLink = nil
+        }
+    }
+
+    // MARK: - Actions
+
+    func onChannelSettingsTap() {
         onSpaceSelected()
+    }
+
+    func onMembersTap() {
+        onMembersSelected(accountSpaceId, .navigation)
+    }
+
+    func onInviteMembersTap() {
+        onMembersSelected(accountSpaceId, .navigation)
+    }
+
+    func onNotificationModeChanged(_ mode: SpacePushNotificationsMode) {
+        Task {
+            try await workspaceService.pushNotificationSetSpaceMode(spaceId: accountSpaceId, mode: mode)
+            AnytypeAnalytics.instance().logChangeMessageNotificationState(type: mode.analyticsValue, route: .vault)
+        }
+    }
+
+    func onShowQrCodeTap() {
+        guard let inviteLink else { return }
+        onQrCodeSelected(inviteLink)
+    }
+
+    func onCopyInviteLinkTap() {
+        guard let inviteLink else { return }
+        UIPasteboard.general.string = inviteLink.absoluteString
+        toastBarData = ToastBarData(Loc.copiedToClipboard(Loc.link), type: .success)
     }
 }

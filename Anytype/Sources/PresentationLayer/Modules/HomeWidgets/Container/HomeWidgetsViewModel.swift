@@ -128,7 +128,15 @@ final class HomeWidgetsViewModel {
     func onSpaceSelected() {
         output?.onSpaceSelected()
     }
-    
+
+    func onMembersSelected(spaceId: String, route: SettingsSpaceShareRoute) {
+        output?.onSpaceChatMembersSelected(spaceId: spaceId, route: route)
+    }
+
+    func onQrCodeSelected(url: URL) {
+        output?.onSpaceChatShowQrCodeSelected(url: url)
+    }
+
     func onCreateObjectType() {
         output?.onCreateObjectType()
     }
