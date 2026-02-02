@@ -38,41 +38,40 @@ final class ObjectTypesUnifiedRowViewModel {
         output?.onObjectSelected(screenData: .editor(.type(EditorTypeObject(objectId: info.objectTypeId, spaceId: info.spaceId))))
     }
 
-    func onCreateObject() {
-        Task {
-            let type = try objectTypeProvider.objectType(id: info.objectTypeId)
+    func onCreateObject() async throws {
+        let type = try objectTypeProvider.objectType(id: info.objectTypeId)
 
-            if type.isChatType {
-                let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(
-                    spaceId: type.spaceId,
-                    analyticsRoute: .widget
-                )))
-                output?.onObjectSelected(screenData: screenData)
-                return
-            }
-
-            if type.isBookmarkType {
-                let screenData = ScreenData.alert(.bookmarkCreate(BookmarkCreateScreenData(
-                    spaceId: type.spaceId,
-                    analyticsRoute: .widget
-                )))
-                output?.onObjectSelected(screenData: screenData)
-                return
-            }
-
-            let details = try await objectActionsService.createObject(
-                name: "",
-                typeUniqueKey: type.uniqueKey,
-                shouldDeleteEmptyObject: true,
-                shouldSelectType: false,
-                shouldSelectTemplate: true,
+        if type.isChatType {
+            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(
                 spaceId: type.spaceId,
-                origin: .none,
-                templateId: type.defaultTemplateId
-            )
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .widget)
-            output?.onObjectSelected(screenData: details.screenData())
+                analyticsRoute: .widget
+            )))
+            output?.onObjectSelected(screenData: screenData)
+            return
         }
+
+        if type.isBookmarkType {
+            let screenData = ScreenData.alert(.bookmarkCreate(BookmarkCreateScreenData(
+                spaceId: type.spaceId,
+                analyticsRoute: .widget
+            )))
+            output?.onObjectSelected(screenData: screenData)
+            return
+        }
+
+        let details = try await objectActionsService.createObject(
+            name: "",
+            typeUniqueKey: type.uniqueKey,
+            shouldDeleteEmptyObject: true,
+            shouldSelectType: false,
+            shouldSelectTemplate: true,
+            spaceId: type.spaceId,
+            origin: .none,
+            templateId: type.defaultTemplateId
+        )
+
+        AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .widget)
+        output?.onObjectSelected(screenData: details.screenData())
     }
 
     // MARK: - Private
