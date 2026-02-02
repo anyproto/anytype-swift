@@ -106,7 +106,7 @@ private struct WidgetsHeaderMenuContent: View {
         NotificationModeMenu(
             currentMode: model.currentNotificationMode,
             onModeChange: { mode in
-                model.onNotificationModeChanged(mode)
+                await model.onNotificationModeChanged(mode)
             }
         )
     }

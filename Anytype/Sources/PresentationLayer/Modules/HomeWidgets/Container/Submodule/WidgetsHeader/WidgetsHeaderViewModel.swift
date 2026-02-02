@@ -127,14 +127,12 @@ final class WidgetsHeaderViewModel {
         onMembersSelected(accountSpaceId, .navigation)
     }
 
-    func onNotificationModeChanged(_ mode: SpacePushNotificationsMode) {
-        Task {
-            do {
-                try await workspaceService.pushNotificationSetSpaceMode(spaceId: accountSpaceId, mode: mode)
-                AnytypeAnalytics.instance().logChangeMessageNotificationState(type: mode.analyticsValue, route: .vault)
-            } catch {
-                anytypeAssertionFailure("Failed to set notification mode: \(error)")
-            }
+    func onNotificationModeChanged(_ mode: SpacePushNotificationsMode) async {
+        do {
+            try await workspaceService.pushNotificationSetSpaceMode(spaceId: accountSpaceId, mode: mode)
+            AnytypeAnalytics.instance().logChangeMessageNotificationState(type: mode.analyticsValue, route: .vault, uxType: .space)
+        } catch {
+            anytypeAssertionFailure("Failed to set notification mode: \(error)")
         }
     }
 
