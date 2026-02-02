@@ -3,20 +3,24 @@ import Services
 
 
 @MainActor
-final class MembershipTierSelectionViewModel: ObservableObject {
-    
-    @Published var state: MembershipTierOwningState?
-    
+@Observable
+final class MembershipTierSelectionViewModel {
+
+    var state: MembershipTierOwningState?
+
+    @ObservationIgnored
     let userMembership: MembershipStatus
+    @ObservationIgnored
     let tierToDisplay: MembershipTier
-    
+
+    @ObservationIgnored
     let onSuccessfulPurchase: (MembershipTier) -> ()
-    
-    @Injected(\.membershipService)
+
+    @ObservationIgnored @Injected(\.membershipService)
     private var membershipService: any MembershipServiceProtocol
-    @Injected(\.membershipMetadataProvider)
+    @ObservationIgnored @Injected(\.membershipMetadataProvider)
     private var membershipMetadataProvider: any MembershipMetadataProviderProtocol
-    
+
     init(
         userMembership: MembershipStatus,
         tierToDisplay: MembershipTier,
@@ -26,8 +30,8 @@ final class MembershipTierSelectionViewModel: ObservableObject {
         self.tierToDisplay = tierToDisplay
         self.onSuccessfulPurchase = onSuccessfulPurchase
     }
-    
-    func onAppear() async {        
+
+    func onAppear() async {
         state = await membershipMetadataProvider.owningState(tier: tierToDisplay)
     }
 }

@@ -71,6 +71,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
             case .uploadedObject(let objectDetails):
                 var attachment = ChatMessageAttachment()
                 attachment.target = objectDetails.id
+                attachment.type = .link
                 chatMessage.attachments.append(attachment)
             case .localPhotosFile(let chatLocalFile):
                 guard let data = chatLocalFile.data else { continue }

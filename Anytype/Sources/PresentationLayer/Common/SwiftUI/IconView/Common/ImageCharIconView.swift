@@ -36,7 +36,7 @@ struct ImageCharIconView: View {
         GeometryReader { reader in
             ZStack(alignment: .center) {
                 Text(text.prefix(1).uppercased())
-                    .foregroundColor(textColor)
+                    .foregroundStyle(Color(textColor))
                     .font(font(size: reader.size))
             }
             .frame(width: reader.size.width, height: reader.size.height)

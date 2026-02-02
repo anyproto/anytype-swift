@@ -33,12 +33,7 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol, Send
     private let installedConfigurationsSubject = CurrentValueSubject<Void, Never>(())
     
     init() {
-        let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        let storagePath = docDir?.appendingPathComponent(Constants.configStorageFolder)
-        if storagePath.isNil {
-            anytypeAssertionFailure("Storage path is empty")
-        }
-        self.storagePath = storagePath ?? URL(fileURLWithPath: "")
+        self.storagePath = URL.documentsDirectory.appendingPathComponent(Constants.configStorageFolder)
         validateServerFile()
     }
     

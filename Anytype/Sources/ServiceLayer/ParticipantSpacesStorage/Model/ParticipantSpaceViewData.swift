@@ -23,7 +23,7 @@ extension ParticipantSpaceViewData {
     var canEdit: Bool {
         permissions.canEdit
     }
-    
+
     var canLeave: Bool {
         permissions.canLeave
     }

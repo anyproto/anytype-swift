@@ -3,8 +3,9 @@ import Services
 
 final class EditorSyncStatusItem: UIView {
     private lazy var button: UIButton = {
-        let configuration = UIButton.Configuration.plain()
-        
+        var configuration = UIButton.Configuration.plain()
+        configuration.baseForegroundColor = .Control.secondary
+
         return UIButton(
             configuration: configuration,
             primaryAction: UIAction(
@@ -16,68 +17,37 @@ final class EditorSyncStatusItem: UIView {
             )
         )
     }()
-    
-    private let backgroundView = UIView()
-    
+
     private var statusData: SyncStatusData?
-    private var itemState: EditorBarItemState?
-    
+
     private let onTap: () -> ()
-    
+
     private let height: CGFloat = 28
     private let width: CGFloat = 28
-    private var intristicSize: CGSize = .zero
-    
+
     func changeStatusData(_ statusData: SyncStatusData?) {
         self.statusData = statusData
         self.updateButtonState()
     }
-    
-    func changeItemState(_ itemState: EditorBarItemState) {
-        self.itemState = itemState
-        self.updateBackgroundColor()
-    }
-    
-    init(statusData: SyncStatusData? = nil, itemState: EditorBarItemState? = nil, onTap: @escaping () -> ()) {
+
+    init(statusData: SyncStatusData? = nil, onTap: @escaping () -> ()) {
         self.statusData = statusData
         self.onTap = onTap
         super.init(frame: .zero)
         setup()
     }
-    
-    override var intrinsicContentSize: CGSize {
-        intristicSize
-    }
-    
+
     // MARK: - Private
-    
+
     private func setup() {
         updateButtonState()
-        updateBackgroundColor()
-        
+
         layoutUsing.anchors {
             $0.height.equal(to: height)
             $0.width.equal(to: width)
-            $0.centerY.equal(to: centerYAnchor)
         }
-        
-        backgroundView.layer.cornerRadius = 7
-        
-        addSubview(backgroundView) { $0.pinToSuperview() }
+
         addSubview(button) { $0.pinToSuperview() }
-    }
-    
-    private func updateBackgroundColor() {
-        guard let itemState = itemState else {
-            backgroundView.backgroundColor = .clear
-            backgroundView.alpha = 0
-            button.tintColor = .Control.secondary
-            return
-        }
-        
-        backgroundView.backgroundColor = .black.withAlphaComponent(0.35)
-        backgroundView.alpha = itemState.backgroundAlpha
-        button.tintColor = itemState.buttonTintColor
     }
 
     private func updateButtonState() {

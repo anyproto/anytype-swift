@@ -3,18 +3,21 @@ import AnytypeCore
 import AudioToolbox
 
 struct PrimaryAuthView: View {
-    
-    @StateObject private var model: PrimaryAuthViewModel
+
+    @State private var model: PrimaryAuthViewModel
     @Environment(\.authCircleCenterVerticalOffset) private var circleOffset
-    
+
     init(output: (any PrimaryAuthOutput)?) {
-        _model = StateObject(wrappedValue: PrimaryAuthViewModel(output: output))
+        _model = State(initialValue: PrimaryAuthViewModel(output: output))
     }
-    
+
     var body: some View {
         content
             .onAppear {
                 model.onAppear()
+            }
+            .task {
+                await model.startAppActionSubscription()
             }
             .task(item: model.createAccountTaskId) { _ in
                 await model.createAccount()
@@ -45,14 +48,14 @@ struct PrimaryAuthView: View {
         Group {
             (
                 Text(Loc.Auth.Primary.Greeting.pt1)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .anytypeFontStyle(.interTitle)
                 +
                 Text("\n")
                     .anytypeFontStyle(.riccioneTitle)
                 +
                 Text(Loc.Auth.Primary.Greeting.pt2)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                     .anytypeFontStyle(.riccioneTitle)
              )
             .multilineTextAlignment(.center)
@@ -68,18 +71,18 @@ struct PrimaryAuthView: View {
     }
     
     private var header: some View {
-        ModalNavigationHeader {
-            EmptyView()
-        } titleView: {
+        NavigationHeader(navigationButtonType: .none) {
             Image(asset: .logo)
-                .foregroundColor(.Control.primary)
-        } rightView: {
+                .foregroundStyle(Color.Control.primary)
+        } rightContent: {
             Button {
                 model.onSettingsButtonTap()
             } label: {
                 Image(asset: .X24.spaceSettings)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
             }
+            .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+            .glassEffectInteractiveIOS26(in: Circle())
             .disabled(model.inProgress)
         }
     }
@@ -112,7 +115,7 @@ struct PrimaryAuthView: View {
             style: .relation3Regular,
             enableMarkdown: true
         )
-        .foregroundColor(.Text.secondary)
+        .foregroundStyle(Color.Text.secondary)
         .multilineTextAlignment(.center)
         .accentColor(.Text.secondary)
         .disabled(model.inProgress)

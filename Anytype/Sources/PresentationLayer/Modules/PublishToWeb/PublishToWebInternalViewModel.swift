@@ -10,28 +10,36 @@ enum PublishAction {
 }
 
 @MainActor
-final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOutput {
-    
-    @Published var customPath: String = ""
-    @Published var showJoinSpaceButton: Bool = true
-    @Published var status: PublishState?
-    
-    @Published var previewData: PublishingPreviewData = .empty
-    @Published var toastBarData: ToastBarData?
-    
+@Observable
+final class PublishToWebInternalViewModel: PublishingPreviewOutput {
+
+    var customPath: String = ""
+    var showJoinSpaceButton: Bool = true
+    var status: PublishState?
+
+    var previewData: PublishingPreviewData = .empty
+    var toastBarData: ToastBarData?
+
     let domain: DomainType
     let objectDetails: ObjectDetails
-    
+    let spaceUxType: SpaceUxType
+
+    @ObservationIgnored
     private weak var output: (any PublishToWebModuleOutput)?
-    
+
+    @ObservationIgnored
     @Injected(\.publishingService)
     private var publishingService: any PublishingServiceProtocol
+    @ObservationIgnored
     @Injected(\.publishingPreviewBuilder)
     private var previewBuilder: any PublishingPreviewBuilderProtocol
+    @ObservationIgnored
     @Injected(\.publishedUrlBuilder)
     private var urlBuilder: any PublishedUrlBuilderProtocol
-    
+
+    @ObservationIgnored
     private let spaceId: String
+    @ObservationIgnored
     private let objectId: String
     
     private var analyticsObjectType: AnalyticsObjectType {
@@ -44,6 +52,7 @@ final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOu
         domain = data.domain
         status = data.status
         objectDetails = data.objectDetails
+        spaceUxType = data.spaceUxType
         self.output = output
         
         customPath = data.status?.uri ?? data.objectDetails.name

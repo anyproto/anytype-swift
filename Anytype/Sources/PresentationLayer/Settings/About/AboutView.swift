@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct AboutView: View {
-    
-    @StateObject private var model: AboutViewModel
-    
+
+    @State private var model: AboutViewModel
+
     init(output: (any AboutModuleOutput)?) {
-        _model = StateObject(wrappedValue: AboutViewModel(output: output))
+        _model = State(initialValue: AboutViewModel(output: output))
     }
     
     var body: some View {
@@ -64,11 +64,13 @@ struct AboutView: View {
     @ViewBuilder
     private var techSection: some View {
         SectionHeaderView(title: Loc.About.techInfo)
-        AnytypeText(model.info, style: .caption2Regular)
-                .foregroundColor(.Text.secondary)
-        .padding(EdgeInsets(top: 8, leading: 0, bottom: 36, trailing: 0))
-        .onTapGesture {
+        Button {
             model.onInfoTap()
+        } label: {
+            AnytypeText(model.info, style: .caption2Regular)
+                .foregroundStyle(Color.Text.secondary)
+                .padding(EdgeInsets(top: 8, leading: 0, bottom: 36, trailing: 0))
         }
+        .buttonStyle(.plain)
     }
 }

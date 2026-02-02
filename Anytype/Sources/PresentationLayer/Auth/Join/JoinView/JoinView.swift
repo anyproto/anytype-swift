@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct JoinView: View {
-    
-    @StateObject private var model: JoinViewModel
+
+    @State private var model: JoinViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(state: JoinFlowState) {
-        _model = StateObject(wrappedValue: JoinViewModel(state: state))
+        _model = State(initialValue: JoinViewModel(state: state))
     }
     
     var body: some View {
@@ -45,12 +45,12 @@ struct JoinView: View {
     }
     
     private var header: some View {
-        ModalNavigationHeader {
+        NavigationHeader {
             backButton
-        } titleView: {
+        } titleContent: {
             Image(asset: .logo)
-                .foregroundColor(.Control.primary)
-        } rightView: {
+                .foregroundStyle(Color.Control.primary)
+        } rightContent: {
             EmptyView()
         }
     }
@@ -60,9 +60,11 @@ struct JoinView: View {
             model.onBackButtonTap()
         }) {
             Image(asset: .X24.back)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
         }
         .disabled(model.backButtonDisabled)
+        .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+        .glassEffectInteractiveIOS26(in: Circle())
     }
     
     @ViewBuilder

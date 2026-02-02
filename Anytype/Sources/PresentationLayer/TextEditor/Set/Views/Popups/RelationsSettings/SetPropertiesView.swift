@@ -2,20 +2,19 @@ import SwiftUI
 import AnytypeCore
 
 struct SetPropertiesView: View {
-    @StateObject private var model: SetPropertiesViewModel
+    @State private var model: SetPropertiesViewModel
     @State private var editMode = EditMode.inactive
-    
+
     init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetPropertiesCoordinatorOutput)?) {
-        _model = StateObject(wrappedValue: SetPropertiesViewModel(setDocument: setDocument, viewId: viewId, output: output))
+        _model = State(initialValue: SetPropertiesViewModel(setDocument: setDocument, viewId: viewId, output: output))
     }
     
     var body: some View {
         DragIndicator()
-        NavigationView {
+        NavigationStack {
             content
         }
         .background(Color.Background.secondary)
-        .navigationViewStyle(.stack)
     }
     
     private var content: some View {
@@ -24,8 +23,6 @@ struct SetPropertiesView: View {
                 .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
         }
         .environment(\.editMode, $editMode)
-        
-        .navigationViewStyle(.stack)
         .navigationBarTitleDisplayMode(.inline)
         
         .listStyle(.plain)
@@ -34,19 +31,19 @@ struct SetPropertiesView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
                     .environment(\.editMode, $editMode)
             }
             ToolbarItem(placement: .principal) {
                 AnytypeText(Loc.fields, style: .uxTitle1Semibold)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     withAnimation { editMode = .inactive }
                     model.showAddPropertyInfoView()
                 }) {
-                    Image(asset: .X32.plus).foregroundColor(.Control.secondary)
+                    Image(asset: .X32.plus).foregroundStyle(Color.Control.secondary)
                 }
             }
         }
@@ -69,7 +66,7 @@ struct SetPropertiesView: View {
     private func propertyRow(_ property: SetViewSettingsProperty) -> some View {
         HStack(spacing: 0) {
             Image(asset: property.image)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
             Spacer.fixedWidth(10)
             AnytypeToggle(
                 title: property.title,

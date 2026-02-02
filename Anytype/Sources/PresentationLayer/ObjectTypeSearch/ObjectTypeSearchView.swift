@@ -12,11 +12,11 @@ struct ObjectTypeSearchView: View {
     private typealias SectionData = ObjectTypeSearchViewModel.SectionData
     private typealias SectionType = ObjectTypeSearchViewModel.SectionType
     private typealias ObjectTypeData =  ObjectTypeSearchViewModel.ObjectTypeData
-    
+
     let title: String
     let style: ObjectTypeSearchNavigationHeaderStyle
-    @StateObject private var viewModel: ObjectTypeSearchViewModel
-    
+    @State private var viewModel: ObjectTypeSearchViewModel
+
     init(
         title: String,
         spaceId: String,
@@ -26,8 +26,8 @@ struct ObjectTypeSearchView: View {
     ) {
         self.title = title
         self.style = style
-        _viewModel = StateObject(
-            wrappedValue: ObjectTypeSearchViewModel(
+        _viewModel = State(
+            initialValue: ObjectTypeSearchViewModel(
                 spaceId: spaceId,
                 settings: settings,
                 onSelect: onSelect
@@ -79,7 +79,7 @@ struct ObjectTypeSearchView: View {
                 }
             }
         case .navbar:
-            PageNavigationHeader(title: title) {
+            NavigationHeader(title: title) {
                 if viewModel.settings.showPlusButton {
                     Button {
                         viewModel.createType(name: "")
@@ -87,6 +87,8 @@ struct ObjectTypeSearchView: View {
                         Image(asset: .X32.plus)
                             .frame(width: 32, height: 32)
                     }
+                    .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+                    .glassEffectInteractiveIOS26(in: Circle())
                 }
             }
         }
@@ -99,9 +101,9 @@ struct ObjectTypeSearchView: View {
                     viewModel.createObjectFromClipboard()
                 } label: {
                     HStack(spacing: 6) {
-                        Image(asset: .X24.clipboard).foregroundColor(.Control.secondary)
+                        Image(asset: .X24.clipboard).foregroundStyle(Color.Control.secondary)
                         AnytypeText(Loc.createObjectFromClipboard, style: .caption1Medium)
-                            .foregroundColor(.Text.secondary)
+                            .foregroundStyle(Color.Text.secondary)
                         Spacer()
                     }
                     .padding(.horizontal, 20)
@@ -147,7 +149,7 @@ struct ObjectTypeSearchView: View {
     private func sectionHeader(_ type: SectionType) -> some View {
         HStack(spacing: 0) {
             AnytypeText(type.name, style: .caption1Medium)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             Spacer()
         }
         .padding(.horizontal, 20)
@@ -166,7 +168,7 @@ struct ObjectTypeSearchView: View {
                         IconView(object: typeData.type.icon).frame(width: 18, height: 18)
                         
                         AnytypeText(typeData.type.displayName, style: .uxTitle2Medium)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                     }
                     .padding(.vertical, 15)
                     .padding(.leading, 14)

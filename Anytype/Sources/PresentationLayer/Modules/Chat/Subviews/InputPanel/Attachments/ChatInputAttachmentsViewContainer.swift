@@ -47,8 +47,8 @@ struct ChatInputAttachmentsViewContainer: View {
                         }
                     }
                 }
-                .padding(.top, 12)
                 .padding(.horizontal, 12)
+                .padding(.vertical, 12)
             }
             .scrollIndicators(.hidden)
             .onChange(of: objects) { _, newValue in

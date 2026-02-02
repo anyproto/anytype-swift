@@ -2,10 +2,10 @@ import SwiftUI
 import AnytypeCore
 
 struct UndoRedoView: View {
-    @StateObject private var model: UndoRedoViewModel
+    @State private var model: UndoRedoViewModel
 
     init(objectId: String) {
-        self._model = StateObject(wrappedValue: UndoRedoViewModel(objectId: objectId))
+        self._model = State(initialValue: UndoRedoViewModel(objectId: objectId))
     }
     
     var body: some View {
@@ -42,7 +42,7 @@ private struct ItemView: View {
     var body: some View {
         VStack(spacing: 5) {
             Image(asset: imageAsset)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
                 .frame(height: 52)
                 .frame(
                     minWidth: 0,
@@ -50,9 +50,9 @@ private struct ItemView: View {
                     alignment: .center
                 )
                 .background(Color.Background.highlightedMedium)
-                .cornerRadius(10.5)
+                .clipShape(.rect(cornerRadius: 10.5))
             AnytypeText(title, style: .caption2Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
         }
     }
 }

@@ -36,9 +36,7 @@ protocol EditorRouterProtocol:
         selectedBlockIds: [String],
         viewDidClose: @escaping () -> Void
     )
-    
-    func showSettings()
-    func showSettings(output: any ObjectSettingsCoordinatorOutput)
+
     func showTextIconPicker(contextId: String, objectId: String)
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ())

@@ -2,23 +2,26 @@ import SwiftUI
 import Services
 
 @MainActor
-final class EmailCollectionViewModel: ObservableObject {
-    
-    @Published var inputText: String {
+@Observable
+final class EmailCollectionViewModel {
+
+    var inputText: String {
         didSet {
             state.email = inputText
         }
     }
-    @Published var inProgress = false
-    @Published var saveEmailTaskId: String? = nil
-    @Published var showIncorrectEmailError = false
-    
+    var inProgress = false
+    var saveEmailTaskId: String? = nil
+    var showIncorrectEmailError = false
+
     // MARK: - DI
-    
+
+    @ObservationIgnored
     private let state: JoinFlowState
+    @ObservationIgnored
     private weak var output: (any JoinBaseOutput)?
 
-    @Injected(\.membershipService)
+    @ObservationIgnored @Injected(\.membershipService)
     private var membershipService: any MembershipServiceProtocol
     
     init(state: JoinFlowState, output: (any JoinBaseOutput)?) {

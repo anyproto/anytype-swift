@@ -1,3 +1,8 @@
+---
+name: feature-toggle-developer
+description: Guides systematic removal of feature toggles from the codebase with automated cleanup detection. Use when removing feature flags, enabling toggles permanently, or cleaning up unused code after toggle removal.
+---
+
 # Feature Toggle Developer
 
 **Status**: Active

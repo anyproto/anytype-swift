@@ -15,7 +15,7 @@ struct SpaceCreateData: Equatable, Identifiable, Hashable {
             return Loc.SpaceCreate.Space.title
         case .stream:
             return Loc.SpaceCreate.Stream.title
-        case .UNRECOGNIZED(_), .none:
+        case .UNRECOGNIZED(_), .none, .oneToOne:
             return ""
         }
     }
@@ -24,9 +24,9 @@ struct SpaceCreateData: Equatable, Identifiable, Hashable {
 extension SpaceUxType {
     var useCase: UseCase {
         switch self {
-        case .chat, .stream: return .chatSpace
-        case .data: return .dataSpaceMobile
-        default: return .none
+        case .chat, .stream: .chatSpace
+        case .data: .dataSpaceMobile
+        case .oneToOne, .none, .UNRECOGNIZED: .none
         }
     }
 }

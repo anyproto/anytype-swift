@@ -224,12 +224,15 @@ private extension AnytypePopup {
     func makeAppearance() -> SurfaceAppearance {
         let appearance = SurfaceAppearance()
         appearance.backgroundColor = .Background.secondary
-        appearance.cornerRadius = 16.0
+        if #available(iOS 26.0, *) {
+            appearance.cornerRadius = 38.0
+        } else {
+            appearance.cornerRadius = 16.0
+        }
         appearance.cornerCurve = .continuous
 
-
         appearance.shadows = [makeShadow()]
-        
+
         return appearance
     }
     

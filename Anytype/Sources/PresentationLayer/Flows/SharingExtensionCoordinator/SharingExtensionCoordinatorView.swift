@@ -1,17 +1,20 @@
 import SwiftUI
 
 struct SharingExtensionCoordinatorView: View {
-    
-    @StateObject private var model = SharingExtensionCoordinatorViewModel()
+
+    @State private var model = SharingExtensionCoordinatorViewModel()
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        SharingExtensionView(output: model)
+        SharingExtensionView(output: model, suggestedSpaceId: model.suggestedSpaceId)
             .sheet(item: $model.showShareTo) {
                 SharingExtensionShareToView(data: $0, output: model)
             }
             .onChange(of: model.dismiss) {
                 dismiss()
+            }
+            .task {
+                await model.checkForSuggestedConversation()
             }
     }
 }

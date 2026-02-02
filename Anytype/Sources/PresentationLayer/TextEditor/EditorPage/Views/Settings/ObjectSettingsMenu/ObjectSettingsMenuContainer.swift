@@ -1,16 +1,23 @@
 import SwiftUI
 import AnytypeCore
 
-struct ObjectSettingsMenuContainer: View {
+struct ObjectSettingsMenuContainer<Label: View>: View {
 
-    @StateObject private var model: ObjectSettingsCoordinatorViewModel
+    @State private var model: ObjectSettingsCoordinatorViewModel
+    private let label: () -> Label
 
-    init(objectId: String, spaceId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
-        self._model = StateObject(wrappedValue: ObjectSettingsCoordinatorViewModel(objectId: objectId, spaceId: spaceId, output: output))
+    init(
+        objectId: String,
+        spaceId: String,
+        output: (any ObjectSettingsCoordinatorOutput)?,
+        @ViewBuilder label: @escaping () -> Label
+    ) {
+        self._model = State(initialValue: ObjectSettingsCoordinatorViewModel(objectId: objectId, spaceId: spaceId, output: output))
+        self.label = label
     }
 
     var body: some View {
-        ObjectSettingsMenuView(objectId: model.objectId, spaceId: model.spaceId, output: model)
+        ObjectSettingsMenuView(objectId: model.objectId, spaceId: model.spaceId, output: model, labelView: label)
             .sheet(item: $model.coverPickerData) {
                 ObjectCoverPicker(data: $0)
             }
@@ -29,5 +36,19 @@ struct ObjectSettingsMenuContainer: View {
             .sheet(item: $model.publishingData) {
                 PublishToWebCoordinator(data: $0)
             }
+            .sheet(item: $model.chatEditData) { data in
+                ChatCreateView(data: data)
+            }
+    }
+}
+
+extension ObjectSettingsMenuContainer where Label == AnyView {
+    init(objectId: String, spaceId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
+        self.init(objectId: objectId, spaceId: spaceId, output: output) {
+            AnyView(
+                Image(asset: .X24.more)
+                    .foregroundStyle(Color.Text.primary)
+            )
+        }
     }
 }

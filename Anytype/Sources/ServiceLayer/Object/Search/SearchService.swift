@@ -152,8 +152,7 @@ final class SearchService: SearchServiceProtocol, Sendable {
     func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [PropertyDetails] {
         let sort = SearchHelper.sort(
             relation: BundledPropertyKey.lastUsedDate,
-            type: .desc,
-            includeTime: true
+            type: .desc
         )
 
         let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType

@@ -1,13 +1,15 @@
 import Foundation
 
 @MainActor
-final class PermissionChangeNotificationViewModel: ObservableObject {
-    
+@Observable
+final class PermissionChangeNotificationViewModel {
+
     private let notification: NotificationParticipantPermissionsChange
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
-    
-    @Published var message: String = ""
+
+    var message: String = ""
     
     init(notification: NotificationParticipantPermissionsChange) {
         self.notification = notification

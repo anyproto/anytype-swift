@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct SetLayoutSettingsView: View {
-    @StateObject private var model: SetLayoutSettingsViewModel
+    @State private var model: SetLayoutSettingsViewModel
 
     init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetLayoutSettingsCoordinatorOutput)?) {
-        _model = StateObject(wrappedValue: SetLayoutSettingsViewModel(
+        _model = State(initialValue: SetLayoutSettingsViewModel(
             setDocument: setDocument,
             viewId: viewId,
             output: output
@@ -44,26 +44,28 @@ struct SetLayoutSettingsView: View {
     }
     
     private func viewTypeContent(_ configuration: SetViewTypeConfiguration) -> some View {
-        VStack(alignment: .center, spacing: 0) {
-            Image(asset: configuration.icon)
-            AnytypeText(
-                configuration.name,
-                style: configuration.isSelected ? .caption2Medium : .caption2Regular
-            )
-            .foregroundColor(configuration.isSelected ? .Control.accent100 : .Text.secondary)
-        }
-        .frame(height: 96)
-        .frame(maxWidth: .infinity)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(
-                    configuration.isSelected ? Color.Control.accent50 : Color.Shape.primary,
-                    lineWidth: configuration.isSelected ? 2 : 0.5
-                )
-        )
-        .onTapGesture {
+        Button {
             configuration.onTap()
+        } label: {
+            VStack(alignment: .center, spacing: 0) {
+                Image(asset: configuration.icon)
+                AnytypeText(
+                    configuration.name,
+                    style: configuration.isSelected ? .caption2Medium : .caption2Regular
+                )
+                .foregroundStyle(configuration.isSelected ? Color.Control.accent100 : Color.Text.secondary)
+            }
+            .frame(height: 96)
+            .frame(maxWidth: .infinity)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(
+                        configuration.isSelected ? Color.Control.accent50 : Color.Shape.primary,
+                        lineWidth: configuration.isSelected ? 2 : 0.5
+                    )
+            )
         }
+        .buttonStyle(.plain)
     }
     
     private func columns() -> [GridItem] {
@@ -77,20 +79,23 @@ struct SetLayoutSettingsView: View {
     private var settingsSection: some View {
         VStack(spacing: 0) {
             ForEach(model.settings) { setting in
-                Group {
-                    switch setting {
-                    case let .toggle(item):
-                        toggleSettings(with: item)
-                    case let .value(item):
-                        valueSetting(with: item)
-                    case let .context(item):
-                        contextMenu(with: item)
+                settingContent(setting)
+                    .if(model.settings.last != setting) {
+                        $0.divider()
                     }
-                }
-                .if(model.settings.last != setting) {
-                    $0.divider()
-                }
             }
+        }
+    }
+
+    @ViewBuilder
+    private func settingContent(_ setting: SetViewSettingsItem) -> some View {
+        switch setting {
+        case let .toggle(item):
+            toggleSettings(with: item)
+        case let .value(item):
+            valueSetting(with: item)
+        case let .context(item):
+            contextMenu(with: item)
         }
     }
     
@@ -122,7 +127,7 @@ struct SetLayoutSettingsView: View {
                         option.onTap()
                     } label: {
                         AnytypeText(option.id, style: .uxBodyRegular)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                     }
                 }
             }
@@ -135,13 +140,13 @@ struct SetLayoutSettingsView: View {
     private func valueSettingContent(title: String, value: String, contextual: Bool) -> some View {
         HStack(spacing: 0) {
             AnytypeText(title, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer()
             AnytypeText(value, style: .uxBodyRegular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             Spacer.fixedWidth(6)
             Image(asset: contextual ? .X18.Disclosure.down : .X18.Disclosure.right)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
         }
     }
 }

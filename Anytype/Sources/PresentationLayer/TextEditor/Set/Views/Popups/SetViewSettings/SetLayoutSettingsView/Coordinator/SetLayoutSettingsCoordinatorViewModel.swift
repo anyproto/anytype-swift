@@ -7,11 +7,14 @@ protocol SetLayoutSettingsCoordinatorOutput: AnyObject {
 }
 
 @MainActor
-final class SetLayoutSettingsCoordinatorViewModel: ObservableObject, SetLayoutSettingsCoordinatorOutput {
-    @Published var imagePreviewData: SetLayoutSettingsData?
-    @Published var groupByData: SetLayoutSettingsData?
-    
+@Observable
+final class SetLayoutSettingsCoordinatorViewModel: SetLayoutSettingsCoordinatorOutput {
+    var imagePreviewData: SetLayoutSettingsData?
+    var groupByData: SetLayoutSettingsData?
+
+    @ObservationIgnored
     let setDocument: any SetDocumentProtocol
+    @ObservationIgnored
     let viewId: String
     
     init(setDocument: some SetDocumentProtocol, viewId: String) {

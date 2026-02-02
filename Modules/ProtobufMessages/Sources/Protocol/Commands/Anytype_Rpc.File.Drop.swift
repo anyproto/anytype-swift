@@ -32,6 +32,8 @@ extension Anytype_Rpc.File {
         /// position relatively to the dropTargetId simple block
         public var position: Anytype_Model_Block.Position = .none
 
+        public var style: Anytype_Model_Block.Content.File.Style = .auto
+
         public var localFilePaths: [String] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -149,7 +151,7 @@ extension Anytype_Rpc.File.Drop: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 
 extension Anytype_Rpc.File.Drop.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.File.Drop.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}dropTargetId\0\u{1}position\0\u{1}localFilePaths\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}dropTargetId\0\u{1}position\0\u{1}localFilePaths\0\u{1}style\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -161,6 +163,7 @@ extension Anytype_Rpc.File.Drop.Request: SwiftProtobuf.Message, SwiftProtobuf._M
       case 2: try { try decoder.decodeSingularStringField(value: &self.dropTargetID) }()
       case 3: try { try decoder.decodeSingularEnumField(value: &self.position) }()
       case 4: try { try decoder.decodeRepeatedStringField(value: &self.localFilePaths) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.style) }()
       default: break
       }
     }
@@ -179,6 +182,9 @@ extension Anytype_Rpc.File.Drop.Request: SwiftProtobuf.Message, SwiftProtobuf._M
     if !self.localFilePaths.isEmpty {
       try visitor.visitRepeatedStringField(value: self.localFilePaths, fieldNumber: 4)
     }
+    if self.style != .auto {
+      try visitor.visitSingularEnumField(value: self.style, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -186,6 +192,7 @@ extension Anytype_Rpc.File.Drop.Request: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs.contextID != rhs.contextID {return false}
     if lhs.dropTargetID != rhs.dropTargetID {return false}
     if lhs.position != rhs.position {return false}
+    if lhs.style != rhs.style {return false}
     if lhs.localFilePaths != rhs.localFilePaths {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

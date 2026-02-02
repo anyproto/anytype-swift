@@ -1,3 +1,8 @@
+---
+name: localization-developer
+description: Context-aware routing to the Anytype iOS localization system. Use when working with .xcstrings files, Loc constants, hardcoded strings, or user-facing text.
+---
+
 # Localization Developer (Smart Router)
 
 ## Purpose

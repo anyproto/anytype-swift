@@ -4,6 +4,7 @@
       "type": "domain",
       "priority": "high",
       "description": "Smart router to Swift/iOS development patterns (→ IOS_DEVELOPMENT_GUIDE.md). Critical rules, MVVM/Coordinator patterns, code style",
+      "relatedSkills": ["design-system-developer", "localization-developer", "tests-developer"],
       "promptTriggers": {
         "keywords": [
           "swift",
@@ -83,6 +84,14 @@
           "(remove|delete).*?(localization|string|key)",
           "(search|find).*?(localization|string|key)",
           "(how to|where).*?(localization|string|text)"
+        ],
+        "excludePatterns": [
+          "UITextField",
+          "UITextView",
+          "TextField(",
+          "TextEditor(",
+          "custom font",
+          "font family"
         ]
       },
       "fileTriggers": {
@@ -152,6 +161,7 @@
       "type": "domain",
       "priority": "medium",
       "description": "Smart router to design system (→ DESIGN_SYSTEM_MAPPING.md, TYPOGRAPHY_MAPPING.md). Icons (x18-x40), typography mapping, spacing formula",
+      "relatedSkills": ["ios-dev-guidelines", "localization-developer"],
       "promptTriggers": {
         "keywords": [
           "icon",
@@ -392,6 +402,57 @@
         ]
       }
     },
+    "liquid-glass-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to iOS 26 Liquid Glass patterns (→ liquid-glass-developer/SKILL.md). GlassEffectContainer, morphing, interactive effects",
+      "promptTriggers": {
+        "keywords": [
+          "glass",
+          "liquid glass",
+          "glassEffect",
+          "GlassEffectContainer",
+          "iOS 26",
+          "iOS26",
+          "glass effect",
+          "morphing",
+          "interactive glass",
+          "glassEffectID",
+          "navigation panel",
+          "floating button",
+          "translucent",
+          "blur effect",
+          "glass button",
+          "View+iOS26",
+          "buttonStyleGlass",
+          "glassEffectInteractive"
+        ],
+        "intentPatterns": [
+          "(add|create|implement|use).*?(glass|glass effect|liquid glass)",
+          "(morph|transition).*?(button|element|view)",
+          "(iOS 26|iOS26).*?(effect|style|design)",
+          "(floating|navigation).*?(button|panel|control)",
+          "(how to|best practice).*?(glass|liquid glass|morphing)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/View+iOS26.swift",
+          "**/HomeBottomNavigationPanelView.swift",
+          "**/ChatInput.swift",
+          "**/ChatActionPanel.swift"
+        ],
+        "contentPatterns": [
+          "GlassEffectContainerIOS26",
+          "glassEffectInteractiveIOS26",
+          "glassEffectIDIOS26",
+          "glassEffectIOS26",
+          "buttonStyleGlassIOS26",
+          "\\.glassEffect\\(",
+          "GlassEffectContainer"
+        ]
+      }
+    },
     "tests-developer": {
       "type": "domain",
       "priority": "high",
@@ -458,11 +519,277 @@
           "static func mock"
         ]
       }
+    },
+    "swift-concurrency-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to Swift concurrency patterns. Actors, isolation, Sendable, TaskGroup, async/await mental models",
+      "promptTriggers": {
+        "keywords": [
+          "actor",
+          "isolation",
+          "isolation domain",
+          "Sendable",
+          "@unchecked",
+          "nonisolated",
+          "Task",
+          "TaskGroup",
+          "async let",
+          "structured concurrency",
+          "data race",
+          "cooperative pool",
+          "Swift 6",
+          "Swift 6.2",
+          "approachable concurrency",
+          "@concurrent",
+          "Task.detached",
+          "MainActor.run",
+          "withThrowingTaskGroup",
+          "concurrency warning",
+          "sendable warning"
+        ],
+        "intentPatterns": [
+          "(fix|resolve|suppress).*?(sendable|isolation|race|concurrency)",
+          "(understand|explain).*?(actor|isolation|sendable|task)",
+          "(migrate|update).*?(swift 6|concurrency)",
+          "(how to|when to).*?(actor|sendable|task|concurrent)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/*.swift"
+        ],
+        "contentPatterns": [
+          "actor\\s+\\w+",
+          "nonisolated\\s+(func|var|let)",
+          "Task\\s*\\{",
+          "TaskGroup",
+          "@unchecked Sendable",
+          "withThrowingTaskGroup",
+          ": Sendable",
+          "@concurrent"
+        ]
+      }
+    },
+    "claudemd-maintainer": {
+      "type": "meta",
+      "priority": "medium",
+      "description": "Smart router to CLAUDE.md maintenance best practices. Line limits, progressive disclosure, code snippet management",
+      "promptTriggers": {
+        "keywords": [
+          "CLAUDE.md",
+          "claude.md structure",
+          "improve claude.md",
+          "update claude.md",
+          "project instructions",
+          "onboarding claude",
+          "context file",
+          "reduce claude.md",
+          "streamline claude.md",
+          "claude.md best practice",
+          "claude.md line count",
+          "progressive disclosure",
+          "llm instructions"
+        ],
+        "intentPatterns": [
+          "(improve|update|optimize|streamline).*?(CLAUDE.md|claude.md|project instructions)",
+          "(reduce|shorten|trim).*?(CLAUDE.md|instructions|context)",
+          "(best practice|guideline).*?(CLAUDE.md|llm instruction|ai instruction)",
+          "(how to|structure).*?(CLAUDE.md|project documentation)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/CLAUDE.md"
+        ],
+        "contentPatterns": [
+          "Progressive Disclosure",
+          "Critical Rules",
+          "Quick Start"
+        ]
+      }
+    },
+    "swiftui-performance-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to SwiftUI performance audit patterns. Diagnose slow rendering, view invalidation, layout thrash",
+      "promptTriggers": {
+        "keywords": [
+          "performance",
+          "slow",
+          "jank",
+          "hitch",
+          "laggy",
+          "stuttering",
+          "CPU",
+          "memory",
+          "view update",
+          "body update",
+          "invalidation",
+          "re-render",
+          "ForEach performance",
+          "list performance",
+          "scroll performance",
+          "instruments",
+          "profile",
+          "frame drop",
+          "layout thrash",
+          "_printChanges"
+        ],
+        "intentPatterns": [
+          "(diagnose|fix|optimize).*?(performance|slow|lag|jank|hitch)",
+          "(why is|debug).*?(slow|laggy|stuttering)",
+          "(profile|instrument).*?(swiftui|view|app)",
+          "(reduce|minimize).*?(update|render|body)",
+          "(improve|optimize).*?(list|scroll|animation)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/*.swift"
+        ],
+        "contentPatterns": [
+          "ForEach\\(",
+          "List\\s*\\{",
+          "@Observable",
+          "@State",
+          "\\.task\\(",
+          "body.*some View"
+        ]
+      }
+    },
+    "swiftui-patterns-developer": {
+      "type": "domain",
+      "priority": "medium",
+      "description": "Smart router to SwiftUI view structure and composition. View ordering, subview extraction, @ViewBuilder patterns",
+      "promptTriggers": {
+        "keywords": [
+          "view structure",
+          "view ordering",
+          "split view",
+          "extract subview",
+          "view organization",
+          "view file",
+          "body too long",
+          "large view",
+          "refactor view",
+          "ViewState",
+          "view composition",
+          "@ViewBuilder",
+          "subview extraction"
+        ],
+        "intentPatterns": [
+          "(organize|structure|order).*?(view|swiftui)",
+          "(split|extract|break).*?(view|body|subview)",
+          "(refactor|clean up).*?(view|swiftui)",
+          "(large|long|big).*?(view|body|file)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/PresentationLayer/**/*.swift"
+        ],
+        "contentPatterns": [
+          "struct.*View",
+          "var body.*some View",
+          "@Environment\\(",
+          "@State private var",
+          "enum ViewState"
+        ]
+      }
+    },
+    "confidence-check": {
+      "type": "workflow",
+      "priority": "high",
+      "description": "Pre-implementation confidence assessment to prevent wrong-direction work. Evaluates readiness across 5 weighted criteria before proceeding with implementation.",
+      "promptTriggers": {
+        "keywords": [
+          "implement",
+          "build feature",
+          "create feature",
+          "add feature",
+          "new feature",
+          "confidence check",
+          "before implementing",
+          "should I proceed",
+          "ready to implement",
+          "implementation plan",
+          "start implementing",
+          "begin implementation",
+          "complex task",
+          "big change",
+          "major refactor",
+          "significant change"
+        ],
+        "intentPatterns": [
+          "(implement|build|create|add).*?(feature|functionality|component|screen|view)",
+          "(before|ready to|should I).*?(implement|start|begin|proceed)",
+          "(complex|big|major|significant).*?(task|change|refactor|implementation)",
+          "(plan|planning).*?(implement|build|create)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [],
+        "contentPatterns": []
+      }
+    },
+    "linear-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to Linear issue tracking using linctl CLI. Issues, projects, releases, sprints",
+      "promptTriggers": {
+        "keywords": [
+          "linear",
+          "linctl",
+          "issue",
+          "IOS-",
+          "release task",
+          "sprint",
+          "cycle",
+          "linear issue",
+          "linear task",
+          "linear project",
+          "fetch issue",
+          "get issue",
+          "list issues",
+          "branch name",
+          "gitBranchName",
+          "release context",
+          "impact linear",
+          "linear api"
+        ],
+        "intentPatterns": [
+          "(get|fetch|find).*?(issue|task|ticket|linear)",
+          "(list|search).*?(issue|task|sprint|cycle)",
+          "(create|update|assign).*?(issue|task|ticket)",
+          "(release|sprint|cycle).*?(context|task|planning)",
+          "(branch name|git branch).*?(linear|issue)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/.claude/commands/impact_linear.md",
+          "**/.claude/commands/cpp.md"
+        ],
+        "contentPatterns": [
+          "mcp__linear-server",
+          "linctl",
+          "Linear MCP",
+          "IOS-\\d+"
+        ]
+      }
     }
   },
   "config": {
     "maxSkillsPerPrompt": 2,
     "logActivations": true,
-    "logPath": ".claude/logs/skill-activations.log"
+    "logPath": ".claude/logs/skill-activations.log",
+    "scoring": {
+      "keywordWeight": 2,
+      "intentWeight": 3,
+      "confidenceThreshold": 3,
+      "highConfidenceScore": 6,
+      "mediumConfidenceScore": 4
+    }
   }
 }

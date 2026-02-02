@@ -9912,8 +9912,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Вы уверены, что хотите удалить %#@объект@?"
+            "state" : "translated",
+            "value" : "Вы уверены, что хотите удалить %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -10465,7 +10465,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Anhänge"
+                  "value" : "%lld Attachments"
                 }
               }
             }
@@ -10501,7 +10501,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Adjuntos"
+                  "value" : "%lld Attachments"
                 }
               }
             }
@@ -10555,7 +10555,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Pièces jointes"
+                  "value" : "%lld Attachments"
                 }
               }
             }
@@ -10585,7 +10585,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Allegati"
+                  "value" : "%lld Attachments"
                 }
               }
             }
@@ -10645,7 +10645,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Bijlagen"
+                  "value" : "%lld Attachments"
                 }
               }
             }
@@ -10675,13 +10675,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Załączników"
+                  "value" : "%lld Attachments"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Załączników"
+                  "value" : "%lld Attachments"
                 }
               },
               "one" : {
@@ -10693,7 +10693,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Załączników"
+                  "value" : "%lld Attachments"
                 }
               }
             }
@@ -10741,13 +10741,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Вложений"
+                  "value" : "%lld Attachments"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld вложений"
+                  "value" : "%lld Attachments"
                 }
               },
               "one" : {
@@ -10759,7 +10759,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld вложений"
+                  "value" : "%lld Attachments"
                 }
               }
             }
@@ -10777,7 +10777,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Ek dosya"
+                  "value" : "%lld Attachments"
                 }
               }
             }
@@ -11118,7 +11118,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Audio's"
+                  "value" : "%lld Audios"
                 }
               }
             }
@@ -11250,7 +11250,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Ses"
+                  "value" : "%lld Audios"
                 }
               }
             }
@@ -15462,7 +15462,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Lesezeichen"
+                  "value" : "%lld Bookmarks"
                 }
               }
             }
@@ -15498,7 +15498,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Marcadores"
+                  "value" : "%lld Bookmarks"
                 }
               }
             }
@@ -15582,7 +15582,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Segnalibri "
+                  "value" : "%lld Bookmarks"
                 }
               }
             }
@@ -15642,7 +15642,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Bladwijzers"
+                  "value" : "%lld Bookmarks"
                 }
               }
             }
@@ -15738,13 +15738,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Закладок"
+                  "value" : "%lld Bookmarks"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Закладок"
+                  "value" : "%lld Bookmarks"
                 }
               },
               "one" : {
@@ -15756,7 +15756,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Закладки"
+                  "value" : "%lld Bookmarks"
                 }
               }
             }
@@ -15774,7 +15774,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Yer işareti"
+                  "value" : "%lld Bookmarks"
                 }
               }
             }
@@ -25326,7 +25326,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Daten"
+                  "value" : "%lld Dates"
                 }
               }
             }
@@ -25362,7 +25362,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Fechas"
+                  "value" : "%lld Dates"
                 }
               }
             }
@@ -25506,7 +25506,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Datums"
+                  "value" : "%lld Dates"
                 }
               }
             }
@@ -25536,13 +25536,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Dat"
+                  "value" : "%lld Dates"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Dat"
+                  "value" : "%lld Dates"
                 }
               },
               "one" : {
@@ -25602,13 +25602,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Дат"
+                  "value" : "%lld Dates"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Дат"
+                  "value" : "%lld Dates"
                 }
               },
               "one" : {
@@ -25620,7 +25620,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Даты"
+                  "value" : "%lld Dates"
                 }
               }
             }
@@ -25638,7 +25638,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Tarih"
+                  "value" : "%lld Dates"
                 }
               }
             }
@@ -26227,13 +26227,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "праз %arg дні"
+                      "value" : "in %arg days"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "праз %arg дзён"
+                      "value" : "in %arg days"
                     }
                   },
                   "one" : {
@@ -26245,7 +26245,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "праз %arg дзён"
+                      "value" : "in %arg days"
                     }
                   },
                   "zero" : {
@@ -26278,7 +26278,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "in %arg Tagen"
+                      "value" : "in %arg days"
                     }
                   },
                   "zero" : {
@@ -26344,7 +26344,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "dentro de %arg días"
+                      "value" : "in %arg days"
                     }
                   },
                   "zero" : {
@@ -26443,7 +26443,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "dans %arg jours"
+                      "value" : "in %arg days"
                     }
                   },
                   "zero" : {
@@ -26460,7 +26460,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Brankas ini akan dihapus dalam %#@ hari@"
+            "value" : "Brankas ini akan dihapus dalam %#@days@"
           },
           "substitutions" : {
             "days" : {
@@ -26503,7 +26503,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "in %arg giorni"
+                      "value" : "in %arg days"
                     }
                   },
                   "zero" : {
@@ -26623,7 +26623,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "over %arg dagen"
+                      "value" : "in %arg days"
                     }
                   },
                   "zero" : {
@@ -26683,13 +26683,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "za %arg dni"
+                      "value" : "in %arg days"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "za %arg dni"
+                      "value" : "in %arg days"
                     }
                   },
                   "one" : {
@@ -26701,7 +26701,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "w %arg dni"
+                      "value" : "in %arg days"
                     }
                   },
                   "zero" : {
@@ -26734,7 +26734,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "em %arg dias"
+                      "value" : "in %arg days"
                     }
                   },
                   "zero" : {
@@ -26783,8 +26783,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Это хранилище будет удалено через %#@дней@ "
+            "state" : "translated",
+            "value" : "Это хранилище будет удалено через %#@days@"
           },
           "substitutions" : {
             "days" : {
@@ -26794,13 +26794,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "через %arg дня"
+                      "value" : "in %arg days"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "через %arg дней"
+                      "value" : "in %arg days"
                     }
                   },
                   "one" : {
@@ -26812,7 +26812,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "через %arg дней"
+                      "value" : "in %arg days"
                     }
                   },
                   "zero" : {
@@ -26845,7 +26845,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg gün içinde"
+                      "value" : "in %arg days"
                     }
                   },
                   "zero" : {
@@ -29631,7 +29631,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@perangkat@ terhubung"
+            "value" : "%#@device@ terhubung"
           },
           "substitutions" : {
             "device" : {
@@ -29894,8 +29894,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%#@устройство@ подключено"
+            "state" : "translated",
+            "value" : "%#@device@ подключено"
           },
           "substitutions" : {
             "device" : {
@@ -31308,7 +31308,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Sunting atribut"
+            "value" : "Sunting properti"
           }
         },
         "it" : {
@@ -38049,7 +38049,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Dateien"
+                  "value" : "%lld Files"
                 }
               }
             }
@@ -38085,7 +38085,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Archivos"
+                  "value" : "%lld Files"
                 }
               }
             }
@@ -38139,7 +38139,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Fichiers"
+                  "value" : "%lld Files"
                 }
               }
             }
@@ -38229,7 +38229,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Bestanden"
+                  "value" : "%lld Files"
                 }
               }
             }
@@ -38259,13 +38259,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Plików"
+                  "value" : "%lld Files"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Plików"
+                  "value" : "%lld Files"
                 }
               },
               "one" : {
@@ -38325,13 +38325,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld файлов"
+                  "value" : "%lld Files"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld файлов"
+                  "value" : "%lld Files"
                 }
               },
               "one" : {
@@ -38343,7 +38343,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld файлов"
+                  "value" : "%lld Files"
                 }
               }
             }
@@ -38361,7 +38361,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Dosya"
+                  "value" : "%lld Files"
                 }
               }
             }
@@ -38842,7 +38842,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@mengunggah berkas@"
+            "value" : "%#@file@"
           },
           "substitutions" : {
             "file" : {
@@ -39105,8 +39105,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%#@файл@ загружается"
+            "state" : "translated",
+            "value" : "%#@file@ загружается"
           },
           "substitutions" : {
             "file" : {
@@ -46666,7 +46666,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Bilder"
+                  "value" : "%lld Images"
                 }
               }
             }
@@ -46702,7 +46702,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Imágenes"
+                  "value" : "%lld Images"
                 }
               }
             }
@@ -46846,7 +46846,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Afbeeldingen"
+                  "value" : "%lld Images"
                 }
               }
             }
@@ -46876,13 +46876,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Zdjęć"
+                  "value" : "%lld Images"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Zdjęć"
+                  "value" : "%lld Images"
                 }
               },
               "one" : {
@@ -46942,13 +46942,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Изображений"
+                  "value" : "%lld Images"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Изображений"
+                  "value" : "%lld Images"
                 }
               },
               "one" : {
@@ -46960,7 +46960,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Изображения"
+                  "value" : "%lld Images"
                 }
               }
             }
@@ -46978,7 +46978,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Görsel"
+                  "value" : "%lld Images"
                 }
               }
             }
@@ -48503,7 +48503,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@sinkronisasi item@"
+            "value" : "%#@item@"
           },
           "substitutions" : {
             "item" : {
@@ -48766,8 +48766,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%#@элемент@  синхронизируется..."
+            "state" : "translated",
+            "value" : "%#@item@ синхронизируется..."
           },
           "substitutions" : {
             "item" : {
@@ -48776,26 +48776,26 @@
                 "plural" : {
                   "few" : {
                     "stringUnit" : {
-                      "state" : "new",
-                      "value" : "%a элементы организации"
+                      "state" : "translated",
+                      "value" : "%arg элементы организации"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
-                      "state" : "new",
-                      "value" : "%a элементы организации"
+                      "state" : "translated",
+                      "value" : "%arg элементы организации"
                     }
                   },
                   "one" : {
                     "stringUnit" : {
-                      "state" : "new",
-                      "value" : "%a элемент организации"
+                      "state" : "translated",
+                      "value" : "%arg элемент организации"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
-                      "state" : "new",
-                      "value" : "%a элементы организации"
+                      "state" : "translated",
+                      "value" : "%arg элементы организации"
                     }
                   }
                 }
@@ -52177,7 +52177,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Listen"
+                  "value" : "%lld Lists"
                 }
               }
             }
@@ -52213,7 +52213,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Listas"
+                  "value" : "%lld Lists"
                 }
               }
             }
@@ -52267,7 +52267,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Listes"
+                  "value" : "%lld Lists"
                 }
               }
             }
@@ -52357,7 +52357,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Lijsten"
+                  "value" : "%lld Lists"
                 }
               }
             }
@@ -52453,13 +52453,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Списков"
+                  "value" : "%lld Lists"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Списков"
+                  "value" : "%lld Lists"
                 }
               },
               "one" : {
@@ -52471,7 +52471,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Списки"
+                  "value" : "%lld Lists"
                 }
               }
             }
@@ -52489,7 +52489,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Liste"
+                  "value" : "%lld Lists"
                 }
               }
             }
@@ -59980,7 +59980,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Objekte"
+                  "value" : "%lld Objects"
                 }
               }
             }
@@ -60016,7 +60016,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Objetos"
+                  "value" : "%lld Objects"
                 }
               }
             }
@@ -60070,7 +60070,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Objets"
+                  "value" : "%lld Objects"
                 }
               }
             }
@@ -60190,13 +60190,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Obiektów"
+                  "value" : "%lld Objects"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Obiektów"
+                  "value" : "%lld Objects"
                 }
               },
               "one" : {
@@ -60208,7 +60208,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Obiektów"
+                  "value" : "%lld Objects"
                 }
               }
             }
@@ -60256,13 +60256,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Объектов"
+                  "value" : "%lld Objects"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Объектов"
+                  "value" : "%lld Objects"
                 }
               },
               "one" : {
@@ -60274,7 +60274,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Объекты"
+                  "value" : "%lld Objects"
                 }
               }
             }
@@ -60292,7 +60292,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Nesne"
+                  "value" : "%lld Objects"
                 }
               }
             }
@@ -60624,7 +60624,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@objek@ terpilih"
+            "value" : "%#@object@ terpilih"
           },
           "substitutions" : {
             "object" : {
@@ -60887,8 +60887,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%#@объект@ выбран"
+            "state" : "translated",
+            "value" : "%#@object@ выбран"
           },
           "substitutions" : {
             "object" : {
@@ -61142,7 +61142,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Objekttypen"
+                  "value" : "%lld Object types"
                 }
               }
             }
@@ -61178,7 +61178,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Tipos de objeto"
+                  "value" : "%lld Object types"
                 }
               }
             }
@@ -61232,7 +61232,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Types d'objets"
+                  "value" : "%lld Object types"
                 }
               }
             }
@@ -61322,7 +61322,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Objecttypes"
+                  "value" : "%lld Object types"
                 }
               }
             }
@@ -61418,13 +61418,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Типов объекта"
+                  "value" : "%lld Object types"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Типов объекта"
+                  "value" : "%lld Object types"
                 }
               },
               "one" : {
@@ -61436,7 +61436,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Типы объекта"
+                  "value" : "%lld Object types"
                 }
               }
             }
@@ -61454,7 +61454,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Nesne türü"
+                  "value" : "%lld Object types"
                 }
               }
             }
@@ -66092,13 +66092,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg дні"
+                      "value" : "%arg days"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg дзён"
+                      "value" : "%arg days"
                     }
                   },
                   "one" : {
@@ -66110,7 +66110,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg дзён"
+                      "value" : "%arg days"
                     }
                   }
                 }
@@ -66137,7 +66137,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg Tage"
+                      "value" : "%arg days"
                     }
                   }
                 }
@@ -66191,7 +66191,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg días"
+                      "value" : "%arg days"
                     }
                   }
                 }
@@ -66272,7 +66272,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg jours"
+                      "value" : "%arg days"
                     }
                   }
                 }
@@ -66283,7 +66283,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@hari@"
+            "value" : "per %#@day@"
           },
           "substitutions" : {
             "day" : {
@@ -66320,7 +66320,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg giorni"
+                      "value" : "%arg days"
                     }
                   }
                 }
@@ -66416,7 +66416,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg dagen"
+                      "value" : "%arg days"
                     }
                   }
                 }
@@ -66464,13 +66464,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg dni"
+                      "value" : "%arg days"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg dni"
+                      "value" : "%arg days"
                     }
                   },
                   "one" : {
@@ -66482,7 +66482,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg dni"
+                      "value" : "%arg days"
                     }
                   }
                 }
@@ -66509,7 +66509,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg Dias"
+                      "value" : "%arg days"
                     }
                   }
                 }
@@ -66546,8 +66546,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "за %#@день@"
+            "state" : "translated",
+            "value" : "за %#@day@"
           },
           "substitutions" : {
             "day" : {
@@ -66557,13 +66557,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg дня"
+                      "value" : "%arg days"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg дней"
+                      "value" : "%arg days"
                     }
                   },
                   "one" : {
@@ -66575,7 +66575,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg дней"
+                      "value" : "%arg days"
                     }
                   }
                 }
@@ -66602,7 +66602,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg gün"
+                      "value" : "%arg days"
                     }
                   }
                 }
@@ -66781,13 +66781,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg месяца"
+                      "value" : "%arg months"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg месяцы"
+                      "value" : "%arg months"
                     }
                   },
                   "one" : {
@@ -66799,7 +66799,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg месяцаў"
+                      "value" : "%arg months"
                     }
                   }
                 }
@@ -66826,7 +66826,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg Monate"
+                      "value" : "%arg months"
                     }
                   }
                 }
@@ -66880,7 +66880,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg meses"
+                      "value" : "%arg months"
                     }
                   }
                 }
@@ -66961,7 +66961,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg mois"
+                      "value" : "%arg months"
                     }
                   }
                 }
@@ -66972,7 +66972,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@bulan@"
+            "value" : "per %#@month@"
           },
           "substitutions" : {
             "month" : {
@@ -67009,7 +67009,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg mesi"
+                      "value" : "%arg months"
                     }
                   }
                 }
@@ -67105,7 +67105,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg maanden"
+                      "value" : "%arg months"
                     }
                   }
                 }
@@ -67153,13 +67153,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg miesięcy"
+                      "value" : "%arg months"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg miesięcy"
+                      "value" : "%arg months"
                     }
                   },
                   "one" : {
@@ -67171,7 +67171,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg miesięcy"
+                      "value" : "%arg months"
                     }
                   }
                 }
@@ -67198,7 +67198,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg meses"
+                      "value" : "%arg months"
                     }
                   }
                 }
@@ -67235,8 +67235,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "за %#@месяц@"
+            "state" : "translated",
+            "value" : "за %#@month@"
           },
           "substitutions" : {
             "month" : {
@@ -67246,13 +67246,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg месяца"
+                      "value" : "%arg months"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg месяцев"
+                      "value" : "%arg months"
                     }
                   },
                   "one" : {
@@ -67264,7 +67264,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg месяцев"
+                      "value" : "%arg months"
                     }
                   }
                 }
@@ -67291,7 +67291,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg ay"
+                      "value" : "%arg months"
                     }
                   }
                 }
@@ -67470,13 +67470,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg тыдні"
+                      "value" : "%arg weeks"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg тыдняў"
+                      "value" : "%arg weeks"
                     }
                   },
                   "one" : {
@@ -67488,7 +67488,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg тыдняў"
+                      "value" : "%arg weeks"
                     }
                   }
                 }
@@ -67515,7 +67515,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg Wochen"
+                      "value" : "%arg weeks"
                     }
                   }
                 }
@@ -67569,7 +67569,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg semanas"
+                      "value" : "%arg weeks"
                     }
                   }
                 }
@@ -67650,7 +67650,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg semaines"
+                      "value" : "%arg weeks"
                     }
                   }
                 }
@@ -67661,7 +67661,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@minggu@"
+            "value" : "per %#@week@"
           },
           "substitutions" : {
             "week" : {
@@ -67698,7 +67698,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg settimane"
+                      "value" : "%arg weeks"
                     }
                   }
                 }
@@ -67842,13 +67842,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg tygodni"
+                      "value" : "%arg weeks"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg tygodni"
+                      "value" : "%arg weeks"
                     }
                   },
                   "one" : {
@@ -67860,7 +67860,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg tygodni"
+                      "value" : "%arg weeks"
                     }
                   }
                 }
@@ -67887,7 +67887,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg semanas"
+                      "value" : "%arg weeks"
                     }
                   }
                 }
@@ -67924,8 +67924,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "за %#@неделю@"
+            "state" : "translated",
+            "value" : "за %#@week@"
           },
           "substitutions" : {
             "week" : {
@@ -67935,13 +67935,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg недели"
+                      "value" : "%arg weeks"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg недель"
+                      "value" : "%arg weeks"
                     }
                   },
                   "one" : {
@@ -67953,7 +67953,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg недель"
+                      "value" : "%arg weeks"
                     }
                   }
                 }
@@ -67980,7 +67980,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg hafta"
+                      "value" : "%arg weeks"
                     }
                   }
                 }
@@ -68159,13 +68159,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg гады"
+                      "value" : "%arg years"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg гадоў"
+                      "value" : "%arg years"
                     }
                   },
                   "one" : {
@@ -68177,7 +68177,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg гадоў"
+                      "value" : "%arg years"
                     }
                   }
                 }
@@ -68204,7 +68204,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg Jahre"
+                      "value" : "%arg years"
                     }
                   }
                 }
@@ -68258,7 +68258,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg años"
+                      "value" : "%arg years"
                     }
                   }
                 }
@@ -68339,7 +68339,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg années"
+                      "value" : "%arg years"
                     }
                   }
                 }
@@ -68350,7 +68350,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@tahun@"
+            "value" : "per %#@year@"
           },
           "substitutions" : {
             "year" : {
@@ -68387,7 +68387,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg anni"
+                      "value" : "%arg years"
                     }
                   }
                 }
@@ -68483,7 +68483,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg jaren"
+                      "value" : "%arg years"
                     }
                   }
                 }
@@ -68531,13 +68531,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg lat"
+                      "value" : "%arg years"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg lat"
+                      "value" : "%arg years"
                     }
                   },
                   "one" : {
@@ -68549,7 +68549,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg lat"
+                      "value" : "%arg years"
                     }
                   }
                 }
@@ -68576,7 +68576,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg anos"
+                      "value" : "%arg years"
                     }
                   }
                 }
@@ -68613,8 +68613,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "за %#@год@"
+            "state" : "translated",
+            "value" : "за %#@year@"
           },
           "substitutions" : {
             "year" : {
@@ -68624,13 +68624,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg года"
+                      "value" : "%arg years"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg лет"
+                      "value" : "%arg years"
                     }
                   },
                   "one" : {
@@ -68642,7 +68642,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg лет"
+                      "value" : "%arg years"
                     }
                   }
                 }
@@ -68669,7 +68669,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg yıl"
+                      "value" : "%arg years"
                     }
                   }
                 }
@@ -73825,7 +73825,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Relaciones"
+                  "value" : "%lld Relations"
                 }
               }
             }
@@ -73969,7 +73969,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Relaties"
+                  "value" : "%lld Relations"
                 }
               }
             }
@@ -73999,13 +73999,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Relacji"
+                  "value" : "%lld Relations"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Relacji"
+                  "value" : "%lld Relations"
                 }
               },
               "one" : {
@@ -74017,7 +74017,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Relacji"
+                  "value" : "%lld Relations"
                 }
               }
             }
@@ -74065,13 +74065,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Связей"
+                  "value" : "%lld Relations"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Связей"
+                  "value" : "%lld Relations"
                 }
               },
               "one" : {
@@ -74083,7 +74083,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Связи"
+                  "value" : "%lld Relations"
                 }
               }
             }
@@ -74101,7 +74101,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld İlişki"
+                  "value" : "%lld Relations"
                 }
               }
             }
@@ -82849,6 +82849,453 @@
         }
       }
     },
+    "Settings.AnyId.BottomSheet.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explore plans"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explorar planes"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jelajahi paket-paket"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Изучить планы"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Planları keşfet"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        }
+      }
+    },
+    "Settings.AnyId.BottomSheet.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Suscríbete para que tu ID sea legible y otras personas puedan encontrarte y ponerse en contacto contigo fácilmente."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Menjadi anggota agar ID Anda dapat mudah dibaca oleh orang lain, sehingga anggota lain dapat dengan mudah menemukan dan terhubung dengan Anda."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Станьте участником, чтобы сделать свой ID читаемым для людей — так другие участники смогут легко найти вас и связаться."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Üye olup kimliğini insanlar tarafından okunabilir hale getirebilirsin. Böylece diğer üyeler seni kolayca bulup seninle bağlantı kurabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        }
+      }
+    },
+    "Settings.AnyId.BottomSheet.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Este es tu ID ANY"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ini ANY ID-mu"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Это Ваш ANY ID"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bu senin ANY ID'ndir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        }
+      }
+    },
     "Settings.AutoCreateTypeWidgets" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -84038,453 +84485,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Space information updated"
-          }
-        }
-      }
-    },
-    "Settings.AnyId.BottomSheet.button" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Explore plans"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explorar planes"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Jelajahi paket-paket"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Изучить планы"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Planları keşfet"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Explore plans"
-          }
-        }
-      }
-    },
-    "Settings.AnyId.BottomSheet.description" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Suscríbete para que tu ID sea legible y otras personas puedan encontrarte y ponerse en contacto contigo fácilmente."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Menjadi anggota agar ID Anda dapat mudah dibaca oleh orang lain, sehingga anggota lain dapat dengan mudah menemukan dan terhubung dengan Anda."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Станьте участником, чтобы сделать свой ID читаемым для людей — так другие участники смогут легко найти вас и связаться."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Üye olup kimliğini insanlar tarafından okunabilir hale getirebilirsin. Böylece diğer üyeler seni kolayca bulup seninle bağlantı kurabilir."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
-          }
-        }
-      }
-    },
-    "Settings.AnyId.BottomSheet.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Este es tu ID ANY"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Ini ANY ID-mu"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Это Ваш ANY ID"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Bu senin ANY ID'ndir"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This is your ANY ID"
           }
         }
       }
@@ -92925,7 +92925,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Schlagwörter"
+                  "value" : "%lld Tags"
                 }
               }
             }
@@ -92961,7 +92961,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Etiquetas"
+                  "value" : "%lld Tags"
                 }
               }
             }
@@ -93045,7 +93045,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Etichette"
+                  "value" : "%lld Tags"
                 }
               }
             }
@@ -93201,13 +93201,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Тэгов"
+                  "value" : "%lld Tags"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Тэгов"
+                  "value" : "%lld Tags"
                 }
               },
               "one" : {
@@ -93219,7 +93219,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld тэгов"
+                  "value" : "%lld Tags"
                 }
               }
             }
@@ -93237,7 +93237,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Etiket"
+                  "value" : "%lld Tags"
                 }
               }
             }
@@ -104763,7 +104763,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Vídeos"
+                  "value" : "%lld Videos"
                 }
               }
             }
@@ -104817,7 +104817,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Vidéos"
+                  "value" : "%lld Videos"
                 }
               }
             }
@@ -105003,13 +105003,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Видео"
+                  "value" : "%lld Videos"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Видео"
+                  "value" : "%lld Videos"
                 }
               },
               "one" : {
@@ -105021,7 +105021,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Видео"
+                  "value" : "%lld Videos"
                 }
               }
             }
@@ -106656,13 +106656,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d аб'екты выдалены"
+                  "value" : "%d objects deleted"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d аб'ектаў выдалена"
+                  "value" : "%d objects deleted"
                 }
               },
               "one" : {
@@ -106674,7 +106674,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d аб'ектаў выдалена"
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {
@@ -106698,7 +106698,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Objekte gelöscht"
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {
@@ -106746,7 +106746,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d objetos eliminados"
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {
@@ -106818,7 +106818,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d objets supprimés"
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {
@@ -106860,7 +106860,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d oggetti eliminati"
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {
@@ -106944,7 +106944,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d objecten verwijderd"
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {
@@ -106986,13 +106986,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d usunięte obiekty"
+                  "value" : "%d objects deleted"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d usuniętych obiektów"
+                  "value" : "%d objects deleted"
                 }
               },
               "one" : {
@@ -107004,7 +107004,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Usunięto %d obiektów"
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {
@@ -107028,7 +107028,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d objetos destruidos"
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {
@@ -107052,7 +107052,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d objetos eliminados"
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {
@@ -107070,13 +107070,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Удалено %d объекта"
+                  "value" : "%d objects deleted"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Удалено %d объектов "
+                  "value" : "%d objects deleted"
                 }
               },
               "one" : {
@@ -107088,7 +107088,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Удалено %d объектов "
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {
@@ -107112,7 +107112,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d nesne silindi"
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {
@@ -107130,13 +107130,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d об'єкти видалено"
+                  "value" : "%d objects deleted"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d об'єктів видалено"
+                  "value" : "%d objects deleted"
                 }
               },
               "one" : {
@@ -107148,7 +107148,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d об'єктів видалено"
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {

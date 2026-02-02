@@ -54,8 +54,10 @@ final class SpaceShareViewModel {
     var changeAccessAlertModel: SpaceChangeAccessViewModel?
     var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
     var showStopSharingAlert = false
+    var showMakePrivateAlert = false
     var showUpgradeBadge = false
     var canStopShare = false
+    var canMakePrivate = false
     var canDeleteLink = false
     var canRemoveMember = false
     var canApproveRequests = false
@@ -64,8 +66,7 @@ final class SpaceShareViewModel {
     var limitBannerData: SpaceLimitBannerLimitType?
     var membershipUpgradeReason: MembershipUpgradeReason?
     var participantInfo: ObjectInfo?
-    var showStopSharingAnEmptySpaceAlert = false
-    
+
     init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
         self.data = data
         self.output = output
@@ -89,6 +90,22 @@ final class SpaceShareViewModel {
     func onStopSharing() {
         showStopSharingAlert = true
     }
+
+    func onMakePrivateTapped() {
+        if canMakePrivate {
+            AnytypeAnalytics.instance().logScreenStopShare()
+            showMakePrivateAlert = true
+        } else {
+            toastBarData = ToastBarData(Loc.SpaceShare.MakePrivate.toast, type: .neutral)
+        }
+    }
+
+    func onMakePrivateConfirm() async throws {
+        try await workspaceService.stopSharing(spaceId: spaceId)
+        toastBarData = ToastBarData(Loc.SpaceShare.StopSharing.toast, type: .success)
+        AnytypeAnalytics.instance().logStopSpaceShare()
+        linkViewModel.updateLink()
+    }
     
     func onUpgradeTap(reason: MembershipParticipantUpgradeReason, route: ClickUpgradePlanTooltipRoute) {
         onUpgradeTap(reason: MembershipUpgradeReason(participantReason: reason), route: route)
@@ -99,12 +116,6 @@ final class SpaceShareViewModel {
         membershipUpgradeReason = reason
     }
     
-    func onReject() {
-        Task {
-            try await makePrivateIfPossible()
-        }
-    }
-
     func onManageSpaces() {
         output?.showSpacesManager()
     }
@@ -119,6 +130,8 @@ final class SpaceShareViewModel {
 
         hasReachedSharedSpacesLimit = spaceSharingInfo != nil && !spaceSharingInfo!.limitsAllowSharing
         canStopShare = participantSpaceView.canStopSharing
+        let activeMembers = participants.filter { $0.status == .active }
+        canMakePrivate = activeMembers.count == 1
         canChangeReaderToWriter = participantSpaceView.permissions.canEditPermissions
             && participantSpaceView.spaceView.canChangeReaderToWriter(participants: participants)
         canChangeWriterToReader = participantSpaceView.permissions.canEditPermissions
@@ -279,22 +292,12 @@ final class SpaceShareViewModel {
             onConfirm: { [weak self] in
                 AnytypeAnalytics.instance().logRemoveSpaceMember()
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
-                try await self?.makePrivateIfPossible()
             }
         )
     }
     
     private func showParticipantInfo(_ participant: Participant) {
         participantInfo = ObjectInfo(objectId: participant.id, spaceId: participant.spaceId)
-    }
-    
-    private func makePrivateIfPossible() async throws {
-        // Waiting middleware participant events
-        try await Task.sleep(seconds: 0.5)
-        guard participants.count == 1 else { return }
-        try await workspaceService.stopSharing(spaceId: spaceId)
-        linkViewModel.updateLink()
-        showStopSharingAnEmptySpaceAlert.toggle()
     }
 }
 

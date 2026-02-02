@@ -13,6 +13,7 @@ protocol ChatModuleOutput: AnyObject {
     func onShowCameraSelected(data: SimpleCameraData)
     func onUrlSelected(url: URL)
     func onWidgetsSelected()
+    func onSpaceSettingsSelected()
     func onInviteLinkSelected()
     func onShowQrCodeSelected(url: URL)
     func onPushNotificationsAlertSelected()

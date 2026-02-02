@@ -2,10 +2,10 @@ import SwiftUI
 
 struct SetViewSettingsImagePreviewView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel: SetViewSettingsImagePreviewViewModel
-    
+    @State private var viewModel: SetViewSettingsImagePreviewViewModel
+
     init(setDocument: some SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
-        _viewModel = StateObject(wrappedValue: SetViewSettingsImagePreviewViewModel(setDocument: setDocument, onSelect: onSelect))
+        _viewModel = State(initialValue: SetViewSettingsImagePreviewViewModel(setDocument: setDocument, onSelect: onSelect))
     }
 
     var body: some View {
@@ -64,7 +64,7 @@ struct SetViewSettingsImagePreviewView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(26)
             AnytypeText(Loc.fields, style: .caption1Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             Spacer.fixedHeight(8)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -75,15 +75,15 @@ struct SetViewSettingsImagePreviewView: View {
         HStack(spacing: 0) {
             if let iconAsset = configuration.iconAsset {
                 Image(asset: iconAsset)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
                 Spacer.fixedWidth(12)
             }
             AnytypeText(configuration.title, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer()
 
             if configuration.isSelected {
-                Image(asset: .X24.tick).foregroundColor(.Control.primary)
+                Image(asset: .X24.tick).foregroundStyle(Color.Control.primary)
             }
         }
         .frame(height: 52)

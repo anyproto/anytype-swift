@@ -33,7 +33,7 @@ struct EditorContextualMenuView: View {
                     HStack {
                         Text(verbatim: option.localisedString)
                             .frame(alignment: .leading)
-                            .foregroundColor(Color.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                             .font(AnytypeFontBuilder.font(anytypeFont: .bodyRegular))
                             .padding(.vertical, 9)
                             .padding(.leading, 24)

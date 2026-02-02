@@ -2,15 +2,15 @@ import Foundation
 import SwiftUI
 
 struct PropertyOptionSettingsView: View {
-    
-    @StateObject var model: PropertyOptionSettingsViewModel
+
+    @State var model: PropertyOptionSettingsViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     init(
         configuration: PropertyOptionSettingsConfiguration,
         completion: @escaping (_ optionParams: PropertyOptionParameters) -> Void
     ) {
-        _model = StateObject(wrappedValue: PropertyOptionSettingsViewModel(
+        _model = State(initialValue: PropertyOptionSettingsViewModel(
             configuration: configuration,
             completion: completion
         ))
@@ -45,7 +45,7 @@ struct PropertyOptionSettingsView: View {
             Loc.Relation.Create.Textfield.placeholder,
             text: $model.text
         )
-        .foregroundColor(model.selectedColor)
+        .foregroundStyle(Color(model.selectedColor))
         .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
         .focused(.constant(true))
         .frame(height: 48)
@@ -67,17 +67,19 @@ struct PropertyOptionSettingsView: View {
     }
     
     private func colorItem(with color: Color) -> some View {
-        Circle()
-            .fill(color)
-            .onTapGesture {
-                model.onColorSelected(color)
+        Button {
+            model.onColorSelected(color)
+        } label: {
+            Circle()
+                .fill(color)
+        }
+        .buttonStyle(.plain)
+        .if(color == model.selectedColor, transform: {
+            $0.overlay(alignment: .center) {
+                Image(asset: .X24.tick)
+                    .foregroundStyle(Color.Text.white)
             }
-            .if(color == model.selectedColor, transform: {
-                $0.overlay(alignment: .center) {
-                    Image(asset: .X24.tick)
-                        .foregroundColor(.Text.white)
-                }
-            })
+        })
     }
     
     private func columns() -> [GridItem] {

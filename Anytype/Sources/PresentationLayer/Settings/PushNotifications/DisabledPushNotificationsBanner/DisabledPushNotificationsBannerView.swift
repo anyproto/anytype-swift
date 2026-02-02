@@ -1,12 +1,9 @@
 import SwiftUI
 
 struct DisabledPushNotificationsBannerView: View {
-    
-    @StateObject private var model: DisabledPushNotificationsBannerViewModel
-    
-    init() {
-        _model = StateObject(wrappedValue: DisabledPushNotificationsBannerViewModel())
-    }
+
+    @State private var model = DisabledPushNotificationsBannerViewModel()
+
     
     var body: some View {
         VStack(spacing: 0) {
@@ -34,11 +31,11 @@ struct DisabledPushNotificationsBannerView: View {
             Spacer.fixedHeight(12)
             
             AnytypeText(Loc.PushNotifications.Settings.DisabledAlert.title, style: .bodySemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             
             AnytypeText(Loc.PushNotifications.Settings.DisabledAlert.description, style: .uxTitle2Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(12)
@@ -52,8 +49,8 @@ struct DisabledPushNotificationsBannerView: View {
         .padding(.top, 20)
         .padding(.bottom, 24)
         .padding(.horizontal, 20)
-        .background(Color.Shape.transperentTertiary)
-        .cornerRadius(12, style: .continuous)
+        .background(Color.Shape.transparentTertiary)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
 }
 

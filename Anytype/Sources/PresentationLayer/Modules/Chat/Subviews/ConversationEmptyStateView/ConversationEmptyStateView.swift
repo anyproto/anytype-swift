@@ -4,17 +4,16 @@ import Services
 
 struct ConversationEmptyStateView: View {
 
-    let conversationType: ConversationType
+    let spaceUxType: SpaceUxType
     let participantPermissions: ParticipantPermissions?
     let addMembersAction: (() -> Void)?
     let qrCodeAction: (() -> Void)?
-    
+
     var body: some View {
-        switch conversationType {
-        case .chat:
-            chatEmptyStateView
-        case .stream:
+        if spaceUxType.isStream {
             streamEmptyStateView
+        } else {
+            chatEmptyStateView
         }
     }
     
@@ -23,8 +22,8 @@ struct ConversationEmptyStateView: View {
         case .owner:
             emptyStateView(
                 title: Loc.Chat.Empty.title,
-                addMembersAction: addMembersAction,
-                qrCodeAction: qrCodeAction
+                addMembersAction: spaceUxType.supportsMultiChats ? nil : addMembersAction,
+                qrCodeAction: spaceUxType.supportsMultiChats ? nil : qrCodeAction
             )
         case .writer:
             emptyStateView(
@@ -102,6 +101,6 @@ struct ConversationEmptyStateView: View {
                 .anytypeStyle(.previewTitle2Regular)
             Spacer()
         }
-        .padding(.horizontal, 45)
+        .padding(.horizontal, 32)
     }
 }

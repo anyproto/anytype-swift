@@ -1,4 +1,5 @@
 import Foundation
+import Services
 
 struct MessagePreviewModel: Equatable, Hashable {
     let creatorTitle: String?
@@ -8,7 +9,7 @@ struct MessagePreviewModel: Equatable, Hashable {
     let chatPreviewDate: String
     let unreadCounter: Int
     let mentionCounter: Int
-    let isMuted: Bool
+    let notificationMode: SpacePushNotificationsMode
     let chatName: String?
 }
 

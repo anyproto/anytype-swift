@@ -3,6 +3,7 @@ import Foundation
 enum ObjectMenuSectionLayout {
     case horizontal
     case vertical
+    case collapsible
 }
 
 struct ObjectMenuConfiguration {

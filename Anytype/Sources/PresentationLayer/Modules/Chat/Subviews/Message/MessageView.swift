@@ -68,10 +68,12 @@ struct MessageView: View {
     @ViewBuilder
     private var reply: some View {
         if let reply = data.replyModel {
-            MessageReplyView(model: reply)
-                .onTapGesture {
-                    output?.didSelectReplyMessage(message: data)
-                }
+            Button {
+                output?.didSelectReplyMessage(message: data)
+            } label: {
+                MessageReplyView(model: reply)
+            }
+            .buttonStyle(.plain)
         }
     }
     
@@ -110,8 +112,8 @@ struct MessageView: View {
         }
         .messageFlashBackground(id: data.id)
         .background(messageBackgorundColor)
-        .cornerRadius(16, style: .continuous)
-        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .circular))
+        .clipShape(.rect(cornerRadius: 16, style: .continuous))
+        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
         .contextMenu {
             contextMenu
         }
@@ -170,13 +172,13 @@ struct MessageView: View {
     
     private var infoView: some View {
         Text(messageBottomInfo: data)
-            .foregroundColor(messageTimeColor)
+            .foregroundStyle(messageTimeColor)
             .lineLimit(1)
     }
     
     private var infoForSpacing: Text {
         Text(messageBottomInfo: data)
-            .foregroundColor(.clear)
+            .foregroundStyle(Color.clear)
     }
     
     @ViewBuilder
@@ -185,6 +187,7 @@ struct MessageView: View {
             MessageReactionList(
                 rows: data.reactions,
                 canAddReaction: data.canAddReaction,
+                canToggleReaction: data.canAddReaction,
                 position: data.position,
                 onTapRow: { reaction in
                     try await output?.didTapOnReaction(data: data, emoji: reaction.emoji)
@@ -263,10 +266,12 @@ struct MessageView: View {
         Divider()
         
         #if DEBUG || RELEASE_NIGHTLY
-        AsyncButton {
-            try await output?.didSelectUnread(message: data)
-        } label: {
-            Label(Loc.Message.Action.unread, systemImage: "envelope.badge")
+        if data.canEdit {
+            AsyncButton {
+                try await output?.didSelectUnread(message: data)
+            } label: {
+                Label(Loc.Message.Action.unread, systemImage: "envelope.badge")
+            }
         }
         #endif
         

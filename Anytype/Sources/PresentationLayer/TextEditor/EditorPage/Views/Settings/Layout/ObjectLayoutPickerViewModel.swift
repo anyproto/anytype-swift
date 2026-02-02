@@ -1,6 +1,5 @@
 import Foundation
 import Services
-import Combine
 import SwiftUI
 
 enum ObjectLayoutPickerMode {
@@ -9,25 +8,31 @@ enum ObjectLayoutPickerMode {
 }
 
 @MainActor
-final class ObjectLayoutPickerViewModel: ObservableObject {
+@Observable
+final class ObjectLayoutPickerViewModel {
 
     // MARK: - Private variables
-    
-    @Injected(\.detailsService)
+
+    @ObservationIgnored @Injected(\.detailsService)
     private var detailsService: any DetailsServiceProtocol
-    @Injected(\.openedDocumentProvider)
+    @ObservationIgnored @Injected(\.openedDocumentProvider)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
-    
+
+    @ObservationIgnored
     private let mode: ObjectLayoutPickerMode
+    @ObservationIgnored
     private let objectId: String
+    @ObservationIgnored
     private let spaceId: String
+    @ObservationIgnored
     private let analyticsType: AnalyticsObjectType
-    
+
+    @ObservationIgnored
     private lazy var document: any BaseDocumentProtocol = {
         openDocumentsProvider.document(objectId: objectId, spaceId: spaceId)
     }()
-    
-    @Published var selectedLayout: DetailsLayout = .basic
+
+    var selectedLayout: DetailsLayout = .basic
     
     // MARK: - Initializer
     

@@ -4,6 +4,7 @@ import DeepLinks
 enum UniversalLink: Equatable {
     case invite(cid: String, key: String)
     case object(objectId: String, spaceId: String, cid: String? = nil, key: String? = nil)
+    case hi(identity: String, key: String)
 }
 
 extension UniversalLink {
@@ -13,6 +14,8 @@ extension UniversalLink {
             return .invite(cid: cid, key: key)
         case .object(let objectId, let spaceId, let cid, let key):
             return .object(objectId: objectId, spaceId: spaceId, cid: cid, key: key)
+        case .hi(let identity, let key):
+            return .hi(identity: identity, key: key)
         }
     }
 }

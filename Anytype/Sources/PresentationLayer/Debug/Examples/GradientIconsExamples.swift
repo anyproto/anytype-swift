@@ -19,14 +19,14 @@ struct GradientIconsExamples: View {
         VStack {
             HStack(spacing: 0) {
                 AnytypeText("Space", style: .subheading)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .frame(maxWidth: .infinity)
             }
             ScrollView() {
                 VStack {
                     ForEach(0..<allColors.count, id: \.self) { index in
                         AnytypeText("Color \(index + 1)", style: .bodyRegular)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         HStack(spacing: 0) {
                             Spacer()
                             IconView(icon: .object(.space(.name(name: "Design system", iconOption: index + 1, circular: false))))

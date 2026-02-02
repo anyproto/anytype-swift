@@ -8,13 +8,13 @@ extension CustomIconDataColor {
         case .selected(let color):
             color.color
         case .placeholder:
-            .Shape.transperentPrimary
+            .Shape.transparentPrimary
         }
     }
 }
 
 struct CustomIconView: View {
-    
+
     private struct Config {
         let side: CGFloat
         let padding: CGFloat
@@ -33,16 +33,18 @@ struct CustomIconView: View {
         Config(side: 96, padding: 22),
         Config(side: 112, padding: 24)
     ].sorted(by: { $0.side > $1.side }) // Order by DESC side for simple search
-    
-    
+
+
     let icon: CustomIcon
     let color: Color
-    
-    init(icon: CustomIcon, iconColor: CustomIconDataColor) {
+    let circular: Bool
+
+    init(icon: CustomIcon, iconColor: CustomIconDataColor, circular: Bool = false) {
         self.icon = icon
         self.color = iconColor.color
+        self.circular = circular
     }
-    
+
     var body: some View {
         GeometryReader { reader in
             Image(asset: icon.imageAsset)
@@ -52,8 +54,13 @@ struct CustomIconView: View {
                 .frame(width: reader.size.width, height: reader.size.height)
                 .foregroundStyle(color)
         }
+        .if(circular, if: {
+            $0.objectIconBackgroundColorModifier().circleOverCornerRadius()
+        }, else: {
+            $0.objectIconCornerRadius()
+        })
     }
-    
+
     private func padding(size: CGSize) -> CGFloat {
         let side = min(size.width, size.height)
         let config = Self.configs.first(where: { $0.side <= side }) ?? Self.configs.last ?? .zero

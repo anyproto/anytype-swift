@@ -1,16 +1,13 @@
 import Foundation
 import SwiftUI
-import AnytypeCore
 
 struct ListWidgetContentView: View {
-    
+
     let style: ListWidgetStyle
     let rows: [ListWidgetRowModel]?
     let showAllObjects: Bool
     let allObjectsTap: () -> Void
-    
-    @State private var showAllButtonInWidgets = FeatureFlags.showAllButtonInWidgets
-    
+
     var body: some View {
         WidgetContainerWithEmptyState(showEmpty: rows?.isEmpty ?? false) {
             content
@@ -25,7 +22,7 @@ struct ListWidgetContentView: View {
                 ForEach(rows) {
                     rowView(row: $0, showDivider: $0.id != rows.last?.id)
                 }
-                if showAllButtonInWidgets, showAllObjects {
+                if showAllObjects {
                     WidgetSeeAllRow(onTap: allObjectsTap)
                 }
                 Spacer.fixedHeight(8)

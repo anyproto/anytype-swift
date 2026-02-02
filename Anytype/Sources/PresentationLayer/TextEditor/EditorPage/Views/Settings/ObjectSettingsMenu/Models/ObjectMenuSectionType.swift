@@ -2,9 +2,9 @@ import Foundation
 
 enum ObjectMenuSectionType {
     case horizontal
+    case descriptionSection
     case mainSettings
-    case objectActions
-    case management
+    case moreCollapsible
     case finalActions
 }
 
@@ -13,22 +13,26 @@ extension ObjectMenuSectionType {
         switch setting {
         case .icon, .cover, .relations:
             return .horizontal
-        case .description, .resolveConflict, .webPublishing:
+        case .description:
+            return .descriptionSection
+        case .resolveConflict, .webPublishing, .notifications:
             return .mainSettings
         case .history:
-            return .management
+            return .moreCollapsible
         }
     }
 
-    static func section(for action: ObjectAction) -> ObjectMenuSectionType {
+    static func section(for action: ObjectAction, isChat: Bool) -> ObjectMenuSectionType {
         switch action {
-        case .pin, .undoRedo:
+        case .editInfo:
+            return .horizontal
+        case .pin:
+            return isChat ? .horizontal : .mainSettings
+        case .undoRedo, .copyLink, .inviteMembers:
             return .mainSettings
-        case .linkItself, .makeAsTemplate, .templateToggleDefaultState:
-            return .objectActions
-        case .locked:
-            return .management
-        case .copyLink, .duplicate, .archive, .delete:
+        case .linkItself, .locked, .makeAsTemplate:
+            return .moreCollapsible
+        case .templateToggleDefaultState, .duplicate, .archive, .delete:
             return .finalActions
         }
     }

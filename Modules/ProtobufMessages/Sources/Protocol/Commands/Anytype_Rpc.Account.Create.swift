@@ -65,6 +65,10 @@ extension Anytype_Rpc.Account {
         /// anytype:// schema URL to join an embed stream
         public var joinStreamURL: String = String()
 
+        /// if true - will run membership v2 polling loop, v2 methods will be available
+        /// if false - will run membership v1 polling loop, v2 methods will return error
+        public var enableMembershipV2: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         ///TODO: Remove if not needed, GO-1926
@@ -242,7 +246,7 @@ extension Anytype_Rpc.Account.Create: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
 extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.Create.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}name\0\u{1}avatarLocalPath\0\u{1}storePath\0\u{1}icon\0\u{1}disableLocalNetworkSync\0\u{1}networkMode\0\u{1}networkCustomConfigFilePath\0\u{1}preferYamuxTransport\0\u{1}jsonApiListenAddr\0\u{1}joinStreamUrl\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}name\0\u{1}avatarLocalPath\0\u{1}storePath\0\u{1}icon\0\u{1}disableLocalNetworkSync\0\u{1}networkMode\0\u{1}networkCustomConfigFilePath\0\u{1}preferYamuxTransport\0\u{1}jsonApiListenAddr\0\u{1}joinStreamUrl\0\u{1}enableMembershipV2\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -267,6 +271,7 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
       case 8: try { try decoder.decodeSingularBoolField(value: &self.preferYamuxTransport) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.jsonApiListenAddr) }()
       case 10: try { try decoder.decodeSingularStringField(value: &self.joinStreamURL) }()
+      case 11: try { try decoder.decodeSingularBoolField(value: &self.enableMembershipV2) }()
       default: break
       }
     }
@@ -307,6 +312,9 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
     if !self.joinStreamURL.isEmpty {
       try visitor.visitSingularStringField(value: self.joinStreamURL, fieldNumber: 10)
     }
+    if self.enableMembershipV2 != false {
+      try visitor.visitSingularBoolField(value: self.enableMembershipV2, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -321,6 +329,7 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
     if lhs.preferYamuxTransport != rhs.preferYamuxTransport {return false}
     if lhs.jsonApiListenAddr != rhs.jsonApiListenAddr {return false}
     if lhs.joinStreamURL != rhs.joinStreamURL {return false}
+    if lhs.enableMembershipV2 != rhs.enableMembershipV2 {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

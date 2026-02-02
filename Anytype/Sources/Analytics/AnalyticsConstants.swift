@@ -46,11 +46,16 @@ enum AnalyticsEventsPropertiesKey {
     static let middleTime = "middleTime"
     static let permissions = "permissions"
     static let spaceType = "spaceType"
+    static let spaceId = "spaceId"
     static let uxType = "uxType"
     
     static let relationKey = "relationKey"
     static let unreadMessageCount = "unreadMessageCount"
     static let hasMention = "hasMention"
+    static let chatId = "chatId"
+    static let size = "size"
+    static let time = "time"
+    static let status = "status"
 }
 
 enum AnalyticsEventsTypeValues {
@@ -72,6 +77,7 @@ enum AnalyticsEventsRouteKind: String {
     case type = "Type"
     case link = "Link"
     case slashMenu = "SlashMenu"
+    case quickAction = "QuickAction"
 }
 
 enum AnalyticsEventsRelationType: String {
@@ -277,6 +283,7 @@ enum ClickGalleryInstallSpaceType: String {
 enum CreateSpaceRoute: String {
     case navigation = "Navigation"
     case gallery = "Gallery"
+    case profile = "Profile"
 }
 
 enum ClickSettingsSpaceShareType: String {
@@ -301,6 +308,7 @@ enum PermissionAnalyticsType: String {
 
 enum ScreenQrAnalyticsType: String {
     case inviteSpace = "InviteSpace"
+    case profile = "Profile"
 }
 
 enum ScreenQrRoute: String {
@@ -308,6 +316,7 @@ enum ScreenQrRoute: String {
     case settingsSpace = "SettingsSpace"
     case spaceProfile = "SpaceProfile"
     case chat = "Chat"
+    case settings = "Settings"
 }
 
 enum ClickShareSpaceCopyLinkRoute: String {
@@ -341,6 +350,7 @@ enum ClickUpgradePlanTooltipType: String {
     case editors = "editors"
     case sharedSpaces = "sharedSpaces"
     case publish = "publish"
+    case identity = "identity"
 }
 
 enum ClickShareSpaceShareLinkRoute: String {
@@ -356,6 +366,7 @@ enum ClickUpgradePlanTooltipRoute: String {
     case remoteStorage = "ScreenRemoteStorage"
     case publish = "ScreenPublish"
     case incentiveBanner = "IncentiveBanner"
+    case identity = "ScreenSettingsIdentity"
 }
 
 enum ChangeObjectTypeRoute: String {
@@ -430,6 +441,7 @@ enum ResetToTypeDefaultRoute: String {
 enum ChangeMessageNotificationStateRoute: String {
     case spaceSettings = "ScreenSettingsSpaceIndex"
     case vault = "Vault"
+    case chatSettings = "ChatSettings"
 }
 
 enum ChatAttachmentType: String {
@@ -499,4 +511,9 @@ enum ClickNavBarAddMenuType: String {
     case camera = "Camera"
     case file = "File"
     case photo = "Photo"
+}
+
+enum ScreenChatImageStatus: String {
+    case success = "Success"
+    case failure = "Failure"
 }

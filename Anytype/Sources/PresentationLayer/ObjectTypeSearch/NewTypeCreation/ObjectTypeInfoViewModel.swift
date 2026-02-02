@@ -4,26 +4,28 @@ import AnytypeCore
 
 
 @MainActor
-final class ObjectTypeInfoViewModel: ObservableObject {
-    @Published var showIconPicker = false
-    
-    @Published var name = ""
-    @Published var pluralName = ""
+@Observable
+final class ObjectTypeInfoViewModel {
+    var showIconPicker = false
+
+    var name = ""
+    var pluralName = ""
     var objectIcon: ObjectIcon {
         guard let icon else { return ObjectIcon.emptyTypeIcon }
-        
+
         return ObjectIcon.customIcon(CustomIconData(icon: icon, customColor: color ?? .default))
     }
     var isRemoveIconButtonAvailable: Bool { icon.isNotNil }
     var isCreateButtonEnabled: Bool { !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
 
     var dismiss: DismissAction?
-    
+
     let mode: ObjectTypeInfoViewMode
-    
-    @Published private var icon: CustomIcon?
-    @Published private var color: CustomIconColor?
-    
+
+    private var icon: CustomIcon?
+    private var color: CustomIconColor?
+
+    @ObservationIgnored
     @Injected(\.typesService)
     private var typesService: any TypesServiceProtocol
     

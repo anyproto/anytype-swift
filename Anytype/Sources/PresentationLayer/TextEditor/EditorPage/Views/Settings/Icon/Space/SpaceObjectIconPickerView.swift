@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 struct SpaceObjectIconPickerView: View {
-    
-    @StateObject private var model: SpaceObjectIconPickerViewModel
-    
+
+    @State private var model: SpaceObjectIconPickerViewModel
+
     init(spaceId: String) {
-        self._model = StateObject(wrappedValue: SpaceObjectIconPickerViewModel(spaceId: spaceId))
+        _model = State(initialValue: SpaceObjectIconPickerViewModel(spaceId: spaceId))
     }
     
     var body: some View {

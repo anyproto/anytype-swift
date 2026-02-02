@@ -5,47 +5,71 @@ import Combine
 import AnytypeCore
 
 @MainActor
-final class ChatHeaderViewModel: ObservableObject {
-    
-    @Injected(\.spaceViewsStorage)
+@Observable
+final class ChatHeaderViewModel {
+
+    @ObservationIgnored @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
-    @Injected(\.syncStatusStorage)
+    @ObservationIgnored @Injected(\.syncStatusStorage)
     private var syncStatusStorage: any SyncStatusStorageProtocol
-    @Injected(\.participantSpacesStorage)
+    @ObservationIgnored @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @ObservationIgnored @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
+    @ObservationIgnored
+    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
+    @ObservationIgnored
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
 
-    @Published var title: String?
-    @Published var icon: Icon?
-    @Published var showWidgetsButton: Bool = false
-    @Published var chatLoading = false
-    @Published var spaceLoading = false
-    @Published var muted = false
-    @Published var showAddMembersButton: Bool = false
+    var title: String?
+    var icon: Icon?
+    var chatLoading = false
+    var spaceLoading = false
+    var muted = false
+    var toastBarData: ToastBarData?
+    private(set) var notificationMode: SpacePushNotificationsMode = .all
+    private(set) var isMultiChatSpace: Bool = false
+    private(set) var isOneToOne: Bool = false
+    var anytypeName: String = ""
+    var hasMembership: Bool = false
 
     var showLoading: Bool { chatLoading || spaceLoading }
 
-    private let spaceId: String
-    private let chatId: String
+    @ObservationIgnored
+    let spaceId: String
+    @ObservationIgnored
+    let chatId: String
+
+    @ObservationIgnored
     private let onTapOpenWidgets: () -> Void
-    private let onTapAddMembers: (() -> Void)
+    @ObservationIgnored
+    private let onTapOpenSpaceSettings: () -> Void
+    @ObservationIgnored
     private let chatObject: any BaseDocumentProtocol
 
+    @ObservationIgnored
     private var spaceSupportsMultiChats: Bool = false
+    @ObservationIgnored
     private var spaceTitle: String?
+    @ObservationIgnored
     private var spaceIcon: Icon?
+    @ObservationIgnored
     private var chatDetails: ObjectDetails?
+    @ObservationIgnored
+    private var oneToOneIdentity: String = ""
+    @ObservationIgnored
+    private var participants: [Participant] = []
 
     init(
         spaceId: String,
         chatId: String,
         onTapOpenWidgets: @escaping () -> Void,
-        onTapAddMembers: @escaping (() -> Void)
+        onTapOpenSpaceSettings: @escaping () -> Void
     ) {
         self.spaceId = spaceId
         self.chatId = chatId
         self.onTapOpenWidgets = onTapOpenWidgets
-        self.onTapAddMembers = onTapAddMembers
+        self.onTapOpenSpaceSettings = onTapOpenSpaceSettings
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
     }
     
@@ -54,26 +78,45 @@ final class ChatHeaderViewModel: ObservableObject {
         async let chatDetailsSub: () = subscribeOnChatDetails()
         async let chatSub: () = subscribeOnChatStatus()
         async let spaceStatusSub: () = subscribeOnSpaceStatus()
+        async let participantSub: () = subscribeOnParticipant()
 
-        _ = await (spaceViewSub, chatDetailsSub, chatSub, spaceStatusSub)
+        _ = await (spaceViewSub, chatDetailsSub, chatSub, spaceStatusSub, participantSub)
     }
     
     func tapOpenWidgets() { onTapOpenWidgets() }
 
-    func tapAddMembers() { onTapAddMembers() }
-    
+    func tapOpenSpaceSettings() { onTapOpenSpaceSettings() }
+
+    func changeNotificationMode(_ mode: SpacePushNotificationsMode) async {
+        do {
+            try await workspaceService.pushNotificationSetSpaceMode(
+                spaceId: spaceId,
+                mode: mode
+            )
+        } catch {
+            toastBarData = ToastBarData(error.localizedDescription, type: .failure)
+        }
+        AnytypeAnalytics.instance().logChangeMessageNotificationState(
+            type: mode.analyticsValue,
+            route: .chatSettings
+        )
+    }
+
     // MARK: - Private
     
     private func subscribeOnSpaceView() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             let spaceView = participantSpaceView.spaceView
             spaceSupportsMultiChats = spaceView.uxType.supportsMultiChats
+            isMultiChatSpace = spaceSupportsMultiChats
+            isOneToOne = spaceView.uxType.isOneToOne
+            oneToOneIdentity = spaceView.oneToOneIdentity
             spaceTitle = spaceView.title
             spaceIcon = spaceView.objectIconImage
-            showWidgetsButton = spaceView.chatId == chatId && spaceView.initialScreenIsChat
-            muted = !spaceView.effectiveNotificationMode(for: chatId).isUnmutedAll
-            showAddMembersButton = participantSpaceView.participant?.permission == .owner
+            notificationMode = spaceView.effectiveNotificationMode(for: chatId)
+            muted = !notificationMode.isUnmutedAll
             updateHeaderDisplay()
+            updateOneToOneParticipant()
         }
     }
 
@@ -122,6 +165,21 @@ final class ChatHeaderViewModel: ObservableObject {
         for await spaceStatus in syncStatusStorage.statusPublisher(spaceId: spaceId).values {
             spaceLoading = spaceStatus.status == .error
         }
+    }
+
+    private func subscribeOnParticipant() async {
+        for await participants in participantsSubscription.withoutRemovingParticipantsPublisher.values {
+            self.participants = participants
+            updateOneToOneParticipant()
+        }
+    }
+
+    private func updateOneToOneParticipant() {
+        guard oneToOneIdentity.isNotEmpty else { return }
+        guard let participant = participants.first(where: { $0.identity == oneToOneIdentity }) else { return }
+
+        hasMembership = participant.globalName.isNotEmpty
+        anytypeName = participant.displayGlobalNameTruncated
     }
 
     private func updateHeaderDisplay() {

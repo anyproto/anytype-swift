@@ -33,25 +33,18 @@ final class QRCodeScannerViewModifierModel: ObservableObject {
     
     func onQrCodeChange() {
         guard qrCode.isNotEmpty else { return }
-        
+        defer { qrCode = "" }
+
         guard let url = URL(string: qrCode) else {
-            qrCode = ""
             qrCodeScanAlertError = .notAnUrl
             return
         }
-        
+
         guard let link = universalLinkParser.parse(url: url) else {
-            qrCode = ""
             qrCodeScanAlertError = .invalidFormat
             return
         }
-        
-        guard case .invite = link else {
-            qrCode = ""
-            qrCodeScanAlertError = .wrongLinkType
-            return
-        }
-        
+
         appActionStorage.action = .deepLink(link.toDeepLink(), .internal)
     }
     

@@ -3,9 +3,10 @@ import SwiftUI
 import AnytypeCore
 
 struct WidgetContainerView<Content: View>: View {
-    
-    @StateObject private var model: WidgetContainerViewModel
+
+    @State private var model: WidgetContainerViewModel
     @Binding private var homeState: HomeWidgetsState
+    @Environment(\.shouldHideChatBadges) private var shouldHideChatBadges
     
     let name: String
     let icon: Icon?
@@ -37,8 +38,8 @@ struct WidgetContainerView<Content: View>: View {
         self.onCreateObjectTap = onCreateObjectTap
         self.onHeaderTap = onHeaderTap
         self.content = content()
-        self._model = StateObject(
-            wrappedValue: WidgetContainerViewModel(
+        self._model = State(
+            initialValue: WidgetContainerViewModel(
                 widgetBlockId: widgetBlockId,
                 widgetObject: widgetObject,
                 expectedMenuItems: menuItems,
@@ -71,15 +72,16 @@ struct WidgetContainerView<Content: View>: View {
                             if let badgeModel, badgeModel.hasCounters {
                                 HStack(spacing: 4) {
                                     if badgeModel.mentionCounter > 0 {
-                                        MentionBadge(style: badgeModel.mentionStyle)
+                                        MentionBadge(style: badgeModel.mentionCounterStyle)
                                     }
                                     if badgeModel.unreadCounter > 0 {
                                         CounterView(
                                             count: badgeModel.unreadCounter,
-                                            style: badgeModel.unreadStyle
+                                            style: badgeModel.unreadCounterStyle
                                         )
                                     }
                                 }
+                                .opacity(shouldHideChatBadges ? 0 : 1)
                             }
                         },
                         onTap: {

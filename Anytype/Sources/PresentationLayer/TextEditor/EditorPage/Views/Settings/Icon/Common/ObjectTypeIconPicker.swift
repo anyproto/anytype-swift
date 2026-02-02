@@ -30,7 +30,7 @@ struct ObjectTypeIconPicker: View {
     private var navigationBarView: some View {
         InlineNavigationBar {
             AnytypeText(Loc.changeIcon, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
         } rightButton: {
             if isRemoveButtonAvailable {
@@ -39,7 +39,7 @@ struct ObjectTypeIconPicker: View {
                     dismiss()
                 } label: {
                     AnytypeText(Loc.remove, style: .uxBodyRegular)
-                        .foregroundColor(.Pure.red)
+                        .foregroundStyle(Color.Pure.red)
                 }
             } else {
                 EmptyView()

@@ -19,7 +19,7 @@ struct MessageCommonObjectView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .anytypeStyle(.previewTitle2Medium)
-                    .foregroundColor(style.titleColor)
+                    .foregroundStyle(style.titleColor)
                 HStack(spacing: 6) {
                     Text(description)
                         .anytypeStyle(.relation3Regular)
@@ -31,7 +31,7 @@ struct MessageCommonObjectView: View {
                             .anytypeStyle(.relation3Regular)
                     }
                 }
-                .foregroundColor(style.descriptionColor)
+                .foregroundStyle(style.descriptionColor)
             }
             .lineLimit(1)
             Spacer()

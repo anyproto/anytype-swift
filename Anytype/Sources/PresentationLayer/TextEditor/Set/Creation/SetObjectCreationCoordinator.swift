@@ -47,8 +47,8 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
             self.output = output
             self.customAnalyticsRoute = customAnalyticsRoute
             do {
-                let result = try await objectCreationHelper.createObject(for: setDocument, setting: setting)
-                handleCreatedObjectIfNeeded(result.details, titleInputType: result.titleInputType, setDocument: setDocument, mode: mode)
+                let action = try await objectCreationHelper.createObject(for: setDocument, setting: setting)
+                handleAction(action, mode: mode, setDocument: setDocument)
             } catch {
                 anytypeAssertionFailure("Cannot create object for set document", info: [
                     "error": error.localizedDescription
@@ -56,9 +56,13 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
             }
         }
     }
-    
-    private func handleCreatedObjectIfNeeded(_ details: ObjectDetails?, titleInputType: CreateObjectTitleInputType, setDocument: some SetDocumentProtocol, mode: SetObjectCreationMode) {
-        if let details {
+
+    private func handleAction(_ action: SetObjectCreationAction, mode: SetObjectCreationMode, setDocument: some SetDocumentProtocol) {
+        
+        let analyticsRoute: AnalyticsEventsRouteKind = customAnalyticsRoute ?? (setDocument.isCollection() ? .collection : .set)
+        
+        switch action {
+        case .showObject(let details, let titleInputType):
             switch mode {
             case .internal:
                 showCreateObject(details: details, titleInputType: titleInputType)
@@ -68,10 +72,16 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
             AnytypeAnalytics.instance().logCreateObject(
                 objectType: details.analyticsType,
                 spaceId: details.spaceId,
-                route: customAnalyticsRoute ?? (setDocument.isCollection() ? .collection : .set)
+                route: analyticsRoute
             )
-        } else {
-            showCreateBookmarkObject(setDocument: setDocument)
+
+        case .showBookmarkCreation(let spaceId, let collectionId):
+            let screenData = ScreenData.alert(.bookmarkCreate(BookmarkCreateScreenData(spaceId: spaceId, collectionId: collectionId, analyticsRoute: analyticsRoute)))
+            showObject(data: screenData)
+
+        case .showChatCreation(let spaceId, let collectionId):
+            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(spaceId: spaceId, collectionId: collectionId, analyticsRoute: analyticsRoute)))
+            showObject(data: screenData)
         }
     }
     
@@ -82,28 +92,10 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
         } closeAction: { [weak self] in
             self?.navigationContext.dismissTopPresented()
         }
-        
+
         navigationContext.present(moduleViewController)
     }
-    
-    private func showCreateBookmarkObject(setDocument: some SetDocumentProtocol) {
-        let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
-            spaceId: setDocument.spaceId,
-            collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
-            closeAction: { [weak self] details in
-                self?.navigationContext.dismissTopPresented(animated: true) {
-                    guard details.isNil else {
-                        SharingTip.didCopyText = true
-                        return
-                    }
-                    self?.toastPresenter.showFailureAlert(message: Loc.Set.Bookmark.Error.message)
-                }
-            }
-        )
-        
-        navigationContext.present(moduleViewController)
-    }
-    
+
     private func showObject(data: ScreenData) {
         output?.showEditorScreen(data: data)
     }

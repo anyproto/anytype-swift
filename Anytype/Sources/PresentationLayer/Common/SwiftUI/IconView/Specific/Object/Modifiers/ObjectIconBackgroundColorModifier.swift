@@ -6,7 +6,7 @@ private struct ObjectIconBackgroundColorModifier: ViewModifier {
     func body(content: Content) -> some View {
         GeometryReader { reader in
             content
-                .if(reader.size.width > 20) {
+                .if(reader.size.width > 32) {
                     $0.background(Color.Background.highlightedMedium)
                 }
         }

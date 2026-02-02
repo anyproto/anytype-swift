@@ -25,7 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     private var pushNotificationsRegistrationService: any PushNotificationsRegistrationServiceProtocol
     @Injected(\.notificationsCenterService)
     private var notificationsCenterService: any NotificationsCenterServiceProtocol
-    
+    @Injected(\.middlewareShutdownService)
+    private var middlewareShutdownService: any MiddlewareShutdownServiceProtocol
+
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
@@ -133,6 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // MARK: - Termination
     
     func applicationWillTerminate(_ application: UIApplication) {
+        middlewareShutdownService.shutdown()
         appSessionTracker.stopReportSession()
     }
 

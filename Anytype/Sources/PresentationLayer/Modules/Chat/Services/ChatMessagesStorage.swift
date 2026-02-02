@@ -23,7 +23,14 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
 }
 
 actor ChatMessagesStorage: ChatMessagesStorageProtocol {
-    
+
+    // WORKAROUND: Force linker to retain Anytype_Event.Chat metadata.
+    // This wrapper struct gets stripped in Release builds because it's never
+    // directly referenced. Its nested types (Add, Delete, Update, etc.) need
+    // the parent metadata to be present, causing null pointer crash if stripped.
+    private static let _forceParentTypeRetention: Anytype_Event.Chat.Type =
+        Anytype_Event.Chat.self
+
     private enum Constants {
         static let pageSize = 100
         static let maxCacheSize = 1000

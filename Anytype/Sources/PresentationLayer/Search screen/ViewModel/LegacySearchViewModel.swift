@@ -1,26 +1,29 @@
 import Foundation
 import SwiftUI
-import Combine
 
 @MainActor
-final class LegacySearchViewModel: ObservableObject {
-    
+@Observable
+final class LegacySearchViewModel {
+
     let title: String?
     let searchPlaceholder: String
     let style: LegacySearchView.Style
     let focusedBar: Bool
-    
-    @Published private(set) var state: LegacySearchViewState = .resultsList(.plain(rows: []))
-    @Published private(set) var addButtonModel: LegacySearchView.AddButtonModel? = nil
-    @Published private(set) var createButtonModel: CreateButtonModel = .disabled
-    
+
+    private(set) var state: LegacySearchViewState = .resultsList(.plain(rows: []))
+    private(set) var addButtonModel: LegacySearchView.AddButtonModel? = nil
+    private(set) var createButtonModel: CreateButtonModel = .disabled
+
+    @ObservationIgnored
     private let itemCreationMode: ItemCreationMode
+    @ObservationIgnored
     private let selectionMode: SelectionMode
+    @ObservationIgnored
     private let internalViewModel: any NewInternalSearchViewModelProtocol
-    
-    private var cancellable: AnyCancellable? = nil
+
+    @ObservationIgnored
     private var searchTask: Task<(), Never>?
-    
+
     private var selectedRowIds: [String] = [] {
         didSet {
             updateAddButtonModel()
@@ -88,11 +91,11 @@ private extension LegacySearchViewModel {
     }
     
     func setupInternalViewModel() {
-        cancellable = Task { @MainActor [weak self, internalViewModel] in
+        Task { @MainActor [weak self, internalViewModel] in
             for await state in internalViewModel.viewStatePublisher.values {
                 self?.state = state
             }
-        }.cancellable()
+        }
     }
     
     func updateCreateItemButtonState(searchText: String) {

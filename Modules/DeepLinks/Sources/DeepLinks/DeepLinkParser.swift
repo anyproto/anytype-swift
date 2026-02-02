@@ -14,6 +14,7 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
         static let galleryImport = "main/import"
         static let invite = "invite"
         static let object = "object"
+        static let hi = "hi"
         static let membership = "membership"
         static let networkConfig = "networkConfig"
     }
@@ -69,6 +70,10 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
             let cid = queryItems.stringValue(key: "cid")
             let key = queryItems.stringValue(key: "key")
             return .object(objectId: objectId, spaceId: spaceId, cid: cid, key: key)
+        case LinkPaths.hi:
+            guard let identity = queryItems.stringValue(key: "id"),
+                  let key = queryItems.stringValue(key: "key") else { return nil }
+            return .hi(identity: identity, key: key)
         case LinkPaths.membership:
             guard let tier = queryItems.intValue(key: "tier") else { return nil }
             return .membership(tierId: tier)
@@ -112,7 +117,13 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
                 URLQueryItem(name: "cid", value: cid),
                 URLQueryItem(name: "key", value: key)
             ]
-            
+            return components.url
+        case let .hi(identity, key):
+            guard var components = URLComponents(string: host + LinkPaths.hi) else { return nil }
+            components.queryItems = [
+                URLQueryItem(name: "id", value: identity),
+                URLQueryItem(name: "key", value: key)
+            ]
             return components.url
         case .membership(let tierId):
             guard var components = URLComponents(string: host + LinkPaths.membership) else { return nil }

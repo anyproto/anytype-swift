@@ -53,15 +53,15 @@ struct WidgetSwipeActionView<Content: View>: View {
         ZStack {
                     ZStack(alignment: .trailing) {
                         Color.Widget.actionsBackground
-                            .cornerRadius(16, style: .continuous)
+                            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
                         
                         if isEnable {
                             VStack(spacing: 0) {
                                 Image(asset: .X32.plus)
-                                    .foregroundColor(.Text.white)
+                                    .foregroundStyle(Color.Text.white)
                                 if showTitle {
                                     AnytypeText(Loc.Widgets.Actions.newObject, style: .caption2Medium)
-                                        .foregroundColor(.Text.white)
+                                        .foregroundStyle(Color.Text.white)
                                 }
                             }
                             .frame(width: 96)
@@ -73,7 +73,7 @@ struct WidgetSwipeActionView<Content: View>: View {
                     .mask {
                         Rectangle()
                             .overlay {
-                                RoundedRectangle(cornerRadius: 16)
+                                RoundedRectangle(cornerRadius: 24)
                                     .offset(x: -contentOffset)
                                     .blendMode(.destinationOut)
                             }

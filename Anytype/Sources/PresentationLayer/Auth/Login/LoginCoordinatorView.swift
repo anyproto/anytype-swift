@@ -1,13 +1,9 @@
 import SwiftUI
 
 struct LoginCoordinatorView: View {
-    
-    @StateObject private var model: LoginCoordinatorViewModel
+
+    @State private var model = LoginCoordinatorViewModel()
     @Environment(\.pageNavigation) private var pageNavigation
-    
-    init() {
-        self._model = StateObject(wrappedValue: LoginCoordinatorViewModel())
-    }
     
     var body: some View {
         LoginView(output: model)

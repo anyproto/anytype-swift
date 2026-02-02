@@ -40,13 +40,13 @@ struct SearchWithMetaCell: View {
             if model.objectTypeName.isNotEmpty {
                 HStack(spacing: 0) {
                     AnytypeText(model.objectTypeName, style: .relation2Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                         .lineLimit(1)
                     
                     if FeatureFlags.showGlobalSearchScore, model.score.isNotEmpty {
                         Spacer()
                         AnytypeText(model.score, style: .relation2Regular)
-                            .foregroundColor(.Text.secondary)
+                            .foregroundStyle(Color.Text.secondary)
                             .lineLimit(1)
                     }
                 }
@@ -99,7 +99,7 @@ struct SearchWithMetaCell: View {
     
     private func relationName(_ name : String) -> some View {
         AnytypeText("\(name):", style: .relation2Regular)
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .lineLimit(1)
     }
 }

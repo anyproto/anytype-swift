@@ -2,10 +2,12 @@ import Foundation
 import UIKit
 
 @MainActor
-final class PropertyFormatsListViewModel: ObservableObject {
-    
+@Observable
+final class PropertyFormatsListViewModel {
+
     let supportedFormatModels: [PropertyFormatListCell.Model]
 
+    @ObservationIgnored
     private let onFormatSelect: (SupportedPropertyFormat) -> Void
     
     init(

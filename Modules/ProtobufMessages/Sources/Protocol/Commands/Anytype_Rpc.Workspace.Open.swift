@@ -57,6 +57,9 @@ extension Anytype_Rpc.Workspace {
         /// Clears the value of `info`. Subsequent reads from it will return its default value.
         public mutating func clearInfo() {self._info = nil}
 
+        /// backup paths for corrupted space storage
+        public var corruptedBackupPaths: [String] = []
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -181,7 +184,7 @@ extension Anytype_Rpc.Workspace.Open.Request: SwiftProtobuf.Message, SwiftProtob
 
 extension Anytype_Rpc.Workspace.Open.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Workspace.Open.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}info\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}info\0\u{1}corruptedBackupPaths\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -191,6 +194,7 @@ extension Anytype_Rpc.Workspace.Open.Response: SwiftProtobuf.Message, SwiftProto
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._info) }()
+      case 3: try { try decoder.decodeRepeatedStringField(value: &self.corruptedBackupPaths) }()
       default: break
       }
     }
@@ -207,12 +211,16 @@ extension Anytype_Rpc.Workspace.Open.Response: SwiftProtobuf.Message, SwiftProto
     try { if let v = self._info {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
+    if !self.corruptedBackupPaths.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.corruptedBackupPaths, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Workspace.Open.Response, rhs: Anytype_Rpc.Workspace.Open.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs._info != rhs._info {return false}
+    if lhs.corruptedBackupPaths != rhs.corruptedBackupPaths {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

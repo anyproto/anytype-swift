@@ -18,14 +18,14 @@ struct SpaceTypeChangeRow: View {
                     .foregroundStyle(Color.Control.primary)
                     .frame(width: 48, height: 48)
                     .background {
-                        Circle().foregroundStyle(Color.Shape.transperentSecondary)
+                        Circle().foregroundStyle(Color.Shape.transparentSecondary)
                     }
                 VStack(alignment: .leading, spacing: 0) {
                     AnytypeText(title, style: .uxTitle2Medium)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                         .lineLimit(1)
                     AnytypeText(subtitle, style: .relation3Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                         .lineLimit(2)
                 }
                 .multilineTextAlignment(.leading)

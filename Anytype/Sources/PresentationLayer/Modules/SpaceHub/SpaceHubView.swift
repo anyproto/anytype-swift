@@ -58,7 +58,7 @@ struct SpaceHubView: View {
     private var toolbarItems: some ToolbarContent {
         SpaceHubToolbar(
             profileIcon: model.profileIcon,
-            notificationsDenied: model.notificationsDenied,
+            notificationsNotDetermined: model.notificationsNotDetermined,
             namespace: namespace,
             onTapCreateSpace: {
                 model.onTapCreateSpace()

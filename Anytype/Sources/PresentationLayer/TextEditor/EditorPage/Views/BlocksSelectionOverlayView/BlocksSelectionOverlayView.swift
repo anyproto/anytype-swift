@@ -44,18 +44,15 @@ final class BlocksSelectionOverlayView: UIView {
         }
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            applyShadow()
-        }
-       
-    }
-
     // MARK: - Private
     private func setupView() {
         bindActions()
         backgroundColor = .clear
+        
+        // Register for trait changes
+        registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.applyShadow()
+        }
 
         let statusBarHeight = UIApplication.shared.mainWindowInsets.top
         addSubview(statusBarOverlayView) {

@@ -5,10 +5,11 @@ import AnytypeCore
 
 struct HomeWidgetsView: View {
     let info: AccountInfo
-    let output: (any HomeWidgetsModuleOutput)?
+    let context: WidgetScreenContext
+    let output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?
 
     var body: some View {
-        HomeWidgetsInternalView(info: info, output: output)
+        HomeWidgetsInternalView(info: info, context: context, output: output)
             .id(info.hashValue)
     }
 }
@@ -18,16 +19,29 @@ private struct HomeWidgetsInternalView: View {
     @State var widgetsDndState = DragState()
     @State var typesDndState = DragState()
 
-    init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?) {
+    let context: WidgetScreenContext
+    weak var panelOutput: (any HomeBottomNavigationPanelModuleOutput)?
+
+    init(info: AccountInfo, context: WidgetScreenContext, output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?) {
         self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
+        self.context = context
+        self.panelOutput = output
     }
-    
+
     var body: some View {
         ZStack(alignment: .bottom) {
             HomeWallpaperView(spaceId: model.spaceId)
-            
+
             content
                 .animation(.default, value: model.widgetBlocks.count)
+
+            if context.showEmbeddedBottomPanel {
+                HomeBottomNavigationPanelView(
+                    homePath: HomePath(),
+                    info: model.info,
+                    output: panelOutput
+                )
+            }
         }
         .task {
             await model.startSubscriptions()
@@ -36,13 +50,13 @@ private struct HomeWidgetsInternalView: View {
             model.onAppear()
         }
         .safeAreaInset(edge: .top) {
-            WidgetsHeaderView(spaceId: model.spaceId) {
+            WidgetsHeaderView(spaceId: model.spaceId, context: context) {
                 model.onSpaceSelected()
             }
         }
         .navigationBarHidden(true)
         .ignoresSafeArea(.keyboard, edges: .bottom)
-        .homeBottomPanelHidden(false)
+        .homeBottomPanelHidden(context.showEmbeddedBottomPanel)
     }
     
     private var content: some View {
@@ -56,15 +70,32 @@ private struct HomeWidgetsInternalView: View {
     private var widgets: some View {
         ScrollView {
             VStack(spacing: 0) {
+                SpaceInfoView(spaceId: model.spaceId)
+                topWidgets
                 blockWidgets
                 objectTypeWidgets
                 AnytypeNavigationSpacer()
             }
             .padding(.horizontal, 20)
             .fitIPadToReadableContentGuide()
+            .shouldHideChatBadges(model.shouldHideChatBadges)
         }
     }
-    
+
+    @ViewBuilder
+    private var topWidgets: some View {
+        if let data = model.chatWidgetData {
+            SpaceChatWidgetView(data: data)
+        } else if model.shouldShowUnreadSection {
+            HomeWidgetsGroupView(title: Loc.unread) {
+                model.onTapUnreadHeader()
+            }
+            if model.unreadSectionIsExpanded {
+                UnreadChatsGroupedView(chats: model.unreadChats)
+            }
+        }
+    }
+
     @ViewBuilder
     private var blockWidgets: some View {
         if model.widgetBlocks.isNotEmpty {

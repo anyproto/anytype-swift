@@ -6,6 +6,7 @@ struct MessageImageView: View {
     let imageId: String
     let syncStatus: SyncStatus?
     let syncError: SyncError?
+    let sizeInBytes: Int?
     
     var body: some View {
         GeometryReader { reader in
@@ -25,6 +26,8 @@ struct MessageImageView: View {
                 @unknown default:
                     MessageAttachmentLoadingIndicator()
                 }
+            } loadTimeTracker: { time, success in
+                AnytypeAnalytics.instance().logScreenChatImage(time: time, status: success ? .success : .failure, size: sizeInBytes)
             }
         }
     }
@@ -32,6 +35,6 @@ struct MessageImageView: View {
 
 extension MessageImageView {
     init(details: MessageAttachmentDetails) {
-        self.init(imageId: details.id, syncStatus: details.syncStatus, syncError: details.syncError)
+        self.init(imageId: details.id, syncStatus: details.syncStatus, syncError: details.syncError, sizeInBytes: details.sizeInBytes)
     }
 }

@@ -4,12 +4,12 @@ import AnytypeCore
 import Services
 
 struct SpaceSettingsView: View {
-    
-    @StateObject private var model: SpaceSettingsViewModel
+
+    @State private var model: SpaceSettingsViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceSettingsViewModel(workspaceInfo: workspaceInfo, output: output))
+        _model = State(initialValue: SpaceSettingsViewModel(workspaceInfo: workspaceInfo, output: output))
     }
     
     var body: some View {
@@ -71,11 +71,17 @@ struct SpaceSettingsView: View {
     }
     
     private var header: some View {
-        PageNavigationHeader(title: "") {
-            Button {
-                model.onEditTap()
-            } label: {
-                AnytypeText(Loc.edit, style: .bodyRegular).foregroundColor(.Control.secondary)
+        NavigationHeader(title: "") {
+            if !model.isOneToOne {
+                Button {
+                    model.onEditTap()
+                } label: {
+                    AnytypeText(Loc.edit, style: .bodyRegular)
+                        .foregroundStyle(Color.Text.primary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                }
+                .glassEffectInteractiveIOS26(in: Capsule())
             }
         }
     }
@@ -83,26 +89,39 @@ struct SpaceSettingsView: View {
     private var spaceDetails: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
-                Button {
-                    model.onChangeIconTap()
-                } label: {
-                    VStack(spacing: 0) {
-                        Spacer.fixedHeight(8)
-                        IconView(icon: model.spaceIcon).frame(width: 112, height: 112)
-                        Spacer.fixedHeight(16)
-                    }
-                }
+                spaceIconView
                 Menu {
                     spaceNameMenuItems
                 } label: {
                     AnytypeText(model.spaceName.isNotEmpty ? model.spaceName : Loc.untitled, style: .heading)
                 }
-                Spacer.fixedHeight(4)
-                AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundColor(.Text.secondary)
+                if !model.isOneToOne {
+                    Spacer.fixedHeight(4)
+                    AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundStyle(Color.Text.secondary)
+                }
             }
         }
     }
-    
+
+    @ViewBuilder
+    private var spaceIconView: some View {
+        let iconContent = VStack(spacing: 0) {
+            Spacer.fixedHeight(8)
+            IconView(icon: model.spaceIcon).frame(width: 112, height: 112)
+            Spacer.fixedHeight(16)
+        }
+
+        if !model.isOneToOne {
+            Button {
+                model.onChangeIconTap()
+            } label: {
+                iconContent
+            }
+        } else {
+            iconContent
+        }
+    }
+
     private var spaceNameMenuItems: some View {
         VStack {
             Button {
@@ -112,12 +131,14 @@ struct SpaceSettingsView: View {
                 Spacer()
                 Image(systemName: "document.on.document")
             }
-            Button {
-                model.onEditTap()
-            } label: {
-                Text(Loc.edit)
-                Spacer()
-                Image(systemName: "pencil")
+            if !model.isOneToOne {
+                Button {
+                    model.onEditTap()
+                } label: {
+                    Text(Loc.edit)
+                    Spacer()
+                    Image(systemName: "pencil")
+                }
             }
         }
     }
@@ -160,13 +181,13 @@ struct SpaceSettingsView: View {
                     .frame(width: 24, height: 24)
             }
             .padding(20)
-            .background(Color.Shape.transperentSecondary)
-            .cornerRadius(10)
+            .background(Color.Shape.transparentSecondary)
+            .clipShape(.rect(cornerRadius: 10))
             
             Spacer.fixedHeight(6)
             
             AnytypeText(title, style: .caption2Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         }
     }
     
@@ -190,7 +211,9 @@ struct SpaceSettingsView: View {
         VStack(spacing: 0) {
             SectionHeaderView(title: Loc.collaboration)
             VStack(spacing: 8) {
-                RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onMembersTap() }
+                if !model.isOneToOne {
+                    RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onMembersTap() }
+                }
                 RoundedButton(
                     Loc.notifications,
                     icon: pushNotificationsSettingIcon(),
@@ -215,8 +238,10 @@ struct SpaceSettingsView: View {
             case .unshareable:
                 EmptyView()
             case .shareable, .reachedSharesLimit:
-                SectionHeaderView(title: Loc.collaboration)
-                RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { model.onMembersTap() }
+                if !model.isOneToOne {
+                    SectionHeaderView(title: Loc.collaboration)
+                    RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { model.onMembersTap() }
+                }
             }
         }
     }
@@ -242,6 +267,13 @@ struct SpaceSettingsView: View {
     @ViewBuilder
     private var preferences: some View {
         SectionHeaderView(title: Loc.preferences)
+        if FeatureFlags.homePage {
+            RoundedButton(
+                Loc.SpaceSettings.HomePage.title,
+                decoration: model.homePageState.buttonDecoration
+            ) { model.onHomePageTap() }
+            Spacer.fixedHeight(8)
+        }
         RoundedButton(
             Loc.defaultObjectType,
             decoration: .init(objectType: model.defaultObjectType)
@@ -315,7 +347,7 @@ struct SpaceSettingsView: View {
     
     private func pushNotificationsSettingCaption() -> String {
         guard let status = model.pushNotificationsSettingsStatus, status.isAuthorized else {
-            return SpaceNotificationsSettingsMode.disabled.titleShort
+            return SpacePushNotificationsMode.nothing.titleShort
         }
         return model.pushNotificationsSettingsMode.titleShort
     }

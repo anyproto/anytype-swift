@@ -2,13 +2,13 @@ import Services
 import SwiftUI
 
 @MainActor
+@Observable
 final class VersionHistoryCoordinatorViewModel:
-    ObservableObject,
     VersionHistoryModuleOutput,
     ObjectVersionModuleOutput
 {
-    
-    @Published var objectVersionData: ObjectVersionData?
+
+    var objectVersionData: ObjectVersionData?
     
     let data: VersionHistoryData
     

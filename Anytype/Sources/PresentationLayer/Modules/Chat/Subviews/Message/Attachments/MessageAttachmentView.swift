@@ -24,8 +24,8 @@ struct MessageAttachmentView: View {
         )
         .frame(height: 64)
         .frame(minWidth: 231)
-        .background(Color.Shape.transperentSecondary)
-        .cornerRadius(12, style: .continuous)
+        .background(Color.Shape.transparentSecondary)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
 }
 

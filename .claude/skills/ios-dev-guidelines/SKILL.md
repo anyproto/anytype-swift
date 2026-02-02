@@ -1,3 +1,8 @@
+---
+name: ios-dev-guidelines
+description: Context-aware routing to Swift/iOS development patterns, architecture, and best practices. Use when working with .swift files, ViewModels, Coordinators, refactoring, or discussing Swift/SwiftUI patterns.
+---
+
 # iOS Development Guidelines (Smart Router)
 
 ## Purpose
@@ -27,6 +32,30 @@ Before completing any task:
 - [ ] Generated files not edited
 - [ ] Feature flags applied to new features
 - [ ] No comments added (unless requested)
+
+## 🎯 SwiftUI View Fundamentals (WWDC24)
+
+SwiftUI views have three key qualities:
+
+1. **Declarative** - Describe what you want, not how to build it
+2. **Compositional** - Build complex UIs from simple building blocks
+3. **State-driven** - UI automatically updates when state changes
+
+**Key insight**: Views are VALUE TYPES (structs), not long-lived objects. They are descriptions of current UI state. Breaking views into subviews doesn't hurt performance - SwiftUI maintains efficient data structures behind the scenes.
+
+```swift
+// Declarative: describe the result, not the steps
+List(pets) { pet in
+    HStack {
+        Text(pet.name)
+        Spacer()
+        Text(pet.species)
+    }
+}
+// No need to manually add/remove rows - SwiftUI handles it
+```
+
+For detailed SwiftUI patterns, see **swiftui-patterns-developer** skill.
 
 ## 🎯 Common Patterns
 
@@ -67,6 +96,73 @@ extension Container {
 // Usage in ViewModel
 @Injected(\.chatService) private var chatService
 ```
+
+### ViewModel Initialization
+Keep ViewModel `init()` cheap - defer heavy work to `.task`:
+```swift
+// Init assigns parameters only
+init(id: String) {
+    _model = State(wrappedValue: ViewModel(id: id))
+}
+
+// Heavy work in .task
+.task { await model.startSubscriptions() }
+```
+
+For expensive init, defer creation entirely:
+```swift
+@State private var model: ViewModel?
+.task(id: id) { model = ViewModel(id: id) }
+```
+
+### Async Button Actions
+**Prefer `AsyncStandardButton` over manual loading state management** for cleaner code:
+
+```swift
+// ❌ AVOID: Manual loading state
+struct MyView: View {
+    @State private var isLoading = false
+
+    var body: some View {
+        StandardButton(.text("Connect"), inProgress: isLoading, style: .secondaryLarge) {
+            isLoading = true
+            Task {
+                await viewModel.connect()
+                isLoading = false
+            }
+        }
+    }
+}
+
+// ✅ PREFERRED: AsyncStandardButton handles loading state automatically
+struct MyView: View {
+    var body: some View {
+        AsyncStandardButton(Loc.sendMessage, style: .primaryLarge) {
+            try await viewModel.onConnect()
+        }
+    }
+}
+
+// ViewModel can throw - errors are handled automatically
+func onConnect() async throws {
+    guard let identity = details?.identity, identity.isNotEmpty else { return }
+
+    if let existingSpace = spaceViewsStorage.oneToOneSpaceView(identity: identity) {
+        pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: existingSpace.targetSpaceId)))
+        return
+    }
+
+    let newSpaceId = try await workspaceService.createOneToOneSpace(oneToOneIdentity: identity)
+    pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: newSpaceId)))
+}
+```
+
+**Benefits of `AsyncStandardButton`**:
+- Manages `inProgress` state internally
+- Shows error toast automatically on failure
+- Provides haptic feedback (selection on tap, error on failure)
+- Cleaner ViewModel (no `@Published var isLoading` needed)
+- **Action is `async throws`** - use `try await` and let errors propagate naturally
 
 ## 🗂️ Project Structure
 
@@ -118,6 +214,8 @@ Refactored dependencies but forgot `MockView.swift`
 
 ## 🔗 Related Skills & Docs
 
+- **swiftui-patterns-developer** → View structure, composition, @Observable patterns
+- **swiftui-performance-developer** → Performance auditing, view invalidation
 - **localization-developer** → `LOCALIZATION_GUIDE.md` - Localization system
 - **code-generation-developer** → `CODE_GENERATION_GUIDE.md` - Feature flags, make generate
 - **design-system-developer** → `DESIGN_SYSTEM_MAPPING.md` - Icons, typography

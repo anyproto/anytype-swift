@@ -39,7 +39,7 @@ struct SetContentViewDataBuilderTests {
     }
 
     @Test func testBuildChatPreview_NilSpaceView_UsesDefaultNotificationMode() {
-        let creator = Participant.mock(id: "user1", globalName: "Test User")
+        let creator = Participant.mock(id: "user1", localName: "Test User")
         let lastMessage = LastMessagePreview(
             id: "msg1",
             creator: creator,
@@ -47,6 +47,7 @@ struct SetContentViewDataBuilderTests {
             createdAt: Date(),
             modifiedAt: nil,
             attachments: [],
+            attachmentCount: 0,
             orderId: "1"
         )
         var preview = ChatMessagePreview(spaceId: "space1", chatId: "chat1")
@@ -75,6 +76,7 @@ struct SetContentViewDataBuilderTests {
             createdAt: Date(),
             modifiedAt: nil,
             attachments: attachments,
+            attachmentCount: attachments.count,
             orderId: "1"
         )
         var preview = ChatMessagePreview(spaceId: "space1", chatId: "chat1")
@@ -93,7 +95,7 @@ struct SetContentViewDataBuilderTests {
     }
 
     @Test func testBuildChatPreview_ValidPreview_BuildsCompleteModel() {
-        let creator = Participant.mock(id: "user1", globalName: "John Doe")
+        let creator = Participant.mock(id: "user1", localName: "John Doe")
         let lastMessage = LastMessagePreview(
             id: "msg1",
             creator: creator,
@@ -101,6 +103,7 @@ struct SetContentViewDataBuilderTests {
             createdAt: Date(timeIntervalSince1970: 1700000000),
             modifiedAt: nil,
             attachments: [],
+            attachmentCount: 0,
             orderId: "1"
         )
         var preview = ChatMessagePreview(spaceId: "space1", chatId: "chat1")
@@ -127,6 +130,7 @@ struct SetContentViewDataBuilderTests {
             createdAt: Date(),
             modifiedAt: nil,
             attachments: [],
+            attachmentCount: 0,
             orderId: "1"
         )
         var preview = ChatMessagePreview(spaceId: "space1", chatId: "chat1")

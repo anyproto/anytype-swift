@@ -1,43 +1,65 @@
 import SwiftUI
 import ProtobufMessages
 import AnytypeCore
-import Combine
 import Services
 
 @MainActor
-final class SettingsViewModel: ObservableObject {
+@Observable
+final class SettingsViewModel {
     
     // MARK: - DI
+
+    @ObservationIgnored
     private var accountManager: any AccountManagerProtocol
-    
-    @Injected(\.singleObjectSubscriptionService)
+
+    @ObservationIgnored @Injected(\.singleObjectSubscriptionService)
     private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
-    @Injected(\.objectActionsService)
+    @ObservationIgnored @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.membershipStatusStorage)
+    @ObservationIgnored @Injected(\.membershipStatusStorage)
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
-    @Injected(\.profileStorage)
+    @ObservationIgnored @Injected(\.profileStorage)
     private var profileStorage: any ProfileStorageProtocol
-    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    @ObservationIgnored @Injected(\.pushNotificationsSystemSettingsBroadcaster)
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
-    
+
+    @ObservationIgnored
     private weak var output: (any SettingsModuleOutput)?
     
     // MARK: - State
-    
-    private var subscriptions: [AnyCancellable] = []
+
+    @ObservationIgnored
+    private var profileNameDebounceTask: Task<Void, Never>?
+    @ObservationIgnored
     private var profileDataLoaded: Bool = false
+    @ObservationIgnored
     private let subAccountId = "SettingsAccount-\(UUID().uuidString)"
-    
+
     let canShowMemberhip: Bool
     let canDeleteVault: Bool
-    
-    @Published var profileName: String = ""
-    @Published var profileIcon: Icon?
-    @Published var membership: MembershipStatus = .empty
-    @Published var showDebugMenu = false
-    @Published var notificationsDenied = false
-    
+
+    var profileName: String = ""
+    var profileIcon: Icon?
+    var membership: MembershipStatus = .empty
+    var notificationsDenied = false
+    var notificationsNotDetermined = false
+
+    var notificationsStatusText: String {
+        notificationsDenied ? Loc.disabled : ""
+    }
+
+    var notificationsNeedsAttention: Bool {
+        notificationsNotDetermined
+    }
+
+    var anyNameBadgeState: AnyNameBadgeState {
+        if membership.anyName.handle.isNotEmpty {
+            return .memberName(membership.anyName.formatted)
+        } else {
+            return .anytypeId(accountManager.account.id)
+        }
+    }
+
     init(output: some SettingsModuleOutput) {
         self.output = output
         
@@ -95,6 +117,14 @@ final class SettingsViewModel: ObservableObject {
     func onMembershipTap() {
         output?.onMembershipSelected()
     }
+
+    func onAnyIdBadgeTap() {
+        output?.onAnyIdBadgeTapped()
+    }
+
+    func onQRCodeTap() {
+        output?.onProfileQRCodeSelected()
+    }
     
     func onLogoutTap() {
         output?.onLogoutSelected()
@@ -107,8 +137,8 @@ final class SettingsViewModel: ObservableObject {
     func startSubscriptions() async {
         async let membershipSub: () = membershipSubscriotion()
         async let profileSub: () = profileSubscription()
-        async let pushNotificationsSystemSettingsSub: () = pushNotificationsSystemSettingsSubscription()
-        _ = await (membershipSub, profileSub, pushNotificationsSystemSettingsSub)
+        async let notificationsSub: () = notificationsStatusSubscription()
+        _ = await (membershipSub, profileSub, notificationsSub)
     }
     
     // MARK: - Private
@@ -124,34 +154,38 @@ final class SettingsViewModel: ObservableObject {
             handleProfileDetails(profile: profile)
         }
     }
-    
-    private func pushNotificationsSystemSettingsSubscription() async {
+
+    private func notificationsStatusSubscription() async {
         for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
             notificationsDenied = status.isDenied
+            notificationsNotDetermined = status.isNotDetermined
         }
     }
-    
+
     private func handleProfileDetails(profile: Profile) {
         profileIcon = profile.icon
-        
+
         if !profileDataLoaded {
             profileName = profile.name
             profileDataLoaded = true
-            $profileName
-                .delay(for: 0.3, scheduler: DispatchQueue.main)
-                .sink { [weak self] name in
-                    self?.updateProfileName(name: name)
-                }
-                .store(in: &subscriptions)
         }
     }
-    
-    private func updateProfileName(name: String) {
-        Task {
-            try await objectActionsService.updateBundledDetails(
-                contextID: accountManager.account.info.profileObjectID,
-                details: [.name(name)]
-            )
+
+    func onProfileNameChange() {
+        guard profileDataLoaded else { return }
+
+        profileNameDebounceTask?.cancel()
+        profileNameDebounceTask = Task { [weak self] in
+            try? await Task.sleep(for: .milliseconds(300))
+            guard !Task.isCancelled, let self else { return }
+            await updateProfileName(name: profileName)
         }
+    }
+
+    private func updateProfileName(name: String) async {
+        try? await objectActionsService.updateBundledDetails(
+            contextID: accountManager.account.info.profileObjectID,
+            details: [.name(name)]
+        )
     }
 }

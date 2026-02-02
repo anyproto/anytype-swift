@@ -11,25 +11,34 @@ protocol SpaceHubSpacesStorageProtocol: Sendable {
 }
 
 actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
-    
+
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    
+
     @Injected(\.chatMessagesPreviewsStorage)
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
-    
+
+    @Injected(\.chatDetailsStorage)
+    private var chatDetailsStorage: any ChatDetailsStorageProtocol
+
     var spacesStream: AnyAsyncSequence<[ParticipantSpaceViewDataWithPreview]> {
         get async {
             let combineStream = combineLatest(
                 participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values,
-                 await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
+                await chatMessagesPreviewsStorage.previewsSequence,
+                await chatDetailsStorage.allChatsSequence
             ).throttle(milliseconds: 300)
-            
-            return combineStream.map { (spaces, previews) in
+
+            return combineStream.map { (spaces, previews, chatDetails) in
                 spaces.map { space in
                     let spacePreviews = previews.filter { $0.spaceId == space.spaceView.targetSpaceId }
 
-                    guard let latestPreview = spacePreviews.max(by: { preview1, preview2 in
+                    let nonArchivedPreviews = spacePreviews.filter { preview in
+                        let chatDetail = chatDetails.first { $0.id == preview.chatId }
+                        return !(chatDetail?.isArchived ?? false)
+                    }
+
+                    guard let latestPreview = nonArchivedPreviews.max(by: { preview1, preview2 in
                         guard let date1 = preview1.lastMessage?.createdAt,
                               let date2 = preview2.lastMessage?.createdAt else {
                             return preview1.lastMessage == nil
@@ -39,14 +48,18 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                         return ParticipantSpaceViewDataWithPreview(space: space)
                     }
 
-                    let totalUnread = spacePreviews.reduce(0) { $0 + $1.unreadCounter }
-                    let totalMentions = spacePreviews.reduce(0) { $0 + $1.mentionCounter }
+                    let counterData = SpacePreviewCountersBuilder.build(
+                        spaceView: space.spaceView,
+                        previews: nonArchivedPreviews
+                    )
 
                     return ParticipantSpaceViewDataWithPreview(
                         space: space,
                         latestPreview: latestPreview,
-                        totalUnreadCounter: totalUnread,
-                        totalMentionCounter: totalMentions
+                        totalUnreadCounter: counterData.totalUnread,
+                        totalMentionCounter: counterData.totalMentions,
+                        unreadCounterStyle: counterData.unreadStyle,
+                        mentionCounterStyle: counterData.mentionStyle
                     )
                 }
             }

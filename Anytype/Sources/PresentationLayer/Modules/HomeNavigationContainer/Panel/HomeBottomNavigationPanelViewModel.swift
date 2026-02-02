@@ -1,66 +1,49 @@
 import Foundation
 import Services
-@preconcurrency import Combine
 import UIKit
 import AnytypeCore
-import Services
 
 @MainActor
-final class HomeBottomNavigationPanelViewModel: ObservableObject {
-    
-    enum LeftButtonMode {
-        case member
-        case owner(_ enable: Bool)
-        case chat(_ enable: Bool)
-        case home
-    }
-    
+@Observable
+final class HomeBottomNavigationPanelViewModel {
+
     private enum Constants {
         static let priorityTypesUniqueKeys: [ObjectTypeUniqueKey] = [.page, .note, .task]
-
     }
-    
+
     // MARK: - Private properties
+    @ObservationIgnored
     private let info: AccountInfo
-    
-    @Injected(\.singleObjectSubscriptionService)
-    private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
-    @Injected(\.defaultObjectCreationService)
+
+    @ObservationIgnored @Injected(\.defaultObjectCreationService)
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
-    @Injected(\.processSubscriptionService)
-    private var processSubscriptionService: any ProcessSubscriptionServiceProtocol
-    @Injected(\.participantSpacesStorage)
+    @ObservationIgnored @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.objectTypeProvider)
+    @ObservationIgnored @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.objectActionsService)
+    @ObservationIgnored @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.experimentalFeaturesStorage)
+    @ObservationIgnored @Injected(\.experimentalFeaturesStorage)
     private var experimentalFeaturesStorage: any ExperimentalFeaturesStorageProtocol
-    @Injected(\.spaceViewsStorage)
+    @ObservationIgnored @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
+    @ObservationIgnored
     private weak var output: (any HomeBottomNavigationPanelModuleOutput)?
-    private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
-    
-    private var activeProcess: Process?
-    private var subscriptions: [AnyCancellable] = []
-    private var chatLinkData: ChatLinkObject?
-    private var isWidgetsScreen: Bool = false
+
+    @ObservationIgnored
     private var currentData: AnyHashable?
+    @ObservationIgnored
     private var participantSpaceView: ParticipantSpaceViewData?
-    
+
     // MARK: - Public properties
-    
-    @Published var profileIcon: Icon?
-    @Published var progress: Double? = nil
-    @Published var leftButtonMode: LeftButtonMode?
-    @Published var canCreateObject: Bool = false
-    @Published var pageObjectType: ObjectType?
-    @Published var noteObjectType: ObjectType?
-    @Published var taskObjectType: ObjectType?
-    @Published var otherObjectTypes: [ObjectType] = []
-    @Published var newObjectPlusMenu: Bool = false
+
+    var canCreateObject: Bool = false
+    var pageObjectType: ObjectType?
+    var noteObjectType: ObjectType?
+    var taskObjectType: ObjectType?
+    var otherObjectTypes: [ObjectType] = []
+    var newObjectPlusMenu: Bool = false
     
     init(
         info: AccountInfo,
@@ -68,7 +51,6 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     ) {
         self.info = info
         self.output = output
-        setupDataSubscription()
     }
     
     func onTapNewObject() {
@@ -78,11 +60,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     func onTapSearch() {
         output?.onSearchSelected()
     }
-    
-    func onPlusButtonLongtap() {
-        output?.onPickTypeForNewObjectSelected()
-    }
-    
+
     func startSubscriptions() async {
         async let participantSub: () = participantSubscription()
         async let typesSub: () = typesSubscription()
@@ -92,32 +70,31 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     func updateVisibleScreen(data: AnyHashable) {
-        chatLinkData = (data as? EditorScreenData)?.chatLink
-        isWidgetsScreen = (data as? HomeWidgetData) != nil
         currentData = data
         updateState()
     }
-    
-    func onTapMembers() {
-        output?.onMembersSelected()
-    }
-    
-    func onTapShare() {
-        output?.onShareSelected()
-    }
-    
-    func onTapAddToSpaceLevelChat() {
-        guard let chatLinkData else { return }
-        output?.onAddAttachmentToSpaceLevelChat(attachment: chatLinkData)
-    }
-    
-    func onTapHome() {
-        AnytypeAnalytics.instance().logClickNavigationScreenHome()
-        output?.popToFirstInSpace()
-    }
-    
+
     func onTapCreateObject(type: ObjectType) {
         AnytypeAnalytics.instance().logClickNavBarAddMenu(objectType: type.analyticsType, route: clickAddMenuAnalyticsRoute())
+
+        if type.isChatType {
+            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(
+                spaceId: info.accountSpaceId,
+                analyticsRoute: .navigation
+            )))
+            output?.onCreateObjectSelected(screenData: screenData)
+            return
+        }
+
+        if type.isBookmarkType {
+            let screenData = ScreenData.alert(.bookmarkCreate(BookmarkCreateScreenData(
+                spaceId: info.accountSpaceId,
+                analyticsRoute: .navigation
+            )))
+            output?.onCreateObjectSelected(screenData: screenData)
+            return
+        }
+
         Task { @MainActor in
             let details = try await objectActionsService.createObject(
                 name: "",
@@ -194,82 +171,18 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     private func updateState() {
         guard let participantSpaceView else { return }
-        
-        let canLinkToChat = chatLinkData.isNotNil && participantSpaceView.spaceView.initialScreenIsChat
-        
-        if canLinkToChat {
-            leftButtonMode = .chat(participantSpaceView.permissions.canEdit)
-        } else if isWidgetsScreen {
-            if participantSpaceView.isOwner {
-                let limitAllowSharing = participantSpacesStorage.spaceSharingInfo?.limitsAllowSharing ?? false
-                let canBeShared = participantSpaceView.permissions.canBeShared
-                let isShared = participantSpaceView.spaceView.isShared
-                leftButtonMode = .owner(isShared || (limitAllowSharing && canBeShared))
-            } else {
-                leftButtonMode = .member
-            }
-        } else {
-            leftButtonMode = .home
-        }
-        
         canCreateObject = participantSpaceView.permissions.canEdit
     }
-    
-    private func setupDataSubscription() {
-        Task {
-            await subscriptionService.startSubscription(
-                subId: subId,
-                spaceId: info.techSpaceId,
-                objectId: info.profileObjectID
-            ) { [weak self] details in
-                await self?.handleProfileDetails(details: details)
-            }
-            
-            await processSubscriptionService.addHandler { [weak self] events in
-                await self?.handleProcesses(events: events)
-            }.store(in: &subscriptions)
-        }
-    }
-    
-    private func handleProfileDetails(details: ObjectDetails) {
-        profileIcon = details.objectIconImage
-    }
-    
+
     private func handleCreateObject() {
         Task { @MainActor in
             guard let details = try? await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: info.accountSpaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .navigation)
-            
+
             output?.onCreateObjectSelected(screenData: details.screenData())
         }
     }
-    
-    private func handleProcesses(events: [ProcessEvent]) {
-        for event in events {
-            switch event {
-            case .new(let process):
-                guard activeProcess.isNil else { return }
-                activeProcess = process
-                progress = Double(process.progress.done) / Double(process.progress.total)
-            case .update(let process):
-                guard process.id == activeProcess?.id else { return }
-                activeProcess = process
-                progress = Double(process.progress.done) / Double(process.progress.total)
-            case .done(let process):
-                guard process.id == activeProcess?.id else { return }
-                activeProcess = nil
-                progress = Double(process.progress.done) / Double(process.progress.total)
-                Task {
-                    try await Task.sleep(seconds: 2)
-                    // If other process not executing
-                    if activeProcess.isNil {
-                        progress = nil
-                    }
-                }
-            }
-        }
-    }
-    
+
     private func clickAddMenuAnalyticsRoute() -> ClickNavBarAddMenuRoute? {
         // Read before sending the event. This way we can keep track of which screens don't have a route.
         if let provider = currentData as? any HomeClinkNavBarAddMenuRouteProvider {

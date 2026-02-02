@@ -1,3 +1,8 @@
+---
+name: design-system-developer
+description: Context-aware routing to the Anytype iOS design system including icons, typography, colors, and spacing. Use when working with Figma-to-code translation, design assets, or UI components.
+---
+
 # Design System Developer (Smart Router)
 
 ## Purpose
@@ -85,7 +90,7 @@ Text("Add Member").anytypeStyle(.caption1Medium)  // Note: no "ux" prefix!
 
 ```swift
 // Backgrounds
-.background(Color.Shape.transperentSecondary)
+.background(Color.Shape.transparentSecondary)
 .background(Color.Background.primary)
 
 // Text colors

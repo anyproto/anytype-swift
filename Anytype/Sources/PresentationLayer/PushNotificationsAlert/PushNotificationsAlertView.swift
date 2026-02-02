@@ -2,12 +2,12 @@ import SwiftUI
 import DesignKit
 
 struct PushNotificationsAlertView: View {
-    
-    @StateObject private var model: PushNotificationsAlertViewModel
+
+    @State private var model: PushNotificationsAlertViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     init(data: PushNotificationsAlertData) {
-        _model = StateObject(wrappedValue: PushNotificationsAlertViewModel(data: data))
+        _model = State(initialValue: PushNotificationsAlertViewModel(data: data))
     }
     
     var body: some View {
@@ -64,12 +64,12 @@ struct PushNotificationsAlertView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 36, height: 36)
-                    .cornerRadius(9, style: .continuous)
+                    .clipShape(RoundedRectangle(cornerRadius: 9, style: .continuous))
             }
             
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(Loc.PushNotifications.RequestAlert.notificationTitle, style: .previewTitle2Medium)
-                    .foregroundColor(.PushNotifications.text)
+                    .foregroundStyle(Color.PushNotifications.text)
                     .lineLimit(1)
                 
                 Spacer.fixedHeight(5)
@@ -88,7 +88,7 @@ struct PushNotificationsAlertView: View {
         .padding(.bottom, 16)
         .frame(width: 280)
         .background(Color.PushNotifications.background)
-        .cornerRadius(20, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
     
     private var hiddenLine: some View {

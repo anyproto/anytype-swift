@@ -73,19 +73,19 @@ public struct StandardButton: View {
                     text,
                     style: style.config.textFont
                 )
-                .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)
+                .foregroundStyle(colorConfigStyle.textColor ?? Color.Text.primary)
                 .padding(.horizontal, style.config.horizontalPadding)
                 .multilineTextAlignment(.center)
             case let .image(asset):
                 Image(asset: asset)
-                    .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)
+                    .foregroundStyle(colorConfigStyle.textColor ?? Color.Text.primary)
                     .padding(.horizontal, 5)
             case let .textWithBadge(text, badge):
                 HStack(spacing: 8) {
                     AnytypeText(text, style: style.config.textFont)
-                        .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)
+                        .foregroundStyle(colorConfigStyle.textColor ?? Color.Text.primary)
                     AnytypeText(badge, style: style.config.textFont)
-                        .foregroundColor(Color.Control.secondary)
+                        .foregroundStyle(Color.Control.secondary)
                 }
                 .padding(.horizontal, style.config.horizontalPadding)
             }
@@ -96,10 +96,11 @@ public struct StandardButton: View {
         }
         .frame(height: style.config.height)
         .background(background(style: colorConfigStyle))
-        .cornerRadius(style.config.radius, corners: corners)
+        .clipShape(VariableRoundedRectangle(radius: style.config.radius, corners: corners))
         .ifLet(colorConfigStyle.borderColor) { view, borderColor in
             view.overlay(
-                RoundedRectangle(cornerRadius: style.config.radius, style: .continuous).strokeBorder(borderColor, lineWidth: 1)
+                VariableRoundedRectangle(radius: style.config.radius, corners: corners)
+                    .strokeBorder(borderColor, lineWidth: 1)
             )
         }
         .fixTappableArea()
@@ -139,7 +140,7 @@ public struct StandardButton: View {
     private func progressView(config: StandardButtonConfig.Style) -> some View {
         if inProgress {
             DotsView()
-                .foregroundColor(config.textColor)
+                .foregroundStyle(config.textColor ?? Color.Text.primary)
                 .frame(width: style.config.loadingIndicatorSize.width, height: style.config.loadingIndicatorSize.height)
         }
     }
@@ -149,7 +150,7 @@ public struct StandardButton: View {
         if let info, let infoTextFont = style.config.infoTextFont {
             let infoColorConfigStyle = buildInfoColorConfigStyle()
             AnytypeText(info, style: infoTextFont)
-                .foregroundColor(infoColorConfigStyle.textColor ?? .Text.primary)
+                .foregroundStyle(infoColorConfigStyle.textColor ?? Color.Text.primary)
                 .frame(width: 24, height: 24)
                 .background(background(style: infoColorConfigStyle))
                 .clipShape(Circle())
@@ -184,5 +185,38 @@ public extension StandardButton {
         self.holdPressState = holdPressState
         self.corners = corners
         self.action = action
+    }
+}
+
+private struct VariableRoundedRectangle: InsettableShape {
+    let radius: CGFloat
+    let corners: UIRectCorner
+    var insetAmount: CGFloat = 0
+
+    func path(in rect: CGRect) -> Path {
+        let insetRect = rect.insetBy(dx: insetAmount, dy: insetAmount)
+        let insetRadius = max(0, radius - insetAmount)
+
+        if corners == .allCorners {
+            return RoundedRectangle(cornerRadius: insetRadius, style: .continuous).path(in: insetRect)
+        }
+
+        let topLeading = corners.contains(.topLeft) ? insetRadius : 0
+        let topTrailing = corners.contains(.topRight) ? insetRadius : 0
+        let bottomLeading = corners.contains(.bottomLeft) ? insetRadius : 0
+        let bottomTrailing = corners.contains(.bottomRight) ? insetRadius : 0
+
+        return UnevenRoundedRectangle(
+            topLeadingRadius: topLeading,
+            bottomLeadingRadius: bottomLeading,
+            bottomTrailingRadius: bottomTrailing,
+            topTrailingRadius: topTrailing
+        ).path(in: insetRect)
+    }
+
+    func inset(by amount: CGFloat) -> some InsettableShape {
+        var shape = self
+        shape.insetAmount += amount
+        return shape
     }
 }

@@ -12,6 +12,12 @@ extension AnyNameExtension: @retroactive CustomStringConvertible  {
     }
 }
 
+extension AnyName {
+    var formatted: String {
+        handle.isEmpty ? "" : "\(handle)\(`extension`.description)"
+    }
+}
+
 extension MembershipStatus {
     static var empty: MembershipStatus {
         MembershipStatus(

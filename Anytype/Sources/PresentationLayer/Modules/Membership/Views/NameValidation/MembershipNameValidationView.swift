@@ -3,15 +3,15 @@ import Services
 
 
 struct MembershipNameValidationView: View {
-    @StateObject private var model: MembershipNameValidationViewModel
+    @State private var model: MembershipNameValidationViewModel
     @Binding private var name: String
-    
+
     private let onValidation: (Bool) -> ()
-    
+
     init(tier: MembershipTier, name: Binding<String>, onValidation: @escaping (Bool) -> ()) {
         _name = name
-        _model = StateObject(wrappedValue: MembershipNameValidationViewModel(tier: tier))
-        
+        _model = State(initialValue: MembershipNameValidationViewModel(tier: tier))
+
         self.onValidation = onValidation
     }
     
@@ -20,8 +20,8 @@ struct MembershipNameValidationView: View {
             HStack {
                 TextField(Loc.myself, text: $name)
                     .textContentType(.username)
-                AnytypeText(".any", style: .bodyRegular)
-                    .foregroundColor(.Text.primary)
+                AnytypeText(AnyNameExtension.anyName.description, style: .bodyRegular)
+                    .foregroundStyle(Color.Text.primary)
             }
             .padding(.vertical, 12)
             .newDivider()
@@ -43,16 +43,16 @@ struct MembershipNameValidationView: View {
                 switch model.state {
                 case .default:
                     AnytypeText(Loc.minXCharacters(model.minimumNumberOfCharacters), style: .relation2Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                 case .validating:
                     AnytypeText(Loc.Membership.NameForm.validating, style: .relation2Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                 case .error(text: let text):
                     AnytypeText(text, style: .relation2Regular)
-                        .foregroundColor(.Dark.red)
+                        .foregroundStyle(Color.Dark.red)
                 case .validated:
                     AnytypeText(Loc.Membership.NameForm.validated, style: .relation2Regular)
-                        .foregroundColor(.Dark.green)
+                        .foregroundStyle(Color.Dark.green)
                 }
             }
             .padding(.top, 6)

@@ -191,9 +191,9 @@ extension UIColor {
       public static let primary = UIColor(asset: Asset.Shape.primary)
       public static let secondary = UIColor(asset: Asset.Shape.secondary)
       public static let tertiary = UIColor(asset: Asset.Shape.tertiary)
-      public static let transperentPrimary = UIColor(asset: Asset.Shape.transperentPrimary)
-      public static let transperentSecondary = UIColor(asset: Asset.Shape.transperentSecondary)
-      public static let transperentTertiary = UIColor(asset: Asset.Shape.transperentTertiary)
+      public static let transparentPrimary = UIColor(asset: Asset.Shape.transparentPrimary)
+      public static let transparentSecondary = UIColor(asset: Asset.Shape.transparentSecondary)
+      public static let transparentTertiary = UIColor(asset: Asset.Shape.transparentTertiary)
     }
     // MARK: - Text
     public enum Text {

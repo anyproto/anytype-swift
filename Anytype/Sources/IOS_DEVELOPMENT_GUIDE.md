@@ -2,7 +2,7 @@
 
 Complete guide to iOS development patterns, architecture, and best practices for the Anytype iOS app.
 
-*Last updated: 2025-01-30*
+*Last updated: 2025-12-18*
 
 ## Overview
 
@@ -53,7 +53,11 @@ Modules/                # Swift packages
 **View** (SwiftUI):
 ```swift
 struct ChatView: View {
-    @StateObject private var model: ChatViewModel
+    @State private var model: ChatViewModel
+
+    init() {
+        _model = State(wrappedValue: ChatViewModel())
+    }
 
     var body: some View {
         // UI only, no business logic
@@ -61,11 +65,14 @@ struct ChatView: View {
 }
 ```
 
-**ViewModel**:
+**ViewModel** (using `@Observable` macro - preferred):
 ```swift
 @MainActor
-final class ChatViewModel: ObservableObject {
-    @Published var messages: [Message] = []
+@Observable
+final class ChatViewModel {
+    var messages: [Message] = []
+
+    @ObservationIgnored
     @Injected(\.chatService) private var chatService
 
     func sendMessage(_ text: String) async {
@@ -74,14 +81,17 @@ final class ChatViewModel: ObservableObject {
 }
 ```
 
+> **Note**: Use `@Observable` macro instead of `ObservableObject`. Properties are observed by default - no `@Published` needed. Use `@ObservationIgnored` for properties that shouldn't trigger view updates (DI, navigation, private state).
+
 #### 2. Coordinator Pattern
 
 Coordinators handle navigation:
 
 ```swift
 @MainActor
-final class ChatCoordinator: ObservableObject {
-    @Published var route: Route?
+@Observable
+final class ChatCoordinator {
+    var route: Route?
 
     enum Route {
         case settings
@@ -351,6 +361,136 @@ let items: [Item] = fetchItems()
 let callback: (String) -> Void = handle
 ```
 
+### SwiftUI Best Practices
+
+#### Use `foregroundStyle()` instead of `foregroundColor()`
+
+`foregroundColor()` is deprecated. Use `foregroundStyle()` with explicit `Color` type:
+
+```swift
+// ❌ WRONG - Deprecated
+Text("Hello")
+    .foregroundColor(.red)
+
+// ❌ WRONG - Type inference doesn't work
+Text("Hello")
+    .foregroundStyle(.red)
+
+// ✅ CORRECT - Explicit Color type
+AnytypeText("Hello", style: .bodyRegular)
+    .foregroundStyle(Color.Text.primary)
+```
+
+#### Use `AnytypeText` instead of plain `Text`
+
+Never use SwiftUI's plain `Text` view. Always use `AnytypeText` which encapsulates design system typography:
+
+```swift
+// ❌ WRONG - Plain Text
+Text("Hello World")
+
+// ✅ CORRECT - AnytypeText with design system style
+AnytypeText("Hello World", style: .bodyRegular)
+
+// ✅ With localization
+AnytypeText(Loc.welcomeMessage, style: .heading)
+```
+
+`AnytypeText` ensures consistent typography and automatically applies design system fonts.
+
+#### Use `clipShape()` instead of `cornerRadius()`
+
+`cornerRadius()` is deprecated. Use `clipShape()` with appropriate shapes:
+
+```swift
+// ❌ WRONG - Deprecated
+Rectangle()
+    .cornerRadius(16)
+
+// ✅ CORRECT - Simple corner radius
+Rectangle()
+    .clipShape(.rect(cornerRadius: 16))
+
+// ✅ CORRECT - With continuous style
+Rectangle()
+    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+
+// ✅ CORRECT - Specific corners only
+Rectangle()
+    .clipShape(UnevenRoundedRectangle(topLeadingRadius: 16, topTrailingRadius: 16))
+```
+
+**Corner mappings for UnevenRoundedRectangle:**
+- Top corners: `topLeadingRadius`, `topTrailingRadius`
+- Bottom corners: `bottomLeadingRadius`, `bottomTrailingRadius`
+
+#### Use `Button` instead of `onTapGesture` for Accessibility
+
+`onTapGesture` doesn't provide proper accessibility semantics. VoiceOver users cannot activate elements that only use `onTapGesture`. Always use `Button` for tap interactions:
+
+```swift
+// ❌ WRONG - Not accessible to VoiceOver users
+Text("Tap me")
+    .onTapGesture {
+        doSomething()
+    }
+
+// ✅ CORRECT - Accessible button
+Button {
+    doSomething()
+} label: {
+    Text("Tap me")
+}
+.buttonStyle(.plain)  // If no visual styling needed
+```
+
+**Only use `onTapGesture` when:**
+- Multi-tap detection is needed (e.g., `onTapGesture(count: 2)` for double-tap)
+- Tap location is required (using `coordinateSpace`)
+- Combined with other gestures (e.g., `onTapGesture` + `onLongPressGesture`)
+- Already inside a Button (nested gestures)
+
+**Example of legitimate `onTapGesture` use** (combined gesture):
+```swift
+// ✅ CORRECT - Combined tap + long press
+Image(asset: .X32.Island.addObject)
+    .onTapGesture {
+        model.onTapNewObject()
+    }
+    .simultaneousGesture(
+        LongPressGesture(minimumDuration: 0.3)
+            .onEnded { _ in model.onPlusButtonLongtap() }
+    )
+
+// ✅ CORRECT - Multi-tap debug trigger
+ContentView()
+    .onTapGesture(count: 5) {
+        showDebugMenu()
+    }
+```
+
+#### Use `NavigationStack` instead of `NavigationView`
+
+`NavigationView` is deprecated in iOS 16+. Always use `NavigationStack` for navigation containers:
+
+```swift
+// ❌ WRONG - Deprecated
+NavigationView {
+    content
+}
+.navigationViewStyle(.stack)
+
+// ✅ CORRECT - Modern API
+NavigationStack {
+    content
+}
+```
+
+**Notes:**
+- `NavigationStack` is always stack-based (no need for `.navigationViewStyle(.stack)`)
+- For complex navigation with path management, see `AnytypeNavigationView` custom wrapper
+- Existing `.navigationTitle()` and `.navigationBarTitleDisplayMode()` modifiers work unchanged
+
 ## 🧪 Testing & Mocks
 
 ### Always Update Tests When Refactoring
@@ -458,6 +598,146 @@ Text(Loc.addMember)
 // ❌ Don't edit this file - changes will be overwritten
 ```
 
+### ❌ SwiftUI Group with Lifecycle Modifiers (2025-12-18)
+
+`Group` distributes modifiers to its children. When used with conditionals and lifecycle modifiers (`onAppear`, `task`), callbacks can fire multiple times as views switch between branches.
+
+```swift
+// ❌ WRONG - onAppear/task can fire multiple times when loadingDocument changes
+var body: some View {
+    Group {
+        if model.loadingDocument {
+            Spacer()
+        } else {
+            content
+        }
+    }
+    .onAppear { model.onAppear() }
+    .task { await model.startSubscriptions() }
+}
+
+// ✅ CORRECT - Extract to @ViewBuilder, modifiers applied once
+var body: some View {
+    loadingContent
+        .onAppear { model.onAppear() }
+        .task { await model.startSubscriptions() }
+}
+
+@ViewBuilder
+private var loadingContent: some View {
+    if model.loadingDocument {
+        Spacer()
+    } else {
+        content
+    }
+}
+```
+
+**Also avoid Group inside ForEach with modifiers**:
+```swift
+// ❌ WRONG - Group distributes onDrop to each case
+ForEach(items) { item in
+    Group {
+        switch item.type { ... }
+    }
+    .onDrop(...)
+}
+
+// ✅ CORRECT - Extract switch to @ViewBuilder function
+ForEach(items) { item in
+    itemContent(item)
+        .onDrop(...)
+}
+
+@ViewBuilder
+private func itemContent(_ item: Item) -> some View {
+    switch item.type { ... }
+}
+```
+
+**Reference**: [SwiftUI Group Still Considered Harmful](https://twocentstudios.com/2025/12/12/swiftui-group-still-considered-harmful/)
+
+### ❌ Computed Properties Accessing Storage in ViewModels
+
+Using computed properties that access storage/services causes unnecessary calls on every view re-render:
+
+```swift
+// ❌ WRONG - Called on every view re-render
+@MainActor
+final class ProfileViewModel: ObservableObject {
+    @Injected(\.membershipStorage) private var storage
+
+    var userName: String {
+        storage.currentStatus.name  // Called every re-render!
+    }
+}
+
+// ✅ CORRECT - Captured once at initialization
+@MainActor
+final class ProfileViewModel: ObservableObject {
+    let userName: String
+
+    init() {
+        userName = Container.shared.membershipStorage().currentStatus.name
+    }
+}
+
+// ✅ CORRECT - For values that change, subscribe to updates
+@MainActor
+final class ProfileViewModel: ObservableObject {
+    @Published private(set) var userName: String = ""
+    private var cancellables = Set<AnyCancellable>()
+
+    init() {
+        Container.shared.membershipStorage()
+            .statusPublisher
+            .map(\.name)
+            .assign(to: &$userName)
+    }
+}
+```
+
+**Rule**: If the value doesn't change during the view's lifetime, use `let` constant. If it can change, subscribe to updates with `@Published`.
+
+### ViewModel Initialization Performance (2025-12-19)
+
+ViewModel initializers run every time the View struct is created, not just when the view appears. Keep initializers cheap.
+
+**Current Best Practice (already used in codebase)**:
+```swift
+// ✅ CORRECT - Init is cheap, heavy work in .task
+struct ChatView: View {
+    @State private var model: ChatViewModel
+
+    init(spaceId: String, chatId: String) {
+        _model = State(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId))
+    }
+
+    var body: some View {
+        content
+            .task { await model.startSubscriptions() }  // Heavy work here
+    }
+}
+```
+
+**Alternative for Expensive Initialization**:
+If the ViewModel init itself is expensive (performs I/O, network, etc.), defer creation:
+```swift
+struct ExpensiveView: View {
+    let id: String
+    @State private var model: ExpensiveViewModel?
+
+    var body: some View {
+        content
+            .task(id: id) {
+                model = ExpensiveViewModel(id: id)  // Runs once per id
+            }
+    }
+}
+```
+
+**Reference**: [Initializing @Observable Classes in SwiftUI](https://nilcoalescing.com/blog/InitializingObservableClassesWithinTheSwiftUIHierarchy/)
+
 ## 📚 Integration with Other Guides
 
 - **Localization**: See `LOCALIZATION_GUIDE.md` for using `Loc.*` constants
@@ -482,6 +762,8 @@ Text(Loc.addMember)
 - Use completion handlers (use async/await)
 - Trim whitespace-only lines
 - Hardcode strings (use Loc.*)
+- Use computed properties accessing storage in ViewModels (causes re-render overhead)
+- Use `Group` with conditionals + lifecycle modifiers (use `@ViewBuilder` instead)
 
 ### Testing
 

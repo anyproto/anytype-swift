@@ -191,9 +191,9 @@ extension Color {
       public static let primary = Color(asset: Asset.Shape.primary)
       public static let secondary = Color(asset: Asset.Shape.secondary)
       public static let tertiary = Color(asset: Asset.Shape.tertiary)
-      public static let transperentPrimary = Color(asset: Asset.Shape.transperentPrimary)
-      public static let transperentSecondary = Color(asset: Asset.Shape.transperentSecondary)
-      public static let transperentTertiary = Color(asset: Asset.Shape.transperentTertiary)
+      public static let transparentPrimary = Color(asset: Asset.Shape.transparentPrimary)
+      public static let transparentSecondary = Color(asset: Asset.Shape.transparentSecondary)
+      public static let transparentTertiary = Color(asset: Asset.Shape.transparentTertiary)
     }
     // MARK: - Text
     public enum Text {

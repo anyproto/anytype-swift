@@ -13,10 +13,10 @@ struct MembershipTierInfoView: View {
             Image(asset: tier.mediumIcon)
             Spacer.fixedHeight(14)
             AnytypeText(tier.name, style: .title)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(4)
             AnytypeText(tier.description, style: .calloutRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(22)
             whatsIncluded
             Spacer.fixedHeight(25)
@@ -37,16 +37,16 @@ struct MembershipTierInfoView: View {
     var whatsIncluded: some View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeText(Loc.whatSIncluded, style: .calloutRegular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             Spacer.fixedHeight(6)
             ForEach(tier.features, id: \.self) { feature in
                 HStack(alignment: .top, spacing: 8) {
                         Image(asset: .System.textCheckMark)
                             .frame(width: 16, height: 16)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                             .padding(.top, 3)
                     AnytypeText(feature, style: .calloutRegular)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                         .lineLimit(2)
                 }
                 Spacer.fixedHeight(5)

@@ -14,7 +14,7 @@ struct SetChatPreviewView: View {
 
                 if configuration.showTitle {
                     AnytypeText(configuration.title, style: .previewTitle2Medium)
-                        .foregroundColor(chatPreview.titleColor)
+                        .foregroundStyle(chatPreview.titleColor)
                         .lineLimit(1)
                 }
 
@@ -23,12 +23,12 @@ struct SetChatPreviewView: View {
                 if chatPreview.hasCounters {
                     HStack(spacing: 4) {
                         if chatPreview.mentionCounter > 0 {
-                            MentionBadge(style: chatPreview.mentionStyle)
+                            MentionBadge(style: chatPreview.mentionCounterStyle)
                         }
                         if chatPreview.unreadCounter > 0 {
                             CounterView(
                                 count: chatPreview.unreadCounter,
-                                style: chatPreview.unreadStyle
+                                style: chatPreview.unreadCounterStyle
                             )
                         }
                     }
@@ -37,7 +37,7 @@ struct SetChatPreviewView: View {
 
             HStack(spacing: 0) {
                 AnytypeText(chatPreview.messagePreviewText, style: .relation2Regular)
-                    .foregroundColor(chatPreview.messagePreviewColor)
+                    .foregroundStyle(chatPreview.messagePreviewColor)
                     .lineLimit(2)
 
                 Spacer()
@@ -45,7 +45,7 @@ struct SetChatPreviewView: View {
 
             HStack(spacing: 0) {
                 AnytypeText(chatPreview.chatPreviewDate, style: .relation3Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                     .lineLimit(1)
 
                 Spacer()

@@ -2,15 +2,24 @@ import Services
 import AnytypeCore
 
 protocol ObjectSettingsBuilderProtocol {
-    func build(details: ObjectDetails, permissions: ObjectPermissions) -> [ObjectSetting]
+    func build(details: ObjectDetails, permissions: ObjectPermissions, spaceUxType: SpaceUxType?, chatNotificationMode: SpacePushNotificationsMode?) -> [ObjectSetting]
 }
 
 final class ObjectSettingsBuilder: ObjectSettingsBuilderProtocol {
     @Injected(\.objectSettingsConflictManager)
     private var conflictManager: any ObjectSettingsPrimitivesConflictManagerProtocol
     
-    func build(details: ObjectDetails, permissions: ObjectPermissions) -> [ObjectSetting] {
-        .builder {
+    func build(details: ObjectDetails, permissions: ObjectPermissions, spaceUxType: SpaceUxType?, chatNotificationMode: SpacePushNotificationsMode?) -> [ObjectSetting] {
+        let canShowVersionHistory = details.isVisibleLayout(spaceUxType: spaceUxType)
+            && details.resolvedLayoutValue != .participant
+            && !details.resolvedLayoutValue.isChat
+            && !details.templateIsBundled
+            && !details.isObjectType
+
+        let canShowNotifications = details.resolvedLayoutValue.isChat
+            && spaceUxType?.supportsMultiChats == true
+
+        return .builder {
            
             if permissions.canChangeIcon {
                 ObjectSetting.icon
@@ -19,9 +28,11 @@ final class ObjectSettingsBuilder: ObjectSettingsBuilderProtocol {
             if permissions.canChangeCover {
                 ObjectSetting.cover
             }
-            
-            let isFeatured = details.featuredRelations.contains { $0 == BundledPropertyKey.description.rawValue }
-            ObjectSetting.description(isVisible: isFeatured)
+
+            if permissions.canToggleDescription {
+                let isFeatured = details.featuredRelations.contains { $0 == BundledPropertyKey.description.rawValue }
+                ObjectSetting.description(isVisible: isFeatured)
+            }
             
             if permissions.canShowRelations {
                 ObjectSetting.relations
@@ -34,8 +45,12 @@ final class ObjectSettingsBuilder: ObjectSettingsBuilderProtocol {
             if permissions.canPublish {
                 ObjectSetting.webPublishing
             }
-            
-            if permissions.canShowVersionHistory {
+
+            if canShowNotifications, let chatNotificationMode {
+                ObjectSetting.notifications(mode: chatNotificationMode)
+            }
+
+            if canShowVersionHistory {
                 ObjectSetting.history
             }
             

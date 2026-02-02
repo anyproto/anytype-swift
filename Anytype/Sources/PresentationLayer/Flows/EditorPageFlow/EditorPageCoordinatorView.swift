@@ -3,17 +3,13 @@ import SwiftUI
 import AnytypeCore
 
 struct EditorPageCoordinatorView: View {
-    
-    @StateObject private var model: EditorPageCoordinatorViewModel
+
+    @State private var model: EditorPageCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.dismiss) private var dismiss
-    
-    init(
-        data: EditorPageObject,
-        showHeader: Bool,
-        setupEditorInput: @escaping (any EditorPageModuleInput, String) -> Void
-    ) {
-        self._model = StateObject(wrappedValue: EditorPageCoordinatorViewModel(data: data, showHeader: showHeader, setupEditorInput: setupEditorInput))
+
+    init(data: EditorPageObject, showHeader: Bool) {
+        self._model = State(initialValue: EditorPageCoordinatorViewModel(data: data, showHeader: showHeader))
     }
     
     var body: some View {
@@ -56,13 +52,6 @@ struct EditorPageCoordinatorView: View {
             }
             .anytypeSheet(item: $model.syncStatusSpaceId) {
                 SyncStatusInfoView(spaceId: $0.value)
-            }
-            .anytypeSheet(item: $model.settingsOutput) {
-                ObjectSettingsCoordinatorView(
-                    objectId: model.data.objectId,
-                    spaceId: model.data.spaceId,
-                    output: $0.value
-                )
             }
             .snackbar(toastBarData: $model.toastBarData)
             .openUrl(url: $model.openUrlData)

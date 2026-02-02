@@ -1,9 +1,9 @@
 import AnytypeCore
 
 public enum ObjectIcon: Hashable, Sendable, Equatable, Codable {
-    case basic(_ imageId: String)
+    case basic(_ imageId: String, circular: Bool = false)
     case profile(Profile)
-    case emoji(Emoji)
+    case emoji(Emoji, circular: Bool = false)
     case customIcon(CustomIconData)
     case bookmark(_ imageId: String)
     case space(Space)
@@ -16,7 +16,7 @@ public enum ObjectIcon: Hashable, Sendable, Equatable, Codable {
 public extension ObjectIcon {
     var imageId: String? {
         switch self {
-        case .basic(let imageId):
+        case .basic(let imageId, _):
             return imageId
         case .profile(let data):
             return data.imageId

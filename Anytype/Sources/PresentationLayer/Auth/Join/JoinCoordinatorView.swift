@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct JoinCoordinatorView: View {
-    
-    @StateObject private var model: JoinCoordinatorViewModel
+
+    @State private var model: JoinCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(state: JoinFlowState) {
-        self._model = StateObject(wrappedValue: JoinCoordinatorViewModel(state: state))
+        _model = State(initialValue: JoinCoordinatorViewModel(state: state))
     }
     
     var body: some View {

@@ -2,8 +2,8 @@ import SwiftUI
 import AnytypeCore
 
 struct SetHeaderSettingsView: View {
-    
-    @StateObject var model: SetHeaderSettingsViewModel
+
+    @State var model: SetHeaderSettingsViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -33,7 +33,7 @@ struct SetHeaderSettingsView: View {
             model.onSettingsTap()
         }) {
             Image(asset: .X24.settings)
-                .foregroundColor(model.isActiveHeader ? .Control.secondary : .Control.tertiary)
+                .foregroundStyle(model.isActiveHeader ? Color.Control.secondary : Color.Control.tertiary)
         }
         .disabled(!model.isActiveHeader)
     }
@@ -52,7 +52,7 @@ struct SetHeaderSettingsView: View {
             Rectangle()
                 .fill(Color.clear)
                 .frame(width: 1, height: 28)
-                .background(model.isActiveCreateButton ? Color.Control.accent80 : Color.Shape.transperentSecondary)
+                .background(model.isActiveCreateButton ? Color.Control.accent80 : Color.Shape.transparentSecondary)
             StandardButton(.image(.X18.listArrow), style: .primaryXSmall, corners: [.topRight, .bottomRight]) {
                 UISelectionFeedbackGenerator().selectionChanged()
                 model.onSecondaryCreateTap()
@@ -73,10 +73,10 @@ struct SetHeaderSettingsView: View {
                     model.viewName.isNotEmpty ? model.viewName : Loc.untitled,
                     style: .subheading
                 )
-                .foregroundColor(model.isActiveHeader ? .Text.primary : .Text.tertiary)
+                .foregroundStyle(model.isActiveHeader ? Color.Text.primary : Color.Text.tertiary)
                 Spacer.fixedWidth(4)
                 Image(asset: .arrowDown)
-                    .foregroundColor(model.isActiveHeader ? .Text.primary : .Text.tertiary)
+                    .foregroundStyle(model.isActiveHeader ? Color.Text.primary : Color.Text.tertiary)
             }
         }
         .disabled(!model.isActiveHeader)

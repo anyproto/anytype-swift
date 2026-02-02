@@ -46,6 +46,8 @@ public enum AnytypeFont: CaseIterable, Sendable {
     case caption2Regular
     case caption2Medium
 
+    case tagline
+
     case button1Regular
     case button1Medium
     

@@ -2,11 +2,11 @@ import SwiftUI
 import AnytypeCore
 
 struct WallpaperPickerView: View {
-    @StateObject private var model: WallpaperPickerViewModel
+    @State private var model: WallpaperPickerViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(spaceId: String) {
-        self._model = StateObject(wrappedValue: WallpaperPickerViewModel(spaceId: spaceId))
+        _model = State(initialValue: WallpaperPickerViewModel(spaceId: spaceId))
     }
     
     var body: some View {
@@ -14,7 +14,7 @@ struct WallpaperPickerView: View {
             DragIndicator()
             Spacer.fixedHeight(12)
             AnytypeText(Loc.changeWallpaper, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(12)
             WallpaperColorsGridView(spaceIcon: model.spaceIcon, currentWallpaper: model.wallpaper) { background in
                 AnytypeAnalytics.instance().logSettingsWallpaperSet()

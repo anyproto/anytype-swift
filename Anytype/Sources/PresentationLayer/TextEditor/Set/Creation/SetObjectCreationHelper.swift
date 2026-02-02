@@ -1,14 +1,15 @@
 import Services
 
-struct SetObjectCreationResult {
-    let details: ObjectDetails?
-    let titleInputType: CreateObjectTitleInputType
+enum SetObjectCreationAction {
+    case showObject(ObjectDetails, titleInputType: CreateObjectTitleInputType)
+    case showBookmarkCreation(spaceId: String, collectionId: String?)
+    case showChatCreation(spaceId: String, collectionId: String?)
 }
 
 protocol SetObjectCreationHelperProtocol: Sendable {
     func createObject(
         for setDocument: some SetDocumentProtocol, setting: ObjectCreationSetting?
-    ) async throws -> SetObjectCreationResult
+    ) async throws -> SetObjectCreationAction
 }
 
 final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
@@ -20,13 +21,17 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
     private let blockService: any BlockServiceProtocol = Container.shared.blockService()
     
     // MARK: - SetObjectCreationHelperProtocol
-    
+
     func createObject(
         for setDocument: some SetDocumentProtocol,
         setting: ObjectCreationSetting?
-    ) async throws -> SetObjectCreationResult {
+    ) async throws -> SetObjectCreationAction {
+        let collectionId = setDocument.isCollection() ? setDocument.objectId : nil
+
         if isBookmarkObject(setDocument: setDocument, setting: setting) {
-            return .init(details: nil, titleInputType: .none)
+            return .showBookmarkCreation(spaceId: setDocument.spaceId, collectionId: collectionId)
+        } else if isChatObject(setDocument: setDocument, setting: setting) {
+            return .showChatCreation(spaceId: setDocument.spaceId, collectionId: collectionId)
         } else if setDocument.isCollection() {
             return try await createObjectForCollection(for: setDocument, setting: setting)
         } else if setDocument.isSetByRelation() {
@@ -41,35 +46,38 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
     private func createObjectForCollection(
         for setDocument: some SetDocumentProtocol,
         setting: ObjectCreationSetting?
-    ) async throws -> SetObjectCreationResult {
+    ) async throws -> SetObjectCreationAction {
         let objectType = objectType(for: setDocument, setting: setting)
         let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
-        
+
         let result = try await createObject(
             setDocument: setDocument,
             type: objectType,
             relationsDetails: [],
             templateId: templateId
         )
-        try await objectActionsService.addObjectsToCollection(
-            contextId: setDocument.objectId,
-            objectIds: [result.details?.id].compactMap { $0 }
-        )
-        
+
+        if case .showObject(let details, _) = result {
+            try await objectActionsService.addObjectsToCollection(
+                contextId: setDocument.objectId,
+                objectIds: [details.id]
+            )
+        }
+
         return result
     }
     
     private func createObjectForRelationSet(
         for setDocument: some SetDocumentProtocol,
         setting: ObjectCreationSetting?
-    ) async throws -> SetObjectCreationResult {
+    ) async throws -> SetObjectCreationAction {
         let relationsDetails = setDocument.dataViewRelationsDetails.filter { detail in
             guard let source = setDocument.details?.filteredSetOf else { return false }
             return source.contains(detail.id)
         }
         let objectType = objectType(for: setDocument, setting: setting)
         let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
-        
+
         return try await createObject(
             setDocument: setDocument,
             type: objectType,
@@ -81,7 +89,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
     private func createObjectForRegularSet(
         for setDocument: some SetDocumentProtocol,
         setting: ObjectCreationSetting?
-    ) async throws -> SetObjectCreationResult {
+    ) async throws -> SetObjectCreationAction {
         let objectTypeId = setDocument.details?.filteredSetOf.first ?? ""
         let objectType = try objectTypeProvider.objectType(id: objectTypeId)
         let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
@@ -98,7 +106,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
         type: ObjectType?,
         relationsDetails: [PropertyDetails],
         templateId: String?
-    ) async throws -> SetObjectCreationResult {
+    ) async throws -> SetObjectCreationAction {
         let details = try await dataviewService.addRecord(
             typeUniqueKey: type?.uniqueKey,
             templateId: templateId ?? "",
@@ -107,12 +115,11 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
         )
         if let type, type.isNoteLayout {
             guard let newBlockId = try? await blockService.addFirstBlock(contextId: details.id, info: .emptyText) else {
-                return .init(details: details, titleInputType: .none)
+                return .showObject(details, titleInputType: .none)
             }
-            
-            return .init(details:details, titleInputType: .writeToBlock(blockId: newBlockId))
+            return .showObject(details, titleInputType: .writeToBlock(blockId: newBlockId))
         } else {
-            return .init(details:details, titleInputType: .writeToRelationName)
+            return .showObject(details, titleInputType: .writeToRelationName)
         }
     }
     
@@ -120,11 +127,23 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
         if setDocument.isBookmarksSet() {
             return true
         }
-        
+
         if let objectType = objectType(for: setDocument, setting: setting) {
             return objectType.recommendedLayout == .bookmark
         }
-        
+
+        return false
+    }
+
+    private func isChatObject(setDocument: some SetDocumentProtocol, setting: ObjectCreationSetting?) -> Bool {
+        if setDocument.isChatSet() {
+            return true
+        }
+
+        if let objectType = objectType(for: setDocument, setting: setting) {
+            return objectType.isChatType
+        }
+
         return false
     }
     
@@ -144,7 +163,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
 }
 
 extension SetObjectCreationHelperProtocol {
-    func createObject(for setDocument: some SetDocumentProtocol) async throws -> SetObjectCreationResult {
+    func createObject(for setDocument: some SetDocumentProtocol) async throws -> SetObjectCreationAction {
         return try await createObject(for: setDocument, setting: nil)
     }
 }

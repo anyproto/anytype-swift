@@ -1,13 +1,15 @@
 import SwiftUI
 
-class FlowPropertiesViewModel: ObservableObject {
+@MainActor
+@Observable
+final class FlowPropertiesViewModel {
     let icon: Icon?
     let showIcon: Bool
     let canEditIcon: Bool
     let title: String?
     let description: String?
     let properties: [Property]
-    
+
     init(
         icon: Icon? = nil,
         showIcon: Bool = true,

@@ -46,7 +46,7 @@ struct ApplicationCoordinatorView: View {
             InitialCoordinatorView()
         case .auth:
             AuthCoordinatorView()
-        case .login:
+        case .launch:
             LaunchView()
         case .home:
             SpaceHubCoordinatorView()

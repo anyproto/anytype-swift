@@ -20,9 +20,6 @@ struct SpaceHubCoordinatorView: View {
             .onChange(of: model.navigationPath) { model.onPathChange() }
         
             .taskWithMemoryScope { await model.setup() }
-            .task(id: model.currentSpaceId) {
-                await model.startSpaceSubscription()
-            }
             .handleSharingTip()
             .updateShortcuts(spaceId: model.fallbackSpaceId)
             .snackbar(toastBarData: $model.toastBarData)
@@ -42,9 +39,6 @@ struct SpaceHubCoordinatorView: View {
             .sheet(item: $model.showGlobalSearchData) {
                 GlobalSearchView(data: $0)
             }
-            .sheet(item: $model.typeSearchForObjectCreationSpaceId) {
-                model.typeSearchForObjectCreationModule(spaceId: $0.value)
-            }
             .anytypeSheet(item: $model.spaceJoinData) {
                 SpaceJoinView(data: $0, onManageSpaces: {
                     model.onManageSpacesSelected()
@@ -55,14 +49,6 @@ struct SpaceHubCoordinatorView: View {
             }
             .anytypeSheet(isPresented: $model.showObjectIsNotAvailableAlert) {
                 ObjectIsNotAvailableAlert()
-            }
-            .sheet(item: $model.showSpaceShareData) {
-                SpaceShareCoordinatorView(data: $0)
-                    .pageNavigation(model.pageNavigation)
-            }
-            .sheet(item: $model.showSpaceMembersData) {
-                SpaceMembersView(data: $0)
-                    .pageNavigation(model.pageNavigation)
             }
             .anytypeSheet(item: $model.profileData) {
                 ProfileView(info: $0)
@@ -76,6 +62,14 @@ struct SpaceHubCoordinatorView: View {
             }
             .sheet(item: $model.spaceCreateData) {
                 SpaceCreateCoordinatorView(data: $0)
+            }
+            .sheet(item: $model.chatCreateData) { data in
+                ChatCreateView(data: data)
+                    .pageNavigation(model.pageNavigation)
+            }
+            .anytypeSheet(item: $model.bookmarkCreateData) { data in
+                BookmarkCreateView(data: data)
+                    .pageNavigation(model.pageNavigation)
             }
             .sheet(isPresented: $model.showSpaceTypeForCreate) {
                 SpaceCreateTypePickerView(onSelectSpaceType: { type in
@@ -113,6 +107,13 @@ struct SpaceHubCoordinatorView: View {
             ) { result in
                 model.fileImporterFinished(result: result)
             }
+
+            // widgets overlay
+            .fullScreenCover(item: $model.overlayWidgetsData) { data in
+                HomeWidgetsCoordinatorView(data: data, context: .overlay)
+                    .pageNavigation(model.pageNavigation)
+                    .navigationZoomTransition(sourceID: "widgetsOverlay", in: namespace)
+            }
     }
     
     private var content: some View {
@@ -124,7 +125,7 @@ struct SpaceHubCoordinatorView: View {
                 content: {
                     AnytypeNavigationView(path: $model.navigationPath, pathChanging: $model.pathChanging) { builder in
                         builder.appendBuilder(for: HomeWidgetData.self) { data in
-                            HomeWidgetsCoordinatorView(data: data)
+                            HomeWidgetsCoordinatorView(data: data, context: .navigation)
                         }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
                             EditorCoordinatorView(data: data)
@@ -135,8 +136,12 @@ struct SpaceHubCoordinatorView: View {
                         builder.appendBuilder(for: SpaceChatCoordinatorData.self) {
                             SpaceChatCoordinatorView(data: $0)
                         }
-                        builder.appendBuilder(for: ChatCoordinatorData.self) {
-                            ChatCoordinatorView(data: $0)
+                        // Wrap here instead of inside ChatCoordinatorView to avoid nesting
+                        // SpaceLoadingContainerView (see comment in SpaceLoadingContainerView.swift)
+                        builder.appendBuilder(for: ChatCoordinatorData.self) { data in
+                            SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) { _ in
+                                ChatCoordinatorView(data: data)
+                            }
                         }
                         builder.appendBuilder(for: SpaceInfoScreenData.self) { data in
                             switch data {
@@ -159,6 +164,7 @@ struct SpaceHubCoordinatorView: View {
 
             NotificationCoordinatorView()
         }
+        .widgetsAnimationNamespace(namespace)
         .animation(.easeInOut, value: model.spaceInfo)
         .pageNavigation(model.pageNavigation)
         .chatActionProvider($model.chatProvider)

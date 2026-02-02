@@ -16,7 +16,7 @@ public struct TextLimitView: View {
             .padding(.horizontal, 8)
             .padding(.vertical, 3)
             .background(Color.Background.secondary)
-            .cornerRadius(12)
+            .clipShape(.rect(cornerRadius: 12))
             .border(12, color: .Shape.tertiary)
             .shadow(color: .black.opacity(0.15), radius: 12)
     }

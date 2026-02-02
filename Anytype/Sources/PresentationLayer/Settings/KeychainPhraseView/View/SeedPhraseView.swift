@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SeedPhraseView: View {
     
-    @ObservedObject var model: KeychainPhraseViewModel
+    @Bindable var model: KeychainPhraseViewModel
     
     var body: some View {
         Button(action: { model.onSeedViewTap() }) {
@@ -11,7 +11,7 @@ struct SeedPhraseView: View {
                     model.recoveryPhrase ?? Loc.Keychain.seedPhrasePlaceholder,
                     style: .codeBlock
                 )
-                    .foregroundColor(.Dark.sky)
+                    .foregroundStyle(Color.Dark.sky)
                     .redacted(reason: model.recoveryPhrase.isNil ? .placeholder : [])
                     .multilineTextAlignment(.leading)
                 if model.recoveryPhrase.isNotNil {
@@ -20,8 +20,8 @@ struct SeedPhraseView: View {
             }
             .padding(.vertical, 10)
             .padding(.horizontal, 20)
-            .background(Color.Shape.transperentSecondary)
-            .cornerRadius(4)
+            .background(Color.Shape.transparentSecondary)
+            .clipShape(.rect(cornerRadius: 4))
         }
     }
 }

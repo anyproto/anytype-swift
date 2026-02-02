@@ -51,4 +51,12 @@ extension Participant {
     var displayGlobalName: String {
         globalName.isNotEmpty ? globalName : identity
     }
+    
+    var displayGlobalNameTruncated: String {
+        guard globalName.isEmpty else { return globalName }
+        
+        return identity.count > 14
+            ? "\(identity.prefix(6))...\(identity.suffix(6))"
+            : identity
+    }
 }

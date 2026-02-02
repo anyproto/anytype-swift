@@ -3,28 +3,35 @@ import Services
 
 
 struct ProfileView: View {
-    @StateObject private var model: ProfileViewModel
-    
+    @State private var model: ProfileViewModel
+    @Environment(\.pageNavigation) private var pageNavigation
+
     init(info: ObjectInfo) {
-        _model = StateObject(wrappedValue: ProfileViewModel(info: info))
+        _model = State(initialValue: ProfileViewModel(info: info))
     }
-    
+
     var body: some View {
-        Group {
-            if let details = model.details {
-                content(details)
-            } else {
-                emptyView
-            }
+        mainContent
+            .onAppear {
+            model.pageNavigation = pageNavigation
         }
-        
-        
-        .task { await model.setupSubscriptions() }
+        .task {
+            await model.setupSubscriptions()
+        }
         .sheet(isPresented: $model.showSettings) {
             SettingsCoordinatorView()
         }
     }
-    
+
+    @ViewBuilder
+    private var mainContent: some View {
+        if let details = model.details {
+            content(details)
+        } else {
+            emptyView
+        }
+    }
+
     private var emptyView: some View {
         Spacer.fixedHeight(300)
             .background(Color.Background.secondary)
@@ -70,13 +77,14 @@ struct ProfileView: View {
             Spacer.fixedHeight(12)
             AnytypeText(details.name, style: .heading).lineLimit(1)
             Spacer.fixedHeight(4)
-            AnytypeText(details.displayName, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
+            AnytypeText(details.displayName, style: .caption1Regular).foregroundStyle(Color.Text.secondary).lineLimit(1)
             Spacer.fixedHeight(4)
             AnytypeText(details.description, style: .previewTitle2Regular)
-            Spacer.fixedHeight(78)
+            connectButton
+            Spacer.fixedHeight(32)
         }
     }
-    
+
     private func viewWithoutDescription(_ details: ObjectDetails) -> some View {
         Group {
             Spacer.fixedHeight(30)
@@ -84,8 +92,21 @@ struct ProfileView: View {
             Spacer.fixedHeight(12)
             AnytypeText(details.name, style: .heading).lineLimit(1)
             Spacer.fixedHeight(4)
-            AnytypeText(details.displayName, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
-            Spacer.fixedHeight(84)
+            AnytypeText(details.displayName, style: .caption1Regular).foregroundStyle(Color.Text.secondary).lineLimit(1)
+            connectButton
+            Spacer.fixedHeight(32)
+        }
+    }
+
+    @ViewBuilder
+    private var connectButton: some View {
+        if !model.isOwner {
+            Spacer.fixedHeight(24)
+            AsyncStandardButton(Loc.sendMessage, style: .primaryLarge) {
+                try await model.onConnect()
+            }
+        } else {
+            Spacer.fixedHeight(52)
         }
     }
 }

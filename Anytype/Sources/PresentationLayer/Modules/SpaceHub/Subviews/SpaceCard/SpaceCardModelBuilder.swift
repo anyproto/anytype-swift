@@ -45,7 +45,7 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             }
 
             let chatId = latestPreview.chatId
-            let chatName = await chatDetailsStorage.chat(id: chatId)?.name
+            let chatName = await chatDetailsStorage.chat(id: chatId)?.name.withPlaceholder
 
             lastMessage = MessagePreviewModel(
                 creatorTitle: lastMessagePreview.creator?.title,
@@ -55,7 +55,7 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
                 chatPreviewDate: chatPreviewDateFormatter.localizedDateString(for: lastMessagePreview.createdAt, showTodayTime: true),
                 unreadCounter: 0, // unsupported in space hub
                 mentionCounter: 0, // unsupported in space hub
-                isMuted: false, // unsupported in space hub
+                notificationMode: .all, // unsupported in space hub
                 chatName: chatName
             )
         } else {
@@ -73,9 +73,12 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             isMuted: !spaceView.pushNotificationMode.isUnmutedAll,
             uxTypeName: spaceView.uxType.name,
             supportsMultiChats: spaceView.uxType.supportsMultiChats,
+            showsMessageAuthor: spaceView.uxType.showsMessageAuthor,
             lastMessage: lastMessage,
             unreadCounter: spaceData.totalUnreadCounter,
             mentionCounter: spaceData.totalMentionCounter,
+            unreadCounterStyle: spaceData.unreadCounterStyle,
+            mentionCounterStyle: spaceData.mentionCounterStyle,
             hasCounters: spaceData.hasCounters,
             wallpaper: wallpapers[spaceView.targetSpaceId] ?? .default
         )

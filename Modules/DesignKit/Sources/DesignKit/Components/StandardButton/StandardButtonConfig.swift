@@ -98,14 +98,14 @@ public extension StandardButtonStyle {
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
                     textColor: .Text.primary,
-                    borderColor: .Shape.transperentPrimary
+                    borderColor: .Shape.transparentPrimary
                 ),
                 higlighted: StandardButtonConfig.Style(
-                    backgroundColor: .Shape.transperentSecondary
+                    backgroundColor: .Shape.transparentSecondary
                 ),
                 disabled: StandardButtonConfig.Style(
                     textColor: .Text.tertiary,
-                    borderColor: .Shape.transperentPrimary
+                    borderColor: .Shape.transparentPrimary
                 ),
                 textFont: .button1Regular,
                 height: 52,
@@ -117,14 +117,14 @@ public extension StandardButtonStyle {
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
                     textColor: .Pure.red,
-                    borderColor: .Shape.transperentPrimary
+                    borderColor: .Shape.transparentPrimary
                 ),
                 higlighted: StandardButtonConfig.Style(
                     textColor: .Light.red
                 ),
                 disabled: StandardButtonConfig.Style(
                     textColor: .Light.red,
-                    borderColor: .Shape.transperentPrimary
+                    borderColor: .Shape.transparentPrimary
                 ),
                 textFont: .button1Medium,
                 height: 52,

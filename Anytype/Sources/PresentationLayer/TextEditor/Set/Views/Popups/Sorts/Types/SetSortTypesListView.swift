@@ -2,10 +2,10 @@ import SwiftUI
 import AnytypeCore
 
 struct SetSortTypesListView: View {
-    @StateObject private var model: SetSortTypesListViewModel
-    
+    @State private var model: SetSortTypesListViewModel
+
     init(data: SetSortTypesData) {
-        _model = StateObject(wrappedValue: SetSortTypesListViewModel(data: data))
+        _model = State(initialValue: SetSortTypesListViewModel(data: data))
     }
     
     var body: some View {
@@ -40,12 +40,12 @@ struct SetSortTypesListView: View {
         } label: {
             HStack(spacing: 0) {
                 AnytypeText(item.title, style: .uxBodyRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 
                 Spacer()
 
                 if item.isSelected {
-                    Image(asset: .X24.tick).foregroundColor(.Control.primary)
+                    Image(asset: .X24.tick).foregroundStyle(Color.Control.primary)
                 }
             }
             .frame(height: 52)

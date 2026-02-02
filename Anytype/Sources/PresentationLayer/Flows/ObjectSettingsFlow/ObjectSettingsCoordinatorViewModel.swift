@@ -4,24 +4,25 @@ import AnytypeCore
 import SwiftUI
 
 @MainActor
-final class ObjectSettingsCoordinatorViewModel: 
-    ObservableObject,
+@Observable
+final class ObjectSettingsCoordinatorViewModel:
     ObjectSettingsModelOutput,
     PropertyValueCoordinatorOutput,
     ObjectVersionModuleOutput
 {
-    
+
     let objectId: String
     let spaceId: String
     private weak var output: (any ObjectSettingsCoordinatorOutput)?
-    
-    @Published var coverPickerData: BaseDocumentIdentifiable?
-    @Published var objectIconPickerData: ObjectIconPickerData?
-    @Published var blockObjectSearchData: BlockObjectSearchData?
-    @Published var relationsListData: PropertiesListData?
-    @Published var versionHistoryData: VersionHistoryData?
-    @Published var publishingData: PublishToWebViewData?
-    @Published var dismiss = false
+
+    var coverPickerData: BaseDocumentIdentifiable?
+    var objectIconPickerData: ObjectIconPickerData?
+    var blockObjectSearchData: BlockObjectSearchData?
+    var relationsListData: PropertiesListData?
+    var versionHistoryData: VersionHistoryData?
+    var publishingData: PublishToWebViewData?
+    var chatEditData: ChatCreateScreenData?
+    var dismiss = false
     
     init(objectId: String, spaceId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
         self.objectId = objectId
@@ -97,7 +98,24 @@ final class ObjectSettingsCoordinatorViewModel:
     func didTapUseTemplateAsDefault(templateId: String) {
         output?.didTapUseTemplateAsDefault(templateId: templateId)
     }
-    
+
+    func showInviteMembers(spaceId: String) {
+        output?.showInviteMembers(spaceId: spaceId)
+    }
+
+    func showEditInfo(document: some BaseDocumentProtocol) {
+        guard let details = document.details else { return }
+        chatEditData = ChatCreateScreenData(
+            spaceId: document.spaceId,
+            mode: .edit(
+                objectId: details.id,
+                currentName: details.name,
+                currentIcon: details.objectIconImage
+            ),
+            analyticsRoute: .navigation
+        )
+    }
+
     // MARK: - PropertyValueCoordinatorOutput
     
     func showEditorScreen(data: ScreenData) {

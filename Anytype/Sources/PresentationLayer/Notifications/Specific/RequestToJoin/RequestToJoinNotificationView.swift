@@ -2,15 +2,15 @@ import Foundation
 import SwiftUI
 
 struct RequestToJoinNotificationView: View {
-    
-    @StateObject private var model: RequestToJoinNotificationViewModel
+
+    @State private var model: RequestToJoinNotificationViewModel
     @Environment(\.notificationDismiss) private var dismiss
-    
+
     init(
         notification: NotificationRequestToJoin,
         onViewRequest: @escaping (_ notification: NotificationRequestToJoin) async -> Void
     ) {
-        _model = StateObject(wrappedValue: RequestToJoinNotificationViewModel(notification: notification, onViewRequest: onViewRequest))
+        _model = State(initialValue: RequestToJoinNotificationViewModel(notification: notification, onViewRequest: onViewRequest))
     }
     
     var body: some View {

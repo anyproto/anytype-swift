@@ -7,17 +7,17 @@ enum CounterViewStyle {
 }
 
 struct CounterView: View {
-    
-    let count: Int
+
+    let text: String
     let style: CounterViewStyle
-    
+
     init(count: Int, style: CounterViewStyle = .default) {
-        self.count = count
+        self.text = count > 999 ? "999+" : "\(count)"
         self.style = style
     }
-  
+
     var body: some View {
-        Text("\(count)")
+        Text(text)
             .anytypeFontStyle(.caption1Regular) // Without line height multiple
             .foregroundStyle(Color.Control.white)
             .frame(height: 20)

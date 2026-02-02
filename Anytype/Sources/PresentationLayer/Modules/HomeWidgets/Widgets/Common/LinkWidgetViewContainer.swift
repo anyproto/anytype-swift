@@ -49,9 +49,9 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
                 }
             }
             .background(Color.Background.widget)
-            .cornerRadius(16, style: .continuous)
-            .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+            .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 24, style: .continuous))
+            .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 24, style: .continuous))
             .if(homeState.isReadWrite) {
                 $0.ifLet(dragId) { view, dragId in
                     view.anytypeVerticalDrag(itemId: dragId)
@@ -90,7 +90,7 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
                 }
             } label: {
                 Image(asset: .X18.Disclosure.right)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .rotationEffect(.degrees(isExpanded ? 90 : 0))
             }
         }
@@ -103,7 +103,7 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
                 createObjectAction()
             } label: {
                 Image(asset: .X18.plus)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             }
         }
     }

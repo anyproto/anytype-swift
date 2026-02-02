@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct SetViewPickerCoordinatorView: View {
-    @StateObject private var model: SetViewPickerCoordinatorViewModel
-    
+    @State private var model: SetViewPickerCoordinatorViewModel
+
     init(data: SetViewData) {
-        _model = StateObject(wrappedValue: SetViewPickerCoordinatorViewModel(data: data))
+        _model = State(initialValue: SetViewPickerCoordinatorViewModel(data: data))
     }
     
     var body: some View {

@@ -20,7 +20,7 @@ struct SegmentLegend: View {
                         .fill(item.color)
                         .frame(width: 16, height: 16)
                     AnytypeText(item.legend, style: .caption1Medium)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                 }
             }
         }

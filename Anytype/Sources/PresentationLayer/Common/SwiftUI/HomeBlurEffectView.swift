@@ -23,7 +23,7 @@ final class HomeBlurEffectUIView: UIView {
     
     private let maskGradientLayer: CAGradientLayer
     private let effectView: UIVisualEffectView
-    private let transitionHeight: CGFloat = 10
+    private let transitionHeight: CGFloat = 100
     private var observerToken: (any NSObjectProtocol)?
     
     var direction: HomeBlurEffectViewDirection = .topToBottom
@@ -51,6 +51,11 @@ final class HomeBlurEffectUIView: UIView {
             MainActor.assumeIsolated {
                 self?.setBlurRadius()
             }
+        }
+        
+        // Register for trait changes using the modern API
+        registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.setBlurRadius()
         }
     }
     
@@ -80,14 +85,7 @@ final class HomeBlurEffectUIView: UIView {
         if let backgroundLayer = effectView.layer.sublayers?.first {
             backgroundLayer.filters?.removeAll { String(describing: $0) != "gaussianBlur" }
             let filter = backgroundLayer.filters?.last as? NSObject
-            filter?.setValue(4, forKey: "inputRadius")
-        }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        DispatchQueue.main.async { [weak self] in
-            self?.setBlurRadius()
+            filter?.setValue(32, forKey: "inputRadius")
         }
     }
 }

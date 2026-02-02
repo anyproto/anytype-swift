@@ -3,7 +3,7 @@ import SwiftUI
 
 struct NotificationCoordinatorView: View {
 
-    @StateObject private var model = NotificationCoordinatorViewModel()
+    @State private var model = NotificationCoordinatorViewModel()
     @Environment(\.dismissAllPresented) private var dismissAllPresented
 
     var body: some View {

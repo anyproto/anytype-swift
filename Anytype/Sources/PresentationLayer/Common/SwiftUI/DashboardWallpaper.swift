@@ -52,11 +52,16 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
                 .clipped()
                 .opacity(iconOpacity)
                 .overlay(colorOverlay)
+        case let .object(.profile(icon)):
+            profileIconView(profileIcon: icon)
+                .clipped()
+                .opacity(iconOpacity)
+                .overlay(colorOverlay)
         default:
             EmptyView()
         }
     }
-    
+
     @ViewBuilder
     private func spaceIconView(spaceIcon: ObjectIcon.Space) -> some View {
         switch spaceIcon {
@@ -74,6 +79,24 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
             }
         case .localPath(let path, _):
             LocalIconView(contentsOfFile: path)
+        }
+    }
+
+    @ViewBuilder
+    private func profileIconView(profileIcon: ObjectIcon.Profile) -> some View {
+        switch profileIcon {
+        case let .imageId(imageId):
+            CachedAsyncImage(url: ImageMetadata(id: imageId, side: .width(50)).contentUrl) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .padding(-64)
+                    .blur(radius: 32)
+            } placeholder: {
+                Color.Shape.tertiary
+            }
+        case .name, .placeholder:
+            Color.Shape.tertiary
         }
     }
     

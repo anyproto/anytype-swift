@@ -3,11 +3,11 @@ import Services
 import Loc
 
 struct ObjectPropertiesLibraryView: View {
-    
-    @StateObject private var model: ObjectPropertiesLibraryViewModel
-    
+
+    @State private var model: ObjectPropertiesLibraryViewModel
+
     init(spaceId: String) {
-        _model = StateObject(wrappedValue: ObjectPropertiesLibraryViewModel(spaceId: spaceId))
+        _model = State(initialValue: ObjectPropertiesLibraryViewModel(spaceId: spaceId))
     }
     
     var body: some View {
@@ -35,13 +35,15 @@ struct ObjectPropertiesLibraryView: View {
     }
     
     private var navBar: some View {
-        PageNavigationHeader(title: Loc.properties) {
+        NavigationHeader(title: Loc.properties) {
             Button {
                 model.onNewPropertyTap()
             } label: {
                 Image(asset: .X32.plus)
                     .frame(width: 32, height: 32)
             }
+            .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+            .glassEffectInteractiveIOS26(in: Circle())
         }
     }
     
@@ -92,12 +94,12 @@ struct ObjectPropertiesLibraryView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 Spacer()
-                
+
                 AnytypeText(data.title, style: data.isMinimal ? .uxBodyRegular : .previewTitle2Medium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
                     .frame(height: 20)
-                    
+
                 Spacer()
             }
             

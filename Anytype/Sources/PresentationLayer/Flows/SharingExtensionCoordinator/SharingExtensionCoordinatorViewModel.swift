@@ -1,10 +1,17 @@
 import SwiftUI
+import SharedContentManager
 
 @MainActor
-final class SharingExtensionCoordinatorViewModel: ObservableObject, SharingExtensionModuleOutput, SharingExtensionShareToModuleOutput {
-    
-    @Published var showShareTo: SharingExtensionShareToData?
-    @Published var dismiss = false
+@Observable
+final class SharingExtensionCoordinatorViewModel: SharingExtensionModuleOutput, SharingExtensionShareToModuleOutput {
+
+    @ObservationIgnored
+    @Injected(\.sharedContentManager)
+    private var contentManager: any SharedContentManagerProtocol
+
+    var showShareTo: SharingExtensionShareToData?
+    var suggestedSpaceId: String?
+    var dismiss = false
     
     // MARK: - SharingExtensionModuleOutput
     
@@ -16,5 +23,24 @@ final class SharingExtensionCoordinatorViewModel: ObservableObject, SharingExten
     
     func shareToFinished() {
         dismiss.toggle()
+    }
+
+    // MARK: - Suggestion Handling
+
+    func checkForSuggestedConversation() async {
+        guard let content = try? await contentManager.getSharedContent(),
+              let conversationId = content.suggestedConversationId,
+              let parsed = ConversationIdentifier.decode(from: conversationId) else {
+            return
+        }
+
+        if let chatId = parsed.chatId {
+            showShareTo = SharingExtensionShareToData(
+                spaceId: parsed.spaceId,
+                suggestedChatId: chatId
+            )
+        } else {
+            suggestedSpaceId = parsed.spaceId
+        }
     }
 }

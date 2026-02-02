@@ -87,13 +87,13 @@ struct NewInviteLinkView: View {
             model.onCopyLink(route: .menu)
         } label: {
             AnytypeText(model.shareLink?.absoluteString ?? "", style: .uxCalloutRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
                 .frame(height: 44)
                 .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 12)
-        .background(Color.Shape.transperentTertiary)
-        .cornerRadius(10, style: .circular)
+        .background(Color.Shape.transparentTertiary)
+        .clipShape(RoundedRectangle(cornerRadius: 10, style: .circular))
     }
 }

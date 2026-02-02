@@ -30,15 +30,17 @@ struct ChatLocalBookmarkView: View {
     let onTapRemove: () -> Void
     
     var body: some View {
-        MessageCommonBookmarkView(
-            icon: model.icon,
-            title: model.title,
-            description: model.description,
-            style: .chatInput
-        )
-        .onTapGesture {
+        Button {
             onTapObject()
+        } label: {
+            MessageCommonBookmarkView(
+                icon: model.icon,
+                title: model.title,
+                description: model.description,
+                style: .chatInput
+            )
         }
+        .buttonStyle(.plain)
         .if(model.loading) {
             $0.redacted(reason: .placeholder)
         }

@@ -9,18 +9,18 @@ final class CodeBlockView: UIView, BlockContentView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        registerForTraitChanges()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupViews()
+        registerForTraitChanges()
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            textStorage.highlightr.setTheme(to: traitCollection.userInterfaceStyle.themeName)
+    private func registerForTraitChanges() {
+        registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.textStorage.highlightr.setTheme(to: self.traitCollection.userInterfaceStyle.themeName)
         }
     }
 

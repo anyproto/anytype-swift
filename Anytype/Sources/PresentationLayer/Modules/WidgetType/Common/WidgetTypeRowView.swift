@@ -31,16 +31,16 @@ struct WidgetTypeRowView: View {
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 0) {
                         AnytypeText(model.title, style: .uxTitle2Medium)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                             .lineLimit(1)
                         AnytypeText(model.description, style: .caption1Regular)
-                            .foregroundColor(.Text.secondary)
+                            .foregroundStyle(Color.Text.secondary)
                             .lineLimit(1)
                     }
                     Spacer()
                     if model.isSelected {
                         Image(asset: .Widget.tick)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                     }
                 }
                 Spacer()

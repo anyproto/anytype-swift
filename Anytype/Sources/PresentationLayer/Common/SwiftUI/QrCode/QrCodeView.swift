@@ -3,11 +3,11 @@ import SwiftUI
 import QRCode
 
 struct QrCodeView: View {
-    
-    @StateObject private var model: QrCodeViewModel
-    
+
+    @State private var model: QrCodeViewModel
+
     init(title: String, data: String, analyticsType: ScreenQrAnalyticsType, route: ScreenQrRoute) {
-        self._model = StateObject(wrappedValue: QrCodeViewModel(title: title, data: data, analyticsType: analyticsType, route: route))
+        _model = State(initialValue: QrCodeViewModel(title: title, data: data, analyticsType: analyticsType, route: route))
     }
     
     var body: some View {
@@ -15,7 +15,7 @@ struct QrCodeView: View {
             DragIndicator()
             Spacer.fixedHeight(15)
             AnytypeText(model.title, style: .heading)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(20)
             QRCodeDocumentUIView(document: model.document)
                 .frame(width: 200, height: 200)

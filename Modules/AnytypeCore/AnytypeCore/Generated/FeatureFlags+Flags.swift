@@ -6,12 +6,12 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var showAllButtonInWidgets: Bool {
-        value(for: .showAllButtonInWidgets)
+    static var homePage: Bool {
+        value(for: .homePage)
     }
 
-    static var turnOffAutomaticWidgetOpening: Bool {
-        value(for: .turnOffAutomaticWidgetOpening)
+    static var qrCodeCircularText: Bool {
+        value(for: .qrCodeCircularText)
     }
 
     static var channelTypeSwitcher: Bool {
@@ -20,10 +20,6 @@ public extension FeatureFlags {
 
     static var showUploadStatusIndicator: Bool {
         value(for: .showUploadStatusIndicator)
-    }
-
-    static var newObjectSettings: Bool {
-        value(for: .newObjectSettings)
     }
 
     static var setKanbanView: Bool {
@@ -36,6 +32,10 @@ public extension FeatureFlags {
 
     static var dndOnCollectionsAndSets: Bool {
         value(for: .dndOnCollectionsAndSets)
+    }
+
+    static var matchedTransitionSource: Bool {
+        value(for: .matchedTransitionSource)
     }
 
     static var rainbowViews: Bool {
@@ -94,10 +94,6 @@ public extension FeatureFlags {
         value(for: .showPushMessagesInForeground)
     }
 
-    static var skipOnboardingEmailCollection: Bool {
-        value(for: .skipOnboardingEmailCollection)
-    }
-
     static var spaceHubAlwaysShowLoading: Bool {
         value(for: .spaceHubAlwaysShowLoading)
     }
@@ -108,14 +104,14 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .showAllButtonInWidgets,
-        .turnOffAutomaticWidgetOpening,
+        .homePage,
+        .qrCodeCircularText,
         .channelTypeSwitcher,
         .showUploadStatusIndicator,
-        .newObjectSettings,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
+        .matchedTransitionSource,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -130,7 +126,6 @@ public extension FeatureFlags {
         .networkHTTPSRequestsLogger,
         .logMiddlewareRequests,
         .showPushMessagesInForeground,
-        .skipOnboardingEmailCollection,
         .spaceHubAlwaysShowLoading,
         .showHangedObjects
     ]

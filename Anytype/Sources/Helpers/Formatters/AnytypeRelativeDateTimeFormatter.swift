@@ -38,7 +38,7 @@ final class AnytypeRelativeDateTimeFormatter {
             if currentDate(date, isEqualToYears: referenceDate) {
                 dateFormatter.setLocalizedDateFormatFromTemplate("MMMM")
             } else {
-                dateFormatter.setLocalizedDateFormatFromTemplate("MMMM YYYY")
+                dateFormatter.setLocalizedDateFormatFromTemplate("MMMM yyyy")
             }
             return dateFormatter.string(from: date)
         default:

@@ -1,13 +1,17 @@
 import FloatingPanel
 import SwiftUI
 
-final class SetKanbanColumnSettingsViewModel: ObservableObject, AnytypePopupViewModelProtocol {
-    @Published var hideColumn: Bool = false
-    @Published var selectedColor: BlockBackgroundColor?
+@MainActor
+@Observable
+final class SetKanbanColumnSettingsViewModel: AnytypePopupViewModelProtocol {
+    var hideColumn: Bool = false
+    var selectedColor: BlockBackgroundColor?
     let colors: [BlockBackgroundColor]
-    
+
+    @ObservationIgnored
     private let onApplyTap: (Bool, BlockBackgroundColor?) -> Void
-    
+
+    @ObservationIgnored
     weak var popup: (any AnytypePopupProxy)?
     
     init(

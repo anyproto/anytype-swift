@@ -3,16 +3,16 @@ import Services
 
 
 struct MembershipTierView: View {
-    @StateObject private var model: MembershipTierViewModel
-    
+    @State private var model: MembershipTierViewModel
+
     @Environment(\.colorScheme) private var colorScheme
-    
+
     init(
         tierToDisplay: MembershipTier,
         onTap: @escaping () -> Void
     ) {
-        _model = StateObject(
-            wrappedValue: MembershipTierViewModel(
+        _model = State(
+            initialValue: MembershipTierViewModel(
                 tierToDisplay: tierToDisplay,
                 onTap: onTap
             )
@@ -21,12 +21,17 @@ struct MembershipTierView: View {
 
     
     var body: some View {
-        content
-            .onTapGesture {
-                model.onTap()
+        Button {
+            model.onTap()
+        } label: {
+            content
+        }
+        .buttonStyle(.plain)
+        .task {
+                model.updateState()
             }
             .task {
-                model.updateState()
+                await model.startMembershipSubscription()
             }
             .onChange(of: model.userMembership) {
                 model.updateState()
@@ -40,10 +45,10 @@ struct MembershipTierView: View {
                 .frame(width: 65, height: 64)
             Spacer.fixedHeight(10)
             AnytypeText(model.tierToDisplay.name, style: .bodySemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(5)
             AnytypeText(model.tierToDisplay.description, style: .caption1Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .minimumScaleFactor(0.8)
             Spacer()
             
@@ -60,7 +65,7 @@ struct MembershipTierView: View {
         .padding(.horizontal, 16)
         .frame(width: 192, height: 296)
         .background(backgroundView)
-        .cornerRadius(16, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
     
     private var info: some View  {
@@ -70,7 +75,7 @@ struct MembershipTierView: View {
                 expirationText
             case .pending:
                 AnytypeText(Loc.pending, style: .caption1Regular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             case .unowned:
                 MembershipPricingView(tier: model.tierToDisplay)
             case nil:
@@ -84,17 +89,17 @@ struct MembershipTierView: View {
             switch model.userMembership.dateEnds {
             case .never:
                 AnytypeText(Loc.foreverFree, style: .caption1Regular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             case .date:
                 AnytypeText(Loc.validUntilDate(model.userMembership.formattedDateEnds), style: .caption1Regular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             }
         }
     }
     
     private var ownershipOverlay: some View {
         AnytypeText(Loc.current, style: .relation3Regular)
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .padding(EdgeInsets(top: 2, leading: 8, bottom: 3, trailing: 8))
             .border(11, color: .Text.primary)
             .padding(.top, 16)

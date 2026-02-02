@@ -5,6 +5,7 @@ import AnytypeCore
 struct MessageReactionView: View {
     
     let model: MessageReactionModel
+    let canToggle: Bool
     let onTap: () async throws -> Void
     let onLongTap: () -> Void
     
@@ -23,7 +24,7 @@ struct MessageReactionView: View {
                 case .count(let count):
                     Text("\(count)")
                         .anytypeFontStyle(.caption1Regular)
-                        .foregroundColor(model.selected ? .Text.white : .Text.primary)
+                        .foregroundStyle(model.selected ? Color.Text.white : Color.Text.primary)
                 case .icon(let icon):
                     IconView(icon: icon)
                         .frame(width: 20, height: 20)
@@ -34,7 +35,7 @@ struct MessageReactionView: View {
             .frame(height: 28)
             .padding(.horizontal, 8)
             .background(model.selected ? messageYourBackgroundColor : Color.Background.Chat.bubbleSomeones)
-            .cornerRadius(20)
+            .clipShape(.rect(cornerRadius: 20))
         }
         .simultaneousGesture(
             LongPressGesture(minimumDuration: 0.25)
@@ -42,6 +43,7 @@ struct MessageReactionView: View {
                     onLongTap()
                 }
         )
+        .disabled(!canToggle)
     }
 }
 
@@ -49,11 +51,13 @@ struct MessageReactionView: View {
     VStack {
         MessageReactionView(
             model: MessageReactionModel(emoji: "😘", content: .count(4), selected: false, position: .left),
+            canToggle: true,
             onTap: {},
             onLongTap: {}
         )
         MessageReactionView(
             model: MessageReactionModel(emoji: "😁", content: .icon(.asset(.X18.delete)), selected: true, position: .right),
+            canToggle: true,
             onTap: {},
             onLongTap: {}
         )

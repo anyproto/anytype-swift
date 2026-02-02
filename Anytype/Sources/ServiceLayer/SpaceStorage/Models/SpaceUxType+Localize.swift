@@ -10,6 +10,8 @@ extension SpaceUxType {
             return Loc.Spaces.UxType.Space.title
         case .stream:
             return Loc.Spaces.UxType.Stream.title
+        case .oneToOne:
+            return Loc.Spaces.UxType.OneToOne.title
         case .UNRECOGNIZED, .none:
             return ""
         }

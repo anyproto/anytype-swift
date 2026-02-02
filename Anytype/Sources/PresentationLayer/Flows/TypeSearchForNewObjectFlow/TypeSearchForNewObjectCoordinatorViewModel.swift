@@ -5,21 +5,27 @@ import AnytypeCore
 
 
 @MainActor
-final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
-    @Published var shouldDismiss = false
-    
-    @Injected(\.pasteboardBlockService)
+@Observable
+final class TypeSearchForNewObjectCoordinatorViewModel {
+    var shouldDismiss = false
+
+    @ObservationIgnored
+    var pageNavigation: PageNavigation?
+
+    @ObservationIgnored @Injected(\.pasteboardBlockService)
     private var pasteboardBlockService: any PasteboardBlockServiceProtocol
-    @Injected(\.objectActionsService)
+    @ObservationIgnored @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.blockService)
+    @ObservationIgnored @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
-    @Injected(\.bookmarkService)
+    @ObservationIgnored @Injected(\.bookmarkService)
     private var bookmarkService: any BookmarkServiceProtocol
-    @Injected(\.objectTypeProvider)
+    @ObservationIgnored @Injected(\.objectTypeProvider)
     private var typeProvider: any ObjectTypeProviderProtocol
-    
+
+    @ObservationIgnored
     private let spaceId: String
+    @ObservationIgnored
     private let openObject: (ObjectDetails)->()
     
     init(spaceId: String, openObject: @escaping (ObjectDetails)->()) {
@@ -82,6 +88,24 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
         type: ObjectType,
         pasteContent: Bool
     ) {
+        if type.isChatType {
+            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(
+                spaceId: spaceId,
+                analyticsRoute: .search
+            )))
+            pageNavigation?.open(screenData)
+            return
+        }
+
+        if type.isBookmarkType {
+            let screenData = ScreenData.alert(.bookmarkCreate(BookmarkCreateScreenData(
+                spaceId: spaceId,
+                analyticsRoute: .search
+            )))
+            pageNavigation?.open(screenData)
+            return
+        }
+
         Task {
             let details = try await objectActionsService.createObject(
                 name: "",

@@ -3,7 +3,8 @@ import Services
 import AnytypeCore
 
 @MainActor
-final class LinkToObjectSearchViewModel: ObservableObject {
+@Observable
+final class LinkToObjectSearchViewModel {
     enum SearchKind {
         case web(URL)
         case createObject(String)
@@ -16,21 +17,24 @@ final class LinkToObjectSearchViewModel: ObservableObject {
 
     typealias SearchDataType = LinkToObjectSearchData
 
+    @ObservationIgnored
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
+    @ObservationIgnored
     @Injected(\.pasteboardHelper)
     private var pasteboardHelper: any PasteboardHelperProtocol
+    @ObservationIgnored
     @Injected(\.defaultObjectCreationService)
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
-    
+
     private let data: LinkToObjectSearchModuleData
     private let showEditorScreen: (_ data: ScreenData) -> Void
-    
+
     let descriptionTextColor: Color = .Text.primary
     let shouldShowCallout: Bool = true
-    
-    @Published var searchData: [SearchDataSection<SearchDataType>] = []
-    @Published var openUrl: URL?
+
+    var searchData: [SearchDataSection<SearchDataType>] = []
+    var openUrl: URL?
     
     init(data: LinkToObjectSearchModuleData, showEditorScreen: @escaping (_ data: ScreenData) -> Void) {
         self.data = data

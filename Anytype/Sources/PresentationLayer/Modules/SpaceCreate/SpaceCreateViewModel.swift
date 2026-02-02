@@ -1,5 +1,4 @@
 import Foundation
-import Combine
 import Services
 import UIKit
 import AnytypeCore
@@ -7,33 +6,34 @@ import AnytypeCore
 @MainActor
 protocol SpaceCreateModuleOutput: AnyObject {
     func onIconPickerSelected(fileData: FileData?, output: any LocalObjectIconPickerOutput)
+    func onSpaceCreated(spaceId: String) async throws
 }
 
 @MainActor
-final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput {
-    
+@Observable
+final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
+
     // MARK: - DI
-    
+
+    @ObservationIgnored
     let data: SpaceCreateData
-    
-    @Injected(\.activeSpaceManager)
-    private var activeSpaceManager: any ActiveSpaceManagerProtocol
-    @Injected(\.workspaceService)
+
+    @ObservationIgnored @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.fileActionsService)
+    @ObservationIgnored @Injected(\.fileActionsService)
     private var fileActionsService: any FileActionsServiceProtocol
-    @Injected(\.appActionStorage)
-    private var appActionStorage: AppActionStorage
-    
+
     // MARK: - State
-    
-    @Published var spaceName = ""
-    @Published var spaceIcon: Icon
-    @Published var createLoadingState = false
-    @Published var dismiss: Bool = false
-    
+
+    var spaceName = ""
+    var spaceIcon: Icon
+    var dismiss: Bool = false
+
+    @ObservationIgnored
     var fileData: FileData?
+    @ObservationIgnored
     private let spaceIconOption: Int
+    @ObservationIgnored
     private weak var output: (any SpaceCreateModuleOutput)?
     
     init(data: SpaceCreateData, output: (any SpaceCreateModuleOutput)?) {
@@ -43,50 +43,35 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
         self.spaceIcon = .object(.space(.name(name: "", iconOption: spaceIconOption, circular: data.spaceUxType.isChat)))
     }
     
-    func onTapCreate() {
-        guard !createLoadingState else { return }
-        Task {
-            createLoadingState = true
-            defer {
-                createLoadingState = false
-            }
-            let uxType = data.spaceUxType
-            let createResponse = try await workspaceService.createSpace(
-                name: spaceName,
-                iconOption: spaceIconOption,
-                accessType: .private,
-                useCase: uxType.useCase,
-                withChat: true,
-                uxType: uxType
-            )
-            
-            let spaceId = createResponse.spaceID
-                        
-            if let fileData {
-                let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: fileData, origin: .none)
-                try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId(fileDetails.id)])
-            }
-            
-            if uxType.isChat {
-                // Do not rethrow error to main flow
-                do {
-                    _ = try await workspaceService.makeSharable(spaceId: spaceId)
-                    _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
-                } catch {}
-            }
-            
-            if !FeatureFlags.turnOffAutomaticWidgetOpening, createResponse.startingObjectID.isNotEmpty {
-                appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
-            } else {
-                try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-            }
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-            AnytypeAnalytics.instance().logCreateSpace(spaceId: createResponse.spaceID, spaceUxType: uxType, route: .navigation)
-            
-            if !FeatureFlags.turnOffAutomaticWidgetOpening, createResponse.startingObjectID.isNotEmpty {
-                appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
-            }
+    func onTapCreate() async throws {
+        let uxType = data.spaceUxType
+        let createResponse = try await workspaceService.createSpace(
+            name: spaceName,
+            iconOption: spaceIconOption,
+            accessType: .private,
+            useCase: uxType.useCase,
+            withChat: true,
+            uxType: uxType
+        )
+        
+        let spaceId = createResponse.spaceID
+                    
+        if let fileData {
+            let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: fileData, origin: .none)
+            try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId(fileDetails.id)])
         }
+        
+        if uxType.isChat {
+            // Do not rethrow error to main flow
+            do {
+                _ = try await workspaceService.makeSharable(spaceId: spaceId)
+                _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
+            } catch {}
+        }
+
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        AnytypeAnalytics.instance().logCreateSpace(spaceId: createResponse.spaceID, spaceUxType: uxType, route: .navigation)
+        try await output?.onSpaceCreated(spaceId: spaceId)
     }
     
     func onAppear() {

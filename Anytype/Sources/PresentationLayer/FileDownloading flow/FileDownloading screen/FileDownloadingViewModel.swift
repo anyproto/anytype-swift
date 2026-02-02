@@ -1,19 +1,20 @@
 import Foundation
-import Combine
 import AnytypeCore
 import UIKit
 
 @MainActor
-final class FileDownloadingViewModel: NSObject, ObservableObject {
-    
-    @Published private(set) var isErrorOccured: Bool = false
-    @Published private(set) var bytesLoaded: Double = 0
-    @Published private(set) var bytesExpected: Double = 0
-    
+@Observable
+final class FileDownloadingViewModel: NSObject {
+
+    private(set) var isErrorOccured: Bool = false
+    private(set) var bytesLoaded: Double = 0
+    private(set) var bytesExpected: Double = 0
     private(set) var errorMessage: String = Constants.defaultErrorMessage
-    
+
+    @ObservationIgnored
     private weak var task: URLSessionDownloadTask?
-    
+
+    @ObservationIgnored
     private weak var output: (any FileDownloadingModuleOutput)?
     
     init(url: URL, output: some FileDownloadingModuleOutput) {

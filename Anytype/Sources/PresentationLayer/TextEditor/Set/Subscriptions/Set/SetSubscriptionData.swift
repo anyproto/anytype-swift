@@ -45,8 +45,7 @@ struct SetSubscriptionData: Hashable {
         if sorts.isEmpty {
             sorts.append(SearchHelper.sort(
                 relation: .createdDate,
-                type: .desc,
-                includeTime: true
+                type: .desc
             ))
         }
         self.sorts = sorts

@@ -554,6 +554,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func spaceChangeOwnership(
+        _ request: Anytype_Rpc.Space.ChangeOwnership.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.ChangeOwnership.Request, Anytype_Rpc.Space.ChangeOwnership.Response> {
+        return Invocation(messageName: "SpaceChangeOwnership", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceChangeOwnership(requestData) ?? Data()
+            return try Anytype_Rpc.Space.ChangeOwnership.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func spaceDeleteCorruptedBackup(
+        _ request: Anytype_Rpc.Space.DeleteCorruptedBackup.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.DeleteCorruptedBackup.Request, Anytype_Rpc.Space.DeleteCorruptedBackup.Response> {
+        return Invocation(messageName: "SpaceDeleteCorruptedBackup", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceDeleteCorruptedBackup(requestData) ?? Data()
+            return try Anytype_Rpc.Space.DeleteCorruptedBackup.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func publishingCreate(
         _ request: Anytype_Rpc.Publishing.Create.Request = .init()
     ) -> Invocation<Anytype_Rpc.Publishing.Create.Request, Anytype_Rpc.Publishing.Create.Response> {
@@ -1441,6 +1461,26 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceFileSetAutoDownload(requestData) ?? Data()
             return try Anytype_Rpc.File.SetAutoDownload.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func fileCacheDownload(
+        _ request: Anytype_Rpc.File.CacheDownload.Request = .init()
+    ) -> Invocation<Anytype_Rpc.File.CacheDownload.Request, Anytype_Rpc.File.CacheDownload.Response> {
+        return Invocation(messageName: "FileCacheDownload", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceFileCacheDownload(requestData) ?? Data()
+            return try Anytype_Rpc.File.CacheDownload.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func fileCacheCancelDownload(
+        _ request: Anytype_Rpc.File.CacheCancelDownload.Request = .init()
+    ) -> Invocation<Anytype_Rpc.File.CacheCancelDownload.Request, Anytype_Rpc.File.CacheCancelDownload.Response> {
+        return Invocation(messageName: "FileCacheCancelDownload", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceFileCacheCancelDownload(requestData) ?? Data()
+            return try Anytype_Rpc.File.CacheCancelDownload.Response(serializedBytes: responseData)
         }
     }
 
@@ -2784,6 +2824,86 @@ public struct ClientCommands {
         }
     }
 
+    public static func membershipV2GetProducts(
+        _ request: Anytype_Rpc.MembershipV2.GetProducts.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.GetProducts.Request, Anytype_Rpc.MembershipV2.GetProducts.Response> {
+        return Invocation(messageName: "MembershipV2GetProducts", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2GetProducts(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.GetProducts.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipV2GetStatus(
+        _ request: Anytype_Rpc.MembershipV2.GetStatus.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.GetStatus.Request, Anytype_Rpc.MembershipV2.GetStatus.Response> {
+        return Invocation(messageName: "MembershipV2GetStatus", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2GetStatus(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.GetStatus.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipV2GetPortalLink(
+        _ request: Anytype_Rpc.MembershipV2.GetPortalLink.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.GetPortalLink.Request, Anytype_Rpc.MembershipV2.GetPortalLink.Response> {
+        return Invocation(messageName: "MembershipV2GetPortalLink", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2GetPortalLink(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.GetPortalLink.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipV2AnyNameIsValid(
+        _ request: Anytype_Rpc.MembershipV2.AnyNameIsValid.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.AnyNameIsValid.Request, Anytype_Rpc.MembershipV2.AnyNameIsValid.Response> {
+        return Invocation(messageName: "MembershipV2AnyNameIsValid", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2AnyNameIsValid(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.AnyNameIsValid.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipV2AnyNameAllocate(
+        _ request: Anytype_Rpc.MembershipV2.AnyNameAllocate.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.AnyNameAllocate.Request, Anytype_Rpc.MembershipV2.AnyNameAllocate.Response> {
+        return Invocation(messageName: "MembershipV2AnyNameAllocate", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2AnyNameAllocate(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.AnyNameAllocate.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipV2CartGet(
+        _ request: Anytype_Rpc.MembershipV2.CartGet.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.CartGet.Request, Anytype_Rpc.MembershipV2.CartGet.Response> {
+        return Invocation(messageName: "MembershipV2CartGet", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2CartGet(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.CartGet.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipV2CartUpdate(
+        _ request: Anytype_Rpc.MembershipV2.CartUpdate.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.CartUpdate.Request, Anytype_Rpc.MembershipV2.CartUpdate.Response> {
+        return Invocation(messageName: "MembershipV2CartUpdate", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2CartUpdate(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.CartUpdate.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipV2SubscribeToUpdates(
+        _ request: Anytype_Rpc.MembershipV2.SubscribeToUpdates.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.SubscribeToUpdates.Request, Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response> {
+        return Invocation(messageName: "MembershipV2SubscribeToUpdates", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2SubscribeToUpdates(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func nameServiceUserAccountGet(
         _ request:  Anytype_Rpc.NameService.UserAccount.Get.Request = .init()
     ) -> Invocation< Anytype_Rpc.NameService.UserAccount.Get.Request, Anytype_Rpc.NameService.UserAccount.Get.Response> {
@@ -2991,6 +3111,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatReadAll(requestData) ?? Data()
             return try Anytype_Rpc.Chat.ReadAll.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func chatSearch(
+        _ request: Anytype_Rpc.Chat.Search.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.Search.Request, Anytype_Rpc.Chat.Search.Response> {
+        return Invocation(messageName: "ChatSearch", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatSearch(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.Search.Response(serializedBytes: responseData)
         }
     }
 

@@ -13,6 +13,7 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
         static let inviteHostStage = "invite-stage.any.coop"
         static let inviteHosts = [inviteHostProd, inviteHostStage]
         static let objectHost = "object.any.coop"
+        static let hiHost = "hi.any.coop"
     }
     
     func parse(url: URL) -> UniversalLink? {
@@ -49,25 +50,46 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
             
             return .object(objectId: objectId, spaceId: spaceId, cid: cid, key: key)
         }
-        
+
+        // Link: https://hi.any.coop/<identity>#<encryptionkey>
+        if let host = components.host, host == LinkPaths.hiHost, var path = components.path, let fragment = components.fragment {
+
+            if path.hasPrefix("/") {
+                path.removeFirst(1)
+            }
+
+            guard path.isNotEmpty, fragment.isNotEmpty else {
+                return nil
+            }
+
+            return .hi(identity: path, key: fragment)
+        }
+
         return nil
     }
     
     func createUrl(link: UniversalLink) -> URL? {
         switch link {
         case .invite(let cid, let key):
-            return URL(string: "https://\(LinkPaths.inviteHostProd)/\(cid)#\(key)")
+            guard let encodedCid = cid.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+                  let encodedKey = key.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) else { return nil }
+            return URL(string: "https://\(LinkPaths.inviteHostProd)/\(encodedCid)#\(encodedKey)")
         case let .object(objectId, spaceId, cid, key):
-            let componentsString = "https://\(LinkPaths.objectHost)/\(objectId)"
+            guard let encodedObjectId = objectId.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else { return nil }
+            let componentsString = "https://\(LinkPaths.objectHost)/\(encodedObjectId)"
             guard var components = URLComponents(string: componentsString) else { return nil }
             components.queryItems = [
                 URLQueryItem(name: "spaceId", value: spaceId),
                 URLQueryItem(name: "inviteId", value: cid),
             ]
-            guard let key, let absoluteString = components.url?.absoluteString else {
-                return components.url
+            if let key {
+                components.fragment = key
             }
-            return URL(string: absoluteString + "#\(key)")
+            return components.url
+        case .hi(let identity, let key):
+            guard let encodedIdentity = identity.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+                  let encodedKey = key.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) else { return nil }
+            return URL(string: "https://\(LinkPaths.hiHost)/\(encodedIdentity)#\(encodedKey)")
         }
     }
 }

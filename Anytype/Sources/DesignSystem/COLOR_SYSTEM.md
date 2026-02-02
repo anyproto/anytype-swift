@@ -59,7 +59,7 @@ import Assets
 
 // Control colors
 Color.Control.button      // Previously: Control/Button
-Color.Control.active      // Previously: Control/Active  
+Color.control.primary      // Previously: Control/Active  
 Color.Control.inactive    // Previously: Control/Inactive
 
 // Other examples
@@ -74,7 +74,7 @@ import Assets
 
 // Control colors
 UIColor.Control.button
-UIColor.Control.active
+UIColor.control.primary
 UIColor.Control.inactive
 ```
 
@@ -134,7 +134,7 @@ Steps:
    ```swift
    // Before
    Color.Control.button
-   Color.Control.active
+   Color.control.primary
    Color.Control.inactive
    
    // After

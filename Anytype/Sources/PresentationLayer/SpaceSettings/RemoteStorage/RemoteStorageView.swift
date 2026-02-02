@@ -2,17 +2,20 @@ import SwiftUI
 import AnytypeCore
 
 struct RemoteStorageView: View {
-    
-    @StateObject private var model: RemoteStorageViewModel
-    
+
+    @State private var model: RemoteStorageViewModel
+
     init(spaceId: String, output: (any RemoteStorageModuleOutput)?) {
-        _model = StateObject(wrappedValue: RemoteStorageViewModel(spaceId: spaceId, output: output))
+        _model = State(initialValue: RemoteStorageViewModel(spaceId: spaceId, output: output))
     }
-    
+
     var body: some View {
         content
             .onAppear {
                 model.onAppear()
+            }
+            .task {
+                await model.startSubscription()
             }
             .membershipUpgrade(reason: $model.membershipUpgradeReason)
     }
@@ -25,7 +28,7 @@ struct RemoteStorageView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     Spacer.fixedHeight(10)
                     AnytypeText(model.spaceInstruction, style: .uxCalloutRegular)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                     if model.showGetMoreSpaceButton {
                         Spacer.fixedHeight(16)
                         StandardButton("\(MembershipConstants.membershipSymbol.rawValue) \(Loc.upgrade)", style: .upgradeBadge) {
@@ -34,7 +37,7 @@ struct RemoteStorageView: View {
                     }
                     Spacer.fixedHeight(20)
                     AnytypeText(model.spaceUsed, style: .relation3Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                     Spacer.fixedHeight(8)
                     RemoteStorageSegment(model: model.segmentInfo)
                     Spacer.fixedHeight(16)

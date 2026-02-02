@@ -44,23 +44,23 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
         HStack(spacing: 0) {
             if let iconAsset = item.iconAsset {
                 Image(asset: iconAsset)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
                 Spacer.fixedWidth(12)
             }
 
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(item.title, style: .uxBodyRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
 
                 if let subtitle = item.subtitle {
                     AnytypeText(subtitle, style: .caption1Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                 }
             }
             Spacer()
 
             if item.isSelected {
-                Image(asset: .X24.tick).foregroundColor(.Control.primary)
+                Image(asset: .X24.tick).foregroundStyle(Color.Control.primary)
             }
         }
         .frame(height: 52)

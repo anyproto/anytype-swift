@@ -2,12 +2,12 @@ import SwiftUI
 import Services
 
 struct SetFiltersListView: View {
-    @StateObject private var viewModel: SetFiltersListViewModel
-    
+    @State private var viewModel: SetFiltersListViewModel
+
     @State private var editMode = EditMode.inactive
-    
+
     init(data: SetFiltersListModuleData, output: (any SetFiltersListCoordinatorOutput)?, subscriptionDetailsStorage: ObjectDetailsStorage) {
-        _viewModel = StateObject(wrappedValue: SetFiltersListViewModel(
+        _viewModel = State(initialValue: SetFiltersListViewModel(
             data: data,
             output: output,
             subscriptionDetailsStorage: subscriptionDetailsStorage
@@ -17,7 +17,7 @@ struct SetFiltersListView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            NavigationView {
+            NavigationStack {
                 content
                     .navigationTitle(Loc.EditSet.Popup.Filters.NavigationView.title)
                     .navigationBarTitleDisplayMode(.inline)
@@ -28,7 +28,6 @@ struct SetFiltersListView: View {
                         }
                     }
             }
-            .navigationViewStyle(.stack)
         }
         .background(Color.Background.secondary)
     }
@@ -40,7 +39,7 @@ struct SetFiltersListView: View {
                     viewModel.addButtonTapped()
                 } label: {
                     Image(asset: .X32.plus)
-                        .foregroundColor(.Control.secondary)
+                        .foregroundStyle(Color.Control.secondary)
                 }
             }
         }
@@ -68,7 +67,7 @@ struct SetFiltersListView: View {
                 Loc.EditSet.Popup.Filters.EmptyView.title,
                 style: .uxCalloutRegular
             )
-            .foregroundColor(.Text.secondary)
+            .foregroundStyle(Color.Text.secondary)
             .frame(height: 68)
             Spacer()
         }
@@ -94,7 +93,7 @@ struct SetFiltersListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
             }
         }
         .background(Color.Background.secondary)

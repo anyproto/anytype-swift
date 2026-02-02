@@ -59,11 +59,11 @@ public struct GradientHeaderAlertView<HeaderContent: View>: View {
     private var text: some View {
         VStack(spacing: 8) {
             AnytypeText(title, style: .heading)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
-            
+
             AnytypeText(message, style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
         }
         .padding(.horizontal, 20)

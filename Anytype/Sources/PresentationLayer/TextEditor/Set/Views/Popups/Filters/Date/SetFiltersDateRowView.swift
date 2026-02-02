@@ -10,25 +10,27 @@ struct SetFiltersDateRowView: View {
             if configuration.isSelected {
                 valueView
                 Image(asset: .X24.tick)
-                    .foregroundColor(.Control.primary)
+                    .foregroundStyle(Color.Control.primary)
             }
         }
     }
     
     private var option: some View {
-        HStack(spacing: 0) {
-            AnytypeText(
-                configuration.title,
-                style: .uxBodyRegular
-            )
-            .foregroundColor(.Text.primary)
-            .layoutPriority(1)
-            Spacer()
-        }
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             configuration.onTap()
+        } label: {
+            HStack(spacing: 0) {
+                AnytypeText(
+                    configuration.title,
+                    style: .uxBodyRegular
+                )
+                .foregroundStyle(Color.Text.primary)
+                .layoutPriority(1)
+                Spacer()
+            }
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
     
     private var valueView: some View {
@@ -42,7 +44,7 @@ struct SetFiltersDateRowView: View {
                 Spacer.fixedWidth(4)
             case let .days(count):
                 AnytypeText(count, style: .uxBodyRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
                 Spacer.fixedWidth(4)
             default:

@@ -41,7 +41,7 @@ extension Property.Tag.Option {
         self.textColor = MiddlewareColor(rawValue: option.color)
             .map { Color.Dark.color(from: $0) } ?? .Text.secondary
         self.backgroundColor = MiddlewareColor(rawValue: option.color)
-            .map { Color.VeryLight.color(from: $0) } ?? .Background.secondary
+            .map { Color.Light.color(from: $0) } ?? .Background.secondary
     }
     
 }

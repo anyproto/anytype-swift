@@ -31,7 +31,8 @@ extension SpaceView {
             pushNotificationMode: .allCases.randomElement()!,
             forceAllIds: [],
             forceMuteIds: [],
-            forceMentionIds: []
+            forceMentionIds: [],
+            oneToOneIdentity: "oneToOneIdentity"
         )
     }
 }

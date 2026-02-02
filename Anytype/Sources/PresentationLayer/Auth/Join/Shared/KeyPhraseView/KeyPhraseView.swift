@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct KeyPhraseView: View {
-    
-    @StateObject private var model: KeyPhraseViewModel
-    
+
+    @State private var model: KeyPhraseViewModel
+
     init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
-        _model = StateObject(
-            wrappedValue: KeyPhraseViewModel(state: state, output: output)
+        _model = State(
+            initialValue: KeyPhraseViewModel(state: state, output: output)
         )
     }
     
@@ -31,7 +31,7 @@ struct KeyPhraseView: View {
     private var content: some View {
         VStack(spacing: 0) {
             AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .contentTitleSemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(8)
@@ -40,7 +40,7 @@ struct KeyPhraseView: View {
                 Loc.Auth.JoinFlow.Key.description,
                 style: .uxCalloutRegular
             )
-            .foregroundColor(.Text.secondary)
+            .foregroundStyle(Color.Text.secondary)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             
@@ -56,16 +56,18 @@ struct KeyPhraseView: View {
     }
     
     private var readMore: some View {
-        HStack(spacing: 6) {
-            Image(systemName: "plus.circle.fill")
-                .foregroundColor(.Text.secondary)
-            AnytypeText(Loc.Auth.JoinFlow.Key.Button.Info.title, style: .button1Medium)
-                .foregroundColor(.Text.secondary)
-        }
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             model.showMoreInfo.toggle()
+        } label: {
+            HStack(spacing: 6) {
+                Image(systemName: "plus.circle.fill")
+                    .foregroundStyle(Color.Text.secondary)
+                AnytypeText(Loc.Auth.JoinFlow.Key.Button.Info.title, style: .button1Medium)
+                    .foregroundStyle(Color.Text.secondary)
+            }
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
     
     private var phraseTextView: some View {

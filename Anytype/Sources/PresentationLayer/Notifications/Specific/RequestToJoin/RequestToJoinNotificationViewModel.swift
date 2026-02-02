@@ -2,20 +2,23 @@ import Foundation
 import Services
 
 @MainActor
-final class RequestToJoinNotificationViewModel: ObservableObject {
-    
+@Observable
+final class RequestToJoinNotificationViewModel {
+
     private let notification: NotificationRequestToJoin
-    
+
+    @ObservationIgnored
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
+    @ObservationIgnored
     @Injected(\.notificationsService)
     private var notificationsService: any NotificationsServiceProtocol
-    
+
     private let onViewRequest: (_ notification: NotificationRequestToJoin) async -> Void
-    
-    @Published var message: String = ""
-    @Published var toast: ToastBarData?
-    @Published var dismiss = false
+
+    var message: String = ""
+    var toast: ToastBarData?
+    var dismiss = false
     
     init(
         notification: NotificationRequestToJoin,

@@ -10,7 +10,7 @@ struct CountTagView: View {
             config: TagView.Config(
                 text: "+\(count)",
                 textColor: .Text.secondary,
-                backgroundColor: .Shape.transperentSecondary,
+                backgroundColor: .Shape.transparentSecondary,
                 textFont: style.font,
                 guidlines: style.tagViewGuidlines
             )

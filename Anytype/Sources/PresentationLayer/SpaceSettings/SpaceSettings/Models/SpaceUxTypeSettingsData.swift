@@ -8,9 +8,10 @@ struct SpaceUxTypeSettingsData {
 
 extension SpaceUxTypeSettingsData {
     init(uxType: SpaceUxType) {
-        if uxType.isChat {
+        switch uxType {
+        case .chat, .oneToOne:
             icon = .X24.chat
-        } else {
+        case .data, .stream, .none, .UNRECOGNIZED:
             icon = .X24.space
         }
         typaName = uxType.name

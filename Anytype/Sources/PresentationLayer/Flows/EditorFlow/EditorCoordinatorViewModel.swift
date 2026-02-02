@@ -2,7 +2,8 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class EditorCoordinatorViewModel: ObservableObject, WidgetObjectListCommonModuleOutput {
+@Observable
+final class EditorCoordinatorViewModel: WidgetObjectListCommonModuleOutput {
     
     var pageNavigation: PageNavigation?
     

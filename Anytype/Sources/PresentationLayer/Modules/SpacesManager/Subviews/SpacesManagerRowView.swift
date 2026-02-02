@@ -28,9 +28,9 @@ struct SpacesManagerRowView: View {
                 .frame(width: 48, height: 48)
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(model.spaceView.title, style: .uxTitle2Semibold)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 AnytypeText(model.participant?.permission.title, style: .relation2Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
             }
             Spacer()
             menu
@@ -46,10 +46,10 @@ struct SpacesManagerRowView: View {
                 .frame(width: 8, height: 8)
             Spacer.fixedWidth(6)
             AnytypeText(Loc.Spaces.Info.network, style: .relation3Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             Spacer.fixedWidth(4)
             AnytypeText(model.spaceView.accountStatus?.name, style: .relation3Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer()
         }
         .frame(height: 44)

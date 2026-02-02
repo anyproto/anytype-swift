@@ -1,18 +1,18 @@
 import SwiftUI
 
 struct SetSortsListView: View {
-    @StateObject private var viewModel: SetSortsListViewModel
-    
+    @State private var viewModel: SetSortsListViewModel
+
     @State private var editMode = EditMode.inactive
-    
+
     init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetSortsListCoordinatorOutput)?) {
-        _viewModel = StateObject(wrappedValue: SetSortsListViewModel(setDocument: setDocument, viewId: viewId, output: output))
+        _viewModel = State(initialValue: SetSortsListViewModel(setDocument: setDocument, viewId: viewId, output: output))
     }
     
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            NavigationView {
+            NavigationStack {
                 content
                     .navigationTitle(Loc.EditSet.Popup.Sorts.NavigationView.title)
                     .navigationBarTitleDisplayMode(.inline)
@@ -23,7 +23,6 @@ struct SetSortsListView: View {
                         }
                     }
             }
-            .navigationViewStyle(.stack)
         }
         .background(Color.Background.secondary)
     }
@@ -35,7 +34,7 @@ struct SetSortsListView: View {
                     viewModel.addButtonTapped()
                 } label: {
                     Image(asset: .X32.plus)
-                        .foregroundColor(.Control.secondary)
+                        .foregroundStyle(Color.Control.secondary)
                 }
             }
         }
@@ -63,7 +62,7 @@ struct SetSortsListView: View {
                 Loc.EditSet.Popup.Sorts.EmptyView.title,
                 style: .uxCalloutRegular
             )
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .frame(height: 68)
             Spacer()
         }
@@ -92,7 +91,7 @@ struct SetSortsListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
             }
         }
         .background(Color.Background.secondary)

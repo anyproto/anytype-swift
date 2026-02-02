@@ -7,10 +7,13 @@ protocol SetFiltersSelectionCoordinatorOutput: AnyObject {
 }
 
 @MainActor
-final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFiltersSelectionCoordinatorOutput {
-    @Published var filterConditions: SetFilterConditions?
-    
+@Observable
+final class SetFiltersSelectionCoordinatorViewModel: SetFiltersSelectionCoordinatorOutput {
+    var filterConditions: SetFilterConditions?
+
+    @ObservationIgnored
     let data: SetFiltersSelectionData
+    @ObservationIgnored
     let contentViewBuilder: SetFiltersContentViewBuilder
     
     init(

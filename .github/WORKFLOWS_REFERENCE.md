@@ -290,7 +290,7 @@ The repository uses a **centralized auto-merge system** via the `automerge.yaml`
 | Runner | Xcode Version | Use Case |
 |--------|--------------|----------|
 | `macos-15` | Xcode 15.x (e.g., 15.4) | Legacy builds, older Xcode requirements |
-| `macos-26` | Xcode 26.0 | **Current standard** - All modern builds |
+| `macos-26` | Xcode 26.1 | **Current standard** - All modern builds |
 | `ubuntu-latest` | N/A | Utility jobs, scripts, API calls |
 
 ### Runner-Xcode Version Mapping
@@ -306,7 +306,7 @@ jobs:
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1.6.0
         with:
-          xcode-version: '26.0'
+          xcode-version: '26.1'
 ```
 
 ### Reference Documentation

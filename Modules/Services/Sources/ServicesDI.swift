@@ -93,7 +93,11 @@ public extension Container {
     var sceneLifecycleStateService: Factory<SceneLifecycleStateServiceProtocol> {
         self { SceneLifecycleStateService() }.shared
     }
-    
+
+    var middlewareShutdownService: Factory<MiddlewareShutdownServiceProtocol> {
+        self { MiddlewareShutdownService() }.shared
+    }
+
     var searchMiddleService: Factory<SearchMiddleServiceProtocol> {
         self { SearchMiddleService() }.shared
     }

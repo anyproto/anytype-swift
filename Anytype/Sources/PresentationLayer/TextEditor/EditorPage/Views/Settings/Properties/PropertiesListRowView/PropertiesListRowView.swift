@@ -53,7 +53,7 @@ struct PropertiesListRowView: View {
     private var name: some View {
         Menu {
             AnytypeText(relation.name, style: .relation1Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
         } label: {
             HStack(spacing: 6) {
                 if !relation.isEditable && showLocks {
@@ -62,7 +62,7 @@ struct PropertiesListRowView: View {
                         .frame(width: 15, height: 12)
                 }
                 AnytypeText(relation.name, style: .relation1Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                     .lineLimit(1)
             }
             .frame(width: size.width * 0.4, alignment: .leading)
@@ -93,7 +93,7 @@ struct PropertiesListRowView: View {
                 onRemoveTap(relation)
             } label: {
                 Image(systemName: "minus.circle.fill")
-                    .foregroundColor(.red)
+                    .foregroundStyle(Color.red)
             }.frame(width: Constants.buttonWidth, height: Constants.buttonWidth)
         }
     }

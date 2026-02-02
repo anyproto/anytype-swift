@@ -3,25 +3,32 @@ import Services
 import Combine
 
 @MainActor
-final class SetLayoutSettingsViewModel: ObservableObject {
-    @Published var selectedType: DataviewViewType = .table
-    
+@Observable
+final class SetLayoutSettingsViewModel {
+    var selectedType: DataviewViewType = .table
+
     var types: [SetViewTypeConfiguration] {
         updatedTypes()
     }
     var settings: [SetViewSettingsItem] {
         updatedSettings()
     }
-    
+
+    @ObservationIgnored
     private let setDocument: any SetDocumentProtocol
+    @ObservationIgnored
     private let viewId: String
+    @ObservationIgnored
     private weak var output: (any SetLayoutSettingsCoordinatorOutput)?
-    
+
+    @ObservationIgnored
     private var cancellable: (any Cancellable)?
-    
+
+    @ObservationIgnored
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
-    
+
+    @ObservationIgnored
     private var view: DataviewView
     
     init(

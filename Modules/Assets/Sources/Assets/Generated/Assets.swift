@@ -191,9 +191,9 @@ public enum Asset {
     static let primary = ColorAsset(name: "Shape/primary")
     static let secondary = ColorAsset(name: "Shape/secondary")
     static let tertiary = ColorAsset(name: "Shape/tertiary")
-    static let transperentPrimary = ColorAsset(name: "Shape/transperentPrimary")
-    static let transperentSecondary = ColorAsset(name: "Shape/transperentSecondary")
-    static let transperentTertiary = ColorAsset(name: "Shape/transperentTertiary")
+    static let transparentPrimary = ColorAsset(name: "Shape/transparentPrimary")
+    static let transparentSecondary = ColorAsset(name: "Shape/transparentSecondary")
+    static let transparentTertiary = ColorAsset(name: "Shape/transparentTertiary")
   }
   public enum Text {
     static let inversion = ColorAsset(name: "Text/inversion")

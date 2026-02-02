@@ -74,7 +74,7 @@ private struct TypeView: View {
             }
             
             AnytypeText(title, style: .caption1Medium)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
         }
         .padding(.vertical, 11)

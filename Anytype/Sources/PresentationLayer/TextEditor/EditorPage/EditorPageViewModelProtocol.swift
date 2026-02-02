@@ -23,8 +23,7 @@ protocol EditorPageViewModelProtocol: AnyObject {
 
     func didSelectBlock(at indexPath: IndexPath)
     func didFinishEditing(blockId: String)
-    
-    func showSettings()
+
     func setupSubscriptions()
     
     func showTemplates()
@@ -34,6 +33,8 @@ protocol EditorPageViewModelProtocol: AnyObject {
     func tapOnEmptyPlace()
     
     func showSyncStatusInfo()
-    
+
+    func showWidgets()
+
     func onPublishingBannerTap()
 }

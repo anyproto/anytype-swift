@@ -94,27 +94,42 @@ struct SetCollectionView: View {
             EmptyView()
         } else {
             Section(header: compoundHeader) {
-                ForEach(model.configurationsDict.keys, id: \.self) { groupId in
-                    if let configurations = model.configurationsDict[groupId] {
-                        ForEach(configurations) { configuration in
-                            if configurations.first == configuration {
-                                Divider()
-                            }
-                            SetDragAndDropView(
-                                dropData: $dropData,
-                                configuration: configuration,
-                                groupId: groupId,
-                                dragAndDropDelegate: model,
-                                content: {
-                                    SetListViewCell(configuration: configuration)
-                                        .divider()
-                                }
-                            )
-                        }
-                    }
-                }
+                listSectionContent
             }
         }
+    }
+    
+    @ViewBuilder
+    private var listSectionContent: some View {
+        ForEach(model.configurationsDict.keys, id: \.self) { groupId in
+            if let configurations = model.configurationsDict[groupId] {
+                listGroupContent(configurations: configurations, groupId: groupId)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func listGroupContent(configurations: [SetContentViewItemConfiguration], groupId: String) -> some View {
+        ForEach(configurations) { configuration in
+            listGroupCell(configuration: configuration, isFirst: configurations.first == configuration, groupId: groupId)
+        }
+    }
+    
+    @ViewBuilder
+    private func listGroupCell(configuration: SetContentViewItemConfiguration, isFirst: Bool, groupId: String) -> some View {
+        if isFirst {
+            Divider()
+        }
+        SetDragAndDropView(
+            dropData: $dropData,
+            configuration: configuration,
+            groupId: groupId,
+            dragAndDropDelegate: model,
+            content: {
+                SetListViewCell(configuration: configuration)
+                    .divider()
+            }
+        )
     }
     
     private var pagination: some View {

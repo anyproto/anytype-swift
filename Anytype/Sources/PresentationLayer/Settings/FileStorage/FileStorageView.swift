@@ -2,12 +2,8 @@ import SwiftUI
 import AnytypeCore
 
 struct FileStorageView: View {
-    
-    @StateObject private var model: FileStorageViewModel
-    
-    init() {
-        self._model = StateObject(wrappedValue: FileStorageViewModel())
-    }
+
+    @State private var model = FileStorageViewModel()
     
     var body: some View {
         VStack(spacing: 0) {
@@ -27,6 +23,9 @@ struct FileStorageView: View {
         .onAppear {
             model.onAppear()
         }
+        .task {
+            await model.startSubscription()
+        }
         .anytypeSheet(isPresented: $model.showClearCacheAlert) {
             DashboardClearCacheAlert()
         }
@@ -36,7 +35,7 @@ struct FileStorageView: View {
     private var locaBlock: some View {
         Spacer.fixedHeight(4)
         AnytypeText(Loc.FileStorage.Local.instruction, style: .uxCalloutRegular)
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
         Spacer.fixedHeight(16)
         FileStorageInfoBlock(
             iconImage: Emoji("📱").map { Icon.object(.emoji($0)) },

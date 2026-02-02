@@ -8,14 +8,14 @@ struct ObjectIconView: View {
     
     var body: some View {
         switch icon {
-        case .basic(let imageId):
-            BasicIconView(imageId: imageId)
+        case .basic(let imageId, let circular):
+            BasicIconView(imageId: imageId, circular: circular)
         case .profile(let profile):
             ProfileIconView(icon: profile)
-        case .emoji(let emoji):
-            EmojiIconView(emoji: emoji)
+        case .emoji(let emoji, let circular):
+            EmojiIconView(emoji: emoji, circular: circular)
         case let .customIcon(data):
-            CustomIconView(icon: data.icon, iconColor: data.color)
+            CustomIconView(icon: data.icon, iconColor: data.color, circular: data.circular)
         case .bookmark(let imageId):
             BookmarkIconView(imageId: imageId)
         case .space(let space):

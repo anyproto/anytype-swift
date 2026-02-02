@@ -8,24 +8,30 @@ struct SpaceMembersData: Identifiable, Hashable {
 }
 
 @MainActor
-final class SpaceMembersViewModel: ObservableObject {
-    
-    @Published var participantInfo: ObjectInfo?
-    
+@Observable
+final class SpaceMembersViewModel {
+
+    var participantInfo: ObjectInfo?
+
     // MARK: - DI
 
+    @ObservationIgnored
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @ObservationIgnored
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @ObservationIgnored
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(data.spaceId)
-    
+
     private let data: SpaceMembersData
-    
+
     // MARK: - State
 
-    @Published var rows: [SpaceShareParticipantViewModel] = []
+    var rows: [SpaceShareParticipantViewModel] = []
+    @ObservationIgnored
     private var isOwner = false
+    @ObservationIgnored
     private var participants: [Participant] = []
     
     init(data: SpaceMembersData) {

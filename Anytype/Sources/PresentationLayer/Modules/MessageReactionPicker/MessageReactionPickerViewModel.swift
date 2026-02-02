@@ -9,14 +9,16 @@ struct MessageReactionPickerData: Identifiable, Hashable {
 }
 
 @MainActor
-final class MessageReactionPickerViewModel: ObservableObject {
-    
+@Observable
+final class MessageReactionPickerViewModel {
+
+    @ObservationIgnored
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
-    
+
     private let data: MessageReactionPickerData
-    
-    @Published var dismiss = false
+
+    var dismiss = false
     
     init(data: MessageReactionPickerData) {
         self.data = data
@@ -25,7 +27,7 @@ final class MessageReactionPickerViewModel: ObservableObject {
     func onTapEmoji(_ emoji: EmojiData) {
         Task {
             let added = try await chatService.toggleMessageReaction(chatObjectId: data.chatObjectId, messageId: data.messageId, emoji: emoji.emoji)
-            AnytypeAnalytics.instance().logToggleReaction(added: added)
+            AnytypeAnalytics.instance().logToggleReaction(added: added, chatId: data.chatObjectId)
             dismiss.toggle()
         }
     }

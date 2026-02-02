@@ -11,7 +11,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
             }, else: {
                 $0.border(16, color: .Shape.primary, lineWidth: 1)
             })
-        .cornerRadius(16, corners: .top)
+        .clipShape(UnevenRoundedRectangle(topLeadingRadius: 16, topTrailingRadius: 16))
         .frame(width: 120, height: 224)
     }
     
@@ -26,7 +26,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
                             templateModel.title,
                             style: .caption2Medium
                         )
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                         .padding(.horizontal, 16)
                     case let .todo(isChecked):
                         HStack(spacing: 4) {
@@ -35,7 +35,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
                                 templateModel.title,
                                 style: .caption2Medium
                             )
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                             .lineLimit(1)
                         }.padding(.horizontal, 16)
                     }
@@ -51,10 +51,10 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
             $0.overlay(alignment: .bottom) {
                 VStack(spacing: 0) {
                     AnytypeText("Default", style: .relation2Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                         .padding(.horizontal, 6)
-                        .background(Color.Shape.transperentSecondary)
-                        .cornerRadius(4, style: .continuous)
+                        .background(Color.Shape.transparentSecondary)
+                        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
                     Spacer.fixedHeight(8)
                 }
             }

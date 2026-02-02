@@ -29,7 +29,7 @@ https://github.com/actions/runner-images/tree/main/images/macos
 
 ### macOS Runner to Xcode Version Mapping
 - `macos-15`: Xcode 15.x (e.g., '15.4') - See https://github.com/actions/runner-images/blob/main/images/macos/macos-15-Readme.md
-- `macos-26`: Xcode 26.0 (at /Applications/Xcode_26.0.app) - See https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
+- `macos-26`: Xcode 26.1 (at /Applications/Xcode_26.1.app) - See https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
 
 **VALIDATION RULE**: When reviewing xcode-version in workflows, verify it matches the runs-on runner version using the mapping above.
 

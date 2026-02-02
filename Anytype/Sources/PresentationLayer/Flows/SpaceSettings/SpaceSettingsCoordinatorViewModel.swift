@@ -1,31 +1,34 @@
 import Foundation
 import SwiftUI
-import Combine
 import AnytypeCore
 import Services
 
 
 @MainActor
-final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
-    
-    @Injected(\.objectTypeProvider)
+@Observable
+final class SpaceSettingsCoordinatorViewModel: SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
+
+    @ObservationIgnored @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.openedDocumentProvider)
+    @ObservationIgnored @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
-    
-    @Published var showRemoteStorage = false
-    @Published var showWallpaperPicker = false
-    @Published var showSpaceShareData: SpaceShareData?
-    @Published var spaceNotificationsSettingsModuleData: SpaceNotificationsSettingsModuleData?
-    @Published var spaceTypeChangeData: SpaceTypeChangeData?
-    @Published var showFiles = false
-    
+
+    var showRemoteStorage = false
+    var showWallpaperPicker = false
+    var showSpaceShareData: SpaceShareData?
+    var spaceNotificationsSettingsModuleData: SpaceNotificationsSettingsModuleData?
+    var spaceTypeChangeData: SpaceTypeChangeData?
+    var showFiles = false
+    var homePagePickerSpaceId: StringIdentifiable?
+
+    @ObservationIgnored
     var pageNavigation: PageNavigation?
-    @Published var showDefaultObjectTypeSearch = false
-    
+    var showDefaultObjectTypeSearch = false
+
     let workspaceInfo: AccountInfo
     var spaceId: String { workspaceInfo.accountSpaceId }
-    
+
+    @ObservationIgnored
     private var spaceShareCompletion: (() -> Void)?
     
     init(workspaceInfo: AccountInfo) {
@@ -41,7 +44,11 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     func onDefaultObjectTypeSelected() {
         showDefaultObjectTypeSearch.toggle()
     }
-    
+
+    func onHomePageSelected() {
+        homePagePickerSpaceId = spaceId.identifiable
+    }
+
     func onRemoteStorageSelected() {
         showRemoteStorage.toggle()
     }

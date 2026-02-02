@@ -3,14 +3,16 @@ import AnytypeCore
 import Services
 
 @MainActor
-final class UndoRedoViewModel: ObservableObject {
-    
+@Observable
+final class UndoRedoViewModel {
+
+    @ObservationIgnored
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    
+
     private let objectId: String
 
-    @Published var toastData: ToastBarData?
+    var toastData: ToastBarData?
     
     init(
         objectId: String

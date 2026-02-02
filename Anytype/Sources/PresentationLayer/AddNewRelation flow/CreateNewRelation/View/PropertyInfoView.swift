@@ -2,13 +2,13 @@ import SwiftUI
 import AnytypeCore
 
 struct PropertyInfoView: View {
-    
-    @StateObject private var viewModel: PropertyInfoViewModel
+
+    @State private var viewModel: PropertyInfoViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: PropertyInfoData, output: (any PropertyInfoModuleOutput)?) {
         let relationsInteractor = PropertiesInteractor(objectId: data.objectId, spaceId: data.spaceId)
-        _viewModel = StateObject(wrappedValue: PropertyInfoViewModel(
+        _viewModel = State(initialValue: PropertyInfoViewModel(
             data: data,
             relationsInteractor: relationsInteractor,
             output: output
@@ -57,7 +57,7 @@ struct PropertyInfoView: View {
             title: Loc.name,
             contentViewBuilder: {
                 TextField(Loc.untitled, text: $viewModel.name)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .font(AnytypeFontBuilder.font(anytypeFont: .heading))
                     .disabled(viewModel.isReadOnly)
             },

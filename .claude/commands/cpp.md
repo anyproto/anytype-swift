@@ -1,4 +1,15 @@
-Commit, review, push, pull request
+---
+allowed-tools: Bash(git branch:*), Bash(git status:*), Bash(git log:*), Bash(git diff:*), Bash(git fetch:*)
+---
+
+# Commit, review, push, pull request
+
+## Git Context (Precomputed)
+- **Fetch**: !`git fetch origin develop 2>/dev/null || echo "(fetch failed)"`
+- **Current branch**: !`git branch --show-current`
+- **Staged files**: !`git diff --cached --name-only`
+- **Unstaged changes**: !`git status --short`
+- **Recent commits**: !`git log --oneline -5`
 
 ## Usage
 ```
@@ -13,33 +24,61 @@ Commits the current changes, performs a code review, applies fixes if needed, th
 
 ## Workflow
 
-### 0. Determine Branch Name (if not provided)
-- If user mentions a Linear task ID (e.g., IOS-5292), fetch the issue using `mcp__linear__list_issues`
-- Extract the `gitBranchName` field from the Linear issue response
-- Use this exact branch name for checkout/creation
+### 0. MANDATORY: Verify Correct Branch
+**ALWAYS check the branch before any commit operations:**
 
-### 1. Commit Changes
-- Stage and commit all changes with a descriptive message
+1. **If task name/ID is known** (from conversation context, branch name pattern, or user mention):
+   - Fetch the Linear issue using linctl CLI:
+     ```bash
+     linctl issue get IOS-XXXX --json | jq -r '.gitBranchName'
+     ```
+   - Compare with current branch (`git branch --show-current`)
+   - If mismatch: **STOP** and ask user to confirm branch switch
+
+2. **If task name/ID is NOT known**:
+   - **STOP and ask the user**: "What Linear task are you working on? (e.g., IOS-5292)"
+   - Wait for response before proceeding
+   - Then fetch and verify branch as above
+
+3. **Branch verification outcomes**:
+   - ✅ Current branch matches Linear task's `gitBranchName` → proceed
+   - ⚠️ Branch mismatch → ask user: "Switch to `<correct-branch>` or continue on current branch?"
+   - ❌ No task ID provided → do NOT proceed until user provides it
+
+**Never commit without verifying you're on the correct branch for the task.**
+
+### 1. Stage Changes
+- Stage all changes to prepare for review and commit
+
+### 2. Polish Code (simplify + cleanup)
+- Review staged Swift files for simplification opportunities
+- **If no opportunities found**: Auto-proceed to commit (no approval needed)
+- **If opportunities found**: Present findings, wait for explicit approval before making ANY changes
+- If user approves: apply changes, re-stage, then continue to commit
+- If user declines: skip polish, proceed to commit as-is
+- Key checks: guard-let early returns, keypath shorthand (where clearer), unused code removal
+
+### 3. Commit Changes
+- Commit staged changes with a descriptive message
 - Follow CLAUDE.md commit message guidelines
 
-### 2. Code Review
+### 4. Code Review
 - Run automated code review using `/codeReview` workflow
 - Apply CODE_REVIEW_GUIDE.md standards
 - Check for bugs, best practices violations, performance issues, security concerns
 
-### 3. Review Findings and Auto-Proceed
+### 5. Review Findings
 - Present review results to developer
-- If issues found, **STOP and discuss** with developer:
+- **If NO issues found AND nothing polished**: Auto-proceed to push/PR (no approval needed)
+- **If ANY issues found (including minor/non-blocking)**: STOP and wait for developer decision:
   - Should we fix the issues now?
   - Are the findings valid or false positives?
   - Should we proceed anyway?
 - **Developer decides next steps** - never auto-amend commits
-- **If review is approved (✅)**: Automatically proceed to push and PR without asking
 
-### 4. Push and PR (auto-proceed when approved)
+### 6. Push and PR
 - Push to remote with tracking
 - Create pull request with summary
-- No confirmation needed when code review is approved
 
 ## Branch Handling
 When a branch name is provided:
@@ -47,13 +86,13 @@ When a branch name is provided:
 2. **Branch exists locally**: Switches to that branch
 3. **Branch exists only remotely**: Checks out the remote branch locally
 
-## Prerequisites
-When working with Linear tasks, Claude should fetch the branch name before running `/cpp`:
-1. User mentions task ID (e.g., "Fix IOS-2532")
-2. Claude calls `mcp__linear__list_issues(query: "IOS-2532", limit: 1)`
-3. Claude extracts `gitBranchName` field (e.g., "ios-2532-fix-comment-version-for-hotfix")
-4. Claude switches to that branch
-5. User runs `/cpp` on the correct branch
+## Branch Verification (Built-in)
+The `/cpp` command **automatically verifies** the correct branch:
+1. If task ID is known (from context or branch name) → fetches via linctl and verifies branch
+2. If task ID is unknown → **asks user before proceeding**
+3. Switches branch if needed (with user confirmation)
+
+**linctl reference**: `.claude/skills/linear-developer/SKILL.md`
 
 ## Examples
 ```bash

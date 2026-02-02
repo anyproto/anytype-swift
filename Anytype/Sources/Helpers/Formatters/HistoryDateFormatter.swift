@@ -31,7 +31,7 @@ final class HistoryDateFormatter: Sendable {
             if currentDate(date, isEqualToYears: todayDate) {
                 dateFormatter.setLocalizedDateFormatFromTemplate("MMMM dd")
             } else {
-                dateFormatter.setLocalizedDateFormatFromTemplate("MMMM dd YYYY")
+                dateFormatter.setLocalizedDateFormatFromTemplate("MMMM dd yyyy")
             }
             return dateFormatter.string(from: date)
         }
@@ -41,7 +41,7 @@ final class HistoryDateFormatter: Sendable {
         if currentDate(date, isEqualToYears: Date()) {
             dateFormatter.setLocalizedDateFormatFromTemplate("MMMM dd HH:mm")
         } else {
-            dateFormatter.setLocalizedDateFormatFromTemplate("MMMM dd YYYY HH:mm")
+            dateFormatter.setLocalizedDateFormatFromTemplate("MMMM dd yyyy HH:mm")
         }
         
         return dateFormatter.string(from: date)

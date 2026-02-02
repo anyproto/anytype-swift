@@ -43,7 +43,7 @@ struct SetTableViewRow: View {
             configuration.onItemTap()
         } label: {
             AnytypeText(configuration.title, style: .previewTitle2Medium)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
         }
     }
@@ -55,7 +55,7 @@ struct SetTableViewRow: View {
                 cell(colum)
                 Rectangle()
                     .frame(width: 0.5, height: 18)
-                    .foregroundColor(.Shape.primary)
+                    .foregroundStyle(Color.Shape.primary)
             }
         }
         .frame(height: 18)

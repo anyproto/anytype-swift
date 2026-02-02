@@ -5,15 +5,21 @@ import AnytypeCore
 extension UIImage {
     
     static func dynamicImage(light: UIImage, dark: UIImage) -> UIImage {
-        let config = UITraitCollection(traitsFrom: [.current, .init(userInterfaceStyle: .dark)])
+        let config = UITraitCollection.current.modifyingTraits { mutableTraits in
+            mutableTraits.userInterfaceStyle = .dark
+        }
         light.imageAsset?.register(dark, with: config)
         return light
    }
     
     static func generateDynamicImage(builder: () -> UIImage) -> UIImage {
         
-        let lightTC = UITraitCollection(traitsFrom: [.current, .init(userInterfaceStyle: .light)])
-        let darkTC = UITraitCollection(traitsFrom: [.current, .init(userInterfaceStyle: .dark)])
+        let lightTC = UITraitCollection.current.modifyingTraits { mutableTraits in
+            mutableTraits.userInterfaceStyle = .light
+        }
+        let darkTC = UITraitCollection.current.modifyingTraits { mutableTraits in
+            mutableTraits.userInterfaceStyle = .dark
+        }
         
         var lightImage = UIImage()
         var darkImage = UIImage()

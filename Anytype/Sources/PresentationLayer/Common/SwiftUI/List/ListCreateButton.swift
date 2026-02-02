@@ -11,7 +11,7 @@ struct ListCreateButton: View {
             HStack(spacing: 8) {
                 Image(asset: .relationNew).foregroundStyle(Color.Control.secondary).frame(width: 24, height: 24)
                 AnytypeText(text, style: .uxBodyRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
                 Spacer()
             }

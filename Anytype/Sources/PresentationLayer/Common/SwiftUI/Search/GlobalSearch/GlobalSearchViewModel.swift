@@ -1,37 +1,48 @@
 import Services
-import Combine
 import Foundation
 import OrderedCollections
 import AnytypeCore
 import UIKit
 
 @MainActor
-final class GlobalSearchViewModel: ObservableObject {
-    
+@Observable
+final class GlobalSearchViewModel {
+
+    @ObservationIgnored
     @Injected(\.searchWithMetaService)
     private var searchWithMetaService: any SearchWithMetaServiceProtocol
+    @ObservationIgnored
     @Injected(\.searchWithMetaModelBuilder)
     private var searchWithMetaModelBuilder: any SearchWithMetaModelBuilderProtocol
+    @ObservationIgnored
     @Injected(\.globalSearchSavedStatesService)
     private var globalSearchSavedStatesService: any GlobalSearchSavedStatesServiceProtocol
+    @ObservationIgnored
     @Injected(\.participantsStorage)
     private var accountParticipantStorage: any ParticipantsStorageProtocol
+    @ObservationIgnored
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
+    @ObservationIgnored
     private let moduleData: GlobalSearchModuleData
-    
+
+    @ObservationIgnored
     private let dateFormatter = AnytypeRelativeDateTimeFormatter()
-    
-    @Published var state = GlobalSearchState()
-    @Published var sections = [ListSectionData<String?, SearchWithMetaModel>]()
-    @Published var dismiss = false
-    @Published private var participantCanEdit = false
-    
+
+    var state = GlobalSearchState()
+    var sections = [ListSectionData<String?, SearchWithMetaModel>]()
+    var dismiss = false
+    private var participantCanEdit = false
+
+    @ObservationIgnored
     private var spaceUxType: SpaceUxType?
+    @ObservationIgnored
     private var searchResult = [SearchResultWithMeta]()
+    @ObservationIgnored
     private var sectionChanged = false
     var isInitial = true
     

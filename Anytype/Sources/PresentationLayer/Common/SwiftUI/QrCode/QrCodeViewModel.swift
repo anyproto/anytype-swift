@@ -2,22 +2,27 @@ import Foundation
 import QRCode
 import UIKit
 
-final class QrCodeViewModel: ObservableObject {
-    
+@MainActor
+@Observable
+final class QrCodeViewModel {
+
+    @ObservationIgnored
     private let analyticsType: ScreenQrAnalyticsType
+    @ObservationIgnored
     private let route: ScreenQrRoute
-    
+
+    @ObservationIgnored
     let document: QRCode.Document
+    @ObservationIgnored
     let title: String
-    @Published var sharedData: DataIdentifiable?
+    var sharedData: DataIdentifiable?
     
     init(title: String, data: String, analyticsType: ScreenQrAnalyticsType, route: ScreenQrRoute) {
         self.title = title
         self.analyticsType = analyticsType
         self.route = route
         
-        document = QRCode.Document(generator: QRCodeGenerator_External())
-        document.utf8String = data
+        document = (try? QRCode.Document(utf8String: data)) ?? QRCode.Document()
         document.design.backgroundColor(UIColor.white.cgColor)
         
         if let icon = UIImage(asset: .QrCode.smile)?.cgImage {
@@ -37,6 +42,6 @@ final class QrCodeViewModel: ObservableObject {
     
     func onShare() {
         AnytypeAnalytics.instance().logClickQr()
-        sharedData = document.jpegData(dimension: 600)?.identifiable
+        sharedData = try? document.jpegData(dimension: 600).identifiable
     }
 }

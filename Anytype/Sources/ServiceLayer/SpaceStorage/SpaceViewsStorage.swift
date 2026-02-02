@@ -32,6 +32,10 @@ extension SpaceViewsStorageProtocol {
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
+
+    func oneToOneSpaceView(identity: String) -> SpaceView? {
+        allSpaceViews.first { $0.uxType == .oneToOne && $0.oneToOneIdentity == identity }
+    }
 }
 
 final class SpaceViewsStorage: SpaceViewsStorageProtocol {

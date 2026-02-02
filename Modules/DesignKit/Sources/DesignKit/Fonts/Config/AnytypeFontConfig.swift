@@ -112,7 +112,7 @@ public extension AnytypeFont {
             return AnytypeFontConfig(
                 font: FontFamily.Inter.regular,
                 size: 17,
-                lineHeight: 20,
+                lineHeight: 22,
                 kern: -0.41
             )
         case .chatPreviewMedium:
@@ -226,6 +226,13 @@ public extension AnytypeFont {
                 size: 11,
                 lineHeight: 14,
                 kern: -0.07
+            )
+        case .tagline:
+            return AnytypeFontConfig(
+                font: FontFamily.Inter.regular,
+                size: 11,
+                lineHeight: 14,
+                kern: -0.2
             )
         case .button1Regular:
             return AnytypeFontConfig(

@@ -31,7 +31,7 @@ struct FramedTextField<LeadingView: View>: View {
         VStack(alignment: .leading, spacing: 4) {
             if let title {
                 AnytypeText(title, style: .uxCalloutRegular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                     .accessibilityLabel("Title")
             }
 
@@ -63,11 +63,11 @@ struct FramedTextField<LeadingView: View>: View {
         .padding(.vertical, 14)
         .background(
             RoundedRectangle(cornerRadius: 26)
-                .fill(Color.Shape.transperentSecondary)
+                .fill(Color.Shape.transparentSecondary)
         )
         .overlay(
             RoundedRectangle(cornerRadius: 26)
-                .stroke(Color.Shape.transperentSecondary, lineWidth: 1)
+                .stroke(Color.Shape.transparentSecondary, lineWidth: 1)
         )
         .accessibilityLabel("TextFieldContainer")
     }

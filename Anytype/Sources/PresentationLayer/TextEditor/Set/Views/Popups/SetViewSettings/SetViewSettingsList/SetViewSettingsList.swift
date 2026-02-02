@@ -69,7 +69,7 @@ struct SetViewSettingsList: View {
                     setting.title,
                     style: .uxBodyRegular
                 )
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 
                 Spacer()
                 
@@ -93,7 +93,7 @@ struct SetViewSettingsList: View {
             text,
             style: .uxBodyRegular
         )
-        .foregroundColor(setting.isPlaceholder(text) ? .Text.tertiary : .Text.secondary)
+        .foregroundStyle(setting.isPlaceholder(text) ? Color.Text.tertiary : Color.Text.secondary)
         .lineLimit(1)
     }
     

@@ -1,6 +1,5 @@
 import Foundation
 import Services
-import Combine
 import AnytypeCore
 
 enum ObjectCoverPickerAction {
@@ -10,14 +9,14 @@ enum ObjectCoverPickerAction {
         case upload(itemProvider: NSItemProvider)
         case unsplash(unsplashItem: UnsplashItem)
     }
-    
+
     case setCover(CoverSource)
     case removeCover
 }
 
 struct BaseDocumentIdentifiable: Identifiable {
     let document: any BaseDocumentProtocol
-    
+
     var id: String { document.objectId }
 }
 
@@ -28,15 +27,17 @@ extension BaseDocumentProtocol {
 }
 
 @MainActor
-final class ObjectCoverPickerViewModel: ObservableObject {
-    
+@Observable
+final class ObjectCoverPickerViewModel {
+
     let mediaPickerContentType: MediaPickerContentType = .images
     var isRemoveButtonAvailable: Bool { document.details?.documentCover != nil }
 
     // MARK: - Private variables
-    @Injected(\.objectHeaderUploadingService)
+    @ObservationIgnored @Injected(\.objectHeaderUploadingService)
     private var objectHeaderUploadingService: any ObjectHeaderUploadingServiceProtocol
-    
+
+    @ObservationIgnored
     private let document: any BaseDocumentProtocol
         
     // MARK: - Initializer

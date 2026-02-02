@@ -1,4 +1,5 @@
 import SwiftUI
+import Services
 
 enum ObjectSettingsSectionType {
     case layout
@@ -6,7 +7,7 @@ enum ObjectSettingsSectionType {
 }
 
 // Used in ObjectSettingBuilder
-enum ObjectSetting {
+enum ObjectSetting: Hashable {
     case icon
     case cover
     case description(isVisible: Bool)
@@ -14,6 +15,7 @@ enum ObjectSetting {
     case history
     case resolveConflict
     case webPublishing
+    case notifications(mode: SpacePushNotificationsMode)
 }
 
 extension ObjectSetting {
@@ -22,7 +24,7 @@ extension ObjectSetting {
         switch self {
         case .icon, .cover, .description, .relations, .resolveConflict:
             return .layout
-        case .history, .webPublishing:
+        case .history, .webPublishing, .notifications:
             return .object
         }
     }
@@ -41,6 +43,8 @@ extension ObjectSetting {
             return 11
         case .webPublishing:
             return 12
+        case .notifications:
+            return 20
         case .history:
             return 21
         }
@@ -62,6 +66,8 @@ extension ObjectSetting {
             Loc.resolveLayoutConflict
         case .webPublishing:
             Loc.publishToWeb
+        case .notifications:
+            Loc.notifications
         }
     }
     
@@ -81,6 +87,8 @@ extension ObjectSetting {
             .X18.attention
         case .webPublishing:
             .X24.web
+        case .notifications:
+            .PushNotifications.bell
         }
     }
 }

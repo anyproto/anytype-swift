@@ -2,7 +2,8 @@ import Foundation
 import UIKit
 
 final class EditorNavigationBarView: UIView {
-    
+
+    private let glassContainer = GlassContainerViewIOS26(spacing: 12)
     private let leftButtonContainer = UIView()
     private let rightButtonContainer = UIView()
     private let titleContainer = UIView()
@@ -55,15 +56,19 @@ final class EditorNavigationBarView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-                
-        addSubview(contentView) {
+
+        addSubview(glassContainer) {
             $0.pinToSuperview(excluding: [.bottom], insets: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
             $0.height.equal(to: 44)
         }
-        
+
+        glassContainer.glassContentView.addSubview(contentView) {
+            $0.pinToSuperview()
+        }
+
         addSubview(bannerContainer) {
             $0.pinToSuperview(excluding: [.top], insets: UIEdgeInsets(top: 0, left: 16, bottom: 8, right: 16))
-            $0.top.equal(to: contentView.bottomAnchor, constant: 8)
+            $0.top.equal(to: glassContainer.bottomAnchor, constant: 8)
         }
         
         contentView.addSubview(leftButtonContainer) {
@@ -77,10 +82,9 @@ final class EditorNavigationBarView: UIView {
         }
         
         contentView.addSubview(titleContainer) {
-            $0.centerX.equal(to: contentView.centerXAnchor, priority: .defaultLow)
             $0.centerY.equal(to: contentView.centerYAnchor)
-            $0.leading.greaterThanOrEqual(to: leftButtonContainer.trailingAnchor, constant: 8)
-            $0.trailing.lessThanOrEqual(to: rightButtonContainer.leadingAnchor, constant: 8)
+            $0.leading.equal(to: leftButtonContainer.trailingAnchor, constant: 8)
+            $0.trailing.equal(to: rightButtonContainer.leadingAnchor, constant: -8)
         }
     }
     

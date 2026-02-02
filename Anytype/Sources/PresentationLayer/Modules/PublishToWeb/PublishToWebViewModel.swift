@@ -1,5 +1,4 @@
 import Foundation
-import Combine
 import SwiftUI
 import Services
 import AnytypeCore
@@ -12,18 +11,23 @@ enum PublishToWebViewModelState: Equatable {
 }
 
 @MainActor
-final class PublishToWebViewModel: ObservableObject {
-    @Published var state = PublishToWebViewModelState.initial
-    
+@Observable
+final class PublishToWebViewModel {
+    var state = PublishToWebViewModelState.initial
+
+    @ObservationIgnored
     @Injected(\.publishingService)
     private var publishingService: any PublishingServiceProtocol
+    @ObservationIgnored
     @Injected(\.participantsStorage)
     private var participantStorage: any ParticipantsStorageProtocol
+    @ObservationIgnored
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var activeWorkspaceStorage: any SpaceViewsStorageProtocol
-    
+
     private let spaceId: String
     private let objectId: String
     
@@ -50,8 +54,10 @@ final class PublishToWebViewModel: ObservableObject {
             return
         }
         
-        let spaceName = activeWorkspaceStorage.spaceView(spaceId: spaceId)?.title ?? ""
-        
+        let spaceView = activeWorkspaceStorage.spaceView(spaceId: spaceId)
+        let spaceName = spaceView?.title ?? ""
+        let spaceUxType = spaceView?.uxType ?? .data
+
         do {
             let status: PublishState?
             if let newStatus = try await publishingService.getStatus(spaceId: spaceId, objectId: objectId) {
@@ -66,7 +72,8 @@ final class PublishToWebViewModel: ObservableObject {
                 domain: domain,
                 status: status,
                 objectDetails: objectDetails,
-                spaceName: spaceName
+                spaceName: spaceName,
+                spaceUxType: spaceUxType
             ))
         } catch {
             state = .error(error.localizedDescription)

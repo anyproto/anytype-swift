@@ -1,12 +1,15 @@
 import SwiftUI
 
 struct SharingExtensionView: View {
-    
-    @StateObject private var model: SharingExtensionViewModel
+
+    @State private var model: SharingExtensionViewModel
     @Environment(\.dismiss) private var dismiss
-    
-    init(output: (any SharingExtensionModuleOutput)?) {
-        self._model = StateObject(wrappedValue: SharingExtensionViewModel(output: output))
+
+    var suggestedSpaceId: String?
+
+    init(output: (any SharingExtensionModuleOutput)?, suggestedSpaceId: String?) {
+        self.suggestedSpaceId = suggestedSpaceId
+        self._model = State(initialValue: SharingExtensionViewModel(output: output))
     }
     
     private let columns = [
@@ -18,7 +21,7 @@ struct SharingExtensionView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            ModalNavigationHeader(title: Loc.Sharing.title)
+            NavigationHeader(title: Loc.Sharing.title, navigationButtonType: .none, enableBackgroundBlur: false)
             
             if model.withoutSpaceState {
                 withoutSpace
@@ -33,6 +36,11 @@ struct SharingExtensionView: View {
             dismiss()
         }
         .disabled(model.sendInProgress)
+        .onChange(of: suggestedSpaceId) { _, spaceId in
+            if let spaceId {
+                model.setSuggestedSpaceId(spaceId)
+            }
+        }
         .onChange(of: model.searchText) {
             model.search()
         }
@@ -58,27 +66,39 @@ struct SharingExtensionView: View {
     }
     
     private var listView: some View {
-        ScrollView(.vertical) {
-            LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(model.spaces) { space in
-                    SharingExtensionSpaceView(
-                        icon: space.objectIconImage,
-                        title: space.title,
-                        isSelected: model.selectedSpace?.id == space.id
-                    )
-                    .onTapGesture {
-                        model.onTapSpace(space)
+        ScrollViewReader { proxy in
+            ScrollView(.vertical) {
+                LazyVGrid(columns: columns, spacing: 16) {
+                    ForEach(model.spaces) { space in
+                        Button {
+                            model.onTapSpace(space)
+                        } label: {
+                            SharingExtensionSpaceView(
+                                icon: space.objectIconImage,
+                                title: space.title,
+                                isSelected: model.selectedSpace?.id == space.id
+                            )
+                        }
+                        .buttonStyle(.plain)
+                        .id(space.id)
+                    }
+                }
+                if let debugItems = model.debugInfo?.items {
+                    Section(header: Text(Loc.Debug.info)) {
+                        ForEach(0..<debugItems.count, id: \.self) { index in
+                            SharingExtensionDebugView(
+                                index: index,
+                                mimeTypes: debugItems[index].mimeTypes
+                            )
+                        }
                     }
                 }
             }
-            if let debugItems = model.debugInfo?.items {
-                Section(header: Text(Loc.Debug.info)) {
-                    ForEach(0..<debugItems.count, id: \.self) { index in
-                        SharingExtensionDebugView(
-                            index: index,
-                            mimeTypes: debugItems[index].mimeTypes
-                        )
-                    }
+            .onChange(of: model.scrollToSpaceId) { _, spaceId in
+                guard let spaceId else { return }
+                model.scrollToSpaceId = nil
+                withAnimation {
+                    proxy.scrollTo(spaceId, anchor: .center)
                 }
             }
         }
@@ -106,6 +126,6 @@ struct SharingExtensionView: View {
 
 #Preview {
     MockView {
-        SharingExtensionView(output: nil)
+        SharingExtensionView(output: nil, suggestedSpaceId: nil)
     }
 }

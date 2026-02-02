@@ -290,9 +290,9 @@ public extension UIColor.Shape {
             ColorInfo(name: "primary", color: UIColor.Shape.primary),
             ColorInfo(name: "secondary", color: UIColor.Shape.secondary),
             ColorInfo(name: "tertiary", color: UIColor.Shape.tertiary),
-            ColorInfo(name: "transperentPrimary", color: UIColor.Shape.transperentPrimary),
-            ColorInfo(name: "transperentSecondary", color: UIColor.Shape.transperentSecondary),
-            ColorInfo(name: "transperentTertiary", color: UIColor.Shape.transperentTertiary)
+            ColorInfo(name: "transparentPrimary", color: UIColor.Shape.transparentPrimary),
+            ColorInfo(name: "transparentSecondary", color: UIColor.Shape.transparentSecondary),
+            ColorInfo(name: "transparentTertiary", color: UIColor.Shape.transparentTertiary)
         ]
     )
 }
