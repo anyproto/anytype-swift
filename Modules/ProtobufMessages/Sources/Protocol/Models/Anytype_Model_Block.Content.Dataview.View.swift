@@ -114,6 +114,12 @@ extension Anytype_Model_Block.Content.Dataview {
           set {_uniqueStorage()._wrapContent = newValue}
         }
 
+        /// List view size setting
+        public var listSize: Anytype_Model_Block.Content.Dataview.View.ListSize {
+          get {return _storage._listSize}
+          set {_uniqueStorage()._listSize = newValue}
+        }
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum TypeEnum: SwiftProtobuf.Enum, Swift.CaseIterable {
@@ -204,6 +210,44 @@ extension Anytype_Model_Block.Content.Dataview {
 
         }
 
+        public enum ListSize: SwiftProtobuf.Enum, Swift.CaseIterable {
+          public typealias RawValue = Int
+
+          /// Single-line display (default)
+          case compact // = 0
+
+          /// Two-line display with description
+          case regular // = 1
+          case UNRECOGNIZED(Int)
+
+          public init() {
+            self = .compact
+          }
+
+          public init?(rawValue: Int) {
+            switch rawValue {
+            case 0: self = .compact
+            case 1: self = .regular
+            default: self = .UNRECOGNIZED(rawValue)
+            }
+          }
+
+          public var rawValue: Int {
+            switch self {
+            case .compact: return 0
+            case .regular: return 1
+            case .UNRECOGNIZED(let i): return i
+            }
+          }
+
+          // The compiler won't synthesize support with the UNRECOGNIZED case.
+          public static let allCases: [Anytype_Model_Block.Content.Dataview.View.ListSize] = [
+            .compact,
+            .regular,
+          ]
+
+        }
+
         public init() {}
 
         fileprivate var _storage = _StorageClass.defaultInstance
@@ -212,7 +256,7 @@ extension Anytype_Model_Block.Content.Dataview {
 
 extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".View"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}type\0\u{1}name\0\u{1}sorts\0\u{1}filters\0\u{1}relations\0\u{1}coverRelationKey\0\u{1}hideIcon\0\u{1}cardSize\0\u{1}coverFit\0\u{1}groupRelationKey\0\u{1}groupBackgroundColors\0\u{1}pageLimit\0\u{1}defaultTemplateId\0\u{1}defaultObjectTypeId\0\u{1}endRelationKey\0\u{1}wrapContent\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}type\0\u{1}name\0\u{1}sorts\0\u{1}filters\0\u{1}relations\0\u{1}coverRelationKey\0\u{1}hideIcon\0\u{1}cardSize\0\u{1}coverFit\0\u{1}groupRelationKey\0\u{1}groupBackgroundColors\0\u{1}pageLimit\0\u{1}defaultTemplateId\0\u{1}defaultObjectTypeId\0\u{1}endRelationKey\0\u{1}wrapContent\0\u{1}listSize\0")
 
   fileprivate class _StorageClass {
     var _id: String = String()
@@ -232,6 +276,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     var _defaultObjectTypeID: String = String()
     var _endRelationKey: String = String()
     var _wrapContent: Bool = false
+    var _listSize: Anytype_Model_Block.Content.Dataview.View.ListSize = .compact
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -259,6 +304,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
       _defaultObjectTypeID = source._defaultObjectTypeID
       _endRelationKey = source._endRelationKey
       _wrapContent = source._wrapContent
+      _listSize = source._listSize
     }
   }
 
@@ -294,6 +340,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
         case 15: try { try decoder.decodeSingularStringField(value: &_storage._defaultObjectTypeID) }()
         case 16: try { try decoder.decodeSingularStringField(value: &_storage._endRelationKey) }()
         case 17: try { try decoder.decodeSingularBoolField(value: &_storage._wrapContent) }()
+        case 18: try { try decoder.decodeSingularEnumField(value: &_storage._listSize) }()
         default: break
         }
       }
@@ -353,6 +400,9 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
       if _storage._wrapContent != false {
         try visitor.visitSingularBoolField(value: _storage._wrapContent, fieldNumber: 17)
       }
+      if _storage._listSize != .compact {
+        try visitor.visitSingularEnumField(value: _storage._listSize, fieldNumber: 18)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -379,6 +429,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
         if _storage._defaultObjectTypeID != rhs_storage._defaultObjectTypeID {return false}
         if _storage._endRelationKey != rhs_storage._endRelationKey {return false}
         if _storage._wrapContent != rhs_storage._wrapContent {return false}
+        if _storage._listSize != rhs_storage._listSize {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -394,6 +445,10 @@ extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: SwiftProtobuf._Pro
 
 extension Anytype_Model_Block.Content.Dataview.View.Size: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Small\0\u{1}Medium\0\u{1}Large\0")
+}
+
+extension Anytype_Model_Block.Content.Dataview.View.ListSize: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Compact\0\u{1}Regular\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

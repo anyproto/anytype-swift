@@ -1450,6 +1450,11 @@ extension Anytype_Rpc.Relation.Options.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Space.ChangeOwnership.Response: ResultWithError {}
+extension Anytype_Rpc.Space.ChangeOwnership.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Space.Delete.Response: ResultWithError {}
 extension Anytype_Rpc.Space.Delete.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
