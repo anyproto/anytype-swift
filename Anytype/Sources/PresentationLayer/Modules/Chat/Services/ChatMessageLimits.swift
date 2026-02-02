@@ -16,8 +16,8 @@ protocol ChatMessageLimitsProtocol: AnyObject, Sendable {
 }
 
 enum ChatMessageGlobalLimits {
-    static let textLimit = 2000
-    static let textLimitWarning = 1950
+    static let textLimit = 4000
+    static let textLimitWarning = 3950
 }
 
 final class ChatMessageLimits: ChatMessageLimitsProtocol, Sendable {
