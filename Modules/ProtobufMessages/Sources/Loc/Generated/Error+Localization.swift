@@ -7185,6 +7185,39 @@ extension Anytype_Rpc.Relation.Options.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Space.ChangeOwnership.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.ChangeOwnership.badInput")
+            case .noSuchSpace:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.ChangeOwnership.noSuchSpace")
+            case .spaceIsDeleted:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.ChangeOwnership.spaceIsDeleted")
+            case .requestFailed:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.ChangeOwnership.requestFailed")
+            case .participantNotFound:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.ChangeOwnership.participantNotFound")
+            case .incorrectPermissions:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.ChangeOwnership.incorrectPermissions")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Space.Delete.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

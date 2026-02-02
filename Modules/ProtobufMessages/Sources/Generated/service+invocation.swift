@@ -554,6 +554,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func spaceChangeOwnership(
+        _ request: Anytype_Rpc.Space.ChangeOwnership.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.ChangeOwnership.Request, Anytype_Rpc.Space.ChangeOwnership.Response> {
+        return Invocation(messageName: "SpaceChangeOwnership", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceChangeOwnership(requestData) ?? Data()
+            return try Anytype_Rpc.Space.ChangeOwnership.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func spaceDeleteCorruptedBackup(
         _ request: Anytype_Rpc.Space.DeleteCorruptedBackup.Request = .init()
     ) -> Invocation<Anytype_Rpc.Space.DeleteCorruptedBackup.Request, Anytype_Rpc.Space.DeleteCorruptedBackup.Response> {
