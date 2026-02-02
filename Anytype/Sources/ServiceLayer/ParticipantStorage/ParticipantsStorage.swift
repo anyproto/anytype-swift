@@ -53,7 +53,7 @@ actor ParticipantsStorage: ParticipantsStorageProtocol, Sendable {
 
     func startSubscription() async {
         guard subscription.isNil else {
-            anytypeAssertionFailure("Try to start ParticipantsStorage multiple times")
+            anytypeAssertionFailure("You are trying to start ParticipantsStorage multiple times")
             return
         }
         
