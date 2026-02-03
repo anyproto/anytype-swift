@@ -5,7 +5,7 @@ Anytype is a privacy-focused, local-first workspace application for iOS. Built w
 
 ## ⚠️ CRITICAL RULES - NEVER VIOLATE
 1. **NEVER commit/stage without explicit user request** - Wait for user to explicitly ask
-2. **NEVER add AI signatures anywhere** - No "Co-Authored-By: Claude", no "🤖 Generated with Claude Code", no AI attribution in commits, PRs, or code
+2. **NEVER add AI signatures in code** - No AI attribution comments or markers in source files
 3. **NEVER run destructive git operations** without explicit approval (`--amend`, `reset --hard`, `push --force`, `clean -fd`)
 4. **Always present action plan** before implementing multi-step changes and await approval
 
@@ -139,7 +139,7 @@ Modules/                 # Swift packages (AnytypeCore, Loc, Assets, Services)
 ### Branches & PRs
 - **Main branch**: `develop`
 - **Feature branches**: `ios-XXXX-description`
-- **Commit messages**: Single line, no AI signatures
+- **Commit messages**: Single line
 - **Commit tone**: Direct, technical, no buzzwords. Focus on what changed and why.
 - **PR format**: `## Summary` + 1-3 bullet points (no test plan needed)
 - **Release branches**: Target release branch in PR, add "Release" label

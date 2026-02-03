@@ -51,6 +51,10 @@
     ],
     "deny": []
   },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [],
   "hooks": {
