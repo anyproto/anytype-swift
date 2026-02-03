@@ -3,6 +3,7 @@ import ProtobufMessages
 final class GroupsSubscribeService: GroupsSubscribeServiceProtocol {
     
     public func startSubscription(
+        spaceId: String,
         id: String,
         relationKey: String,
         filters: [DataviewFilter],
@@ -10,6 +11,7 @@ final class GroupsSubscribeService: GroupsSubscribeServiceProtocol {
         collectionId: String?
     ) async throws -> GroupsSubscribeResult {
         let response = try await ClientCommands.objectGroupsSubscribe(.with {
+            $0.spaceID = spaceId
             $0.subID = id
             $0.relationKey = relationKey
             $0.filters = filters

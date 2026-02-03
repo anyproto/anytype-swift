@@ -1,19 +1,22 @@
 import Services
 
 struct GroupsSubscriptionData: Equatable {
+    let spaceId: String
     let identifier: String
     let relationKey: String
     let filters: [DataviewFilter]
     let source: [String]?
     let collectionId: String?
-    
+
     init(
+        spaceId: String,
         identifier: String,
         relationKey: String,
         filters: [DataviewFilter],
         source: [String]?,
         collectionId: String?
     ) {
+        self.spaceId = spaceId
         self.identifier = identifier
         self.relationKey = relationKey
         self.filters = filters

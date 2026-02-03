@@ -35,6 +35,8 @@ final class HomeWidgetsViewModel {
     private var expandedService: any ExpandedServiceProtocol
     @Injected(\.chatMessagesPreviewsStorage) @ObservationIgnored
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
+    @Injected(\.objectTypesWithObjectsCreatedService) @ObservationIgnored
+    private var objectTypesWithObjectsCreatedService: any ObjectTypesWithObjectsCreatedServiceProtocol
 
     @ObservationIgnored
     weak var output: (any HomeWidgetsModuleOutput)?
@@ -166,15 +168,21 @@ final class HomeWidgetsViewModel {
         let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
         let allowedLayouts = DetailsLayout.widgetTypeLayouts(spaceUxType: spaceUxType)
 
-        let stream = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)
-            .values
-            .map { objects in
-                let objects = objects
+        await objectTypesWithObjectsCreatedService.startSubscription(spaceId: spaceId, spaceUxType: spaceUxType)
+
+        let typesPublisher = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)
+        let objectsCreatedPublisher = objectTypesWithObjectsCreatedService.typeIdsWithObjectsCreatedPublisher
+
+        let stream = typesPublisher.combineLatest(objectsCreatedPublisher)
+            .map { (types, typeIdsWithObjectsCreated) in
+                types
                     .filter { ($0.recommendedLayout.map { allowedLayouts.contains($0) } ?? false) && !$0.isTemplateType }
-                return objects.map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
+                    .filter { typeIdsWithObjectsCreated.contains($0.id) }
+                    .map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
             }
             .removeDuplicates()
-        
+            .values
+
         for await objectTypes in stream {
             objectTypesDataLoaded = true
             objectTypeWidgets = objectTypes
