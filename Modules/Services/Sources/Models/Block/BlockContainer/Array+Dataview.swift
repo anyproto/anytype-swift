@@ -21,7 +21,6 @@ extension Array where Element == DataviewView {
 
 public extension DataviewViewType {
     var isSupported: Bool {
-        self == .table ||
         self == .gallery ||
         self == .list ||
         (FeatureFlags.setKanbanView && self == .kanban)

@@ -121,13 +121,16 @@ final class SetViewPickerViewModel {
     
     func createView() async throws {
         guard let details = setDocument.details else { return }
-        
+
         var type = DataviewViewType.list
         if details.isObjectType {
-            let listObjectTypesKeys = [ObjectTypeUniqueKey.task, ObjectTypeUniqueKey.template, ObjectTypeUniqueKey.project]
-            type = listObjectTypesKeys.contains(ObjectType(details: details).uniqueKey) ? .list : .table
+            let objectType = ObjectType(details: details)
+            let galleryTypeKeys: [ObjectTypeUniqueKey] = [.image, .video]
+            if galleryTypeKeys.contains(objectType.uniqueKey) {
+                type = .gallery
+            }
         }
-        
+
         let newView = setDocument.activeView.updated(
             name: "",
             type: type,
@@ -143,7 +146,7 @@ final class SetViewPickerViewModel {
         )
         output?.onAddButtonTap(with: viewId)
         AnytypeAnalytics.instance().logAddView(
-            type: DataviewViewType.table.analyticStringValue,
+            type: type.analyticStringValue,
             objectType: setDocument.analyticsType
         )
     }
