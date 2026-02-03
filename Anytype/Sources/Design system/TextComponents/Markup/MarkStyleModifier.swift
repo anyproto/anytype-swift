@@ -134,7 +134,7 @@ final class MarkStyleModifier {
     }
     
     private func mentionUpdate(data: MentionObject) -> AttributedStringChange {
-        let deletedStyle = data.isDeleted || data.isArchived
+        let deletedStyle = data.isArchivedOrDeleted
         
         var changeAttributes: [NSAttributedString.Key: Any] = [
             .mention: data.id,

@@ -92,6 +92,10 @@ extension BundledPropertiesValueProvider {
     var isNotDeletedAndArchived: Bool {
         return !isDeleted && !isArchived
     }
+
+    var isArchivedOrDeleted: Bool {
+        return isArchived || isDeleted
+    }
     
     var isTemplate: Bool { objectType.isTemplateType }
     var isTemplateType: Bool { uniqueKey == ObjectTypeUniqueKey.template.value }

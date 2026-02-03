@@ -640,7 +640,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     private func subscribeOnPermissions() async {
         let permissionsSequence = accountParticipantsStorage.canEditSequence(spaceId: spaceId)
         let deletedOrArchivedSequence = chatObject.detailsPublisher
-            .map { !$0.isDeleted && !$0.isArchived }
+            .map { !$0.isArchivedOrDeleted }
             .removeDuplicates()
             .values
 
