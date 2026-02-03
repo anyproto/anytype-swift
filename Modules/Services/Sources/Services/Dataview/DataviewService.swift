@@ -4,7 +4,9 @@ import Combine
 import AnytypeCore
 
 final class DataviewService: DataviewServiceProtocol {
-    
+
+    private let dataviewDefaultViewCorrectorService: any DataviewDefaultViewCorrectorServiceProtocol = Container.shared.dataviewDefaultViewCorrectorService()
+
     public func updateView(objectId: String, blockId: String, view: DataviewView) async throws {
         try await ClientCommands.blockDataviewViewUpdate(.with {
             $0.contextID = objectId
@@ -189,9 +191,11 @@ final class DataviewService: DataviewServiceProtocol {
             }
         }).invoke()
 
-        return try ObjectDetails(protobufStruct: response.details)
+        let objectDetails = try ObjectDetails(protobufStruct: response.details)
+        try? await dataviewDefaultViewCorrectorService.correctDefaultViewTypeIfNeeded(objectId: objectDetails.id, spaceId: spaceId)
+        return objectDetails
     }
-    
+
     public func setPositionForView(objectId: String, blockId: String, viewId: String, position: Int) async throws {
         try await ClientCommands.blockDataviewViewSetPosition(.with {
             $0.contextID = objectId
