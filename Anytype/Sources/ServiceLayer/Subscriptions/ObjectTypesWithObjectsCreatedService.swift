@@ -22,6 +22,10 @@ final class ObjectTypesWithObjectsCreatedService: ObjectTypesWithObjectsCreatedS
     private var cancellable: AnyCancellable?
 
     nonisolated init() {}
+    
+    deinit { Task { @MainActor [subscriptionStorage]  in
+        try? await subscriptionStorage?.stopSubscription()
+    } }
 
     var typeIdsWithObjectsCreatedPublisher: AnyPublisher<Set<String>, Never> {
         typeIdsSubject.eraseToAnyPublisher()

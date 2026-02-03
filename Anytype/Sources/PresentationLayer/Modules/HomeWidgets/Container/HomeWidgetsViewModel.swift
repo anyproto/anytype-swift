@@ -78,7 +78,7 @@ final class HomeWidgetsViewModel {
         self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
         self.unreadSectionIsExpanded = expandedService.isExpanded(id: Constants.unreadSectionId, defaultValue: true)
     }
-    
+
     func startSubscriptions() async {
         async let widgetObjectSub: () = startWidgetObjectTask()
         async let participantTask: () = startParticipantTask()
