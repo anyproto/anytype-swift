@@ -18,35 +18,34 @@ enum RoundedButtonDecoration {
 }
 
 struct RoundedButtonView: View {
-    
+
     let text: String
     let textColor: Color
     let icon: ImageAsset?
     let decoration: RoundedButtonDecoration?
-    
+
+    var hasIcon: Bool { icon != nil }
+
     init(_ text: String, textColor: Color = .Text.primary, icon: ImageAsset? = nil, decoration: RoundedButtonDecoration? = nil) {
         self.text = text
         self.textColor = textColor
         self.icon = icon
         self.decoration = decoration
     }
-    
+
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
             if let icon {
                 Image(asset: icon)
                     .renderingMode(.template)
                     .foregroundStyle(Color.Text.primary)
-                    .frame(width: 24, height: 24)
-                Spacer.fixedWidth(8)
+                    .frame(width: 20, height: 20)
+                Spacer.fixedWidth(12)
             }
-            AnytypeText(text, style: .previewTitle1Regular).foregroundStyle(textColor)
+            AnytypeText(text, style: .bodySemibold).foregroundStyle(textColor)
             Spacer()
             decorationView
         }
-        .padding(.vertical, 20)
-        .padding(.horizontal, 16)
-        .border(16, color: .Shape.primary, lineWidth: 0.5)
     }
     
     @ViewBuilder
@@ -75,7 +74,8 @@ struct RoundedButtonView: View {
         case let .objectType(objectType):
             HStack(spacing: 8) {
                 IconView(object: objectType.icon).frame(width: 20, height: 20)
-                AnytypeText(objectType.name, style: .previewTitle1Regular)
+                AnytypeText(objectType.name, style: .bodyRegular)
+                    .foregroundStyle(Color.Text.secondary)
                     .lineLimit(1)
             }
             Spacer.fixedWidth(8)
@@ -83,7 +83,8 @@ struct RoundedButtonView: View {
         case let .object(icon, name):
             HStack(spacing: 8) {
                 IconView(icon: icon).frame(width: 20, height: 20)
-                AnytypeText(name, style: .previewTitle1Regular)
+                AnytypeText(name, style: .bodyRegular)
+                    .foregroundStyle(Color.Text.secondary)
                     .lineLimit(1)
             }
             Spacer.fixedWidth(8)
@@ -97,5 +98,11 @@ struct RoundedButtonView: View {
 }
 
 #Preview {
-    RoundedButtonView("ClickMe", icon: .X24.member, decoration: .caption("445"))
+    SettingsSection {
+        RoundedButtonView("Members", icon: .X24.member, decoration: .chervon)
+            .settingsRow(showDivider: true, leadingPadding: 48)
+        RoundedButtonView("Notifications", icon: .X24.unmuted, decoration: .caption("All"))
+            .settingsRow(showDivider: false, leadingPadding: 48)
+    }
+    .padding()
 }
