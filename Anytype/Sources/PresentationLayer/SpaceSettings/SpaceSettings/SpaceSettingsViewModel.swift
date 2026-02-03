@@ -53,6 +53,8 @@ final class SpaceSettingsViewModel {
     private var userDefaults: any UserDefaultsStorageProtocol
     @ObservationIgnored @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored @Injected(\.membershipStatusStorage)
+    private var membershipStatusStorage: any MembershipStatusStorageProtocol
 
     @ObservationIgnored
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
@@ -97,6 +99,10 @@ final class SpaceSettingsViewModel {
     var canAddWriters = true
     var joiningCount: Int = 0
     var isOneToOne = false
+    var wallpaper: SpaceWallpaperType = .default
+    var membership: MembershipStatus = .empty
+    var hasMembership = false
+    var anytypeName = ""
 
     let workspaceInfo: AccountInfo
     @ObservationIgnored
@@ -234,7 +240,9 @@ final class SpaceSettingsViewModel {
         async let widgetsObjectTask: () = startWidgetsObjectTask()
         async let systemSettingsChangesTask: () = startSystemSettingsChangesTask()
         async let homeObjectTask: () = startHomeObjectTask()
-        (_,_,_,_,_,_,_) = await (storageTask, joiningTask, participantTask, defaultTypeTask, widgetsObjectTask, systemSettingsChangesTask, homeObjectTask)
+        async let wallpaperTask: () = startWallpaperTask()
+        async let membershipTask: () = startMembershipTask()
+        (_,_,_,_,_,_,_,_,_) = await (storageTask, joiningTask, participantTask, defaultTypeTask, widgetsObjectTask, systemSettingsChangesTask, homeObjectTask, wallpaperTask, membershipTask)
     }
     
     private func startStorageTask() async {
@@ -250,6 +258,7 @@ final class SpaceSettingsViewModel {
             joiningCount = participants.filter { $0.status == .joining }.count
             owner = participants.first { $0.isOwner }
             updateViewState()
+            updateOneToOneParticipant()
         }
     }
     
@@ -281,6 +290,18 @@ final class SpaceSettingsViewModel {
     private func startHomeObjectTask() async {
         for await _ in userDefaults.homeObjectIdPublisher(spaceId: workspaceInfo.accountSpaceId).values {
             await loadHomePageState()
+        }
+    }
+
+    private func startWallpaperTask() async {
+        for await newWallpaper in userDefaults.wallpaperPublisher(spaceId: workspaceInfo.accountSpaceId).values {
+            wallpaper = newWallpaper
+        }
+    }
+
+    private func startMembershipTask() async {
+        for await newMembership in membershipStatusStorage.statusPublisher.values {
+            membership = newMembership
         }
     }
 
@@ -337,6 +358,8 @@ final class SpaceSettingsViewModel {
 
         uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat && FeatureFlags.channelTypeSwitcher ? SpaceUxTypeSettingsData(uxType: spaceView.uxType) : nil
 
+        updateOneToOneParticipant()
+
         info = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
             self?.snackBarData = ToastBarData(Loc.copiedToClipboard($0))
         }
@@ -350,7 +373,17 @@ final class SpaceSettingsViewModel {
 
         Task { try await updateInviteIfNeeded() }
     }
-    
+
+    private func updateOneToOneParticipant() {
+        guard let participantSpaceView else { return }
+        let oneToOneIdentity = participantSpaceView.spaceView.oneToOneIdentity
+        guard oneToOneIdentity.isNotEmpty else { return }
+        guard let participant = participants.first(where: { $0.identity == oneToOneIdentity }) else { return }
+
+        hasMembership = participant.globalName.isNotEmpty
+        anytypeName = participant.displayGlobalNameTruncated
+    }
+
     private func buildShareSection(participantSpaceView: ParticipantSpaceViewData) -> SpaceSettingsShareSection {
         if participantSpaceView.canEdit {
             switch participantSpaceView.spaceView.spaceAccessType {

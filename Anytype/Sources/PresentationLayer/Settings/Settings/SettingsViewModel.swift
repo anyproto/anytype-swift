@@ -53,11 +53,7 @@ final class SettingsViewModel {
     }
 
     var anyNameBadgeState: AnyNameBadgeState {
-        if membership.anyName.handle.isNotEmpty {
-            return .memberName(membership.anyName.formatted)
-        } else {
-            return .anytypeId(accountManager.account.id)
-        }
+        membership.anyNameBadgeState(accountId: accountManager.account.id)
     }
 
     init(output: some SettingsModuleOutput) {

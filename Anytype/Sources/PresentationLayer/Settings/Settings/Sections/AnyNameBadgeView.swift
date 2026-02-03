@@ -4,6 +4,8 @@ enum AnyNameBadgeState {
     case memberName(String)
     case anytypeId(String)
 
+    static var empty: AnyNameBadgeState { .anytypeId("") }
+
     var displayText: String {
         switch self {
         case .memberName(let name):

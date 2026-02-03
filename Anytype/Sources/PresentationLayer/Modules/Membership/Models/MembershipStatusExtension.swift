@@ -57,12 +57,20 @@ extension MembershipStatus {
     
     var decoration: SettingsSectionItemView.Decoration {
         guard let tier else { return .button(text: Loc.join) }
-        
+
         switch tier.type {
         case .legacyExplorer, .starter:
             return .button(text: Loc.join)
         case .explorer, .builder, .coCreator, .anyTeam, .custom, .seatBasedTier:
             return .arrow (text: tier.name)
+        }
+    }
+
+    func anyNameBadgeState(accountId: String) -> AnyNameBadgeState {
+        if anyName.handle.isNotEmpty {
+            return .memberName(anyName.formatted)
+        } else {
+            return .anytypeId(accountId)
         }
     }
 }
