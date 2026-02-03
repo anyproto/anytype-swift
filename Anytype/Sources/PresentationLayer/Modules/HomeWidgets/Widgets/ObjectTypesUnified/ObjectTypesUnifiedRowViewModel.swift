@@ -11,6 +11,8 @@ final class ObjectTypesUnifiedRowViewModel {
     private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.participantsStorage) @ObservationIgnored
     private var accountParticipantsStorage: any ParticipantsStorageProtocol
+    @Injected(\.spaceViewsStorage) @ObservationIgnored
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
     private let info: ObjectTypeWidgetInfo
     @ObservationIgnored
@@ -80,7 +82,8 @@ final class ObjectTypesUnifiedRowViewModel {
         for await type in objectTypeProvider.objectTypePublisher(typeId: info.objectTypeId).values {
             typeIcon = .object(type.icon)
             typeName = type.pluralDisplayName
-            typeCanBeCreated = type.recommendedLayout?.isSupportedForCreation ?? false
+            let spaceUxType = spaceViewsStorage.spaceView(spaceId: info.spaceId)?.uxType
+            typeCanBeCreated = type.recommendedLayout?.isSupportedForCreation(spaceUxType: spaceUxType) ?? false
             updateCanCreateObject()
         }
     }

@@ -64,22 +64,29 @@ public extension DetailsLayout {
     var isFile: Bool { Self.fileLayouts.contains(self) }
     var isFileOrMedia: Bool { Self.fileAndMediaLayouts.contains(self) }
     var isSupportedForOpening: Bool { Self.supportedForOpening.contains(self) }
-    var isSupportedForCreation: Bool { Self.supportedForCreationBase.contains(self) }
     var haveIcon: Bool { Self.layoutsWithIcon.contains(self) }
     var haveCover: Bool { Self.layoutsWithCover.contains(self) }
-    
+
     var isNote: Bool { self == .note }
     var isImage: Bool { self == .image }
     var isParticipant: Bool { self == .participant }
     var isDate: Bool { self == .date }
     var isBookmark: Bool { self == .bookmark }
-    
+
     var isSet: Bool { self == .set }
     var isCollection: Bool { self == .collection }
     var isList: Bool { Self.listLayouts.contains(self) }
 
     var isObjectType: Bool { self == .objectType }
     var isChat: Bool { Self.chatLayouts.contains(self) }
+}
+
+// MARK: - Instance functions
+
+public extension DetailsLayout {
+    func isSupportedForCreation(spaceUxType: SpaceUxType?) -> Bool {
+        Self.supportedForCreation(spaceUxType: spaceUxType).contains(self)
+    }
 
     func isSupportedForCreationInSets(spaceUxType: SpaceUxType?) -> Bool {
         Self.supportedForCreationInSets(spaceUxType: spaceUxType).contains(self)
