@@ -35,7 +35,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
 
                     let nonArchivedPreviews = spacePreviews.filter { preview in
                         let chatDetail = chatDetails.first { $0.id == preview.chatId }
-                        return !(chatDetail?.isArchived ?? false)
+                        return !(chatDetail?.isArchivedOrDeleted ?? false)
                     }
 
                     guard let latestPreview = nonArchivedPreviews.max(by: { preview1, preview2 in

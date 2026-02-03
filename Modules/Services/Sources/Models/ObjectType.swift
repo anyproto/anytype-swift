@@ -163,4 +163,6 @@ extension ObjectType: DetailsModel {
     public var isNoteLayout: Bool { recommendedLayout.isNote }
     
     public var isImageLayout: Bool { recommendedLayout.isImage }
+
+    public var isArchivedOrDeleted: Bool { isArchived || isDeleted }
 }

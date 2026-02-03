@@ -7,4 +7,5 @@ extension MentionObject {
     var type: ObjectType? { details.objectType }
     var isDeleted: Bool { details.isDeleted }
     var isArchived: Bool { details.isArchived }
+    var isArchivedOrDeleted: Bool { isDeleted || isArchived }
 }

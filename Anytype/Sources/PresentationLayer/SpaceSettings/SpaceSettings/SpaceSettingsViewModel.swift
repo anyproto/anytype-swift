@@ -313,7 +313,7 @@ final class SpaceSettingsViewModel {
         }
 
         let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
-        if let details, !details.isDeleted, !details.isArchived {
+        if let details, !details.isArchivedOrDeleted {
             homePageState = .object(icon: details.objectIconImage, name: details.name)
         } else {
             homePageState = .default(defaultHomePageTitle(spaceId: spaceId))
