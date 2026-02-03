@@ -29,7 +29,7 @@ struct RoundedButton: View {
 
 #Preview {
     SettingsSection {
-        RoundedButton("Members", icon: .X24.member, decoration: .chervon) { }
+        RoundedButton("Members", icon: .X24.member, decoration: .chevron) { }
             .settingsRow(showDivider: true, leadingPadding: 48)
         RoundedButton("Notifications", icon: .X24.unmuted, decoration: .caption("All")) { }
             .settingsRow(showDivider: false, leadingPadding: 48)

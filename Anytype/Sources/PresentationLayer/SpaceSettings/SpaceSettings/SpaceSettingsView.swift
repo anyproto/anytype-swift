@@ -222,7 +222,7 @@ struct SpaceSettingsView: View {
         case .owner:
             collaborationSection(memberDecoration: ownerButtonDecoration())
         case .editor:
-            collaborationSection(memberDecoration: .chervon)
+            collaborationSection(memberDecoration: .chevron)
         case .viewer:
             collaborationSection()
         }
@@ -270,7 +270,7 @@ struct SpaceSettingsView: View {
                         RoundedButton(
                             Loc.members,
                             icon: .X24.member,
-                            decoration: .chervon
+                            decoration: .chevron
                         ) { model.onMembersTap() }
                         .settingsRow(showDivider: false, leadingPadding: 48)
                     }
@@ -285,7 +285,7 @@ struct SpaceSettingsView: View {
         } else if model.joiningCount > 0 {
             return .badge(model.joiningCount)
         } else {
-            return .chervon
+            return .chevron
         }
     }
 
@@ -296,13 +296,13 @@ struct SpaceSettingsView: View {
             RoundedButton(
                 Loc.objectTypes,
                 icon: .X24.objectType,
-                decoration: .chervon
+                decoration: .chevron
             ) { model.onObjectTypesTap() }
             .settingsRow(showDivider: true, leadingPadding: 48)
             RoundedButton(
                 Loc.properties,
                 icon: .X24.properties,
-                decoration: .chervon
+                decoration: .chevron
             ) { model.onPropertiesTap() }
             .settingsRow(showDivider: false, leadingPadding: 48)
         }
@@ -326,7 +326,7 @@ struct SpaceSettingsView: View {
             .settingsRow(showDivider: true)
             RoundedButton(
                 Loc.wallpaper,
-                decoration: .chervon
+                decoration: .chevron
             ) { model.onWallpaperTap() }
             .settingsRow(showDivider: false)
         }
@@ -367,7 +367,7 @@ struct SpaceSettingsView: View {
             RoundedButton(
                 Loc.bin,
                 icon: .X24.bin,
-                decoration: .chervon
+                decoration: .chevron
             ) { model.onBinTap() }
             .settingsRow(showDivider: false, leadingPadding: 48)
         }

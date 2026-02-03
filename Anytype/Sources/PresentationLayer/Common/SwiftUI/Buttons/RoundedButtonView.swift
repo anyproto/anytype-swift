@@ -3,7 +3,7 @@ import Services
 
 
 enum RoundedButtonDecoration {
-    case chervon
+    case chevron
     case caption(String)
     case badge(Int)
     case alert
@@ -51,7 +51,7 @@ struct RoundedButtonView: View {
     @ViewBuilder
     var decorationView: some View {
         switch decoration {
-        case .chervon:
+        case .chevron:
             Spacer.fixedWidth(8)
             IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)
         case .caption(let caption):
@@ -99,7 +99,7 @@ struct RoundedButtonView: View {
 
 #Preview {
     SettingsSection {
-        RoundedButtonView("Members", icon: .X24.member, decoration: .chervon)
+        RoundedButtonView("Members", icon: .X24.member, decoration: .chevron)
             .settingsRow(showDivider: true, leadingPadding: 48)
         RoundedButtonView("Notifications", icon: .X24.unmuted, decoration: .caption("All"))
             .settingsRow(showDivider: false, leadingPadding: 48)
