@@ -11208,6 +11208,28 @@
         }
       }
     },
+    "EditSet.Popup.Filter.Advanced.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editing is available on Desktop"
+          }
+        }
+      }
+    },
+    "EditSet.Popup.Filter.Advanced.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advanced filter"
+          }
+        }
+      }
+    },
     "EditSet.Popup.Filter.Condition.Checkbox.Equal" : {
       "extractionState" : "manual",
       "localizations" : {
