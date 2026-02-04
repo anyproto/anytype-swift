@@ -1507,12 +1507,13 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logChangeMessageNotificationState(type: String, route: ChangeMessageNotificationStateRoute) {
+    func logChangeMessageNotificationState(type: String, route: ChangeMessageNotificationStateRoute, uxType: ChangeMessageNotificationStateUxType) {
         logEvent(
             "ChangeMessageNotificationState",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type,
                 AnalyticsEventsPropertiesKey.route: route.rawValue,
+                AnalyticsEventsPropertiesKey.uxType: uxType.rawValue,
             ]
         )
     }
@@ -1624,6 +1625,10 @@ extension AnytypeAnalytics {
                 }
             }
         )
+    }
+
+    func logScreenChatInfo() {
+        logEvent("ScreenChatInfo")
     }
 
     func logAddReaction(chatId: String) {

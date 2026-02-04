@@ -3,6 +3,7 @@ import AnytypeCore
 import Services
 import Combine
 import SwiftUI
+import AsyncAlgorithms
 
 @MainActor
 @Observable
@@ -37,6 +38,8 @@ final class HomeWidgetsViewModel {
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
     @Injected(\.objectTypesWithObjectsCreatedService) @ObservationIgnored
     private var objectTypesWithObjectsCreatedService: any ObjectTypesWithObjectsCreatedServiceProtocol
+    @Injected(\.chatDetailsStorage) @ObservationIgnored
+    private var chatDetailsStorage: any ChatDetailsStorageProtocol
 
     @ObservationIgnored
     weak var output: (any HomeWidgetsModuleOutput)?
@@ -112,7 +115,15 @@ final class HomeWidgetsViewModel {
     func onSpaceSelected() {
         output?.onSpaceSelected()
     }
-    
+
+    func onMembersSelected(spaceId: String, route: SettingsSpaceShareRoute) {
+        output?.onSpaceChatMembersSelected(spaceId: spaceId, route: route)
+    }
+
+    func onQrCodeSelected(url: URL) {
+        output?.onSpaceChatShowQrCodeSelected(url: url)
+    }
+
     func onCreateObjectType() {
         output?.onCreateObjectType()
     }
@@ -202,10 +213,15 @@ final class HomeWidgetsViewModel {
         guard spaceView?.uxType.supportsMultiChats ?? false else { return }
 
         let previewsSequence = await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
+        let chatsSequence = await chatDetailsStorage.allChatsSequence
 
-        for await previews in previewsSequence {
+        for await (previews, chatDetails) in combineLatest(previewsSequence, chatsSequence) {
             let newUnreadChats = previews
-                .filter { $0.spaceId == spaceId && $0.unreadCounter > 0 }
+                .filter { preview in
+                    guard preview.spaceId == spaceId && preview.unreadCounter > 0 else { return false }
+                    let chatDetail = chatDetails.first { $0.id == preview.chatId }
+                    return !(chatDetail?.isArchivedOrDeleted ?? false)
+                }
                 .map { UnreadChatWidgetData(id: $0.chatId, spaceId: spaceId, output: output) }
 
             guard unreadChats != newUnreadChats else { continue }

@@ -45,7 +45,7 @@ final class HomePagePickerViewModel {
                 layouts: layouts,
                 excludedIds: [],
                 spaceId: spaceId
-            ).filter { !$0.isArchived && !$0.isDeleted }
+            ).filter { !$0.isArchivedOrDeleted }
         } catch is CancellationError {
             // Ignore
         } catch {

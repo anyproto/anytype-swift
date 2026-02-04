@@ -407,4 +407,8 @@ extension Container {
     var experimentalFeaturesStorage: Factory<any ExperimentalFeaturesStorageProtocol> {
         self { ExperimentalFeaturesStorage() }.shared
     }
+
+    var mediaCacheHeatingService: Factory<any MediaCacheHeatingServiceProtocol> {
+        self { MediaCacheHeatingService() }
+    }
 }

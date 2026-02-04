@@ -132,6 +132,9 @@ final class ChatCreateViewModel {
 
     func onAppear() {
         updateChatIcon()
+        if case .edit = data.mode {
+            AnytypeAnalytics.instance().logScreenChatInfo()
+        }
     }
 
     func onIconTapped() {

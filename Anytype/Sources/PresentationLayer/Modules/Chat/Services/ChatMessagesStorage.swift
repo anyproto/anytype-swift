@@ -46,6 +46,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     private var seachService: any SearchServiceProtocol
     @Injected(\.objectIdsSubscriptionService)
     private var objectIdsSubscriptionService: any ObjectIdsSubscriptionServiceProtocol
+    private let mediaCacheHeatingService: any MediaCacheHeatingServiceProtocol = Container.shared.mediaCacheHeatingService()
     
     private let chatObjectId: String
     private let spaceId: String
@@ -230,8 +231,9 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         subscription?.cancel()
         subscription = nil
         // Implemented in swift 6.1 https://github.com/swiftlang/swift-evolution/blob/main/proposals/0371-isolated-synchronous-deinit.md
-        Task { [chatService, chatObjectId, subId] in
+        Task { [chatService, chatObjectId, subId, mediaCacheHeatingService] in
             try await chatService.unsubscribeLastMessages(chatObjectId: chatObjectId, subId: subId)
+            await mediaCacheHeatingService.cancelAll()
         }
     }
     
@@ -407,6 +409,9 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         ) { [weak self] details in
             await self?.handleAttachmentSubscription(details: details)
         }
+
+        let details = subscribedAttachmentIds.compactMap { attachments.details(id: $0) }
+        await mediaCacheHeatingService.updateVisibleMedia(attachmentDetails: details)
     }
     
     private func markAsRead(startMessageId: String, endMessageId: String) async throws {

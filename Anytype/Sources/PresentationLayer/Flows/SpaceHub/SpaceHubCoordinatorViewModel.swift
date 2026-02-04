@@ -294,7 +294,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private func homeObjectScreenData(spaceId: String) async -> AnyHashable {
         if let objectId = userDefaults.homeObjectId(spaceId: spaceId) {
             let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
-            if let details, !details.isDeleted, !details.isArchived, let editorData = details.screenData().editorScreenData {
+            if let details, !details.isArchivedOrDeleted, let editorData = details.screenData().editorScreenData {
                 return editorData
             }
         }

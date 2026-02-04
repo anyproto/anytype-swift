@@ -11,9 +11,10 @@ struct SpaceSettingsView: View {
     init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
         _model = State(initialValue: SpaceSettingsViewModel(workspaceInfo: workspaceInfo, output: output))
     }
-    
+
     var body: some View {
         content
+            .background(backgroundView)
             .homeBottomPanelHidden(true)
             .onAppear {
                 model.onAppear()
@@ -24,12 +25,12 @@ struct SpaceSettingsView: View {
             .onChange(of: model.dismiss) {
                 dismiss()
             }
-        
+
             .sheet(item: $model.shareInviteLink) { link in
                 ActivityView(activityItems: [link])
             }
             .membershipUpgrade(reason: $model.membershipUpgradeReason)
-        
+
             .sheet(item: $model.showIconPickerSpaceId) {
                 SpaceObjectIconPickerView(spaceId: $0.value)
             }
@@ -50,26 +51,35 @@ struct SpaceSettingsView: View {
             }
             .snackbar(toastBarData: $model.snackBarData)
     }
-    
-    private var content: some View {
-        VStack(spacing: 0) {
-            header
-            
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 0) {
-                    spaceDetails
-                    sharing
-                    collaboration
-                    contentModel
-                    preferences
-                    dataManagement
-                    misc
-                }
-            }
-            .padding(.horizontal, 20)
+
+    @ViewBuilder
+    private var backgroundView: some View {
+        if model.isOneToOne {
+            DashboardWallpaper(wallpaper: model.wallpaper, spaceIcon: model.spaceIcon)
+        } else {
+            Color.VeryLight.grey.ignoresSafeArea()
         }
     }
-    
+
+    private var content: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 0) {
+                Spacer.fixedHeight(NavigationHeaderConstants.height)
+                spaceDetails
+                sharing
+                collaboration
+                contentModel
+                preferences
+                dataManagement
+                misc
+            }
+        }
+        .padding(.horizontal, 20)
+        .overlay(alignment: .top) {
+            header
+        }
+    }
+
     private var header: some View {
         NavigationHeader(title: "") {
             if !model.isOneToOne {
@@ -85,17 +95,29 @@ struct SpaceSettingsView: View {
             }
         }
     }
-    
+
     private var spaceDetails: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
                 spaceIconView
-                Menu {
-                    spaceNameMenuItems
-                } label: {
-                    AnytypeText(model.spaceName.isNotEmpty ? model.spaceName : Loc.untitled, style: .heading)
+                HStack(spacing: 4) {
+                    Menu {
+                        spaceNameMenuItems
+                    } label: {
+                        AnytypeText(model.spaceName.isNotEmpty ? model.spaceName : Loc.untitled, style: .heading)
+                    }
+                    if model.isOneToOne, model.hasMembership {
+                        Image(asset: .X18.membershipBadge)
+                            .frame(width: 20, height: 20)
+                    }
                 }
-                if !model.isOneToOne {
+                if model.isOneToOne {
+                    if model.anytypeName.isNotEmpty {
+                        Spacer.fixedHeight(4)
+                        AnytypeText(model.anytypeName, style: .caption1Regular)
+                            .foregroundStyle(Color.Text.transparentSecondary)
+                    }
+                } else {
                     Spacer.fixedHeight(4)
                     AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundStyle(Color.Text.secondary)
                 }
@@ -142,55 +164,54 @@ struct SpaceSettingsView: View {
             }
         }
     }
-    
+
     private var sharing: some View {
         Group {
         if model.inviteLink.isNotNil {
             Spacer.fixedHeight(24)
-            
-            HStack(spacing: 24) {
-                Button {
-                    model.onShareTap()
-                } label: {
-                    inviteLinkActionView(asset: .X32.shareLink, title: Loc.SpaceShare.Share.link)
-                }
-                
-                Button {
-                    model.onCopyLinkTap()
-                } label: {
-                    inviteLinkActionView(asset: .X32.copyLink, title: Loc.copyLink)
-                }
-                
-                Button {
-                    model.onQRCodeTap()
-                } label: {
-                    inviteLinkActionView(asset: .X32.qrCode, title: Loc.qrCode)
+
+            GlassEffectContainerIOS26(spacing: 24) {
+                HStack(spacing: 24) {
+                    Button {
+                        model.onShareTap()
+                    } label: {
+                        inviteLinkActionView(asset: .X32.shareLink, title: Loc.SpaceShare.Share.link)
+                    }
+
+                    Button {
+                        model.onCopyLinkTap()
+                    } label: {
+                        inviteLinkActionView(asset: .X32.copyLink, title: Loc.copyLink)
+                    }
+
+                    Button {
+                        model.onQRCodeTap()
+                    } label: {
+                        inviteLinkActionView(asset: .X32.qrCode, title: Loc.qrCode)
+                    }
                 }
             }
-            
+
             Spacer.fixedHeight(16)
         }
         }.animation(.default, value: model.inviteLink)
     }
-    
+
     private func inviteLinkActionView(asset: ImageAsset, title: String) -> some View {
         VStack(spacing: 0) {
-            VStack(spacing: 0) {
-                Image(asset: asset)
-                    .foregroundStyle(Color.Text.primary)
-                    .frame(width: 24, height: 24)
-            }
-            .padding(20)
-            .background(Color.Shape.transparentSecondary)
-            .clipShape(.rect(cornerRadius: 10))
-            
+            Image(asset: asset)
+                .foregroundStyle(Color.Text.primary)
+                .frame(width: 24, height: 24)
+                .frame(width: 64, height: 64)
+                .glassEffectInteractiveIOS26(in: Circle())
+
             Spacer.fixedHeight(6)
-            
+
             AnytypeText(title, style: .caption2Regular)
                 .foregroundStyle(Color.Text.primary)
         }
     }
-    
+
     @ViewBuilder
     private var collaboration: some View {
         switch model.shareSection {
@@ -201,38 +222,43 @@ struct SpaceSettingsView: View {
         case .owner:
             collaborationSection(memberDecoration: ownerButtonDecoration())
         case .editor:
-            collaborationSection(memberDecoration: .chervon)
+            collaborationSection(memberDecoration: .chevron)
         case .viewer:
             collaborationSection()
         }
     }
-    
+
     private func collaborationSection(memberDecoration: RoundedButtonDecoration? = nil) -> some View {
         VStack(spacing: 0) {
             SectionHeaderView(title: Loc.collaboration)
-            VStack(spacing: 8) {
+            SettingsSection {
                 if !model.isOneToOne {
-                    RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onMembersTap() }
+                    RoundedButton(
+                        Loc.members,
+                        icon: .X24.member,
+                        decoration: memberDecoration
+                    ) { model.onMembersTap() }
+                    .settingsRow(showDivider: true, leadingPadding: 48)
                 }
                 RoundedButton(
                     Loc.notifications,
                     icon: pushNotificationsSettingIcon(),
-                    decoration: .caption(pushNotificationsSettingCaption())) {
-                        model.onNotificationsTap()
-                    }
+                    decoration: .caption(pushNotificationsSettingCaption())
+                ) { model.onNotificationsTap() }
+                .settingsRow(showDivider: model.uxTypeSettingsData != nil, leadingPadding: 48)
                 if let data = model.uxTypeSettingsData {
                     RoundedButton(
                         Loc.channelType,
                         icon: data.icon,
-                        decoration: .caption(data.typaName)) {
-                            model.onUxTypeTap()
-                        }
+                        decoration: .caption(data.typaName)
+                    ) { model.onUxTypeTap() }
+                    .settingsRow(showDivider: false, leadingPadding: 48)
                 }
             }
         }
     }
-    
-    func privateSpaceSetting(state: PrivateSpaceSettingsShareSection) -> some View {
+
+    private func privateSpaceSetting(state: PrivateSpaceSettingsShareSection) -> some View {
         Group {
             switch state {
             case .unshareable:
@@ -240,7 +266,14 @@ struct SpaceSettingsView: View {
             case .shareable, .reachedSharesLimit:
                 if !model.isOneToOne {
                     SectionHeaderView(title: Loc.collaboration)
-                    RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { model.onMembersTap() }
+                    SettingsSection {
+                        RoundedButton(
+                            Loc.members,
+                            icon: .X24.member,
+                            decoration: .chevron
+                        ) { model.onMembersTap() }
+                        .settingsRow(showDivider: false, leadingPadding: 48)
+                    }
                 }
             }
         }
@@ -252,36 +285,53 @@ struct SpaceSettingsView: View {
         } else if model.joiningCount > 0 {
             return .badge(model.joiningCount)
         } else {
-            return .chervon
+            return .chevron
         }
     }
 
     @ViewBuilder
     private var contentModel: some View {
         SectionHeaderView(title: Loc.contentModel)
-        RoundedButton(Loc.objectTypes, icon: .X24.objectType, decoration: .chervon) { model.onObjectTypesTap() }
-        Spacer.fixedHeight(8)
-        RoundedButton(Loc.properties, icon: .X24.properties, decoration: .chervon) { model.onPropertiesTap() }
+        SettingsSection {
+            RoundedButton(
+                Loc.objectTypes,
+                icon: .X24.objectType,
+                decoration: .chevron
+            ) { model.onObjectTypesTap() }
+            .settingsRow(showDivider: true, leadingPadding: 48)
+            RoundedButton(
+                Loc.properties,
+                icon: .X24.properties,
+                decoration: .chevron
+            ) { model.onPropertiesTap() }
+            .settingsRow(showDivider: false, leadingPadding: 48)
+        }
     }
-    
+
     @ViewBuilder
     private var preferences: some View {
         SectionHeaderView(title: Loc.preferences)
-        if FeatureFlags.homePage {
+        SettingsSection {
+            if FeatureFlags.homePage {
+                RoundedButton(
+                    Loc.SpaceSettings.HomePage.title,
+                    decoration: model.homePageState.buttonDecoration
+                ) { model.onHomePageTap() }
+                .settingsRow(showDivider: true)
+            }
             RoundedButton(
-                Loc.SpaceSettings.HomePage.title,
-                decoration: model.homePageState.buttonDecoration
-            ) { model.onHomePageTap() }
-            Spacer.fixedHeight(8)
+                Loc.defaultObjectType,
+                decoration: .init(objectType: model.defaultObjectType)
+            ) { model.onDefaultObjectTypeTap() }
+            .settingsRow(showDivider: true)
+            RoundedButton(
+                Loc.wallpaper,
+                decoration: .chevron
+            ) { model.onWallpaperTap() }
+            .settingsRow(showDivider: false)
         }
-        RoundedButton(
-            Loc.defaultObjectType,
-            decoration: .init(objectType: model.defaultObjectType)
-        ) { model.onDefaultObjectTypeTap() }
-        Spacer.fixedHeight(8)
-        RoundedButton(Loc.wallpaper, decoration: .chervon) { model.onWallpaperTap() }
     }
-    
+
     @ViewBuilder
     private var dataManagement: some View {
         SectionHeaderView(title: Loc.Settings.dataManagement)
@@ -294,57 +344,69 @@ struct SpaceSettingsView: View {
                         Image(asset: .X24.storage)
                             .renderingMode(.template)
                             .foregroundStyle(Color.Text.primary)
-                            .frame(width: 24, height: 24)
-                        Spacer.fixedWidth(8)
-                        AnytypeText(Loc.SpaceSettings.remoteStorage, style: .previewTitle1Regular)
+                            .frame(width: 20, height: 20)
+                        Spacer.fixedWidth(12)
+                        AnytypeText(Loc.SpaceSettings.remoteStorage, style: .bodySemibold)
                         Spacer()
-                        Image(asset: .RightAttribute.disclosure)
+                        IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)
                     }
-                    .padding(20)
-                    
+                    .frame(height: 48)
+                    .padding(.horizontal, 16)
+
                     RemoteStorageSegment(model: model.storageInfo, showLegend: false).padding(.horizontal, 16)
                     Spacer.fixedHeight(16)
                 }
-                .border(12, color: .Shape.primary, lineWidth: 0.5)
+                .background(Color.Background.primary)
+                .clipShape(RoundedRectangle(cornerRadius: 24))
             }
-            
-            Spacer.fixedHeight(6)
+
+            Spacer.fixedHeight(8)
         }
-        
-        RoundedButton(Loc.bin, icon: .X24.bin, decoration: .chervon) {
-            model.onBinTap()
+
+        SettingsSection {
+            RoundedButton(
+                Loc.bin,
+                icon: .X24.bin,
+                decoration: .chevron
+            ) { model.onBinTap() }
+            .settingsRow(showDivider: false, leadingPadding: 48)
         }
     }
-    
+
     @ViewBuilder
     private var misc: some View {
         SectionHeaderView(title: Loc.misc)
-        
-        RoundedButton(Loc.SpaceSettings.info) {
-            model.onInfoTap()
-        }
-        
-        Spacer.fixedHeight(8)
-        
-        if model.allowDelete {
-            RoundedButton(Loc.SpaceSettings.deleteButton, textColor: .Pure.red) {
-                model.onDeleteTap()
+
+        SettingsSection {
+            RoundedButton(
+                Loc.SpaceSettings.info
+            ) { model.onInfoTap() }
+            .settingsRow(showDivider: model.allowDelete || model.allowLeave)
+
+            if model.allowDelete {
+                RoundedButton(
+                    Loc.SpaceSettings.deleteButton,
+                    textColor: .Pure.red
+                ) { model.onDeleteTap() }
+                .settingsRow(showDivider: model.allowLeave)
             }
-        }
-        if model.allowLeave {
-            RoundedButton(Loc.SpaceSettings.leaveButton, textColor: .Pure.red) {
-                model.onLeaveTap()
+            if model.allowLeave {
+                RoundedButton(
+                    Loc.SpaceSettings.leaveButton,
+                    textColor: .Pure.red
+                ) { model.onLeaveTap() }
+                .settingsRow(showDivider: false)
             }
         }
     }
-    
+
     private func pushNotificationsSettingIcon() -> ImageAsset {
         guard let status = model.pushNotificationsSettingsStatus, status.isAuthorized else {
             return .X24.muted
         }
         return model.pushNotificationsSettingsMode.isEnabled ? .X24.unmuted : .X24.muted
     }
-    
+
     private func pushNotificationsSettingCaption() -> String {
         guard let status = model.pushNotificationsSettingsStatus, status.isAuthorized else {
             return SpacePushNotificationsMode.nothing.titleShort
@@ -352,4 +414,3 @@ struct SpaceSettingsView: View {
         return model.pushNotificationsSettingsMode.titleShort
     }
 }
-

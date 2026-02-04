@@ -335,6 +335,45 @@ Use appropriate property wrappers:
 @Environment(\.dismiss) private var dismiss
 ```
 
+### Identifiable Wrappers for Sheet Presentation
+
+SwiftUI's `sheet(item:)` and `fullScreenCover(item:)` require `Identifiable` types. Instead of creating custom structs for each primitive type, use the existing wrappers in `IdentifiableExtension.swift`:
+
+| Wrapper | For Type | ID Type | Extension |
+|---------|----------|---------|-----------|
+| `StringIdentifiable` | `String` | `String` | `.identifiable` |
+| `IntIdentifiable` | `Int` | `Int` | `.identifiable` |
+| `DataIdentifiable` | `Data` | `Int` (hashValue) | `.identifiable` |
+| `URLIdentifiable` | `URL` | `String` (absoluteString) | `.identifiable` |
+
+```swift
+// ❌ WRONG - Custom wrapper duplicates existing pattern
+struct QrCodeInviteData: Identifiable, Hashable {
+    let url: URL
+    var id: Int { hashValue }
+}
+
+var qrCodeInviteData: QrCodeInviteData?
+
+func showQrCode(url: URL) {
+    qrCodeInviteData = QrCodeInviteData(url: url)
+}
+
+// ✅ CORRECT - Use existing URLIdentifiable
+var qrCodeInviteData: URLIdentifiable?
+
+func showQrCode(url: URL) {
+    qrCodeInviteData = url.identifiable
+}
+
+// In View - access via .value
+.sheet(item: $model.qrCodeInviteData) { data in
+    QrCodeView(url: data.value)  // data.value is URL
+}
+```
+
+**When to create custom wrappers**: Only when you need multiple fields or additional context (e.g., `SpaceShareData` with `spaceId` + `route`).
+
 ### Trailing Closures
 
 ```swift

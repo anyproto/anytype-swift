@@ -227,7 +227,8 @@ final class ObjectSettingsViewModel {
         )
         AnytypeAnalytics.instance().logChangeMessageNotificationState(
             type: mode.analyticsValue,
-            route: .chatSettings
+            route: .chatSettings,
+            uxType: .chat
         )
         dismiss.toggle()
     }

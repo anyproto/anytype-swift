@@ -16,8 +16,7 @@ final class TypesPinStorage: TypesPinStorageProtocol, Sendable {
     func getPins(spaceId: String) throws -> [ObjectType] {
         if let pins = storage.value[spaceId] {
             let objectTypeIds = typeProvider.objectTypes(spaceId: spaceId)
-                .filter { !$0.isArchived }
-                .filter { !$0.isDeleted }
+                .filter { !$0.isArchivedOrDeleted }
                 .filter { $0.canCreateObjectOfThisType }
             
             return objectTypeIds.filter {

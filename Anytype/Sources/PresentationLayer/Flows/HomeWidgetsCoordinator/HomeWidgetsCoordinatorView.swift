@@ -61,11 +61,17 @@ private struct HomeWidgetsCoordinatorInternalView: View {
             .sheet(item: $model.showGlobalSearchData) {
                 GlobalSearchView(data: $0)
             }
+            .sheet(item: $model.spaceShareData) {
+                SpaceShareCoordinatorView(data: $0)
+            }
             .anytypeSheet(item: $model.createTypeData) {
                 CreateObjectTypeView(data: $0)
             }
             .anytypeSheet(item: $model.deleteSystemWidgetConfirmationData) {
                 DeleteSystemWidgetConfirmation(data: $0)
+            }
+            .anytypeSheet(item: $model.qrCodeInviteData) {
+                QrCodeView(title: Loc.joinSpace, data: $0.value.absoluteString, analyticsType: .inviteSpace, route: .inviteLink)
             }
     }
 }

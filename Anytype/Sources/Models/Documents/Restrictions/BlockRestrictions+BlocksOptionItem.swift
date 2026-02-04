@@ -44,7 +44,7 @@ extension Array where Element == BlockInformation {
             if case let .bookmark(bookmark) = element.content,
                 bookmark.targetObjectID.isNotEmpty,
                 let details = document.detailsStorage.get(id: bookmark.targetObjectID),
-                !details.isArchived, !details.isDeleted {
+                !details.isArchivedOrDeleted {
                 isOpenObjectAvailable = true
             }
 
@@ -56,7 +56,7 @@ extension Array where Element == BlockInformation {
                case let .dataView(data) = element.content,
                data.targetObjectID.isNotEmpty,
                 let details = document.detailsStorage.get(id: data.targetObjectID),
-                !details.isArchived, !details.isDeleted {
+                !details.isArchivedOrDeleted {
                 isOpenSourceAvailable = true
             }
 

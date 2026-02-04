@@ -49,9 +49,19 @@ private struct HomeWidgetsInternalView: View {
             model.onAppear()
         }
         .safeAreaInset(edge: .top) {
-            WidgetsHeaderView(spaceId: model.spaceId, context: context) {
-                model.onSpaceSelected()
-            }
+            WidgetsHeaderView(
+                spaceId: model.spaceId,
+                context: context,
+                onSpaceSelected: {
+                    model.onSpaceSelected()
+                },
+                onMembersSelected: { spaceId, route in
+                    model.onMembersSelected(spaceId: spaceId, route: route)
+                },
+                onQrCodeSelected: { url in
+                    model.onQrCodeSelected(url: url)
+                }
+            )
         }
         .navigationBarHidden(true)
         .ignoresSafeArea(.keyboard, edges: .bottom)
