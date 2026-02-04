@@ -5,11 +5,11 @@ import Loc
 
 
 struct ObjectPropertiesView: View {
-    
-    @StateObject private var model: ObjectPropertiesViewModel
-    
+
+    @State private var model: ObjectPropertiesViewModel
+
     init(document: some BaseDocumentProtocol, output: (any PropertiesListModuleOutput)?) {
-        _model = StateObject(wrappedValue: ObjectPropertiesViewModel(document: document, output: output))
+        _model = State(initialValue: ObjectPropertiesViewModel(document: document, output: output))
     }
     
     var body: some View {
@@ -32,7 +32,7 @@ struct ObjectPropertiesView: View {
         HStack {            
             Spacer()
             AnytypeText(Loc.fields, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer()
         }
         .frame(height: 48)
@@ -80,7 +80,7 @@ struct ObjectPropertiesView: View {
     
     private var emptyStateView: some View {
         AnytypeText(Loc.noPropertiesYet, style: .uxCalloutMedium)
-            .foregroundColor(.Text.secondary)
+            .foregroundStyle(Color.Text.secondary)
             .multilineTextAlignment(.center)
     }
     
@@ -92,11 +92,11 @@ struct ObjectPropertiesView: View {
                 } label: {
                     HStack(spacing: 0) {
                         Image(asset: .X18.Disclosure.right)
-                            .foregroundColor(.Control.secondary)
+                            .foregroundStyle(Color.Control.secondary)
                             .rotationEffect(.degrees(model.isSectionExpanded(section.id) ? 90 : 0))
                         
                         AnytypeText(section.title, style: .uxCalloutMedium)
-                            .foregroundColor(.Text.secondary)
+                            .foregroundStyle(Color.Text.secondary)
                             .padding(.leading, 10)
                         
                         if section.isMissingFields {

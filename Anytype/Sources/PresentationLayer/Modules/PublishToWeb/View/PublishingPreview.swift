@@ -28,19 +28,21 @@ struct PublishingPreview: View {
             previewContent
         }
         .background(Color.Background.secondary)
-        .cornerRadius(8)
+        .clipShape(.rect(cornerRadius: 8))
         .overlay(
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color.Shape.secondary, lineWidth: 1)
         )
         .if(isPublished) { view in
-            view
-                .onTapGesture {
-                    output?.onPreviewOpenWebPage()
-                }
-                .contextMenu {
-                    contextMenuContent
-                }
+            Button {
+                output?.onPreviewOpenWebPage()
+            } label: {
+                view
+            }
+            .buttonStyle(.plain)
+            .contextMenu {
+                contextMenuContent
+            }
         }
     }
     
@@ -83,7 +85,7 @@ struct PublishingPreview: View {
     private var spaceHeader: some View {
         HStack {
             AnytypeText(data.spaceName, style: .caption2Medium)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
             
             Spacer()
@@ -98,12 +100,12 @@ struct PublishingPreview: View {
     private var joinButton: some View {
         HStack(spacing: 4) {
             AnytypeText(Loc.join, style: .caption2Medium)
-                .foregroundColor(.Text.inversion)
+                .foregroundStyle(Color.Text.inversion)
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 2.5)
         .background(Color.Control.primary)
-        .cornerRadius(4)
+        .clipShape(.rect(cornerRadius: 4))
     }
     
     @ViewBuilder
@@ -155,13 +157,13 @@ struct PublishingPreview: View {
                 EmptyView()
             }
         }
-        .cornerRadius(4)
+        .clipShape(.rect(cornerRadius: 4))
     }
     
     private var contentSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             AnytypeText(data.title, style: .subheading)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(2)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -172,7 +174,7 @@ struct PublishingPreview: View {
                         width: max(280, screenSize.width * 0.8),
                         height: 6
                     )
-                    .cornerRadius(1)
+                    .clipShape(.rect(cornerRadius: 1))
                 
                 Rectangle()
                     .fill(Color.Shape.secondary)
@@ -180,7 +182,7 @@ struct PublishingPreview: View {
                         width: max(180, screenSize.width * 0.6),
                         height: 6
                     )
-                    .cornerRadius(1)
+                    .clipShape(.rect(cornerRadius: 1))
             }
         }
         .padding(.horizontal, 32)
@@ -215,7 +217,7 @@ struct PublishingPreview: View {
             // Branch 1: Has cover + icon + join button
             VStack(spacing: 8) {
                 AnytypeText("Cover + Icon + Join Button", style: .caption1Medium)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                 PublishingPreview(data: PublishingPreviewData(
                     spaceName: "Anytype Design",
                     title: "What I Learned as a Product Designer",
@@ -231,7 +233,7 @@ struct PublishingPreview: View {
             // Branch 2: Has cover but no icon
             VStack(spacing: 8) {
                 AnytypeText("Cover Only (No Icon)", style: .caption1Medium)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                 PublishingPreview(data: PublishingPreviewData(
                     spaceName: "Design Blog",
                     title: "Understanding Design Systems",
@@ -247,7 +249,7 @@ struct PublishingPreview: View {
             // Branch 3: No cover but has icon (white background)
             VStack(spacing: 8) {
                 AnytypeText("Icon Only (White Background)", style: .caption1Medium)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                 PublishingPreview(data: PublishingPreviewData(
                     spaceName: "Personal Space",
                     title: "My Daily Notes",
@@ -260,7 +262,7 @@ struct PublishingPreview: View {
             // Branch 4: No cover and no icon (no cover section)
             VStack(spacing: 8) {
                 AnytypeText("No Cover, No Icon", style: .caption1Medium)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                 PublishingPreview(data: PublishingPreviewData(
                     spaceName: "Simple Space",
                     title: "Welcome to Anytype",

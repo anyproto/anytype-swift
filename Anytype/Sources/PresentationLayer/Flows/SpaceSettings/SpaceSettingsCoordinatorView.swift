@@ -14,12 +14,12 @@ struct SpaceSettingsCoordinator: View {
 
 
 fileprivate struct SpaceSettingInternalsCoordinator: View {
-    
-    @StateObject private var model: SpaceSettingsCoordinatorViewModel
+
+    @State private var model: SpaceSettingsCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
-    
+
     init(workspaceInfo: AccountInfo) {
-        self._model = StateObject(wrappedValue: SpaceSettingsCoordinatorViewModel(workspaceInfo: workspaceInfo))
+        _model = State(initialValue: SpaceSettingsCoordinatorViewModel(workspaceInfo: workspaceInfo))
     }
     
     var body: some View {
@@ -56,6 +56,9 @@ fileprivate struct SpaceSettingInternalsCoordinator: View {
             }
             .sheet(item: $model.spaceTypeChangeData) {
                 SpaceTypeChangeView(data: $0)
+            }
+            .sheet(item: $model.homePagePickerSpaceId) {
+                HomePagePickerView(spaceId: $0.value)
             }
     }
 }

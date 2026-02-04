@@ -112,7 +112,7 @@ public extension AnytypeFont {
             return AnytypeFontConfig(
                 font: FontFamily.Inter.regular,
                 size: 17,
-                lineHeight: 20,
+                lineHeight: 22,
                 kern: -0.41
             )
         case .chatPreviewMedium:

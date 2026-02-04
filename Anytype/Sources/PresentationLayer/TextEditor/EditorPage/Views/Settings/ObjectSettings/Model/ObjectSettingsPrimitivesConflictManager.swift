@@ -19,8 +19,7 @@ final class ObjectSettingsPrimitivesConflictManager: ObjectSettingsPrimitivesCon
         guard let type = try? objectTypeProvider.objectType(id: typeId) else { return false }
         let layoutsInObjectAndTypeAreDifferent = details.resolvedLayoutValue != type.recommendedLayout
         let layoutAlignInObjectAndTypeAreDifferent = details.layoutAlignValue != type.layoutAlign
-        let layoutWidthInObjectAndTypeAreDifferent = details.layoutWidth != type.layoutWidth
-        if layoutsInObjectAndTypeAreDifferent || layoutAlignInObjectAndTypeAreDifferent || layoutWidthInObjectAndTypeAreDifferent { return true }
+        if layoutsInObjectAndTypeAreDifferent || layoutAlignInObjectAndTypeAreDifferent { return true }
         
         let typeFeaturedRelationKeys = details.objectType.recommendedFeaturedRelationsDetails
             .map(\.key)

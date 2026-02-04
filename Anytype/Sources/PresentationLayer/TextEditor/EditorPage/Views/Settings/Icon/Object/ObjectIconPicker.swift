@@ -2,13 +2,13 @@ import SwiftUI
 import AnytypeCore
 
 struct ObjectIconPicker: View {
-    
-    @StateObject var viewModel: ObjectIconPickerViewModel
-    
+
+    @State var viewModel: ObjectIconPickerViewModel
+
     init(data: ObjectIconPickerData) {
-        self._viewModel = StateObject(wrappedValue: ObjectIconPickerViewModel(data: data))
+        _viewModel = State(initialValue: ObjectIconPickerViewModel(data: data))
     }
-    
+
     var body: some View {
         Group {
             switch viewModel.detailsLayout {
@@ -55,6 +55,9 @@ struct ObjectIconPicker: View {
                         anytypeAssertionFailure("Not supported layout")
                     }
             }
+        }
+        .task {
+            await viewModel.startSubscription()
         }
     }
 }

@@ -39,11 +39,11 @@ struct InviteStateView: View {
             
             VStack(alignment: .leading, spacing: 2) {
                 AnytypeText(title, style: .previewTitle2Medium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
                 
                 AnytypeText(subtitle, style: .relation2Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                     .lineLimit(1)
             }
             

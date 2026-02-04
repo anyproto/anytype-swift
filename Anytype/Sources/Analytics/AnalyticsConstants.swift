@@ -46,6 +46,7 @@ enum AnalyticsEventsPropertiesKey {
     static let middleTime = "middleTime"
     static let permissions = "permissions"
     static let spaceType = "spaceType"
+    static let spaceId = "spaceId"
     static let uxType = "uxType"
     
     static let relationKey = "relationKey"
@@ -76,6 +77,7 @@ enum AnalyticsEventsRouteKind: String {
     case type = "Type"
     case link = "Link"
     case slashMenu = "SlashMenu"
+    case quickAction = "QuickAction"
 }
 
 enum AnalyticsEventsRelationType: String {
@@ -281,6 +283,7 @@ enum ClickGalleryInstallSpaceType: String {
 enum CreateSpaceRoute: String {
     case navigation = "Navigation"
     case gallery = "Gallery"
+    case profile = "Profile"
 }
 
 enum ClickSettingsSpaceShareType: String {
@@ -347,6 +350,7 @@ enum ClickUpgradePlanTooltipType: String {
     case editors = "editors"
     case sharedSpaces = "sharedSpaces"
     case publish = "publish"
+    case identity = "identity"
 }
 
 enum ClickShareSpaceShareLinkRoute: String {
@@ -362,6 +366,7 @@ enum ClickUpgradePlanTooltipRoute: String {
     case remoteStorage = "ScreenRemoteStorage"
     case publish = "ScreenPublish"
     case incentiveBanner = "IncentiveBanner"
+    case identity = "ScreenSettingsIdentity"
 }
 
 enum ChangeObjectTypeRoute: String {

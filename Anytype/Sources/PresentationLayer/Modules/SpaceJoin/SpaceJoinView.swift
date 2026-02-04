@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct SpaceJoinView: View {
-    
-    @StateObject private var model: SpaceJoinViewModel
+
+    @State private var model: SpaceJoinViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void) {
-        self._model = StateObject(wrappedValue: SpaceJoinViewModel(data: data, onManageSpaces: onManageSpaces))
+        self._model = State(initialValue: SpaceJoinViewModel(data: data, onManageSpaces: onManageSpaces))
     }
     
     var body: some View {
@@ -72,10 +72,10 @@ struct SpaceJoinView: View {
             Image(asset: .Dialog.invite)
             Spacer.fixedHeight(15)
             AnytypeText(model.title, style: .heading)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(8)
             AnytypeText(model.message, style: .bodyRegular, enableMarkdown: true)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .if(placeholder) {
                     $0.redacted(reason: .placeholder)
                 }
@@ -96,7 +96,7 @@ struct SpaceJoinView: View {
                 } else {
                     Spacer.fixedHeight(17)
                     AnytypeText(Loc.SpaceShare.Join.info, style: .caption1Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                 }
             }
         }
@@ -105,7 +105,9 @@ struct SpaceJoinView: View {
         .padding(.bottom, 16)
         .fixedSize(horizontal: false, vertical: true)
         .onAppear {
-            model.onInviewViewAppear()
+            if !placeholder {
+                model.onInviewViewAppear()
+            }
         }
     }
     

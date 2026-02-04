@@ -22,7 +22,7 @@ struct SetTableViewHeader: View {
                         Spacer.fixedWidth(4)
                     }
                     AnytypeText(data.name, style: .relation2Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                     Spacer()
@@ -30,7 +30,7 @@ struct SetTableViewHeader: View {
                 
                 Rectangle()
                     .frame(width: .onePixel, height: 18)
-                    .foregroundColor(.Shape.primary)
+                    .foregroundStyle(Color.Shape.primary)
             }
         }
         .frame(height: 40)

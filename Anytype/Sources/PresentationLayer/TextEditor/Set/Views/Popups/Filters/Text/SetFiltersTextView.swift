@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct SetFiltersTextView: View {
-    @StateObject private var viewModel: SetFiltersTextViewModel
-    
+    @State private var viewModel: SetFiltersTextViewModel
+
     init(filter: SetFilter, onApplyText: @escaping (String) -> Void) {
-        _viewModel = StateObject(wrappedValue: SetFiltersTextViewModel(filter: filter, onApplyText: onApplyText))
+        _viewModel = State(initialValue: SetFiltersTextViewModel(filter: filter, onApplyText: onApplyText))
     }
     
     var body: some View {
@@ -24,7 +24,7 @@ struct SetFiltersTextView: View {
             font: .uxBodyRegular,
             text: $viewModel.input
         )
-        .foregroundColor(.Text.primary)
+        .foregroundStyle(Color.Text.primary)
         .keyboardType(viewModel.keyboardType)
         .frame(height: 48)
         .divider()

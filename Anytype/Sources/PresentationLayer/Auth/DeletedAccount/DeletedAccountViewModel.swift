@@ -1,14 +1,15 @@
-import Combine
 import UIKit
 
 @MainActor
-final class DeletedAccountViewModel: ObservableObject {
-    
-    @Injected(\.authService)
+@Observable
+final class DeletedAccountViewModel {
+
+    @ObservationIgnored @Injected(\.authService)
     private var service: any AuthServiceProtocol
+    @ObservationIgnored
     private let deadline: Date
-    
-    @Injected(\.applicationStateService)
+
+    @ObservationIgnored @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
     
     // MARK: - Initializer

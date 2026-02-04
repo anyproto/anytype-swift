@@ -11,7 +11,7 @@ struct UploadStatusBannerView: View {
 
             Text(text)
                 .font(AnytypeFontBuilder.font(anytypeFont: .caption1Medium))
-                .foregroundColor(Color.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)

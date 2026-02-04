@@ -2,14 +2,15 @@ import Foundation
 import UIKit
 
 @MainActor
-final class DisabledPushNotificationsBannerViewModel: ObservableObject {
-    
-    @Published var requestAuthorizationId: String?
-    @Published var status: PushNotificationsSettingsStatus?
-    
-    @Injected(\.pushNotificationsPermissionService)
+@Observable
+final class DisabledPushNotificationsBannerViewModel {
+
+    var requestAuthorizationId: String?
+    var status: PushNotificationsSettingsStatus?
+
+    @ObservationIgnored @Injected(\.pushNotificationsPermissionService)
     private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
-    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    @ObservationIgnored @Injected(\.pushNotificationsSystemSettingsBroadcaster)
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
     
 

@@ -1,27 +1,30 @@
 import Foundation
 import Services
 import UniformTypeIdentifiers
-import Combine
 import AnytypeCore
 
 struct TextIconPickerData: Identifiable, Hashable {
     let contextId: String
     let objectId: String
     let spaceId: String
-    
+
     var id: Int { hashValue }
 }
 
 @MainActor
-final class TextIconPickerViewModel: ObservableObject {
-    
-    @Injected(\.fileActionsService)
+@Observable
+final class TextIconPickerViewModel {
+
+    @ObservationIgnored @Injected(\.fileActionsService)
     private var fileService: any FileActionsServiceProtocol
-    @Injected(\.textServiceHandler)
+    @ObservationIgnored @Injected(\.textServiceHandler)
     private var textServiceHandler: any TextServiceProtocol
-    
+
+    @ObservationIgnored
     private let contextId: String
+    @ObservationIgnored
     private let objectId: String
+    @ObservationIgnored
     private let spaceId: String
 
     init(data: TextIconPickerData) {

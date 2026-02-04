@@ -8,7 +8,7 @@ private struct CircleOverCornerRadiusModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .cornerRadius(minSide)
+            .clipShape(.rect(cornerRadius: minSide))
             .readSize {
                 minSide = min($0.width, $0.height)
             }

@@ -10,7 +10,7 @@ struct WidgetSeeAllRow: View {
             onTap()
         } label: {
             AnytypeText(Loc.seeAll, style: .caption1Medium)
-                .foregroundColor(Color.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .frame(height: 40)
         }
     }

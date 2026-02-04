@@ -23,25 +23,27 @@ struct ChatMentionList: View {
         }
         .background(Color.Background.primary)
         .frame(maxHeight: Constants.itemHeight * min(CGFloat(models.count), Constants.maxVisibleItems))
-        .cornerRadius(16)
+        .clipShape(.rect(cornerRadius: 16))
         .padding(.horizontal, 8)
         .padding(.bottom, 4)
     }
     
     private func cell(for model: MentionObjectModel) -> some View {
-        HStack(spacing: 12) {
-            IconView(icon: model.object.objectIcon)
-                .frame(width: 40, height: 40)
-            textContent(for: model)
-            Spacer()
-        }
-        .frame(height: Constants.itemHeight)
-        .padding(.horizontal, 20)
-        .newDivider(leadingPadding: 72)
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             didSelect(model.object)
+        } label: {
+            HStack(spacing: 12) {
+                IconView(icon: model.object.objectIcon)
+                    .frame(width: 40, height: 40)
+                textContent(for: model)
+                Spacer()
+            }
+            .frame(height: Constants.itemHeight)
+            .padding(.horizontal, 20)
+            .newDivider(leadingPadding: 72)
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
     
     private func textContent(for model: MentionObjectModel) -> some View {

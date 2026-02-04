@@ -21,12 +21,12 @@ struct InvocationTests {
         }
         
         // Wait task start
-        try await Task.sleep(nanoseconds: 1_000_000_000 * 1)
-        
+        try await Task.sleep(for: .seconds(1))
+
         task.cancel()
-        
+
         // Waiting to be canceled
-        try await Task.sleep(nanoseconds: 1_000_000_000 * 1)
+        try await Task.sleep(for: .seconds(1))
         
         let result = taskIsExit.withLock { $0 }
         #expect(result == true)

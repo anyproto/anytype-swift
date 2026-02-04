@@ -12,53 +12,107 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Model_Block.Content.Dataview {
-    public struct View: Sendable {
+    public struct View: @unchecked Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var id: String = String()
+        public var id: String {
+          get {return _storage._id}
+          set {_uniqueStorage()._id = newValue}
+        }
 
-        public var type: Anytype_Model_Block.Content.Dataview.View.TypeEnum = .table
+        public var type: Anytype_Model_Block.Content.Dataview.View.TypeEnum {
+          get {return _storage._type}
+          set {_uniqueStorage()._type = newValue}
+        }
 
-        public var name: String = String()
+        public var name: String {
+          get {return _storage._name}
+          set {_uniqueStorage()._name = newValue}
+        }
 
-        public var sorts: [Anytype_Model_Block.Content.Dataview.Sort] = []
+        public var sorts: [Anytype_Model_Block.Content.Dataview.Sort] {
+          get {return _storage._sorts}
+          set {_uniqueStorage()._sorts = newValue}
+        }
 
-        public var filters: [Anytype_Model_Block.Content.Dataview.Filter] = []
+        public var filters: [Anytype_Model_Block.Content.Dataview.Filter] {
+          get {return _storage._filters}
+          set {_uniqueStorage()._filters = newValue}
+        }
 
         /// relations fields/columns options, also used to provide the order
-        public var relations: [Anytype_Model_Block.Content.Dataview.Relation] = []
+        public var relations: [Anytype_Model_Block.Content.Dataview.Relation] {
+          get {return _storage._relations}
+          set {_uniqueStorage()._relations = newValue}
+        }
 
         /// Relation used for cover in gallery
-        public var coverRelationKey: String = String()
+        public var coverRelationKey: String {
+          get {return _storage._coverRelationKey}
+          set {_uniqueStorage()._coverRelationKey = newValue}
+        }
 
         /// Hide icon near name
-        public var hideIcon: Bool = false
+        public var hideIcon: Bool {
+          get {return _storage._hideIcon}
+          set {_uniqueStorage()._hideIcon = newValue}
+        }
 
         /// Gallery card size
-        public var cardSize: Anytype_Model_Block.Content.Dataview.View.Size = .small
+        public var cardSize: Anytype_Model_Block.Content.Dataview.View.Size {
+          get {return _storage._cardSize}
+          set {_uniqueStorage()._cardSize = newValue}
+        }
 
         /// Image fits container
-        public var coverFit: Bool = false
+        public var coverFit: Bool {
+          get {return _storage._coverFit}
+          set {_uniqueStorage()._coverFit = newValue}
+        }
 
         /// Group view by this relationKey
-        public var groupRelationKey: String = String()
+        public var groupRelationKey: String {
+          get {return _storage._groupRelationKey}
+          set {_uniqueStorage()._groupRelationKey = newValue}
+        }
 
         /// Enable backgrounds in groups
-        public var groupBackgroundColors: Bool = false
+        public var groupBackgroundColors: Bool {
+          get {return _storage._groupBackgroundColors}
+          set {_uniqueStorage()._groupBackgroundColors = newValue}
+        }
 
         /// Limit of objects shown in widget
-        public var pageLimit: Int32 = 0
+        public var pageLimit: Int32 {
+          get {return _storage._pageLimit}
+          set {_uniqueStorage()._pageLimit = newValue}
+        }
 
         /// Default template that is chosen for new object created within the view
-        public var defaultTemplateID: String = String()
+        public var defaultTemplateID: String {
+          get {return _storage._defaultTemplateID}
+          set {_uniqueStorage()._defaultTemplateID = newValue}
+        }
 
         /// Default object type that is chosen for new object created within the view
-        public var defaultObjectTypeID: String = String()
+        public var defaultObjectTypeID: String {
+          get {return _storage._defaultObjectTypeID}
+          set {_uniqueStorage()._defaultObjectTypeID = newValue}
+        }
 
         /// Group view by this relationKey
-        public var endRelationKey: String = String()
+        public var endRelationKey: String {
+          get {return _storage._endRelationKey}
+          set {_uniqueStorage()._endRelationKey = newValue}
+        }
+
+        /// Wrap content in view
+        public var wrapContent: Bool {
+          get {return _storage._wrapContent}
+          set {_uniqueStorage()._wrapContent = newValue}
+        }
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -151,109 +205,184 @@ extension Anytype_Model_Block.Content.Dataview {
         }
 
         public init() {}
+
+        fileprivate var _storage = _StorageClass.defaultInstance
       }    
 }
 
 extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".View"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}type\0\u{1}name\0\u{1}sorts\0\u{1}filters\0\u{1}relations\0\u{1}coverRelationKey\0\u{1}hideIcon\0\u{1}cardSize\0\u{1}coverFit\0\u{1}groupRelationKey\0\u{1}groupBackgroundColors\0\u{1}pageLimit\0\u{1}defaultTemplateId\0\u{1}defaultObjectTypeId\0\u{1}endRelationKey\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}type\0\u{1}name\0\u{1}sorts\0\u{1}filters\0\u{1}relations\0\u{1}coverRelationKey\0\u{1}hideIcon\0\u{1}cardSize\0\u{1}coverFit\0\u{1}groupRelationKey\0\u{1}groupBackgroundColors\0\u{1}pageLimit\0\u{1}defaultTemplateId\0\u{1}defaultObjectTypeId\0\u{1}endRelationKey\0\u{1}wrapContent\0")
+
+  fileprivate class _StorageClass {
+    var _id: String = String()
+    var _type: Anytype_Model_Block.Content.Dataview.View.TypeEnum = .table
+    var _name: String = String()
+    var _sorts: [Anytype_Model_Block.Content.Dataview.Sort] = []
+    var _filters: [Anytype_Model_Block.Content.Dataview.Filter] = []
+    var _relations: [Anytype_Model_Block.Content.Dataview.Relation] = []
+    var _coverRelationKey: String = String()
+    var _hideIcon: Bool = false
+    var _cardSize: Anytype_Model_Block.Content.Dataview.View.Size = .small
+    var _coverFit: Bool = false
+    var _groupRelationKey: String = String()
+    var _groupBackgroundColors: Bool = false
+    var _pageLimit: Int32 = 0
+    var _defaultTemplateID: String = String()
+    var _defaultObjectTypeID: String = String()
+    var _endRelationKey: String = String()
+    var _wrapContent: Bool = false
+
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _type = source._type
+      _name = source._name
+      _sorts = source._sorts
+      _filters = source._filters
+      _relations = source._relations
+      _coverRelationKey = source._coverRelationKey
+      _hideIcon = source._hideIcon
+      _cardSize = source._cardSize
+      _coverFit = source._coverFit
+      _groupRelationKey = source._groupRelationKey
+      _groupBackgroundColors = source._groupBackgroundColors
+      _pageLimit = source._pageLimit
+      _defaultTemplateID = source._defaultTemplateID
+      _defaultObjectTypeID = source._defaultObjectTypeID
+      _endRelationKey = source._endRelationKey
+      _wrapContent = source._wrapContent
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularEnumField(value: &self.type) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.sorts) }()
-      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.filters) }()
-      case 6: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
-      case 7: try { try decoder.decodeSingularStringField(value: &self.coverRelationKey) }()
-      case 8: try { try decoder.decodeSingularBoolField(value: &self.hideIcon) }()
-      case 9: try { try decoder.decodeSingularEnumField(value: &self.cardSize) }()
-      case 10: try { try decoder.decodeSingularBoolField(value: &self.coverFit) }()
-      case 11: try { try decoder.decodeSingularStringField(value: &self.groupRelationKey) }()
-      case 12: try { try decoder.decodeSingularBoolField(value: &self.groupBackgroundColors) }()
-      case 13: try { try decoder.decodeSingularInt32Field(value: &self.pageLimit) }()
-      case 14: try { try decoder.decodeSingularStringField(value: &self.defaultTemplateID) }()
-      case 15: try { try decoder.decodeSingularStringField(value: &self.defaultObjectTypeID) }()
-      case 16: try { try decoder.decodeSingularStringField(value: &self.endRelationKey) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularEnumField(value: &_storage._type) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._name) }()
+        case 4: try { try decoder.decodeRepeatedMessageField(value: &_storage._sorts) }()
+        case 5: try { try decoder.decodeRepeatedMessageField(value: &_storage._filters) }()
+        case 6: try { try decoder.decodeRepeatedMessageField(value: &_storage._relations) }()
+        case 7: try { try decoder.decodeSingularStringField(value: &_storage._coverRelationKey) }()
+        case 8: try { try decoder.decodeSingularBoolField(value: &_storage._hideIcon) }()
+        case 9: try { try decoder.decodeSingularEnumField(value: &_storage._cardSize) }()
+        case 10: try { try decoder.decodeSingularBoolField(value: &_storage._coverFit) }()
+        case 11: try { try decoder.decodeSingularStringField(value: &_storage._groupRelationKey) }()
+        case 12: try { try decoder.decodeSingularBoolField(value: &_storage._groupBackgroundColors) }()
+        case 13: try { try decoder.decodeSingularInt32Field(value: &_storage._pageLimit) }()
+        case 14: try { try decoder.decodeSingularStringField(value: &_storage._defaultTemplateID) }()
+        case 15: try { try decoder.decodeSingularStringField(value: &_storage._defaultObjectTypeID) }()
+        case 16: try { try decoder.decodeSingularStringField(value: &_storage._endRelationKey) }()
+        case 17: try { try decoder.decodeSingularBoolField(value: &_storage._wrapContent) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
-    if self.type != .table {
-      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 2)
-    }
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 3)
-    }
-    if !self.sorts.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.sorts, fieldNumber: 4)
-    }
-    if !self.filters.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.filters, fieldNumber: 5)
-    }
-    if !self.relations.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.relations, fieldNumber: 6)
-    }
-    if !self.coverRelationKey.isEmpty {
-      try visitor.visitSingularStringField(value: self.coverRelationKey, fieldNumber: 7)
-    }
-    if self.hideIcon != false {
-      try visitor.visitSingularBoolField(value: self.hideIcon, fieldNumber: 8)
-    }
-    if self.cardSize != .small {
-      try visitor.visitSingularEnumField(value: self.cardSize, fieldNumber: 9)
-    }
-    if self.coverFit != false {
-      try visitor.visitSingularBoolField(value: self.coverFit, fieldNumber: 10)
-    }
-    if !self.groupRelationKey.isEmpty {
-      try visitor.visitSingularStringField(value: self.groupRelationKey, fieldNumber: 11)
-    }
-    if self.groupBackgroundColors != false {
-      try visitor.visitSingularBoolField(value: self.groupBackgroundColors, fieldNumber: 12)
-    }
-    if self.pageLimit != 0 {
-      try visitor.visitSingularInt32Field(value: self.pageLimit, fieldNumber: 13)
-    }
-    if !self.defaultTemplateID.isEmpty {
-      try visitor.visitSingularStringField(value: self.defaultTemplateID, fieldNumber: 14)
-    }
-    if !self.defaultObjectTypeID.isEmpty {
-      try visitor.visitSingularStringField(value: self.defaultObjectTypeID, fieldNumber: 15)
-    }
-    if !self.endRelationKey.isEmpty {
-      try visitor.visitSingularStringField(value: self.endRelationKey, fieldNumber: 16)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._id.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
+      }
+      if _storage._type != .table {
+        try visitor.visitSingularEnumField(value: _storage._type, fieldNumber: 2)
+      }
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 3)
+      }
+      if !_storage._sorts.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._sorts, fieldNumber: 4)
+      }
+      if !_storage._filters.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._filters, fieldNumber: 5)
+      }
+      if !_storage._relations.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._relations, fieldNumber: 6)
+      }
+      if !_storage._coverRelationKey.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._coverRelationKey, fieldNumber: 7)
+      }
+      if _storage._hideIcon != false {
+        try visitor.visitSingularBoolField(value: _storage._hideIcon, fieldNumber: 8)
+      }
+      if _storage._cardSize != .small {
+        try visitor.visitSingularEnumField(value: _storage._cardSize, fieldNumber: 9)
+      }
+      if _storage._coverFit != false {
+        try visitor.visitSingularBoolField(value: _storage._coverFit, fieldNumber: 10)
+      }
+      if !_storage._groupRelationKey.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._groupRelationKey, fieldNumber: 11)
+      }
+      if _storage._groupBackgroundColors != false {
+        try visitor.visitSingularBoolField(value: _storage._groupBackgroundColors, fieldNumber: 12)
+      }
+      if _storage._pageLimit != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._pageLimit, fieldNumber: 13)
+      }
+      if !_storage._defaultTemplateID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._defaultTemplateID, fieldNumber: 14)
+      }
+      if !_storage._defaultObjectTypeID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._defaultObjectTypeID, fieldNumber: 15)
+      }
+      if !_storage._endRelationKey.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._endRelationKey, fieldNumber: 16)
+      }
+      if _storage._wrapContent != false {
+        try visitor.visitSingularBoolField(value: _storage._wrapContent, fieldNumber: 17)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.View, rhs: Anytype_Model_Block.Content.Dataview.View) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.type != rhs.type {return false}
-    if lhs.name != rhs.name {return false}
-    if lhs.sorts != rhs.sorts {return false}
-    if lhs.filters != rhs.filters {return false}
-    if lhs.relations != rhs.relations {return false}
-    if lhs.coverRelationKey != rhs.coverRelationKey {return false}
-    if lhs.hideIcon != rhs.hideIcon {return false}
-    if lhs.cardSize != rhs.cardSize {return false}
-    if lhs.coverFit != rhs.coverFit {return false}
-    if lhs.groupRelationKey != rhs.groupRelationKey {return false}
-    if lhs.groupBackgroundColors != rhs.groupBackgroundColors {return false}
-    if lhs.pageLimit != rhs.pageLimit {return false}
-    if lhs.defaultTemplateID != rhs.defaultTemplateID {return false}
-    if lhs.defaultObjectTypeID != rhs.defaultObjectTypeID {return false}
-    if lhs.endRelationKey != rhs.endRelationKey {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._type != rhs_storage._type {return false}
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._sorts != rhs_storage._sorts {return false}
+        if _storage._filters != rhs_storage._filters {return false}
+        if _storage._relations != rhs_storage._relations {return false}
+        if _storage._coverRelationKey != rhs_storage._coverRelationKey {return false}
+        if _storage._hideIcon != rhs_storage._hideIcon {return false}
+        if _storage._cardSize != rhs_storage._cardSize {return false}
+        if _storage._coverFit != rhs_storage._coverFit {return false}
+        if _storage._groupRelationKey != rhs_storage._groupRelationKey {return false}
+        if _storage._groupBackgroundColors != rhs_storage._groupBackgroundColors {return false}
+        if _storage._pageLimit != rhs_storage._pageLimit {return false}
+        if _storage._defaultTemplateID != rhs_storage._defaultTemplateID {return false}
+        if _storage._defaultObjectTypeID != rhs_storage._defaultObjectTypeID {return false}
+        if _storage._endRelationKey != rhs_storage._endRelationKey {return false}
+        if _storage._wrapContent != rhs_storage._wrapContent {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

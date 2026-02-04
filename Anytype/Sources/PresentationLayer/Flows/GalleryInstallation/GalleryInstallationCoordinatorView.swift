@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct GalleryInstallationCoordinatorView: View {
-    
-    @StateObject private var model: GalleryInstallationCoordinatorViewModel
+
+    @State private var model: GalleryInstallationCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: GalleryInstallationData) {
-        _model = StateObject(wrappedValue: GalleryInstallationCoordinatorViewModel(data: data))
+        _model = State(initialValue: GalleryInstallationCoordinatorViewModel(data: data))
     }
     
     var body: some View {

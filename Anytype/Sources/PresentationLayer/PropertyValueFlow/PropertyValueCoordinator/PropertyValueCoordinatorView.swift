@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 struct PropertyValueCoordinatorView: View {
-    
-    @StateObject private var model: PropertyValueCoordinatorViewModel
-    
+
+    @State private var model: PropertyValueCoordinatorViewModel
+
     init(data: PropertyValueData, output: (any PropertyValueCoordinatorOutput)?) {
-        _model = StateObject(wrappedValue: PropertyValueCoordinatorViewModel(data: data, output: output))
+        _model = State(initialValue: PropertyValueCoordinatorViewModel(data: data, output: output))
     }
     
     var body: some View {

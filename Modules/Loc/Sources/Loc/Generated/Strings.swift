@@ -1166,6 +1166,13 @@ public enum Loc {
     public static let spaceType = Loc.tr("UI", "Settings.SpaceType", fallback: "Space type")
     public static let title = Loc.tr("UI", "Settings.Title", fallback: "Settings")
     public static let updated = Loc.tr("UI", "Settings.Updated", fallback: "Space information updated")
+    public enum AnyId {
+      public enum BottomSheet {
+        public static let button = Loc.tr("UI", "Settings.AnyId.BottomSheet.button", fallback: "Explore plans")
+        public static let description = Loc.tr("UI", "Settings.AnyId.BottomSheet.description", fallback: "Become a member to make your ID human-readable, so other members can easily find and connect with you.")
+        public static let title = Loc.tr("UI", "Settings.AnyId.BottomSheet.title", fallback: "This is your ANY ID")
+      }
+    }
   }
   public enum SimpleTableMenu {
     public enum Item {
@@ -1421,6 +1428,9 @@ public enum Loc {
       public static func limitExceeded(_ p1: Int) -> String {
         return Loc.tr("Workspace", "Chat.AttachmentsError.LimitExceeded", p1, fallback: "Plural format key: Chat.AttachmentsError.LimitExceeded")
       }
+    }
+    public enum Create {
+      public static let namePlaceholder = Loc.tr("Workspace", "Chat.Create.namePlaceholder", fallback: "Chat Name")
     }
     public enum CreateObject {
       public enum Dismiss {
@@ -2285,6 +2295,10 @@ public enum Loc {
         return Loc.tr("Workspace", "SpaceSettings.DeleteAlert.Title", String(describing: p1), fallback: "Delete ‘%@’ space")
       }
     }
+    public enum HomePage {
+      public static let title = Loc.tr("Workspace", "SpaceSettings.HomePage.Title", fallback: "Home page")
+      public static let widgets = Loc.tr("Workspace", "SpaceSettings.HomePage.Widgets", fallback: "Widgets")
+    }
     public enum LeaveAlert {
       public static func message(_ p1: Any) -> String {
         return Loc.tr("Workspace", "SpaceSettings.LeaveAlert.Message", String(describing: p1), fallback: "%@ space will be removed from your devices and you will no longer have access to it")
@@ -2389,6 +2403,13 @@ public enum Loc {
       public static let message = Loc.tr("Workspace", "SpaceShare.JoinConfirmation.Message", fallback: "You will receive a notification when the space owner will approve your request.")
       public static let title = Loc.tr("Workspace", "SpaceShare.JoinConfirmation.Title", fallback: "Request sent")
     }
+    public enum MakePrivate {
+      public static let action = Loc.tr("Workspace", "SpaceShare.MakePrivate.Action", fallback: "Make Private")
+      public static let confirm = Loc.tr("Workspace", "SpaceShare.MakePrivate.Confirm", fallback: "Confirm")
+      public static let message = Loc.tr("Workspace", "SpaceShare.MakePrivate.Message", fallback: "Making this space private will disable the current invite link, so it can no longer be used to join. You'll remain the only member. When you re-enable sharing, a new link will be generated.")
+      public static let title = Loc.tr("Workspace", "SpaceShare.MakePrivate.Title", fallback: "Make this space private?")
+      public static let toast = Loc.tr("Workspace", "SpaceShare.MakePrivate.Toast", fallback: "You can make the space private after removing all members")
+    }
     public enum Permissions {
       public static let owner = Loc.tr("Workspace", "SpaceShare.Permissions.Owner", fallback: "Owner")
       public static let reader = Loc.tr("Workspace", "SpaceShare.Permissions.Reader", fallback: "Viewer")
@@ -2416,10 +2437,6 @@ public enum Loc {
       public static let message = Loc.tr("Workspace", "SpaceShare.StopSharing.Message", fallback: "Members will no longer sync to this space and the share link will be deactivated.")
       public static let title = Loc.tr("Workspace", "SpaceShare.StopSharing.Title", fallback: "Stop sharing the space")
       public static let toast = Loc.tr("Workspace", "SpaceShare.StopSharing.Toast", fallback: "The space is no longer shared")
-    }
-    public enum StopSharingEmptySpace {
-      public static let message = Loc.tr("Workspace", "SpaceShare.StopSharingEmptySpace.Message", fallback: "You’ve removed the last member, so this space is now private and only accessible to you.")
-      public static let title = Loc.tr("Workspace", "SpaceShare.StopSharingEmptySpace.Title", fallback: "The space is now private")
     }
     public enum Tip {
       public static let title = Loc.tr("Workspace", "SpaceShare.Tip.Title", fallback: "Collaborate on spaces")
@@ -2460,6 +2477,7 @@ public enum Loc {
       public enum Space {
         public static let changeDescription = Loc.tr("Workspace", "Spaces.UxType.Space.ChangeDescription", fallback: "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams.")
         public static let description = Loc.tr("Workspace", "Spaces.UxType.Space.Description", fallback: "Hub for advanced data management")
+        public static let infoTitle = Loc.tr("Workspace", "Spaces.UxType.Space.InfoTitle", fallback: "Private Channel")
         public static let title = Loc.tr("Workspace", "Spaces.UxType.Space.Title", fallback: "Space")
       }
       public enum Stream {
@@ -2496,6 +2514,9 @@ public enum Loc {
       public static func title(_ p1: Int) -> String {
         return Loc.tr("Workspace", "TemplateSelection.Available.Title", p1, fallback: "Plural format key: TemplateSelection.Available.Title")
       }
+    }
+    public enum Header {
+      public static let title = Loc.tr("Workspace", "TemplateSelection.Header.Title", fallback: "Choose template")
     }
     public enum ObjectType {
       public static let subtitle = Loc.tr("Workspace", "TemplateSelection.ObjectType.Subtitle", fallback: "Object type")

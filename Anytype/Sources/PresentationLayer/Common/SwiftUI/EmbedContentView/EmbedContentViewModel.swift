@@ -1,11 +1,12 @@
 import SwiftUI
 
 @MainActor
-final class EmbedContentViewModel: ObservableObject {
-    
+@Observable
+final class EmbedContentViewModel {
+
     let data: EmbedContentData
 
-    @Published var safariUrl: URL?
+    var safariUrl: URL?
     
     init(data: EmbedContentData) {
         self.data = data

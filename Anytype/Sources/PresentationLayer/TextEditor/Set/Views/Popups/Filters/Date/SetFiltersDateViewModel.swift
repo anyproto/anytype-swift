@@ -1,20 +1,22 @@
 import SwiftUI
 import Services
-import Combine
 
 @MainActor
-final class SetFiltersDateViewModel: ObservableObject {
-    @Published var quickOption: DataviewFilter.QuickOption
-    @Published var date: Date
-    @Published var numberOfDays: Int
-    @Published var condition: DataviewFilter.Condition
-    
-    @Published var filtersDaysData: SetTextViewData?
-    
+@Observable
+final class SetFiltersDateViewModel {
+    var quickOption: DataviewFilter.QuickOption
+    var date: Date
+    var numberOfDays: Int
+    var condition: DataviewFilter.Condition
+
+    var filtersDaysData: SetTextViewData?
+
+    @ObservationIgnored
     private let filter: SetFilter
+    @ObservationIgnored
     private weak var setSelectionModel: SetFiltersSelectionViewModel?
+    @ObservationIgnored
     private let onApplyDate: (SetFiltersDate) -> Void
-    private var cancellable: AnyCancellable?
     
     var rows: [SetFiltersDateRowConfiguration] {
         DataviewFilter.QuickOption.orderedCases(for: condition).map { option in
@@ -68,7 +70,7 @@ final class SetFiltersDateViewModel: ObservableObject {
     }
     
     private func setup() {
-        cancellable = setSelectionModel?.$condition.sink {  [weak self] condition in
+        setSelectionModel?.onConditionChanged = { [weak self] condition in
             self?.condition = condition
         }
     }

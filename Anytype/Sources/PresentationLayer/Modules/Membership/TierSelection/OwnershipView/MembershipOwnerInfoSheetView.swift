@@ -2,10 +2,11 @@ import SwiftUI
 import Services
 
 
-struct MembershipOwnerInfoSheetView: View {    
-    @StateObject private var model = MembershipOwnerInfoSheetViewModel()
-    
+struct MembershipOwnerInfoSheetView: View {
+    @State private var model = MembershipOwnerInfoSheetViewModel()
+
     var body: some View {
+        @Bindable var model = model
         content
             .onAppear {
                 model.updateState()
@@ -13,7 +14,9 @@ struct MembershipOwnerInfoSheetView: View {
             .onChange(of: model.membership) {
                 model.updateState()
             }
-        
+            .task {
+                await model.startMembershipSubscription()
+            }
             .snackbar(toastBarData: $model.toastData)
             .sheet(isPresented: $model.showEmailVerification) {
                 EmailVerificationView(email: $model.email) {
@@ -26,7 +29,7 @@ struct MembershipOwnerInfoSheetView: View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(26)
             AnytypeText(Loc.yourCurrentStatus, style: .bodySemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(14)
             info
             actions
@@ -34,31 +37,31 @@ struct MembershipOwnerInfoSheetView: View {
         }
         .padding(.horizontal, 20)
         .background(Color.Background.primary)
-        .cornerRadius(16, corners: .top)
+        .clipShape(UnevenRoundedRectangle(topLeadingRadius: 16, topTrailingRadius: 16))
     }
     
     private var info: some View {
         VStack(spacing: 0) {
             AnytypeText(Loc.validUntil, style: .relation2Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(4)
             if let tier = model.membership.tier {
                 if !tier.isAnyTeam {
                     switch model.membership.dateEnds {
                     case .never:
                         AnytypeText(Loc.forever, style: .title)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                     case .date:
                         AnytypeText(model.membership.formattedDateEnds, style: .title)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                     }
                     paymentText
                 } else {
                     AnytypeText(model.membership.formattedDateEnds, style: .title)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                     Spacer.fixedHeight(23)
                     AnytypeText(Loc.paidBy("your faith and love"), style: .relation2Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                     Spacer.fixedHeight(15)
                 }
             } else {
@@ -68,7 +71,7 @@ struct MembershipOwnerInfoSheetView: View {
         .frame(maxWidth: .infinity)
         .padding(.top, 34)
         .background(Color.Shape.tertiary)
-        .cornerRadius(12, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
     
     private var paymentText: some View {
@@ -76,7 +79,7 @@ struct MembershipOwnerInfoSheetView: View {
             if let paymentMethod = model.membership.localizablePaymentMethod {
                 Spacer.fixedHeight(23)
                 AnytypeText(Loc.paidBy(paymentMethod), style: .relation2Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                 Spacer.fixedHeight(15)
             } else {
                 Spacer.fixedHeight(55)
@@ -136,7 +139,7 @@ struct MembershipOwnerInfoSheetView: View {
     private func managePaymentNotice(paymentMethod: MembershipExternalPaymentMethod) -> some View {
         Group {
             AnytypeText(paymentMethod.noticeText, style: .relation2Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .lineLimit(2)
                 .multilineTextAlignment(.center) 
                 .padding(.vertical)

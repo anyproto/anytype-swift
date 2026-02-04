@@ -16,8 +16,8 @@ struct EmbedContentData {
 }
 
 struct EmbedContentView: View {
-    
-    @ObservedObject var model: EmbedContentViewModel
+
+    @Bindable var model: EmbedContentViewModel
     
     var body: some View {
         HStack(spacing: 0) {
@@ -26,7 +26,7 @@ struct EmbedContentView: View {
             Spacer.fixedWidth(12)
             
             AnytypeText(model.data.text, style: .relation2Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             
             if model.data.url.isNotNil {
                 Spacer()
@@ -40,7 +40,7 @@ struct EmbedContentView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
         .background(Color.Shape.transparentTertiary)
-        .cornerRadius(16)
+        .clipShape(.rect(cornerRadius: 16))
         .safariSheet(url: $model.safariUrl)
     }
     
@@ -48,6 +48,6 @@ struct EmbedContentView: View {
         Image(asset: model.data.icon)
             .frame(width: 40, height: 40)
             .background(Color.Shape.transparentSecondary)
-            .cornerRadius(8)
+            .clipShape(.rect(cornerRadius: 8))
     }
 }

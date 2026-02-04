@@ -72,4 +72,8 @@ extension Color {
     func veryLightColor() -> Color {
         middlewareColor().map { Color.VeryLight.color(from: $0) } ?? Color.VeryLight.grey
     }
+
+    func lightColor() -> Color {
+        middlewareColor().map { Color.Light.color(from: $0) } ?? Color.Light.grey
+    }
 }

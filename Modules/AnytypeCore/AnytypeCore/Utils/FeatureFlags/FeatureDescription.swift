@@ -1,37 +1,38 @@
 import Foundation
 
-public enum FeatureType: Equatable, Sendable {
-    case debug
-    case feature(author: String, releaseVersion: String)
-    
+/// Category for UI organization. Does NOT affect runtime values.
+public enum FeatureCategory: Equatable, Sendable {
+    case developerTool
+    case productFeature(author: String, targetRelease: String)
+
     public var author: String? {
         switch self {
-        case .debug:
+        case .developerTool:
             return nil
-        case .feature(let author, _):
+        case .productFeature(let author, _):
             return author
         }
     }
-    
-    public var releaseVersion: String? {
+
+    public var targetRelease: String? {
         switch self {
-        case .debug:
+        case .developerTool:
             return nil
-        case .feature(_, let releaseVersion):
-            return releaseVersion
+        case .productFeature(_, let targetRelease):
+            return targetRelease
         }
     }
 }
 
 public struct FeatureDescription: Sendable {
     public let title: String
-    public let type: FeatureType
+    public let category: FeatureCategory
     public let releaseAnytypeValue: Bool
     public let debugValue: Bool
-    
-    init(title: String, type: FeatureType, defaultValue: Bool, debugValue: Bool? = nil) {
+
+    init(title: String, category: FeatureCategory, defaultValue: Bool, debugValue: Bool? = nil) {
         self.title = title
-        self.type = type
+        self.category = category
         self.releaseAnytypeValue = defaultValue
         self.debugValue = debugValue ?? defaultValue
     }

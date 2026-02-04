@@ -4,39 +4,37 @@ import AnytypeCore
 import Services
 
 @MainActor
-final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOutput, PropertyValueCoordinatorOutput {
-    
+@Observable
+final class EditorPageCoordinatorViewModel: EditorPageModuleOutput, PropertyValueCoordinatorOutput {
+
     let data: EditorPageObject
     let showHeader: Bool
-    private let setupEditorInput: (any EditorPageModuleInput, String) -> Void
+    @ObservationIgnored
     @Injected(\.propertyValueProcessingService)
     private var propertyValueProcessingService: any PropertyValueProcessingServiceProtocol
-    
+
     var pageNavigation: PageNavigation?
-    @Published var dismiss = false
-    @Published var relationValueData: PropertyValueData?
-    @Published var toastBarData: ToastBarData?
-    @Published var codeLanguageData: CodeLanguageListData?
-    @Published var covertPickerData: BaseDocumentIdentifiable?
-    @Published var linkToObjectData: LinkToObjectSearchModuleData?
-    @Published var objectIconPickerData: ObjectIconPickerData?
-    @Published var textIconPickerData: TextIconPickerData?
-    @Published var blockObjectSearchData: BlockObjectSearchData?
-    @Published var undoRedoObjectId: StringIdentifiable?
-    @Published var relationsSearchData: PropertiesSearchData?
-    @Published var openUrlData: URL?
-    @Published var syncStatusSpaceId: StringIdentifiable?
-    @Published var settingsOutput: ObjectSettingsCoordinatorOutputIdentifiable?
-    @Published var cameraData: SimpleCameraData?
+    var dismiss = false
+    var relationValueData: PropertyValueData?
+    var toastBarData: ToastBarData?
+    var codeLanguageData: CodeLanguageListData?
+    var covertPickerData: BaseDocumentIdentifiable?
+    var linkToObjectData: LinkToObjectSearchModuleData?
+    var objectIconPickerData: ObjectIconPickerData?
+    var textIconPickerData: TextIconPickerData?
+    var blockObjectSearchData: BlockObjectSearchData?
+    var undoRedoObjectId: StringIdentifiable?
+    var relationsSearchData: PropertiesSearchData?
+    var openUrlData: URL?
+    var syncStatusSpaceId: StringIdentifiable?
+    var cameraData: SimpleCameraData?
     
     init(
         data: EditorPageObject,
-        showHeader: Bool,
-        setupEditorInput: @escaping (any EditorPageModuleInput, String) -> Void
+        showHeader: Bool
     ) {
         self.data = data
         self.showHeader = showHeader
-        self.setupEditorInput = setupEditorInput
     }
     
     // MARK: - EditorPageModuleOutput
@@ -53,9 +51,6 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         dismiss.toggle()
     }
     
-    func setModuleInput(input: some EditorPageModuleInput, objectId: String) {
-        setupEditorInput(input, objectId)
-    }
     
     func showRelationValueEditingView(document: some BaseDocumentProtocol, relation: Property) {
         guard let objectDetails = document.details else {
@@ -119,15 +114,16 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     func showSyncStatusInfo(spaceId: String) {
         syncStatusSpaceId = spaceId.identifiable
     }
-    
-    func showObectSettings(output: any ObjectSettingsCoordinatorOutput) {
-        settingsOutput = ObjectSettingsCoordinatorOutputIdentifiable(value: output)
-    }
-    
+
     func showCamera(_ data: SimpleCameraData) {
         cameraData = data
     }
-    
+
+    func onWidgetsSelected(spaceId: String) {
+        let widgetData = HomeWidgetData(spaceId: spaceId)
+        pageNavigation?.open(.alert(.widgets(widgetData)))
+    }
+
     // MARK: - Private
     
     private func handlePropertyValue(relation: Property, objectDetails: ObjectDetails) {

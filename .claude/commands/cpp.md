@@ -1,4 +1,15 @@
-Commit, review, push, pull request
+---
+allowed-tools: Bash(git branch:*), Bash(git status:*), Bash(git log:*), Bash(git diff:*), Bash(git fetch:*)
+---
+
+# Commit, review, push, pull request
+
+## Git Context (Precomputed)
+- **Fetch**: !`git fetch origin develop 2>/dev/null || echo "(fetch failed)"`
+- **Current branch**: !`git branch --show-current`
+- **Staged files**: !`git diff --cached --name-only`
+- **Unstaged changes**: !`git status --short`
+- **Recent commits**: !`git log --oneline -5`
 
 ## Usage
 ```
@@ -14,9 +25,17 @@ Commits the current changes, performs a code review, applies fixes if needed, th
 ## Workflow
 
 ### 0. Determine Branch Name (if not provided)
-- If user mentions a Linear task ID (e.g., IOS-5292), fetch the issue using `mcp__linear__list_issues`
+- If user mentions a Linear task ID (e.g., IOS-5292), fetch the issue using `mcp__linear-server__list_issues`
 - Extract the `gitBranchName` field from the Linear issue response
 - Use this exact branch name for checkout/creation
+
+### 0.5. Polish Code (simplify + cleanup)
+- Review changed Swift files for simplification opportunities
+- **If no opportunities found**: Auto-proceed to commit (no approval needed)
+- **If opportunities found**: Present findings, wait for explicit approval before making ANY changes
+- If user approves: apply changes, then continue to commit
+- If user declines: skip polish, proceed to commit as-is
+- Key checks: guard-let early returns, keypath shorthand (where clearer), unused code removal
 
 ### 1. Commit Changes
 - Stage and commit all changes with a descriptive message
@@ -50,7 +69,7 @@ When a branch name is provided:
 ## Prerequisites
 When working with Linear tasks, Claude should fetch the branch name before running `/cpp`:
 1. User mentions task ID (e.g., "Fix IOS-2532")
-2. Claude calls `mcp__linear__list_issues(query: "IOS-2532", limit: 1)`
+2. Claude calls `mcp__linear-server__list_issues(query: "IOS-2532", limit: 1)`
 3. Claude extracts `gitBranchName` field (e.g., "ios-2532-fix-comment-version-for-hotfix")
 4. Claude switches to that branch
 5. User runs `/cpp` on the correct branch

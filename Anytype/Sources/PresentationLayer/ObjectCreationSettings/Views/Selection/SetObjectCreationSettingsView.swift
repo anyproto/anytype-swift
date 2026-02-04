@@ -31,14 +31,14 @@ struct SetObjectCreationSettingsView: View {
     private var navigation: some View {
         ZStack {
             AnytypeText(Loc.createObject, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             if model.isTemplatesEditable {
                 navigationButton
             }
         }
         .frame(height: 48)
     }
-    
+
     private var navigationButton: some View {
         HStack(spacing: 0) {
             if model.templates.count > 1 || model.isEditingState {
@@ -49,7 +49,7 @@ struct SetObjectCreationSettingsView: View {
                         model.isEditingState ? Loc.done : Loc.edit,
                         style: .bodyRegular
                     )
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
                 }
                 Spacer()
             }

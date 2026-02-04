@@ -22,8 +22,8 @@ struct ConversationEmptyStateView: View {
         case .owner:
             emptyStateView(
                 title: Loc.Chat.Empty.title,
-                addMembersAction: addMembersAction,
-                qrCodeAction: qrCodeAction
+                addMembersAction: spaceUxType.supportsMultiChats ? nil : addMembersAction,
+                qrCodeAction: spaceUxType.supportsMultiChats ? nil : qrCodeAction
             )
         case .writer:
             emptyStateView(
@@ -101,6 +101,6 @@ struct ConversationEmptyStateView: View {
                 .anytypeStyle(.previewTitle2Regular)
             Spacer()
         }
-        .padding(.horizontal, 45)
+        .padding(.horizontal, 32)
     }
 }

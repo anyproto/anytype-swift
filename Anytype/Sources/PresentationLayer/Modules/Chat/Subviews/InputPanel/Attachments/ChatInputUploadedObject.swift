@@ -10,29 +10,37 @@ struct ChatInputUploadedObject: View {
     var body: some View {
         switch details.resolvedLayoutValue {
         case .image:
-            ChatInputImageView(details: details, onTapRemove: { _ in
-                onTapRemove()
-            })
-            .onTapGesture {
+            Button {
                 onTapObject()
+            } label: {
+                ChatInputImageView(details: details, onTapRemove: { _ in
+                    onTapRemove()
+                })
             }
+            .buttonStyle(.plain)
         case .video:
-            ChatInputVideoView(details: details, onTapRemove: onTapRemove)
-                .onTapGesture {
-                    onTapObject()
-                }
-        case .bookmark:
-            ChatInputBookmarkView(details: details, onTapRemove: onTapRemove)
-                .onTapGesture {
-                    onTapObject()
-                }
-        default:
-            ChatInputObjectView(details: details, onTapRemove: { _ in
-                onTapRemove()
-            })
-            .onTapGesture {
+            Button {
                 onTapObject()
+            } label: {
+                ChatInputVideoView(details: details, onTapRemove: onTapRemove)
             }
+            .buttonStyle(.plain)
+        case .bookmark:
+            Button {
+                onTapObject()
+            } label: {
+                ChatInputBookmarkView(details: details, onTapRemove: onTapRemove)
+            }
+            .buttonStyle(.plain)
+        default:
+            Button {
+                onTapObject()
+            } label: {
+                ChatInputObjectView(details: details, onTapRemove: { _ in
+                    onTapRemove()
+                })
+            }
+            .buttonStyle(.plain)
         }
     }
 }

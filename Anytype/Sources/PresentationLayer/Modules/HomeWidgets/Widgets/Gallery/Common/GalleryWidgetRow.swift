@@ -18,26 +18,28 @@ struct GalleryWidgetRow: View {
     let model: GalleryWidgetRowModel
     
     var body: some View {
-        ZStack {
-            Color.clear
-                .border(8, color: .Shape.transparentPrimary)
-            
-            VStack(alignment: .leading, spacing: 0) {
-                if let cover = model.cover {
-                    ObjectHeaderCoverView(objectCover: cover, fitImage: false)
-                        .frame(height: model.shouldIncreaseCoverHeight ? 136 : 80)
+        Button {
+            model.onTap()
+        } label: {
+            ZStack {
+                Color.clear
+                    .border(8, color: .Shape.transparentPrimary)
+
+                VStack(alignment: .leading, spacing: 0) {
+                    if let cover = model.cover {
+                        ObjectHeaderCoverView(objectCover: cover, fitImage: false)
+                            .frame(height: model.shouldIncreaseCoverHeight ? 136 : 80)
+                    }
+                    if model.icon.isNotNil || model.title.isNotNil {
+                        info
+                    }
                 }
-                if model.icon.isNotNil || model.title.isNotNil {
-                    info
-                }
+                .frame(width: 136)
+                .fixTappableArea()
             }
-            .frame(width: 136)
-            .fixTappableArea()
-            .onTapGesture {
-                model.onTap()
-            }
+            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         }
-        .cornerRadius(8, style: .continuous)
+        .buttonStyle(.plain)
         .id(model.objectId)
     }
     
@@ -48,7 +50,7 @@ struct GalleryWidgetRow: View {
                     Text(model.icon.isNotNil ? title.leftIndented : title)
                         .anytypeStyle(.caption1Medium)
                         .lineLimit(2)
-                        .foregroundColor(Color.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                         .frame(maxHeight: .infinity, alignment: .top) // For equal height. Always height == 2 lines
                     Spacer()
                 }

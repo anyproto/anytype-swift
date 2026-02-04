@@ -1,25 +1,18 @@
 import SwiftUI
 import Services
-import AnytypeCore
 
 
 struct ProfileView: View {
-    @StateObject private var model: ProfileViewModel
+    @State private var model: ProfileViewModel
     @Environment(\.pageNavigation) private var pageNavigation
 
     init(info: ObjectInfo) {
-        _model = StateObject(wrappedValue: ProfileViewModel(info: info))
+        _model = State(initialValue: ProfileViewModel(info: info))
     }
 
     var body: some View {
-        Group {
-            if let details = model.details {
-                content(details)
-            } else {
-                emptyView
-            }
-        }
-        .onAppear {
+        mainContent
+            .onAppear {
             model.pageNavigation = pageNavigation
         }
         .task {
@@ -29,7 +22,16 @@ struct ProfileView: View {
             SettingsCoordinatorView()
         }
     }
-    
+
+    @ViewBuilder
+    private var mainContent: some View {
+        if let details = model.details {
+            content(details)
+        } else {
+            emptyView
+        }
+    }
+
     private var emptyView: some View {
         Spacer.fixedHeight(300)
             .background(Color.Background.secondary)
@@ -75,7 +77,7 @@ struct ProfileView: View {
             Spacer.fixedHeight(12)
             AnytypeText(details.name, style: .heading).lineLimit(1)
             Spacer.fixedHeight(4)
-            AnytypeText(details.displayName, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
+            AnytypeText(details.displayName, style: .caption1Regular).foregroundStyle(Color.Text.secondary).lineLimit(1)
             Spacer.fixedHeight(4)
             AnytypeText(details.description, style: .previewTitle2Regular)
             connectButton
@@ -90,7 +92,7 @@ struct ProfileView: View {
             Spacer.fixedHeight(12)
             AnytypeText(details.name, style: .heading).lineLimit(1)
             Spacer.fixedHeight(4)
-            AnytypeText(details.displayName, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
+            AnytypeText(details.displayName, style: .caption1Regular).foregroundStyle(Color.Text.secondary).lineLimit(1)
             connectButton
             Spacer.fixedHeight(32)
         }
@@ -98,7 +100,7 @@ struct ProfileView: View {
 
     @ViewBuilder
     private var connectButton: some View {
-        if FeatureFlags.oneToOneSpaces, !model.isOwner {
+        if !model.isOwner {
             Spacer.fixedHeight(24)
             AsyncStandardButton(Loc.sendMessage, style: .primaryLarge) {
                 try await model.onConnect()

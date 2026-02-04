@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct MigrationView: View {
-    
-    @StateObject private var model: MigrationViewModel
+
+    @State private var model: MigrationViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     private let topOffcet: CGFloat = UIDevice.isPad ? 310 : 180
-    
+
     init(data: MigrationModuleData, output: (any MigrationModuleOutput)?) {
-        _model = StateObject(wrappedValue: MigrationViewModel(data: data, output: output))
+        _model = State(initialValue: MigrationViewModel(data: data, output: output))
     }
     
     var body: some View {
@@ -43,11 +43,11 @@ struct MigrationView: View {
             IllustrationView(icon: .Illustration.loading, color: .blue)
             Spacer.fixedHeight(16)
             AnytypeText(Loc.Migration.Initial.title, style: .title)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(8)
             AnytypeText(Loc.Migration.Initial.subtitle, style: .bodyRegular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .multilineTextAlignment(.center)
             Spacer()
             
@@ -75,11 +75,11 @@ struct MigrationView: View {
             progressHeader
             Spacer.fixedHeight(20)
             AnytypeText(Loc.Migration.Progress.title, style: .heading)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(8)
             AnytypeText(Loc.Migration.Progress.subtitle, style: .calloutRegular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .multilineTextAlignment(.center)
             Spacer()
         }
@@ -99,11 +99,11 @@ struct MigrationView: View {
             IllustrationView(icon: .Illustration.exclamation, color: .red)
             Spacer.fixedHeight(16)
             AnytypeText(title, style: .heading)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(8)
             AnytypeText(message, style: .calloutRegular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .multilineTextAlignment(.center)
             Spacer()
             StandardButton(

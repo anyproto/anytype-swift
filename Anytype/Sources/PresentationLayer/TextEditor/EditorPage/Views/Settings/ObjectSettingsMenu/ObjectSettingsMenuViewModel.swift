@@ -45,6 +45,7 @@ final class ObjectSettingsMenuViewModel {
     private func setupSubscriptions() {
         observeSettings()
         observeActions()
+        observeIsChat()
     }
 
     private func observeSettings() {
@@ -54,6 +55,17 @@ final class ObjectSettingsMenuViewModel {
             Task { @MainActor [weak self] in
                 self?.rebuildMenu()
                 self?.observeSettings()
+            }
+        }
+    }
+
+    private func observeIsChat() {
+        withObservationTracking {
+            _ = settingsViewModel.isChat
+        } onChange: { [weak self] in
+            Task { @MainActor [weak self] in
+                self?.rebuildMenu()
+                self?.observeIsChat()
             }
         }
     }
@@ -72,7 +84,8 @@ final class ObjectSettingsMenuViewModel {
     private func rebuildMenu() {
         menuConfig = ObjectMenuBuilder.buildMenu(
             settings: settingsViewModel.settings,
-            actions: actionsViewModel.objectActions
+            actions: actionsViewModel.objectActions,
+            isChat: settingsViewModel.isChat
         )
     }
 

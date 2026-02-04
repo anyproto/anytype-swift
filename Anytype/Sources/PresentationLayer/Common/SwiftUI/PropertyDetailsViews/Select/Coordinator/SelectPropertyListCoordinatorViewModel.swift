@@ -2,13 +2,14 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class SelectPropertyListCoordinatorViewModel: ObservableObject, SelectPropertyListModuleOutput {
+@Observable
+final class SelectPropertyListCoordinatorViewModel: SelectPropertyListModuleOutput {
 
     let data: SelectPropertyListData
 
-    @Published var propertyData: PropertyData?
-    @Published var deletionAlertData: DeletionAlertData?
-    @Published var dismiss = false
+    var propertyData: PropertyData?
+    var deletionAlertData: DeletionAlertData?
+    var dismiss = false
     
     init(data: SelectPropertyListData) {
         self.data = data

@@ -9,12 +9,12 @@ struct HomeUpdateView: View, Animatable {
         ZStack(alignment: .leading) {
             Text(Loc.Widgets.appUpdate)
                 .anytypeStyle(.previewTitle2Medium)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .padding(.horizontal, 46)
                 .padding(.vertical, 10)
                 .frame(maxWidth: .infinity)
             Image(asset: .X18.updateApp)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .padding(.horizontal, 16)
         }
         .onAppear {
@@ -26,7 +26,7 @@ struct HomeUpdateView: View, Animatable {
         .background {
             HomeUpdateGradient(percent: gradientPercent)
         }
-        .cornerRadius(10, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
         .colorScheme(.light)
     }
 }

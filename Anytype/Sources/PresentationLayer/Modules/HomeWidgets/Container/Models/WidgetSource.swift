@@ -49,9 +49,9 @@ extension ObjectDetails {
            return [.tree, .link]
         case .list, .type:
             return [.view, .compactList, .list, .link]
-        case .date:
+        case .date, .chat:
             return [.link]
-        case .participant, .mediaFile,. chat:
+        case .participant, .mediaFile:
             return []
         }
     }

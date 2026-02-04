@@ -1,9 +1,8 @@
 import SwiftUI
 import Services
 
-
 struct PublishedSitesView: View {
-    @StateObject private var model = PublishedSitesViewModel()
+    @State private var model = PublishedSitesViewModel()
     @Environment(\.pageNavigation) private var pageNavigation
     
     var body: some View {
@@ -62,7 +61,7 @@ struct PublishedSitesView: View {
                         .lineLimit(1)
                     HStack(alignment: .center, spacing: 6) {
                         AnytypeText("\(model.formattedDate(site.date))", style: .caption1Regular)
-                            .foregroundColor(Color.Text.secondary)
+                            .foregroundStyle(Color.Text.secondary)
                             .lineLimit(1)
                         
                         Circle()
@@ -70,7 +69,7 @@ struct PublishedSitesView: View {
                             .foregroundStyle(Color.Text.secondary)
                         
                         AnytypeText("\(model.formattedSize(site.size))", style: .caption1Regular)
-                            .foregroundColor(Color.Text.secondary)
+                            .foregroundStyle(Color.Text.secondary)
                             .lineLimit(1)
                     }
                 }

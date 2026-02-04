@@ -22,9 +22,11 @@ extension ObjectMenuSectionType {
         }
     }
 
-    static func section(for action: ObjectAction) -> ObjectMenuSectionType {
+    static func section(for action: ObjectAction, isChat: Bool) -> ObjectMenuSectionType {
         switch action {
-        case .pin, .undoRedo, .copyLink:
+        case .pin:
+            return isChat ? .horizontal : .mainSettings
+        case .undoRedo, .copyLink:
             return .mainSettings
         case .linkItself, .locked, .makeAsTemplate:
             return .moreCollapsible

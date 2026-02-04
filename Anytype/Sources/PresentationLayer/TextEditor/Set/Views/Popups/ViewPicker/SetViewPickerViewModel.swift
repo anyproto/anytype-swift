@@ -4,18 +4,23 @@ import Combine
 import AnytypeCore
 
 @MainActor
-final class SetViewPickerViewModel: ObservableObject {
-    @Published var rows: [SetViewRowConfiguration] = []
-    @Published var disableDeletion = false
-    @Published var canEditViews = false
-    @Published var shouldDismiss = false
-    
+@Observable
+final class SetViewPickerViewModel {
+    var rows: [SetViewRowConfiguration] = []
+    var disableDeletion = false
+    var canEditViews = false
+    var shouldDismiss = false
+
+    @ObservationIgnored
     private let setDocument: any SetDocumentProtocol
+    @ObservationIgnored
     private var cancellable: AnyCancellable?
-    
+
+    @ObservationIgnored
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
-    
+
+    @ObservationIgnored
     private weak var output: (any SetViewPickerCoordinatorOutput)?
     
     init(

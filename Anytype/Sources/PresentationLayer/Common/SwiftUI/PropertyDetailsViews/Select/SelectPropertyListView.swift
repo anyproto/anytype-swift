@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct SelectPropertyListView: View {
-    
-    @StateObject var viewModel: SelectPropertyListViewModel
-    
+
+    @State var viewModel: SelectPropertyListViewModel
+
     init(data: SelectPropertyListData, output: (any SelectPropertyListModuleOutput)?) {
-        _viewModel = StateObject(wrappedValue: SelectPropertyListViewModel(data: data, output: output))
+        _viewModel = State(initialValue: SelectPropertyListViewModel(data: data, output: output))
     }
     
     var body: some View {
@@ -32,6 +32,9 @@ struct SelectPropertyListView: View {
             }
         )
         .disabled(!viewModel.configuration.isEditable)
+        .task {
+            await viewModel.startSelectedOptionsSubscription()
+        }
         .task(id: viewModel.searchText) {
             await viewModel.searchTextChanged()
         }
@@ -75,13 +78,13 @@ struct SelectPropertyListView: View {
         switch viewModel.style {
         case .status:
             AnytypeText(option.text, style: .relation1Regular)
-                .foregroundColor(option.color)
+                .foregroundStyle(Color(option.color))
         case .tag:
             TagView(
                 config: TagView.Config(
                     text: option.text,
                     textColor: option.color,
-                    backgroundColor: option.color.veryLightColor(),
+                    backgroundColor: option.color.lightColor(),
                     textFont: .relation1Regular,
                     guidlines: TagView.Guidlines(textPadding: 6, cornerRadius: 3, tagHeight: 20)
                 )

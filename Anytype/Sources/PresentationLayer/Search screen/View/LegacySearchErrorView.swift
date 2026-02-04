@@ -12,14 +12,14 @@ struct LegacySearchErrorView: View {
                 error.title,
                 style: .uxBodyRegular
             )
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .multilineTextAlignment(.center)
             error.subtitle.flatMap {
                 AnytypeText(
                     $0,
                     style: .uxBodyRegular
                 )
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .multilineTextAlignment(.center)
             }
             

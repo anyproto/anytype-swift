@@ -7,15 +7,15 @@ public extension DetailsLayout {
     static let mediaLayouts: [DetailsLayout] = [ .image, .audio, .video ]
     static let fileAndMediaLayouts = DetailsLayout.fileLayouts + DetailsLayout.mediaLayouts
 
-    fileprivate static let visibleLayoutsBase: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark, .date, .objectType] + chatLayouts
+    fileprivate static let visibleLayoutsBase: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark, .date, .objectType]
     fileprivate static let visibleLayoutsWithFilesBase = visibleLayoutsBase + fileAndMediaLayouts
 
-    fileprivate static let supportedForCreationBase: [DetailsLayout] = supportedForCreationInSets + listLayouts + chatLayouts
-    static let supportedForSharingExtension: [DetailsLayout] = [.collection] + editorLayouts
+    fileprivate static let supportedForCreationBase: [DetailsLayout] = supportedForCreationInSets + listLayouts
+    fileprivate static let supportedForSharingExtensionBase: [DetailsLayout] = [.collection] + editorLayouts
 
-    fileprivate static let widgetTypeLayoutsBase = listLayouts + editorLayouts + [.bookmark] + fileAndMediaLayouts + chatLayouts
+    fileprivate static let widgetTypeLayoutsBase = listLayouts + editorLayouts + [.bookmark] + fileAndMediaLayouts
 
-    private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFilesBase + [.objectType, .participant]
+    private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFilesBase + [.objectType, .participant] + chatLayouts
 
     private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark] + listLayouts
     private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile, .objectType]
@@ -27,23 +27,28 @@ public extension DetailsLayout {
 
 public extension DetailsLayout {
     static func visibleLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard !spaceUxType.supportsMultiChats else { return visibleLayoutsBase }
-        return visibleLayoutsBase.filter { $0 != .chatDerived }
+        guard spaceUxType.supportsMultiChats else { return visibleLayoutsBase }
+        return visibleLayoutsBase + chatLayouts
     }
 
     static func visibleLayoutsWithFiles(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard !spaceUxType.supportsMultiChats else { return visibleLayoutsWithFilesBase }
-        return visibleLayoutsWithFilesBase.filter { $0 != .chatDerived }
+        guard spaceUxType.supportsMultiChats else { return visibleLayoutsWithFilesBase }
+        return visibleLayoutsWithFilesBase + chatLayouts
     }
 
     static func supportedForCreation(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard !spaceUxType.supportsMultiChats else { return supportedForCreationBase }
-        return supportedForCreationBase.filter { $0 != .chatDerived }
+        guard spaceUxType.supportsMultiChats else { return supportedForCreationBase }
+        return supportedForCreationBase + chatLayouts
     }
 
     static func widgetTypeLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard !spaceUxType.supportsMultiChats else { return widgetTypeLayoutsBase }
-        return widgetTypeLayoutsBase.filter { $0 != .chatDerived }
+        guard spaceUxType.supportsMultiChats else { return widgetTypeLayoutsBase }
+        return widgetTypeLayoutsBase + chatLayouts
+    }
+
+    static func supportedForSharingExtension(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
+        guard spaceUxType.supportsMultiChats else { return supportedForSharingExtensionBase }
+        return supportedForSharingExtensionBase + chatLayouts
     }
 }
 
@@ -70,8 +75,9 @@ public extension DetailsLayout {
     var isSet: Bool { self == .set }
     var isCollection: Bool { self == .collection }
     var isList: Bool { Self.listLayouts.contains(self) }
-    
+
     var isObjectType: Bool { self == .objectType }
+    var isChat: Bool { Self.chatLayouts.contains(self) }
 }
 
 public extension Optional where Wrapped == DetailsLayout {

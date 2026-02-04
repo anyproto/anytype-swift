@@ -168,6 +168,45 @@ func onConnect() async throws {
 - ✅ `Image(asset: .X24.qrCode)` - Also valid
 - Both approaches are acceptable depending on context and availability
 
+### Mistake: Flagging Properly Regenerated Files
+
+**Scenario**: A PR includes changes to a generated file (e.g., `Generated/FeatureFlags.swift`).
+
+**Wrong Analysis**:
+- ❌ "Edited generated file instead of running code generation"
+- ❌ Assuming any change to a generated file is a violation
+
+**Correct Approach**:
+Check if the corresponding SOURCE file is also in the PR diff:
+
+| Generated File | Source File |
+|----------------|-------------|
+| `Generated/FeatureFlags.swift` | `FeatureDescription+Flags.swift` |
+| `Generated/Strings.swift` | `.xcstrings` files |
+| `Generated/ImageAssets.swift` | `Assets.xcassets` folders |
+| `Modules/*/Generated/` | Templates or annotated source files |
+
+**Proper Workflow Pattern**:
+```
+PR contains:
+├── FeatureDescription+Flags.swift (source - CHANGED)
+└── Generated/FeatureFlags.swift   (generated - ALSO CHANGED)
+→ This is CORRECT! Developer edited source and ran `make generate`
+```
+
+**Actual Violation Pattern**:
+```
+PR contains:
+└── Generated/FeatureFlags.swift   (generated - CHANGED)
+    (No corresponding source file changes)
+→ This is WRONG! Developer manually edited generated file
+```
+
+**Before flagging generated file edits**:
+- [ ] Check if corresponding source file is in the diff
+- [ ] If source file changed → regeneration was proper, NOT a violation
+- [ ] If ONLY generated file changed → flag as violation
+
 ## Analysis Checklist
 
 Before suggesting removal of "unused" code:

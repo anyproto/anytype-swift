@@ -79,7 +79,7 @@ struct MembershipDebugView: View {
             },
             label: {
                 AnytypeText("All Tiers info", style: .heading)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .padding()
             }
         ).padding()
@@ -108,13 +108,13 @@ struct MembershipDebugView: View {
                     }
                 } else {
                     AnytypeText("No transactions 🫵😵‍💫", style: .heading)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                         .padding()
                 }
             },
             label: {
                 AnytypeText("Transactions", style: .heading)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .padding()
             }
         ).padding()
@@ -149,7 +149,7 @@ struct MembershipDebugView: View {
         }
         .padding()
         .background(Color.Control.tertiary.gradient)
-        .cornerRadius(18, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
     
     // MARK: - Logic

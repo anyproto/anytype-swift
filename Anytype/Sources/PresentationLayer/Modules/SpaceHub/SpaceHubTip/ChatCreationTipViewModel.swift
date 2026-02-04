@@ -1,12 +1,14 @@
 import AnytypeCore
 import Foundation
 
-final class ChatCreationTipViewModel: ObservableObject {
-    
+@MainActor
+@Observable
+final class ChatCreationTipViewModel {
+
     let chatCreationTip = ChatCreationTip()
-    
-    @Published var sharedUrl: URL?
-    @Published var dismiss: Bool = false
+
+    var sharedUrl: URL?
+    var dismiss: Bool = false
     
     init() {}
     

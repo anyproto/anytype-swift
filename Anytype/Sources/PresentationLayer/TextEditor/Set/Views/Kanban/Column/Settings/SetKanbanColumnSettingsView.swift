@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SetKanbanColumnSettingsView: View {
-    @ObservedObject var viewModel: SetKanbanColumnSettingsViewModel
+    var viewModel: SetKanbanColumnSettingsViewModel
 
     var body: some View {
         VStack(spacing: 0) {
@@ -31,7 +31,7 @@ struct SetKanbanColumnSettingsView: View {
                 Loc.Set.View.Kanban.Column.Settings.Color.title,
                 style: .caption1Regular
             )
-            .foregroundColor(.Text.secondary)
+            .foregroundStyle(Color.Text.secondary)
             .padding(.horizontal, 20)
             Spacer.fixedHeight(14)
             ScrollView(.horizontal, showsIndicators: false) {
@@ -57,7 +57,7 @@ struct SetKanbanColumnSettingsView: View {
                 .clipShape(Circle())
             if viewModel.selectedColor == backgroundColor {
                 Image(asset: .X24.tick)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             }
         }
     }

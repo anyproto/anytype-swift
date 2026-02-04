@@ -5,12 +5,12 @@ import DesignKit
 
 
 struct SpaceCreateView: View {
-    
-    @StateObject private var model: SpaceCreateViewModel
+
+    @State private var model: SpaceCreateViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: SpaceCreateData, output: (any SpaceCreateModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceCreateViewModel(data: data, output: output))
+        _model = State(initialValue: SpaceCreateViewModel(data: data, output: output))
     }
     
     var body: some View {
@@ -33,9 +33,9 @@ struct SpaceCreateView: View {
             .safeAreaInset(edge: .bottom) {
                 VStack(spacing: 0) {
                     ThresholdCounter(usecase: .spaceName, count: model.spaceName.count)
-                    StandardButton(model: StandardButtonModel(text: Loc.create, inProgress: model.createLoadingState, style: .primaryLarge, action: {
-                        model.onTapCreate()
-                    }))
+                    AsyncStandardButton(Loc.create, style: .primaryLarge, action: {
+                        try await model.onTapCreate()
+                    })
                     .disabled(model.spaceName.count > ThresholdCounterUsecase.spaceName.threshold)
                 }
                 .padding(.bottom, 10)
@@ -55,18 +55,20 @@ struct SpaceCreateView: View {
     }
     
     private var iconSection: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(8)
-            IconView(icon: model.spaceIcon)
-                .frame(width: 96, height: 96)
-            Spacer.fixedHeight(6)
-            AnytypeText(Loc.changeIcon, style: .uxCalloutMedium)
-                .foregroundColor(.Control.secondary)
-            Spacer.fixedHeight(20)
-        }
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             model.onIconTapped()
+        } label: {
+            VStack(spacing: 0) {
+                Spacer.fixedHeight(8)
+                IconView(icon: model.spaceIcon)
+                    .frame(width: 96, height: 96)
+                Spacer.fixedHeight(6)
+                AnytypeText(Loc.changeIcon, style: .uxCalloutMedium)
+                    .foregroundStyle(Color.Control.secondary)
+                Spacer.fixedHeight(20)
+            }
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
 }

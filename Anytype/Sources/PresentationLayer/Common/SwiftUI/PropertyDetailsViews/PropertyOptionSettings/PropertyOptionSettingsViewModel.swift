@@ -3,17 +3,20 @@ import SwiftUI
 import Services
 
 @MainActor
-final class PropertyOptionSettingsViewModel: ObservableObject {
-    
-    @Published var text: String
-    @Published var selectedColor: Color
-    
+@Observable
+final class PropertyOptionSettingsViewModel {
+
+    var text: String
+    var selectedColor: Color
+
     let colors: [Color]
     let configuration: PropertyOptionSettingsConfiguration
-    
+
+    @ObservationIgnored
     @Injected(\.propertiesService)
     private var propertiesService: any PropertiesServiceProtocol
-    
+
+    @ObservationIgnored
     private let completion: (_ optionParams: PropertyOptionParameters) -> Void
     
     init(

@@ -5,11 +5,11 @@ import AnytypeCore
 
 
 struct PropertiesListCoordinatorView: View {
-    
-    @StateObject private var model: PropertiesListCoordinatorViewModel
-    
+
+    @State private var model: PropertiesListCoordinatorViewModel
+
     init(document: some BaseDocumentProtocol, output: (any PropertyValueCoordinatorOutput)?) {
-        _model = StateObject(wrappedValue: PropertiesListCoordinatorViewModel(document: document, output: output))
+        _model = State(initialValue: PropertiesListCoordinatorViewModel(document: document, output: output))
     }
     
     var body: some View {

@@ -17,13 +17,13 @@ struct InfoSelectionView: View {
     private var content: some View {
         VStack(spacing: 0) {
             AnytypeText(title, style: .contentTitleSemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(8)
             
             AnytypeText(description, style: .bodyRegular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 20)
             
@@ -53,19 +53,21 @@ struct InfoSelectionView: View {
     }
     
     private func optionRow(_ option: InfoSelectionOption, isSelected: Bool) -> some View {
-        HStack(spacing: 6) {
-            Image(asset: option.icon)
-            AnytypeText(option.title, style: .calloutRegular)
-                .foregroundColor(isSelected ? .Text.primary : .Text.secondary)
-        }
-        .padding(.vertical, 10)
-        .padding(.leading, 12)
-        .padding(.trailing, 16)
-        .background(isSelected ? Color.Control.accent25 : Color.Shape.transparentSecondary)
-        .cornerRadius(16, style: .continuous)
-        .onTapGesture {
+        Button {
             onSelect(option)
+        } label: {
+            HStack(spacing: 6) {
+                Image(asset: option.icon)
+                AnytypeText(option.title, style: .calloutRegular)
+                    .foregroundStyle(isSelected ? Color.Text.primary : Color.Text.secondary)
+            }
+            .padding(.vertical, 10)
+            .padding(.leading, 12)
+            .padding(.trailing, 16)
+            .background(isSelected ? Color.Control.accent25 : Color.Shape.transparentSecondary)
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         }
+        .buttonStyle(.plain)
         .if(isSelected) {
             $0.overlay(alignment: .topTrailing) {
                 AnytypeCircleCheckbox(checked: .constant(true))

@@ -8,18 +8,18 @@ struct SharingExtensionShareToData: Hashable, Identifiable {
 }
 
 struct SharingExtensionShareToView: View {
-    
-    @StateObject private var model: SharingExtensionShareToViewModel
+
+    @State private var model: SharingExtensionShareToViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: SharingExtensionShareToData, output: (any SharingExtensionShareToModuleOutput)?) {
-        self._model = StateObject(wrappedValue: SharingExtensionShareToViewModel(data: data, output: output))
+        self._model = State(initialValue: SharingExtensionShareToViewModel(data: data, output: output))
     }
     
     var body: some View {
         VStack {
             DragIndicator()
-            ModalNavigationHeader(title: model.title)
+            NavigationHeader(title: model.title, navigationButtonType: .none, enableBackgroundBlur: false)
             SearchBar(
                 text: $model.searchText,
                 focused: false,
@@ -45,20 +45,8 @@ struct SharingExtensionShareToView: View {
             ListSectionHeaderView(title: Loc.Sharing.ObjectList.title)
                 .newDivider()
                 .padding(.horizontal, 16)
-            if let chatRow = model.chatRow {
-                SharingExtensionsChatRow(data: chatRow)
-                    .fixTappableArea()
-                    .onTapGesture {
-                        model.onTapChat()
-                    }
-            }
-            ForEach(model.rows) { data in
-                SharingExtensionsShareRow(data: data)
-                    .fixTappableArea()
-                    .onTapGesture {
-                        model.onTapCell(data: data)
-                    }
-            }
+            chatSection
+            objectSection
         }
         .safeAreaInset(edge: .bottom) {
             Spacer.fixedHeight(150)
@@ -68,10 +56,48 @@ struct SharingExtensionShareToView: View {
     }
     
     @ViewBuilder
+    private var chatSection: some View {
+        switch model.chatDisplayMode {
+        case .sendToChat(let data):
+            Button {
+                model.onTapChat()
+            } label: {
+                SharingExtensionsChatRow(data: data)
+                    .fixTappableArea()
+            }
+            .buttonStyle(.plain)
+        case .individualChats(let rows):
+            ForEach(rows) { data in
+                Button {
+                    model.onTapCell(data: data)
+                } label: {
+                    SharingExtensionsShareRow(data: data)
+                        .fixTappableArea()
+                }
+                .buttonStyle(.plain)
+            }
+        case nil:
+            EmptyView()
+        }
+    }
+    
+    private var objectSection: some View {
+        ForEach(model.rows) { data in
+            Button {
+                model.onTapCell(data: data)
+            } label: {
+                SharingExtensionsShareRow(data: data)
+                    .fixTappableArea()
+            }
+            .buttonStyle(.plain)
+        }
+    }
+    
+    @ViewBuilder
     private var bottomPanel: some View {
         SharingExtensionBottomPanel(
             comment: $model.comment,
-            showComment: model.chatRowSelected,
+            showComment: model.chatSelected,
             commentLimit: model.commentLimit,
             commentWarningLimit: model.commentWarningLimit) {
                 try await model.onTapSend()

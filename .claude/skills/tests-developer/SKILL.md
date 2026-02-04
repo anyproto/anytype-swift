@@ -1,3 +1,8 @@
+---
+name: tests-developer
+description: Smart router to testing patterns and practices. Use when writing unit tests, creating mocks, testing edge cases, or working with Swift Testing and XCTest frameworks.
+---
+
 # Tests Developer Skill
 
 Smart router to testing patterns and practices. Writing unit tests, creating mocks, test organization.

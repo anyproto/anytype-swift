@@ -13,12 +13,12 @@ struct EditorSetEmptyView: View {
     var content: some View {
         VStack(spacing: 0) {
             AnytypeText(model.mode.title, style: .uxCalloutRegular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             
             Spacer.fixedHeight(4)
             
             AnytypeText(model.mode.subtitle, style: .caption1Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 16)
             
@@ -29,7 +29,7 @@ struct EditorSetEmptyView: View {
                     model.onTap()
                 } label: {
                     AnytypeText(model.mode.buttonTitle, style: .caption1Regular)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                         .padding(EdgeInsets(top: 9, leading: 12, bottom: 9, trailing: 12))
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)

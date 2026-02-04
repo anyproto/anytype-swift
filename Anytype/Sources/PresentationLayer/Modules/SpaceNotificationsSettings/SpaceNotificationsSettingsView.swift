@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct SpaceNotificationsSettingsView: View {
-    
-    @StateObject private var model: SpaceNotificationsSettingsViewModel
+
+    @State private var model: SpaceNotificationsSettingsViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: SpaceNotificationsSettingsModuleData) {
-        self._model = StateObject(wrappedValue: SpaceNotificationsSettingsViewModel(data: data))
+        _model = State(initialValue: SpaceNotificationsSettingsViewModel(data: data))
     }
     
     var body: some View {
@@ -46,11 +46,11 @@ struct SpaceNotificationsSettingsView: View {
         } label: {
             HStack(spacing: 0) {
                 AnytypeText(mode.title, style: .previewTitle1Regular)
-                    .foregroundColor(model.disabledStatus() ? .Text.tertiary : .Text.primary)
+                    .foregroundStyle(model.disabledStatus() ? Color.Text.tertiary : Color.Text.primary)
                 Spacer()
                 if !model.disabledStatus(), model.mode == mode {
                     Image(asset: .X24.tick)
-                        .foregroundColor(.Control.primary)
+                        .foregroundStyle(Color.Control.primary)
                 }
             }
             .frame(height: 52)

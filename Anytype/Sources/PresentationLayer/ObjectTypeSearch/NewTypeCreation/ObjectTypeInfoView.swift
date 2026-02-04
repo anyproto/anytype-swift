@@ -28,11 +28,11 @@ struct ObjectTypeInfo: Identifiable, Hashable {
 }
 
 struct ObjectTypeInfoView: View {
-    @StateObject private var model: ObjectTypeInfoViewModel
+    @State private var model: ObjectTypeInfoViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(info: ObjectTypeInfo, completion: @escaping (_ info: ObjectTypeInfo) -> ()) {
-        _model = StateObject(wrappedValue: ObjectTypeInfoViewModel(info: info, completion: completion))
+        _model = State(initialValue: ObjectTypeInfoViewModel(info: info, completion: completion))
     }
     
     var body: some View {

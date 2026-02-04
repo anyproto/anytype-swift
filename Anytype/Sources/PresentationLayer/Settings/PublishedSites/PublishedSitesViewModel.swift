@@ -2,26 +2,30 @@ import SwiftUI
 import Services
 import AnytypeCore
 
-
 @MainActor
-final class PublishedSitesViewModel: ObservableObject {
-    @Injected(\.publishingService)
+@Observable
+final class PublishedSitesViewModel {
+    @ObservationIgnored @Injected(\.publishingService)
     private var publishingService: any PublishingServiceProtocol
-    @Injected(\.participantsStorage)
+    @ObservationIgnored @Injected(\.participantsStorage)
     private var participantStorage: any ParticipantsStorageProtocol
-    @Injected(\.publishedUrlBuilder)
+    @ObservationIgnored @Injected(\.publishedUrlBuilder)
     private var urlBuilder: any PublishedUrlBuilderProtocol
-    
+
+    @ObservationIgnored
     private let dateFormatter = HistoryDateFormatter()
+    @ObservationIgnored
     private let byteCountFormatter = ByteCountFormatter.fileFormatter
-    
-    @Published var sites: [PublishState]?
-    @Published var error: String?
-    @Published var safariUrl: URL?
-    @Published var toastBarData: ToastBarData?
-    
+
+    var sites: [PublishState]?
+    var error: String?
+    var safariUrl: URL?
+    var toastBarData: ToastBarData?
+
+    @ObservationIgnored
     lazy var domain: DomainType? = { participantStorage.participants.first?.publishingDomain }()
-    
+
+    @ObservationIgnored
     var pageNavigation: PageNavigation?
     
     func loadData() async {

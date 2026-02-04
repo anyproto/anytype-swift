@@ -5,12 +5,12 @@ struct TagView: View {
     
     var body: some View {
         AnytypeText(config.text, style: config.textFont)
-            .foregroundColor(config.textColor)
+            .foregroundStyle(config.textColor)
             .lineLimit(1)
             .padding(.horizontal, config.guidlines.textPadding)
             .background(config.backgroundColor)
-            .cornerRadius(config.guidlines.cornerRadius)
-            .if(config.backgroundColor == Color.VeryLight.default) {
+            .clipShape(.rect(cornerRadius: config.guidlines.cornerRadius))
+            .if(config.backgroundColor == Color.Light.default) {
                 $0.overlay(
                     RoundedRectangle(cornerRadius: config.guidlines.cornerRadius)
                         .stroke(Color.Shape.primary, lineWidth: 1)
@@ -32,7 +32,7 @@ extension TagView {
         static let `default` = TagView.Config(
             text: "Tag",
             textColor: Color.Dark.pink,
-            backgroundColor: Color.VeryLight.pink,
+            backgroundColor: Color.Light.pink,
             textFont: .bodyRegular,
             guidlines: TagView.Guidlines(textPadding: 5, cornerRadius: 6, tagHeight: 20)
         )

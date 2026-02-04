@@ -60,11 +60,11 @@ struct TagPropertyView: View {
             switch style {
             case .regular, .featuredBlock, .set:
                 AnytypeText(leftTagsCount, style: .relation2Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                     .lineLimit(1)
                     .frame(width: 24, height: 18)
                     .background(Color.Shape.tertiary)
-                    .cornerRadius(3)
+                    .clipShape(.rect(cornerRadius: 3))
             case .filter, .setCollection, .kanbanHeader:
                 CountTagView(count: count, style: style)
             }
@@ -93,16 +93,16 @@ struct TagRelationView_Previews: PreviewProvider {
     static var previews: some View {
         TagPropertyView(
             tags: [
-                Property.Tag.Option(id: "id1", text: "text1", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.default),
-                Property.Tag.Option(id: "id2", text: "text2", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red),
-                Property.Tag.Option(id: "id3", text: "text3", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.teal),
-                Property.Tag.Option(id: "id4", text: "text4", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red),
-                Property.Tag.Option(id: "id5", text: "text5", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.teal),
-                Property.Tag.Option(id: "id6", text: "text6", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red),
-                Property.Tag.Option(id: "id7", text: "text7", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.teal),
-                Property.Tag.Option(id: "id8", text: "text8", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red),
-                Property.Tag.Option(id: "id9", text: "text9", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.teal),
-                Property.Tag.Option(id: "id10", text: "text10", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red)
+                Property.Tag.Option(id: "id1", text: "text1", textColor: Color.Dark.teal, backgroundColor: Color.Light.default),
+                Property.Tag.Option(id: "id2", text: "text2", textColor: Color.Dark.red, backgroundColor: Color.Light.red),
+                Property.Tag.Option(id: "id3", text: "text3", textColor: Color.Dark.teal, backgroundColor: Color.Light.teal),
+                Property.Tag.Option(id: "id4", text: "text4", textColor: Color.Dark.red, backgroundColor: Color.Light.red),
+                Property.Tag.Option(id: "id5", text: "text5", textColor: Color.Dark.teal, backgroundColor: Color.Light.teal),
+                Property.Tag.Option(id: "id6", text: "text6", textColor: Color.Dark.red, backgroundColor: Color.Light.red),
+                Property.Tag.Option(id: "id7", text: "text7", textColor: Color.Dark.teal, backgroundColor: Color.Light.teal),
+                Property.Tag.Option(id: "id8", text: "text8", textColor: Color.Dark.red, backgroundColor: Color.Light.red),
+                Property.Tag.Option(id: "id9", text: "text9", textColor: Color.Dark.teal, backgroundColor: Color.Light.teal),
+                Property.Tag.Option(id: "id10", text: "text10", textColor: Color.Dark.red, backgroundColor: Color.Light.red)
             ],
             hint: "Hint",
             style: .regular(allowMultiLine: false)

@@ -1,15 +1,13 @@
 import SwiftUI
-import AnytypeCore
 
 struct TemplatePickerView: View {
     @StateObject var viewModel: TemplatePickerViewModel
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             content
         }
-        .navigationViewStyle(.stack)
         .task {
             await viewModel.startTemplateSubscription()
         }
@@ -48,7 +46,7 @@ struct TemplatePickerView: View {
                     Loc.TemplateSelection.Available.title(viewModel.items.count),
                     style: .caption1Medium
                 )
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 settingsButton
@@ -72,7 +70,7 @@ struct TemplatePickerView: View {
         Spacer
             .fixedHeight(4)
             .background(isSelected ? Color.Text.primary : Color.Shape.primary)
-            .cornerRadius(2)
+            .clipShape(.rect(cornerRadius: 2))
             .frame(maxWidth: 20)
     }
 
@@ -89,27 +87,18 @@ struct TemplatePickerView: View {
             viewModel.onCloseButtonTap()
         } label: {
             Image(asset: .X24.close)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
         }
     }
     
     @ViewBuilder
     private var settingsButton: some View {
-        if FeatureFlags.newObjectSettings {
-            if viewModel.items.isNotEmpty {
-                ObjectSettingsMenuContainer(
-                    objectId: viewModel.selectedItem().object.id,
-                    spaceId: viewModel.spaceId,
-                    output: viewModel.output
-                )
-            }
-        } else {
-            Button {
-                viewModel.onSettingsButtonTap()
-            } label: {
-                Image(asset: .X24.more)
-                    .foregroundColor(.Control.secondary)
-            }
+        if viewModel.items.isNotEmpty {
+            ObjectSettingsMenuContainer(
+                objectId: viewModel.selectedItem().object.id,
+                spaceId: viewModel.spaceId,
+                output: viewModel.output
+            )
         }
     }
 }

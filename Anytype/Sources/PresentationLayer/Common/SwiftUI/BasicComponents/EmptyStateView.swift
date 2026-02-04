@@ -30,11 +30,11 @@ struct EmptyStateView: View {
             }
             
             AnytypeText(title, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             if subtitle.isNotEmpty {
                 AnytypeText(subtitle, style: .uxBodyRegular, enableMarkdown: true)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                     .multilineTextAlignment(.center)
             }
             Spacer.fixedHeight(12)

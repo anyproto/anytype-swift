@@ -67,38 +67,32 @@ extension Anytype_Event.Block {
       }
 
       /// sent when the view have been changed or added
-      public struct ViewSet: @unchecked Sendable {
+      public struct ViewSet: Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
         /// dataview block's id
-        public var id: String {
-          get {return _storage._id}
-          set {_uniqueStorage()._id = newValue}
-        }
+        public var id: String = String()
 
         /// view id, client should double check this to make sure client
-        public var viewID: String {
-          get {return _storage._viewID}
-          set {_uniqueStorage()._viewID = newValue}
-        }
+        public var viewID: String = String()
 
         /// doesn't switch the active view in the middle
         public var view: Anytype_Model_Block.Content.Dataview.View {
-          get {return _storage._view ?? Anytype_Model_Block.Content.Dataview.View()}
-          set {_uniqueStorage()._view = newValue}
+          get {return _view ?? Anytype_Model_Block.Content.Dataview.View()}
+          set {_view = newValue}
         }
         /// Returns true if `view` has been explicitly set.
-        public var hasView: Bool {return _storage._view != nil}
+        public var hasView: Bool {return self._view != nil}
         /// Clears the value of `view`. Subsequent reads from it will return its default value.
-        public mutating func clearView() {_uniqueStorage()._view = nil}
+        public mutating func clearView() {self._view = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
 
-        fileprivate var _storage = _StorageClass.defaultInstance
+        fileprivate var _view: Anytype_Model_Block.Content.Dataview.View? = nil
       }
 
       public struct ViewUpdate: @unchecked Sendable {
@@ -179,6 +173,9 @@ extension Anytype_Event.Block {
 
           /// Default object type that is chosen for new object created
           public var defaultObjectTypeID: String = String()
+
+          /// within the view
+          public var wrapContent: Bool = false
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -779,81 +776,41 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".ViewSet"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}viewId\0\u{1}view\0")
 
-  fileprivate class _StorageClass {
-    var _id: String = String()
-    var _viewID: String = String()
-    var _view: Anytype_Model_Block.Content.Dataview.View? = nil
-
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _id = source._id
-      _viewID = source._viewID
-      _view = source._view
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
-        case 2: try { try decoder.decodeSingularStringField(value: &_storage._viewID) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._view) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._view) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      if !_storage._id.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
-      }
-      if !_storage._viewID.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._viewID, fieldNumber: 2)
-      }
-      try { if let v = _storage._view {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
+    if !self.viewID.isEmpty {
+      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 2)
+    }
+    try { if let v = self._view {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewSet, rhs: Anytype_Event.Block.Dataview.ViewSet) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._id != rhs_storage._id {return false}
-        if _storage._viewID != rhs_storage._viewID {return false}
-        if _storage._view != rhs_storage._view {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs._view != rhs._view {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -966,7 +923,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate: SwiftProtobuf.Message, SwiftP
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.protoMessageName + ".Fields"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}type\0\u{1}name\0\u{1}coverRelationKey\0\u{1}hideIcon\0\u{1}cardSize\0\u{1}coverFit\0\u{1}groupRelationKey\0\u{1}groupBackgroundColors\0\u{1}pageLimit\0\u{1}defaultTemplateId\0\u{2}\u{5}defaultObjectTypeId\0\u{1}endRelationKey\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}type\0\u{1}name\0\u{1}coverRelationKey\0\u{1}hideIcon\0\u{1}cardSize\0\u{1}coverFit\0\u{1}groupRelationKey\0\u{1}groupBackgroundColors\0\u{1}pageLimit\0\u{1}defaultTemplateId\0\u{2}\u{5}defaultObjectTypeId\0\u{1}endRelationKey\0\u{1}wrapContent\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -986,6 +943,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
       case 10: try { try decoder.decodeSingularStringField(value: &self.defaultTemplateID) }()
       case 15: try { try decoder.decodeSingularStringField(value: &self.defaultObjectTypeID) }()
       case 16: try { try decoder.decodeSingularStringField(value: &self.endRelationKey) }()
+      case 17: try { try decoder.decodeSingularBoolField(value: &self.wrapContent) }()
       default: break
       }
     }
@@ -1028,6 +986,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
     if !self.endRelationKey.isEmpty {
       try visitor.visitSingularStringField(value: self.endRelationKey, fieldNumber: 16)
     }
+    if self.wrapContent != false {
+      try visitor.visitSingularBoolField(value: self.wrapContent, fieldNumber: 17)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1044,6 +1005,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
     if lhs.pageLimit != rhs.pageLimit {return false}
     if lhs.defaultTemplateID != rhs.defaultTemplateID {return false}
     if lhs.defaultObjectTypeID != rhs.defaultObjectTypeID {return false}
+    if lhs.wrapContent != rhs.wrapContent {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

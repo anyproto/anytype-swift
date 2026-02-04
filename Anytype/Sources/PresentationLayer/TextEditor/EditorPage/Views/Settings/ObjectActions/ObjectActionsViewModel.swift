@@ -151,8 +151,9 @@ final class ObjectActionsViewModel {
     
     func makeAsTemplate() async throws {
         guard let details = document.details else { return }
-        
+
         let templateId = try await templatesService.createTemplateFromObject(objectId: details.id)
+        AnytypeAnalytics.instance().logTemplateCreate(objectType: details.objectType.analyticsType)
         output?.onNewTemplateCreation(templateId: templateId)
     }
     

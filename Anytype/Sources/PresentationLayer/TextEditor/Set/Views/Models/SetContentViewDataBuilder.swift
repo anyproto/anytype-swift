@@ -302,7 +302,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
             )
         }
 
-        let isMuted = !(spaceView?.effectiveNotificationMode(for: objectId).isUnmutedAll ?? true)
+        let notificationMode = spaceView?.effectiveNotificationMode(for: objectId) ?? .all
 
         return MessagePreviewModel(
             creatorTitle: lastMessage.creator?.title,
@@ -312,7 +312,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
             chatPreviewDate: dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true),
             unreadCounter: preview.unreadCounter,
             mentionCounter: preview.mentionCounter,
-            isMuted: isMuted,
+            notificationMode: notificationMode,
             chatName: nil
         )
     }

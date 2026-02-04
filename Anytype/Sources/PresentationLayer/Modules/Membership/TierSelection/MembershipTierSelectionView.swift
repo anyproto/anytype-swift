@@ -5,17 +5,16 @@ import StoreKit
 
 
 struct MembershipTierSelectionView: View {
-    @StateObject private var model: MembershipTierSelectionViewModel
+    @State private var model: MembershipTierSelectionViewModel
 
-    
     init(
         userMembership: MembershipStatus,
         tierToDisplay: MembershipTier,
         onSuccessfulPurchase: @escaping (MembershipTier) -> ()
-        
+
     ) {
-        _model = StateObject(
-            wrappedValue: MembershipTierSelectionViewModel(
+        _model = State(
+            initialValue: MembershipTierSelectionViewModel(
                 userMembership: userMembership,
                 tierToDisplay: tierToDisplay,
                 onSuccessfulPurchase: onSuccessfulPurchase
@@ -42,7 +41,7 @@ struct MembershipTierSelectionView: View {
             VStack(spacing: 0) {
                 MembershipTierInfoView(tier: model.tierToDisplay)
                 sheet
-                    .cornerRadius(12, corners: .top)
+                    .clipShape(UnevenRoundedRectangle(topLeadingRadius: 12, topTrailingRadius: 12))
                     .background(sheetBackground)
             }
         }
@@ -82,12 +81,12 @@ struct MembershipTierSelectionView: View {
         VStack {
             AnytypeText(Loc.Membership.unavailable, style: .uxTitle2Regular)
                 .frame(maxWidth: .infinity)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .padding(.horizontal, 20)
                 .padding(.vertical, 34)
         }
         .background(Color.Background.primary)
-        .cornerRadius(16, corners: .top)
+        .clipShape(UnevenRoundedRectangle(topLeadingRadius: 16, topTrailingRadius: 16))
     }
 
     // To mimic sheet overlay style

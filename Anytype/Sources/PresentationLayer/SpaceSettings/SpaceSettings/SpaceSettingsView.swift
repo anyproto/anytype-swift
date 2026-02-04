@@ -4,12 +4,12 @@ import AnytypeCore
 import Services
 
 struct SpaceSettingsView: View {
-    
-    @StateObject private var model: SpaceSettingsViewModel
+
+    @State private var model: SpaceSettingsViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceSettingsViewModel(workspaceInfo: workspaceInfo, output: output))
+        _model = State(initialValue: SpaceSettingsViewModel(workspaceInfo: workspaceInfo, output: output))
     }
     
     var body: some View {
@@ -71,13 +71,17 @@ struct SpaceSettingsView: View {
     }
     
     private var header: some View {
-        PageNavigationHeader(title: "") {
+        NavigationHeader(title: "") {
             if !model.isOneToOne {
                 Button {
                     model.onEditTap()
                 } label: {
-                    AnytypeText(Loc.edit, style: .bodyRegular).foregroundColor(.Control.secondary)
+                    AnytypeText(Loc.edit, style: .bodyRegular)
+                        .foregroundStyle(Color.Text.primary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
                 }
+                .glassEffectInteractiveIOS26(in: Capsule())
             }
         }
     }
@@ -93,7 +97,7 @@ struct SpaceSettingsView: View {
                 }
                 if !model.isOneToOne {
                     Spacer.fixedHeight(4)
-                    AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundColor(.Text.secondary)
+                    AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundStyle(Color.Text.secondary)
                 }
             }
         }
@@ -178,12 +182,12 @@ struct SpaceSettingsView: View {
             }
             .padding(20)
             .background(Color.Shape.transparentSecondary)
-            .cornerRadius(10)
+            .clipShape(.rect(cornerRadius: 10))
             
             Spacer.fixedHeight(6)
             
             AnytypeText(title, style: .caption2Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         }
     }
     
@@ -263,6 +267,13 @@ struct SpaceSettingsView: View {
     @ViewBuilder
     private var preferences: some View {
         SectionHeaderView(title: Loc.preferences)
+        if FeatureFlags.homePage {
+            RoundedButton(
+                Loc.SpaceSettings.HomePage.title,
+                decoration: model.homePageState.buttonDecoration
+            ) { model.onHomePageTap() }
+            Spacer.fixedHeight(8)
+        }
         RoundedButton(
             Loc.defaultObjectType,
             decoration: .init(objectType: model.defaultObjectType)

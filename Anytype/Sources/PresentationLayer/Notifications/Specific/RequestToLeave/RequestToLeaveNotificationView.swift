@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct RequestToLeaveNotificationView: View {
-    
-    @StateObject private var model: RequestToLeaveNotificationViewModel
+
+    @State private var model: RequestToLeaveNotificationViewModel
     @Environment(\.notificationDismiss) private var dismiss
-    
+
     init(notification: NotificationRequestToLeave) {
-        _model = StateObject(wrappedValue: RequestToLeaveNotificationViewModel(notification: notification))
+        _model = State(initialValue: RequestToLeaveNotificationViewModel(notification: notification))
     }
     
     var body: some View {

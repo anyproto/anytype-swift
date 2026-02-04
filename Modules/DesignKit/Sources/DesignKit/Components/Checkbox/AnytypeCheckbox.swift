@@ -8,17 +8,20 @@ public struct AnytypeCheckbox: View {
     }
     
     public var body: some View {
-        Group {
-            if checked {
-                Image(asset: .System.checkboxChecked)
-            } else {
-                Image(asset: .System.checkboxUnchecked)
-            }
-        }.onTapGesture {
+        Button {
             UISelectionFeedbackGenerator().selectionChanged()
             withAnimation {
                 checked.toggle()
             }
+        } label: {
+            Group {
+                if checked {
+                    Image(asset: .System.checkboxChecked)
+                } else {
+                    Image(asset: .System.checkboxUnchecked)
+                }
+            }
         }
+        .buttonStyle(.plain)
     }
 }

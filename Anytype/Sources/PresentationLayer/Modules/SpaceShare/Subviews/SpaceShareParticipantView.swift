@@ -50,10 +50,10 @@ struct SpaceShareParticipantView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(participant.name, style: .uxTitle2Medium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .truncationMode(.middle)
                 AnytypeText(participant.globalName, style: .caption1Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                     .truncationMode(.tail)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
@@ -82,7 +82,7 @@ struct SpaceShareParticipantView: View {
         case .active(let permission):
             HStack(spacing: 4) {
                 AnytypeText(permission, style: .uxTitle2Regular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 if participant.contextActions.isNotEmpty {
                     Image(asset: .X18.Disclosure.down)
                         .foregroundStyle(Color.Text.primary)
@@ -91,7 +91,7 @@ struct SpaceShareParticipantView: View {
         case .pending(let message):
             HStack(spacing: 4) {
                 AnytypeText(message, style: .uxTitle2Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                 if participant.contextActions.isNotEmpty {
                     Image(asset: .X18.Disclosure.down)
                         .foregroundStyle(Color.Text.secondary)
@@ -120,7 +120,7 @@ struct SpaceShareParticipantView: View {
                     } label: {
                         HStack {
                             AnytypeText(action.title, style: .uxCalloutRegular)
-                                .foregroundColor(.Text.primary)
+                                .foregroundStyle(Color.Text.primary)
                             Spacer()
                             if action.isSelected {
                                 Image(asset: .X24.tick)

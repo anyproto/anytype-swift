@@ -3,11 +3,13 @@ import SwiftUI
 import Services
 
 @MainActor
-final class ObjectTypeDeleteConfirmationAlertViewModel: ObservableObject {
-    
+@Observable
+final class ObjectTypeDeleteConfirmationAlertViewModel {
+
+    @ObservationIgnored
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    
+
     private let data: ObjectTypeDeleteConfirmationAlertData
     
     init(data: ObjectTypeDeleteConfirmationAlertData) {

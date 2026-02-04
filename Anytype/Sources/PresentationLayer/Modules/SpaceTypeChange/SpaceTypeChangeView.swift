@@ -2,18 +2,18 @@ import Foundation
 import SwiftUI
 
 struct SpaceTypeChangeView: View {
-    
-    @StateObject private var model: SpaceTypeChangeViewModel
+
+    @State private var model: SpaceTypeChangeViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: SpaceTypeChangeData) {
-        self._model = StateObject(wrappedValue: SpaceTypeChangeViewModel(data: data))
+        self._model = State(initialValue: SpaceTypeChangeViewModel(data: data))
     }
     
     var body: some View {
         VStack {
             DragIndicator()
-            ModalNavigationHeader(title: Loc.channelType)
+            NavigationHeader(title: Loc.channelType, navigationButtonType: .none)
             ScrollView {
                 VStack(spacing: 0) {
                     SpaceTypeChangeRow(

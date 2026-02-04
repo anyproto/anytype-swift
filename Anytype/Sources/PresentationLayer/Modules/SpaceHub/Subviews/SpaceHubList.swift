@@ -20,16 +20,18 @@ struct SpaceHubList: View {
     }
     
     private var scrollView: some View {
-        ScrollView {
+        ScrollView(.vertical) {
             VStack(spacing: 8) {
                 HomeUpdateSubmoduleView().padding(8)
 
                 ForEach(model.filteredSpaces) {
                     spaceCard($0)
                 }
-                
+
                 Spacer.fixedHeight(40)
             }
+            // Prevents unwanted horizontal scrolling on iOS 26
+            .containerRelativeFrame(.horizontal)
         }
         .animation(model.animationsEnabled ? .default : nil, value: model.filteredSpaces)
         .onAppear { DispatchQueue.main.async { model.animationsEnabled = true } }

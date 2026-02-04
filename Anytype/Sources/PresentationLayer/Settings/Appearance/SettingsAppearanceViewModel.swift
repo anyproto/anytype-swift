@@ -2,15 +2,17 @@ import Foundation
 import UIKit
 
 @MainActor
-final class SettingsAppearanceViewModel: ObservableObject {
-    
+@Observable
+final class SettingsAppearanceViewModel {
+
     // MARK: - Private
-    
+
+    @ObservationIgnored
     private var appInterfaceStyle: AppInterfaceStyle?
-    
+
     // MARK: - Public
-    
-    @Published var currentStyle: UIUserInterfaceStyle? {
+
+    var currentStyle: UIUserInterfaceStyle? {
         didSet {
             UISelectionFeedbackGenerator().selectionChanged()
             if let currentStyle {
@@ -18,8 +20,8 @@ final class SettingsAppearanceViewModel: ObservableObject {
             }
         }
     }
-    
-    @Published var currentIcon = AppIconManager.shared.currentIcon
+
+    var currentIcon = AppIconManager.shared.currentIcon
     
     func updateIcon(_ icon: AppIcon) {
         AppIconManager.shared.setIcon(icon) { [weak self] error in

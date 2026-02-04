@@ -6,12 +6,8 @@ struct AuthCoordinatorView: View {
         static let animationDuration = 0.6
     }
     
-    @StateObject private var model: AuthCoordinatorViewModel
+    @State private var model = AuthCoordinatorViewModel()
     @State private var showCircle: Bool = false
-    
-    init() {
-        self._model = StateObject(wrappedValue: AuthCoordinatorViewModel())
-    }
     
     var body: some View {
         NavigationStack {

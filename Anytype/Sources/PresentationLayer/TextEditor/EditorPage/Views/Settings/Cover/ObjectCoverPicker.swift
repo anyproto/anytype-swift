@@ -2,14 +2,14 @@ import SwiftUI
 import Services
 
 struct ObjectCoverPicker: View {
-    
-    @StateObject private var viewModel: ObjectCoverPickerViewModel
+
+    @State private var viewModel: ObjectCoverPickerViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     @State private var index: Int = 0
-    
+
     init(data: BaseDocumentIdentifiable) {
-        self._viewModel = StateObject(wrappedValue: ObjectCoverPickerViewModel(data: data))
+        _viewModel = State(initialValue: ObjectCoverPickerViewModel(data: data))
     }
     
     var body: some View {
@@ -73,7 +73,7 @@ struct ObjectCoverPicker: View {
     private var navigationBarView: some View {
         InlineNavigationBar {
             AnytypeText(Loc.changeCover, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
         } rightButton: {
             if viewModel.isRemoveButtonAvailable {
@@ -82,7 +82,7 @@ struct ObjectCoverPicker: View {
                     dismiss()
                 } label: {
                     AnytypeText(Loc.remove, style: .uxBodyRegular)
-                        .foregroundColor(.Pure.red)
+                        .foregroundStyle(Color.Pure.red)
                 }
             } else {
                 EmptyView()
@@ -110,7 +110,7 @@ struct ObjectCoverPicker: View {
                 tab.title,
                 style: .uxBodyRegular
             )
-            .foregroundColor(index == tab.rawValue ? Color.Control.primary : Color.Control.secondary)
+            .foregroundStyle(index == tab.rawValue ? Color.Control.primary : Color.Control.secondary)
         }
         .frame(maxWidth: .infinity)
     }

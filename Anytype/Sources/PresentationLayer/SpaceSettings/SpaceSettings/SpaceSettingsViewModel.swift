@@ -1,81 +1,109 @@
 import Foundation
-import Combine
 import Services
 import UIKit
 import AnytypeCore
 
+enum HomePageState {
+    case `default`(String)
+    case object(icon: Icon?, name: String)
+
+    var buttonDecoration: RoundedButtonDecoration {
+        switch self {
+        case .default(let title):
+            return .caption(title)
+        case .object(let icon, let name):
+            return .object(icon: icon, name: name)
+        }
+    }
+}
 
 @MainActor
-final class SpaceSettingsViewModel: ObservableObject {
-    
+@Observable
+final class SpaceSettingsViewModel {
+
     // MARK: - DI
-    
-    @Injected(\.objectActionsService)
+
+    @ObservationIgnored @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.propertyDetailsStorage)
+    @ObservationIgnored @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
-    @Injected(\.workspaceService)
+    @ObservationIgnored @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.accountManager)
+    @ObservationIgnored @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.participantSpacesStorage)
+    @ObservationIgnored @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.mailUrlBuilder)
+    @ObservationIgnored @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
-    @Injected(\.universalLinkParser)
+    @ObservationIgnored @Injected(\.universalLinkParser)
     private var universalLinkParser: any UniversalLinkParserProtocol
-    @Injected(\.fileLimitsStorage)
+    @ObservationIgnored @Injected(\.fileLimitsStorage)
     private var fileLimitsStorage: any FileLimitsStorageProtocol
-    @Injected(\.objectTypeProvider)
+    @ObservationIgnored @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.spaceSettingsInfoBuilder)
+    @ObservationIgnored @Injected(\.searchService)
+    private var searchService: any SearchServiceProtocol
+    @ObservationIgnored @Injected(\.spaceSettingsInfoBuilder)
     private var spaceSettingsInfoBuilder: any SpaceSettingsInfoBuilderProtocol
+    @ObservationIgnored
     private let openedDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
-    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    @ObservationIgnored @Injected(\.pushNotificationsSystemSettingsBroadcaster)
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
-    
+    @ObservationIgnored @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
+    @ObservationIgnored @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+
+    @ObservationIgnored
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
-    
+
+    @ObservationIgnored
     private let dateFormatter = DateFormatter.relativeDateFormatter
+    @ObservationIgnored
     private let storageInfoBuilder = SegmentInfoBuilder()
+    @ObservationIgnored
     private weak var output: (any SpaceSettingsModuleOutput)?
-    
+
     // MARK: - State
-    
-    @Published var spaceName = ""
-    @Published var spaceDescription = ""
-    @Published var spaceIcon: Icon?
-    
-    @Published var info = [SettingsInfoModel]()
-    @Published var participants: [Participant] = []
-    @Published var snackBarData: ToastBarData?
-    @Published var showSpaceDeleteAlert = false
-    @Published var showSpaceLeaveAlert = false
-    @Published var showInfoView = false
-    @Published var dismiss = false
-    @Published var allowDelete = false
-    @Published var allowLeave = false
-    @Published var allowRemoteStorage = false
-    @Published var uxTypeSettingsData: SpaceUxTypeSettingsData?
-    @Published var shareSection: SpaceSettingsShareSection = .personal
-    @Published var membershipUpgradeReason: MembershipUpgradeReason?
-    @Published var storageInfo = RemoteStorageSegmentInfo()
-    @Published var defaultObjectType: ObjectType?
-    @Published var showIconPickerSpaceId: StringIdentifiable?
-    @Published var editingData: SettingsInfoEditingViewData?
-    @Published var pushNotificationsSettingsMode: SpaceNotificationsSettingsMode = .allActiviy
-    @Published var pushNotificationsSettingsStatus: PushNotificationsSettingsStatus?
-    @Published var shareInviteLink: URL?
-    @Published var qrInviteLink: URL?
-    @Published private(set) var inviteLink: URL?
-    @Published var participantsCount: Int = 0
-    @Published var canAddWriters = true
-    @Published var joiningCount: Int = 0
-    @Published var isOneToOne = false
+
+    var spaceName = ""
+    var spaceDescription = ""
+    var spaceIcon: Icon?
+
+    var info = [SettingsInfoModel]()
+    var participants: [Participant] = []
+    var snackBarData: ToastBarData?
+    var showSpaceDeleteAlert = false
+    var showSpaceLeaveAlert = false
+    var showInfoView = false
+    var dismiss = false
+    var allowDelete = false
+    var allowLeave = false
+    var allowRemoteStorage = false
+    var uxTypeSettingsData: SpaceUxTypeSettingsData?
+    var shareSection: SpaceSettingsShareSection = .personal
+    var membershipUpgradeReason: MembershipUpgradeReason?
+    var storageInfo = RemoteStorageSegmentInfo()
+    var defaultObjectType: ObjectType?
+    var homePageState: HomePageState = .default("")
+    var showIconPickerSpaceId: StringIdentifiable?
+    var editingData: SettingsInfoEditingViewData?
+    var pushNotificationsSettingsMode: SpaceNotificationsSettingsMode = .allActiviy
+    var pushNotificationsSettingsStatus: PushNotificationsSettingsStatus?
+    var shareInviteLink: URL?
+    var qrInviteLink: URL?
+    private(set) var inviteLink: URL?
+    var participantsCount: Int = 0
+    var canAddWriters = true
+    var joiningCount: Int = 0
+    var isOneToOne = false
 
     let workspaceInfo: AccountInfo
+    @ObservationIgnored
     private var participantSpaceView: ParticipantSpaceViewData?
+    @ObservationIgnored
     private var owner: Participant?
+    @ObservationIgnored
     private let widgetsObject: any BaseDocumentProtocol
 
     init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
@@ -100,7 +128,11 @@ final class SpaceSettingsViewModel: ObservableObject {
     func onDefaultObjectTypeTap() {
         output?.onDefaultObjectTypeSelected()
     }
-    
+
+    func onHomePageTap() {
+        output?.onHomePageSelected()
+    }
+
     func onStorageTap() {
         output?.onRemoteStorageSelected()
     }
@@ -201,7 +233,8 @@ final class SpaceSettingsViewModel: ObservableObject {
         async let defaultTypeTask: () = startDefaultTypeTask()
         async let widgetsObjectTask: () = startWidgetsObjectTask()
         async let systemSettingsChangesTask: () = startSystemSettingsChangesTask()
-        (_,_,_,_,_,_) = await (storageTask, joiningTask, participantTask, defaultTypeTask, widgetsObjectTask, systemSettingsChangesTask)
+        async let homeObjectTask: () = startHomeObjectTask()
+        (_,_,_,_,_,_,_) = await (storageTask, joiningTask, participantTask, defaultTypeTask, widgetsObjectTask, systemSettingsChangesTask, homeObjectTask)
     }
     
     private func startStorageTask() async {
@@ -242,6 +275,35 @@ final class SpaceSettingsViewModel: ObservableObject {
     private func startSystemSettingsChangesTask() async {
         for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
             self.pushNotificationsSettingsStatus = status.asPushNotificationsSettingsStatus
+        }
+    }
+
+    private func startHomeObjectTask() async {
+        for await _ in userDefaults.homeObjectIdPublisher(spaceId: workspaceInfo.accountSpaceId).values {
+            await loadHomePageState()
+        }
+    }
+
+    private func loadHomePageState() async {
+        let spaceId = workspaceInfo.accountSpaceId
+        guard let objectId = userDefaults.homeObjectId(spaceId: spaceId) else {
+            homePageState = .default(defaultHomePageTitle(spaceId: spaceId))
+            return
+        }
+
+        let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
+        if let details, !details.isDeleted, !details.isArchived {
+            homePageState = .object(icon: details.objectIconImage, name: details.name)
+        } else {
+            homePageState = .default(defaultHomePageTitle(spaceId: spaceId))
+        }
+    }
+
+    private func defaultHomePageTitle(spaceId: String) -> String {
+        if let spaceView = spaceViewsStorage.spaceView(spaceId: spaceId), spaceView.initialScreenIsChat {
+            return Loc.chat
+        } else {
+            return Loc.SpaceSettings.HomePage.widgets
         }
     }
     

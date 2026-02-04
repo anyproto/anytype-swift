@@ -39,9 +39,9 @@ struct ObjectLayoutRow: View {
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 0) {
                         AnytypeText(layout.title, style: .uxTitle2Medium)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         AnytypeText(layout.description, style: .caption1Regular)
-                            .foregroundColor(.Text.secondary)
+                            .foregroundStyle(Color.Text.secondary)
                             .lineLimit(1)
                             .minimumScaleFactor(0.9)
                     }
@@ -49,7 +49,7 @@ struct ObjectLayoutRow: View {
                     Spacer(minLength: 12)
                     
                     if isSelected {
-                        Image(asset: .X24.tick).frame(width: 24, height: 24).foregroundColor(.Control.primary)
+                        Image(asset: .X24.tick).frame(width: 24, height: 24).foregroundStyle(Color.Control.primary)
                     }
                 }
                 

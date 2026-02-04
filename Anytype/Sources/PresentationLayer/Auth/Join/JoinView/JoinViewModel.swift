@@ -1,26 +1,28 @@
 import SwiftUI
 
 @MainActor
-final class JoinViewModel: ObservableObject, JoinBaseOutput, JoinFlowStepOutput {
-    
-    @Published var step: JoinStep = JoinStep.firstStep
-    @Published var forward = true
-    @Published var errorText: String? {
+@Observable
+final class JoinViewModel: JoinBaseOutput, JoinFlowStepOutput {
+
+    var step: JoinStep = JoinStep.firstStep
+    var forward = true
+    var errorText: String? {
         didSet {
             showError = errorText.isNotNil
         }
     }
-    @Published var showError: Bool = false
-    @Published var backButtonDisabled: Bool = false
-    @Published var dismiss = false
-    
+    var showError: Bool = false
+    var backButtonDisabled: Bool = false
+    var dismiss = false
+
+    @ObservationIgnored
     let state: JoinFlowState
-    
-    @Injected(\.applicationStateService)
+
+    @ObservationIgnored @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
-    @Injected(\.accountManager)
+    @ObservationIgnored @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.serverConfigurationStorage)
+    @ObservationIgnored @Injected(\.serverConfigurationStorage)
     private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
     
     init(state: JoinFlowState) {

@@ -437,6 +437,7 @@ extension ImageAsset {
     public static let exclamation = ImageAsset.bundle(name: "Dialog/exclamation")
     public static let invite = ImageAsset.bundle(name: "Dialog/invite")
     public static let lock = ImageAsset.bundle(name: "Dialog/lock")
+    public static let passport = ImageAsset.bundle(name: "Dialog/passport")
     public static let question = ImageAsset.bundle(name: "Dialog/question")
     public static let send = ImageAsset.bundle(name: "Dialog/send")
     public static let update = ImageAsset.bundle(name: "Dialog/update")
@@ -580,6 +581,7 @@ extension ImageAsset {
     public static let list = ImageAsset.bundle(name: "x18/List")
     public static let lockWithTick = ImageAsset.bundle(name: "x18/Lock with tick")
     public static let lock = ImageAsset.bundle(name: "x18/Lock")
+    public static let membershipBadge = ImageAsset.bundle(name: "x18/Membership Badge")
     public static let muted = ImageAsset.bundle(name: "x18/Muted")
     public static let objectWithoutIcon = ImageAsset.bundle(name: "x18/Object Without Icon")
     public static let pin = ImageAsset.bundle(name: "x18/Pin")
@@ -734,6 +736,7 @@ extension ImageAsset {
       public static let addObject = ImageAsset.bundle(name: "x32/Island/add object")
       public static let add = ImageAsset.bundle(name: "x32/Island/add")
       public static let back = ImageAsset.bundle(name: "x32/Island/back")
+      public static let create = ImageAsset.bundle(name: "x32/Island/create")
       public static let members = ImageAsset.bundle(name: "x32/Island/members")
       public static let search = ImageAsset.bundle(name: "x32/Island/search")
     }

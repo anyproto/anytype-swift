@@ -9,12 +9,14 @@ protocol SetViewSettingsCoordinatorOutput: AnyObject {
 }
 
 @MainActor
-final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettingsCoordinatorOutput {
-    @Published var showLayouts = false
-    @Published var showRelations = false
-    @Published var showFilters = false
-    @Published var showSorts = false
-    
+@Observable
+final class SetViewSettingsCoordinatorViewModel: SetViewSettingsCoordinatorOutput {
+    var showLayouts = false
+    var showRelations = false
+    var showFilters = false
+    var showSorts = false
+
+    @ObservationIgnored
     let data: SetSettingsData
     
     init(data: SetSettingsData) {

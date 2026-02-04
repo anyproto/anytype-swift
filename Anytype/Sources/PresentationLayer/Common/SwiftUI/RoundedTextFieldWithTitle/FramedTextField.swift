@@ -31,7 +31,7 @@ struct FramedTextField<LeadingView: View>: View {
         VStack(alignment: .leading, spacing: 4) {
             if let title {
                 AnytypeText(title, style: .uxCalloutRegular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                     .accessibilityLabel("Title")
             }
 

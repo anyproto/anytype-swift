@@ -21,7 +21,7 @@ struct PropertyListContainerView<Content>: View where Content: View {
     }
     
     private var navigationView: some View {
-        NavigationView {
+        NavigationStack {
             content
                 .navigationTitle(title)
                 .navigationBarTitleDisplayMode(.inline)
@@ -40,7 +40,6 @@ struct PropertyListContainerView<Content>: View where Content: View {
                     }
                 })
         }
-        .navigationViewStyle(.stack)
     }
     
     private var content: some View {
@@ -75,7 +74,7 @@ struct PropertyListContainerView<Content>: View where Content: View {
             onClear()
         } label: {
             AnytypeText(Loc.clear, style: .uxBodyRegular)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
         }
     }
     
@@ -83,7 +82,7 @@ struct PropertyListContainerView<Content>: View where Content: View {
         Button {
             onCreate(nil)
         } label: {
-            Image(asset: .X32.plus).foregroundColor(.Control.secondary)
+            Image(asset: .X32.plus).foregroundStyle(Color.Control.secondary)
         }
     }
     
@@ -92,9 +91,9 @@ struct PropertyListContainerView<Content>: View where Content: View {
             onCreate(searchText)
         } label: {
             HStack(spacing: 10) {
-                Image(asset: .X32.plus).foregroundColor(.Control.secondary)
+                Image(asset: .X32.plus).foregroundStyle(Color.Control.secondary)
                 AnytypeText(Loc.Relation.Create.Row.title(searchText), style: .uxBodyRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             }
         }
         .frame(height: 52)

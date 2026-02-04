@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SharingTipView: View {
-    @StateObject private var viewModel = SharingTipViewModel()
+    @State private var viewModel = SharingTipViewModel()
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -45,7 +45,7 @@ struct SharingTipView: View {
         VStack {
             Spacer.fixedHeight(39)
             AnytypeText(Loc.Sharing.Tip.title, style: .heading)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(39)
             carouselImages
             Spacer.fixedHeight(32)
@@ -112,7 +112,7 @@ struct SharingTipView: View {
         if let tipStep = SharingTipStep(rawValue: number) {
             HStack(spacing: 8) {
                 AnytypeText("\(number).  \(tipStep.title)", style: .uxBodyRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 tipStep.image
             }
         } else {

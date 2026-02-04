@@ -1,4 +1,3 @@
-import Combine
 import UIKit
 import Services
 import AnytypeCore
@@ -9,17 +8,20 @@ protocol LocalObjectIconPickerOutput: AnyObject {
 }
 
 @MainActor
-final class LocalObjectIconPickerViewModel: ObservableObject {
+@Observable
+final class LocalObjectIconPickerViewModel {
 
     // MARK: - Private variables
 
-    @Injected(\.fileActionsService)
+    @ObservationIgnored @Injected(\.fileActionsService)
     private var fileService: any FileActionsServiceProtocol
-    
-    @Published private(set) var itemProvider: NSItemProvider? = nil
-    @Published private(set) var isRemoveEnabled: Bool = false
+
+    private(set) var itemProvider: NSItemProvider? = nil
+    private(set) var isRemoveEnabled: Bool = false
+    @ObservationIgnored
     private var fileData: FileData?
 
+    @ObservationIgnored
     private weak var output: (any LocalObjectIconPickerOutput)?
     
     init(data: LocalObjectIconPickerData) {

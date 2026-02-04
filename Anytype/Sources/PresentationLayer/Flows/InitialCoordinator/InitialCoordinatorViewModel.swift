@@ -5,29 +5,30 @@ import AnytypeCore
 import Services
 
 @MainActor
-final class InitialCoordinatorViewModel: ObservableObject {
-    
-    @Injected(\.userDefaultsStorage)
+@Observable
+final class InitialCoordinatorViewModel {
+
+    @ObservationIgnored @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
-    @Injected(\.basicUserInfoStorage)
+    @ObservationIgnored @Injected(\.basicUserInfoStorage)
     private var basicUserInfoStorage: any BasicUserInfoStorageProtocol
-    @Injected(\.middlewareConfigurationProvider)
+    @ObservationIgnored @Injected(\.middlewareConfigurationProvider)
     private var middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol
-    @Injected(\.applicationStateService)
+    @ObservationIgnored @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
-    @Injected(\.seedService)
+    @ObservationIgnored @Injected(\.seedService)
     private var seedService: any SeedServiceProtocol
-    @Injected(\.localAuthService)
+    @ObservationIgnored @Injected(\.localAuthService)
     private var localAuthService: any LocalAuthServiceProtocol
-    @Injected(\.localRepoService)
+    @ObservationIgnored @Injected(\.localRepoService)
     private var localRepoService: any LocalRepoServiceProtocol
-    
-    @Published var showWarningAlert: Bool = false
-    @Published var showSaveBackupAlert: Bool = false
-    @Published var toastBarData: ToastBarData?
-    @Published var middlewareShareFile: URL? = nil
-    @Published var localStoreURL: URL? = nil
-    @Published var secureAlertData: SecureAlertData?
+
+    var showWarningAlert: Bool = false
+    var showSaveBackupAlert: Bool = false
+    var toastBarData: ToastBarData?
+    var middlewareShareFile: URL? = nil
+    var localStoreURL: URL? = nil
+    var secureAlertData: SecureAlertData?
     
     var userId: String {
         basicUserInfoStorage.usersId

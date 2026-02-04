@@ -1,3 +1,8 @@
+---
+name: skills-manager
+description: Context-aware routing to skills and hooks management. Use when troubleshooting skill activation, fine-tuning keywords, or managing the automated documentation system.
+---
+
 # Skills Manager (Smart Router)
 
 ## Purpose
@@ -5,7 +10,8 @@ Context-aware routing to skills and hooks management. Helps you troubleshoot, fi
 
 ## When Auto-Activated
 - Discussing skills activation or hooks
-- Keywords: skill activation, hook, troubleshoot, fine-tune, keyword, skill-rules.json
+- Creating new skills
+- Keywords: skill activation, hook, troubleshoot, fine-tune, keyword, skill-rules.json, create skill, new skill, agentskills
 - Debugging why a skill didn't activate or activated incorrectly
 
 ## 🚨 CRITICAL RULES
@@ -134,7 +140,8 @@ echo "Update space settings localization for membership tiers" | .claude/hooks/u
 **What they do**:
 - `skill-activation-prompt.sh` - Suggests skills based on your prompt
 - `post-tool-use-tracker.sh` - Tracks file edits
-- `swiftformat-auto.sh` - Auto-formats Swift files
+- `swiftformat-post-edit.sh` - Auto-formats Swift files immediately after edit
+- `notification-alert.sh` - Sends macOS notifications when Claude needs input
 
 ### Skills (Routers)
 
@@ -184,6 +191,79 @@ echo "Update space settings localization for membership tiers" | .claude/hooks/u
   }
 }
 ```
+
+## 📝 Creating New Skills (agentskills.io Spec)
+
+Skills must follow the [agentskills.io specification](https://agentskills.io/specification).
+
+### Required SKILL.md Format
+
+Every skill must start with YAML frontmatter:
+
+```yaml
+---
+name: skill-name
+description: What this skill does and when to use it (max 1024 chars).
+---
+
+# Skill Title
+
+## Purpose
+...
+```
+
+### Name Field Rules
+
+- **1-64 characters**
+- **Lowercase only**: `a-z`, `0-9`, `-`
+- **No start/end hyphens**: `skill-name` ✅, `-skill-` ❌
+- **No consecutive hyphens**: `my-skill` ✅, `my--skill` ❌
+- **Must match directory name**: `skills/my-skill/SKILL.md` → `name: my-skill`
+
+### Description Field
+
+- **1-1024 characters**
+- **Must describe**: What it does AND when to use it
+- **Include keywords** that help agents identify relevant tasks
+
+**Good example**:
+```yaml
+description: Context-aware routing to the iOS localization system. Use when working with .xcstrings files, Loc constants, or user-facing text.
+```
+
+### Optional Frontmatter Fields
+
+```yaml
+---
+name: skill-name
+description: Required description.
+license: MIT
+compatibility: Designed for Claude Code
+metadata:
+  author: anytype
+  version: "1.0"
+---
+```
+
+### Directory Structure
+
+```
+skill-name/
+├── SKILL.md          # Required - main skill file
+├── scripts/          # Optional - executable scripts
+├── references/       # Optional - additional docs
+└── assets/           # Optional - templates, images
+```
+
+### Quick Checklist for New Skills
+
+- [ ] Directory name matches `name` field
+- [ ] YAML frontmatter with `name` and `description`
+- [ ] Name is lowercase with hyphens only
+- [ ] Description explains what AND when
+- [ ] SKILL.md under 500 lines (use references/ for details)
+- [ ] Added to `skill-rules.json` with keywords
+- [ ] Tested activation with sample prompts
 
 ## ⚠️ Common Issues
 

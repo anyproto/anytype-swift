@@ -2,11 +2,11 @@ import SwiftUI
 import Services
 
 struct DateView: View {
-    
-    @StateObject private var model: DateViewModel
-    
+
+    @State private var model: DateViewModel
+
     init(date: Date?, spaceId: String, output: (any DateModuleOutput)?) {
-        self._model = StateObject(wrappedValue: DateViewModel(date: date, spaceId: spaceId, output: output))
+        _model = State(initialValue: DateViewModel(date: date, spaceId: spaceId, output: output))
     }
     
     var body: some View {
@@ -31,22 +31,24 @@ struct DateView: View {
     }
     
     private var navigationBar: some View {
-        PageNavigationHeader(title: "") {
+        NavigationHeader(title: "") {
             HStack(alignment: .center, spacing: 12) {
                 SwiftUIEditorSyncStatusItem(
                     statusData: model.syncStatusData,
-                    itemState: .initial,
                     onTap: {
                         model.onSyncStatusTap()
                     }
                 )
                 .frame(width: 28, height: 28)
-                
-                Image(asset: .X24.calendar)
-                    .foregroundColor(.Control.secondary)
-                    .onTapGesture {
-                        model.onCalendarTap()
-                    }
+
+                Button {
+                    model.onCalendarTap()
+                } label: {
+                    Image(asset: .X24.calendar)
+                        .foregroundStyle(Color.Control.secondary)
+                }
+                .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+                .glassEffectInteractiveIOS26(in: Circle())
             }
         }
     }
@@ -56,37 +58,40 @@ struct DateView: View {
             HStack(spacing: 0) {
                 if model.relativeTag.isNotEmpty {
                     AnytypeText(model.relativeTag, style: .relation2Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                     Circle()
                         .fill(Color.Text.secondary)
                         .frame(width: 3, height: 3)
                         .padding(.horizontal, 8)
                 }
                 AnytypeText(model.weekday, style: .relation2Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
             }
             HStack(alignment: .center) {
-                Image(asset: .X24.Arrow.left)
-                    .foregroundColor(.Control.secondary)
-                    .onTapGesture {
-                        model.onPrevDayTap()
-                    }
-                    .opacity(model.hasPrevDay() ? 1 : 0)
+                Button {
+                    model.onPrevDayTap()
+                } label: {
+                    Image(asset: .X24.Arrow.left)
+                        .foregroundStyle(Color.Control.secondary)
+                }
+                .opacity(model.hasPrevDay() ? 1 : 0)
                 
                 Spacer()
-                AnytypeText(model.title, style: .title)
-                    .foregroundColor(.Text.primary)
-                    .onTapGesture {
-                        model.onCalendarTap()
-                    }
+                Button {
+                    model.onCalendarTap()
+                } label: {
+                    AnytypeText(model.title, style: .title)
+                        .foregroundStyle(Color.Text.primary)
+                }
                 Spacer()
                 
-                Image(asset: .X24.Arrow.right)
-                    .foregroundColor(.Control.secondary)
-                    .onTapGesture {
-                        model.onNextDayTap()
-                    }
-                    .opacity(model.hasNextDay() ? 1 : 0)
+                Button {
+                    model.onNextDayTap()
+                } label: {
+                    Image(asset: .X24.Arrow.right)
+                        .foregroundStyle(Color.Control.secondary)
+                }
+                .opacity(model.hasNextDay() ? 1 : 0)
             }
         }
         .padding(.top, 16)
@@ -153,13 +158,13 @@ struct DateView: View {
                 IconView(icon: item.icon)
                     .frame(width: 24, height: 24)
                 AnytypeText(item.title, style: .uxCalloutMedium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             }
         }
         .padding(.horizontal,12)
         .frame(height: 40)
         .background(model.state.selectedRelation == item.details ? Color.Shape.transparentSecondary : .clear)
-        .cornerRadius(10, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
         .border(10, color: Color.Shape.primary)
         .id(item.id)
         .onAppear {

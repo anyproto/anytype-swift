@@ -1,12 +1,17 @@
 import SwiftUI
 import Services
 
-final class SetFiltersTextViewModel: ObservableObject {
-    @Published var input = ""
-    
+@MainActor
+@Observable
+final class SetFiltersTextViewModel {
+    var input = ""
+
+    @ObservationIgnored
     let keyboardType: UIKeyboardType
+    @ObservationIgnored
     let onApplyText: (String) -> Void
-    
+
+    @ObservationIgnored
     private var keyboardListenerHelper: KeyboardEventsListnerHelper?
     
     init(filter: SetFilter, onApplyText: @escaping (String) -> Void) {

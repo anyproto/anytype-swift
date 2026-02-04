@@ -62,7 +62,7 @@ struct CalendarView: View {
             date = option.date
         } label: {
             AnytypeText(option.title, style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .frame(height: 44)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fixTappableArea()

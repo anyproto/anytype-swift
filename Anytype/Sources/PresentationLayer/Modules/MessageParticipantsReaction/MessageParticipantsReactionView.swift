@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 struct MessageParticipantsReactionView: View {
-    
-    @StateObject private var model: MessageParticipantsReactionViewModel
-    
+
+    @State private var model: MessageParticipantsReactionViewModel
+
     init(data: MessageParticipantsReactionData) {
-        self._model = StateObject(wrappedValue: MessageParticipantsReactionViewModel(data: data))
+        self._model = State(initialValue: MessageParticipantsReactionViewModel(data: data))
     }
     
     var body: some View {
@@ -27,7 +27,7 @@ struct MessageParticipantsReactionView: View {
         HStack {
             Spacer()
             AnytypeText(model.title, style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer()
         }
         .frame(height: 48)

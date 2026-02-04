@@ -392,6 +392,57 @@
         ]
       }
     },
+    "liquid-glass-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to iOS 26 Liquid Glass patterns (→ liquid-glass-developer/SKILL.md). GlassEffectContainer, morphing, interactive effects",
+      "promptTriggers": {
+        "keywords": [
+          "glass",
+          "liquid glass",
+          "glassEffect",
+          "GlassEffectContainer",
+          "iOS 26",
+          "iOS26",
+          "glass effect",
+          "morphing",
+          "interactive glass",
+          "glassEffectID",
+          "navigation panel",
+          "floating button",
+          "translucent",
+          "blur effect",
+          "glass button",
+          "View+iOS26",
+          "buttonStyleGlass",
+          "glassEffectInteractive"
+        ],
+        "intentPatterns": [
+          "(add|create|implement|use).*?(glass|glass effect|liquid glass)",
+          "(morph|transition).*?(button|element|view)",
+          "(iOS 26|iOS26).*?(effect|style|design)",
+          "(floating|navigation).*?(button|panel|control)",
+          "(how to|best practice).*?(glass|liquid glass|morphing)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/View+iOS26.swift",
+          "**/HomeBottomNavigationPanelView.swift",
+          "**/ChatInput.swift",
+          "**/ChatActionPanel.swift"
+        ],
+        "contentPatterns": [
+          "GlassEffectContainerIOS26",
+          "glassEffectInteractiveIOS26",
+          "glassEffectIDIOS26",
+          "glassEffectIOS26",
+          "buttonStyleGlassIOS26",
+          "\\.glassEffect\\(",
+          "GlassEffectContainer"
+        ]
+      }
+    },
     "tests-developer": {
       "type": "domain",
       "priority": "high",
@@ -456,6 +507,95 @@
           "#expect\\(",
           "\\.mock\\(",
           "static func mock"
+        ]
+      }
+    },
+    "swift-concurrency-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to Swift concurrency patterns. Actors, isolation, Sendable, TaskGroup, async/await mental models",
+      "promptTriggers": {
+        "keywords": [
+          "actor",
+          "isolation",
+          "isolation domain",
+          "Sendable",
+          "@unchecked",
+          "nonisolated",
+          "Task",
+          "TaskGroup",
+          "async let",
+          "structured concurrency",
+          "data race",
+          "cooperative pool",
+          "Swift 6",
+          "Swift 6.2",
+          "approachable concurrency",
+          "@concurrent",
+          "Task.detached",
+          "MainActor.run",
+          "withThrowingTaskGroup",
+          "concurrency warning",
+          "sendable warning"
+        ],
+        "intentPatterns": [
+          "(fix|resolve|suppress).*?(sendable|isolation|race|concurrency)",
+          "(understand|explain).*?(actor|isolation|sendable|task)",
+          "(migrate|update).*?(swift 6|concurrency)",
+          "(how to|when to).*?(actor|sendable|task|concurrent)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/*.swift"
+        ],
+        "contentPatterns": [
+          "actor\\s+\\w+",
+          "nonisolated\\s+(func|var|let)",
+          "Task\\s*\\{",
+          "TaskGroup",
+          "@unchecked Sendable",
+          "withThrowingTaskGroup",
+          ": Sendable",
+          "@concurrent"
+        ]
+      }
+    },
+    "claudemd-maintainer": {
+      "type": "meta",
+      "priority": "medium",
+      "description": "Smart router to CLAUDE.md maintenance best practices. Line limits, progressive disclosure, code snippet management",
+      "promptTriggers": {
+        "keywords": [
+          "CLAUDE.md",
+          "claude.md structure",
+          "improve claude.md",
+          "update claude.md",
+          "project instructions",
+          "onboarding claude",
+          "context file",
+          "reduce claude.md",
+          "streamline claude.md",
+          "claude.md best practice",
+          "claude.md line count",
+          "progressive disclosure",
+          "llm instructions"
+        ],
+        "intentPatterns": [
+          "(improve|update|optimize|streamline).*?(CLAUDE.md|claude.md|project instructions)",
+          "(reduce|shorten|trim).*?(CLAUDE.md|instructions|context)",
+          "(best practice|guideline).*?(CLAUDE.md|llm instruction|ai instruction)",
+          "(how to|structure).*?(CLAUDE.md|project documentation)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/CLAUDE.md"
+        ],
+        "contentPatterns": [
+          "Progressive Disclosure",
+          "Critical Rules",
+          "Quick Start"
         ]
       }
     }

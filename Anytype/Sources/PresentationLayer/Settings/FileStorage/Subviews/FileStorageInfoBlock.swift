@@ -13,9 +13,9 @@ struct FileStorageInfoBlock: View {
                 .frame(width: 48, height: 48)
             VStack(alignment: .leading, spacing: 1) {
                 AnytypeText(title, style: .previewTitle2Medium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 AnytypeText(description, style: .relation3Regular)
-                    .foregroundColor(isWarning ? .Pure.red : .Text.secondary)
+                    .foregroundStyle(isWarning ? Color.Pure.red : Color.Text.secondary)
             }
             .lineLimit(1)
         }

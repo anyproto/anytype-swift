@@ -88,7 +88,9 @@ final class AnytypeAnalytics: @unchecked Sendable {
     func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: [String : Any] = [:]) {
         var eventProperties = eventProperties
         let participantSpaceView = participantSpacesStorage.participantSpaceView(spaceId: spaceId)
-        
+
+        eventProperties[AnalyticsEventsPropertiesKey.spaceId] = spaceId
+
         if let permissions = participantSpaceView?.participant?.permission.analyticsType {
             eventProperties[AnalyticsEventsPropertiesKey.permissions] = permissions.rawValue
         }

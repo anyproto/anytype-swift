@@ -22,8 +22,6 @@ struct SpaceShareView: View {
             .anytypeSheet(item: $model.requestAlertModel) { alertModel in
                 SpaceRequestAlert(data: alertModel) { reason in
                     model.onUpgradeTap(reason: reason, route: .confirmInvite)
-                } onReject: {
-                    model.onReject()
                 }
             }
             .anytypeSheet(item: $model.changeAccessAlertModel) { model in
@@ -35,11 +33,13 @@ struct SpaceShareView: View {
             .anytypeSheet(isPresented: $model.showStopSharingAlert) {
                 StopSharingAlert(spaceId: model.spaceId) {}
             }
+            .anytypeSheet(isPresented: $model.showMakePrivateAlert) {
+                SpaceMakePrivateAlert {
+                    try await model.onMakePrivateConfirm()
+                }
+            }
             .anytypeSheet(item: $model.participantInfo) {
                 ProfileView(info: $0)
-            }
-            .anytypeSheet(isPresented: $model.showStopSharingAnEmptySpaceAlert) {
-                StopSharingAnEmptySpaceAlert()
             }
             .membershipUpgrade(reason: $model.membershipUpgradeReason)
             .ignoresSafeArea()
@@ -72,6 +72,16 @@ struct SpaceShareView: View {
                                 Text(Loc.SpaceShare.Qr.button)
                                 Spacer()
                                 Image(systemName: "qrcode")
+                            }
+                            if model.canStopShare {
+                                Divider()
+                                Button {
+                                    model.onMakePrivateTapped()
+                                } label: {
+                                    Text(Loc.SpaceShare.MakePrivate.action)
+                                    Spacer()
+                                    Image(systemName: "lock")
+                                }
                             }
                         } label: {
                             IconView(icon: .asset(.X24.more))

@@ -126,7 +126,7 @@ struct MarkupAccessoryContentView: View {
                                 })
                         } else {
                             Image(asset: item.markupItem.iconAsset)
-                                .foregroundColor(viewModel.iconColor(for: item.markupItem))
+                                .foregroundStyle(viewModel.iconColor(for: item.markupItem))
                         }
                     }
                     .frame(width: 48, height: 48)

@@ -2,7 +2,7 @@ ruby '2.7.2'
 
 source 'https://rubygems.org'
 
-gem 'fastlane', '~> 2.229.0'
+gem 'fastlane', '~> 2.230.0'
 gem 'fastlane-plugin-sentry', '1.15.0'
 gem 'license_finder'
 # https://github.com/CocoaPods/Xcodeproj/pull/942

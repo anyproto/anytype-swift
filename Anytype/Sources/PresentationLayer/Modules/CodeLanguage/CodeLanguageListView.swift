@@ -2,13 +2,13 @@ import Foundation
 import SwiftUI
 
 struct CodeLanguageListView: View {
-    
-    @StateObject private var model: CodeLanguageListViewModel
+
+    @State private var model: CodeLanguageListViewModel
     @State private var searchText: String = ""
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: CodeLanguageListData) {
-        self._model = StateObject(wrappedValue: CodeLanguageListViewModel(data: data))
+        self._model = State(initialValue: CodeLanguageListViewModel(data: data))
     }
     
     var body: some View {
@@ -23,12 +23,12 @@ struct CodeLanguageListView: View {
                         } label: {
                             HStack(spacing: 0) {
                                 AnytypeText(row.title, style: .bodyRegular)
-                                    .foregroundColor(.Text.primary)
+                                    .foregroundStyle(Color.Text.primary)
                                     .lineLimit(1)
                                 Spacer()
                                 if row.isSelected {
                                     Image(asset: .X24.tick)
-                                        .foregroundColor(Color.Text.primary)
+                                        .foregroundStyle(Color.Text.primary)
                                 }
                             }
                             .frame(height: 52)

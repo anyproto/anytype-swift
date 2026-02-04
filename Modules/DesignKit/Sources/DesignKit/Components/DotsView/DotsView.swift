@@ -39,7 +39,7 @@ public struct DotsView: View {
 struct DotsView_Previews: PreviewProvider {
     static var previews: some View {
         DotsView()
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .frame(width: 80, height: 8)
             .padding()
     }

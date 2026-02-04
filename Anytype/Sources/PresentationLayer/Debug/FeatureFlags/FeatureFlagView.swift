@@ -18,13 +18,13 @@ struct FeatureFlagView: View {
                 VStack(alignment: .leading) {
                     Text(verbatim: model.description.title)
                         .font(AnytypeFontBuilder.font(anytypeFont: .bodyRegular))
-                        .foregroundColor(.Text.primary)
-                    switch model.description.type {
-                    case let .feature(author, releaseVersion):
-                        Text(verbatim: Loc.DebugMenu.toggleAuthor(releaseVersion, author))
+                        .foregroundStyle(Color.Text.primary)
+                    switch model.description.category {
+                    case let .productFeature(author, targetRelease):
+                        Text(verbatim: Loc.DebugMenu.toggleAuthor(targetRelease, author))
                             .font(AnytypeFontBuilder.font(anytypeFont: .calloutRegular))
-                            .foregroundColor(.Text.secondary)
-                    case .debug:
+                            .foregroundStyle(Color.Text.secondary)
+                    case .developerTool:
                         EmptyView()
                     }
                 }
@@ -35,7 +35,7 @@ struct FeatureFlagView: View {
             } label: {
                 Text("> Default values")
                     .font(AnytypeFontBuilder.font(anytypeFont: .previewTitle2Medium))
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
             }
             
             if showDefaultValues {
@@ -44,7 +44,7 @@ struct FeatureFlagView: View {
                     Text("Release Anytype - \(model.description.releaseAnytypeValue ? "on" : "off")")
                 }
                 .font(AnytypeFontBuilder.font(anytypeFont: .calloutRegular))
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .transition(.opacity)
             }
         }

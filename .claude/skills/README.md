@@ -196,6 +196,47 @@ Skills provide **automatic activation** based on your prompts and file context, 
 
 ---
 
+### 10. **swift-concurrency-developer** (Smart Router)
+**Purpose**: Routes to Swift concurrency patterns using the "Office Building" mental model
+
+**Auto-activates when**:
+- Working with actors, isolation, Sendable, TaskGroups
+- Fixing concurrency warnings or data race issues
+- Keywords: actor, isolation, Sendable, TaskGroup, nonisolated, async let, @concurrent
+
+**Provides**:
+- Core mental model (Office Building analogy)
+- Quick patterns for async/await, Tasks, TaskGroups, Actors
+- Approachable Concurrency (Swift 6.2+) settings
+- Common concurrency mistakes
+- **→ Routes to**: External [Fucking Approachable Swift Concurrency](https://fuckingapproachableswiftconcurrency.com)
+
+**Location**: `.claude/skills/swift-concurrency-developer/SKILL.md`
+
+---
+
+### 11. **claudemd-maintainer** (Meta!)
+**Purpose**: Routes to CLAUDE.md maintenance best practices and optimization guidelines
+
+**Auto-activates when**:
+- Editing or discussing CLAUDE.md structure
+- Discussing progressive disclosure or documentation for AI
+- Keywords: CLAUDE.md, project instructions, progressive disclosure, llm instructions
+
+**Provides**:
+- Critical rules (under 300 lines, file refs over code)
+- Progressive disclosure pattern (3-level architecture)
+- Quick audit checklist
+- Optimization workflow
+- Common mistakes to avoid
+- Research-backed metrics and targets
+
+**Location**: `.claude/skills/claudemd-maintainer/SKILL.md`
+
+**Note**: This is a meta-skill for maintaining the CLAUDE.md file itself!
+
+---
+
 ## 📊 Progressive Disclosure Architecture
 
 This documentation system follows the principle of **progressive disclosure** - load only what's needed, when it's needed.
@@ -305,8 +346,14 @@ Read the file .claude/skills/ios-dev-guidelines/SKILL.md
 ├── feature-toggle-developer/
 │   └── SKILL.md (smart router)
 │
-└── analytics-developer/
-    └── SKILL.md (smart router)
+├── analytics-developer/
+│   └── SKILL.md (smart router)
+│
+├── swift-concurrency-developer/
+│   └── SKILL.md (smart router)
+│
+└── claudemd-maintainer/
+    └── SKILL.md (smart router - meta!)
 ```
 
 **Note**: Resource files removed in favor of specialized documentation at Level 3.
@@ -594,7 +641,7 @@ For comprehensive coverage of:
 The skills system provides:
 - ✅ **Progressive disclosure architecture** - 3 levels of documentation
 - ✅ **Automatic skill suggestions** based on context - Zero friction
-- ✅ **6 smart router skills** - Lightweight and fast
+- ✅ **11 smart router skills** - Lightweight and fast
 - ✅ **Hook-based activation** - Analyzed prompts trigger relevant skills
 - ✅ **Context token efficiency** - Load only what's needed
 - ✅ **Single Source of Truth** - Each piece of knowledge lives in one place

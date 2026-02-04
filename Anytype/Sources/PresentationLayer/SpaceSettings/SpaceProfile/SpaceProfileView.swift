@@ -3,10 +3,10 @@ import Services
 
 
 struct SpaceProfileView: View {
-    @StateObject private var model: SpaceProfileViewModel
-    
+    @State private var model: SpaceProfileViewModel
+
     init(info: AccountInfo) {
-        _model = StateObject(wrappedValue: SpaceProfileViewModel(info: info))
+        _model = State(initialValue: SpaceProfileViewModel(info: info))
     }
     
     var body: some View {
@@ -115,12 +115,12 @@ struct SpaceProfileView: View {
             }
             .padding(20)
             .background(Color.Shape.transparentSecondary)
-            .cornerRadius(10)
+            .clipShape(.rect(cornerRadius: 10))
             
             Spacer.fixedHeight(6)
             
             AnytypeText(title, style: .caption2Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         }
     }
 }

@@ -78,12 +78,12 @@ struct SettingsSectionItemView: View {
                 }
             case .button(let text):
                 AnytypeText(text, style: .caption1Medium)
-                    .foregroundColor(.Text.inversion)
+                    .foregroundStyle(Color.Text.inversion)
                     .lineLimit(1)
                     .padding(.horizontal, 11)
                     .padding(.vertical, 5)
                     .background(Color.Control.accent100)
-                    .cornerRadius(6, style: .continuous)
+                    .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
             case .none:
                 EmptyView()
             }

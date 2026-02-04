@@ -24,7 +24,7 @@ struct CustomIconColorOverlay: View {
                     Image(asset: icon.imageAsset)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .foregroundColor(color.color)
+                        .foregroundStyle(color.color)
                         .frame(width: 40, height: 40)
                         .padding(8)
                 }

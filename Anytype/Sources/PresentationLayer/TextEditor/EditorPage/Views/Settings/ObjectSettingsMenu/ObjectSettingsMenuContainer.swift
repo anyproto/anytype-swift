@@ -3,7 +3,7 @@ import AnytypeCore
 
 struct ObjectSettingsMenuContainer<Label: View>: View {
 
-    @StateObject private var model: ObjectSettingsCoordinatorViewModel
+    @State private var model: ObjectSettingsCoordinatorViewModel
     private let label: () -> Label
 
     init(
@@ -12,7 +12,7 @@ struct ObjectSettingsMenuContainer<Label: View>: View {
         output: (any ObjectSettingsCoordinatorOutput)?,
         @ViewBuilder label: @escaping () -> Label
     ) {
-        self._model = StateObject(wrappedValue: ObjectSettingsCoordinatorViewModel(objectId: objectId, spaceId: spaceId, output: output))
+        self._model = State(initialValue: ObjectSettingsCoordinatorViewModel(objectId: objectId, spaceId: spaceId, output: output))
         self.label = label
     }
 
@@ -44,7 +44,7 @@ extension ObjectSettingsMenuContainer where Label == AnyView {
         self.init(objectId: objectId, spaceId: spaceId, output: output) {
             AnyView(
                 Image(asset: .X24.more)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             )
         }
     }

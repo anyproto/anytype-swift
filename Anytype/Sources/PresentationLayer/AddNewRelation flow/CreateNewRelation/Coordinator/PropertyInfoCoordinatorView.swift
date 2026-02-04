@@ -1,12 +1,11 @@
 import SwiftUI
 
-
 struct PropertyInfoCoordinatorView: View {
-    
-    @StateObject private var model: PropertyInfoCoordinatorViewModel
-    
+
+    @State private var model: PropertyInfoCoordinatorViewModel
+
     init(data: PropertyInfoData, output: (any PropertyInfoCoordinatorViewOutput)?) {
-        _model = StateObject(wrappedValue: PropertyInfoCoordinatorViewModel(data: data, output: output))
+        _model = State(initialValue: PropertyInfoCoordinatorViewModel(data: data, output: output))
     }
     
     var body: some View {

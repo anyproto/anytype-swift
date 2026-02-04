@@ -39,8 +39,6 @@ struct ChatInputReplyView: View {
             }
         }
         .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .frame(height: 56)
-        .background(Color.Background.highlightedLight)
+        .padding(.top, 8)
     }
 }

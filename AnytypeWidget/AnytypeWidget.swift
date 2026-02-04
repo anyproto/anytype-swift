@@ -53,7 +53,7 @@ struct AnytypeWidgetEntryView : View {
                 .opacity(0.12)
             Image(systemName: "plus")
                 .resizable()
-                .foregroundColor(Color.white)
+                .foregroundStyle(Color.white)
                 .frame(width: 24, height: 24)
         }
         .widgetAccentable()

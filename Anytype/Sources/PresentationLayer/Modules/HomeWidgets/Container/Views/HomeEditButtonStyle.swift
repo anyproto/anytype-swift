@@ -12,14 +12,14 @@ struct HomeEditButton: View {
             action: action,
             label: {
                 AnytypeText(text, style: .uxTitle2Medium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
                     .lineLimit(1)
             }
         )
         .frame(maxWidth: .infinity)
         .background(.thinMaterial)
-        .cornerRadius(8, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         .setZeroOpacity(!homeState.isReadWrite)
         .animation(.default, value: homeState)
     }

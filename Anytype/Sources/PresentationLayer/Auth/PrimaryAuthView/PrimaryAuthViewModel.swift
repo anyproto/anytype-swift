@@ -1,50 +1,59 @@
 import SwiftUI
-import Combine
 import Services
 import AnytypeCore
 
 @MainActor
-final class PrimaryAuthViewModel: ObservableObject {
-    
-    @Published var createAccountTaskId: String?
-    @Published var inProgress = false
-    @Published var errorText: String? {
+@Observable
+final class PrimaryAuthViewModel {
+
+    var createAccountTaskId: String?
+    var inProgress = false
+    var errorText: String? {
         didSet { showError = errorText.isNotNil }
     }
-    @Published var showError: Bool = false
-    
+    var showError: Bool = false
+
     // MARK: - State
+    @ObservationIgnored
     private let state = JoinFlowState()
-    
+
     // MARK: - Private
+    @ObservationIgnored
     private weak var output: (any PrimaryAuthOutput)?
-    
-    @Injected(\.serverConfigurationStorage)
+
+    @ObservationIgnored @Injected(\.serverConfigurationStorage)
     private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
-    @Injected(\.appActionStorage)
+    @ObservationIgnored @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
-    @Injected(\.authService)
+    @ObservationIgnored @Injected(\.authService)
     private var authService: any AuthServiceProtocol
-    @Injected(\.seedService)
+    @ObservationIgnored @Injected(\.seedService)
     private var seedService: any SeedServiceProtocol
-    @Injected(\.usecaseService)
+    @ObservationIgnored @Injected(\.usecaseService)
     private var usecaseService: any UsecaseServiceProtocol
-    @Injected(\.workspaceService)
+    @ObservationIgnored @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.pushNotificationsPermissionService)
+    @ObservationIgnored @Injected(\.pushNotificationsPermissionService)
     private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
-    
-    private var subscription: AnyCancellable?
-    
+
     init(output: (any PrimaryAuthOutput)?) {
         self.output = output
     }
-    
+
     // MARK: - Public
-    
+
     func onAppear() {
-        startSubscriptions()
         AnytypeAnalytics.instance().logMainAuthScreenShow()
+    }
+
+    func startAppActionSubscription() async {
+        for await action in appActionStorage.$action.values {
+            guard let action else { continue }
+
+            if (try? handleAppAction(action: action)).isNotNil {
+                appActionStorage.action = nil
+            }
+        }
     }
     
     func onJoinButtonTap() {
@@ -66,19 +75,7 @@ final class PrimaryAuthViewModel: ObservableObject {
     func onDebugMenuTap() {
         output?.onDebugMenuSelected()
     }
-    
-    // MARK: - Private
-    
-    private func startSubscriptions() {
-        subscription = appActionStorage.$action.receiveOnMain().sink { [weak self] action in
-            guard let action, let self else { return }
-            
-            if (try? handleAppAction(action: action)).isNotNil {
-                appActionStorage.action = nil
-            }
-        }
-    }
-    
+
     // MARK: - Create account step
     
     func createAccount() async {

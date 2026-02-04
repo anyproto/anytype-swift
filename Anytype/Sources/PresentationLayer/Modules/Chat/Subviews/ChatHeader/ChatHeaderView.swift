@@ -1,97 +1,136 @@
 import Foundation
 import SwiftUI
 import Services
-import AnytypeCore
 
 struct ChatHeaderView: View {
 
-    @StateObject private var model: ChatHeaderViewModel
+    @State private var model: ChatHeaderViewModel
+    private let settingsOutput: (any ObjectSettingsCoordinatorOutput)?
 
     init(
         spaceId: String,
         chatId: String,
+        settingsOutput: (any ObjectSettingsCoordinatorOutput)?,
         onTapOpenWidgets: @escaping () -> Void,
         onTapOpenSpaceSettings: @escaping () -> Void,
         onTapAddMembers: @escaping (() -> Void)
     ) {
-        self._model = StateObject(wrappedValue: ChatHeaderViewModel(
+        _model = State(initialValue: ChatHeaderViewModel(
             spaceId: spaceId,
             chatId: chatId,
             onTapOpenWidgets: onTapOpenWidgets,
             onTapOpenSpaceSettings: onTapOpenSpaceSettings,
             onTapAddMembers: onTapAddMembers
         ))
+        self.settingsOutput = settingsOutput
     }
-    
+
     var body: some View {
-        PageNavigationHeader {
-            ExpandedTapAreaButton {
-                model.tapOpenWidgets()
-            } label: {
-                HStack(spacing: 6) {
-                    if model.showLoading {
-                        CircleLoadingView(.Text.primary)
-                            .frame(width: 18, height: 18)
-                            .transition(.scale.combined(with: .opacity))
-                    } else {
-                        Spacer.fixedWidth(18)
-                    }
-                    AnytypeText(model.title, style: .uxTitle1Semibold)
-                        .lineLimit(1)
-                    if model.muted {
-                        Image(asset: .X18.muted)
-                            .foregroundColor(.Text.primary)
-                    } else {
-                        Spacer.fixedWidth(18)
-                    }
-                }
+        NavigationHeader(
+            navigationButtonType: .back,
+            isTitleInteractive: true
+        ) {
+            titleView
+        } rightContent: {
+            HStack(spacing: 8) {
+                addMembersButton
+                moreButton
             }
-        } rightView: {
-            HStack(spacing: 16) {
-                if model.showAddMembersButton {
-                    ExpandedTapAreaButton {
-                        model.tapAddMembers()
-                    } label: {
-                        Image(systemName: "person.fill.badge.plus")
-                            .foregroundColor(.Control.transparentSecondary)
-                            .frame(width: 28, height: 28)
-                    }
-                }
-                if FeatureFlags.chatSettings {
-                    if model.isMultiChatSpace {
-                        ObjectSettingsMenuContainer(
-                            objectId: model.chatId,
-                            spaceId: model.spaceId,
-                            output: nil
-                        ) {
-                            IconView(icon: model.icon)
-                                .frame(width: 28, height: 28)
-                        }
-                    } else {
-                        ExpandedTapAreaButton {
-                            model.tapOpenSpaceSettings()
-                        } label: {
-                            IconView(icon: model.icon)
-                                .frame(width: 28, height: 28)
-                        }
-                    }
-                } else {
-                    ExpandedTapAreaButton {
-                        model.tapOpenWidgets()
-                    } label: {
-                        IconView(icon: model.icon)
-                            .frame(width: 28, height: 28)
-                    }
-                }
-            }
-        }
-        .background {
-            HomeBlurEffectView(direction: .topToBottom)
-                .ignoresSafeArea()
         }
         .task {
             await model.startSubscriptions()
         }
-        .animation(.default, value: model.showLoading)
+        .animation(.bouncy, value: model.showLoading)
+        .animation(.bouncy, value: model.muted)
+        .animation(.bouncy, value: model.showAddMembersButton)
+    }
+
+    private var titleView: some View {
+        Button {
+            model.tapOpenWidgets()
+        } label: {
+            HStack(alignment: .center, spacing: 0) {
+                IconView(icon: model.icon)
+                    .frame(width: 32, height: 32)
+                Spacer.fixedWidth(8)
+                if model.showLoading {
+                    CircleLoadingView(.Text.primary)
+                        .frame(width: 18, height: 18)
+                        .transition(.scale.combined(with: .opacity))
+                    Spacer.fixedWidth(4)
+                }
+                if model.isOneToOne {
+                    VStack(alignment: .leading, spacing: 0) {
+                        HStack(spacing: 4) {
+                            AnytypeText(model.title, style: .uxTitle2Semibold)
+                                .lineLimit(1)
+                            if model.hasMembership {
+                                Image(asset: .X18.membershipBadge)
+                                    .resizable()
+                                    .frame(width: 16, height: 16)
+                            }
+                            if model.muted {
+                                Image(asset: .X18.muted)
+                                    .foregroundStyle(Color.Control.transparentSecondary)
+                            }
+                        }
+                        AnytypeText(model.anytypeName, style: .relation3Regular)
+                            .foregroundStyle(Color.Text.transparentSecondary)
+                            .lineLimit(1)
+                    }
+                } else {
+                    AnytypeText(model.title, style: .uxTitle2Semibold)
+                        .lineLimit(1)
+                    if model.muted {
+                        Spacer.fixedWidth(4)
+                        Image(asset: .X18.muted)
+                            .foregroundStyle(Color.Control.transparentSecondary)
+                    }
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 6)
+        }
+        .frame(height: NavigationHeaderConstants.height)
+    }
+
+    @ViewBuilder
+    private var addMembersButton: some View {
+        if model.showAddMembersButton {
+            Button {
+                model.tapAddMembers()
+            } label: {
+                Image(systemName: "person.fill.badge.plus")
+                    .foregroundStyle(Color.Control.primary)
+                    .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+            }
+            .glassEffectInteractiveIOS26(in: Circle())
+        }
+    }
+
+    @ViewBuilder
+    private var moreButton: some View {
+        Group {
+            if model.isMultiChatSpace {
+                ObjectSettingsMenuContainer(
+                    objectId: model.chatId,
+                    spaceId: model.spaceId,
+                    output: settingsOutput
+                ) {
+                    Image(asset: .X24.more)
+                        .foregroundStyle(Color.Control.primary)
+                        .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+                }
+            } else {
+                Button {
+                    model.tapOpenSpaceSettings()
+                } label: {
+                    Image(asset: .X24.more)
+                        .foregroundStyle(Color.Control.primary)
+                        .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+                }
+            }
+        }
+        .glassEffectInteractiveIOS26(in: Circle())
     }
 }

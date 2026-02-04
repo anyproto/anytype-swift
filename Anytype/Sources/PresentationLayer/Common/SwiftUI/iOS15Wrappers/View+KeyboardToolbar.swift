@@ -4,7 +4,7 @@ struct KeyboardToolbar: ViewModifier {
     
     @ViewBuilder
     func body(content: Content) -> some View {
-        NavigationView {
+        NavigationStack {
             content
                 .toolbar {
                     ToolbarItemGroup(placement: .keyboard) {
@@ -12,7 +12,6 @@ struct KeyboardToolbar: ViewModifier {
                     }
                 }
         }
-        .navigationViewStyle(.stack)
     }
 }
 

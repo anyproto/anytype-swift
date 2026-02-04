@@ -38,7 +38,7 @@ struct NewSpaceCardLabel: View {
         // Optimization for fast sizeThatFits
         .frame(height: 98)
 
-        .cornerRadius(20, style: .continuous)
+        .clipShape(.rect(cornerRadius: 20, style: .continuous))
         .background(DashboardWallpaper(
             mode: .spaceHub,
             wallpaper: model.wallpaper,
@@ -54,10 +54,10 @@ struct NewSpaceCardLabel: View {
                 HStack(alignment: .center) {
                     AnytypeText(model.nameWithPlaceholder, style: .bodySemibold)
                         .lineLimit(1)
-                        .foregroundColor(Color.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                     if model.isMuted {
                         Spacer.fixedWidth(4)
-                        Image(asset: .X18.muted).foregroundColor(.Control.transparentSecondary)
+                        Image(asset: .X18.muted).foregroundStyle(Color.Control.transparentSecondary)
                     }
                 }
 
@@ -84,10 +84,10 @@ struct NewSpaceCardLabel: View {
             HStack {
                 AnytypeText(model.nameWithPlaceholder, style: .bodySemibold)
                     .lineLimit(1)
-                    .foregroundColor(Color.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 if model.isMuted {
                     Spacer.fixedWidth(8)
-                    Image(asset: .X18.muted).foregroundColor(.Control.transparentSecondary)
+                    Image(asset: .X18.muted).foregroundStyle(Color.Control.transparentSecondary)
                 }
                 Spacer()
                 pin
@@ -99,7 +99,7 @@ struct NewSpaceCardLabel: View {
     private var lastMessageDate: some View {
         if let lastMessage = model.lastMessage {
             AnytypeText(lastMessage.chatPreviewDate, style: .relation2Regular)
-                .foregroundColor(.Control.transparentSecondary)
+                .foregroundStyle(Color.Control.transparentSecondary)
         }
     }
 
@@ -115,12 +115,12 @@ struct NewSpaceCardLabel: View {
     private var unreadCounters: some View {
         HStack(spacing: 4) {
             if model.mentionCounter > 0 {
-                MentionBadge(style: model.isMuted ? .muted : .highlighted)
+                MentionBadge(style: model.mentionCounterStyle)
             }
             if model.unreadCounter > 0 {
                 CounterView(
                     count: model.unreadCounter,
-                    style: model.isMuted ? .muted : .highlighted
+                    style: model.unreadCounterStyle
                 )
             }
         }
@@ -130,7 +130,7 @@ struct NewSpaceCardLabel: View {
     private var pin: some View {
         if model.isPinned {
             Image(asset: .X18.pin)
-                .foregroundColor(Color.Control.transparentSecondary)
+                .foregroundStyle(Color.Control.transparentSecondary)
                 .frame(width: 18, height: 18)
         }
     }

@@ -8,23 +8,26 @@ struct PropertiesListData: Identifiable {
 }
 
 @MainActor
+@Observable
 final class PropertiesListCoordinatorViewModel:
-    ObservableObject,
     PropertiesListModuleOutput,
     PropertyValueCoordinatorOutput
 {
-    @Published var relationValueData: PropertyValueData?
-    @Published var relationsSearchData: PropertiesSearchData?
-    @Published var objectTypeData: EditorTypeObject?
-    @Published var showTypePicker = false
-    
+    var relationValueData: PropertyValueData?
+    var relationsSearchData: PropertiesSearchData?
+    var objectTypeData: EditorTypeObject?
+    var showTypePicker = false
+
     let document: any BaseDocumentProtocol
-    
+
+    @ObservationIgnored
     @Injected(\.propertyValueProcessingService)
     private var propertyValueProcessingService: any PropertyValueProcessingServiceProtocol
+    @ObservationIgnored
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    
+
+    @ObservationIgnored
     private weak var output: (any PropertyValueCoordinatorOutput)?
 
     init(document: some BaseDocumentProtocol, output: (any PropertyValueCoordinatorOutput)?) {

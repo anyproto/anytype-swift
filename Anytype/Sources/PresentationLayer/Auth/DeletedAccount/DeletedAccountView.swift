@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct DeletedAccountView: View {
-    
-    @StateObject private var viewModel: DeletedAccountViewModel
-    
+
+    @State private var viewModel: DeletedAccountViewModel
+
     init(deadline: Date) {
-        _viewModel = StateObject(wrappedValue: DeletedAccountViewModel(deadline: deadline))
+        _viewModel = State(initialValue: DeletedAccountViewModel(deadline: deadline))
     }
     
     var body: some View {
@@ -31,7 +31,7 @@ struct DeletedAccountView: View {
                 .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))
         }
         .background(Color.Background.primary)
-        .cornerRadius(16.0)
+        .clipShape(.rect(cornerRadius: 16.0))
     }
     
     private var mainView: some View {
@@ -39,10 +39,10 @@ struct DeletedAccountView: View {
             clock
             Spacer.fixedHeight(19)
             AnytypeText(viewModel.title, style: .heading)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(11)
             AnytypeText(Loc.pendingDeletionText, style: .uxCalloutRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(14)
             SettingsButton(text: Loc.cancelDeletion, textColor: .Pure.red) { viewModel.cancel() }
             SettingsButton(text: Loc.logoutAndClearData, textColor: .Pure.red) { viewModel.logOut() }

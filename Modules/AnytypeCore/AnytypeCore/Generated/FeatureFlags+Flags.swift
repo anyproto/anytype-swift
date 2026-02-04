@@ -6,28 +6,20 @@
 public extension FeatureFlags {
 
     // Static value reader
+    static var homePage: Bool {
+        value(for: .homePage)
+    }
+
+    static var qrCodeCircularText: Bool {
+        value(for: .qrCodeCircularText)
+    }
+
     static var channelTypeSwitcher: Bool {
         value(for: .channelTypeSwitcher)
     }
 
     static var showUploadStatusIndicator: Bool {
         value(for: .showUploadStatusIndicator)
-    }
-
-    static var newObjectSettings: Bool {
-        value(for: .newObjectSettings)
-    }
-
-    static var oneToOneSpaces: Bool {
-        value(for: .oneToOneSpaces)
-    }
-
-    static var chatSettings: Bool {
-        value(for: .chatSettings)
-    }
-
-    static var qrCodeCircularText: Bool {
-        value(for: .qrCodeCircularText)
     }
 
     static var setKanbanView: Bool {
@@ -40,6 +32,10 @@ public extension FeatureFlags {
 
     static var dndOnCollectionsAndSets: Bool {
         value(for: .dndOnCollectionsAndSets)
+    }
+
+    static var matchedTransitionSource: Bool {
+        value(for: .matchedTransitionSource)
     }
 
     static var rainbowViews: Bool {
@@ -98,10 +94,6 @@ public extension FeatureFlags {
         value(for: .showPushMessagesInForeground)
     }
 
-    static var skipOnboardingEmailCollection: Bool {
-        value(for: .skipOnboardingEmailCollection)
-    }
-
     static var spaceHubAlwaysShowLoading: Bool {
         value(for: .spaceHubAlwaysShowLoading)
     }
@@ -112,15 +104,14 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
+        .homePage,
+        .qrCodeCircularText,
         .channelTypeSwitcher,
         .showUploadStatusIndicator,
-        .newObjectSettings,
-        .oneToOneSpaces,
-        .chatSettings,
-        .qrCodeCircularText,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
+        .matchedTransitionSource,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -135,7 +126,6 @@ public extension FeatureFlags {
         .networkHTTPSRequestsLogger,
         .logMiddlewareRequests,
         .showPushMessagesInForeground,
-        .skipOnboardingEmailCollection,
         .spaceHubAlwaysShowLoading,
         .showHangedObjects
     ]

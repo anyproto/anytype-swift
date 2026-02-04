@@ -22,10 +22,10 @@ struct SpaceTypeChangeRow: View {
                     }
                 VStack(alignment: .leading, spacing: 0) {
                     AnytypeText(title, style: .uxTitle2Medium)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                         .lineLimit(1)
                     AnytypeText(subtitle, style: .relation3Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                         .lineLimit(2)
                 }
                 .multilineTextAlignment(.leading)

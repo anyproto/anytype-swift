@@ -18,7 +18,6 @@ protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
         selectedColor: BlockBackgroundColor?,
         onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
     )
-    func showSettings()
     func showCoverPicker(document: some BaseDocumentProtocol)
     func showIconPicker(document: some BaseDocumentProtocol)
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Property)
@@ -28,6 +27,7 @@ protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     )
     func showSyncStatusInfo(spaceId: String)
+    func onWidgetsSelected(spaceId: String)
     // TODO: Open toast inside module
     func showFailureToast(message: String)
 

@@ -13,7 +13,7 @@ struct WidgetObjectListView: View {
                 if model.isSheet {
                     DragIndicator()
                 }
-                PageNavigationHeader(title: model.title) {
+                NavigationHeader(title: model.title) {
                     editButton
                 }
                 SearchBar(text: $searchText, focused: false, placeholder: Loc.search)
@@ -93,8 +93,11 @@ struct WidgetObjectListView: View {
                     model.onSelectAll()
                 } label: {
                     AnytypeText(model.selectButtonText, style: .uxBodyRegular)
-                        .foregroundColor(.Control.secondary)
+                        .foregroundStyle(Color.Control.secondary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
                 }
+                .glassEffectInteractiveIOS26(in: Capsule())
             }
         }
     }
@@ -104,7 +107,7 @@ struct WidgetObjectListView: View {
         if model.showActionPanel {
             SelectionOptionsView(viewModel: SelectionOptionsViewModel(itemProvider: model))
                 .frame(height: 100)
-                .cornerRadius(16, style: .continuous)
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .shadow(radius: 16)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 16)

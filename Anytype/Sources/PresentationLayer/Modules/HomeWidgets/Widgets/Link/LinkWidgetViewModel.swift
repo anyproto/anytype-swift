@@ -1,34 +1,42 @@
 import Foundation
-import Combine
 import Services
 import AnytypeCore
 import Factory
 
 
 @MainActor
-final class LinkWidgetViewModel: ObservableObject {
-    
+@Observable
+final class LinkWidgetViewModel {
+
     // MARK: - DI
-    
+
+    @ObservationIgnored
     private let widgetBlockId: String
+    @ObservationIgnored
     private let widgetObject: any BaseDocumentProtocol
+    @ObservationIgnored
     private weak var output: (any CommonWidgetModuleOutput)?
 
+    @ObservationIgnored
     @Injected(\.chatMessagesPreviewsStorage)
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
     // MARK: - State
-    
+
+    @ObservationIgnored
     private var linkedObjectDetails: ObjectDetails?
+    @ObservationIgnored
     private var chatPreviews: [ChatMessagePreview] = []
 
-    @Published private(set) var name = ""
-    @Published private(set) var icon: Icon?
-    @Published private(set) var badgeModel: MessagePreviewModel?
+    private(set) var name = ""
+    private(set) var icon: Icon?
+    private(set) var badgeModel: MessagePreviewModel?
     var dragId: String? { widgetBlockId }
 
+    @ObservationIgnored
     private let dateFormatter = ChatPreviewDateFormatter()
 
     init(data: WidgetSubmoduleData) {
@@ -92,7 +100,7 @@ final class LinkWidgetViewModel: ObservableObject {
         }
 
         let spaceView = spaceViewsStorage.spaceView(spaceId: linkedObjectDetails.spaceId)
-        let isMuted = !(spaceView?.effectiveNotificationMode(for: linkedObjectDetails.id).isUnmutedAll ?? true)
+        let notificationMode = spaceView?.effectiveNotificationMode(for: linkedObjectDetails.id) ?? .all
 
         badgeModel = MessagePreviewModel(
             creatorTitle: lastMessage.creator?.title,
@@ -102,7 +110,7 @@ final class LinkWidgetViewModel: ObservableObject {
             chatPreviewDate: dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true),
             unreadCounter: chatPreview.unreadCounter,
             mentionCounter: chatPreview.mentionCounter,
-            isMuted: isMuted,
+            notificationMode: notificationMode,
             chatName: nil
         )
     }

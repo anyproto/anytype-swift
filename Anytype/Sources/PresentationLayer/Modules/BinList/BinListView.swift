@@ -12,7 +12,7 @@ struct BinListView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
-                PageNavigationHeader(title: Loc.bin) {
+                NavigationHeader(title: Loc.bin) {
                     editButton
                 }
                 SearchBar(
@@ -52,22 +52,26 @@ struct BinListView: View {
                     model.onTapDone()
                 } label: {
                     AnytypeText(Loc.done, style: .uxBodyRegular)
-                        .foregroundColor(.Control.secondary)
+                        .foregroundStyle(Color.Control.secondary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
                 }
+                .glassEffectInteractiveIOS26(in: Capsule())
             } else {
                 Menu {
                     Button(Loc.selectObjects) {
                         model.onTapSelecObjects()
                     }
-                    
+
                     AsyncButton(Loc.Widgets.Actions.emptyBin, role: .destructive) {
                         try await model.onTapEmptyBin()
                     }
-                    
+
                 } label: {
-                    AnytypeText("...", style: .uxBodyRegular)
-                        .foregroundColor(.Control.secondary)
+                    MoreIndicator()
                 }
+                .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+                .glassEffectInteractiveIOS26(in: Circle())
             }
         }
     }
@@ -114,7 +118,7 @@ struct BinListView: View {
         if model.showOptionsView {
             SelectionOptionsView(viewModel: SelectionOptionsViewModel(itemProvider: model))
                 .frame(height: 100)
-                .cornerRadius(16, style: .continuous)
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .shadow(radius: 16)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 16)

@@ -2,12 +2,14 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class ExperimentalFeaturesViewModel: ObservableObject {
-    
+@Observable
+final class ExperimentalFeaturesViewModel {
+
+    @ObservationIgnored
     @Injected(\.experimentalFeaturesStorage)
     private var experimentalFeaturesStorage: any ExperimentalFeaturesStorageProtocol
-    
-    @Published var newObjectCreationMenu: Bool = false
+
+    var newObjectCreationMenu: Bool = false
     
     init() {
         newObjectCreationMenu = experimentalFeaturesStorage.newObjectCreationMenu

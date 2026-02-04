@@ -197,7 +197,7 @@ platform :ios do
     end
   
     app_apple_id = settings[:app_apple_id]
-    ENV["DELIVER_ALTOOL_ADDITIONAL_UPLOAD_PARAMETERS"] = "--apple-id #{app_apple_id} --use-old-altool"
+    ENV["DELIVER_ALTOOL_ADDITIONAL_UPLOAD_PARAMETERS"] = "--apple-id #{app_apple_id}"
 
     upload_to_testflight(skip_waiting_for_build_processing: true)
 

@@ -286,14 +286,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
 
     // MARK: - Settings
-    func showSettings() {
-        showSettings(output: self)
-    }
-    
-    func showSettings(output settingsOutput: any ObjectSettingsCoordinatorOutput) {
-        output?.showObectSettings(output: settingsOutput)
-    }
-    
     func showIconPicker(document: some BaseDocumentProtocol) {
         output?.showIconPicker(document: document)
     }

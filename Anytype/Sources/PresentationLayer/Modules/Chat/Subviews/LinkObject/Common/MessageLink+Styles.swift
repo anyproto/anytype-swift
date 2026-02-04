@@ -1,10 +1,9 @@
 import SwiftUI
 
 extension View {
-    
+
     func messageLinkStyle() -> some View {
-        cornerRadius(8, style: .continuous)
-            .messageLinkShadow()
+        clipShape(.rect(cornerRadius: 8, style: .continuous))
     }
     
     func messageLinkRemoveButton(onTapRemove: (() -> Void)?) -> some View {
@@ -19,15 +18,9 @@ extension View {
         }
     }
     
-    func messageLinkShadow() -> some View {
-        shadow(color: .Additional.messageInputShadow, radius: 4)
-    }
-    
     func messageLinkObjectStyle() -> some View {
         frame(width: 216, height: 72)
             .background(Color.Background.secondary)
-            .cornerRadius(12, style: .continuous)
-            .outerBorder(12, color: .Shape.tertiary, lineWidth: 1)
-            .shadow(color: .Additional.messageInputShadow, radius: 4)
+            .clipShape(.rect(cornerRadius: 12, style: .continuous))
     }
 }

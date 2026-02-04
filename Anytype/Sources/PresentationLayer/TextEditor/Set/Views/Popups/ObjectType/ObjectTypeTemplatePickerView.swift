@@ -33,7 +33,7 @@ struct ObjectTypeTemplatePickerView: View {
                     
                     AnytypeText(Loc.templates, style: .subheading)
                     AnytypeText("\(model.templatesCount)", style: .previewTitle1Regular)
-                        .foregroundColor(Color.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                     
                     Spacer()
 
@@ -52,7 +52,7 @@ struct ObjectTypeTemplatePickerView: View {
                             model.onEditTap()
                         } label: {
                             AnytypeText(model.isEditing ? Loc.done : Loc.edit, style: .previewTitle1Regular)
-                                .foregroundColor(Color.Text.secondary)
+                                .foregroundStyle(Color.Text.secondary)
                         }
                     }
                     Spacer()

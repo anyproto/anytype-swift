@@ -14,17 +14,17 @@ struct ObjectActionRow: View {
         label: {
             VStack(spacing: Constants.space) {
                 Image(asset: icon)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
                     .frame(width: 52, height: 52)
                     .background(Color.Background.highlightedMedium)
-                    .cornerRadius(10)
+                    .clipShape(.rect(cornerRadius: 10))
                 Text("")
                     .overlay {
                         AnytypeText(
                             title,
                             style: .caption2Regular
                         )
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                         .lineLimit(1)
                         .frame(maxWidth: 72)
                         .fixedSize()

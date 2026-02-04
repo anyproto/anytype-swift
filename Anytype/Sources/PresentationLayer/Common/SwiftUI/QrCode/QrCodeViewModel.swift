@@ -2,14 +2,20 @@ import Foundation
 import QRCode
 import UIKit
 
-final class QrCodeViewModel: ObservableObject {
-    
+@MainActor
+@Observable
+final class QrCodeViewModel {
+
+    @ObservationIgnored
     private let analyticsType: ScreenQrAnalyticsType
+    @ObservationIgnored
     private let route: ScreenQrRoute
-    
+
+    @ObservationIgnored
     let document: QRCode.Document
+    @ObservationIgnored
     let title: String
-    @Published var sharedData: DataIdentifiable?
+    var sharedData: DataIdentifiable?
     
     init(title: String, data: String, analyticsType: ScreenQrAnalyticsType, route: ScreenQrRoute) {
         self.title = title

@@ -3,12 +3,13 @@ import SwiftUI
 import Services
 
 @MainActor
-final class SpaceShareCoordinatorViewModel: ObservableObject, NewInviteLinkModuleOutput {
+@Observable
+final class SpaceShareCoordinatorViewModel: NewInviteLinkModuleOutput {
 
-    @Published var showMoreInfo = false
-    @Published var shareInviteLink: URL? = nil
-    @Published var qrCodeInviteLink: URL? = nil
-    @Published var presentSpacesManager = false
+    var showMoreInfo = false
+    var shareInviteLink: URL? = nil
+    var qrCodeInviteLink: URL? = nil
+    var presentSpacesManager = false
 
     let data: SpaceShareData
     

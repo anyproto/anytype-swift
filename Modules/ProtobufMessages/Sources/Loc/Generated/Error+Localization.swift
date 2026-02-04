@@ -3661,6 +3661,52 @@ extension Anytype_Rpc.Device.SetName.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.File.CacheCancelDownload.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "File.CacheCancelDownload.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.File.CacheDownload.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "File.CacheDownload.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.File.DiscardPreload.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

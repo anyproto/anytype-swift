@@ -1,49 +1,54 @@
 import Foundation
 import Services
 import UIKit
-import Combine
 import AnytypeCore
 
 @MainActor
-final class RemoteStorageViewModel: ObservableObject {
-    @Injected(\.accountManager)
+@Observable
+final class RemoteStorageViewModel {
+    @ObservationIgnored @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.spaceViewsStorage)
+    @ObservationIgnored @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
-    @Injected(\.fileLimitsStorage)
+    @ObservationIgnored @Injected(\.fileLimitsStorage)
     private var fileLimitsStorage: any FileLimitsStorageProtocol
-    @Injected(\.participantSpacesStorage)
+    @ObservationIgnored @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.mailUrlBuilder)
+    @ObservationIgnored @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
-    @Injected(\.serverConfigurationStorage)
+    @ObservationIgnored @Injected(\.serverConfigurationStorage)
     private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
-    
+
+    @ObservationIgnored
     private let spaceId: String
+    @ObservationIgnored
     private weak var output: (any RemoteStorageModuleOutput)?
-    private var subscriptions = [AnyCancellable]()
+    @ObservationIgnored
     private let subSpaceId = "RemoteStorageViewModel-Space-\(UUID())"
-    
+
+    @ObservationIgnored
     private let segmentInfoBuilder = SegmentInfoBuilder()
+    @ObservationIgnored
     private let byteCountFormatter = ByteCountFormatter.fileFormatter
-    
+
+    @ObservationIgnored
     private var nodeUsage: NodeUsageInfo?
+    @ObservationIgnored
     private var isLocalOnlyMode: Bool = false
-    
-    @Published var spaceInstruction: String = ""
-    @Published var spaceUsed: String = ""
-    @Published var contentLoaded: Bool = false
-    @Published var showGetMoreSpaceButton: Bool = false
-    @Published var membershipUpgradeReason: MembershipUpgradeReason?
-    @Published var segmentInfo = RemoteStorageSegmentInfo()
-    
+
+    var spaceInstruction: String = ""
+    var spaceUsed: String = ""
+    var contentLoaded: Bool = false
+    var showGetMoreSpaceButton: Bool = false
+    var membershipUpgradeReason: MembershipUpgradeReason?
+    var segmentInfo = RemoteStorageSegmentInfo()
+
     init(spaceId: String, output: (any RemoteStorageModuleOutput)?) {
         self.spaceId = spaceId
         self.output = output
-        
+
         setupPlaceholderState()
         checkLocalOnlyMode()
-        Task { await setupSubscription() }
     }
         
     func onTapManageFiles() {
@@ -66,28 +71,25 @@ final class RemoteStorageViewModel: ObservableObject {
             setupLocalOnlyState()
         }
     }
-    
+
     private func setupLocalOnlyState() {
         spaceInstruction = Loc.FileStorage.Space.localOnlyInstruction
         contentLoaded = true
         showGetMoreSpaceButton = false
     }
-    
-    private func setupSubscription() async {
+
+    func startSubscription() async {
         guard !isLocalOnlyMode else { return }
-        
-        fileLimitsStorage.nodeUsage
-            .receiveOnMain()
-            .sink { [weak self] nodeUsage in
-                // Some times middleware responds with big delay.
-                // If middle upload a lot of files, read operation blocked.
-                // May be fixed in feature.
-                // Slack discussion https://anytypeio.slack.com/archives/C04QVG8V15K/p1684399017487419?thread_ts=1684244283.014759&cid=C04QVG8V15K
-                self?.contentLoaded = true
-                self?.nodeUsage = nodeUsage
-                self?.updateView(nodeUsage: nodeUsage)
-            }
-            .store(in: &subscriptions)
+
+        // Some times middleware responds with big delay.
+        // If middle upload a lot of files, read operation blocked.
+        // May be fixed in feature.
+        // Slack discussion https://anytypeio.slack.com/archives/C04QVG8V15K/p1684399017487419?thread_ts=1684244283.014759&cid=C04QVG8V15K
+        for await nodeUsage in fileLimitsStorage.nodeUsage.values {
+            contentLoaded = true
+            self.nodeUsage = nodeUsage
+            updateView(nodeUsage: nodeUsage)
+        }
     }
     
     private func setupPlaceholderState() {

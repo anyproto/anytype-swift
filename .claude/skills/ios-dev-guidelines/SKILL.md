@@ -1,3 +1,8 @@
+---
+name: ios-dev-guidelines
+description: Context-aware routing to Swift/iOS development patterns, architecture, and best practices. Use when working with .swift files, ViewModels, Coordinators, refactoring, or discussing Swift/SwiftUI patterns.
+---
+
 # iOS Development Guidelines (Smart Router)
 
 ## Purpose
@@ -66,6 +71,24 @@ extension Container {
 
 // Usage in ViewModel
 @Injected(\.chatService) private var chatService
+```
+
+### ViewModel Initialization
+Keep ViewModel `init()` cheap - defer heavy work to `.task`:
+```swift
+// Init assigns parameters only
+init(id: String) {
+    _model = State(wrappedValue: ViewModel(id: id))
+}
+
+// Heavy work in .task
+.task { await model.startSubscriptions() }
+```
+
+For expensive init, defer creation entirely:
+```swift
+@State private var model: ViewModel?
+.task(id: id) { model = ViewModel(id: id) }
 ```
 
 ### Async Button Actions

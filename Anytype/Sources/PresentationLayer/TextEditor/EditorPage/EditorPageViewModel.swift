@@ -258,8 +258,6 @@ extension EditorPageViewModel {
             if let objectDetails = document.details {
                 AnytypeAnalytics.instance().logScreenObject(type: objectDetails.analyticsType, layout: objectDetails.resolvedLayoutValue, spaceId: objectDetails.spaceId)
             }
-            
-            output?.setModuleInput(input: EditorPageModuleInputContainer(model: self), objectId: document.objectId)
         }
     }
     
@@ -336,14 +334,6 @@ extension EditorPageViewModel {
 }
 
 extension EditorPageViewModel {
-    func showSettings() {
-        router.showSettings()
-    }
-    
-    func showSettings(output: any ObjectSettingsCoordinatorOutput) {
-        router.showSettings(output: output)
-    }
-    
     @MainActor
     func showTemplates() {
         router.showTemplatesPicker()
@@ -351,6 +341,10 @@ extension EditorPageViewModel {
     
     func showSyncStatusInfo() {
         output?.showSyncStatusInfo(spaceId: document.spaceId)
+    }
+
+    func showWidgets() {
+        output?.onWidgetsSelected(spaceId: document.spaceId)
     }
 }
 

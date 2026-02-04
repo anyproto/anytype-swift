@@ -2,13 +2,14 @@ import Foundation
 import UIKit
 
 @MainActor
-final class PushNotificationsSettingsViewModel: ObservableObject {
+@Observable
+final class PushNotificationsSettingsViewModel {
 
-    @Published var status: PushNotificationsSettingsStatus?
-    
-    @Injected(\.pushNotificationsPermissionService)
+    var status: PushNotificationsSettingsStatus?
+
+    @ObservationIgnored @Injected(\.pushNotificationsPermissionService)
     private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
-    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    @ObservationIgnored @Injected(\.pushNotificationsSystemSettingsBroadcaster)
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
     
     

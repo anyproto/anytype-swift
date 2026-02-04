@@ -2,8 +2,8 @@ import Foundation
 import SwiftUI
 
 struct SpacesManagerView: View {
-    
-    @StateObject private var model = SpacesManagerViewModel()
+
+    @State private var model = SpacesManagerViewModel()
     
     var body: some View {
         content

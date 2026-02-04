@@ -5,23 +5,30 @@ import ProtobufMessages
 import AnytypeCore
 
 @MainActor
-final class GalleryNotificationViewModel: ObservableObject {
-    
+@Observable
+final class GalleryNotificationViewModel {
+
+    @ObservationIgnored
     private var notification: NotificationGalleryImport
-    
+
+    @ObservationIgnored
     @Injected(\.notificationsSubscriptionService)
     private var notificationSubscriptionService: any NotificationsSubscriptionServiceProtocol
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
+    @ObservationIgnored
     @Injected(\.notificationsService)
     private var notificationsService: any NotificationsServiceProtocol
-    
+
+    @ObservationIgnored
     private var subscription: AnyCancellable?
-    
-    @Published var title: String = ""
-    @Published var dismiss = false
+
+    var title: String = ""
+    var dismiss = false
     
     init(
         notification: NotificationGalleryImport

@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct SharingExtensionView: View {
-    
-    @StateObject private var model: SharingExtensionViewModel
+
+    @State private var model: SharingExtensionViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(output: (any SharingExtensionModuleOutput)?) {
-        self._model = StateObject(wrappedValue: SharingExtensionViewModel(output: output))
+        self._model = State(initialValue: SharingExtensionViewModel(output: output))
     }
     
     private let columns = [
@@ -18,7 +18,7 @@ struct SharingExtensionView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            ModalNavigationHeader(title: Loc.Sharing.title)
+            NavigationHeader(title: Loc.Sharing.title, navigationButtonType: .none, enableBackgroundBlur: false)
             
             if model.withoutSpaceState {
                 withoutSpace
@@ -61,14 +61,16 @@ struct SharingExtensionView: View {
         ScrollView(.vertical) {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(model.spaces) { space in
-                    SharingExtensionSpaceView(
-                        icon: space.objectIconImage,
-                        title: space.title,
-                        isSelected: model.selectedSpace?.id == space.id
-                    )
-                    .onTapGesture {
+                    Button {
                         model.onTapSpace(space)
+                    } label: {
+                        SharingExtensionSpaceView(
+                            icon: space.objectIconImage,
+                            title: space.title,
+                            isSelected: model.selectedSpace?.id == space.id
+                        )
                     }
+                    .buttonStyle(.plain)
                 }
             }
             if let debugItems = model.debugInfo?.items {

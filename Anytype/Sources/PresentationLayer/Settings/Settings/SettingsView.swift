@@ -2,38 +2,17 @@ import SwiftUI
 import AnytypeCore
 
 struct SettingsView: View {
-    
-    @StateObject private var model: SettingsViewModel
-    
+
+    @State private var model: SettingsViewModel
+
     init(output: some SettingsModuleOutput) {
-        _model = StateObject(wrappedValue: SettingsViewModel(output: output))
+        _model = State(initialValue: SettingsViewModel(output: output))
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.Settings.title) {
-                Button {
-                    model.onQRCodeTap()
-                } label: {
-                    Image(asset: .X24.qrCode)
-                        .renderingMode(.template)
-                        .foregroundStyle(Color.Control.primary)
-                        .frame(width: 24, height: 24)
-                }
-            } rightButton: {
-                Menu {
-                    if model.canDeleteVault {
-                        Button(Loc.deleteVault) { model.onDeleteAccountTap() }
-                    }
-                    Button(Loc.logOut, role: .destructive) { model.onLogoutTap() }
-                } label: {
-                    MoreIndicator()
-                }
-            }
-            .onTapGesture(count: 5) {
-                model.showDebugMenu.toggle()
-            }
+            titleBar
 
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
@@ -56,7 +35,7 @@ struct SettingsView: View {
                     SettingsSectionItemView(
                         name: Loc.notifications,
                         imageAsset: .Settings.notifications,
-                        decoration: .arrow(needAttention: model.notificationsDenied),
+                        decoration: .arrow(text: model.notificationsStatusText, needAttention: model.notificationsNeedsAttention),
                         onTap: { model.onNotificationsTap() }
                     )
 
@@ -130,11 +109,41 @@ struct SettingsView: View {
         .onAppear {
             model.onAppear()
         }
-        .sheet(isPresented: $model.showDebugMenu) {
-            PublicDebugMenuView()
-        }
         .task {
             await model.startSubscriptions()
+        }
+        .onChange(of: model.profileName) {
+            model.onProfileNameChange()
+        }
+    }
+
+    private var titleBar: some View {
+        NavigationHeader(isTitleInteractive: false, enableBackgroundBlur: false) {
+            Button {
+                model.onQRCodeTap()
+            } label: {
+                Image(asset: .X24.qrCode)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.Control.primary)
+                    .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+            }
+            .glassEffectInteractiveIOS26(in: Circle())
+        } titleContent: {
+            AnyNameBadgeView(
+                state: model.anyNameBadgeState,
+                onTap: { model.onAnyIdBadgeTap() }
+            )
+        } rightContent: {
+            Menu {
+                if model.canDeleteVault {
+                    Button(Loc.deleteVault) { model.onDeleteAccountTap() }
+                }
+                Button(Loc.logOut, role: .destructive) { model.onLogoutTap() }
+            } label: {
+                MoreIndicator()
+                    .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+            }
+            .glassEffectInteractiveIOS26(in: Circle())
         }
     }
 }

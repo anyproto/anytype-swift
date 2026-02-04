@@ -9,16 +9,16 @@ struct PropertyFormatListCell: View {
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
             Image(asset: model.iconAsset)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
 
             AnytypeText(model.title, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
-            
+
             Spacer()
 
             if model.isSelected {
-                Image(asset: .X24.tick).foregroundColor(.Text.primary)
+                Image(asset: .X24.tick).foregroundStyle(Color.Text.primary)
             }
         }
         .frame(height: 52)

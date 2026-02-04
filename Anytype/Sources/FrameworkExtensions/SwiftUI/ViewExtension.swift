@@ -8,7 +8,7 @@ extension View {
     }
     
     func embedInNavigation() -> some View {
-        NavigationView { self }
+        NavigationStack { self }
     }
 }
 

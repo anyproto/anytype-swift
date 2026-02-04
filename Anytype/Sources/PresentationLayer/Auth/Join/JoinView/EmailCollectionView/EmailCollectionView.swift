@@ -1,12 +1,11 @@
 import SwiftUI
-import AnytypeCore
 
 struct EmailCollectionView: View {
-    
-    @StateObject private var model: EmailCollectionViewModel
-    
+
+    @State private var model: EmailCollectionViewModel
+
     init(state: JoinFlowState, output: (any JoinBaseOutput)?) {
-        _model = StateObject(wrappedValue: EmailCollectionViewModel(state: state, output: output))
+        _model = State(initialValue: EmailCollectionViewModel(state: state, output: output))
     }
     
     var body: some View {
@@ -28,7 +27,7 @@ struct EmailCollectionView: View {
     private var content: some View {
         VStack(spacing: 0) {
             AnytypeText(Loc.Auth.JoinFlow.Email.title, style: .contentTitleSemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(8)
@@ -37,7 +36,7 @@ struct EmailCollectionView: View {
                 Loc.Auth.JoinFlow.Email.description,
                 style: .bodyRegular
             )
-            .foregroundColor(.Text.secondary)
+            .foregroundStyle(Color.Text.secondary)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             
@@ -53,7 +52,7 @@ struct EmailCollectionView: View {
             VStack(spacing: 4) {
                 if model.showIncorrectEmailError {
                     AnytypeText(Loc.Auth.JoinFlow.Email.incorrectError, style: .caption1Regular)
-                        .foregroundColor(.Pure.red)
+                        .foregroundStyle(Color.Pure.red)
                         .lineLimit(1)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
@@ -66,14 +65,14 @@ struct EmailCollectionView: View {
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
                 .textContentType(.emailAddress)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .accentColor(.Text.tertiary)
             }
-            .padding(.horizontal, 20)            
+            .padding(.horizontal, 20)
         }
         .frame(height: 64)
         .background(Color.Shape.transparentSecondary)
-        .cornerRadius(16)
+        .clipShape(.rect(cornerRadius: 16))
     }
     
     private var buttons: some View {
@@ -88,15 +87,13 @@ struct EmailCollectionView: View {
             )
             .colorScheme(.light)
             
-            if FeatureFlags.skipOnboardingEmailCollection {
-                StandardButton(
-                    Loc.skip,
-                    style: .linkLarge,
-                    action: {
-                        model.onSkipAction()
-                    }
-                )
-            }
+            StandardButton(
+                Loc.skip,
+                style: .linkLarge,
+                action: {
+                    model.onSkipAction()
+                }
+            )
         }
     }
 }

@@ -23,7 +23,7 @@ struct MessageReactionView: View {
                 case .count(let count):
                     Text("\(count)")
                         .anytypeFontStyle(.caption1Regular)
-                        .foregroundColor(model.selected ? .Text.white : .Text.primary)
+                        .foregroundStyle(model.selected ? Color.Text.white : Color.Text.primary)
                 case .icon(let icon):
                     IconView(icon: icon)
                         .frame(width: 20, height: 20)
@@ -34,7 +34,7 @@ struct MessageReactionView: View {
             .frame(height: 28)
             .padding(.horizontal, 8)
             .background(model.selected ? messageYourBackgroundColor : Color.Background.Chat.bubbleSomeones)
-            .cornerRadius(20)
+            .clipShape(.rect(cornerRadius: 20))
         }
         .simultaneousGesture(
             LongPressGesture(minimumDuration: 0.25)

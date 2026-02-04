@@ -9,10 +9,13 @@ protocol SetViewPickerCoordinatorOutput: AnyObject {
 }
 
 @MainActor
-final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCoordinatorOutput {
-    @Published var setSettingsData: SetSettingsData?
-    
+@Observable
+final class SetViewPickerCoordinatorViewModel: SetViewPickerCoordinatorOutput {
+    var setSettingsData: SetSettingsData?
+
+    @ObservationIgnored
     let setDocument: any SetDocumentProtocol
+    @ObservationIgnored
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     
     init(data: SetViewData) {

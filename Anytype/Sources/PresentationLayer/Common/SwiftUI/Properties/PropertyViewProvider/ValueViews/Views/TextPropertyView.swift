@@ -11,7 +11,7 @@ struct TextPropertyView: View {
                 text,
                 style: style.font
             )
-                .foregroundColor(style.fontColorWithError)
+                .foregroundStyle(style.fontColorWithError)
                 .multilineTextAlignment(.leading)
                 .lineLimit(style.allowMultiLine ? nil : 1)
         } else {

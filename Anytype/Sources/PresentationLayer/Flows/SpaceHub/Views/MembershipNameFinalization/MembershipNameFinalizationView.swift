@@ -3,13 +3,13 @@ import Services
 
 
 struct MembershipNameFinalizationView: View {
-    @StateObject private var model: MembershipNameFinalizationViewModel
+    @State private var model: MembershipNameFinalizationViewModel
     @State private var name = ""
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     init(tier: MembershipTier) {
-        _model = StateObject(wrappedValue: MembershipNameFinalizationViewModel(tier: tier))
+        _model = State(initialValue: MembershipNameFinalizationViewModel(tier: tier))
     }
     
     var body: some View {
@@ -45,10 +45,10 @@ struct MembershipNameFinalizationView: View {
     var info: some View {
         Group {
             AnytypeText(Loc.Membership.NameForm.title, style: .bodySemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(6)
             AnytypeText(Loc.Membership.NameForm.subtitle, style: .calloutRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(10)
         }
     }
