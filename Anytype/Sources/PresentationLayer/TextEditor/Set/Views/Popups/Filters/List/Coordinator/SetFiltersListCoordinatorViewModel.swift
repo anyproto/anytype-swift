@@ -5,6 +5,7 @@ import Services
 protocol SetFiltersListCoordinatorOutput: AnyObject {
     func onAddButtonTap(relationDetails: [PropertyDetails], completion: @escaping (PropertyDetails) -> Void)
     func onFilterTap(filter: SetFilter, completion: @escaping (SetFilter) -> Void)
+    func onAdvancedFilterTap()
 }
 
 @MainActor
@@ -12,6 +13,7 @@ protocol SetFiltersListCoordinatorOutput: AnyObject {
 final class SetFiltersListCoordinatorViewModel: SetFiltersListCoordinatorOutput {
     var filtersSelectionData: FiltersSelectionData?
     var filtersSearchData: SetPropertiesDetailsLocalSearchData?
+    var toastBarData: ToastBarData?
 
     @ObservationIgnored
     let data: SetFiltersListModuleData
@@ -47,6 +49,10 @@ final class SetFiltersListCoordinatorViewModel: SetFiltersListCoordinatorOutput 
                 completion(filter)
             }
         )
+    }
+
+    func onAdvancedFilterTap() {
+        toastBarData = ToastBarData(Loc.EditSet.Popup.Filter.Advanced.subtitle)
     }
 }
 

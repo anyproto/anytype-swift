@@ -5,8 +5,12 @@ import OrderedCollections
 struct SetFilter: Identifiable, Equatable, Hashable {
     let relationDetails: PropertyDetails
     let filter: DataviewFilter
-    
+
     var id: String { relationDetails.id }
+
+    var isAdvanced: Bool {
+        filter.`operator` != .no
+    }
     
     var conditionString: String? {
         conditionType.data[filter.condition]

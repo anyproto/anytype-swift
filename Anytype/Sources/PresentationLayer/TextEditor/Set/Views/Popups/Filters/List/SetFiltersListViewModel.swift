@@ -67,6 +67,7 @@ extension SetFiltersListViewModel {
             let filters = setDocument.filters(for: viewId)
             guard deleteIndex < filters.count else { return }
             let filter = filters[deleteIndex]
+            guard !filter.isAdvanced else { return }
             Task { [weak self] in
                 guard let self else { return }
                 try await dataviewService.removeFilters(
@@ -89,16 +90,18 @@ extension SetFiltersListViewModel {
             updateRows(with: filters)
         }
     }
-    
+
     private func updateRows(with filters: [SetFilter]) {
         rows = filters.enumerated().map { index, filter in
-            SetFilterRowConfiguration(
+            let isAdvanced = filter.isAdvanced
+            return SetFilterRowConfiguration(
                 id: "\(filter.relationDetails.id)_\(index)",
-                title: filter.relationDetails.name,
-                subtitle: filter.conditionString,
-                iconAsset: filter.relationDetails.format.iconAsset,
+                title: isAdvanced ? Loc.EditSet.Popup.Filter.Advanced.title : filter.relationDetails.name,
+                subtitle: isAdvanced ? Loc.EditSet.Popup.Filter.Advanced.subtitle : filter.conditionString,
+                iconAsset: isAdvanced ? .X24.lock : filter.relationDetails.format.iconAsset,
                 type: type(for: filter),
                 hasValues: filter.filter.condition.hasValues,
+                isAdvanced: isAdvanced,
                 onTap: { [weak self] in
                     self?.rowTapped(filter.relationDetails.id, index: index)
                 }
@@ -107,10 +110,14 @@ extension SetFiltersListViewModel {
     }
     
     private func rowTapped(_ id: String, index: Int) {
-        guard let filter = setDocument.filters(for: viewId)[safe: index], filter.id == id  else {
+        guard let filter = setDocument.filters(for: viewId)[safe: index], filter.id == id else {
             return
         }
-        showFilterSearch(with: filter)
+        if filter.isAdvanced {
+            output?.onAdvancedFilterTap()
+        } else {
+            showFilterSearch(with: filter)
+        }
     }
     
     private func makeSetFilter(with relationDetails: PropertyDetails) -> SetFilter? {

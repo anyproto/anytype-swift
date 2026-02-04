@@ -14,9 +14,10 @@ struct SetFiltersListCoordinatorView: View {
             output: model,
             subscriptionDetailsStorage: model.subscriptionDetailsStorage
         )
+        .snackbar(toastBarData: $model.toastBarData)
         .sheet(item: $model.filtersSelectionData) { data in
             SetFiltersSelectionCoordinatorView(
-                spaceId: model.data.setDocument.spaceId, 
+                spaceId: model.data.setDocument.spaceId,
                 filter: data.filter,
                 completion: data.completion
             )

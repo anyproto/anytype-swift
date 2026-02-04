@@ -1549,6 +1549,10 @@ public enum Loc {
   public enum EditSet {
     public enum Popup {
       public enum Filter {
+        public enum Advanced {
+          public static let subtitle = Loc.tr("Workspace", "EditSet.Popup.Filter.Advanced.subtitle", fallback: "Editing is available on Desktop")
+          public static let title = Loc.tr("Workspace", "EditSet.Popup.Filter.Advanced.title", fallback: "Advanced filter")
+        }
         public enum Condition {
           public enum Checkbox {
             public static let equal = Loc.tr("Workspace", "EditSet.Popup.Filter.Condition.Checkbox.Equal", fallback: "Is")

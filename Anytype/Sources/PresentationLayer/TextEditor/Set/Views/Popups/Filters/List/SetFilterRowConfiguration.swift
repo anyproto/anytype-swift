@@ -5,6 +5,7 @@ struct SetFilterRowConfiguration: Identifiable, Equatable {
     let iconAsset: ImageAsset
     let type: SetFilterRowType
     let hasValues: Bool
+    let isAdvanced: Bool
     @EquatableNoop var onTap: () -> Void
 }
 
