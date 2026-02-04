@@ -95,6 +95,10 @@ extension Container {
     var recentSubscriptionService: Factory<any RecentSubscriptionServiceProtocol> {
         self { RecentSubscriptionService() }
     }
+
+    var objectTypesWithObjectsCreatedService: Factory<any ObjectTypesWithObjectsCreatedServiceProtocol> {
+        self { ObjectTypesWithObjectsCreatedService() }
+    }
     
     var binSubscriptionService: Factory<any BinSubscriptionServiceProtocol> {
         self { BinSubscriptionService() }

@@ -20,6 +20,7 @@ final class SetGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProt
         var filters = setDocument.activeView.filters
         filters.append(SearchHelper.filterOutParticipantType())
         return GroupsSubscriptionData(
+            spaceId: setDocument.spaceId,
             identifier: groupSubscriptionId,
             relationKey: setDocument.activeView.groupRelationKey,
             filters: filters,
