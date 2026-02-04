@@ -9912,8 +9912,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вы уверены, что хотите удалить %#@object@?"
+            "state" : "new",
+            "value" : "Вы уверены, что хотите удалить %#@объект@?"
           },
           "substitutions" : {
             "object" : {
@@ -26459,8 +26459,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Brankas ini akan dihapus dalam %#@days@"
+            "state" : "new",
+            "value" : "Brankas ini akan dihapus dalam %#@ hari@"
           },
           "substitutions" : {
             "days" : {
@@ -26783,8 +26783,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Это хранилище будет удалено через %#@days@ "
+            "state" : "new",
+            "value" : "Это хранилище будет удалено через %#@дней@ "
           },
           "substitutions" : {
             "days" : {
@@ -29630,8 +29630,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%#@device@ terhubung"
+            "state" : "new",
+            "value" : "%#@perangkat@ terhubung"
           },
           "substitutions" : {
             "device" : {
@@ -29894,8 +29894,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%#@device@ подключено"
+            "state" : "new",
+            "value" : "%#@устройство@ подключено"
           },
           "substitutions" : {
             "device" : {
@@ -38841,8 +38841,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%#@file@"
+            "state" : "new",
+            "value" : "%#@mengunggah berkas@"
           },
           "substitutions" : {
             "file" : {
@@ -39105,8 +39105,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%#@file@ загружается"
+            "state" : "new",
+            "value" : "%#@файл@ загружается"
           },
           "substitutions" : {
             "file" : {
@@ -48502,8 +48502,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%#@item@"
+            "state" : "new",
+            "value" : "%#@sinkronisasi item@"
           },
           "substitutions" : {
             "item" : {
@@ -48766,8 +48766,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%#@item@  синхронизируется..."
+            "state" : "new",
+            "value" : "%#@элемент@  синхронизируется..."
           },
           "substitutions" : {
             "item" : {
@@ -60772,8 +60772,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%#@object@ terpilih"
+            "state" : "new",
+            "value" : "%#@objek@ terpilih"
           },
           "substitutions" : {
             "object" : {
@@ -61036,8 +61036,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%#@object@ выбран"
+            "state" : "new",
+            "value" : "%#@объект@ выбран"
           },
           "substitutions" : {
             "object" : {
@@ -66431,8 +66431,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "per %#@day@"
+            "state" : "new",
+            "value" : "per %#@hari@"
           },
           "substitutions" : {
             "day" : {
@@ -66695,8 +66695,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "за %#@day@"
+            "state" : "new",
+            "value" : "за %#@день@"
           },
           "substitutions" : {
             "day" : {
@@ -67120,8 +67120,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "per %#@month@"
+            "state" : "new",
+            "value" : "per %#@bulan@"
           },
           "substitutions" : {
             "month" : {
@@ -67384,8 +67384,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "за %#@month@"
+            "state" : "new",
+            "value" : "за %#@месяц@"
           },
           "substitutions" : {
             "month" : {
@@ -67809,8 +67809,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "per %#@week@"
+            "state" : "new",
+            "value" : "per %#@minggu@"
           },
           "substitutions" : {
             "week" : {
@@ -68073,8 +68073,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "за %#@week@"
+            "state" : "new",
+            "value" : "за %#@неделю@"
           },
           "substitutions" : {
             "week" : {
@@ -68498,8 +68498,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "per %#@year@"
+            "state" : "new",
+            "value" : "per %#@tahun@"
           },
           "substitutions" : {
             "year" : {
@@ -68762,8 +68762,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "за %#@year@"
+            "state" : "new",
+            "value" : "за %#@год@"
           },
           "substitutions" : {
             "year" : {
