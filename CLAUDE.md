@@ -92,6 +92,11 @@ After making code changes, report them to the user who will verify compilation i
 
 ### Quick References
 
+@Anytype/Sources/IOS_DEVELOPMENT_GUIDE.md
+@Anytype/Sources/PresentationLayer/Common/LOCALIZATION_GUIDE.md
+@Anytype/Sources/PresentationLayer/Common/DESIGN_SYSTEM_MAPPING.md
+@Modules/AnytypeCore/CODE_GENERATION_GUIDE.md
+
 **Localization** → `Anytype/Sources/PresentationLayer/Common/LOCALIZATION_GUIDE.md`
 - Search existing: `rg "term" Modules/Loc/Sources/Loc/Generated/Strings.swift`
 - Use `Loc.key(value)` not `String(format: Loc.key, value)`
