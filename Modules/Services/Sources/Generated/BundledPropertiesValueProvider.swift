@@ -188,6 +188,7 @@ public protocol BundledPropertiesValueProvider {
     var analyticsChatId: String { get }
     var analyticsSpaceId: String { get }
     var score: Int? { get }
+    var templateNamePrefillType: Int? { get }
 } 
 
 public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
@@ -878,5 +879,9 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Fulltext search score
     var score: Int? {
         return value(for: BundledPropertyKey.score.rawValue)
+    }
+    /// Controls whether a template's name should be applied to newly created objects
+    var templateNamePrefillType: Int? {
+        return value(for: BundledPropertyKey.templateNamePrefillType.rawValue)
     }
 }
