@@ -513,4 +513,7 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Fulltext search score
     case score = "_score"
+
+    /// Controls whether a template's name should be applied to newly created objects
+    case templateNamePrefillType = "templateNamePrefillType"
 }
