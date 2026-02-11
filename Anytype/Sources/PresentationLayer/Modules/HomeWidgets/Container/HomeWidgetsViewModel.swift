@@ -219,8 +219,8 @@ final class HomeWidgetsViewModel {
             let newUnreadChats = previews
                 .filter { preview in
                     guard preview.spaceId == spaceId && preview.unreadCounter > 0 else { return false }
-                    let chatDetail = chatDetails.first { $0.id == preview.chatId }
-                    return !(chatDetail?.isArchivedOrDeleted ?? false)
+                    guard let chatDetail = chatDetails.first(where: { $0.id == preview.chatId }) else { return false }
+                    return !chatDetail.isArchivedOrDeleted
                 }
                 .map { UnreadChatWidgetData(id: $0.chatId, spaceId: spaceId, output: output) }
 
