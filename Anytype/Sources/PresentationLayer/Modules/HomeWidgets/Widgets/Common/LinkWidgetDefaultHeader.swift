@@ -35,7 +35,7 @@ struct LinkWidgetDefaultHeader<RightView: View>: View {
                 } else {
                     Spacer.fixedWidth(16)
                 }
-                AnytypeText(title, style: .subheading)
+                AnytypeText(title, style: .bodySemibold)
                     .foregroundStyle(titleColor)
                     .lineLimit(1)
                     .layoutPriority(-1)

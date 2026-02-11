@@ -40,10 +40,10 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
     var body: some View {
         ZStack(alignment: .topLeading) {
             VStack(spacing: 0) {
-                Spacer.fixedHeight(6)
+                Spacer.fixedHeight(4)
                 headerContainer
                 if !isExpanded || !allowContent {
-                    Spacer.fixedHeight(6)
+                    Spacer.fixedHeight(4)
                 } else {
                     content
                 }
