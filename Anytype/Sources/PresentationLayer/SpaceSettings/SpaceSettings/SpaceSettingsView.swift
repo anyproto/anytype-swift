@@ -52,13 +52,8 @@ struct SpaceSettingsView: View {
             .snackbar(toastBarData: $model.snackBarData)
     }
 
-    @ViewBuilder
     private var backgroundView: some View {
-        if model.isOneToOne {
-            DashboardWallpaper(wallpaper: model.wallpaper, spaceIcon: model.spaceIcon)
-        } else {
-            Color.VeryLight.grey.ignoresSafeArea()
-        }
+        DashboardWallpaper(wallpaper: model.wallpaper, spaceIcon: model.spaceIcon)
     }
 
     private var content: some View {
@@ -86,7 +81,7 @@ struct SpaceSettingsView: View {
                 Button {
                     model.onEditTap()
                 } label: {
-                    AnytypeText(Loc.edit, style: .bodyRegular)
+                    AnytypeText(Loc.edit, style: .button1Medium)
                         .foregroundStyle(Color.Text.primary)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
