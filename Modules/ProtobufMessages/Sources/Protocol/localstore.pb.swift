@@ -293,6 +293,11 @@ public struct Anytype_Model_ObjectStoreChecksums: @unchecked Sendable {
     set {_uniqueStorage()._reindexFulltextChatMessages = newValue}
   }
 
+  public var invalidateObjectsIndex: Int32 {
+    get {return _storage._invalidateObjectsIndex}
+    set {_uniqueStorage()._invalidateObjectsIndex = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -601,7 +606,7 @@ extension Anytype_Model_ObjectInfoWithOutboundLinksIDs: SwiftProtobuf.Message, S
 
 extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ObjectStoreChecksums"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}bundledObjectTypes\0\u{1}bundledRelations\0\u{1}bundledLayouts\0\u{1}objectsForceReindexCounter\0\u{1}filesForceReindexCounter\0\u{1}idxRebuildCounter\0\u{1}fulltextRebuild\0\u{1}bundledTemplates\0\u{1}bundledObjects\0\u{1}filestoreKeysForceReindexCounter\0\u{1}fulltextErase\0\u{1}areOldFilesRemoved\0\u{1}areDeletedObjectsReindexed\0\u{1}linksErase\0\u{1}marketplaceForceReindexCounter\0\u{1}reindexDeletedObjects\0\u{1}reindexParticipants\0\u{1}reindexChats\0\u{1}reindexFulltextChatMessages\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}bundledObjectTypes\0\u{1}bundledRelations\0\u{1}bundledLayouts\0\u{1}objectsForceReindexCounter\0\u{1}filesForceReindexCounter\0\u{1}idxRebuildCounter\0\u{1}fulltextRebuild\0\u{1}bundledTemplates\0\u{1}bundledObjects\0\u{1}filestoreKeysForceReindexCounter\0\u{1}fulltextErase\0\u{1}areOldFilesRemoved\0\u{1}areDeletedObjectsReindexed\0\u{1}linksErase\0\u{1}marketplaceForceReindexCounter\0\u{1}reindexDeletedObjects\0\u{1}reindexParticipants\0\u{1}reindexChats\0\u{1}reindexFulltextChatMessages\0\u{1}invalidateObjectsIndex\0")
 
   fileprivate class _StorageClass {
     var _bundledObjectTypes: String = String()
@@ -623,6 +628,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     var _reindexParticipants: Int32 = 0
     var _reindexChats: Int32 = 0
     var _reindexFulltextChatMessages: Int32 = 0
+    var _invalidateObjectsIndex: Int32 = 0
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -652,6 +658,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
       _reindexParticipants = source._reindexParticipants
       _reindexChats = source._reindexChats
       _reindexFulltextChatMessages = source._reindexFulltextChatMessages
+      _invalidateObjectsIndex = source._invalidateObjectsIndex
     }
   }
 
@@ -689,6 +696,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
         case 17: try { try decoder.decodeSingularInt32Field(value: &_storage._reindexParticipants) }()
         case 18: try { try decoder.decodeSingularInt32Field(value: &_storage._reindexChats) }()
         case 19: try { try decoder.decodeSingularInt32Field(value: &_storage._reindexFulltextChatMessages) }()
+        case 20: try { try decoder.decodeSingularInt32Field(value: &_storage._invalidateObjectsIndex) }()
         default: break
         }
       }
@@ -754,6 +762,9 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
       if _storage._reindexFulltextChatMessages != 0 {
         try visitor.visitSingularInt32Field(value: _storage._reindexFulltextChatMessages, fieldNumber: 19)
       }
+      if _storage._invalidateObjectsIndex != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._invalidateObjectsIndex, fieldNumber: 20)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -782,6 +793,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
         if _storage._reindexParticipants != rhs_storage._reindexParticipants {return false}
         if _storage._reindexChats != rhs_storage._reindexChats {return false}
         if _storage._reindexFulltextChatMessages != rhs_storage._reindexFulltextChatMessages {return false}
+        if _storage._invalidateObjectsIndex != rhs_storage._invalidateObjectsIndex {return false}
         return true
       }
       if !storagesAreEqual {return false}

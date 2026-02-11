@@ -35,6 +35,9 @@ extension Anytype_Model_Block.Content.Text {
         /// currently only one block of this style can exists on a page
         case description_ // = 12
         case callout // = 13
+        case toggleHeader1 // = 14
+        case toggleHeader2 // = 15
+        case toggleHeader3 // = 16
         case UNRECOGNIZED(Int)
 
         public init() {
@@ -57,6 +60,9 @@ extension Anytype_Model_Block.Content.Text {
           case 11: self = .toggle
           case 12: self = .description_
           case 13: self = .callout
+          case 14: self = .toggleHeader1
+          case 15: self = .toggleHeader2
+          case 16: self = .toggleHeader3
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -77,6 +83,9 @@ extension Anytype_Model_Block.Content.Text {
           case .toggle: return 11
           case .description_: return 12
           case .callout: return 13
+          case .toggleHeader1: return 14
+          case .toggleHeader2: return 15
+          case .toggleHeader3: return 16
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -97,12 +106,15 @@ extension Anytype_Model_Block.Content.Text {
           .toggle,
           .description_,
           .callout,
+          .toggleHeader1,
+          .toggleHeader2,
+          .toggleHeader3,
         ]
 
       }}
 
 extension Anytype_Model_Block.Content.Text.Style: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Paragraph\0\u{1}Header1\0\u{1}Header2\0\u{1}Header3\0\u{1}Header4\0\u{1}Quote\0\u{1}Code\0\u{1}Title\0\u{1}Checkbox\0\u{1}Marked\0\u{1}Numbered\0\u{1}Toggle\0\u{1}Description\0\u{1}Callout\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Paragraph\0\u{1}Header1\0\u{1}Header2\0\u{1}Header3\0\u{1}Header4\0\u{1}Quote\0\u{1}Code\0\u{1}Title\0\u{1}Checkbox\0\u{1}Marked\0\u{1}Numbered\0\u{1}Toggle\0\u{1}Description\0\u{1}Callout\0\u{1}ToggleHeader1\0\u{1}ToggleHeader2\0\u{1}ToggleHeader3\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

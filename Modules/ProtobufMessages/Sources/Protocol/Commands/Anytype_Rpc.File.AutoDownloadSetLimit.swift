@@ -11,8 +11,8 @@
 import Foundation
 import SwiftProtobuf
 
-extension Anytype_Rpc.Unsplash {
-    public struct Download: Sendable {
+extension Anytype_Rpc.File {
+    public struct AutoDownloadSetLimit: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -24,17 +24,8 @@ extension Anytype_Rpc.Unsplash {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var pictureID: String = String()
-
-        public var spaceID: String = String()
-
-        public var imageKind: Anytype_Model_ImageKind = .basic
-
-        /// Object ID where the file was initially created
-        public var createdInContext: String = String()
-
-        /// Block ID where the file was initially created
-        public var createdInContextRef: String = String()
+        /// 0 = no limit, >0 = max file size in mebibytes
+        public var sizeLimitMebibytes: Int64 = 0
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -46,16 +37,14 @@ extension Anytype_Rpc.Unsplash {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Unsplash.Download.Response.Error {
-          get {return _error ?? Anytype_Rpc.Unsplash.Download.Response.Error()}
+        public var error: Anytype_Rpc.File.AutoDownloadSetLimit.Response.Error {
+          get {return _error ?? Anytype_Rpc.File.AutoDownloadSetLimit.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
         public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
-
-        public var objectID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -64,7 +53,7 @@ extension Anytype_Rpc.Unsplash {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Unsplash.Download.Response.Error.Code = .null
+          public var code: Anytype_Rpc.File.AutoDownloadSetLimit.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -75,9 +64,6 @@ extension Anytype_Rpc.Unsplash {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-
-            /// ...
-            case rateLimitExceeded // = 100
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -89,7 +75,6 @@ extension Anytype_Rpc.Unsplash {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 100: self = .rateLimitExceeded
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -99,17 +84,15 @@ extension Anytype_Rpc.Unsplash {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .rateLimitExceeded: return 100
               case .UNRECOGNIZED(let i): return i
               }
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Unsplash.Download.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.File.AutoDownloadSetLimit.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
-              .rateLimitExceeded,
             ]
 
           }
@@ -119,15 +102,15 @@ extension Anytype_Rpc.Unsplash {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Unsplash.Download.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.File.AutoDownloadSetLimit.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Unsplash.Download: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Unsplash.protoMessageName + ".Download"
+extension Anytype_Rpc.File.AutoDownloadSetLimit: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.File.protoMessageName + ".AutoDownloadSetLimit"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -139,15 +122,15 @@ extension Anytype_Rpc.Unsplash.Download: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Unsplash.Download, rhs: Anytype_Rpc.Unsplash.Download) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.File.AutoDownloadSetLimit, rhs: Anytype_Rpc.File.AutoDownloadSetLimit) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Unsplash.Download.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Unsplash.Download.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}pictureId\0\u{1}spaceId\0\u{1}imageKind\0\u{1}createdInContext\0\u{1}createdInContextRef\0")
+extension Anytype_Rpc.File.AutoDownloadSetLimit.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.File.AutoDownloadSetLimit.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}sizeLimitMebibytes\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -155,49 +138,29 @@ extension Anytype_Rpc.Unsplash.Download.Request: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.pictureID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
-      case 3: try { try decoder.decodeSingularEnumField(value: &self.imageKind) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.createdInContext) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self.createdInContextRef) }()
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.sizeLimitMebibytes) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.pictureID.isEmpty {
-      try visitor.visitSingularStringField(value: self.pictureID, fieldNumber: 1)
-    }
-    if !self.spaceID.isEmpty {
-      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 2)
-    }
-    if self.imageKind != .basic {
-      try visitor.visitSingularEnumField(value: self.imageKind, fieldNumber: 3)
-    }
-    if !self.createdInContext.isEmpty {
-      try visitor.visitSingularStringField(value: self.createdInContext, fieldNumber: 4)
-    }
-    if !self.createdInContextRef.isEmpty {
-      try visitor.visitSingularStringField(value: self.createdInContextRef, fieldNumber: 5)
+    if self.sizeLimitMebibytes != 0 {
+      try visitor.visitSingularInt64Field(value: self.sizeLimitMebibytes, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Unsplash.Download.Request, rhs: Anytype_Rpc.Unsplash.Download.Request) -> Bool {
-    if lhs.pictureID != rhs.pictureID {return false}
-    if lhs.spaceID != rhs.spaceID {return false}
-    if lhs.imageKind != rhs.imageKind {return false}
-    if lhs.createdInContext != rhs.createdInContext {return false}
-    if lhs.createdInContextRef != rhs.createdInContextRef {return false}
+  public static func ==(lhs: Anytype_Rpc.File.AutoDownloadSetLimit.Request, rhs: Anytype_Rpc.File.AutoDownloadSetLimit.Request) -> Bool {
+    if lhs.sizeLimitMebibytes != rhs.sizeLimitMebibytes {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Unsplash.Download.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Unsplash.Download.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}objectId\0")
+extension Anytype_Rpc.File.AutoDownloadSetLimit.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.File.AutoDownloadSetLimit.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -206,7 +169,6 @@ extension Anytype_Rpc.Unsplash.Download.Response: SwiftProtobuf.Message, SwiftPr
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
       default: break
       }
     }
@@ -220,22 +182,18 @@ extension Anytype_Rpc.Unsplash.Download.Response: SwiftProtobuf.Message, SwiftPr
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.objectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 2)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Unsplash.Download.Response, rhs: Anytype_Rpc.Unsplash.Download.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.File.AutoDownloadSetLimit.Response, rhs: Anytype_Rpc.File.AutoDownloadSetLimit.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.objectID != rhs.objectID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Unsplash.Download.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Unsplash.Download.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.File.AutoDownloadSetLimit.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.File.AutoDownloadSetLimit.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -261,7 +219,7 @@ extension Anytype_Rpc.Unsplash.Download.Response.Error: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Unsplash.Download.Response.Error, rhs: Anytype_Rpc.Unsplash.Download.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.File.AutoDownloadSetLimit.Response.Error, rhs: Anytype_Rpc.File.AutoDownloadSetLimit.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -269,8 +227,8 @@ extension Anytype_Rpc.Unsplash.Download.Response.Error: SwiftProtobuf.Message, S
   }
 }
 
-extension Anytype_Rpc.Unsplash.Download.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}b\u{1}RATE_LIMIT_EXCEEDED\0")
+extension Anytype_Rpc.File.AutoDownloadSetLimit.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
 // If the compiler emits an error on this type, it is because this file
