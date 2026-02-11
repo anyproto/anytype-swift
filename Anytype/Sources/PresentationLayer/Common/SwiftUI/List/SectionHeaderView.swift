@@ -8,7 +8,7 @@ struct SectionHeaderView<Content>: View where Content: View {
     let hasRightContent: Bool
     let rightContent: () -> Content
     
-    init(title: String, titleColor: Color = .Text.secondary, increasedTopPadding: Bool = true, @ViewBuilder rightContent: @escaping () -> Content) {
+    init(title: String, titleColor: Color = .Text.transparentSecondary, increasedTopPadding: Bool = true, @ViewBuilder rightContent: @escaping () -> Content) {
         self.title = title
         self.titleColor = titleColor
         self.increasedTopPadding = increasedTopPadding
@@ -18,7 +18,7 @@ struct SectionHeaderView<Content>: View where Content: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            AnytypeText(title, style: .caption1Regular)
+            AnytypeText(title, style: .uxTitle2Medium)
                 .foregroundStyle(titleColor)
                 .if(hasRightContent) {
                     $0.lineLimit(1)
@@ -37,7 +37,7 @@ struct SectionHeaderView<Content>: View where Content: View {
 }
 
 extension SectionHeaderView where Content == EmptyView {
-    init(title: String, titleColor: Color = .Text.secondary, increasedTopPadding: Bool = true) {
+    init(title: String, titleColor: Color = .Text.transparentSecondary, increasedTopPadding: Bool = true) {
         self.title = title
         self.titleColor = titleColor
         self.increasedTopPadding = increasedTopPadding
