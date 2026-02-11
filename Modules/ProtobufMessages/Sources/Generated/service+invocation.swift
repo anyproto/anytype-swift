@@ -1484,6 +1484,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func fileAutoDownloadSetLimit(
+        _ request: Anytype_Rpc.File.AutoDownloadSetLimit.Request = .init()
+    ) -> Invocation<Anytype_Rpc.File.AutoDownloadSetLimit.Request, Anytype_Rpc.File.AutoDownloadSetLimit.Response> {
+        return Invocation(messageName: "FileAutoDownloadSetLimit", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceFileAutoDownloadSetLimit(requestData) ?? Data()
+            return try Anytype_Rpc.File.AutoDownloadSetLimit.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func navigationListObjects(
         _ request: Anytype_Rpc.Navigation.ListObjects.Request = .init()
     ) -> Invocation<Anytype_Rpc.Navigation.ListObjects.Request, Anytype_Rpc.Navigation.ListObjects.Response> {

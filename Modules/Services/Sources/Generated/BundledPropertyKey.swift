@@ -372,6 +372,12 @@ public enum BundledPropertyKey: String, Sendable {
     /// Describes how this image is used
     case imageKind = "imageKind"
 
+    /// Object ID where the object was initially created
+    case createdInContext = "createdInContext"
+
+    /// BlockID/RelationKey/MessageId where the object was initially created
+    case createdInContextRef = "createdInContextRef"
+
     /// Import type, used to create object (notion, md and etc)
     case importType = "importType"
 
@@ -513,6 +519,9 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Fulltext search score
     case score = "_score"
+
+    /// Version of file context migration completed for this space
+    case migrationObjectContext = "migrationObjectContext"
 
     /// Controls whether a template's name should be applied to newly created objects
     case templateNamePrefillType = "templateNamePrefillType"

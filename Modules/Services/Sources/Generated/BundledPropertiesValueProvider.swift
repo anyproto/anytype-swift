@@ -138,6 +138,8 @@ public protocol BundledPropertiesValueProvider {
     var lastUsedDate: Date? { get }
     var revision: Int? { get }
     var imageKind: Int? { get }
+    var createdInContext: ObjectId { get }
+    var createdInContextRef: String { get }
     var importType: Int? { get }
     var globalName: String { get }
     var syncStatus: Int? { get }
@@ -188,6 +190,7 @@ public protocol BundledPropertiesValueProvider {
     var analyticsChatId: String { get }
     var analyticsSpaceId: String { get }
     var score: Int? { get }
+    var migrationObjectContext: Int? { get }
     var templateNamePrefillType: Int? { get }
 } 
 
@@ -688,6 +691,14 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     var imageKind: Int? {
         return value(for: BundledPropertyKey.imageKind.rawValue)
     }
+    /// Object ID where the object was initially created
+    var createdInContext: ObjectId {
+        return value(for: BundledPropertyKey.createdInContext.rawValue)
+    }
+    /// BlockID/RelationKey/MessageId where the object was initially created
+    var createdInContextRef: String {
+        return value(for: BundledPropertyKey.createdInContextRef.rawValue)
+    }
     /// Import type, used to create object (notion, md and etc)
     var importType: Int? {
         return value(for: BundledPropertyKey.importType.rawValue)
@@ -879,6 +890,10 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Fulltext search score
     var score: Int? {
         return value(for: BundledPropertyKey.score.rawValue)
+    }
+    /// Version of file context migration completed for this space
+    var migrationObjectContext: Int? {
+        return value(for: BundledPropertyKey.migrationObjectContext.rawValue)
     }
     /// Controls whether a template's name should be applied to newly created objects
     var templateNamePrefillType: Int? {

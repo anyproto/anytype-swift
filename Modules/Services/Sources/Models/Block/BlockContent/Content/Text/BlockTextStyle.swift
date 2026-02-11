@@ -22,8 +22,11 @@ public extension BlockText {
             case .title: self = .title
             case .paragraph: self = .text
             case .header1: self = .header
+            case .toggleHeader1: self = .header
             case .header2: self = .header2
+            case .toggleHeader2: self = .header2
             case .header3: self = .header3
+            case .toggleHeader3: self = .header3
             case .header4: self = .header4
             case .quote: self = .quote
             case .code: self = .code

@@ -766,6 +766,11 @@ extension Anytype_Rpc.Device.SetName.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.File.AutoDownloadSetLimit.Response: ResultWithError {}
+extension Anytype_Rpc.File.AutoDownloadSetLimit.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.File.CacheCancelDownload.Response: ResultWithError {}
 extension Anytype_Rpc.File.CacheCancelDownload.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
