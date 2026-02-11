@@ -144,7 +144,6 @@ final class ObjectSettingsViewModel {
     }
 
     private func startSpaceViewSubscription() async {
-        guard document.details?.resolvedLayoutValue.isChat == true else { return }
         for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
             chatNotificationMode = spaceView.effectiveNotificationMode(for: objectId)
             updateSettings()
