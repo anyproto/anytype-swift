@@ -778,6 +778,38 @@
           "IOS-\\d+"
         ]
       }
+    },
+    "simulator-verify": {
+      "type": "workflow",
+      "priority": "medium",
+      "description": "Verify implementations by building, running, and screenshotting iOS simulator. Deep links and touch via idb.",
+      "promptTriggers": {
+        "keywords": [
+          "verify",
+          "screenshot",
+          "simulator",
+          "test build",
+          "visual check",
+          "check ui",
+          "run app",
+          "boot simulator",
+          "idb",
+          "tap",
+          "deep link",
+          "simctl",
+          "check screen"
+        ],
+        "intentPatterns": [
+          "(verify|check|test).*?(build|ui|screen|implementation)",
+          "(take|capture).*?(screenshot)",
+          "(run|launch|boot).*?(simulator|app)",
+          "(navigate|open|go to).*?(screen|view|page)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [],
+        "contentPatterns": []
+      }
     }
   },
   "config": {
