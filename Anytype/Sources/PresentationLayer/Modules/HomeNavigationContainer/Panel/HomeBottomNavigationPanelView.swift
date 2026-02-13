@@ -36,11 +36,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         VStack(spacing: 0) {
             GlassEffectContainerIOS26(spacing: 20) {
                 HStack {
-                    createButton
-                        .glassEffectIDIOS26("create", in: glassNamespace)
-                    Spacer()
                     searchButton
                         .glassEffectIDIOS26("search", in: glassNamespace)
+                    Spacer()
+                    createButton
+                        .glassEffectIDIOS26("create", in: glassNamespace)
                 }
             }
             .padding(.horizontal, 24)
