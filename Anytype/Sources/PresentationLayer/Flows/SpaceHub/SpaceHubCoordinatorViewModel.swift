@@ -48,7 +48,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     var fallbackSpaceId: String? {
-        userDefaults.lastOpenedScreen?.spaceId ?? fallbackSpaceView?.targetSpaceId
+        fallbackSpaceView?.targetSpaceId
     }
     
     private var fallbackSpaceView: SpaceView?
@@ -124,18 +124,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     func onPathChange() {
-        if let editorData = navigationPath.lastPathElement as? EditorScreenData {
-            userDefaults.lastOpenedScreen = .editor(editorData)
-        } else if let widgetData = navigationPath.lastPathElement as? HomeWidgetData {
-            userDefaults.lastOpenedScreen = .widgets(spaceId: widgetData.spaceId)
-        } else if let chatData = navigationPath.lastPathElement as? ChatCoordinatorData {
-            userDefaults.lastOpenedScreen = .chat(chatData)
-        } else if let chatData = navigationPath.lastPathElement as? SpaceChatCoordinatorData {
-            userDefaults.lastOpenedScreen = .spaceChat(chatData)
-        } else {
-            userDefaults.lastOpenedScreen = nil
-        }
-        
         if navigationPath.count == 1 {
             Task {
                 currentSpaceId = nil
@@ -147,11 +135,10 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     // MARK: - Setup
     func setup() async {
         if needSetup {
-            await setupInitialScreen()
             await handleVersionAlerts()
             needSetup = false
         }
-        
+
         await startSubscriptions()
     }
     
@@ -161,23 +148,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         async let membershipSub: () = startHandleMembershipStatus()
         async let spaceInfoSub: () = startHandleSpaceInfo()
         (_,_,_,_) = await (workspaceInfoSub, appActionsSub, membershipSub, spaceInfoSub)
-    }
-    
-    func setupInitialScreen() async {
-        guard !loginStateService.isFirstLaunchAfterRegistration, appActionsStorage.action.isNil else { return }
-
-        switch userDefaults.lastOpenedScreen {
-        case .editor(let editorData):
-            try? await showScreen(data: .editor(editorData), showEditorObjectsOnlyOnce: true)
-        case .widgets(let spaceId):
-            try? await showScreen(data: .widget(HomeWidgetData(spaceId: spaceId)))
-        case .chat(let data):
-            try? await showScreen(data: .chat(data))
-        case .spaceChat(let data):
-            try? await showScreen(data: .spaceChat(data))
-        case .none:
-            return
-        }
     }
     
     private func startHandleAppActions() async {
