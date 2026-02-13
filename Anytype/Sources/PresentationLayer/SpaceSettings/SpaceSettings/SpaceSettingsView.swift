@@ -67,6 +67,7 @@ struct SpaceSettingsView: View {
                 preferences
                 dataManagement
                 misc
+                AnytypeNavigationSpacer()
             }
         }
         .padding(.horizontal, 20)
@@ -114,7 +115,7 @@ struct SpaceSettingsView: View {
                     }
                 } else {
                     Spacer.fixedHeight(4)
-                    AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundStyle(Color.Text.secondary)
+                    AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundStyle(Color.Text.transparentSecondary)
                 }
             }
         }
@@ -351,7 +352,7 @@ struct SpaceSettingsView: View {
                     RemoteStorageSegment(model: model.storageInfo, showLegend: false).padding(.horizontal, 16)
                     Spacer.fixedHeight(16)
                 }
-                .background(Color.Background.primary)
+                .background(Color.Background.widget)
                 .clipShape(RoundedRectangle(cornerRadius: 24))
             }
 
