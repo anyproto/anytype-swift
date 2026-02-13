@@ -83,7 +83,7 @@ private struct HomeWidgetsInternalView: View {
                 topWidgets
                 blockWidgets
                 objectTypeWidgets
-                AnytypeNavigationSpacer()
+                AnytypeNavigationSpacer(minHeight: context.showEmbeddedBottomPanel ? 72 : 0)
             }
             .padding(.horizontal, 20)
             .fitIPadToReadableContentGuide()
