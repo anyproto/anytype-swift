@@ -128,7 +128,7 @@ struct GlobalSearchView: View {
         .buttonStyle(.plain)
         .if(rowModel.canArchive) {
             $0.swipeActions {
-                Button(Loc.toBin, role: .destructive) {
+                Button(Loc.delete, role: .destructive) {
                     model.onRemove(objectId: rowModel.id)
                 }
             }

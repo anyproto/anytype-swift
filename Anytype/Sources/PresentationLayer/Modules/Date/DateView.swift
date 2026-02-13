@@ -181,7 +181,7 @@ struct DateView: View {
                     }
                     .if(data.canArchive) {
                         $0.swipeActions {
-                            Button(Loc.toBin, role: .destructive) {
+                            Button(Loc.delete, role: .destructive) {
                                 model.onDelete(objectId: data.id)
                             }
                         }

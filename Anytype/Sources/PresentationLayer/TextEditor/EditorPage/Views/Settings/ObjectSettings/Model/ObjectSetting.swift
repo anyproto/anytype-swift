@@ -1,6 +1,11 @@
 import SwiftUI
 import Services
 
+enum MenuIcon {
+    case asset(ImageAsset)
+    case system(String)
+}
+
 enum ObjectSettingsSectionType {
     case layout
     case object
@@ -89,6 +94,15 @@ extension ObjectSetting {
             .X24.web
         case .notifications:
             .PushNotifications.bell
+        }
+    }
+
+    var menuIcon: MenuIcon {
+        switch self {
+        case .relations:
+            .system("list.bullet")
+        default:
+            .asset(imageAsset)
         }
     }
 }
