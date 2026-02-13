@@ -74,6 +74,10 @@
     ],
     "deny": []
   },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "Linear"
@@ -112,15 +116,6 @@
     "Notification": [
       {
         "matcher": "permission_prompt",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".claude/hooks/notification-alert.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "idle_prompt",
         "hooks": [
           {
             "type": "command",
