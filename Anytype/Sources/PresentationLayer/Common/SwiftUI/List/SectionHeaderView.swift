@@ -31,8 +31,8 @@ struct SectionHeaderView<Content>: View where Content: View {
             rightContent()
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.top, increasedTopPadding ? 26 : 8)
-        .padding(.bottom, 8)
+        .padding(.top, increasedTopPadding ? 22 : 8)
+        .padding(.bottom, 12)
     }
 }
 

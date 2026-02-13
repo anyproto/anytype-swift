@@ -18,7 +18,7 @@ struct HomeWidgetsGroupView: View {
                 onTap()
             } label: {
                 Text(title)
-                    .anytypeStyle(.uxTitle2Medium)
+                    .anytypeStyle(.uxTitle1Semibold)
                 Spacer()
             }
             

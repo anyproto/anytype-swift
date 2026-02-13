@@ -11,7 +11,7 @@ struct SettingsSection<Content: View>: View {
         VStack(spacing: 0) {
             content
         }
-        .background(Color.Background.primary)
+        .background(Color.Background.widget)
         .clipShape(RoundedRectangle(cornerRadius: 24))
     }
 }
