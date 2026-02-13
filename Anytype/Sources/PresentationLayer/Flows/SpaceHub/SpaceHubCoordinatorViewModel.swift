@@ -99,8 +99,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.defaultObjectCreationService) @ObservationIgnored
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
-    @Injected(\.loginStateService) @ObservationIgnored
-    private var loginStateService: any LoginStateServiceProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.userWarningAlertsHandler) @ObservationIgnored
@@ -296,26 +294,22 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     // main show screen logic
-    private func showScreen(data: ScreenData, showEditorObjectsOnlyOnce: Bool = false) async throws {
+    private func showScreen(data: ScreenData) async throws {
         guard try await checkIsDataSupportedForOpening(data) else { return }
-        
+
         try await showSpace(spaceId: data.spaceId)
-        
+
         var currentPath = navigationPath
-        
+
         await dismissAllPresented?()
-        
+
         switch data {
         case .alert(let alertScreenData):
             await showAlert(alertScreenData)
         case .preview(let mediaFileScreenData):
             await showMediaFile(mediaFileScreenData)
         case .editor(let editorScreenData):
-            if showEditorObjectsOnlyOnce {
-                currentPath.openOnce(editorScreenData)
-            } else {
-                currentPath.push(editorScreenData)
-            }
+            currentPath.push(editorScreenData)
         case .bookmark(let data):
             await dismissAllPresented?()
             bookmarkScreenData = data
