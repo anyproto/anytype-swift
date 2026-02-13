@@ -18,6 +18,7 @@ final class ObjectSettingsBuilder: ObjectSettingsBuilderProtocol {
 
         let canShowNotifications = details.resolvedLayoutValue.isChat
             && spaceUxType?.supportsMultiChats == true
+            && !details.isArchived
 
         return .builder {
            

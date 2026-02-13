@@ -63,7 +63,7 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.copyLink
             }
 
-            if details.resolvedLayoutValue.isChat && spaceUxType?.supportsMultiChats == true {
+            if details.resolvedLayoutValue.isChat && spaceUxType?.supportsMultiChats == true && !details.isArchived {
                 if permissions.canEditDetails {
                     ObjectAction.editInfo
                 }
