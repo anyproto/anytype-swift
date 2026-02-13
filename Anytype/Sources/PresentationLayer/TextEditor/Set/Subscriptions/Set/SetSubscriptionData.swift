@@ -51,7 +51,13 @@ struct SetSubscriptionData: Hashable {
         self.sorts = sorts
         
         // Filters
-        var filters = view.filters
+        var filters = view.filters.filter { filter in
+            guard filter.hasValue else { return false }
+            if case .listValue(let list) = filter.value.kind, list.values.isEmpty {
+                return false
+            }
+            return true
+        }
         if let groupFilter {
             filters.append(groupFilter)
         }
