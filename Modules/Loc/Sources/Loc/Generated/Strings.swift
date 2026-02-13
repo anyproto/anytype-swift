@@ -272,6 +272,7 @@ public enum Loc {
     return Loc.tr("UI", "copied to clipboard", String(describing: p1), fallback: "%@ copied to clipboard")
   }
   public static let copy = Loc.tr("UI", "Copy", fallback: "Copy")
+  public static let copyInviteLink = Loc.tr("UI", "Copy Invite Link", fallback: "Copy Invite Link")
   public static let copyLink = Loc.tr("UI", "Copy link", fallback: "Copy link")
   public static let copySpaceInfo = Loc.tr("UI", "Copy space info", fallback: "Copy space info")
   public static let cover = Loc.tr("UI", "Cover", fallback: "Cover")
@@ -626,7 +627,6 @@ public enum Loc {
     return Loc.tr("UI", "There is no type named", String(describing: p1), fallback: "There is no type named %@")
   }
   public static let theseObjectsWillBeDeletedIrrevocably = Loc.tr("UI", "These objects will be deleted irrevocably", fallback: "These objects will be deleted irrevocably. You can’t undo this action.")
-  public static let toBin = Loc.tr("UI", "To Bin", fallback: "To Bin")
   public static let today = Loc.tr("UI", "Today", fallback: "Today")
   public static let tomorrow = Loc.tr("UI", "Tomorrow", fallback: "Tomorrow")
   public static let tryToFindANewOne = Loc.tr("UI", "Try to find a new one", fallback: "Try to find a new one")

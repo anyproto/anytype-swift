@@ -91,10 +91,9 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
                     Text(action.title)
                 } icon: {
                     if viewModel.isDestructiveAction(action) {
-                        Image(asset: action.imageAsset)
+                        menuIconImage(action.menuIcon)
                     } else {
-                        Image(asset: action.imageAsset)
-                            .renderingMode(.template)
+                        menuIconImage(action.menuIcon)
                             .foregroundStyle(Color.Text.primary)
                     }
                 }
@@ -128,10 +127,19 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
             Label {
                 Text(setting.title)
             } icon: {
-                Image(asset: setting.imageAsset)
-                    .renderingMode(.template)
+                menuIconImage(setting.menuIcon)
                     .foregroundStyle(Color.Text.primary)
             }
+        }
+    }
+
+    @ViewBuilder
+    private func menuIconImage(_ icon: MenuIcon) -> some View {
+        switch icon {
+        case .asset(let asset):
+            Image(asset: asset).renderingMode(.template)
+        case .system(let name):
+            Image(systemName: name)
         }
     }
 
