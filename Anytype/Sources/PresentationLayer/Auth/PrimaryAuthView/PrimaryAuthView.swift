@@ -60,7 +60,6 @@ struct PrimaryAuthView: View {
              )
             .multilineTextAlignment(.center)
         }
-        .anytypeLineHeightStyle(.interTitle)
         .onTapGesture(count: 10) {
             AudioServicesPlaySystemSound(1109)
             model.onDebugMenuTap()
