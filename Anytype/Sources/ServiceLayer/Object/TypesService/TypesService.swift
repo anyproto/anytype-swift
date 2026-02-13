@@ -11,6 +11,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
     private let pinsStorage: any TypesPinStorageProtocol = Container.shared.typesPinsStorage()
     private let typeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
     private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
+    private let dataviewDefaultViewCorrectorService: any DataviewDefaultViewCorrectorServiceProtocol = Container.shared.dataviewDefaultViewCorrectorService()
     
     func createType(name: String, pluralName: String, icon: CustomIcon?, color: CustomIconColor?, spaceId: String) async throws -> ObjectType {
         var fields: [String: Google_Protobuf_Value] = [
@@ -34,6 +35,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
         }).invoke()
         
         let objectDetails = try ObjectDetails(protobufStruct: result.details)
+        try? await dataviewDefaultViewCorrectorService.correctDefaultViewTypeIfNeeded(objectId: objectDetails.id, spaceId: spaceId)
         return ObjectType(details: objectDetails)
     }
     
