@@ -6,6 +6,10 @@
 public extension FeatureFlags {
 
     // Static value reader
+    static var showUploadStatusIndicator: Bool {
+        value(for: .showUploadStatusIndicator)
+    }
+
     static var homePage: Bool {
         value(for: .homePage)
     }
@@ -16,10 +20,6 @@ public extension FeatureFlags {
 
     static var channelTypeSwitcher: Bool {
         value(for: .channelTypeSwitcher)
-    }
-
-    static var showUploadStatusIndicator: Bool {
-        value(for: .showUploadStatusIndicator)
     }
 
     static var setKanbanView: Bool {
@@ -104,10 +104,10 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
+        .showUploadStatusIndicator,
         .homePage,
         .qrCodeCircularText,
         .channelTypeSwitcher,
-        .showUploadStatusIndicator,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
