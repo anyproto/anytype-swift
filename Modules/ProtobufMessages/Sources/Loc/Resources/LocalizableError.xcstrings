@@ -16,6 +16,12 @@
             "value" : "Нешта не так з уводам, паўтарыце спробу"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -165,6 +171,12 @@
             "value" : "Памылка з нашага боку, паспрабуйце пазней"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error on our side, try again later"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -252,7 +264,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Error on our side, try again later"
+            "value" : "Erro do nosso lado, tente novamente mais tarde"
           }
         },
         "pt-PT" : {
@@ -312,6 +324,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Немагчыма падключыцца, праверце падключэнне да Інтэрнэту"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Can not connect, check your internet connection"
           }
         },
         "de" : {
@@ -401,7 +419,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "value" : "Não foi possível conectar, verifique sua conexão"
           }
         },
         "pt-PT" : {
@@ -461,6 +479,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Гэта імя нельга зарэзерваваць"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name cannot be reserved"
           }
         },
         "de" : {
@@ -550,7 +574,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name cannot be reserved"
+            "value" : "Este nome não pode ser reservado"
           }
         },
         "pt-PT" : {
@@ -610,6 +634,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Імя змяшчае недапушчальныя сімвалы"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name has invalid characters"
           }
         },
         "de" : {
@@ -699,7 +729,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Name has invalid characters"
+            "value" : "O nome contém caracteres inválidos"
           }
         },
         "pt-PT" : {
@@ -759,6 +789,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Гэтае імя ўжо зарэзервавана"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tento název je již vyhrazen"
           }
         },
         "de" : {
@@ -910,6 +946,12 @@
             "value" : "Вы не ўвайшлі ў сістэму! 😵‍💫"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You are not logged in! 😵‍💫"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -997,7 +1039,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "value" : "Você não está logado! 😵‍💫"
           }
         },
         "pt-PT" : {
@@ -1057,6 +1099,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Памылка з нашага боку, паспрабуйце пазней"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error on our side, try again later"
           }
         },
         "de" : {
@@ -1146,7 +1194,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Error on our side, try again later"
+            "value" : "Erro do nosso lado, tente novamente mais tarde"
           }
         },
         "pt-PT" : {
@@ -1206,6 +1254,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Імя для гэтага ўзроўню недаступнае"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name is not available for this tier"
           }
         },
         "de" : {
@@ -1295,7 +1349,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Name is not available for this tier"
+            "value" : "Nome não está disponível para este nível"
           }
         },
         "pt-PT" : {
@@ -1355,6 +1409,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Узровень не знойдзены, паўтарыце спробу пазней"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tier not found, try again later"
           }
         },
         "de" : {
@@ -1444,7 +1504,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tier not found, try again later"
+            "value" : "Nível não encontrado, tente novamente mais tarde"
           }
         },
         "pt-PT" : {
@@ -1504,6 +1564,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Імя занадта доўгае"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name is too long"
           }
         },
         "de" : {
@@ -1593,7 +1659,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Name is too long"
+            "value" : "Nome é muito longo"
           }
         },
         "pt-PT" : {
@@ -1653,6 +1719,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Імя занадта кароткае"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name is too short"
           }
         },
         "de" : {
@@ -1742,7 +1814,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Name is too short"
+            "value" : "Nome é muito curto"
           }
         },
         "pt-PT" : {
@@ -1802,6 +1874,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Нешта не так з уводам, паўтарыце спробу"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
           }
         },
         "de" : {
@@ -1953,6 +2031,12 @@
             "value" : "Памылка з нашага боку, паспрабуйце пазней"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error on our side, try again later"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -2040,7 +2124,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Error on our side, try again later"
+            "value" : "Erro do nosso lado, tente novamente mais tarde"
           }
         },
         "pt-PT" : {
@@ -2100,6 +2184,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Вы не ўвайшлі ў сістэму! 😵‍💫"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You are not logged in! 😵‍💫"
           }
         },
         "de" : {
@@ -2189,7 +2279,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "value" : "Você não está logado! 😵‍💫"
           }
         },
         "pt-PT" : {
@@ -2249,6 +2339,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Памылка з нашага боку, паспрабуйце пазней"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error on our side, try again later"
           }
         },
         "de" : {
@@ -2338,7 +2434,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Error on our side, try again later"
+            "value" : "Erro do nosso lado, tente novamente mais tarde"
           }
         },
         "pt-PT" : {
@@ -2398,6 +2494,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Нешта не так з уводам, паўтарыце спробу"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
           }
         },
         "de" : {
@@ -2549,6 +2651,12 @@
             "value" : "Немагчыма падключыцца, праверце падключэнне да Інтэрнэту"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Can not connect, check your internet connection"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -2636,7 +2744,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "value" : "Não foi possível conectar, verifique sua conexão"
           }
         },
         "pt-PT" : {
@@ -2696,6 +2804,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Нешта не так з уводам, паўтарыце спробу"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
           }
         },
         "de" : {
@@ -2847,6 +2961,12 @@
             "value" : "Немагчыма падключыцца, праверце падключэнне да Інтэрнэту"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Can not connect, check your internet connection"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -2934,7 +3054,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "value" : "Não foi possível conectar, verifique sua conexão"
           }
         },
         "pt-PT" : {
@@ -2994,6 +3114,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Нешта не так з уводам, паўтарыце спробу"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
           }
         },
         "de" : {
@@ -3145,6 +3271,12 @@
             "value" : "Немагчыма падключыцца, праверце падключэнне да Інтэрнэту"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Can not connect, check your internet connection"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -3232,7 +3364,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "value" : "Não foi possível conectar, verifique sua conexão"
           }
         },
         "pt-PT" : {
@@ -3292,6 +3424,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Нешта не так з уводам, паўтарыце спробу"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
           }
         },
         "de" : {
@@ -3443,6 +3581,12 @@
             "value" : "Вы не ўвайшлі ў сістэму! 😵‍💫"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You are not logged in! 😵‍💫"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -3530,7 +3674,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "value" : "Você não está logado! 😵‍💫"
           }
         },
         "pt-PT" : {
@@ -3590,6 +3734,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Для гэтай прасторы дасягнуты ліміт. Калі ласка, абнавіце сваё членства або звярніцеся ў службу падтрымкі за дапамогай."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "de" : {
@@ -3741,6 +3891,12 @@
             "value" : "Ой! Нешта пайшло не так. Калі ласка паспрабуйце зноў пазней."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jejda, něco se pokazilo. Zkuste to prosím později znovu."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -3890,6 +4046,12 @@
             "value" : "Падобна, што прастора больш не з'яўляецца агульнай. Калі ласка, пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -3977,7 +4139,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "value" : "Parece que o espaço não está mais compartilhado. Por favor, certifique-se de que seus dispositivos estão sincronizados."
           }
         },
         "pt-PT" : {
@@ -4037,6 +4199,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Запыт не выкананы. Праверце падключэнне да Інтэрнэту і паўтарыце спробу."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
         "de" : {
@@ -4188,6 +4356,12 @@
             "value" : "Здаецца, Прастора была выдалена. Калі ласка, пераканайцеся, што вашы прылады сінхранізаваны."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -4335,6 +4509,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Для гэтай прасторы дасягнуты ліміт. Калі ласка, абнавіце сваё членства або звярніцеся ў службу падтрымкі за дапамогай."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "de" : {
@@ -4486,6 +4666,12 @@
             "value" : "Ой! Нешта пайшло не так. Калі ласка паспрабуйце зноў пазней."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jejda, něco se pokazilo. Zkuste to prosím později znovu."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -4635,6 +4821,12 @@
             "value" : "Падобна, што прастора больш не з'яўляецца агульнай. Калі ласка, пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -4722,7 +4914,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "value" : "Parece que o espaço não está mais compartilhado. Por favor, certifique-se de que seus dispositivos estão sincronizados."
           }
         },
         "pt-PT" : {
@@ -4782,6 +4974,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Запыт не выкананы. Праверце падключэнне да Інтэрнэту і паўтарыце спробу."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
         "de" : {
@@ -4933,6 +5131,12 @@
             "value" : "Здаецца, Прастора была выдалена. Калі ласка, пераканайцеся, што вашы прылады сінхранізаваны."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -5080,6 +5284,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Запрашэння не існуе. Пераканайцеся, што вашыя прылады сінхранізаваныя."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pozvánka neexistuje. Ujistěte se, že jsou vaše zařízení synchronizována."
           }
         },
         "de" : {
@@ -5231,6 +5441,12 @@
             "value" : "Для гэтай прасторы дасягнуты ліміт. Калі ласка, абнавіце сваё членства або звярніцеся ў службу падтрымкі за дапамогай."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -5378,6 +5594,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Нешта пайшло не так. Калі ласка паспрабуйце зноў пазней."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jejda, něco se pokazilo. Zkuste to prosím později znovu."
           }
         },
         "de" : {
@@ -5529,6 +5751,12 @@
             "value" : "Падобна, што прастора больш не з'яўляецца агульнай. Калі ласка, пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -5616,7 +5844,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "value" : "Parece que o espaço não está mais compartilhado. Por favor, certifique-se de que seus dispositivos estão sincronizados."
           }
         },
         "pt-PT" : {
@@ -5676,6 +5904,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Запыт не выкананы. Праверце падключэнне да Інтэрнэту і паўтарыце спробу."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
         "de" : {
@@ -5827,6 +6061,12 @@
             "value" : "Здаецца, Прастора была выдалена. Калі ласка, пераканайцеся, што вашы прылады сінхранізаваны."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -5974,6 +6214,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Не атрымалася разабраць запрашальную спасылку. Яна можа змяшчаць памылкі ў фармаце або недапушчальныя даныя."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
           }
         },
         "de" : {
@@ -6125,6 +6371,12 @@
             "value" : "Запрашэння не існуе. Пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pozvánka neexistuje. Ujistěte se, že jsou vaše zařízení synchronizována."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -6272,6 +6524,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Не атрымалася разабраць запрашальную спасылку. Яна можа змяшчаць памылкі ў фармаце або недапушчальныя даныя."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
           }
         },
         "de" : {
@@ -6423,6 +6681,12 @@
             "value" : "Запрашэння не існуе. Пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pozvánka neexistuje. Ujistěte se, že jsou vaše zařízení synchronizována."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -6570,6 +6834,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Для гэтай прасторы дасягнуты ліміт. Калі ласка, абнавіце сваё членства або звярніцеся ў службу падтрымкі за дапамогай."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "de" : {
@@ -6721,6 +6991,12 @@
             "value" : "Ой! Нешта пайшло не так. Калі ласка паспрабуйце зноў пазней."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jejda, něco se pokazilo. Zkuste to prosím později znovu."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -6870,6 +7146,12 @@
             "value" : "Падобна, што прастора больш не з'яўляецца агульнай. Калі ласка, пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -6957,7 +7239,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "value" : "Parece que o espaço não está mais compartilhado. Por favor, certifique-se de que seus dispositivos estão sincronizados."
           }
         },
         "pt-PT" : {
@@ -7017,6 +7299,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Запыт не выкананы. Праверце падключэнне да Інтэрнэту і паўтарыце спробу."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
         "de" : {
@@ -7168,6 +7456,12 @@
             "value" : "Здаецца, Прастора была выдалена. Калі ласка, пераканайцеся, што вашы прылады сінхранізаваны."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -7315,6 +7609,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Для гэтай прасторы дасягнуты ліміт. Калі ласка, абнавіце сваё членства або звярніцеся ў службу падтрымкі за дапамогай."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "de" : {
@@ -7466,6 +7766,12 @@
             "value" : "Запыту больш не існуе. Ніякіх дзеянняў не патрабуецца, але пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Požadavek již neexistuje. Nejsou nutné žádné akce, ale ujistěte se, že jsou vaše zařízení synchronizována."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -7613,6 +7919,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Нешта пайшло не так. Калі ласка паспрабуйце зноў пазней."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jejda, něco se pokazilo. Zkuste to prosím později znovu."
           }
         },
         "de" : {
@@ -7764,6 +8076,12 @@
             "value" : "Падобна, што прастора больш не з'яўляецца агульнай. Калі ласка, пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -7851,7 +8169,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "value" : "Parece que o espaço não está mais compartilhado. Por favor, certifique-se de que seus dispositivos estão sincronizados."
           }
         },
         "pt-PT" : {
@@ -7911,6 +8229,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Запыт не выкананы. Праверце падключэнне да Інтэрнэту і паўтарыце спробу."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
         "de" : {
@@ -8062,6 +8386,12 @@
             "value" : "Здаецца, Прастора была выдалена. Калі ласка, пераканайцеся, што вашы прылады сінхранізаваны."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -8209,6 +8539,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Для гэтай прасторы дасягнуты ліміт. Калі ласка, абнавіце сваё членства або звярніцеся ў службу падтрымкі за дапамогай."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "de" : {
@@ -8360,6 +8696,12 @@
             "value" : "Запыту больш не існуе. Ніякіх дзеянняў не патрабуецца, але пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Požadavek již neexistuje. Nejsou nutné žádné akce, ale ujistěte se, že jsou vaše zařízení synchronizována."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -8507,6 +8849,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Нешта пайшло не так. Калі ласка паспрабуйце зноў пазней."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jejda, něco se pokazilo. Zkuste to prosím později znovu."
           }
         },
         "de" : {
@@ -8658,6 +9006,12 @@
             "value" : "Падобна, што прастора больш не з'яўляецца агульнай. Калі ласка, пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -8745,7 +9099,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "value" : "Parece que o espaço não está mais compartilhado. Por favor, certifique-se de que seus dispositivos estão sincronizados."
           }
         },
         "pt-PT" : {
@@ -8805,6 +9159,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Запыт не выкананы. Праверце падключэнне да Інтэрнэту і паўтарыце спробу."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
         "de" : {
@@ -8956,6 +9316,12 @@
             "value" : "Здаецца, Прастора была выдалена. Калі ласка, пераканайцеся, што вашы прылады сінхранізаваны."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -9103,6 +9469,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Для гэтай прасторы дасягнуты ліміт. Калі ласка, абнавіце сваё членства або звярніцеся ў службу падтрымкі за дапамогай."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "de" : {
@@ -9254,6 +9626,12 @@
             "value" : "Ой! Нешта пайшло не так. Калі ласка паспрабуйце зноў пазней."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jejda, něco se pokazilo. Zkuste to prosím později znovu."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -9401,6 +9779,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Запыт не выкананы. Праверце падключэнне да Інтэрнэту і паўтарыце спробу."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
         "de" : {
@@ -9552,6 +9936,12 @@
             "value" : "Здаецца, Прастора была выдалена. Калі ласка, пераканайцеся, што вашы прылады сінхранізаваны."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -9699,6 +10089,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Не ўдалося прызначыць правы доступу ўдзельніку прасторы. Упэўніцеся, што прызначаныя правільныя правы доступу."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Přístupová práva nemohla být přiřazena členovi skupiny. Ujistěte se, že jsou přiřazena správná přístupová práva."
           }
         },
         "de" : {
@@ -9850,6 +10246,12 @@
             "value" : "Для гэтай прасторы дасягнуты ліміт. Калі ласка, абнавіце сваё членства або звярніцеся ў службу падтрымкі за дапамогай."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -9997,6 +10399,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Нешта пайшло не так. Калі ласка паспрабуйце зноў пазней."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jejda, něco se pokazilo. Zkuste to prosím později znovu."
           }
         },
         "de" : {
@@ -10148,6 +10556,12 @@
             "value" : "Падобна, што прастора больш не з'яўляецца агульнай. Калі ласка, пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -10235,7 +10649,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "value" : "Parece que o espaço não está mais compartilhado. Por favor, certifique-se de que seus dispositivos estão sincronizados."
           }
         },
         "pt-PT" : {
@@ -10295,6 +10709,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Удзельнік прасторы не знойдзены. Калі ласка, пераканайцеся, што вашыя прылады сінхранізаваныя"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Člen skupiny nebyl nalezen. Ujistěte se, že jsou vaše zařízení synchronizována."
           }
         },
         "de" : {
@@ -10446,6 +10866,12 @@
             "value" : "Ой! Запыт не выкананы. Праверце падключэнне да Інтэрнэту і паўтарыце спробу."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -10593,6 +11019,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Здаецца, Прастора была выдалена. Калі ласка, пераканайцеся, што вашы прылады сінхранізаваны."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
         "de" : {
@@ -10744,6 +11176,12 @@
             "value" : "Для гэтай прасторы дасягнуты ліміт. Калі ласка, абнавіце сваё членства або звярніцеся ў службу падтрымкі за дапамогай."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -10891,6 +11329,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Нешта пайшло не так. Калі ласка паспрабуйце зноў пазней."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jejda, něco se pokazilo. Zkuste to prosím později znovu."
           }
         },
         "de" : {
@@ -11042,6 +11486,12 @@
             "value" : "Падобна, што прастора больш не з'яўляецца агульнай. Калі ласка, пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -11129,7 +11579,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "value" : "Parece que o espaço não está mais compartilhado. Por favor, certifique-se de que seus dispositivos estão sincronizados."
           }
         },
         "pt-PT" : {
@@ -11189,6 +11639,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Удзельнік прасторы не знойдзены. Калі ласка, пераканайцеся, што вашыя прылады сінхранізаваныя"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Člen skupiny nebyl nalezen. Ujistěte se, že jsou vaše zařízení synchronizována."
           }
         },
         "de" : {
@@ -11340,6 +11796,12 @@
             "value" : "Ой! Запыт не выкананы. Праверце падключэнне да Інтэрнэту і паўтарыце спробу."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -11487,6 +11949,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Здаецца, Прастора была выдалена. Калі ласка, пераканайцеся, што вашы прылады сінхранізаваны."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
         "de" : {
@@ -11638,6 +12106,12 @@
             "value" : "Запыт не можа быць ухвалены з дадзенымі правамі доступу. Калі ласка, пераканайцеся, што прызначаны правільныя правы доступу."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Požadavek nemohl být schválen s těmito přístupovými právy. Ujistěte se, že jsou přiřazena správná přístupová práva."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -11785,6 +12259,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Для гэтай прасторы дасягнуты ліміт. Калі ласка, абнавіце сваё членства або звярніцеся ў службу падтрымкі за дапамогай."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "de" : {
@@ -11936,6 +12416,12 @@
             "value" : "Запыту больш не існуе. Ніякіх дзеянняў не патрабуецца, але пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Požadavek již neexistuje. Nejsou nutné žádné akce, ale ujistěte se, že jsou vaše zařízení synchronizována."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -12083,6 +12569,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Нешта пайшло не так. Калі ласка паспрабуйце зноў пазней."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jejda, něco se pokazilo. Zkuste to prosím později znovu."
           }
         },
         "de" : {
@@ -12234,6 +12726,12 @@
             "value" : "Падобна, што прастора больш не з'яўляецца агульнай. Калі ласка, пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -12321,7 +12819,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "value" : "Parece que o espaço não está mais compartilhado. Por favor, certifique-se de que seus dispositivos estão sincronizados."
           }
         },
         "pt-PT" : {
@@ -12381,6 +12879,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Запыт не выкананы. Праверце падключэнне да Інтэрнэту і паўтарыце спробу."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
         "de" : {
@@ -12532,6 +13036,12 @@
             "value" : "Здаецца, Прастора была выдалена. Калі ласка, пераканайцеся, што вашы прылады сінхранізаваны."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -12679,6 +13189,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Для гэтай прасторы дасягнуты ліміт. Калі ласка, абнавіце сваё членства або звярніцеся ў службу падтрымкі за дапамогай."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "de" : {
@@ -12830,6 +13346,12 @@
             "value" : "Запыту больш не існуе. Ніякіх дзеянняў не патрабуецца, але пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Požadavek již neexistuje. Nejsou nutné žádné akce, ale ujistěte se, že jsou vaše zařízení synchronizována."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -12977,6 +13499,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Нешта пайшло не так. Калі ласка паспрабуйце зноў пазней."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jejda, něco se pokazilo. Zkuste to prosím později znovu."
           }
         },
         "de" : {
@@ -13128,6 +13656,12 @@
             "value" : "Падобна, што прастора больш не з'яўляецца агульнай. Калі ласка, пераканайцеся, што вашыя прылады сінхранізаваныя."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -13215,7 +13749,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "value" : "Parece que o espaço não está mais compartilhado. Por favor, certifique-se de que seus dispositivos estão sincronizados."
           }
         },
         "pt-PT" : {
@@ -13275,6 +13809,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ой! Запыт не выкананы. Праверце падключэнне да Інтэрнэту і паўтарыце спробу."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
         "de" : {
@@ -13426,6 +13966,12 @@
             "value" : "Здаецца, Прастора была выдалена. Калі ласка, пераканайцеся, што вашы прылады сінхранізаваны."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -13573,6 +14119,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Для гэтай прасторы дасягнуты ліміт. Калі ласка, абнавіце сваё членства або звярніцеся ў службу падтрымкі за дапамогай."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "de" : {
@@ -13724,6 +14276,12 @@
             "value" : "Ой! Нешта пайшло не так. Калі ласка паспрабуйце зноў пазней."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jejda, něco se pokazilo. Zkuste to prosím později znovu."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -13873,6 +14431,12 @@
             "value" : "Ой! Запыт не выкананы. Праверце падключэнне да Інтэрнэту і паўтарыце спробу."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -14020,6 +14584,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Здаецца, Прастора была выдалена. Калі ласка, пераканайцеся, што вашы прылады сінхранізаваны."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
         "de" : {
