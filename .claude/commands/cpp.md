@@ -78,7 +78,7 @@ Commits the current changes, performs a code review, applies fixes if needed, th
 
 ### 6. Push and PR
 - Push to remote with tracking
-- Create pull request with summary
+- Create pull request targeting `develop` branch (`--base develop`) unless a different target branch is explicitly specified by the user
 
 ## Branch Handling
 When a branch name is provided:
