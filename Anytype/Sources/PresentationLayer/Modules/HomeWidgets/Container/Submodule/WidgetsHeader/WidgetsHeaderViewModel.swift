@@ -49,6 +49,10 @@ final class WidgetsHeaderViewModel {
         spaceView?.spaceAccessType == .private
     }
 
+    var isOneToOneSpace: Bool {
+        spaceView?.uxType.isOneToOne == true
+    }
+
     var hasInviteLink: Bool {
         inviteLink != nil
     }
