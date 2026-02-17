@@ -10135,7 +10135,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "정말 %#@object@을(를) 삭제하시겠습니까?"
+            "value" : "정말 %#@객체@을(를) 삭제하시겠습니까?"
           },
           "substitutions" : {
             "object" : {
@@ -10330,7 +10330,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Вы уверены, что хотите удалить %#@object@?"
+            "value" : "Вы уверены, что хотите удалить %#@объект@?"
           },
           "substitutions" : {
             "object" : {
@@ -22934,7 +22934,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy Invite Link"
+            "value" : "Copiar enlace de invitación"
           }
         },
         "fa" : {
@@ -22958,13 +22958,13 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy Invite Link"
+            "value" : "Salin Tautan Undangan"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy Invite Link"
+            "value" : "Copia Link di Invito"
           }
         },
         "ja" : {
@@ -23024,7 +23024,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy Invite Link"
+            "value" : "Davet Bağlantısını Kopyala"
           }
         },
         "uk" : {
@@ -27779,7 +27779,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Brankas ini akan dihapus dalam %#@days@"
+            "value" : "Brankas ini akan dihapus dalam %#@ hari@"
           },
           "substitutions" : {
             "days" : {
@@ -27866,7 +27866,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "이 보관소는 %#@days@ 후에 삭제될 예정입니다."
+            "value" : "이 보관소는 %#@일@ 후에 삭제될 예정입니다."
           },
           "substitutions" : {
             "days" : {
@@ -28103,7 +28103,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Это хранилище будет удалено через %#@days@ "
+            "value" : "Это хранилище будет удалено через %#@дней@ "
           },
           "substitutions" : {
             "days" : {
@@ -30496,7 +30496,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Deselect all"
+            "value" : "Zrušit výběr"
           }
         },
         "de" : {
@@ -31085,7 +31085,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@device@ terhubung"
+            "value" : "%#@perangkat@ terhubung"
           },
           "substitutions" : {
             "device" : {
@@ -31349,7 +31349,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@device@ подключено"
+            "value" : "%#@устройство@ подключено"
           },
           "substitutions" : {
             "device" : {
@@ -40689,7 +40689,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@"
+            "value" : "%#@mengunggah berkas@"
           },
           "substitutions" : {
             "file" : {
@@ -40758,7 +40758,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@ 업로드 중"
+            "value" : "%#@파일@ 업로드 중"
           },
           "substitutions" : {
             "file" : {
@@ -40953,7 +40953,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@ загружается"
+            "value" : "%#@файл@ загружается"
           },
           "substitutions" : {
             "file" : {
@@ -50761,7 +50761,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@"
+            "value" : "%#@sinkronisasi item@"
           },
           "substitutions" : {
             "item" : {
@@ -51025,7 +51025,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@  синхронизируется..."
+            "value" : "%#@элемент@  синхронизируется..."
           },
           "substitutions" : {
             "item" : {
@@ -63580,7 +63580,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ terpilih"
+            "value" : "%#@objek@ terpilih"
           },
           "substitutions" : {
             "object" : {
@@ -63649,7 +63649,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ 선택됨"
+            "value" : "객체@ %#@개 선택됨"
           },
           "substitutions" : {
             "object" : {
@@ -63844,7 +63844,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ выбран"
+            "value" : "%#@объект@ выбран"
           },
           "substitutions" : {
             "object" : {
@@ -69500,7 +69500,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@day@"
+            "value" : "per %#@hari@"
           },
           "substitutions" : {
             "day" : {
@@ -69569,7 +69569,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@day@ 당"
+            "value" : "%#@일@ 당"
           },
           "substitutions" : {
             "day" : {
@@ -69764,7 +69764,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "за %#@day@"
+            "value" : "за %#@день@"
           },
           "substitutions" : {
             "day" : {
@@ -70228,7 +70228,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@month@"
+            "value" : "per %#@bulan@"
           },
           "substitutions" : {
             "month" : {
@@ -70297,7 +70297,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@month@ 당"
+            "value" : "%#@달@ 당"
           },
           "substitutions" : {
             "month" : {
@@ -70492,7 +70492,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "за %#@month@"
+            "value" : "за %#@месяц@"
           },
           "substitutions" : {
             "month" : {
@@ -70956,7 +70956,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@week@"
+            "value" : "per %#@minggu@"
           },
           "substitutions" : {
             "week" : {
@@ -71025,7 +71025,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@week@ 당"
+            "value" : "%#@주@ 당"
           },
           "substitutions" : {
             "week" : {
@@ -71220,7 +71220,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "за %#@week@"
+            "value" : "за %#@неделю@"
           },
           "substitutions" : {
             "week" : {
@@ -71684,7 +71684,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@year@"
+            "value" : "per %#@tahun@"
           },
           "substitutions" : {
             "year" : {
@@ -71753,7 +71753,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@year@ 당"
+            "value" : "%#@년@ 당"
           },
           "substitutions" : {
             "year" : {
@@ -71948,7 +71948,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "за %#@year@"
+            "value" : "за %#@год@"
           },
           "substitutions" : {
             "year" : {
@@ -81944,7 +81944,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "See all"
+            "value" : "Vše"
           }
         },
         "de" : {
@@ -106212,7 +106212,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unselect all"
+            "value" : "Odznačit vše"
           }
         },
         "de" : {
