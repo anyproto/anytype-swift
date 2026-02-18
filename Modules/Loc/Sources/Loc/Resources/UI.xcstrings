@@ -10066,7 +10066,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to delete %#@object@?"
+            "value" : "Yakin ingin menghapus %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -50761,7 +50761,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@"
+            "value" : "Menyinkronkan %#@item@..."
           },
           "substitutions" : {
             "item" : {
