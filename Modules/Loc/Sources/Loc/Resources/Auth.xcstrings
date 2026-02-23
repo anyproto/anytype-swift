@@ -79,7 +79,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
+            "value" : "진행함에 따라 [이용 약관](%@) 및 [개인정보 처리방침](%@)에 동의하는 것으로 간주됩니다."
           }
         },
         "nb" : {
@@ -10158,7 +10158,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Please clear approximately %@ of space and run the process again."
+            "value" : "저장 공간의 약 %@를 비운 뒤, 다시 시도해주세요."
           }
         },
         "nb" : {

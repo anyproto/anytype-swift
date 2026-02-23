@@ -63649,7 +63649,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ 선택됨"
+            "value" : "객체@ %#@개 선택됨"
           },
           "substitutions" : {
             "object" : {
