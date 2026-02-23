@@ -10066,7 +10066,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Apakah Anda yakin ingin menghapus objek %#@@?"
+            "value" : "Yakin ingin menghapus %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -10135,7 +10135,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "정말 %#@object@을(를) 삭제하시겠습니까?"
+            "value" : "Are you sure you want to delete %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -31154,7 +31154,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@개의 기기 연결됨"
+            "value" : "%#@device@ connected"
           },
           "substitutions" : {
             "device" : {
@@ -50761,7 +50761,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@"
+            "value" : "Menyinkronkan %#@item@..."
           },
           "substitutions" : {
             "item" : {
@@ -50830,7 +50830,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@개의 항목 동기화 중..."
+            "value" : "%#@item@ syncing..."
           },
           "substitutions" : {
             "item" : {
@@ -111695,13 +111695,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Ett objekt slettet"
+                  "value" : "One object deleted"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d objekter slettet"
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {
