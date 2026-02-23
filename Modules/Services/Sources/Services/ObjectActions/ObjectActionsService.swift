@@ -5,11 +5,9 @@ import ProtobufMessages
 import AnytypeCore
 
 final class ObjectActionsService: ObjectActionsServiceProtocol {
-
-    private let dataviewDefaultViewCorrectorService: any DataviewDefaultViewCorrectorServiceProtocol = Container.shared.dataviewDefaultViewCorrectorService()
-
+    
     // MARK: - ObjectActionsServiceProtocol
-
+    
     public func createObject(
         name: String,
         typeUniqueKey: ObjectTypeUniqueKey,
@@ -46,12 +44,10 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.spaceID = spaceId
             $0.objectTypeUniqueKey = typeUniqueKey.value
         }).invoke()
-
-        let objectDetails = try response.details.toDetails()
-        try? await dataviewDefaultViewCorrectorService.correctDefaultViewTypeIfNeeded(objectId: objectDetails.id, spaceId: spaceId)
-        return objectDetails
+        
+        return try response.details.toDetails()
     }
-
+    
     public func delete(objectIds: [String]) async throws {
         try await ClientCommands.objectListDelete(.with {
             $0.objectIds = objectIds
@@ -238,15 +234,11 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         
         let details = Google_Protobuf_Struct(fields: fields)
         
-        let response = try await ClientCommands.objectCreateSet(.with {
+        return try await ClientCommands.objectCreateSet(.with {
             $0.details = details
             $0.source = [setOfObjectType]
             $0.spaceID = spaceId
             $0.withChat = false
-        }).invoke()
-
-        let objectDetails = try response.details.toDetails()
-        try? await dataviewDefaultViewCorrectorService.correctDefaultViewTypeIfNeeded(objectId: objectDetails.id, spaceId: spaceId)
-        return objectDetails
+        }).invoke().details.toDetails()
     }
 }
