@@ -10135,7 +10135,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "정말 %#@객체@을(를) 삭제하시겠습니까?"
+            "value" : "정말 %#@object@을(를) 삭제하시겠습니까?"
           },
           "substitutions" : {
             "object" : {
@@ -10330,7 +10330,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Вы уверены, что хотите удалить %#@объект@?"
+            "value" : "Вы уверены, что хотите удалить %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -27779,7 +27779,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Brankas ini akan dihapus dalam %#@ hari@"
+            "value" : "Brankas ini akan dihapus dalam %#@days@"
           },
           "substitutions" : {
             "days" : {
@@ -27866,7 +27866,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "이 보관소는 %#@일@ 후에 삭제될 예정입니다."
+            "value" : "이 보관소는 %#@days@ 후에 삭제될 예정입니다."
           },
           "substitutions" : {
             "days" : {
@@ -28103,7 +28103,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Это хранилище будет удалено через %#@дней@ "
+            "value" : "Это хранилище будет удалено через %#@days@ "
           },
           "substitutions" : {
             "days" : {
@@ -31085,7 +31085,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@perangkat@ terhubung"
+            "value" : "%#@device@ terhubung"
           },
           "substitutions" : {
             "device" : {
@@ -31349,7 +31349,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@устройство@ подключено"
+            "value" : "%#@device@ подключено"
           },
           "substitutions" : {
             "device" : {
@@ -40689,7 +40689,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@mengunggah berkas@"
+            "value" : "%#@file@"
           },
           "substitutions" : {
             "file" : {
@@ -40758,7 +40758,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@파일@ 업로드 중"
+            "value" : "%#@file@ 업로드 중"
           },
           "substitutions" : {
             "file" : {
@@ -40953,7 +40953,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@файл@ загружается"
+            "value" : "%#@file@ загружается"
           },
           "substitutions" : {
             "file" : {
@@ -50761,7 +50761,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@sinkronisasi item@"
+            "value" : "%#@item@"
           },
           "substitutions" : {
             "item" : {
@@ -51025,7 +51025,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@элемент@  синхронизируется..."
+            "value" : "%#@item@  синхронизируется..."
           },
           "substitutions" : {
             "item" : {
@@ -63580,7 +63580,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@objek@ terpilih"
+            "value" : "%#@object@ terpilih"
           },
           "substitutions" : {
             "object" : {
@@ -63844,7 +63844,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@объект@ выбран"
+            "value" : "%#@object@ выбран"
           },
           "substitutions" : {
             "object" : {
@@ -69500,7 +69500,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@hari@"
+            "value" : "per %#@day@"
           },
           "substitutions" : {
             "day" : {
@@ -69569,7 +69569,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@일@ 당"
+            "value" : "%#@day@ 당"
           },
           "substitutions" : {
             "day" : {
@@ -69764,7 +69764,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "за %#@день@"
+            "value" : "за %#@day@"
           },
           "substitutions" : {
             "day" : {
@@ -70228,7 +70228,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@bulan@"
+            "value" : "per %#@month@"
           },
           "substitutions" : {
             "month" : {
@@ -70297,7 +70297,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@달@ 당"
+            "value" : "%#@month@ 당"
           },
           "substitutions" : {
             "month" : {
@@ -70492,7 +70492,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "за %#@месяц@"
+            "value" : "за %#@month@"
           },
           "substitutions" : {
             "month" : {
@@ -70956,7 +70956,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@minggu@"
+            "value" : "per %#@week@"
           },
           "substitutions" : {
             "week" : {
@@ -71025,7 +71025,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@주@ 당"
+            "value" : "%#@week@ 당"
           },
           "substitutions" : {
             "week" : {
@@ -71220,7 +71220,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "за %#@неделю@"
+            "value" : "за %#@week@"
           },
           "substitutions" : {
             "week" : {
@@ -71684,7 +71684,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@tahun@"
+            "value" : "per %#@year@"
           },
           "substitutions" : {
             "year" : {
@@ -71753,7 +71753,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@년@ 당"
+            "value" : "%#@year@ 당"
           },
           "substitutions" : {
             "year" : {
@@ -71948,7 +71948,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "за %#@год@"
+            "value" : "за %#@year@"
           },
           "substitutions" : {
             "year" : {

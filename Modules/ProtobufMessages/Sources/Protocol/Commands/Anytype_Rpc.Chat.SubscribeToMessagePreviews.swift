@@ -49,49 +49,41 @@ extension Anytype_Rpc.Chat {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct ChatPreview: @unchecked Sendable {
+        public struct ChatPreview: Sendable {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var spaceID: String {
-            get {return _storage._spaceID}
-            set {_uniqueStorage()._spaceID = newValue}
-          }
+          public var spaceID: String = String()
 
-          public var chatObjectID: String {
-            get {return _storage._chatObjectID}
-            set {_uniqueStorage()._chatObjectID = newValue}
-          }
+          public var chatObjectID: String = String()
 
           public var message: Anytype_Model_ChatMessage {
-            get {return _storage._message ?? Anytype_Model_ChatMessage()}
-            set {_uniqueStorage()._message = newValue}
+            get {return _message ?? Anytype_Model_ChatMessage()}
+            set {_message = newValue}
           }
           /// Returns true if `message` has been explicitly set.
-          public var hasMessage: Bool {return _storage._message != nil}
+          public var hasMessage: Bool {return self._message != nil}
           /// Clears the value of `message`. Subsequent reads from it will return its default value.
-          public mutating func clearMessage() {_uniqueStorage()._message = nil}
+          public mutating func clearMessage() {self._message = nil}
 
           public var state: Anytype_Model_ChatState {
-            get {return _storage._state ?? Anytype_Model_ChatState()}
-            set {_uniqueStorage()._state = newValue}
+            get {return _state ?? Anytype_Model_ChatState()}
+            set {_state = newValue}
           }
           /// Returns true if `state` has been explicitly set.
-          public var hasState: Bool {return _storage._state != nil}
+          public var hasState: Bool {return self._state != nil}
           /// Clears the value of `state`. Subsequent reads from it will return its default value.
-          public mutating func clearState() {_uniqueStorage()._state = nil}
+          public mutating func clearState() {self._state = nil}
 
-          public var dependencies: [SwiftProtobuf.Google_Protobuf_Struct] {
-            get {return _storage._dependencies}
-            set {_uniqueStorage()._dependencies = newValue}
-          }
+          public var dependencies: [SwiftProtobuf.Google_Protobuf_Struct] = []
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
           public init() {}
 
-          fileprivate var _storage = _StorageClass.defaultInstance
+          fileprivate var _message: Anytype_Model_ChatMessage? = nil
+          fileprivate var _state: Anytype_Model_ChatState? = nil
         }
 
         public struct Error: Sendable {
@@ -249,95 +241,51 @@ extension Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.ChatPreview: Swif
   public static let protoMessageName: String = Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.protoMessageName + ".ChatPreview"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}chatObjectId\0\u{1}message\0\u{1}state\0\u{1}dependencies\0")
 
-  fileprivate class _StorageClass {
-    var _spaceID: String = String()
-    var _chatObjectID: String = String()
-    var _message: Anytype_Model_ChatMessage? = nil
-    var _state: Anytype_Model_ChatState? = nil
-    var _dependencies: [SwiftProtobuf.Google_Protobuf_Struct] = []
-
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _spaceID = source._spaceID
-      _chatObjectID = source._chatObjectID
-      _message = source._message
-      _state = source._state
-      _dependencies = source._dependencies
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularStringField(value: &_storage._spaceID) }()
-        case 2: try { try decoder.decodeSingularStringField(value: &_storage._chatObjectID) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._message) }()
-        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._state) }()
-        case 5: try { try decoder.decodeRepeatedMessageField(value: &_storage._dependencies) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._message) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._state) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.dependencies) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      if !_storage._spaceID.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._spaceID, fieldNumber: 1)
-      }
-      if !_storage._chatObjectID.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._chatObjectID, fieldNumber: 2)
-      }
-      try { if let v = _storage._message {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
-      try { if let v = _storage._state {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      } }()
-      if !_storage._dependencies.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._dependencies, fieldNumber: 5)
-      }
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
+    }
+    if !self.chatObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.chatObjectID, fieldNumber: 2)
+    }
+    try { if let v = self._message {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._state {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    if !self.dependencies.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.dependencies, fieldNumber: 5)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.ChatPreview, rhs: Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.ChatPreview) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._spaceID != rhs_storage._spaceID {return false}
-        if _storage._chatObjectID != rhs_storage._chatObjectID {return false}
-        if _storage._message != rhs_storage._message {return false}
-        if _storage._state != rhs_storage._state {return false}
-        if _storage._dependencies != rhs_storage._dependencies {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.chatObjectID != rhs.chatObjectID {return false}
+    if lhs._message != rhs._message {return false}
+    if lhs._state != rhs._state {return false}
+    if lhs.dependencies != rhs.dependencies {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
