@@ -21,10 +21,6 @@ final class SetViewPickerViewModel {
     private var dataviewService: any DataviewServiceProtocol
 
     @ObservationIgnored
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: any ObjectTypeProviderProtocol
-
-    @ObservationIgnored
     private weak var output: (any SetViewPickerCoordinatorOutput)?
     
     init(
@@ -127,15 +123,10 @@ final class SetViewPickerViewModel {
         guard let details = setDocument.details else { return }
 
         var type = DataviewViewType.list
-        let galleryTypeKeys: [ObjectTypeUniqueKey] = [.image, .video]
         if details.isObjectType {
             let objectType = ObjectType(details: details)
+            let galleryTypeKeys: [ObjectTypeUniqueKey] = [.image, .video]
             if galleryTypeKeys.contains(objectType.uniqueKey) {
-                type = .gallery
-            }
-        } else if let sourceTypeId = details.filteredSetOf.first {
-            if let sourceType = try? objectTypeProvider.objectType(id: sourceTypeId),
-               galleryTypeKeys.contains(sourceType.uniqueKey) {
                 type = .gallery
             }
         }
