@@ -3134,6 +3134,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func chatSetPinnedMessages(
+        _ request: Anytype_Rpc.Chat.SetPinnedMessages.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.SetPinnedMessages.Request, Anytype_Rpc.Chat.SetPinnedMessages.Response> {
+        return Invocation(messageName: "ChatSetPinnedMessages", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatSetPinnedMessages(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.SetPinnedMessages.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func chatGetPinnedMessages(
+        _ request: Anytype_Rpc.Chat.GetPinnedMessages.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.GetPinnedMessages.Request, Anytype_Rpc.Chat.GetPinnedMessages.Response> {
+        return Invocation(messageName: "ChatGetPinnedMessages", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatGetPinnedMessages(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.GetPinnedMessages.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func aIWritingTools(
         _ request: Anytype_Rpc.AI.WritingTools.Request = .init()
     ) -> Invocation<Anytype_Rpc.AI.WritingTools.Request, Anytype_Rpc.AI.WritingTools.Response> {
