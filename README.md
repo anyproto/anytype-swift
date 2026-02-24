@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="docs/assets/screenshots/00-hero.png" alt="Anytype — Life without the cloud" width="300">
-</p>
-
 <h1 align="center">Anytype for iOS</h1>
 
 <p align="center">
@@ -21,11 +17,12 @@
 ## Screenshots
 
 <p align="center">
-  <img src="docs/assets/screenshots/02-spaces.png" alt="Spaces" width="19%">
-  <img src="docs/assets/screenshots/03-chats.png" alt="Chats" width="19%">
-  <img src="docs/assets/screenshots/04-pages.png" alt="Pages" width="19%">
-  <img src="docs/assets/screenshots/05-lists.png" alt="Lists" width="19%">
-  <img src="docs/assets/screenshots/06-organize.png" alt="Organize" width="19%">
+  <img src="docs/assets/screenshots/00-hero.png" alt="Life without the cloud" width="16%">
+  <img src="docs/assets/screenshots/02-spaces.png" alt="Spaces" width="16%">
+  <img src="docs/assets/screenshots/03-chats.png" alt="Chats" width="16%">
+  <img src="docs/assets/screenshots/04-pages.png" alt="Pages" width="16%">
+  <img src="docs/assets/screenshots/05-lists.png" alt="Lists" width="16%">
+  <img src="docs/assets/screenshots/06-organize.png" alt="Organize" width="16%">
 </p>
 
 ## Features
