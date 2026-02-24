@@ -18,7 +18,7 @@ struct HomeWidgetsGroupView: View {
                 onTap()
             } label: {
                 Text(title)
-                    .anytypeStyle(.caption1Medium)
+                    .anytypeStyle(.uxTitle2Medium)
                 Spacer()
             }
             
@@ -31,6 +31,6 @@ struct HomeWidgetsGroupView: View {
             }
         }
         .padding(EdgeInsets(top: 22, leading: 0, bottom: 12, trailing: 0))
-        .foregroundStyle(Color.Control.transparentSecondary)
+        .foregroundStyle(Color.Text.transparentSecondary)
     }
 }

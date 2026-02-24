@@ -79,7 +79,7 @@ struct SlashMenuItemsBuilder: Sendable {
             includeLists: true,
             includeBookmarks: false,
             includeFiles: false,
-            includeChat: false,
+            includeChat: true,
             includeTemplates: false,
             incudeNotForCreation: false,
             spaceId: spaceId

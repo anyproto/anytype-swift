@@ -7,4 +7,6 @@ protocol CommonWidgetModuleOutput: AnyObject {
     func onSpaceSelected()
     func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol)
     func showDeleteSystemWidgetAlert(data: DeleteSystemWidgetConfirmationData)
+    func onSpaceChatMembersSelected(spaceId: String, route: SettingsSpaceShareRoute)
+    func onSpaceChatShowQrCodeSelected(url: URL)
 }

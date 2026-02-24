@@ -554,6 +554,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func spaceChangeOwnership(
+        _ request: Anytype_Rpc.Space.ChangeOwnership.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.ChangeOwnership.Request, Anytype_Rpc.Space.ChangeOwnership.Response> {
+        return Invocation(messageName: "SpaceChangeOwnership", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceChangeOwnership(requestData) ?? Data()
+            return try Anytype_Rpc.Space.ChangeOwnership.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func spaceDeleteCorruptedBackup(
+        _ request: Anytype_Rpc.Space.DeleteCorruptedBackup.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.DeleteCorruptedBackup.Request, Anytype_Rpc.Space.DeleteCorruptedBackup.Response> {
+        return Invocation(messageName: "SpaceDeleteCorruptedBackup", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceDeleteCorruptedBackup(requestData) ?? Data()
+            return try Anytype_Rpc.Space.DeleteCorruptedBackup.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func publishingCreate(
         _ request: Anytype_Rpc.Publishing.Create.Request = .init()
     ) -> Invocation<Anytype_Rpc.Publishing.Create.Request, Anytype_Rpc.Publishing.Create.Response> {
@@ -1461,6 +1481,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceFileCacheCancelDownload(requestData) ?? Data()
             return try Anytype_Rpc.File.CacheCancelDownload.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func fileAutoDownloadSetLimit(
+        _ request: Anytype_Rpc.File.AutoDownloadSetLimit.Request = .init()
+    ) -> Invocation<Anytype_Rpc.File.AutoDownloadSetLimit.Request, Anytype_Rpc.File.AutoDownloadSetLimit.Response> {
+        return Invocation(messageName: "FileAutoDownloadSetLimit", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceFileAutoDownloadSetLimit(requestData) ?? Data()
+            return try Anytype_Rpc.File.AutoDownloadSetLimit.Response(serializedBytes: responseData)
         }
     }
 
@@ -2874,6 +2904,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func membershipV2SubscribeToUpdates(
+        _ request: Anytype_Rpc.MembershipV2.SubscribeToUpdates.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.SubscribeToUpdates.Request, Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response> {
+        return Invocation(messageName: "MembershipV2SubscribeToUpdates", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2SubscribeToUpdates(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func nameServiceUserAccountGet(
         _ request:  Anytype_Rpc.NameService.UserAccount.Get.Request = .init()
     ) -> Invocation< Anytype_Rpc.NameService.UserAccount.Get.Request, Anytype_Rpc.NameService.UserAccount.Get.Response> {
@@ -3081,6 +3121,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatReadAll(requestData) ?? Data()
             return try Anytype_Rpc.Chat.ReadAll.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func chatSearch(
+        _ request: Anytype_Rpc.Chat.Search.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.Search.Request, Anytype_Rpc.Chat.Search.Response> {
+        return Invocation(messageName: "ChatSearch", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatSearch(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.Search.Response(serializedBytes: responseData)
         }
     }
 

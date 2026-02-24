@@ -11,13 +11,13 @@ public struct DragIndicator: View {
             Spacer.fixedHeight(6)
         }
     }
-    
+
     private var content: some View {
         HStack {
             Spacer()
-            RoundedRectangle(cornerRadius: 6)
-                .fill(Color.Shape.primary)
-                .frame(width: 48, height: 4)
+            RoundedRectangle(cornerRadius: 3)
+                .fill(Color.Shape.transparentPrimary)
+                .frame(width: 36, height: 5)
             Spacer()
         }
     }

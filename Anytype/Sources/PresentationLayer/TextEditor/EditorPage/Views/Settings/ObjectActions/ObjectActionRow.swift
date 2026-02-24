@@ -52,7 +52,7 @@ extension ObjectAction {
         case .undoRedo:
             return Loc.undoRedo
         case let .archive(isArchived):
-            return isArchived ? Loc.restore : Loc.toBin
+            return isArchived ? Loc.restore : Loc.delete
         case let .pin(isPinned):
             return isPinned ? Loc.unpin : Loc.pin
         case let .locked(isLocked):
@@ -68,7 +68,11 @@ extension ObjectAction {
         case .delete:
             return Loc.delete
         case .copyLink:
-            return Loc.copyLink
+            return Loc.copyInviteLink
+        case .inviteMembers:
+            return Loc.Chat.inviteMembers
+        case .editInfo:
+            return Loc.editInfo
         }
     }
 
@@ -94,6 +98,27 @@ extension ObjectAction {
             return .X32.delete
         case .copyLink:
             return .X32.copy
+        case .inviteMembers:
+            return .X32.Island.addMember
+        case .editInfo:
+            return .X32.edit
+        }
+    }
+
+    var menuIcon: MenuIcon {
+        switch self {
+        case .editInfo:
+            return .system("pencil")
+        case .pin(false):
+            return .system("pin")
+        case .pin(true):
+            return .system("pin.slash")
+        case .copyLink:
+            return .system("link")
+        case .archive(false):
+            return .system("trash")
+        default:
+            return .asset(imageAsset)
         }
     }
 }

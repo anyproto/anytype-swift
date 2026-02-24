@@ -25,30 +25,7 @@
       "Bash(gh pr list:*)",
       "Bash(gh pr diff:*)",
 
-      "mcp__linear-server__list_teams",
-      "mcp__linear-server__get_issue",
-      "mcp__linear-server__list_comments",
-      "mcp__linear-server__create_comment",
-      "mcp__linear-server__list_cycles",
-      "mcp__linear-server__list_issues",
-      "mcp__linear-server__create_issue",
-      "mcp__linear-server__update_issue",
-      "mcp__linear-server__list_documents",
-      "mcp__linear-server__get_document",
-      "mcp__linear-server__create_document",
-      "mcp__linear-server__update_document",
-      "mcp__linear-server__list_projects",
-      "mcp__linear-server__get_project",
-      "mcp__linear-server__create_project",
-      "mcp__linear-server__update_project",
-      "mcp__linear-server__list_users",
-      "mcp__linear-server__get_user",
-      "mcp__linear-server__list_issue_statuses",
-      "mcp__linear-server__get_issue_status",
-      "mcp__linear-server__list_issue_labels",
-      "mcp__linear-server__create_issue_label",
-      "mcp__linear-server__get_team",
-      "mcp__linear-server__search_documentation",
+      "Bash(linctl:*)",
 
       "SlashCommand(/codeReview)",
 
@@ -74,11 +51,24 @@
     ],
     "deny": []
   },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "Linear"
-  ],
+  "enabledMcpjsonServers": [],
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/branch-protection-pre-edit.sh"
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [
@@ -118,13 +108,15 @@
             "command": ".claude/hooks/notification-alert.sh"
           }
         ]
-      },
+      }
+    ],
+    "Stop": [
       {
-        "matcher": "idle_prompt",
         "hooks": [
           {
-            "type": "command",
-            "command": ".claude/hooks/notification-alert.sh"
+            "type": "prompt",
+            "prompt": "Evaluate if Claude should stop. Context: $ARGUMENTS\n\nCheck if:\n1. All requested tasks are complete\n2. No test failures mentioned\n3. No TODO items left\n4. User wasn't asking for more\n\nRespond with {\"ok\": true} or {\"ok\": false, \"reason\": \"...\"}",
+            "timeout": 30
           }
         ]
       }

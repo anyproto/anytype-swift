@@ -57,6 +57,12 @@ extension Anytype_Rpc.File {
         /// if set, reuse already preloaded file with this id. May block if async preload operation is not finished yet
         public var preloadFileID: String = String()
 
+        /// Object ID where the file was initially created
+        public var createdInContext: String = String()
+
+        /// Block ID where the file was initially created
+        public var createdInContextRef: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -177,7 +183,7 @@ extension Anytype_Rpc.File.Upload: SwiftProtobuf.Message, SwiftProtobuf._Message
 
 extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.File.Upload.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}url\0\u{1}localPath\0\u{1}type\0\u{1}disableEncryption\0\u{1}style\0\u{1}spaceId\0\u{1}details\0\u{1}origin\0\u{1}imageKind\0\u{1}preloadOnly\0\u{1}preloadFileId\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}url\0\u{1}localPath\0\u{1}type\0\u{1}disableEncryption\0\u{1}style\0\u{1}spaceId\0\u{1}details\0\u{1}origin\0\u{1}imageKind\0\u{1}preloadOnly\0\u{1}preloadFileId\0\u{1}createdInContext\0\u{1}createdInContextRef\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -196,6 +202,8 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
       case 9: try { try decoder.decodeSingularEnumField(value: &self.imageKind) }()
       case 10: try { try decoder.decodeSingularBoolField(value: &self.preloadOnly) }()
       case 11: try { try decoder.decodeSingularStringField(value: &self.preloadFileID) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self.createdInContext) }()
+      case 13: try { try decoder.decodeSingularStringField(value: &self.createdInContextRef) }()
       default: break
       }
     }
@@ -239,6 +247,12 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if !self.preloadFileID.isEmpty {
       try visitor.visitSingularStringField(value: self.preloadFileID, fieldNumber: 11)
     }
+    if !self.createdInContext.isEmpty {
+      try visitor.visitSingularStringField(value: self.createdInContext, fieldNumber: 12)
+    }
+    if !self.createdInContextRef.isEmpty {
+      try visitor.visitSingularStringField(value: self.createdInContextRef, fieldNumber: 13)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -254,6 +268,8 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs.imageKind != rhs.imageKind {return false}
     if lhs.preloadOnly != rhs.preloadOnly {return false}
     if lhs.preloadFileID != rhs.preloadFileID {return false}
+    if lhs.createdInContext != rhs.createdInContext {return false}
+    if lhs.createdInContextRef != rhs.createdInContextRef {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

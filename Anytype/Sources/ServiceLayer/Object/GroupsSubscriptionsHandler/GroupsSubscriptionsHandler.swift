@@ -37,6 +37,7 @@ actor GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
         subscribers[data.identifier] = Subscriber(data: data, callback: update)
         
         return try await groupsSubscribeService.startSubscription(
+            spaceId: data.spaceId,
             id: data.identifier,
             relationKey: data.relationKey,
             filters: data.filters,

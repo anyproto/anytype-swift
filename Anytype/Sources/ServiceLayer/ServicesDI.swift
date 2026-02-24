@@ -95,6 +95,10 @@ extension Container {
     var recentSubscriptionService: Factory<any RecentSubscriptionServiceProtocol> {
         self { RecentSubscriptionService() }
     }
+
+    var objectTypesWithObjectsCreatedService: Factory<any ObjectTypesWithObjectsCreatedServiceProtocol> {
+        self { ObjectTypesWithObjectsCreatedService() }
+    }
     
     var binSubscriptionService: Factory<any BinSubscriptionServiceProtocol> {
         self { BinSubscriptionService() }
@@ -315,6 +319,10 @@ extension Container {
     var chatActionService: Factory<any ChatActionServiceProtocol> {
         self { ChatActionService() }
     }
+
+    var shareSuggestionService: Factory<any ShareSuggestionServiceProtocol> {
+        self { ShareSuggestionService() }
+    }
     
     var appVersionTracker: Factory<any AppVersionTrackerProtocol> {
         self { AppVersionTracker() }.shared
@@ -398,5 +406,9 @@ extension Container {
     
     var experimentalFeaturesStorage: Factory<any ExperimentalFeaturesStorageProtocol> {
         self { ExperimentalFeaturesStorage() }.shared
+    }
+
+    var mediaCacheHeatingService: Factory<any MediaCacheHeatingServiceProtocol> {
+        self { MediaCacheHeatingService() }
     }
 }

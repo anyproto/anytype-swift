@@ -16,6 +16,12 @@
             "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -464,6 +470,12 @@
             "value" : "I am new here"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "I am new here"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -613,6 +625,12 @@
             "value" : "Калі ласка, дазвольце доступ"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Please allow access"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -757,6 +775,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "We’d love to share tips, tricks and product updates with you. Your email is never linked to your identity. We won’t share your data. Ever."
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "We’d love to share tips, tricks and product updates with you. Your email is never linked to your identity. We won’t share your data. Ever."
@@ -911,6 +935,12 @@
             "value" : "Incorrect email"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Incorrect email"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -1055,6 +1085,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Enter your email"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Enter your email"
@@ -1209,6 +1245,12 @@
             "value" : "Stay in the loop"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Stay in the loop"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -1358,6 +1400,12 @@
             "value" : "Капіяваць у буфер абмену"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy to clipboard"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -1502,6 +1550,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Read more"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Read more"
@@ -1656,6 +1710,12 @@
             "value" : "Не зараз"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Not now"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -1805,6 +1865,12 @@
             "value" : "Далей"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Next"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -1949,6 +2015,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reveal and copy"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Reveal and copy"
@@ -2103,6 +2175,12 @@
             "value" : "It replaces login and password. Keep it safe — you control your data. You can find this Key later in app settings."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It replaces login and password. Keep it safe — you control your data. You can find this Key later in app settings."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -2252,6 +2330,12 @@
             "value" : "Фраза аднаўлення - 12 выпадковых слоў, з якіх магічным чынам ствараецца ваша Сховішча на гэтай прыладзе."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your key is represented by a recovery phrase — 12 random words that generate your vault on this device."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -2396,6 +2480,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It’s your login and password"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It’s your login and password"
@@ -2550,6 +2640,12 @@
             "value" : "Той, хто ведае камбінацыю гэтых слоў, валодае вашым сховішчам. **На дадзены момант вы адзіны чалавек у свеце, які ведае гэта.**"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Anyone who knows these words can access your vault. Right now, you are the only person in the world who knows them."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -2694,6 +2790,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Whoever has the key, has access"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Whoever has the key, has access"
@@ -2848,6 +2950,12 @@
             "value" : "Усіх вылічальных рэсурсаў на Зямлі недастаткова для ўзлому. Калі вы страціце яго, яго нельга будзе аднавіць. Такім чынам, захоўвайце яго ў бяспечным месцы!"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "All computational resources on Earth are not enough to break in. If you lose your key, it cannot be recovered. Store it somewhere safe — in a password manager or written down on paper."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -2992,6 +3100,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Only you responsible for it"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Only you responsible for it"
@@ -3146,6 +3260,12 @@
             "value" : "Што такое URL?"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "How the Key works?"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -3296,6 +3416,12 @@
             "value" : "Гэта ваш Ключ"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your Key"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -3440,6 +3566,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select one role or background that best fits you"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Select one role or background that best fits you"
@@ -3594,6 +3726,12 @@
             "value" : "Tell Us About Yourself"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tell Us About Yourself"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -3738,6 +3876,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Artist / Content Creator"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Artist / Content Creator"
@@ -3892,6 +4036,12 @@
             "value" : "Consultant"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Consultant"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -4036,6 +4186,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Designer"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Designer"
@@ -4190,6 +4346,12 @@
             "value" : "Software Developer"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Software Developer"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -4334,6 +4496,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Founder / Entrepreneur"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Founder / Entrepreneur"
@@ -4488,6 +4656,12 @@
             "value" : "Manager / IT Professional"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manager / IT Professional"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -4632,6 +4806,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Marketer"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Marketer"
@@ -4786,6 +4966,12 @@
             "value" : "Researcher / Academic"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Researcher / Academic"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -4930,6 +5116,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Student"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Student"
@@ -5084,6 +5276,12 @@
             "value" : "Writer / Journalist"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Writer / Journalist"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -5228,6 +5426,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Habit tracking"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Habit tracking"
@@ -5382,6 +5586,12 @@
             "value" : "Personal knowledge base / PKM"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Personal knowledge base / PKM"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -5526,6 +5736,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Life planning"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Life planning"
@@ -5680,6 +5896,12 @@
             "value" : "Messaging & group chats"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messaging & group chats"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -5824,6 +6046,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Personal note-taking"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal note-taking"
@@ -5978,6 +6206,12 @@
             "value" : "Projects & tasks management"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Projects & tasks management"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -6122,6 +6356,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Team work & shared docs"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Team work & shared docs"
@@ -6723,6 +6963,12 @@
             "value" : "Pick one use case that fits you best"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pick one use case that fits you best"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -6867,6 +7113,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "What do you want to use Anytype for?"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "What do you want to use Anytype for?"
@@ -7021,6 +7273,12 @@
             "value" : "I already have the key"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "I already have a key"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -7165,6 +7423,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "or enter with"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "or enter with"
@@ -7617,6 +7881,12 @@
             "value" : "АБО"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OR"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -7764,6 +8034,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Увядзіце ключ"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Enter your key"
           }
         },
         "de" : {
@@ -7916,6 +8192,12 @@
             "value" : "Выкарыстоўваць звязку ключоў"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Use keychain"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -8065,6 +8347,12 @@
             "value" : "Далей"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Next"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -8209,6 +8497,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Encrypted, local,"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Encrypted, local,"
@@ -8363,6 +8657,12 @@
             "value" : "yours forever"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "yours forever"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -8510,6 +8810,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Працягнуць з бягучым сховішчам"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Continue with current vault"
           }
         },
         "de" : {
@@ -8661,6 +8967,12 @@
             "value" : "Выйсці з бягучага сховішча"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Logout from current vault"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -8808,6 +9120,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Вы запускаеце праграму з нестабільным прамежкавым праграмным забеспячэннем. Не выкарыстоўвайце сваё вытворчае сховішча. Ваша сховішча можа быць зламана."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken."
           }
         },
         "de" : {
@@ -8960,6 +9278,12 @@
             "value" : "Папярэджанне"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Warning"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -9107,6 +9431,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Я не буду выкарыстоўваць сваё вытворчае сховішча"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "I won't be using my production vault"
           }
         },
         "de" : {
@@ -9258,6 +9588,12 @@
             "value" : "Памылка пераўтварэння даных у радок"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Data to String conversion error"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -9405,6 +9741,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Памылка пераўтварэння радка ў даныя"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "String to Data conversion error"
           }
         },
         "de" : {
@@ -9556,6 +9898,12 @@
             "value" : "Невядомая памылка звязкі ключоў"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unknown Keychain Error"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -9703,6 +10051,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Вы стварылі рэзервовую копію свайго ключа?"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Have you backed up your key?"
           }
         },
         "de" : {
@@ -9855,6 +10209,12 @@
             "value" : "Ключ"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Key"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -10002,6 +10362,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Ключ скапіраваны"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Key copied"
           }
         },
         "de" : {
@@ -10153,6 +10519,12 @@
             "value" : "Ён спатрэбіцца вам для ўваходу ў сховішча. Захоўвайце яго ў надзейным месцы. Калі вы страціце яго, вы больш не зможаце ўвайсці ў сховішча."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -10297,6 +10669,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair"
@@ -10451,6 +10829,12 @@
             "value" : "Паказаць і скапіяваць ключ"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show and copy key"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -10595,6 +10979,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Login Key"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Login Key"
@@ -10749,6 +11139,12 @@
             "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Please clear approximately %@ of space and run the process again."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -10893,6 +11289,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Not enough space"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Not enough space"
@@ -11047,6 +11449,12 @@
             "value" : "Read More"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Read More"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -11191,6 +11599,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Start Update"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Start Update"
@@ -11345,6 +11759,12 @@
             "value" : "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience. It might take a little while, but don't worry, your data is safe."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -11490,6 +11910,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New Version Update"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "New Version Update"
@@ -11644,6 +12070,12 @@
             "value" : "This may take some time. Please don’t close the app until the process is complete."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This may take some time. Please don’t close the app until the process is complete."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -11788,6 +12220,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Update is in progress..."
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Update is in progress..."
@@ -11942,6 +12380,12 @@
             "value" : "You'll see a loading screen during the update. Once finished, you can continue using the app normally."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You'll see a loading screen during the update. Once finished, you can continue using the app normally."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -12086,6 +12530,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format."
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format."
@@ -12240,6 +12690,12 @@
             "value" : "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -12384,6 +12840,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "What to Expect"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "What to Expect"
@@ -12538,6 +13000,12 @@
             "value" : "Your Data Remains Safe"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your Data Remains Safe"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -12685,6 +13153,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Мы не змаглі атрымаць даныя з вашага сховішча, паколькі ваша версія састарэлая. Калі ласка, абнавіце Anytype да апошняй версіі."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version."
           }
         },
         "de" : {

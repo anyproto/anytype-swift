@@ -111,10 +111,12 @@ platform :ios do
     # Helper lambda to find the last tag from the previous version
     find_previous_version_tag = lambda do
       version_parts = version.split('.')
-      major_minor = "#{version_parts[0]}.#{version_parts[1]}"
+      major = version_parts[0].to_i
+      minor = version_parts[1].to_i
       current_patch = version_parts[2].to_i
+      major_minor = "#{major}.#{minor}"
 
-      # Get all tags for the current major.minor (e.g., all 0.41.x tags), sorted by version
+      # First, try to find tags within the same major.minor (e.g., all 0.45.x tags)
       all_version_tags = sh("git tag -l '#{prefix}/#{major_minor}.*/*' | sort -V").split("\n")
 
       # Find tags for versions less than current patch, take the last one
@@ -123,7 +125,26 @@ platform :ios do
         tag_patch && tag_patch[1].to_i < current_patch
       end
 
-      previous_version_tags.last || tag_name
+      if previous_version_tags.any?
+        return previous_version_tags.last
+      end
+
+      # No previous patch found - try previous minor version
+      # For 0.45.0, look for 0.44.x; for 1.0.0, look for 0.x.x
+      if minor > 0
+        prev_minor = minor - 1
+        prev_major_minor = "#{major}.#{prev_minor}"
+        prev_minor_tags = sh("git tag -l '#{prefix}/#{prev_major_minor}.*/*' | sort -V").split("\n")
+        return prev_minor_tags.last if prev_minor_tags.any?
+      elsif major > 0
+        # For x.0.0, look for previous major (e.g., 1.0.0 -> find last 0.x.x)
+        prev_major = major - 1
+        prev_major_tags = sh("git tag -l '#{prefix}/#{prev_major}.*/*' | sort -V").split("\n")
+        return prev_major_tags.last if prev_major_tags.any?
+      end
+
+      # Ultimate fallback: no previous version found
+      tag_name
     end
 
     if build_number.to_i > 1

@@ -15,7 +15,7 @@ extension ObjectMenuSectionType {
             return .horizontal
         case .description:
             return .descriptionSection
-        case .resolveConflict, .webPublishing:
+        case .resolveConflict, .webPublishing, .notifications:
             return .mainSettings
         case .history:
             return .moreCollapsible
@@ -24,9 +24,11 @@ extension ObjectMenuSectionType {
 
     static func section(for action: ObjectAction, isChat: Bool) -> ObjectMenuSectionType {
         switch action {
+        case .editInfo:
+            return .horizontal
         case .pin:
             return isChat ? .horizontal : .mainSettings
-        case .undoRedo, .copyLink:
+        case .undoRedo, .copyLink, .inviteMembers:
             return .mainSettings
         case .linkItself, .locked, .makeAsTemplate:
             return .moreCollapsible

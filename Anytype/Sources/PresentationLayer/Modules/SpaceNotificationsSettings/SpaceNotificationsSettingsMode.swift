@@ -1,58 +1,33 @@
 import Services
 
-enum SpaceNotificationsSettingsMode: CaseIterable {
-    case allActiviy
-    case mentions
-    case disabled
-    
+extension SpacePushNotificationsMode {
+
+    static var displayModes: [SpacePushNotificationsMode] {
+        [.all, .mentions, .nothing]
+    }
+
     var title: String {
         switch self {
-        case .allActiviy:
-            return Loc.Space.Notifications.Settings.State.all
-        case .mentions:
-            return Loc.Space.Notifications.Settings.State.mentions
-        case .disabled:
-            return Loc.Space.Notifications.Settings.State.disabled
+        case .all: return Loc.Space.Notifications.Settings.State.all
+        case .mentions: return Loc.Space.Notifications.Settings.State.mentions
+        case .nothing, .UNRECOGNIZED: return Loc.Space.Notifications.Settings.State.disabled
         }
     }
-    
+
     var titleShort: String {
         switch self {
-        case .allActiviy:
-            return Loc.all
-        case .mentions:
-            return Loc.mentions
-        case .disabled:
-            return Loc.disabled
+        case .all: return Loc.all
+        case .mentions: return Loc.mentions
+        case .nothing, .UNRECOGNIZED: return Loc.disabled
         }
     }
-    
+
     var isEnabled: Bool {
-        self != .disabled
+        self != .nothing
     }
-    
+
     var isLast: Bool {
-        self == SpaceNotificationsSettingsMode.allCases.last
-    }
-}
-
-extension SpaceNotificationsSettingsMode {
-    var asPushNotificationsMode: SpacePushNotificationsMode {
-        switch self {
-        case .allActiviy: return .all
-        case .mentions: return .mentions
-        case .disabled: return .nothing
-        }
-    }
-}
-
-extension SpacePushNotificationsMode {
-    var asNotificationsSettingsMode: SpaceNotificationsSettingsMode {
-        switch self {
-        case .all: return .allActiviy
-        case .mentions: return .mentions
-        case .nothing, .UNRECOGNIZED(_): return .disabled
-        }
+        self == Self.displayModes.last
     }
 
     var isUnmutedAll: Bool {

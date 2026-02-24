@@ -10,7 +10,6 @@ struct ObjectPermissions: Equatable {
     var canDuplicate: Bool = false
     var canUndoRedo: Bool = false
     var canMakeAsTemplate: Bool = false
-    var canCreateWidget: Bool = false
     var canFavorite: Bool = false
     var canLinkItself: Bool = false
     var canLock: Bool = false
@@ -24,11 +23,11 @@ struct ObjectPermissions: Equatable {
     var canPublish: Bool = false
     var canEditBlocks: Bool = false
     var canEditMessages: Bool = false
-    var canShowVersionHistory: Bool = false
     var canRestoreVersionHistory: Bool = false
     var canEditDetails: Bool = false
     var canShowRelations: Bool = false
     var canToggleDescription: Bool = false
+    var canApplyUneditableActions: Bool = false
     var editBlocks: EditBlocksPermission = .readonly(.restrictions)
 }
 
@@ -46,11 +45,11 @@ extension ObjectPermissions {
         
         let canEditRelations = !isLocked && !isArchive && participantCanEdit && !isVersionMode
         let canEdit = canEditRelations && !details.resolvedLayoutValue.isFileOrMedia
-        let canApplyUneditableActions = participantCanEdit && !isArchive
         
         let isChat = details.resolvedLayoutValue.isChat
         let specificTypes = !details.resolvedLayoutValue.isList && !details.resolvedLayoutValue.isParticipant && !isChat && !isObjectType
         
+        self.canApplyUneditableActions = participantCanEdit && !isArchive
         self.canChangeType = !objectRestrictions.contains(.typeChange) && canEdit && !isTemplate
         self.canDelete = isArchive && participantCanEdit
         self.canRestore = canDelete
@@ -63,12 +62,7 @@ extension ObjectPermissions {
         self.canMakeAsTemplate = details.canMakeTemplate
                                 && !objectRestrictions.contains(.template)
                                 && canApplyUneditableActions
-        
-        self.canCreateWidget = details.isVisibleLayout
-                                && !isTemplate
-                                && details.resolvedLayoutValue != .participant
-                                && canApplyUneditableActions
-        
+
         self.canFavorite = canApplyUneditableActions && !isTemplate && !isObjectType
         self.canLinkItself = canApplyUneditableActions && !isTemplate && !isObjectType && !isChat
         self.canLock = specificTypes && canApplyUneditableActions && !isTemplate
@@ -97,11 +91,6 @@ extension ObjectPermissions {
         }
         
         self.canEditBlocks = editBlocks.canEdit
-        self.canShowVersionHistory = details.isVisibleLayout
-                                    && details.resolvedLayoutValue != .participant
-                                    && !isChat
-                                    && !details.templateIsBundled
-                                    && !isObjectType
         self.canRestoreVersionHistory = !isLocked && !isArchive && participantCanEdit
         self.canToggleDescription = !isChat
     }

@@ -118,7 +118,8 @@ final class SpaceHubViewModel {
         )
         AnytypeAnalytics.instance().logChangeMessageNotificationState(
             type: data.mode.analyticsValue,
-            route: .vault
+            route: .vault,
+            uxType: .space
         )
         spaceMuteData = nil
     }

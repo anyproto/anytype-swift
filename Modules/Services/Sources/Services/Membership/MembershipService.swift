@@ -75,9 +75,10 @@ final class MembershipService: MembershipServiceProtocol {
     }
     
     public func getVerificationEmailOnOnboarding(email: String) async throws {
-        try await ClientCommands.membershipGetVerificationEmail(.with {
+        try await ClientCommands.membershipV2SubscribeToUpdates(.with {
             $0.email = email
-            $0.isOnboardingList = true
+            $0.platform = .mobileIos
+            $0.subscribe = true
         }).invoke(ignoreLogErrors: .canNotConnect)
     }
     

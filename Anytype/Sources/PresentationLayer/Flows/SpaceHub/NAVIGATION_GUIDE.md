@@ -154,7 +154,7 @@ private func homeObjectScreenData(spaceId: String) async -> AnyHashable
 // Shows any screen, handling space changes and path updates
 private func showScreen(data: ScreenData) async throws
 
-// Called on every path change - persists last screen
+// Called on every path change - clears active space when returning to hub
 func onPathChange()
 ```
 
@@ -245,22 +245,6 @@ enum ScreenData: Hashable, Identifiable, Sendable {
 }
 ```
 
-### LastOpenedScreen Enum
-**File**: `Anytype/Sources/Utilities/UserDefaults/UserDefaultsStorage.swift`
-
-Persisted to UserDefaults for app restart restoration.
-
-```swift
-enum LastOpenedScreen: Codable {
-    case editor(EditorScreenData)
-    case widgets(spaceId: String)
-    case chat(ChatCoordinatorData)
-    case spaceChat(SpaceChatCoordinatorData)
-
-    var spaceId: String
-}
-```
-
 ---
 
 ## Navigation Flows
@@ -270,13 +254,8 @@ enum LastOpenedScreen: Codable {
 ```
 1. SpaceHubCoordinatorView appears
 2. .taskWithMemoryScope { await model.setup() }
-3. setup() → setupInitialScreen()
-4. Check userDefaults.lastOpenedScreen:
-   - .editor(data) → showScreen(.editor(data))
-   - .widgets(spaceId) → showScreen(.widget(HomeWidgetData(spaceId)))
-   - .chat(data) → showScreen(.chat(data))
-   - .spaceChat(data) → showScreen(.spaceChat(data))
-   - nil → Stay on SpaceHub (path = [SpaceHubNavigationItem])
+3. setup() → handleVersionAlerts() → startSubscriptions()
+4. App always starts on SpaceHub (Vault) — path = [SpaceHubNavigationItem]
 ```
 
 ### B. Opening a Space (User taps space in grid)
@@ -335,18 +314,11 @@ enum LastOpenedScreen: Codable {
    - Not animated if middle items changed
 ```
 
-### E. Path Change Persistence (onPathChange)
+### E. Path Change Handling (onPathChange)
 
 ```
 1. Called via .onChange(of: model.navigationPath)
-2. Check lastPathElement type:
-   - EditorScreenData → lastOpenedScreen = .editor(data)
-   - HomeWidgetData → lastOpenedScreen = .widgets(spaceId)
-   - ChatCoordinatorData → lastOpenedScreen = .chat(data)
-   - SpaceChatCoordinatorData → lastOpenedScreen = .spaceChat(data)
-   - Other → lastOpenedScreen = nil
-
-3. If path.count == 1 (only SpaceHub):
+2. If path.count == 1 (only SpaceHub):
    - currentSpaceId = nil
    - activeSpaceManager.setActiveSpace(nil)
 ```
@@ -363,7 +335,7 @@ enum LastOpenedScreen: Codable {
 | `AnytypeNavigationView.swift` | SwiftUI → UIKit bridge via UIViewControllerRepresentable |
 | `AnytypeDestinationBuilderHolder.swift` | Type → View builder registry using reflection |
 | `ScreenData.swift` | High-level screen enum for navigation requests |
-| `UserDefaultsStorage.swift` | LastOpenedScreen + homeObjectId persistence |
+| `UserDefaultsStorage.swift` | homeObjectId persistence |
 | `HomePagePickerView.swift` | UI for selecting custom home screen per space |
 | `HomePagePickerViewModel.swift` | Home screen selection logic |
 

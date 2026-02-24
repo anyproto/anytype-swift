@@ -77,11 +77,12 @@ struct SetFiltersListView: View {
     
     private var filtersList: some View {
         List {
-            ForEach(viewModel.rows) {
-                row(with: $0)
+            ForEach(viewModel.rows) { rowConfig in
+                row(with: rowConfig)
                     .divider(leadingPadding: 60)
                     .listRowSeparator(.hidden)
                     .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
+                    .deleteDisabled(rowConfig.isAdvanced)
             }
             .onDelete {
                 viewModel.delete($0)

@@ -1,32 +1,49 @@
 USE EXTENDED THINKING
 
-# Linear Context Gathering for iOS Release (View-Based Approach)
+# Linear Context Gathering for iOS Release (Task Hierarchy Approach)
 
 ## Purpose
-This document guides the process of gathering comprehensive context from Linear for iOS release impact analysis and changelog generation, using a pre-configured Linear view to simplify project discovery.
+This document guides the process of gathering comprehensive context from Linear for iOS release impact analysis and changelog generation, using a hierarchical task structure.
 
-**CRITICAL: Use ONLY Linear MCP tools (`mcp__linear-server__*`). DO NOT use git, bash, or GitHub CLI commands. All information comes from Linear API.**
+**CRITICAL: Use `linctl` CLI for all Linear operations. See `.claude/skills/linear-developer/SKILL.md` for command reference.**
+
+**Reference Repository**: https://github.com/dorkitude/linctl
+
+## Task Hierarchy Structure
+Releases are organized as a parent task with nested subtasks:
+
+```
+Release Task (IOS-XXXX)
+├── Standalone Tasks (direct subtasks)
+│   ├── IOS-YYYY: Bump app version
+│   ├── IOS-ZZZZ: Enable Feature Toggles
+│   └── IOS-AAAA: Release notes
+└── Epics (subtasks with "[epic]" in title)
+    ├── [epic] Release X | iOS | Platform
+    │   ├── IOS-BBBB: Task 1
+    │   └── IOS-CCCC: Task 2
+    ├── [epic] Release X | iOS | New Navigation
+    │   └── IOS-DDDD: Task 3
+    └── [epic] Release X | iOS | Basic quality
+        └── IOS-EEEE: Task 4
+```
 
 ## Process
 
-### Step 1: Get Release Information
+### Step 1: Get Release Task ID
 Ask the user:
-- "What is the release task id"
-- "What is the Linear view URL/name for the release projects?"
-- Example responses: 
-  - Release ID: "IOS-4626"
-  - View: "Release 12 iOS Projects" or direct view URL
+- "What is the release task ID?"
+- Example: "IOS-5467"
 
-### Step 2: Get Projects from Linear View (SYSTEMATIC APPROACH)
-1. **Look at the Linear view screenshot/URL provided**
-2. **List every single project name visible in the view systematically**
-3. **Use `mcp__linear-server__get_project` for each project name to get full details**
-4. **Capture project descriptions, status, priority, and completion % for each**
-5. **Capture the Linear URL for each project/epic in the view**
-6. **Count total projects to validate completeness** - ensure no projects are missed
+### Step 2: Fetch Release Task and Build Hierarchy
+1. **Get the release task**: `linctl issue get IOS-XXXX --json`
+2. **Get all level-1 subtasks**: `linctl issue list --parent-id <uuid> --json --include-completed`
+3. **Identify epics**: Subtasks with `[epic]` in the title contain nested work
+4. **Get level-2 subtasks**: For each epic: `linctl issue list --parent-id <epic-uuid> --json --include-completed`
+5. **Count total tasks** to validate completeness
 
 ### Step 3: Detailed Information Gathering with Links
-For EACH project/epic from the view:
+For EACH task in the hierarchy:
 
 #### A. Basic Information with URLs
 - Issue ID and Title
@@ -63,12 +80,28 @@ For EACH project/epic from the view:
 - Backward compatibility concerns
 - Testing coverage needs (with test plan links if available)
 
-#### E. Sub-task Analysis with Full Hierarchy
-For each project/epic, find and analyze ALL sub-tasks:
-- Use parentId search to find direct children
+#### E. Sub-task Analysis with Full Hierarchy (RECURSIVE)
+The hierarchy is built in Step 2, but **check ALL levels recursively**:
+- Level 0: Release task
+- Level 1: Direct subtasks (standalone tasks + umbrella groups)
+- Level 2: Subtasks of umbrella groups (implementation tasks)
+- **Level 3+: Check if ANY task has its own subtasks**
+
+**CRITICAL**: Non-epic umbrella tasks (like "leftovers", "polish", "multi-chat") often contain important feature subtasks. Always recurse into them.
+
+**Example of missed hierarchy**:
+```
+Release Task (fetched ✓)
+├── Platform (subtasks fetched ✓)
+├── Navigation (subtasks fetched ✓)
+├── Multi chats leftovers (HAS subtasks but wasn't recursed!)
+│   ├── IOS-5337 Settings menu for chat ← MISSED!
+│   ├── IOS-5556 Unread section ← MISSED!
+│   └── IOS-5330 Chat creation ← MISSED!
+```
+
 - **Capture full parent-child URL relationships**
-- Look for related implementation tasks
-- **Create a URL hierarchy map**
+- **Create a URL hierarchy map showing full depth**
 
 ### Step 4: Cross-Platform Context with Links
 - Find related Desktop/Web releases (with Linear URLs)
@@ -77,40 +110,41 @@ For each project/epic, find and analyze ALL sub-tasks:
 - **Link to cross-platform coordination issues**
 
 ### Step 5: Extract Linear Issue IDs for Changelog
-**CRITICAL**: For changelog generation, we need Linear ISSUE IDs (IOS-XXXX format), not project hash IDs.
+**CRITICAL**: All tasks in the hierarchy already have Linear ISSUE IDs (IOS-XXXX format).
 
 ### ID Format Distinction
-1. **Project IDs** (hash format like `9f4625be498e`):
-   - Used internally by Linear for project URLs
-   - Good for reference and URLs
+1. **Issue UUIDs** (hash format like `cab796c7-b58d-4876-b1a4-cc9f39da1431`):
+   - Used internally by Linear API for parentId queries
+   - Required for `list_issues` parentId parameter
    - **DO NOT use these in changelogs**
 
-2. **Issue IDs** (format like `IOS-4913`, `IOS-5149`):
-   - Human-readable task/story identifiers
-   - Found in Linear sub-tasks of projects
-   - Found in Linear issue attachments (PR references)
+2. **Issue Identifiers** (format like `IOS-5467`, `IOS-5474`):
+   - Human-readable task identifiers (the `identifier` field)
+   - Present on ALL tasks including release tasks and epics
    - **USE THESE in changelogs and impact reports**
 
-### How to Extract Issue IDs (Using ONLY Linear MCP Tools)
-**CRITICAL: DO NOT use git commands. All data comes from Linear MCP tools.**
+### How to Extract Issue IDs
+**The task hierarchy approach automatically captures all issue IDs:**
 
-For each project in the view:
-1. **Check sub-tasks** - Use `mcp__linear-server__list_issues` with project filter to find all issues. Each sub-task has an issue ID (IOS-XXXX)
-2. **Look at project description** - Project descriptions from `mcp__linear-server__get_project` often list related issue IDs
-3. **Review attachments field** - Linear issues include PR attachments with GitHub URLs
-4. **Note implementation issues** - Main work is done in issue tasks, not project containers
+1. **Release task** has an identifier (e.g., IOS-5467)
+2. **Level-1 subtasks** each have identifiers (e.g., IOS-5471, IOS-5474)
+3. **Level-2 subtasks** (under epics) each have identifiers (e.g., IOS-5715, IOS-5713)
+4. **Attachments field** contains linked PR URLs
 
 ### Issue ID Mapping Example
 ```
-Project: "Chat (Public Release)" (9f4625be498e)
-└── Associated Issue IDs:
-    ├── IOS-4913: Chat system implementation
-    ├── IOS-4915: Sharing extension with chat support
-    ├── IOS-5033: Chat space creation
-    └── IOS-5200: Remove chat editor limits
+Release Task: IOS-5467 "Release 16 iOS 0.44.0"
+├── IOS-5717: Bump app version (standalone)
+├── IOS-5471: Enable Feature Toggles (standalone)
+├── IOS-5474: [epic] Release 16 | iOS | Platform
+│   ├── IOS-5715: Upgrade iOS skills
+│   ├── IOS-5714: Match skills spec
+│   └── IOS-5713: membership tiers degradation
+└── IOS-5643: [epic] Release 16 | iOS | New Navigation
+    └── IOS-5644: Navigation implementation task
 ```
 
-**For changelog**: Use "Chat Spaces (IOS-4913)" NOT "Chat Spaces (9f4625be498e)"
+**For changelog**: Use all IOS-XXXX identifiers from the hierarchy
 
 ## Step 6: Create Comprehensive Context Summary with Full References
 **CRITICAL: Always save the analysis as a file immediately after completion**
@@ -121,62 +155,70 @@ Project: "Chat (Public Release)" (9f4625be498e)
 # Linear Context for iOS Release [NUMBER]
 
 ## Release Overview
-- **Release**: [Name] ([ID])
-- **Linear URL**: [Full URL to release issue]
-- **View Used**: [View Name/URL]
+- **Release Task**: [Name] ([ID]) - [URL]
 - **Version**: [X.Y.Z]
 - **Status**: [Status]
-- **Timeline**: [Start] - [End]
+- **Project**: [Project Name]
 - **Description**: [Release description]
 
-## Project Summary from View
-**Total Projects**: [Count from view]
+## Task Summary
+**Total Tasks**: [Count]
+- **Standalone Tasks**: [Count]
+- **Epics**: [Count]
+- **Epic Subtasks**: [Count]
+
 **Status Breakdown**:
-- Done: [Count]  
+- Done: [Count]
 - In Progress: [Count]
 - Waiting for Testing: [Count]
 - Code Review: [Count]
 - Backlog: [Count]
+- Canceled: [Count]
 
-## Projects & Links
+## Complete Task Hierarchy
 
-### Project Hierarchy
 ```
-Release [NUMBER] - [URL]
-├── Project: [Name] ([ID]) - [URL]
-│   ├── Task: [Name] ([ID]) - [URL]
-│   └── Task: [Name] ([ID]) - [URL]
-├── Project: [Name] ([ID]) - [URL]
-│   └── Task: [Name] ([ID]) - [URL]
-└── Project: [Name] ([ID]) - [URL]
-    └── Task: [Name] ([ID]) - [URL]
+Release: IOS-XXXX "[Title]" - [URL]
+├── IOS-YYYY: [Standalone Task 1] - [Status] - [URL]
+├── IOS-ZZZZ: [Standalone Task 2] - [Status] - [URL]
+├── IOS-AAAA: [epic] [Epic 1 Title] - [Status] - [URL]
+│   ├── IOS-BBBB: [Task 1] - [Status] - [URL]
+│   └── IOS-CCCC: [Task 2] - [Status] - [URL]
+└── IOS-DDDD: [epic] [Epic 2 Title] - [Status] - [URL]
+    └── IOS-EEEE: [Task 3] - [Status] - [URL]
 ```
 
-## Major Feature Categories
+## Epics Detail
 
-### [Category 1: e.g., Chat & Communication]
-1. **[Project/Epic Name]** (Project ID: [project-hash-id])
-   - **Linear URL**: [Full URL]
-   - **Status**: [Status]
-   - **Priority**: [Priority]
-   - **Description**: [Brief description]
-   - **Implementation Issue IDs**: [IOS-XXXX, IOS-YYYY] (for changelog use)
-   - **Key Features**:
-     - [Feature 1] (IOS-XXXX) - [Status] - [URL]
-     - [Feature 2] (IOS-YYYY) - [Status] - [URL]
-   - **Related Links**:
-     - PR: [GitHub PR URL] (mentions IOS-XXXX)
-     - Design: [Figma URL]
-     - Docs: [Documentation URL]
-   - **Technical Notes**: [Implementation details]
-   - **Risk Level**: [High/Medium/Low]
-   - **Testing Focus**: [Specific areas]
-   - **Related Issues**:
-     - Blocks: [Issue ID] - [URL]
-     - Related to: [Issue ID] - [URL]
+### [Epic 1: e.g., Platform]
+**Epic**: IOS-XXXX "[epic] Release X | iOS | Platform"
+- **Linear URL**: [Full URL]
+- **Status**: [Status]
+- **Priority**: [Priority]
+- **Description**: [Brief description]
 
-### [Category 2: e.g., Notifications]
-[Continue pattern for all categories...]
+**Subtasks** ([Count]):
+| ID | Title | Status | Assignee | PRs |
+|----|-------|--------|----------|-----|
+| IOS-YYYY | [Title] | [Status] | [Name] | [PR URLs] |
+| IOS-ZZZZ | [Title] | [Status] | [Name] | [PR URLs] |
+
+**Related Links**:
+- Design: [Figma URL]
+- Docs: [Documentation URL]
+
+**Technical Notes**: [Implementation details]
+**Risk Level**: [High/Medium/Low]
+**Testing Focus**: [Specific areas]
+
+### [Epic 2: e.g., New Navigation]
+[Continue pattern for all epics...]
+
+## Standalone Tasks
+
+| ID | Title | Status | Assignee | PRs |
+|----|-------|--------|----------|-----|
+| IOS-XXXX | [Title] | [Status] | [Name] | [PR URLs] |
 
 ## Cross-Platform Dependencies
 - **[Dependency 1]**: [Description]
@@ -279,31 +321,41 @@ Release [NUMBER] - [URL]
 ```
 
 ## Critical Success Factors
-1. **View Validation**: Ensure all projects from the Linear view are captured
-2. **URL Capture**: Record full Linear URLs for every issue, project, and relationship
-3. **Relationship Mapping**: Document all parent-child and related issue connections
-4. **External Links**: Capture all GitHub, documentation, and design URLs
-5. **Sub-task Discovery**: For each project, find all child tasks
-6. **Technical Deep Dive**: Don't just list features, understand implementation impact
-7. **Risk-First Analysis**: Lead with what could go wrong, not just what's planned
+1. **Hierarchy Traversal**: Ensure ALL levels are fetched (release → subtasks → epic subtasks)
+2. **Epic Detection**: Identify epics by `[epic]` in the title
+3. **URL Capture**: Record full Linear URLs for every task
+4. **Relationship Mapping**: Document all parent-child relationships via parentId
+5. **PR Links**: Extract GitHub PR URLs from the attachments field
+6. **External Links**: Capture all documentation and design URLs from descriptions
+7. **Technical Deep Dive**: Don't just list features, understand implementation impact
+8. **Risk-First Analysis**: Lead with what could go wrong, not just what's planned
 
 ## Usage Instructions
 1. Start by asking for:
-   - The release ID
-   - The Linear view URL or name containing all release projects
-2. **SYSTEMATIC PROJECT EXTRACTION:**
-   - Look at the Linear view screenshot/URL provided
-   - List every single project name visible in the view
-   - Use `mcp__linear-server__get_project` for each project name
-   - Get full project descriptions, status, priority, completion %
-3. For each project in the view:
-   - Gather comprehensive details from project description
-   - Find all sub-tasks using parentId search
-   - Capture all URLs and relationships
-   - Document technical dependencies
-4. Create hierarchy maps showing relationships
-5. Include all external references (GitHub, Figma, docs)
+   - The release task ID (e.g., "IOS-5467")
+2. **FETCH RELEASE TASK:**
+   - Run: `linctl issue get IOS-5467 --json`
+   - Extract the UUID (`id` field) for parentId queries
+3. **FETCH LEVEL-1 SUBTASKS:**
+   - Run: `linctl issue list --parent-id <uuid> --json --include-completed`
+   - Identify epics (title contains `[epic]`)
+4. **FETCH LEVEL-2 SUBTASKS (for each epic):**
+   - Run: `linctl issue list --parent-id <epic-uuid> --json --include-completed`
+   - Capture all implementation tasks
+5. **BUILD HIERARCHY:**
+   - Organize tasks into the tree structure
+   - Count tasks by status
+   - Extract PR links from attachments
 6. **MANDATORY:** Save as: `linear_context_release_[NUMBER].md` - do not skip this step
+
+## linctl Quick Reference
+```bash
+linctl issue get IOS-XXXX --json                              # Get issue details
+linctl issue list --parent-id <uuid> --json --include-completed  # Get subtasks
+linctl comment list IOS-XXXX --json                           # Get comments
+```
+
+Full CLI reference: `.claude/skills/linear-developer/SKILL.md`
 
 ## URL Formats to Capture
 - Linear Issues: `https://linear.app/[workspace]/issue/[ID]`
@@ -316,16 +368,17 @@ Release [NUMBER] - [URL]
 
 ## Validation Checklist
 Before finalizing analysis:
-- [ ] **Project count matches Linear view display exactly**
-- [ ] **All projects from view analyzed using mcp__linear-server__get_project**
-- [ ] **Every project has description, status, priority, completion %**
-- [ ] **Every issue has a Linear URL**
-- [ ] **All parent-child relationships have URLs**
-- [ ] **External links captured (GitHub, Figma, docs)**
+- [ ] **Release task fetched with full details**
+- [ ] **All level-1 subtasks fetched** (standalone tasks + umbrella groups)
+- [ ] **All level-2 subtasks fetched** (for each umbrella group)
+- [ ] **RECURSIVE CHECK: Non-epic umbrella tasks checked for children** (e.g., "leftovers", "multi-chat", "polish")
+- [ ] **Every task has identifier (IOS-XXXX) and Linear URL**
+- [ ] **PR links extracted from attachments field**
+- [ ] **External links captured** (Figma, docs from descriptions)
+- [ ] **Status breakdown calculated** (Done, In Progress, etc.)
 - [ ] Technical dependencies mapped
 - [ ] Risk assessment completed
 - [ ] Testing recommendations provided
-- [ ] Cross-platform impacts noted with links
 - [ ] Complete hierarchy visualization included
 - [ ] **File artifact created as linear_context_release_[NUMBER].md**
 

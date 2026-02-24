@@ -3,26 +3,6 @@ import Services
 import Combine
 import SwiftUI
 
-enum LastOpenedScreen: Codable {
-    case editor(EditorScreenData)
-    case widgets(spaceId: String)
-    case chat(ChatCoordinatorData)
-    case spaceChat(SpaceChatCoordinatorData)
-    
-    var spaceId: String {
-        switch self {
-        case .editor(let data):
-            data.spaceId
-        case .widgets(let spaceId):
-            spaceId
-        case .chat(let data):
-            data.spaceId
-        case .spaceChat(let data):
-            data.spaceId
-        }
-    }
-}
-
 protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
     var showUnstableMiddlewareError: Bool { get set }
     var currentVersionOverride: String { get set }
@@ -32,9 +12,7 @@ protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
     var rowsPerPageInSet: Int { get set }
     var rowsPerPageInGroupedSet: Int { get set }
     var userInterfaceStyle: UIUserInterfaceStyle { get set }
-    var lastOpenedScreen: LastOpenedScreen? { get set }
-    
-    
+
     func wallpaperPublisher(spaceId: String) -> AnyPublisher<SpaceWallpaperType, Never>
     func wallpapersPublisher() -> AnyPublisher<[String: SpaceWallpaperType], Never>
     func wallpaper(spaceId: String) -> SpaceWallpaperType
@@ -69,9 +47,6 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
     
     @UserDefault("UserData.RowsPerPageInGroupedSet", defaultValue: 20)
     var rowsPerPageInGroupedSet: Int
-    
-    @UserDefault("UserData.LastOpenedScreen.NewKey", defaultValue: nil)
-    var lastOpenedScreen: LastOpenedScreen?
     
     @UserDefault("serverConfig", defaultValue: .anytype)
     private var serverConfig: NetworkServerConfig
@@ -143,7 +118,6 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
     // MARK: - Cleanup
     func cleanStateAfterLogout() {
         showUnstableMiddlewareError = true
-        lastOpenedScreen = nil
         _homeObjects = [:]
     }
     

@@ -30,6 +30,12 @@ extension Anytype_Rpc.Unsplash {
 
         public var imageKind: Anytype_Model_ImageKind = .basic
 
+        /// Object ID where the file was initially created
+        public var createdInContext: String = String()
+
+        /// Block ID where the file was initially created
+        public var createdInContextRef: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -141,7 +147,7 @@ extension Anytype_Rpc.Unsplash.Download: SwiftProtobuf.Message, SwiftProtobuf._M
 
 extension Anytype_Rpc.Unsplash.Download.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Unsplash.Download.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}pictureId\0\u{1}spaceId\0\u{1}imageKind\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}pictureId\0\u{1}spaceId\0\u{1}imageKind\0\u{1}createdInContext\0\u{1}createdInContextRef\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -152,6 +158,8 @@ extension Anytype_Rpc.Unsplash.Download.Request: SwiftProtobuf.Message, SwiftPro
       case 1: try { try decoder.decodeSingularStringField(value: &self.pictureID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 3: try { try decoder.decodeSingularEnumField(value: &self.imageKind) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.createdInContext) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.createdInContextRef) }()
       default: break
       }
     }
@@ -167,6 +175,12 @@ extension Anytype_Rpc.Unsplash.Download.Request: SwiftProtobuf.Message, SwiftPro
     if self.imageKind != .basic {
       try visitor.visitSingularEnumField(value: self.imageKind, fieldNumber: 3)
     }
+    if !self.createdInContext.isEmpty {
+      try visitor.visitSingularStringField(value: self.createdInContext, fieldNumber: 4)
+    }
+    if !self.createdInContextRef.isEmpty {
+      try visitor.visitSingularStringField(value: self.createdInContextRef, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -174,6 +188,8 @@ extension Anytype_Rpc.Unsplash.Download.Request: SwiftProtobuf.Message, SwiftPro
     if lhs.pictureID != rhs.pictureID {return false}
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.imageKind != rhs.imageKind {return false}
+    if lhs.createdInContext != rhs.createdInContext {return false}
+    if lhs.createdInContextRef != rhs.createdInContextRef {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -1,0 +1,179 @@
+---
+name: swiftui-performance-developer
+description: Audit and improve SwiftUI runtime performance through code review and Instruments guidance. Use for diagnosing slow rendering, janky scrolling, excessive view updates, or layout thrash in SwiftUI apps.
+---
+
+# SwiftUI Performance Developer (Smart Router)
+
+## Purpose
+Audit SwiftUI view performance through code review and provide guidance for Instruments profiling when needed.
+
+## When Auto-Activated
+- Diagnosing slow rendering, janky scrolling, high CPU/memory
+- Excessive view updates or layout thrash
+- Keywords: performance, slow, jank, hitch, laggy, stuttering, CPU, memory, update
+
+## Workflow Decision Tree
+
+1. **Code provided** -> Start with Code-First Review
+2. **Only symptoms described** -> Ask for code/context, then Code-First Review
+3. **Code review inconclusive** -> Guide user to profile with Instruments
+
+## Fundamental Performance Insight (WWDC24)
+
+SwiftUI views are **value types** (structs) that describe UI state - they are NOT long-lived objects. Breaking up one view into multiple subviews **doesn't hurt performance** because views are just declarative descriptions.
+
+**Key insight**: SwiftUI maintains an efficient data structure behind the scenes. When state changes, new view values are created and SwiftUI determines what actually needs updating. You don't need to compromise code organization for performance.
+
+```swift
+// ✅ GOOD - Splitting into subviews is FREE
+var body: some View {
+    VStack {
+        HeaderView(title: title)        // Separate view = fine
+        ContentView(items: items)       // Separate view = fine
+        FooterView(action: saveAction)  // Separate view = fine
+    }
+}
+// SwiftUI only updates the specific subview when its state changes
+```
+
+## Code-First Review Focus
+
+Look for these common performance issues:
+
+### State-Driven Updates (WWDC24)
+
+SwiftUI tracks dependencies automatically. Any data a view reads in `body` becomes a dependency:
+
+```swift
+@Observable class PetModel {
+    var name: String = ""      // ← If read in body, becomes dependency
+    var hasAward: Bool = false // ← Only triggers update if actually read
+}
+
+struct PetRow: View {
+    let pet: PetModel
+
+    var body: some View {
+        HStack {
+            Text(pet.name)       // Dependency: name
+            if pet.hasAward {    // Dependency: hasAward
+                Image(systemName: "star.fill")
+            }
+        }
+    }
+}
+// When pet.hasAward changes, SwiftUI calls body again automatically
+```
+
+**Performance benefit**: Only views that actually read changed data get updated.
+
+### View Invalidation Storms
+```swift
+// BAD - Broad state triggers all views
+@Observable class Model {
+    var items: [Item] = []
+}
+
+// GOOD - Granular per-item state
+@Observable class ItemModel {
+    var isFavorite: Bool
+}
+```
+
+### Unstable Identity in Lists
+```swift
+// BAD - id churn causes full re-render
+ForEach(items, id: \.self) { item in Row(item) }
+
+// GOOD - Stable identity
+ForEach(items, id: \.id) { item in Row(item) }
+```
+
+### Heavy Work in `body`
+```swift
+// BAD - Allocation every render
+var body: some View {
+    let formatter = NumberFormatter()  // slow
+    Text(formatter.string(from: value))
+}
+
+// GOOD - Cached formatter
+static let formatter = NumberFormatter()
+var body: some View {
+    Text(Self.formatter.string(from: value))
+}
+```
+
+### Sorting/Filtering in ForEach
+```swift
+// BAD - Re-sorts every body eval
+ForEach(items.sorted(by: sortRule)) { Row($0) }
+
+// GOOD - Pre-sorted collection
+let sortedItems = items.sorted(by: sortRule)
+ForEach(sortedItems) { Row($0) }
+```
+
+### Large Images Without Downsampling
+```swift
+// BAD - Decodes full resolution on main thread
+Image(uiImage: UIImage(data: data)!)
+
+// GOOD - Downsample off main thread first
+```
+
+## Common Code Smells
+
+| Pattern | Problem | Fix |
+|---------|---------|-----|
+| `NumberFormatter()` in body | Allocation per render | Static cached formatter |
+| `.filter { }` in ForEach | Recomputes every render | Pre-filter, cache result |
+| `id: \.self` on non-stable values | Identity churn | Use stable ID property |
+| `UUID()` per render | New identity every time | Store ID in model |
+| `GeometryReader` deep in tree | Layout thrash | Move up or use fixed sizes |
+| `if condition { View }` in ForEach | Variable view count forces full build | Use `opacity(0)` or pre-filter |
+| `AnyView` in List rows | Hides identity and view count | Use `@ViewBuilder` or concrete types |
+
+## Instruments Profiling Guidance
+
+When code review is inconclusive, guide user to profile:
+
+1. **Record**: Product > Profile, SwiftUI template (Release build)
+2. **Reproduce**: Exact interaction (scroll, navigate, animate)
+3. **Capture**: SwiftUI timeline + Time Profiler
+4. **Analyze**:
+   - "Long View Body Updates" (orange >500us, red >1000us)
+   - "Hitches" lane for frame misses
+   - Time Profiler call tree for hot frames
+
+Ask user for:
+- Trace export or screenshots
+- Device/OS/build configuration
+
+## Remediation Checklist
+
+- [ ] Narrow state scope (`@State`/`@Observable` closer to leaf views)
+- [ ] Stabilize identities for `ForEach` and lists
+- [ ] Move heavy work out of `body` (precompute, cache, `@State`)
+- [ ] Use `equatable()` for expensive subtrees
+- [ ] Downsample images before rendering
+- [ ] Reduce layout complexity or use fixed sizing
+
+## References
+
+For detailed WWDC guidance:
+- `references/demystify-swiftui-performance-wwdc23.md`
+- `references/optimizing-swiftui-performance-instruments.md`
+- `references/understanding-improving-swiftui-performance.md`
+
+## Related Skills
+
+- **ios-dev-guidelines** -> General Swift/iOS patterns
+- **swiftui-patterns-developer** -> View structure and composition
+
+---
+
+**Navigation**: This skill provides SwiftUI performance audit patterns. For general iOS development, see `ios-dev-guidelines`.
+
+**Attribution**: Patterns adapted from [Dimillian/Skills](https://github.com/Dimillian/Skills) repository. WWDC24 insights from "SwiftUI Essentials" session.

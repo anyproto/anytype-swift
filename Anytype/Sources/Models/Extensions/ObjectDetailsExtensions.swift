@@ -85,16 +85,16 @@ extension BundledPropertiesValueProvider {
         setOf.filter { $0.isNotEmpty }
     }
     
-    var isNotDeletedAndVisibleForEdit: Bool {
-        return !isDeleted && !isArchived && isVisibleLayout && !isHiddenDiscovery
-    }
-    
     var isNotDeletedAndSupportedForOpening: Bool {
         return !isDeleted && !isArchived && isSupportedForOpening && !isHiddenDiscovery
     }
     
     var isNotDeletedAndArchived: Bool {
         return !isDeleted && !isArchived
+    }
+
+    var isArchivedOrDeleted: Bool {
+        return isArchived || isDeleted
     }
     
     var isTemplate: Bool { objectType.isTemplateType }
@@ -127,9 +127,11 @@ extension BundledPropertiesValueProvider {
     var isObjectType: Bool { resolvedLayoutValue.isObjectType }
     
     var isSupportedForOpening: Bool { resolvedLayoutValue.isSupportedForOpening }
-    
-    var isVisibleLayout: Bool { resolvedLayoutValue.isVisible }
-    
+
+    func isVisibleLayout(spaceUxType: SpaceUxType?) -> Bool {
+        DetailsLayout.visibleLayouts(spaceUxType: spaceUxType).contains(resolvedLayoutValue)
+    }
+
     var displayName: String {
          return globalName.isNotEmpty ? globalName : identity
      }

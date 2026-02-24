@@ -4,15 +4,21 @@ import Foundation
 
 public extension FeatureDescription {
 
+    static let showUploadStatusIndicator = FeatureDescription(
+        title: "Show visual indicator for uploading files - IOS-5054",
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
+        defaultValue: false
+    )
+    
     static let homePage = FeatureDescription(
         title: "Home Page",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "17"),
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
         defaultValue: false
     )
 
     static let qrCodeCircularText = FeatureDescription(
         title: "QR Code Circular Text - IOS-5580",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "17"),
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
         defaultValue: false,
         debugValue: true
     )
@@ -20,13 +26,7 @@ public extension FeatureDescription {
     // should be disabled
     static let channelTypeSwitcher = FeatureDescription(
         title: "Channel type switcher - IOS-5378",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "17"),
-        defaultValue: false
-    )
-    
-    static let showUploadStatusIndicator = FeatureDescription(
-        title: "Show visual indicator for uploading files - IOS-5054",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "17"),
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
         defaultValue: false
     )
 

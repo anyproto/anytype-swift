@@ -21,6 +21,7 @@ final class ObjectSettingsCoordinatorViewModel:
     var relationsListData: PropertiesListData?
     var versionHistoryData: VersionHistoryData?
     var publishingData: PublishToWebViewData?
+    var chatEditData: ChatCreateScreenData?
     var dismiss = false
     
     init(objectId: String, spaceId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
@@ -97,7 +98,24 @@ final class ObjectSettingsCoordinatorViewModel:
     func didTapUseTemplateAsDefault(templateId: String) {
         output?.didTapUseTemplateAsDefault(templateId: templateId)
     }
-    
+
+    func showInviteMembers(spaceId: String) {
+        output?.showInviteMembers(spaceId: spaceId)
+    }
+
+    func showEditInfo(document: some BaseDocumentProtocol) {
+        guard let details = document.details else { return }
+        chatEditData = ChatCreateScreenData(
+            spaceId: document.spaceId,
+            mode: .edit(
+                objectId: details.id,
+                currentName: details.name,
+                currentIcon: details.objectIconImage
+            ),
+            analyticsRoute: .navigation
+        )
+    }
+
     // MARK: - PropertyValueCoordinatorOutput
     
     func showEditorScreen(data: ScreenData) {

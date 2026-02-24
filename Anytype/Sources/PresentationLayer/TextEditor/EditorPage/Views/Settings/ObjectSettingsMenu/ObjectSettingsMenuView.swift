@@ -1,5 +1,6 @@
 import SwiftUI
 import AnytypeCore
+import Services
 
 struct ObjectSettingsMenuView<LabelView: View>: View {
 
@@ -12,9 +13,8 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
         output: some ObjectSettingsModelOutput,
         @ViewBuilder labelView: () -> LabelView
     ) {
-        let settingsVM = ObjectSettingsViewModel(objectId: objectId, spaceId: spaceId, output: output)
-        let actionsVM = ObjectActionsViewModel(objectId: objectId, spaceId: spaceId, output: settingsVM)
-        self._viewModel = State(wrappedValue: ObjectSettingsMenuViewModel(settingsViewModel: settingsVM, actionsViewModel: actionsVM))
+        let vm = ObjectSettingsViewModel(objectId: objectId, spaceId: spaceId, output: output)
+        self._viewModel = State(wrappedValue: ObjectSettingsMenuViewModel(viewModel: vm))
         self.labelView = labelView()
     }
 
@@ -35,6 +35,11 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
         .anytypeSheet(isPresented: viewModel.showConflictAlert) {
             ObjectSettingsResolveConflictAlert {
                 try await viewModel.onTapResolveConflictApprove()
+            }
+        }
+        .anytypeSheet(isPresented: viewModel.showDeleteChatConfirmation) {
+            ChatDeleteChatAlert {
+                try await viewModel.viewModel.changeArchiveState()
             }
         }
         .snackbar(toastBarData: viewModel.toastData)
@@ -75,19 +80,7 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
     private func renderMenuItem(_ item: ObjectMenuItem) -> some View {
         switch item {
         case .setting(let setting):
-            Button {
-                Task {
-                    await viewModel.handleSetting(setting)
-                }
-            } label: {
-                Label {
-                    Text(setting.title)
-                } icon: {
-                    Image(asset: setting.imageAsset)
-                        .renderingMode(.template)
-                        .foregroundStyle(Color.Text.primary)
-                }
-            }
+            settingMenuItem(setting)
         case .action(let action):
             Button(role: viewModel.isDestructiveAction(action) ? .destructive : nil) {
                 Task {
@@ -98,14 +91,55 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
                     Text(action.title)
                 } icon: {
                     if viewModel.isDestructiveAction(action) {
-                        Image(asset: action.imageAsset)
+                        menuIconImage(action.menuIcon)
                     } else {
-                        Image(asset: action.imageAsset)
-                            .renderingMode(.template)
+                        menuIconImage(action.menuIcon)
                             .foregroundStyle(Color.Text.primary)
                     }
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    private func settingMenuItem(_ setting: ObjectSetting) -> some View {
+        switch setting {
+        case .notifications(let mode):
+            notificationsMenuItem(mode: mode)
+        default:
+            defaultSettingMenuItem(setting)
+        }
+    }
+
+    private func notificationsMenuItem(mode: SpacePushNotificationsMode) -> some View {
+        NotificationModeMenu(
+            currentMode: mode,
+            onModeChange: viewModel.handleNotificationModeChange
+        )
+    }
+
+    private func defaultSettingMenuItem(_ setting: ObjectSetting) -> some View {
+        Button {
+            Task {
+                await viewModel.handleSetting(setting)
+            }
+        } label: {
+            Label {
+                Text(setting.title)
+            } icon: {
+                menuIconImage(setting.menuIcon)
+                    .foregroundStyle(Color.Text.primary)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func menuIconImage(_ icon: MenuIcon) -> some View {
+        switch icon {
+        case .asset(let asset):
+            Image(asset: asset).renderingMode(.template)
+        case .system(let name):
+            Image(systemName: name)
         }
     }
 

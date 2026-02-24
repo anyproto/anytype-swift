@@ -10,6 +10,8 @@ public protocol FileServiceProtocol: AnyObject, Sendable {
     func discardPreloadFile(fileId: String, spaceId: String) async throws
     func clearCache() async throws
     func nodeUsage() async throws -> NodeUsageInfo
+    func scheduleCacheDownload(fileObjectId: String) async throws
+    func cancelCacheDownload(fileObjectId: String) async throws
 }
 
 final class FileService: FileServiceProtocol {
@@ -78,5 +80,17 @@ final class FileService: FileServiceProtocol {
     public func nodeUsage() async throws -> NodeUsageInfo {
         let result = try await ClientCommands.fileNodeUsage().invoke()
         return NodeUsageInfo(from: result)
+    }
+
+    public func scheduleCacheDownload(fileObjectId: String) async throws {
+        try await ClientCommands.fileCacheDownload(.with {
+            $0.fileObjectID = fileObjectId
+        }).invoke()
+    }
+
+    public func cancelCacheDownload(fileObjectId: String) async throws {
+        try await ClientCommands.fileCacheCancelDownload(.with {
+            $0.fileObjectID = fileObjectId
+        }).invoke()
     }
 }

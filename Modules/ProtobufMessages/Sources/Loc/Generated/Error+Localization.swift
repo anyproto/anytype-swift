@@ -3128,6 +3128,29 @@ extension Anytype_Rpc.Chat.ReadMessages.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Chat.Search.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Chat.Search.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -3655,6 +3678,29 @@ extension Anytype_Rpc.Device.SetName.Response.Error: LocalizedError {
                 return ""
             case .badInput:
                 return LocHelper.tr(table: "LocalizableError", key: "Device.SetName.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.File.AutoDownloadSetLimit.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "File.AutoDownloadSetLimit.badInput")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -4871,6 +4917,33 @@ extension Anytype_Rpc.MembershipV2.GetStatus.Response.Error: LocalizedError {
                 return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetStatus.canNotConnect")
             case .v2CallNotEnabled:
                 return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetStatus.v2CallNotEnabled")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.SubscribeToUpdates.badInput")
+            case .canNotConnect:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.SubscribeToUpdates.canNotConnect")
+            case .platformNotSupported:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.SubscribeToUpdates.platformNotSupported")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -7135,6 +7208,39 @@ extension Anytype_Rpc.Relation.Options.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Space.ChangeOwnership.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.ChangeOwnership.badInput")
+            case .noSuchSpace:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.ChangeOwnership.noSuchSpace")
+            case .spaceIsDeleted:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.ChangeOwnership.spaceIsDeleted")
+            case .requestFailed:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.ChangeOwnership.requestFailed")
+            case .participantNotFound:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.ChangeOwnership.participantNotFound")
+            case .incorrectPermissions:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.ChangeOwnership.incorrectPermissions")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Space.Delete.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -7162,6 +7268,29 @@ extension Anytype_Rpc.Space.Delete.Response.Error: LocalizedError {
                 return LocHelper.tr(table: "LocalizableError", key: "Space.Delete.limitReached")
             case .notShareable:
                 return LocHelper.tr(table: "LocalizableError", key: "Space.Delete.notShareable")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Space.DeleteCorruptedBackup.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.DeleteCorruptedBackup.badInput")
             case .UNRECOGNIZED:
                 return ""
         }

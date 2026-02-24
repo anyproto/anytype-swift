@@ -7,7 +7,10 @@ protocol SetPermissionsBuilderProtocol: AnyObject {
 }
 
 final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
-    
+
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+
     func build(setDocument: SetDocument, participantCanEdit: Bool) -> SetPermissions {
         
         let isVersionMode = setDocument.mode.isVersion
@@ -36,7 +39,7 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
         if details.isList {
             return canCreateObjectOfList(setDocument: setDocument, details: details)
         } else if details.isObjectType {
-            return canCreateObjectOfType(ObjectType(details: details))
+            return canCreateObjectOfType(ObjectType(details: details), spaceId: setDocument.spaceId)
         } else {
             return false
         }
@@ -57,20 +60,20 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
             return false
         }
         
-        return canCreateObjectOfType(queryType)
+        return canCreateObjectOfType(queryType, spaceId: setDocument.spaceId)
     }
-    
-    private func canCreateObjectOfType(_ type: ObjectType) -> Bool {
+
+    private func canCreateObjectOfType(_ type: ObjectType, spaceId: String) -> Bool {
         guard let layout = type.recommendedLayout else {
             return false
         }
-        
+
         if type.isTemplateType {
             return false
         }
 
-        return layout.isSupportedForCreationInSets
-
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
+        return layout.isSupportedForCreationInSets(spaceUxType: spaceUxType)
     }
     
     private func canEditRelationValuesInView(setDocument: some SetDocumentProtocol) -> Bool {

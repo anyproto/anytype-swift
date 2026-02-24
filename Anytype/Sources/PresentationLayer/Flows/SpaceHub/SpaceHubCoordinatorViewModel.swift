@@ -48,7 +48,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     var fallbackSpaceId: String? {
-        userDefaults.lastOpenedScreen?.spaceId ?? fallbackSpaceView?.targetSpaceId
+        fallbackSpaceView?.targetSpaceId
     }
     
     private var fallbackSpaceView: SpaceView?
@@ -99,8 +99,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.defaultObjectCreationService) @ObservationIgnored
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
-    @Injected(\.loginStateService) @ObservationIgnored
-    private var loginStateService: any LoginStateServiceProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.userWarningAlertsHandler) @ObservationIgnored
@@ -124,18 +122,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     func onPathChange() {
-        if let editorData = navigationPath.lastPathElement as? EditorScreenData {
-            userDefaults.lastOpenedScreen = .editor(editorData)
-        } else if let widgetData = navigationPath.lastPathElement as? HomeWidgetData {
-            userDefaults.lastOpenedScreen = .widgets(spaceId: widgetData.spaceId)
-        } else if let chatData = navigationPath.lastPathElement as? ChatCoordinatorData {
-            userDefaults.lastOpenedScreen = .chat(chatData)
-        } else if let chatData = navigationPath.lastPathElement as? SpaceChatCoordinatorData {
-            userDefaults.lastOpenedScreen = .spaceChat(chatData)
-        } else {
-            userDefaults.lastOpenedScreen = nil
-        }
-        
         if navigationPath.count == 1 {
             Task {
                 currentSpaceId = nil
@@ -147,11 +133,10 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     // MARK: - Setup
     func setup() async {
         if needSetup {
-            await setupInitialScreen()
             await handleVersionAlerts()
             needSetup = false
         }
-        
+
         await startSubscriptions()
     }
     
@@ -161,23 +146,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         async let membershipSub: () = startHandleMembershipStatus()
         async let spaceInfoSub: () = startHandleSpaceInfo()
         (_,_,_,_) = await (workspaceInfoSub, appActionsSub, membershipSub, spaceInfoSub)
-    }
-    
-    func setupInitialScreen() async {
-        guard !loginStateService.isFirstLaunchAfterRegistration, appActionsStorage.action.isNil else { return }
-
-        switch userDefaults.lastOpenedScreen {
-        case .editor(let editorData):
-            try? await showScreen(data: .editor(editorData), showEditorObjectsOnlyOnce: true)
-        case .widgets(let spaceId):
-            try? await showScreen(data: .widget(HomeWidgetData(spaceId: spaceId)))
-        case .chat(let data):
-            try? await showScreen(data: .chat(data))
-        case .spaceChat(let data):
-            try? await showScreen(data: .spaceChat(data))
-        case .none:
-            return
-        }
     }
     
     private func startHandleAppActions() async {
@@ -294,7 +262,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private func homeObjectScreenData(spaceId: String) async -> AnyHashable {
         if let objectId = userDefaults.homeObjectId(spaceId: spaceId) {
             let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
-            if let details, !details.isDeleted, !details.isArchived, let editorData = details.screenData().editorScreenData {
+            if let details, !details.isArchivedOrDeleted, let editorData = details.screenData().editorScreenData {
                 return editorData
             }
         }
@@ -326,26 +294,22 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     // main show screen logic
-    private func showScreen(data: ScreenData, showEditorObjectsOnlyOnce: Bool = false) async throws {
+    private func showScreen(data: ScreenData) async throws {
         guard try await checkIsDataSupportedForOpening(data) else { return }
-        
+
         try await showSpace(spaceId: data.spaceId)
-        
+
         var currentPath = navigationPath
-        
+
         await dismissAllPresented?()
-        
+
         switch data {
         case .alert(let alertScreenData):
             await showAlert(alertScreenData)
         case .preview(let mediaFileScreenData):
             await showMediaFile(mediaFileScreenData)
         case .editor(let editorScreenData):
-            if showEditorObjectsOnlyOnce {
-                currentPath.openOnce(editorScreenData)
-            } else {
-                currentPath.push(editorScreenData)
-            }
+            currentPath.push(editorScreenData)
         case .bookmark(let data):
             await dismissAllPresented?()
             bookmarkScreenData = data

@@ -20,23 +20,23 @@ struct SetFilterRow: View {
         HStack {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(Color.Background.highlightedMedium)
+                    .foregroundStyle(configuration.isAdvanced ? Color.Control.accent25 : Color.Background.highlightedMedium)
                 Image(asset: configuration.iconAsset)
-                    .foregroundStyle(Color.Control.secondary)
+                    .foregroundStyle(configuration.isAdvanced ? Color.Control.accent100 : Color.Control.secondary)
             }
             .frame(width: 48, height: 48)
-            
+
             Spacer.fixedWidth(12)
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 AnytypeText(configuration.title, style: .uxTitle2Medium)
                     .foregroundStyle(Color.Text.primary)
                 filterConditionView
             }
-            
+
             Spacer()
-            
-            if editMode?.wrappedValue == .inactive {
+
+            if editMode?.wrappedValue == .inactive && !configuration.isAdvanced {
                 Image(asset: .RightAttribute.disclosure)
             }
         }
@@ -52,12 +52,14 @@ struct SetFilterRow: View {
                     AnytypeText(subtitle, style: .relation1Regular)
                         .foregroundStyle(Color.Text.secondary)
                         .layoutPriority(1)
-                    switch configuration.type {
-                    case let .relation(relation):
-                        relationValueView(for: relation)
-                    case let .date(date):
-                        AnytypeText(date, style: .relation1Regular)
-                            .foregroundStyle(Color.Text.secondary)
+                    if !configuration.isAdvanced {
+                        switch configuration.type {
+                        case let .relation(relation):
+                            relationValueView(for: relation)
+                        case let .date(date):
+                            AnytypeText(date, style: .relation1Regular)
+                                .foregroundStyle(Color.Text.secondary)
+                        }
                     }
                 }
             }

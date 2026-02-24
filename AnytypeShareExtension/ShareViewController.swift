@@ -8,6 +8,7 @@ import DeepLinks
 import AnytypeCore
 import AppTarget
 import LayoutKit
+import Intents
 
 class ShareViewController: UIViewController {
 
@@ -49,10 +50,21 @@ class ShareViewController: UIViewController {
     private func storeSharedItems(extensionItem: NSExtensionItem) async {
         let safeExtensionItem = SafeSendable(value: extensionItem)
         let sharedItems = await sharedContentManager.importAndSaveItem(item: safeExtensionItem)
+
+        // Check for share sheet suggestion intent and extract conversation ID
+        if let conversationId = extractConversationIdFromIntent() {
+            try? await sharedContentManager.setSuggestedConversationId(conversationId)
+        }
+
         if !sharedItems.items.isEmpty {
             openMainApp()
         }
         extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+    }
+
+    private func extractConversationIdFromIntent() -> String? {
+        guard let intent = extensionContext?.intent as? INSendMessageIntent else { return nil }
+        return intent.conversationIdentifier
     }
     
     private func openMainApp() {

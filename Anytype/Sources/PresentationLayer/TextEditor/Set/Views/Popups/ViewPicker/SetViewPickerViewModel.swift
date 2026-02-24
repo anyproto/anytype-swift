@@ -143,7 +143,7 @@ final class SetViewPickerViewModel {
         )
         output?.onAddButtonTap(with: viewId)
         AnytypeAnalytics.instance().logAddView(
-            type: DataviewViewType.table.analyticStringValue,
+            type: type.analyticStringValue,
             objectType: setDocument.analyticsType
         )
     }

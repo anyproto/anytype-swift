@@ -1,5 +1,17 @@
 import Foundation
 
+// MARK: - Identifiable Wrappers for Sheet Presentation
+//
+// SwiftUI's sheet(item:) requires Identifiable types.
+// Use these wrappers instead of creating custom structs for single-value presentations.
+//
+// Usage:
+//   var sheetData: URLIdentifiable?
+//   sheetData = url.identifiable
+//   .sheet(item: $sheetData) { QrCodeView(url: $0.value) }
+//
+// See IOS_DEVELOPMENT_GUIDE.md for details.
+
 // For show modules with one String arg
 struct StringIdentifiable: Identifiable {
     

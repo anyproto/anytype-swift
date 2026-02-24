@@ -121,6 +121,26 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     func filters(for viewId: String) -> [SetFilter] {
         let view = view(by: viewId)
         return view.filters.compactMap { filter in
+            // Handle advanced filters with empty relationKey
+            if filter.relationKey.isEmpty {
+                let placeholderDetails = PropertyDetails(
+                    id: filter.id,
+                    key: "",
+                    name: Loc.EditSet.Popup.Filter.Advanced.title,
+                    format: .unrecognized,
+                    isHidden: false,
+                    isReadOnly: true,
+                    isReadOnlyValue: true,
+                    objectTypes: [],
+                    maxCount: 0,
+                    sourceObject: "",
+                    isDeleted: false,
+                    spaceId: spaceId
+                )
+                return SetFilter(relationDetails: placeholderDetails, filter: filter)
+            }
+
+            // Normal filter with relation
             let relationDetails = dataViewRelationsDetails.first { relationDetails in
                 filter.relationKey == relationDetails.key
             }

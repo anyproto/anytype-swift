@@ -51,7 +51,7 @@ struct SetSubscriptionData: Hashable {
         self.sorts = sorts
         
         // Filters
-        var filters = view.filters
+        var filters = view.filters.removingUnsupportedFilters()
         if let groupFilter {
             filters.append(groupFilter)
         }

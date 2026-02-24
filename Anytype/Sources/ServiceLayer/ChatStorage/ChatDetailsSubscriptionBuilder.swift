@@ -31,7 +31,9 @@ final class ChatDetailsSubscriptionBuilder: ChatDetailsSubscriptionBuilderProtoc
             BundledPropertyKey.resolvedLayout.rawValue,
             BundledPropertyKey.type.rawValue,
             BundledPropertyKey.isDeleted.rawValue,
-            BundledPropertyKey.isArchived.rawValue
+            BundledPropertyKey.isArchived.rawValue,
+            BundledPropertyKey.iconImage.rawValue,
+            BundledPropertyKey.iconEmoji.rawValue
         ]
 
         return .crossSpaceSearch(

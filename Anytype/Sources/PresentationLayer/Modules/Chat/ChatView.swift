@@ -32,9 +32,6 @@ struct ChatView: View {
                 },
                 onTapOpenSpaceSettings: {
                     model.onTapSpaceSettings()
-                },
-                onTapAddMembers: {
-                    model.onTapInviteLink()
                 }
             )
         }

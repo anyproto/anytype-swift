@@ -291,6 +291,7 @@ public enum Loc {
     return Loc.tr("UI", "copied to clipboard", String(describing: p1), fallback: "%@ copied to clipboard")
   }
   public static let copy = Loc.tr("UI", "Copy", fallback: "Copy")
+  public static let copyInviteLink = Loc.tr("UI", "Copy Invite Link", fallback: "Copy Invite Link")
   public static let copyLink = Loc.tr("UI", "Copy link", fallback: "Copy link")
   public static let copySpaceInfo = Loc.tr("UI", "Copy space info", fallback: "Copy space info")
   public static let cover = Loc.tr("UI", "Cover", fallback: "Cover")
@@ -461,6 +462,7 @@ public enum Loc {
   public static let newField = Loc.tr("UI", "New field", fallback: "New property")
   public static let newPage = Loc.tr("UI", "New Page", fallback: "New Page")
   public static let newSet = Loc.tr("UI", "New set", fallback: "New query")
+  public static let newType = Loc.tr("UI", "New type", fallback: "New type")
   public static let newObject = Loc.tr("UI", "NewObject", fallback: "New Object")
   public static let next = Loc.tr("UI", "Next", fallback: "Next")
   public static let noConnection = Loc.tr("UI", "No connection", fallback: "No connection")
@@ -644,7 +646,6 @@ public enum Loc {
     return Loc.tr("UI", "There is no type named", String(describing: p1), fallback: "There is no type named %@")
   }
   public static let theseObjectsWillBeDeletedIrrevocably = Loc.tr("UI", "These objects will be deleted irrevocably", fallback: "These objects will be deleted irrevocably. You can’t undo this action.")
-  public static let toBin = Loc.tr("UI", "To Bin", fallback: "To Bin")
   public static let today = Loc.tr("UI", "Today", fallback: "Today")
   public static let tomorrow = Loc.tr("UI", "Tomorrow", fallback: "Tomorrow")
   public static let tryToFindANewOne = Loc.tr("UI", "Try to find a new one", fallback: "Try to find a new one")
@@ -1399,6 +1400,7 @@ public enum Loc {
   }
   public static let collaboration = Loc.tr("Workspace", "Collaboration", fallback: "Collaboration")
   public static let createChat = Loc.tr("Workspace", "CreateChat", fallback: "Create Chat")
+  public static let editInfo = Loc.tr("Workspace", "EditInfo", fallback: "Edit Info")
   public static let invite = Loc.tr("Workspace", "Invite", fallback: "Invite")
   public static let joinSpace = Loc.tr("Workspace", "Join Space", fallback: "Join Space")
   public static let joinSpaceButton = Loc.tr("Workspace", "Join Space Button", fallback: "Join Space Button")
@@ -1414,7 +1416,9 @@ public enum Loc {
   public static let shared = Loc.tr("Workspace", "Shared", fallback: "Shared")
   public static let task = Loc.tr("Workspace", "Task", fallback: "Task")
   public enum Chat {
+    public static let channelSettings = Loc.tr("Workspace", "Chat.ChannelSettings", fallback: "Channel Settings")
     public static let editMessage = Loc.tr("Workspace", "Chat.EditMessage", fallback: "Edit Message")
+    public static let inviteMembers = Loc.tr("Workspace", "Chat.InviteMembers", fallback: "Invite members")
     public static let newMessages = Loc.tr("Workspace", "Chat.NewMessages", fallback: "New Messages")
     public static func replyTo(_ p1: Any) -> String {
       return Loc.tr("Workspace", "Chat.ReplyTo", String(describing: p1), fallback: "Reply to %@")
@@ -1438,6 +1442,10 @@ public enum Loc {
         public static let ok = Loc.tr("Workspace", "Chat.CreateObject.Dismiss.Ok", fallback: "Yes, close")
         public static let title = Loc.tr("Workspace", "Chat.CreateObject.Dismiss.Title", fallback: "Are you sure you want to close this screen?")
       }
+    }
+    public enum DeleteChat {
+      public static let description = Loc.tr("Workspace", "Chat.DeleteChat.Description", fallback: "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared.")
+      public static let title = Loc.tr("Workspace", "Chat.DeleteChat.Title", fallback: "Move chat to Bin?")
     }
     public enum DeleteMessage {
       public static let description = Loc.tr("Workspace", "Chat.DeleteMessage.Description", fallback: "It cannot be restored after confirmation")
@@ -1560,6 +1568,10 @@ public enum Loc {
   public enum EditSet {
     public enum Popup {
       public enum Filter {
+        public enum Advanced {
+          public static let subtitle = Loc.tr("Workspace", "EditSet.Popup.Filter.Advanced.subtitle", fallback: "Editing is available on Desktop")
+          public static let title = Loc.tr("Workspace", "EditSet.Popup.Filter.Advanced.title", fallback: "Advanced filter")
+        }
         public enum Condition {
           public enum Checkbox {
             public static let equal = Loc.tr("Workspace", "EditSet.Popup.Filter.Condition.Checkbox.Equal", fallback: "Is")
@@ -2221,9 +2233,13 @@ public enum Loc {
     }
     public enum Notifications {
       public enum Settings {
+        public static let header = Loc.tr("Workspace", "Space.Notifications.Settings.Header", fallback: "Notify me about")
+        public enum CustomChats {
+          public static let header = Loc.tr("Workspace", "Space.Notifications.Settings.CustomChats.Header", fallback: "Chat specific notifications")
+        }
         public enum State {
-          public static let all = Loc.tr("Workspace", "Space.Notifications.Settings.State.All", fallback: "All activity")
-          public static let disabled = Loc.tr("Workspace", "Space.Notifications.Settings.State.Disabled", fallback: "Disable notifications")
+          public static let all = Loc.tr("Workspace", "Space.Notifications.Settings.State.All", fallback: "All messages")
+          public static let disabled = Loc.tr("Workspace", "Space.Notifications.Settings.State.Disabled", fallback: "Disable all")
           public static let mentions = Loc.tr("Workspace", "Space.Notifications.Settings.State.Mentions", fallback: "Mentions only")
         }
       }

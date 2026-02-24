@@ -1,4 +1,42 @@
 import Services
+import SwiftProtobuf
+
+extension DataviewFilter {
+    var isSupportedForSubscription: Bool {
+        // Conditions that don't require values (.none, .empty, .notEmpty) are always valid
+        guard condition.hasValues else { return true }
+
+        // No value set at all
+        guard hasValue else { return false }
+
+        switch value.kind {
+        case .listValue(let list) where list.values.isEmpty:
+            return false
+        case .stringValue(let str) where str.isEmpty:
+            return false
+        case .nullValue:
+            return false
+        case .numberValue(let num) where num == 0 && format == .date && quickOption == .exactDate:
+            return false
+        default:
+            return true
+        }
+    }
+}
+
+extension Array where Element == DataviewFilter {
+    func removingUnsupportedFilters() -> [DataviewFilter] {
+        compactMap { filter in
+            // Advanced filter: recursively clean nested filters
+            if filter.operator != .no {
+                var cleaned = filter
+                cleaned.nestedFilters = filter.nestedFilters.removingUnsupportedFilters()
+                return cleaned.nestedFilters.isEmpty ? nil : cleaned
+            }
+            return filter.isSupportedForSubscription ? filter : nil
+        }
+    }
+}
 
 extension DataviewFilter.Condition {
     var hasValues: Bool {

@@ -23,6 +23,10 @@
 				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
 				<integer>100</integer>
 			</dict>
+			<key>IntentsSupported</key>
+			<array>
+				<string>INSendMessageIntent</string>
+			</array>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>

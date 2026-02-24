@@ -646,6 +646,11 @@ extension Anytype_Rpc.Chat.ReadMessages.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Chat.Search.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.Search.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: ResultWithError {}
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -758,6 +763,11 @@ extension Anytype_Rpc.Device.NetworkState.Set.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Device.SetName.Response: ResultWithError {}
 extension Anytype_Rpc.Device.SetName.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.File.AutoDownloadSetLimit.Response: ResultWithError {}
+extension Anytype_Rpc.File.AutoDownloadSetLimit.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
@@ -967,6 +977,11 @@ extension Anytype_Rpc.MembershipV2.GetProducts.Response.Error: ResponseError {
 
 extension Anytype_Rpc.MembershipV2.GetStatus.Response: ResultWithError {}
 extension Anytype_Rpc.MembershipV2.GetStatus.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response: ResultWithError {}
+extension Anytype_Rpc.MembershipV2.SubscribeToUpdates.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
@@ -1440,8 +1455,18 @@ extension Anytype_Rpc.Relation.Options.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Space.ChangeOwnership.Response: ResultWithError {}
+extension Anytype_Rpc.Space.ChangeOwnership.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Space.Delete.Response: ResultWithError {}
 extension Anytype_Rpc.Space.Delete.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Space.DeleteCorruptedBackup.Response: ResultWithError {}
+extension Anytype_Rpc.Space.DeleteCorruptedBackup.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

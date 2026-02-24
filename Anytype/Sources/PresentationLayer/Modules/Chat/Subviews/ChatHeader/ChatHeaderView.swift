@@ -12,15 +12,13 @@ struct ChatHeaderView: View {
         chatId: String,
         settingsOutput: (any ObjectSettingsCoordinatorOutput)?,
         onTapOpenWidgets: @escaping () -> Void,
-        onTapOpenSpaceSettings: @escaping () -> Void,
-        onTapAddMembers: @escaping (() -> Void)
+        onTapOpenSpaceSettings: @escaping () -> Void
     ) {
         _model = State(initialValue: ChatHeaderViewModel(
             spaceId: spaceId,
             chatId: chatId,
             onTapOpenWidgets: onTapOpenWidgets,
-            onTapOpenSpaceSettings: onTapOpenSpaceSettings,
-            onTapAddMembers: onTapAddMembers
+            onTapOpenSpaceSettings: onTapOpenSpaceSettings
         ))
         self.settingsOutput = settingsOutput
     }
@@ -32,17 +30,14 @@ struct ChatHeaderView: View {
         ) {
             titleView
         } rightContent: {
-            HStack(spacing: 8) {
-                addMembersButton
-                moreButton
-            }
+            moreButton
         }
         .task {
             await model.startSubscriptions()
         }
         .animation(.bouncy, value: model.showLoading)
         .animation(.bouncy, value: model.muted)
-        .animation(.bouncy, value: model.showAddMembersButton)
+        .snackbar(toastBarData: $model.toastBarData)
     }
 
     private var titleView: some View {
@@ -95,20 +90,6 @@ struct ChatHeaderView: View {
     }
 
     @ViewBuilder
-    private var addMembersButton: some View {
-        if model.showAddMembersButton {
-            Button {
-                model.tapAddMembers()
-            } label: {
-                Image(systemName: "person.fill.badge.plus")
-                    .foregroundStyle(Color.Control.primary)
-                    .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
-            }
-            .glassEffectInteractiveIOS26(in: Circle())
-        }
-    }
-
-    @ViewBuilder
     private var moreButton: some View {
         Group {
             if model.isMultiChatSpace {
@@ -122,8 +103,21 @@ struct ChatHeaderView: View {
                         .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
                 }
             } else {
-                Button {
-                    model.tapOpenSpaceSettings()
+                Menu {
+                    Button {
+                        model.tapOpenSpaceSettings()
+                    } label: {
+                        Label {
+                            Text(Loc.Chat.channelSettings)
+                        } icon: {
+                            Image(asset: .X24.spaceSettings)
+                        }
+                    }
+
+                    NotificationModeMenu(
+                        currentMode: model.notificationMode,
+                        onModeChange: model.changeNotificationMode
+                    )
                 } label: {
                     Image(asset: .X24.more)
                         .foregroundStyle(Color.Control.primary)

@@ -3,6 +3,7 @@ import AnytypeCore
 import Services
 import Combine
 import SwiftUI
+import AsyncAlgorithms
 
 @MainActor
 @Observable
@@ -31,17 +32,17 @@ final class HomeWidgetsViewModel {
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
     @Injected(\.objectTypeProvider) @ObservationIgnored
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.objectTypeService) @ObservationIgnored
-    private var objectTypeService: any ObjectTypeServiceProtocol
     @Injected(\.expandedService) @ObservationIgnored
     private var expandedService: any ExpandedServiceProtocol
     @Injected(\.chatMessagesPreviewsStorage) @ObservationIgnored
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
+    @Injected(\.objectTypesWithObjectsCreatedService) @ObservationIgnored
+    private var objectTypesWithObjectsCreatedService: any ObjectTypesWithObjectsCreatedServiceProtocol
+    @Injected(\.chatDetailsStorage) @ObservationIgnored
+    private var chatDetailsStorage: any ChatDetailsStorageProtocol
 
     @ObservationIgnored
     weak var output: (any HomeWidgetsModuleOutput)?
-    @ObservationIgnored
-    private var typesDropTask: Task<Void, any Error>?
     
     // MARK: - State
     
@@ -80,7 +81,7 @@ final class HomeWidgetsViewModel {
         self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
         self.unreadSectionIsExpanded = expandedService.isExpanded(id: Constants.unreadSectionId, defaultValue: true)
     }
-    
+
     func startSubscriptions() async {
         async let widgetObjectSub: () = startWidgetObjectTask()
         async let participantTask: () = startParticipantTask()
@@ -111,24 +112,18 @@ final class HomeWidgetsViewModel {
         }
     }
     
-    func typesDropUpdate(from: DropDataElement<ObjectTypeWidgetInfo>, to: DropDataElement<ObjectTypeWidgetInfo>) {
-        objectTypeWidgets.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
-    }
-    
-    func typesDropFinish(from: DropDataElement<ObjectTypeWidgetInfo>, to: DropDataElement<ObjectTypeWidgetInfo>) {
-        typesDropTask?.cancel()
-        typesDropTask = Task {
-            // Middleware notify state with delay and we ome time show old state. Making fewer requests
-            try await Task.sleep(seconds: 2)
-            let typeIds = objectTypeWidgets.map { $0.objectTypeId }
-            try await objectTypeService.setOrder(spaceId: spaceId, typeIds: typeIds)
-        }
-    }
-    
     func onSpaceSelected() {
         output?.onSpaceSelected()
     }
-    
+
+    func onMembersSelected(spaceId: String, route: SettingsSpaceShareRoute) {
+        output?.onSpaceChatMembersSelected(spaceId: spaceId, route: route)
+    }
+
+    func onQrCodeSelected(url: URL) {
+        output?.onSpaceChatShowQrCodeSelected(url: url)
+    }
+
     func onCreateObjectType() {
         output?.onCreateObjectType()
     }
@@ -184,15 +179,21 @@ final class HomeWidgetsViewModel {
         let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
         let allowedLayouts = DetailsLayout.widgetTypeLayouts(spaceUxType: spaceUxType)
 
-        let stream = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)
-            .values
-            .map { objects in
-                let objects = objects
+        await objectTypesWithObjectsCreatedService.startSubscription(spaceId: spaceId, spaceUxType: spaceUxType)
+
+        let typesPublisher = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)
+        let objectsCreatedPublisher = objectTypesWithObjectsCreatedService.typeIdsWithObjectsCreatedPublisher
+
+        let stream = typesPublisher.combineLatest(objectsCreatedPublisher)
+            .map { (types, typeIdsWithObjectsCreated) in
+                types
                     .filter { ($0.recommendedLayout.map { allowedLayouts.contains($0) } ?? false) && !$0.isTemplateType }
-                return objects.map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
+                    .filter { typeIdsWithObjectsCreated.contains($0.id) }
+                    .map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
             }
             .removeDuplicates()
-        
+            .values
+
         for await objectTypes in stream {
             objectTypesDataLoaded = true
             objectTypeWidgets = objectTypes
@@ -212,10 +213,15 @@ final class HomeWidgetsViewModel {
         guard spaceView?.uxType.supportsMultiChats ?? false else { return }
 
         let previewsSequence = await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
+        let chatsSequence = await chatDetailsStorage.allChatsSequence
 
-        for await previews in previewsSequence {
+        for await (previews, chatDetails) in combineLatest(previewsSequence, chatsSequence) {
             let newUnreadChats = previews
-                .filter { $0.spaceId == spaceId && $0.unreadCounter > 0 }
+                .filter { preview in
+                    guard preview.spaceId == spaceId && preview.unreadCounter > 0 else { return false }
+                    guard let chatDetail = chatDetails.first(where: { $0.id == preview.chatId }) else { return false }
+                    return !chatDetail.isArchivedOrDeleted
+                }
                 .map { UnreadChatWidgetData(id: $0.chatId, spaceId: spaceId, output: output) }
 
             guard unreadChats != newUnreadChats else { continue }

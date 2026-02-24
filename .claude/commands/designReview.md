@@ -132,10 +132,14 @@ Identify missing or unclear specifications in the design:
 **Future-proof:** When new documentation is added to CLAUDE.md Quick Reference, this command automatically uses it without needing updates.
 
 ### Step 1: Fetch Linear Context
-- Use `mcp__linear-server__get_issue` to fetch issue details
+- Use linctl CLI to fetch issue details:
+  ```bash
+  linctl issue get IOS-XXXX --json
+  ```
 - Extract Figma URLs from issue description or attachments
 - Capture acceptance criteria and design requirements
 - Note any design-specific comments
+- **linctl reference**: `.claude/skills/linear-developer/SKILL.md`
 
 ### Step 2: Read Implementation Files
 - Use `Read` tool to load SwiftUI files
