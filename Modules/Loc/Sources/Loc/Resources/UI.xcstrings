@@ -101542,6 +101542,39 @@
         }
       }
     },
+    "TextStyle.ToggleHeading.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toggled heading"
+          }
+        }
+      }
+    },
+    "TextStyle.ToggleSubheading.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toggle subheading"
+          }
+        }
+      }
+    },
+    "TextStyle.ToggleTitle.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toggled title"
+          }
+        }
+      }
+    },
     "TextStyle.Underline.Title" : {
       "extractionState" : "manual",
       "localizations" : {
