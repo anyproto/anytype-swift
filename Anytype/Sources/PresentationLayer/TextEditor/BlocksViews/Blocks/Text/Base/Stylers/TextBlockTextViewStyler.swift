@@ -34,11 +34,11 @@ final class TextBlockTextViewStyler {
             setupText(in: textView, placeholer: Loc.BlockText.ContentType.Numbered.placeholder, configuration: configuration)
         case .quote:
             setupText(in: textView, placeholer: Loc.BlockText.ContentType.Quote.placeholder, configuration: configuration)
-        case .header:
+        case .header, .toggleHeader:
             setupText(in: textView, placeholer: Loc.BlockText.ContentType.Header.placeholder, configuration: configuration)
-        case .header2:
+        case .header2, .toggleHeader2:
             setupText(in: textView, placeholer: Loc.BlockText.ContentType.Header2.placeholder, configuration: configuration)
-        case .header3:
+        case .header3, .toggleHeader3:
             setupText(in: textView, placeholer: Loc.BlockText.ContentType.Header3.placeholder, configuration: configuration)
         case .header4, .code, .text, .callout:
             setupText(in: textView, placeholer: "", configuration: configuration)

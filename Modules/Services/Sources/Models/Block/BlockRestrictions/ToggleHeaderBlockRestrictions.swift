@@ -1,13 +1,13 @@
-struct ListBlockRestrictions: BlockRestrictions {
-    let canApplyBold = true
-    let canApplyItalic = true
+struct ToggleHeaderBlockRestrictions: BlockRestrictions {
+    let canApplyBold = false
+    let canApplyItalic = false
     let canApplyOtherMarkup = true
     let canApplyBlockColor = true
     let canApplyBackgroundColor = true
     let canApplyMention = true
     let canApplyEmoji = true
     let canDeleteOrDuplicate = true
-    let availableAlignments = [LayoutAlignment]()
+    let availableAlignments = LayoutAlignment.allCases
     let turnIntoStyles: [BlockContentType] = [
         .text(.text),
         .text(.header),
@@ -24,5 +24,4 @@ struct ListBlockRestrictions: BlockRestrictions {
         .text(.toggle),
         .smartblock(.page)
     ]
-   
 }

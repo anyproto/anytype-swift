@@ -1281,6 +1281,15 @@ public enum Loc {
     public enum Toggle {
       public static let title = Loc.tr("UI", "TextStyle.Toggle.Title", fallback: "Toggle")
     }
+    public enum ToggleHeading {
+      public static let title = Loc.tr("UI", "TextStyle.ToggleHeading.Title", fallback: "Toggled heading")
+    }
+    public enum ToggleSubheading {
+      public static let title = Loc.tr("UI", "TextStyle.ToggleSubheading.Title", fallback: "Toggle subheading")
+    }
+    public enum ToggleTitle {
+      public static let title = Loc.tr("UI", "TextStyle.ToggleTitle.Title", fallback: "Toggled title")
+    }
     public enum Underline {
       public static let title = Loc.tr("UI", "TextStyle.Underline.Title", fallback: "Underline")
     }
