@@ -203,14 +203,10 @@ final class ObjectSettingsViewModel {
     
     func onTapPrefillName() async throws {
         guard let details = document.details else { return }
-        guard let templateNamePrefillType = details.templateNamePrefillType else {
-            anytypeAssertionFailure("Empty templateNamePrefillType")
-            return
-        }
-        
+        let newValue = details.isTemplateNamePrefilled ? 0 : 1
         try await service.updateBundledDetails(
             contextID: document.objectId,
-            details: [.templateNamePrefillType(templateNamePrefillType)]
+            details: [.templateNamePrefillType(newValue)]
         )
     }
 
