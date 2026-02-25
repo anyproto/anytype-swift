@@ -34,7 +34,11 @@ final class ObjectSettingsBuilder: ObjectSettingsBuilderProtocol {
                 let isFeatured = details.featuredRelations.contains { $0 == BundledPropertyKey.description.rawValue }
                 ObjectSetting.description(isVisible: isFeatured)
             }
-            
+
+            if details.isTemplate && permissions.canEditDetails {
+                ObjectSetting.prefillName(isEnabled: details.isTemplateNamePrefilled)
+            }
+
             if permissions.canShowRelations {
                 ObjectSetting.relations
             }
