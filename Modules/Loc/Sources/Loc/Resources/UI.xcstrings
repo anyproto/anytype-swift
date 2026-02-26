@@ -34461,6 +34461,17 @@
         }
       }
     },
+    "Empty Name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empty Name"
+          }
+        }
+      }
+    },
     "EmptyView.Bin.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -73661,6 +73672,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "已釘選"
+          }
+        }
+      }
+    },
+    "Pre-Fill Name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pre-Fill Name"
           }
         }
       }
