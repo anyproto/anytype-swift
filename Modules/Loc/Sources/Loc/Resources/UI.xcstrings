@@ -10960,7 +10960,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Adjuntos"
+                  "value" : "%lld adjuntos"
                 }
               }
             }
@@ -16185,13 +16185,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Marcador"
+                  "value" : "marcador"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Marcadores"
+                  "value" : "%lld marcadores"
                 }
               }
             }
@@ -26612,13 +26612,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Fecha"
+                  "value" : "fecha"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Fechas"
+                  "value" : "%%lld fechas"
                 }
               }
             }
@@ -34461,6 +34461,161 @@
         }
       }
     },
+    "Empty Name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empty Name"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Nombre vacío"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Empty Name"
+          }
+        }
+      }
+    },
     "EmptyView.Bin.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -39881,13 +40036,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Archivo"
+                  "value" : "archivo"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Archivos"
+                  "value" : "%lld archivos"
                 }
               }
             }
@@ -48873,7 +49028,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Imágenes"
+                  "value" : "%lld imágenes"
                 }
               }
             }
@@ -54633,13 +54788,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Lista"
+                  "value" : "lista"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Listas"
+                  "value" : "%lld listas"
                 }
               }
             }
@@ -62933,7 +63088,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Objetos"
+                  "value" : "%lld objetos"
                 }
               }
             }
@@ -64164,7 +64319,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Tipos de objeto"
+                  "value" : "%lld tipos de objeto"
                 }
               }
             }
@@ -73665,6 +73820,161 @@
         }
       }
     },
+    "Pre-Fill Name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Rellenar nombre"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pre-Fill Name"
+          }
+        }
+      }
+    },
     "Preferences" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -77381,13 +77691,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Relación"
+                  "value" : "relación"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Relaciones"
+                  "value" : "%lld relaciones"
                 }
               }
             }
@@ -97309,13 +97619,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Etiqueta"
+                  "value" : "etiqueta"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Etiquetas"
+                  "value" : "%lld etiquetas"
                 }
               }
             }
@@ -101608,7 +101918,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Toggled heading"
+            "value" : "Intestazione attivata"
           }
         },
         "ja" : {
@@ -101763,7 +102073,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Toggle subheading"
+            "value" : "Attiva/disattiva sottotitolo"
           }
         },
         "ja" : {
@@ -101918,7 +102228,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Toggled title"
+            "value" : "Titolo attivato"
           }
         },
         "ja" : {
@@ -109913,7 +110223,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Vídeos"
+                  "value" : "%lld ídeos"
                 }
               }
             }
