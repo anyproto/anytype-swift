@@ -128,6 +128,8 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
     func cleanStateAfterLogout() {
         showUnstableMiddlewareError = true
         _homeObjects = [:]
+        autoDownloadSizeLimitRawValue = -1
+        autoDownloadUseCellular = false
     }
     
 }

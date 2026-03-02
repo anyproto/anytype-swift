@@ -1,5 +1,3 @@
-import Loc
-
 enum AutoDownloadSizeLimit: Int, CaseIterable, Identifiable {
     case off = -1
     case mb20 = 20

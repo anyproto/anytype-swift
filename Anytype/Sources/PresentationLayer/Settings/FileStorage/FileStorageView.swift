@@ -62,14 +62,11 @@ struct FileStorageView: View {
         AnytypeText(Loc.FileStorage.AutoDownload.sectionTitle, style: .caption1Medium)
             .foregroundStyle(Color.Text.secondary)
         Spacer.fixedHeight(8)
-        VStack(spacing: 0) {
-            offlineDownloadsRow
-            if model.autoDownloadSizeLimit.isEnabled {
-                useCellularDataRow
-            }
+        offlineDownloadsRow
+        if model.autoDownloadSizeLimit.isEnabled {
+            Spacer.fixedHeight(8)
+            useCellularDataRow
         }
-        .background(Color.Background.secondary)
-        .clipShape(.rect(cornerRadius: 16))
     }
 
     private var offlineDownloadsRow: some View {
@@ -96,21 +93,28 @@ struct FileStorageView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 14)
         }
+        .background(Color.Background.primary)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color.Shape.tertiary, lineWidth: 1)
+        )
     }
 
     private var useCellularDataRow: some View {
         HStack(spacing: 0) {
-            AnytypeText(Loc.FileStorage.AutoDownload.useCellularData, style: .uxBodyRegular)
-                .foregroundStyle(Color.Text.primary)
-            Spacer()
-            Toggle("", isOn: Binding(
-                get: { model.autoDownloadUseCellular },
-                set: { model.onUseCellularToggled($0) }
-            ))
-            .labelsHidden()
-            .tint(Color.Control.accent80)
+            AnytypeToggle(
+                title: Loc.FileStorage.AutoDownload.useCellularData,
+                isOn: model.autoDownloadUseCellular
+            ) { model.onUseCellularToggled($0) }
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 14)
+        .padding(.vertical, 20)
+        .background(Color.Background.primary)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color.Shape.tertiary, lineWidth: 1)
+        )
     }
 }
