@@ -922,6 +922,10 @@ public enum Loc {
     public static let pleaseTryAgain = Loc.tr("UI", "Error occurred. Please try again", fallback: "Error occurred. Please try again")
   }
   public enum Experimental {
+    public enum CompactVault {
+      public static let subtitle = Loc.tr("UI", "Experimental.CompactVault.subtitle", fallback: "Automatically hide message previews for channels with no unread messages")
+      public static let title = Loc.tr("UI", "Experimental.CompactVault.title", fallback: "Auto-hide read previews")
+    }
     public enum NewObjectCreationMenu {
       public static let subtitle = Loc.tr("UI", "Experimental.NewObjectCreationMenu.subtitle", fallback: "Always pick object type when creating")
       public static let title = Loc.tr("UI", "Experimental.NewObjectCreationMenu.title", fallback: "New Object Creation Menu")

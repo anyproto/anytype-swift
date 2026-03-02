@@ -17,6 +17,7 @@ final class SpaceHubViewModel {
     
     var wallpapers: [String: SpaceWallpaperType] = [:]
 
+    var hideReadPreviews = false
     var notificationsNotDetermined = false
     var spaceMuteData: SpaceMuteData?
     var profileIcon: Icon?
@@ -41,6 +42,8 @@ final class SpaceHubViewModel {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.spaceCardModelBuilder) @ObservationIgnored
     private var spaceCardModelBuilder: any SpaceCardModelBuilderProtocol
+    @Injected(\.experimentalFeaturesStorage) @ObservationIgnored
+    private var experimentalFeaturesStorage: any ExperimentalFeaturesStorageProtocol
     
     init(output: (any SpaceHubModuleOutput)?) {
         self.output = output
@@ -107,8 +110,9 @@ final class SpaceHubViewModel {
         async let wallpapersSub: () = subscribeOnWallpapers()
         async let profileSub: () = subscribeOnProfile()
         async let notificationsSub: () = notificationsStatusSubscription()
+        async let hideReadPreviewsSub: () = subscribeOnHideReadPreviews()
 
-        _ = await (spacesSub, wallpapersSub, profileSub, notificationsSub)
+        _ = await (spacesSub, wallpapersSub, profileSub, notificationsSub, hideReadPreviewsSub)
     }
     
     func pushNotificationSetSpaceMode(data: SpaceMuteData) async {
@@ -211,6 +215,12 @@ final class SpaceHubViewModel {
     private func notificationsStatusSubscription() async {
         for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
             notificationsNotDetermined = status.isNotDetermined
+        }
+    }
+
+    private func subscribeOnHideReadPreviews() async {
+        for await value in experimentalFeaturesStorage.hideReadPreviewsSequence {
+            hideReadPreviews = value
         }
     }
 

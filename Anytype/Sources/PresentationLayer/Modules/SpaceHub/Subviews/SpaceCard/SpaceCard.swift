@@ -4,6 +4,7 @@ import AnytypeCore
 struct SpaceCard: View {
 
     let model: SpaceCardModel
+    let hideReadPreviews: Bool
     @Binding var draggedSpaceViewId: String?
     let onTap: () -> Void
     let onTapCopy: () -> Void
@@ -19,6 +20,7 @@ struct SpaceCard: View {
         } label: {
             NewSpaceCardLabel(
                 model: model,
+                hideReadPreviews: hideReadPreviews,
                 draggedSpaceViewId: $draggedSpaceViewId
             )
         }

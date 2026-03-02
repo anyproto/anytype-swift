@@ -20,6 +20,7 @@ struct SpaceCardModel: Equatable, Identifiable {
     let unreadCounterStyle: CounterViewStyle
     let mentionCounterStyle: MentionBadgeStyle
     let hasCounters: Bool
+    let multichatCompactPreview: String?
 
     let wallpaper: SpaceWallpaperType
 
