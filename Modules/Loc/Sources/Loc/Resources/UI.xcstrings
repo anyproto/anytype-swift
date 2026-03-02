@@ -38815,6 +38815,28 @@
         }
       }
     },
+    "Experimental.CompactVault.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatically hide message previews for channels with no unread messages"
+          }
+        }
+      }
+    },
+    "Experimental.CompactVault.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto-hide read previews"
+          }
+        }
+      }
+    },
     "Experimental.NewObjectCreationMenu.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {

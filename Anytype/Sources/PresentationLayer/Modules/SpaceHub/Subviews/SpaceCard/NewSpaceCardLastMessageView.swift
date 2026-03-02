@@ -58,26 +58,21 @@ struct NewSpaceCardLastMessageView: View {
 
     private var messageWithAttachements: some View {
         VStack(alignment: .leading, spacing: 2) {
-            if supportsMultiChats {
-                if let chatName = model.chatName {
-                    AnytypeText(chatName, style: .chatPreviewMedium)
-                        .foregroundStyle(Color.Text.transparentSecondary)
-                        .lineLimit(1)
-                }
-            } else if showsMessageAuthor, let creatorTitle = model.creatorTitle {
-                AnytypeText(creatorTitle, style: .chatPreviewRegular)
+            if supportsMultiChats, let chatName = model.chatName {
+                AnytypeText(chatName, style: .chatPreviewMedium)
                     .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(1)
             }
 
             HStack(spacing: 2) {
-                if supportsMultiChats, let creatorTitle = model.creatorTitle {
+                if let creatorTitle = model.creatorTitle {
                     AnytypeText("\(creatorTitle):", style: .chatPreviewRegular)
                         .foregroundStyle(Color.Text.transparentSecondary)
                         .lineLimit(1)
+                        .fixedSize(horizontal: true, vertical: false)
                 }
                 Spacer.fixedWidth(2)
-                
+
                 ForEach(model.attachments) {
                     IconView(icon: $0.icon).frame(width: 18, height: 18)
                 }
@@ -86,6 +81,7 @@ struct NewSpaceCardLastMessageView: View {
                 AnytypeText(model.localizedAttachmentsText, style: .chatPreviewRegular)
                     .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(1)
+                    .layoutPriority(-1)
             }
         }
     }
