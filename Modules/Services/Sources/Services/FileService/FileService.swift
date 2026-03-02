@@ -12,6 +12,8 @@ public protocol FileServiceProtocol: AnyObject, Sendable {
     func nodeUsage() async throws -> NodeUsageInfo
     func scheduleCacheDownload(fileObjectId: String) async throws
     func cancelCacheDownload(fileObjectId: String) async throws
+    func setAutoDownload(enabled: Bool, wifiOnly: Bool) async throws
+    func setAutoDownloadSizeLimit(mebibytes: Int64) async throws
 }
 
 final class FileService: FileServiceProtocol {
@@ -91,6 +93,19 @@ final class FileService: FileServiceProtocol {
     public func cancelCacheDownload(fileObjectId: String) async throws {
         try await ClientCommands.fileCacheCancelDownload(.with {
             $0.fileObjectID = fileObjectId
+        }).invoke()
+    }
+
+    public func setAutoDownload(enabled: Bool, wifiOnly: Bool) async throws {
+        try await ClientCommands.fileSetAutoDownload(.with {
+            $0.enabled = enabled
+            $0.wifiOnly = wifiOnly
+        }).invoke()
+    }
+
+    public func setAutoDownloadSizeLimit(mebibytes: Int64) async throws {
+        try await ClientCommands.fileAutoDownloadSetLimit(.with {
+            $0.sizeLimitMebibytes = mebibytes
         }).invoke()
     }
 }
