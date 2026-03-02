@@ -139,7 +139,6 @@ struct ChatView: View {
                 }
             }
         }
-        .padding(.horizontal, 8)
         .padding(.bottom, 8)
         .chatActionStateTopProvider(state: $actionState)
         .task(id: model.mentionSearchState) {
