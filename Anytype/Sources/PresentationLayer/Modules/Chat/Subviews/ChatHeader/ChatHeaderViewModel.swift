@@ -26,6 +26,7 @@ final class ChatHeaderViewModel {
     var chatLoading = false
     var spaceLoading = false
     var muted = false
+    var isArchived = false
     var toastBarData: ToastBarData?
     private(set) var notificationMode: SpacePushNotificationsMode = .all
     private(set) var isMultiChatSpace: Bool = false
@@ -184,6 +185,7 @@ final class ChatHeaderViewModel {
     }
 
     private func updateHeaderDisplay() {
+        isArchived = chatDetails?.isArchivedOrDeleted ?? false
         if spaceSupportsMultiChats {
             if let chatDetails {
                 title = chatDetails.name.withPlaceholder
