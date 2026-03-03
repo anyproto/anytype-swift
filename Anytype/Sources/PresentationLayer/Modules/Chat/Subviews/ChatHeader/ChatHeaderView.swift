@@ -37,6 +37,7 @@ struct ChatHeaderView: View {
         }
         .animation(.bouncy, value: model.showLoading)
         .animation(.bouncy, value: model.muted)
+        .animation(.bouncy, value: model.isArchived)
         .snackbar(toastBarData: $model.toastBarData)
     }
 
@@ -68,6 +69,10 @@ struct ChatHeaderView: View {
                                 Image(asset: .X18.muted)
                                     .foregroundStyle(Color.Control.transparentSecondary)
                             }
+                            if model.isArchived {
+                                Image(asset: .X18.delete)
+                                    .foregroundStyle(Color.Control.transparentSecondary)
+                            }
                         }
                         AnytypeText(model.anytypeName, style: .relation3Regular)
                             .foregroundStyle(Color.Text.transparentSecondary)
@@ -79,6 +84,11 @@ struct ChatHeaderView: View {
                     if model.muted {
                         Spacer.fixedWidth(4)
                         Image(asset: .X18.muted)
+                            .foregroundStyle(Color.Control.transparentSecondary)
+                    }
+                    if model.isArchived {
+                        Spacer.fixedWidth(4)
+                        Image(asset: .X18.delete)
                             .foregroundStyle(Color.Control.transparentSecondary)
                     }
                 }
