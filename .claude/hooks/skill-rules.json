@@ -779,10 +779,10 @@
         ]
       }
     },
-    "simulator-verify": {
+    "ios-simulator-skill": {
       "type": "workflow",
       "priority": "medium",
-      "description": "Verify implementations by building, running, and screenshotting iOS simulator. Deep links and touch via idb.",
+      "description": "21 production-ready scripts for iOS app testing, building, and automation. Semantic UI navigation, accessibility testing, simulator lifecycle management.",
       "promptTriggers": {
         "keywords": [
           "verify",
@@ -797,13 +797,20 @@
           "tap",
           "deep link",
           "simctl",
-          "check screen"
+          "check screen",
+          "accessibility audit",
+          "visual diff",
+          "screen mapper",
+          "push notification",
+          "privacy manager"
         ],
         "intentPatterns": [
           "(verify|check|test).*?(build|ui|screen|implementation)",
           "(take|capture).*?(screenshot)",
           "(run|launch|boot).*?(simulator|app)",
-          "(navigate|open|go to).*?(screen|view|page)"
+          "(navigate|open|go to).*?(screen|view|page)",
+          "(audit|check).*?(accessibility|a11y)",
+          "(compare|diff).*?(screenshot|visual|screen)"
         ]
       },
       "fileTriggers": {
