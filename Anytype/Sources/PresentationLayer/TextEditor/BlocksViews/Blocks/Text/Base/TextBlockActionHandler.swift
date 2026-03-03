@@ -439,6 +439,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     private func toggleDropdownView() {
         info.toggle()
         actionHandler.toggle(blockId: info.id)
+        viewModel.map { collectionController.reconfigure(items: [.block($0)]) }
     }
 }
 
