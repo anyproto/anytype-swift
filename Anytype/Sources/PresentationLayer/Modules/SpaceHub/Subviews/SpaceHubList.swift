@@ -48,6 +48,7 @@ struct SpaceHubList: View {
     private func spaceCard(_ cardModel: SpaceCardModel) -> some View {
         SpaceCard(
             model: cardModel,
+            hideReadPreviews: model.hideReadPreviews,
             draggedSpaceViewId: $draggedSpaceViewId,
             onTap: {
                 model.onSpaceTap(spaceId: cardModel.targetSpaceId)

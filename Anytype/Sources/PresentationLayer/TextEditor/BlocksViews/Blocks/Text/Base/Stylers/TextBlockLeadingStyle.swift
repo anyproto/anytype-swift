@@ -76,6 +76,13 @@ enum TextBlockLeadingStyle: Equatable {
                     icomImage: Icon
                 )
             )
+        case .toggleHeader, .toggleHeader2, .toggleHeader3:
+            self = .toggle(
+                .init(
+                    isToggled: configuration.isToggled,
+                    toggleAction: configuration.actions.toggleDropDown
+                )
+            )
         case .header, .header2, .header3, .header4, .code, .description, .text:
             self = .body
         case .quote:

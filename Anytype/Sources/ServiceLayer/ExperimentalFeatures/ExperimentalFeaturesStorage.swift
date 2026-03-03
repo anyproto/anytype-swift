@@ -5,19 +5,31 @@ import AsyncTools
 protocol ExperimentalFeaturesStorageProtocol: AnyObject, Sendable {
     var newObjectCreationMenuSequence: AnyAsyncSequence<Bool> { get }
     var newObjectCreationMenu: Bool { get set }
+    var hideReadPreviewsSequence: AnyAsyncSequence<Bool> { get }
+    var hideReadPreviews: Bool { get set }
 }
 
 final class ExperimentalFeaturesStorage: ExperimentalFeaturesStorageProtocol, Sendable {
-    
+
     private let newObjectCreationMenuStorage = FeatureStorage(key: "ExperimentalFeaturesStorage.newObjectCreationMenu", defaultValue: true)
-    
+    private let hideReadPreviewsStorage = FeatureStorage(key: "ExperimentalFeaturesStorage.compactVault", defaultValue: false)
+
     var newObjectCreationMenuSequence: AnyAsyncSequence<Bool> {
         newObjectCreationMenuStorage.sequence
     }
-    
+
     var newObjectCreationMenu: Bool {
         get { newObjectCreationMenuStorage.value }
         set { newObjectCreationMenuStorage.value = newValue }
+    }
+
+    var hideReadPreviewsSequence: AnyAsyncSequence<Bool> {
+        hideReadPreviewsStorage.sequence
+    }
+
+    var hideReadPreviews: Bool {
+        get { hideReadPreviewsStorage.value }
+        set { hideReadPreviewsStorage.value = newValue }
     }
 }
 

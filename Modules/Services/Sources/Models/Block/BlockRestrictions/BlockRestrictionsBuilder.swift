@@ -44,6 +44,8 @@ public struct BlockRestrictionsBuilder: Sendable {
             return TitleBlockRestrictions()
         case .header, .header2, .header3, .header4:
             return HeaderBlockRestrictions()
+        case .toggleHeader, .toggleHeader2, .toggleHeader3:
+            return ToggleHeaderBlockRestrictions()
         case .bulleted, .numbered, .toggle, .checkbox:
             return ListBlockRestrictions()
         case .quote:

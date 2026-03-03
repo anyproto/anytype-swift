@@ -12,52 +12,37 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Model_Search.Message {
-    public struct Result: @unchecked Sendable {
+    public struct Result: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
-      public var chatID: String {
-        get {return _storage._chatID}
-        set {_uniqueStorage()._chatID = newValue}
-      }
+      public var chatID: String = String()
 
-      public var messageID: String {
-        get {return _storage._messageID}
-        set {_uniqueStorage()._messageID = newValue}
-      }
+      public var messageID: String = String()
 
-      public var score: Int64 {
-        get {return _storage._score}
-        set {_uniqueStorage()._score = newValue}
-      }
+      public var score: Int64 = 0
 
       /// truncated text with highlights
-      public var highlight: String {
-        get {return _storage._highlight}
-        set {_uniqueStorage()._highlight = newValue}
-      }
+      public var highlight: String = String()
 
       /// ranges of the highlight in the text (using utf-16 runes)
-      public var highlightRanges: [Anytype_Model_Range] {
-        get {return _storage._highlightRanges}
-        set {_uniqueStorage()._highlightRanges = newValue}
-      }
+      public var highlightRanges: [Anytype_Model_Range] = []
 
       public var message: Anytype_Model_ChatMessage {
-        get {return _storage._message ?? Anytype_Model_ChatMessage()}
-        set {_uniqueStorage()._message = newValue}
+        get {return _message ?? Anytype_Model_ChatMessage()}
+        set {_message = newValue}
       }
       /// Returns true if `message` has been explicitly set.
-      public var hasMessage: Bool {return _storage._message != nil}
+      public var hasMessage: Bool {return self._message != nil}
       /// Clears the value of `message`. Subsequent reads from it will return its default value.
-      public mutating func clearMessage() {_uniqueStorage()._message = nil}
+      public mutating func clearMessage() {self._message = nil}
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
 
-      fileprivate var _storage = _StorageClass.defaultInstance
+      fileprivate var _message: Anytype_Model_ChatMessage? = nil
     }    
 }
 
@@ -65,102 +50,56 @@ extension Anytype_Model_Search.Message.Result: SwiftProtobuf.Message, SwiftProto
   public static let protoMessageName: String = Anytype_Model_Search.Message.protoMessageName + ".Result"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}chatId\0\u{1}messageId\0\u{1}score\0\u{1}highlight\0\u{1}highlightRanges\0\u{1}message\0")
 
-  fileprivate class _StorageClass {
-    var _chatID: String = String()
-    var _messageID: String = String()
-    var _score: Int64 = 0
-    var _highlight: String = String()
-    var _highlightRanges: [Anytype_Model_Range] = []
-    var _message: Anytype_Model_ChatMessage? = nil
-
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _chatID = source._chatID
-      _messageID = source._messageID
-      _score = source._score
-      _highlight = source._highlight
-      _highlightRanges = source._highlightRanges
-      _message = source._message
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularStringField(value: &_storage._chatID) }()
-        case 2: try { try decoder.decodeSingularStringField(value: &_storage._messageID) }()
-        case 3: try { try decoder.decodeSingularInt64Field(value: &_storage._score) }()
-        case 4: try { try decoder.decodeSingularStringField(value: &_storage._highlight) }()
-        case 5: try { try decoder.decodeRepeatedMessageField(value: &_storage._highlightRanges) }()
-        case 6: try { try decoder.decodeSingularMessageField(value: &_storage._message) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.chatID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.messageID) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.score) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.highlight) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.highlightRanges) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._message) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      if !_storage._chatID.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._chatID, fieldNumber: 1)
-      }
-      if !_storage._messageID.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._messageID, fieldNumber: 2)
-      }
-      if _storage._score != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._score, fieldNumber: 3)
-      }
-      if !_storage._highlight.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._highlight, fieldNumber: 4)
-      }
-      if !_storage._highlightRanges.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._highlightRanges, fieldNumber: 5)
-      }
-      try { if let v = _storage._message {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-      } }()
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.chatID.isEmpty {
+      try visitor.visitSingularStringField(value: self.chatID, fieldNumber: 1)
     }
+    if !self.messageID.isEmpty {
+      try visitor.visitSingularStringField(value: self.messageID, fieldNumber: 2)
+    }
+    if self.score != 0 {
+      try visitor.visitSingularInt64Field(value: self.score, fieldNumber: 3)
+    }
+    if !self.highlight.isEmpty {
+      try visitor.visitSingularStringField(value: self.highlight, fieldNumber: 4)
+    }
+    if !self.highlightRanges.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.highlightRanges, fieldNumber: 5)
+    }
+    try { if let v = self._message {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Search.Message.Result, rhs: Anytype_Model_Search.Message.Result) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._chatID != rhs_storage._chatID {return false}
-        if _storage._messageID != rhs_storage._messageID {return false}
-        if _storage._score != rhs_storage._score {return false}
-        if _storage._highlight != rhs_storage._highlight {return false}
-        if _storage._highlightRanges != rhs_storage._highlightRanges {return false}
-        if _storage._message != rhs_storage._message {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs.messageID != rhs.messageID {return false}
+    if lhs.score != rhs.score {return false}
+    if lhs.highlight != rhs.highlight {return false}
+    if lhs.highlightRanges != rhs.highlightRanges {return false}
+    if lhs._message != rhs._message {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

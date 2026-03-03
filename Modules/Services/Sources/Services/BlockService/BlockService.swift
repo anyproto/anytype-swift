@@ -7,9 +7,7 @@ public enum BlockServiceError: Error {
 }
 
 final class BlockService: BlockServiceProtocol {
-
-    private let dataviewDefaultViewCorrectorService: any DataviewDefaultViewCorrectorServiceProtocol = Container.shared.dataviewDefaultViewCorrectorService()
-
+    
     public func add(contextId: String, targetId: String, info: BlockInformation, position: BlockPosition) async throws -> String {
         guard let block = BlockInformationConverter.convert(information: info) else {
             anytypeAssertionFailure("addActionBlockIsNotParsed")
@@ -219,8 +217,7 @@ final class BlockService: BlockServiceProtocol {
             $0.spaceID = spaceId
             $0.objectTypeUniqueKey = typeUniqueKey.value
         }).invoke()
-
-        try? await dataviewDefaultViewCorrectorService.correctDefaultViewTypeIfNeeded(objectId: response.targetID, spaceId: spaceId)
+        
         return response.targetID
     }
 

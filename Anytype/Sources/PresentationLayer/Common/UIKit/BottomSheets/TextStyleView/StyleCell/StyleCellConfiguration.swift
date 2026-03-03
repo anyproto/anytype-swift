@@ -31,6 +31,7 @@ struct StyleCellContentConfiguration: UIContentConfiguration, Hashable {
     var text: String? = nil
     var font: UIFont? = nil
     var isDisabled: Bool = false
+    var isToggle: Bool = false
 
     func makeContentView() -> any UIView & UIContentView {
         return StyleCellContentView(configuration: self)

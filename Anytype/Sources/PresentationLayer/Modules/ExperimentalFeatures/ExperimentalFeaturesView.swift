@@ -20,12 +20,20 @@ struct ExperimentalFeaturesView: View {
                         subtitle: Loc.Experimental.NewObjectCreationMenu.subtitle,
                         isOn: $model.newObjectCreationMenu
                     )
+                    ExperimentalFeatureRow(
+                        title: Loc.Experimental.CompactVault.title,
+                        subtitle: Loc.Experimental.CompactVault.subtitle,
+                        isOn: $model.hideReadPreviews
+                    )
                 }
                 .padding(.horizontal, 16)
             }
         }
         .onChange(of: model.newObjectCreationMenu) {
             model.onUpdateNewObjectCreationMenu()
+        }
+        .onChange(of: model.hideReadPreviews) {
+            model.onUpdateHideReadPreviews()
         }
         .sheet(isPresented: $showDebugMenu) {
             DebugMenuView()

@@ -9,6 +9,7 @@ struct ParticipantSpaceViewDataWithPreview: Equatable, Identifiable, Hashable {
     let totalMentionCounter: Int
     let unreadCounterStyle: CounterViewStyle
     let mentionCounterStyle: MentionBadgeStyle
+    let unreadPreviews: [ChatMessagePreview]
 
     var id: String { space.id }
 
@@ -25,7 +26,8 @@ extension ParticipantSpaceViewDataWithPreview {
             totalUnreadCounter: 0,
             totalMentionCounter: 0,
             unreadCounterStyle: .highlighted,
-            mentionCounterStyle: .highlighted
+            mentionCounterStyle: .highlighted,
+            unreadPreviews: []
         )
     }
 }

@@ -60,7 +60,9 @@ private struct WidgetsHeaderMenuContent: View {
         channelSettingsButton
 
         if model.isSharedSpace {
-            membersButton
+            if !model.isOneToOneSpace {
+                membersButton
+            }
             notificationsMenu
 
             if model.hasInviteLink {
@@ -78,13 +80,7 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onChannelSettingsTap()
         } label: {
-            Label {
-                Text(Loc.SpaceSettings.title)
-            } icon: {
-                Image(asset: .X24.spaceSettings)
-                    .renderingMode(.template)
-                    .foregroundStyle(Color.Text.primary)
-            }
+            Label(Loc.Chat.channelSettings, systemImage: "gear")
         }
     }
 
@@ -92,13 +88,7 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onMembersTap()
         } label: {
-            Label {
-                Text(Loc.members)
-            } icon: {
-                Image(asset: .X24.member)
-                    .renderingMode(.template)
-                    .foregroundStyle(Color.Text.primary)
-            }
+            Label(Loc.members, systemImage: "person.2.fill")
         }
     }
 
@@ -115,13 +105,7 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onInviteMembersTap()
         } label: {
-            Label {
-                Text(Loc.Chat.inviteMembers)
-            } icon: {
-                Image(asset: .X24.member)
-                    .renderingMode(.template)
-                    .foregroundStyle(Color.Text.primary)
-            }
+            Label(Loc.Chat.inviteMembers, systemImage: "person.fill.badge.plus")
         }
     }
 
@@ -129,13 +113,7 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onShowQrCodeTap()
         } label: {
-            Label {
-                Text(Loc.qrCode)
-            } icon: {
-                Image(asset: .X24.qrCode)
-                    .renderingMode(.template)
-                    .foregroundStyle(Color.Text.primary)
-            }
+            Label(Loc.qrCode, systemImage: "qrcode")
         }
     }
 
@@ -143,13 +121,7 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onCopyInviteLinkTap()
         } label: {
-            Label {
-                Text(Loc.copyLink)
-            } icon: {
-                Image(asset: .X24.url)
-                    .renderingMode(.template)
-                    .foregroundStyle(Color.Text.primary)
-            }
+            Label(Loc.copyInviteLink, systemImage: "document.on.document.fill")
         }
     }
 }

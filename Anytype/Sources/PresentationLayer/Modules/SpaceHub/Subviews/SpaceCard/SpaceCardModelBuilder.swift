@@ -62,6 +62,13 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             lastMessage = nil
         }
 
+        let multichatCompactPreview: String?
+        if spaceView.uxType.supportsMultiChats {
+            multichatCompactPreview = await buildMultichatCompactPreview(unreadPreviews: spaceData.unreadPreviews)
+        } else {
+            multichatCompactPreview = nil
+        }
+
         return SpaceCardModel(
             spaceViewId: spaceView.id,
             targetSpaceId: spaceView.targetSpaceId,
@@ -80,8 +87,29 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             unreadCounterStyle: spaceData.unreadCounterStyle,
             mentionCounterStyle: spaceData.mentionCounterStyle,
             hasCounters: spaceData.hasCounters,
+            multichatCompactPreview: multichatCompactPreview,
             wallpaper: wallpapers[spaceView.targetSpaceId] ?? .default
         )
+    }
+    private func buildMultichatCompactPreview(unreadPreviews: [ChatMessagePreview]) async -> String? {
+        guard unreadPreviews.isNotEmpty else { return nil }
+
+        let maxVisible = 3
+        var names = [String]()
+        for preview in unreadPreviews.prefix(maxVisible) {
+            if let chatDetail = await chatDetailsStorage.chat(id: preview.chatId) {
+                names.append(chatDetail.name.withPlaceholder)
+            }
+        }
+
+        guard names.isNotEmpty else { return nil }
+
+        let remaining = unreadPreviews.count - maxVisible
+        if remaining > 0 {
+            return names.joined(separator: ", ") + " +\(remaining)"
+        } else {
+            return names.joined(separator: ", ")
+        }
     }
 }
 
