@@ -12,7 +12,7 @@ protocol ExperimentalFeaturesStorageProtocol: AnyObject, Sendable {
 final class ExperimentalFeaturesStorage: ExperimentalFeaturesStorageProtocol, Sendable {
 
     private let newObjectCreationMenuStorage = FeatureStorage(key: "ExperimentalFeaturesStorage.newObjectCreationMenu", defaultValue: true)
-    private let hideReadPreviewsStorage = FeatureStorage(key: "ExperimentalFeaturesStorage.compactVault", defaultValue: false)
+    private let hideReadPreviewsStorage = FeatureStorage(key: "ExperimentalFeaturesStorage.compactVault", defaultValue: true)
 
     var newObjectCreationMenuSequence: AnyAsyncSequence<Bool> {
         newObjectCreationMenuStorage.sequence
