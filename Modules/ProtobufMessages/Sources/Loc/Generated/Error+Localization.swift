@@ -3151,6 +3151,29 @@ extension Anytype_Rpc.Chat.ReadMessages.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Chat.ReadReactions.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Chat.ReadReactions.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Chat.Search.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
