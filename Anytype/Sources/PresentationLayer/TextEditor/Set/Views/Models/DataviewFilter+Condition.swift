@@ -33,11 +33,10 @@ extension DataviewFilter {
 extension Array where Element == DataviewFilter {
     func removingUnsupportedFilters() -> [DataviewFilter] {
         compactMap { filter in
-            // Advanced filter: recursively clean nested filters
+            // Advanced filters (AND/OR) are created on desktop and passed through as-is.
+            // Middleware handles them correctly; iOS displays them read-only.
             if filter.operator != .no {
-                var cleaned = filter
-                cleaned.nestedFilters = filter.nestedFilters.removingUnsupportedFilters()
-                return cleaned.nestedFilters.isEmpty ? nil : cleaned
+                return filter
             }
             return filter.isSupportedForSubscription ? filter : nil
         }
