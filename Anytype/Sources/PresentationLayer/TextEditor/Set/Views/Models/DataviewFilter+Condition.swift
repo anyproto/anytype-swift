@@ -6,6 +6,12 @@ extension DataviewFilter {
         // Conditions that don't require values (.none, .empty, .notEmpty) are always valid
         guard condition.hasValues else { return true }
 
+        // Date filters with relative quick options (today, yesterday, etc.) don't require
+        // an explicit value — middleware resolves the date from quickOption at query time
+        if format == .date && quickOption != .exactDate {
+            return true
+        }
+
         // No value set at all
         guard hasValue else { return false }
 
