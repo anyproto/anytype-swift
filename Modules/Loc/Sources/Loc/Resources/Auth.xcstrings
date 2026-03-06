@@ -171,6 +171,12 @@
             "value" : "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -316,6 +322,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Welcome to the Alpha version"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Welcome to the Alpha version"
@@ -6516,6 +6528,12 @@
             "value" : "Гатова"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Done"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -6665,6 +6683,12 @@
             "value" : "Бачна толькі людзям, з якімі вы чымсьці падзяліліся. Адзінага спісу такіх імёнаў не існуе."
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Only seen by people you share something with. There is no central registry of these names."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -6809,6 +6833,12 @@
           }
         },
         "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add Your Name"
+          }
+        },
+        "cs" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Add Your Name"
@@ -7583,6 +7613,12 @@
             "value" : "Увайсці ў Сховішча"
           }
         },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Enter my Vault"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "new",
@@ -7730,6 +7766,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Уваходзім у пустату"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Entering the Void"
           }
         },
         "de" : {
@@ -11113,7 +11155,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Login Key"
+            "value" : "登录密钥"
           }
         },
         "zh-Hant" : {
