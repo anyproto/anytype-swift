@@ -9448,7 +9448,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Application"
+            "value" : "应用"
           }
         },
         "zh-Hant" : {
@@ -10760,7 +10760,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Attach Object"
+            "value" : "Anexar um objeto"
           }
         },
         "pt-PT" : {
@@ -11457,13 +11457,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Audio"
+                  "value" : "audio"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Audios"
+                  "value" : "%lld audios"
                 }
               }
             }
@@ -22922,7 +22922,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy Invite Link"
+            "value" : "Einladungslink kopieren"
           }
         },
         "en" : {
