@@ -25,7 +25,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
+            "value" : "Indem du fortfährst, stimmst du unseren [Nutzungsbedingungen](%@) und [Datenschutzbestimmungen](%@) zu"
           }
         },
         "en" : {
@@ -4861,7 +4861,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Student"
+            "value" : "Étudiant"
           }
         },
         "id" : {
@@ -10069,7 +10069,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Login Key"
+            "value" : "登录密钥"
           }
         },
         "zh-Hant" : {
