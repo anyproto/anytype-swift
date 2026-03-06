@@ -112,11 +112,6 @@ public struct Anytype_Model_ChatMessage: @unchecked Sendable {
     set {_uniqueStorage()._unreadReaction = newValue}
   }
 
-  public var lastUnreadReactionOrderID: String {
-    get {return _storage._lastUnreadReactionOrderID}
-    set {_uniqueStorage()._lastUnreadReactionOrderID = newValue}
-  }
-
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -126,7 +121,7 @@ public struct Anytype_Model_ChatMessage: @unchecked Sendable {
 
 extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ChatMessage"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}orderId\0\u{1}creator\0\u{1}createdAt\0\u{1}replyToMessageId\0\u{1}message\0\u{1}attachments\0\u{1}reactions\0\u{1}modifiedAt\0\u{1}read\0\u{1}stateId\0\u{1}mentionRead\0\u{1}synced\0\u{1}hasMention\0\u{1}pinned\0\u{1}unreadReaction\0\u{1}lastUnreadReactionOrderId\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}orderId\0\u{1}creator\0\u{1}createdAt\0\u{1}replyToMessageId\0\u{1}message\0\u{1}attachments\0\u{1}reactions\0\u{1}modifiedAt\0\u{1}read\0\u{1}stateId\0\u{1}mentionRead\0\u{1}synced\0\u{1}hasMention\0\u{1}pinned\0\u{1}unreadReaction\0")
 
   fileprivate class _StorageClass {
     var _id: String = String()
@@ -145,7 +140,6 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     var _synced: Bool = false
     var _pinned: Bool = false
     var _unreadReaction: Bool = false
-    var _lastUnreadReactionOrderID: String = String()
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -172,7 +166,6 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
       _synced = source._synced
       _pinned = source._pinned
       _unreadReaction = source._unreadReaction
-      _lastUnreadReactionOrderID = source._lastUnreadReactionOrderID
     }
   }
 
@@ -207,7 +200,6 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
         case 14: try { try decoder.decodeSingularBoolField(value: &_storage._hasMention_p) }()
         case 15: try { try decoder.decodeSingularBoolField(value: &_storage._pinned) }()
         case 16: try { try decoder.decodeSingularBoolField(value: &_storage._unreadReaction) }()
-        case 17: try { try decoder.decodeSingularStringField(value: &_storage._lastUnreadReactionOrderID) }()
         default: break
         }
       }
@@ -268,9 +260,6 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
       if _storage._unreadReaction != false {
         try visitor.visitSingularBoolField(value: _storage._unreadReaction, fieldNumber: 16)
       }
-      if !_storage._lastUnreadReactionOrderID.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._lastUnreadReactionOrderID, fieldNumber: 17)
-      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -296,7 +285,6 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
         if _storage._synced != rhs_storage._synced {return false}
         if _storage._pinned != rhs_storage._pinned {return false}
         if _storage._unreadReaction != rhs_storage._unreadReaction {return false}
-        if _storage._lastUnreadReactionOrderID != rhs_storage._lastUnreadReactionOrderID {return false}
         return true
       }
       if !storagesAreEqual {return false}
