@@ -1731,7 +1731,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Support request, Vault ID %@"
+            "value" : "Supportanfrage, Tresor-ID %@"
           }
         },
         "en" : {
@@ -2661,7 +2661,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Analytics ID: %@"
+            "value" : "Analytics-ID: %@"
           }
         },
         "en" : {
@@ -21217,7 +21217,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Connect with me on Anytype"
+            "value" : "Verbinde dich mit mir auf Anytype"
           }
         },
         "en" : {
@@ -23543,7 +23543,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Space"
+            "value" : "Space erstellen"
           }
         },
         "en" : {
@@ -27426,7 +27426,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This vault will be deleted %#@days@"
+            "value" : "Dieser Tresor wird gelöscht in %#@days@"
           },
           "substitutions" : {
             "days" : {
@@ -31540,7 +31540,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Document scan failed"
+            "value" : "Dokumentenscan fehlgeschlagen"
           }
         },
         "en" : {
@@ -33245,7 +33245,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed. Opens in external app or browser"
+            "value" : "%@ eingebettet. Öffnet in externer App oder Browser"
           }
         },
         "en" : {
@@ -33400,7 +33400,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed. This content is not available on mobile"
+            "value" : "%@ eingebettet. Dieser Inhalt ist nicht mobil verfügbar"
           }
         },
         "en" : {
@@ -33555,7 +33555,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed is empty"
+            "value" : "%@ Einbettung ist leer"
           }
         },
         "en" : {
@@ -38673,7 +38673,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Auto-hide read previews"
+            "value" : "Gelesene Vorschau automatisch ausblenden"
           }
         },
         "en" : {
@@ -40881,7 +40881,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Off"
+            "value" : "Deaktiviert"
           }
         },
         "en" : {
@@ -41036,7 +41036,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Offline access"
+            "value" : "Offline-Zugriff"
           }
         },
         "en" : {
@@ -41191,7 +41191,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Auto sync files up to a selected size"
+            "value" : "Automatische Synchronisierung von Dateien bis zu einer ausgewählten Größe"
           }
         },
         "en" : {
@@ -41346,7 +41346,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Offline Downloads"
+            "value" : "Offline-Downloads"
           }
         },
         "en" : {
@@ -41656,7 +41656,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Use Cellular Data"
+            "value" : "Mobile Daten verwenden"
           }
         },
         "en" : {
@@ -42896,7 +42896,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ used"
+            "value" : "%@ verwendet"
           }
         },
         "en" : {
@@ -43516,7 +43516,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Remote storage is not available in local-only mode. Your files are stored locally on your device."
+            "value" : "Der Remotespeicher ist nicht im lokalen Modus verfügbar. Deine Dateien werden lokal auf deinem Gerät gespeichert."
           }
         },
         "en" : {
@@ -43826,7 +43826,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ of %@ used"
+            "value" : "%@ von %@ verwendet"
           }
         },
         "en" : {
@@ -44403,7 +44403,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@ uploading"
+            "value" : "%#@file@ hochladen"
           },
           "substitutions" : {
             "file" : {
@@ -46107,7 +46107,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Made by @%@"
+            "value" : "Erstellt von @%@"
           }
         },
         "en" : {
@@ -46727,7 +46727,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum."
+            "value" : "Hoppla! \"%@\" wurde nicht installiert. Bitte überprüfe deine Internetverbindung und versuche es erneut oder poste einen Bericht im Forum."
           }
         },
         "en" : {
@@ -52149,7 +52149,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@ syncing..."
+            "value" : "%#@item@ wird synchronisiert ..."
           },
           "substitutions" : {
             "item" : {
@@ -53541,7 +53541,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Leave a space"
+            "value" : "Space verlassen"
           }
         },
         "en" : {
@@ -58580,7 +58580,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Min %@ characters"
+            "value" : "Min. %@ Zeichen"
           }
         },
         "en" : {
@@ -64620,7 +64620,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ selected"
+            "value" : "%#@object@ ausgewählt"
           },
           "substitutions" : {
             "object" : {
