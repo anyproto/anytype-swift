@@ -180,7 +180,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Analytics ID: %@"
+            "value" : "Analytics-ID: %@"
           }
         },
         "en" : {
@@ -490,7 +490,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Anytype ID: %@"
+            "value" : "Anytype-ID: %@"
           }
         },
         "en" : {
@@ -7963,7 +7963,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Date created"
+            "value" : "Date de création"
           }
         },
         "id" : {
@@ -10706,7 +10706,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Attach Object"
+            "value" : "Joindre un objet"
           }
         },
         "id" : {
@@ -21217,7 +21217,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Connect with me on Anytype"
+            "value" : "Verbinde dich mit mir auf Anytype"
           }
         },
         "en" : {
@@ -24938,7 +24938,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Space"
+            "value" : "Space erstellen"
           }
         },
         "en" : {
@@ -25433,7 +25433,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Customize URL"
+            "value" : "Personnaliser l'URL"
           }
         },
         "id" : {
@@ -31695,7 +31695,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Document scan failed"
+            "value" : "Dokumentenscan fehlgeschlagen"
           }
         },
         "en" : {
@@ -43160,7 +43160,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Remote storage is not available in local-only mode. Your files are stored locally on your device."
+            "value" : "Der Remotespeicher ist nicht im lokalen Modus verfügbar. Deine Dateien werden lokal auf deinem Gerät gespeichert."
           }
         },
         "en" : {
@@ -51991,7 +51991,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Leave a space"
+            "value" : "Space verlassen"
           }
         },
         "en" : {
@@ -74650,7 +74650,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Publish"
+            "value" : "Publier"
           }
         },
         "id" : {
@@ -78722,7 +78722,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Reset to default"
+            "value" : "Réinitialiser aux valeurs par défaut"
           }
         },
         "id" : {
@@ -95355,7 +95355,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Syncing..."
+            "value" : "Synchronisation en cours..."
           }
         },
         "id" : {
@@ -105938,7 +105938,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unpublish"
+            "value" : "Dépublier"
           }
         },
         "id" : {

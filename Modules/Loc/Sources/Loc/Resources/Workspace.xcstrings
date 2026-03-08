@@ -2573,7 +2573,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Ajouter des membres"
           }
         },
         "id" : {
@@ -2728,7 +2728,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Invite members"
+            "value" : "Inviter des membres"
           }
         },
         "id" : {
@@ -3193,7 +3193,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yours forever"
+            "value" : "À vous pour toujours"
           }
         },
         "id" : {
@@ -3503,7 +3503,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Update App"
+            "value" : "Mettre à jour l'application"
           }
         },
         "id" : {
@@ -3658,7 +3658,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This version doesn’t support sending files or images. Update the app to share media in chats."
+            "value" : "Cette version ne prend pas en charge l'envoi de fichiers ou d'images. Mettez à jour l'application pour partager des médias dans les chats."
           }
         },
         "id" : {
@@ -3813,7 +3813,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Incompatible Version"
+            "value" : "Version incompatible"
           }
         },
         "id" : {
@@ -4278,7 +4278,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Network Error"
+            "value" : "Erreur réseau"
           }
         },
         "id" : {
@@ -11849,7 +11849,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Advanced filter"
+            "value" : "Erweiterter Filter"
           }
         },
         "en" : {
@@ -16685,7 +16685,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Last year"
+            "value" : "L'année dernière"
           }
         },
         "id" : {
@@ -17150,7 +17150,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Next year"
+            "value" : "L'année prochaine"
           }
         },
         "id" : {
@@ -38156,7 +38156,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Skip for now"
+            "value" : "Ignorer pour le moment"
           }
         },
         "id" : {
@@ -57855,7 +57855,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Request access"
+            "value" : "Demander l'accès"
           }
         },
         "id" : {
@@ -66733,7 +66733,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Home page"
+            "value" : "Page d’accueil"
           }
         },
         "id" : {
