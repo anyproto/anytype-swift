@@ -775,7 +775,7 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     var orderId: String {
         return value(for: BundledPropertyKey.orderId.rawValue)
     }
-    /// OneToOne (second) participant identity
+    /// OneToOne other participant identity
     var oneToOneIdentity: String {
         return value(for: BundledPropertyKey.oneToOneIdentity.rawValue)
     }
