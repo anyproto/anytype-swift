@@ -779,6 +779,52 @@
         ]
       }
     },
+    "swiftui-expert-skill": {
+      "type": "domain",
+      "priority": "medium",
+      "description": "Comprehensive SwiftUI expert reference (AvdLee). State management, animations, charts, accessibility, scroll patterns, latest APIs",
+      "promptTriggers": {
+        "keywords": [
+          "swiftui expert",
+          "animation",
+          "transition",
+          "chart",
+          "Swift Charts",
+          "accessibility",
+          "VoiceOver",
+          "ScaledMetric",
+          "scroll",
+          "ScrollViewReader",
+          "sheet pattern",
+          "navigation pattern",
+          "image optimization",
+          "AsyncImage",
+          "latest api",
+          "deprecated api",
+          "api migration"
+        ],
+        "intentPatterns": [
+          "(animate|transition).*?(view|element|state)",
+          "(create|build|add).*?(chart|graph)",
+          "(accessibility|a11y).*?(swiftui|view|pattern)",
+          "(scroll|paging).*?(behavior|pattern|position)",
+          "(deprecated|migrate|replace).*?(api|modifier|view)",
+          "(optimize|cache|downsample).*?(image)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": ["**/*.swift"],
+        "contentPatterns": [
+          "withAnimation",
+          "\\.transition\\(",
+          "Chart\\s*\\{",
+          "ScrollViewReader",
+          "\\.scrollPosition",
+          "AsyncImage",
+          "\\.accessibilityLabel"
+        ]
+      }
+    },
     "ios-simulator-skill": {
       "type": "workflow",
       "priority": "medium",
