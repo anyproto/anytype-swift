@@ -5,16 +5,22 @@ import AnytypeCore
 struct NewSpaceCardLabel: View {
 
     let model: SpaceCardModel
-    let hideReadPreviews: Bool
     @Binding var draggedSpaceViewId: String?
 
     @Namespace private var namespace
 
-    private let iconSize: CGFloat = 44
+    private let iconSize: CGFloat = 40
     private let verticalPadding: CGFloat = 16
-    private let cellHeight: CGFloat = 76
+    private let cellHeight: CGFloat = 72
     private var showMessage: Bool {
-        hideReadPreviews ? (model.hasCounters && model.lastMessage != nil) : (model.lastMessage != nil)
+        guard model.lastMessage != nil else { return false }
+        // DMs, Chat, Stream: always show preview
+        if !model.supportsMultiChats { return true }
+        // Data: only show when has unread counters
+        return model.hasCounters
+    }
+    private var previewTextColor: Color {
+        (!model.supportsMultiChats && model.hasCounters) ? Color.Text.primary : Color.Text.transparentSecondary
     }
 
     var body: some View {
@@ -85,7 +91,7 @@ struct NewSpaceCardLabel: View {
             }
 
             HStack(alignment: .top) {
-                NewSpaceCardLastMessageView(model: message, supportsMultiChats: model.supportsMultiChats, showsMessageAuthor: model.showsMessageAuthor)
+                NewSpaceCardLastMessageView(model: message, supportsMultiChats: model.supportsMultiChats, showsMessageAuthor: model.showsMessageAuthor, previewTextColor: previewTextColor)
                 Spacer()
                 decoration
             }
