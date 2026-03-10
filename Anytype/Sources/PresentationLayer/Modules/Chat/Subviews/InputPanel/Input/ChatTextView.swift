@@ -41,6 +41,8 @@ struct ChatTextView: UIViewRepresentable {
         textView.textContainer.lineFragmentPadding = 0
         textView.notEditableAttributes = [.chatMention]
         textView.backgroundColor = .clear
+        textView.isScrollEnabled = true
+        textView.alwaysBounceVertical = false
         
         if let textContentManager = textView.textLayoutManager?.textContentManager {
             textContentManager.delegate = context.coordinator
