@@ -62,7 +62,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
             case .textColor:
                 message[range].foregroundColor = MiddlewareColor(rawValue: mark.param).map { Color.Dark.color(from: $0) }
             case .backgroundColor:
-                message[range].backgroundColor = MiddlewareColor(rawValue: mark.param).map { Color.VeryLight.color(from: $0) }
+                message[range].backgroundColor = MiddlewareColor(rawValue: mark.param).map { Color.Light.color(from: $0) }
             case .mention:
                 message[range].uiKit.underlineStyle = .single
                 if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {

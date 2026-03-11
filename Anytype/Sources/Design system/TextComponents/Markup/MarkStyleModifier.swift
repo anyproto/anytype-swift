@@ -107,7 +107,7 @@ final class MarkStyleModifier {
             return AttributedStringChange(changeAttributes: [.foregroundColor : uiColor as Any])
             
         case let .backgroundColor(middlewareColor):
-            let uiColor = UIColor.VeryLight.uiColor(from: middlewareColor)
+            let uiColor = UIColor.Light.uiColor(from: middlewareColor)
             return AttributedStringChange(changeAttributes: [.backgroundColor : uiColor as Any])
         case let .link(url):
             return AttributedStringChange(
