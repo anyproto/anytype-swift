@@ -69,6 +69,9 @@ struct SpaceHubList: View {
             },
             onTapDelete: {
                 model.onDeleteSpace(spaceId: cardModel.targetSpaceId)
+            },
+            onTapLeave: {
+                model.onLeaveSpace(spaceId: cardModel.targetSpaceId)
             }
         )
         .padding(.horizontal, 16)

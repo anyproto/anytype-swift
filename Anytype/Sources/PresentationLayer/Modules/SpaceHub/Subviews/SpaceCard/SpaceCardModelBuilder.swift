@@ -78,6 +78,8 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             isLoading: spaceView.isLoading,
             isShared: spaceView.isShared,
             isMuted: !spaceView.pushNotificationMode.isUnmutedAll,
+            canBeDeleted: spaceData.space.canBeDeleted,
+            canLeave: spaceData.space.canLeave,
             uxTypeName: spaceView.uxType.name,
             supportsMultiChats: spaceView.uxType.supportsMultiChats,
             showsMessageAuthor: spaceView.uxType.showsMessageAuthor,
