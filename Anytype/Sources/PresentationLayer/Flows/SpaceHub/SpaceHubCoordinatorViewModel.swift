@@ -210,7 +210,21 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     func onSelectSpace(spaceId: String) {
         Task { try await showSpace(spaceId: spaceId) }
     }
-    
+
+    func onSpaceJoined(spaceId: String) {
+        Task {
+            // Space may not be in storage yet after joining, wait for it to appear
+            if workspaceStorage.spaceView(spaceId: spaceId) == nil {
+                for await spaceViews in workspaceStorage.allSpaceViewsPublisher.values {
+                    if spaceViews.contains(where: { $0.targetSpaceId == spaceId }) {
+                        break
+                    }
+                }
+            }
+            try await showSpace(spaceId: spaceId)
+        }
+    }
+
     func onOpenSpaceSettings(spaceId: String) {
         showScreenSync(data: .spaceInfo(.settings(spaceId: spaceId)))
     }
