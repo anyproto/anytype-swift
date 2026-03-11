@@ -731,8 +731,9 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     
     private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
         if attachment.resolvedLayoutValue.isFileOrMedia {
+            let fileAndMediaAttachments = attachments.filter { $0.resolvedLayoutValue.isFileOrMedia }
             output?.onObjectSelected(screenData: .preview(
-                MediaFileScreenData(selectedItem: attachment, allItems: attachments, route: .chat)
+                MediaFileScreenData(selectedItem: attachment, allItems: fileAndMediaAttachments, route: .chat)
             ))
         } else {
             output?.onObjectSelected(screenData: attachment.screenData())
