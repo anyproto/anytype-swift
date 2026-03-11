@@ -135,7 +135,7 @@ final class SpaceHubViewModel {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
             self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
             await updateFilteredSpaces()
-            self.dataLoaded = spaces.isNotEmpty
+            self.dataLoaded = true
         }
     }
     
