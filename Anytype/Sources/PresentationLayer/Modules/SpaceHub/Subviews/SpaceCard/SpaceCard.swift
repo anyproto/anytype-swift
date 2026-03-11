@@ -12,6 +12,7 @@ struct SpaceCard: View {
     let onTapUnpin: () async throws -> Void
     let onTapSettings: () -> Void
     let onTapDelete: () -> Void
+    let onTapLeave: () -> Void
 
     var body: some View {
         Button {
@@ -42,11 +43,17 @@ struct SpaceCard: View {
         if model.isShared {
             muteButton
         }
-        
-        if model.isLoading {
-            deleteButton
-        } else {
+
+        if !model.isLoading {
             settingsButton
+        }
+
+        if model.canBeDeleted {
+            Divider()
+            deleteButton
+        } else if model.canLeave {
+            Divider()
+            leaveButton
         }
     }
     
@@ -106,6 +113,18 @@ struct SpaceCard: View {
             onTapDelete()
         } label: {
             Text(Loc.SpaceSettings.deleteButton)
+                .tint(.red)
+            Spacer()
+            Image(systemName: "trash")
+                .tint(.red)
+        }
+    }
+
+    private var leaveButton: some View {
+        Button(role: .destructive) {
+            onTapLeave()
+        } label: {
+            Text(Loc.SpaceSettings.leaveButton)
                 .tint(.red)
             Spacer()
             Image(systemName: "trash")

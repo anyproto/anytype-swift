@@ -24,6 +24,9 @@ struct SpaceHubView: View {
             .anytypeSheet(item: $model.spaceToDelete) { spaceId in
                 SpaceDeleteAlert(spaceId: spaceId.value)
             }
+            .anytypeSheet(item: $model.spaceToLeave) { spaceId in
+                SpaceLeaveAlert(spaceId: spaceId.value)
+            }
             .handleChatCreationTip()
             .accessibilityLabel("SpaceHub")
     }
