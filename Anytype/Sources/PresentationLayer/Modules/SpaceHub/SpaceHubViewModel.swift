@@ -72,10 +72,17 @@ final class SpaceHubViewModel {
     
     func muteSpace(spaceViewId: String) {
         guard let spaceView = spaces?.first(where: { $0.spaceView.id == spaceViewId })?.spaceView else { return }
-        let isUnmutedAll = spaceView.pushNotificationMode.isUnmutedAll
         spaceMuteData = SpaceMuteData(
             spaceId: spaceView.targetSpaceId,
-            mode: isUnmutedAll ? .mentions : .all
+            mode: spaceView.pushNotificationMode.toggled(isOneToOne: spaceView.uxType.isOneToOne)
+        )
+    }
+
+    func setSpaceNotificationMode(spaceViewId: String, mode: SpacePushNotificationsMode) {
+        guard let spaceView = spaces?.first(where: { $0.spaceView.id == spaceViewId })?.spaceView else { return }
+        spaceMuteData = SpaceMuteData(
+            spaceId: spaceView.targetSpaceId,
+            mode: mode
         )
     }
     

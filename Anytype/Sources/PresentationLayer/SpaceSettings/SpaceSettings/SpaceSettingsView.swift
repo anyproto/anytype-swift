@@ -234,14 +234,16 @@ struct SpaceSettingsView: View {
                         icon: .X24.member,
                         decoration: memberDecoration
                     ) { model.onMembersTap() }
-                    .settingsRow(showDivider: true, leadingPadding: 48)
+                    .settingsRow(showDivider: model.showNotificationsSection || model.uxTypeSettingsData != nil, leadingPadding: 48)
                 }
-                RoundedButton(
-                    Loc.notifications,
-                    icon: pushNotificationsSettingIcon(),
-                    decoration: .caption(pushNotificationsSettingCaption())
-                ) { model.onNotificationsTap() }
-                .settingsRow(showDivider: model.uxTypeSettingsData != nil, leadingPadding: 48)
+                if model.showNotificationsSection {
+                    RoundedButton(
+                        Loc.notifications,
+                        icon: pushNotificationsSettingIcon(),
+                        decoration: .caption(pushNotificationsSettingCaption())
+                    ) { model.onNotificationsTap() }
+                    .settingsRow(showDivider: model.uxTypeSettingsData != nil, leadingPadding: 48)
+                }
                 if let data = model.uxTypeSettingsData {
                     RoundedButton(
                         Loc.channelType,

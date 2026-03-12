@@ -124,10 +124,9 @@ struct ChatHeaderView: View {
                         }
                     }
 
-                    NotificationModeMenu(
-                        currentMode: model.notificationMode,
-                        onModeChange: model.changeNotificationMode
-                    )
+                    MuteToggleMenuButton(isMuted: model.muted) {
+                        await model.toggleMute()
+                    }
                 } label: {
                     Image(asset: .X24.more)
                         .foregroundStyle(Color.Control.primary)

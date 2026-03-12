@@ -61,6 +61,10 @@ final class WidgetsHeaderViewModel {
         spaceView?.pushNotificationMode ?? .all
     }
 
+    var isMuted: Bool {
+        !currentNotificationMode.isUnmutedAll
+    }
+
     init(
         spaceId: String,
         onSpaceSelected: @escaping () -> Void,
@@ -129,6 +133,10 @@ final class WidgetsHeaderViewModel {
 
     func onInviteMembersTap() {
         onMembersSelected(accountSpaceId, .navigation)
+    }
+
+    func toggleMute() async {
+        await onNotificationModeChanged(currentNotificationMode.toggled(isOneToOne: isOneToOneSpace))
     }
 
     func onNotificationModeChanged(_ mode: SpacePushNotificationsMode) async {

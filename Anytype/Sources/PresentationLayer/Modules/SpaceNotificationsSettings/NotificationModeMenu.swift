@@ -14,7 +14,7 @@ struct NotificationModeMenu: View {
                     }
                 } label: {
                     HStack {
-                        Text(mode.title)
+                        Text(mode == .nothing ? Loc.Space.Notifications.Settings.State.muteAndHide : mode.title)
                         if currentMode == mode {
                             Image(systemName: "checkmark")
                         }

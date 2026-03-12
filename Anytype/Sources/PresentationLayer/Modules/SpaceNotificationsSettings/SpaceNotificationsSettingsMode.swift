@@ -8,16 +8,16 @@ extension SpacePushNotificationsMode {
 
     var title: String {
         switch self {
-        case .all: return Loc.Space.Notifications.Settings.State.all
+        case .all: return Loc.Space.Notifications.Settings.State.enable
         case .mentions: return Loc.Space.Notifications.Settings.State.mentions
-        case .nothing, .UNRECOGNIZED: return Loc.Space.Notifications.Settings.State.disabled
+        case .nothing, .UNRECOGNIZED: return Loc.disabled
         }
     }
 
     var titleShort: String {
         switch self {
-        case .all: return Loc.all
-        case .mentions: return Loc.mentions
+        case .all: return Loc.Space.Notifications.Settings.State.enable
+        case .mentions: return Loc.Space.Notifications.Settings.State.mentions
         case .nothing, .UNRECOGNIZED: return Loc.disabled
         }
     }
@@ -32,6 +32,11 @@ extension SpacePushNotificationsMode {
 
     var isUnmutedAll: Bool {
         self == .all
+    }
+
+    func toggled(isOneToOne: Bool) -> SpacePushNotificationsMode {
+        guard isUnmutedAll else { return .all }
+        return isOneToOne ? .nothing : .mentions
     }
 
     var unreadCounterStyle: CounterViewStyle {

@@ -1,5 +1,6 @@
 import SwiftUI
 import AnytypeCore
+import Services
 
 struct SpaceCard: View {
 
@@ -8,6 +9,7 @@ struct SpaceCard: View {
     let onTap: () -> Void
     let onTapCopy: () -> Void
     let onTapMute: () -> Void
+    let onTapNotificationMode: (SpacePushNotificationsMode) -> Void
     let onTapPin: () async throws -> Void
     let onTapUnpin: () async throws -> Void
     let onTapSettings: () -> Void
@@ -65,14 +67,36 @@ struct SpaceCard: View {
         }
     }
     
+    @ViewBuilder
     private var muteButton: some View {
-        Button {
-            onTapMute()
+        if model.supportsMultiChats {
+            notificationModeSubmenu
+        } else {
+            MuteToggleMenuButton(isMuted: model.isMuted) {
+                onTapMute()
+            }
+        }
+    }
+
+    private var notificationModeSubmenu: some View {
+        Menu {
+            ForEach(SpacePushNotificationsMode.displayModes, id: \.self) { mode in
+                Button {
+                    onTapNotificationMode(mode)
+                } label: {
+                    HStack {
+                        Text(mode == .nothing ? Loc.Space.Notifications.Settings.State.muteAndHide : mode.title)
+                        if model.currentNotificationMode == mode {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+            }
         } label: {
             HStack {
-                Text(!model.isMuted ? Loc.mute : Loc.unmute)
+                Text(Loc.notifications)
                 Spacer()
-                Image(systemName: !model.isMuted ? "bell.slash" : "bell")
+                Image(systemName: "bell.fill")
             }
         }
     }

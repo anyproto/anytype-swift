@@ -2244,7 +2244,9 @@ public enum Loc {
         public enum State {
           public static let all = Loc.tr("Workspace", "Space.Notifications.Settings.State.All", fallback: "All messages")
           public static let disabled = Loc.tr("Workspace", "Space.Notifications.Settings.State.Disabled", fallback: "Disable all")
+          public static let enable = Loc.tr("Workspace", "Space.Notifications.Settings.State.Enable", fallback: "Enable")
           public static let mentions = Loc.tr("Workspace", "Space.Notifications.Settings.State.Mentions", fallback: "Mentions only")
+          public static let muteAndHide = Loc.tr("Workspace", "Space.Notifications.Settings.State.MuteAndHide", fallback: "Mute and hide")
         }
       }
     }
