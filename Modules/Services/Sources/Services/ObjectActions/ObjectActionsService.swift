@@ -16,14 +16,21 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         shouldSelectTemplate: Bool,
         spaceId: String,
         origin: ObjectOrigin,
-        templateId: String? = nil
+        templateId: String? = nil,
+        createdInContext: String = "",
+        createdInContextRef: String = ""
     ) async throws -> ObjectDetails {
-        let details = Google_Protobuf_Struct(
-            fields: [
-                BundledPropertyKey.name.rawValue: name.protobufValue,
-                BundledPropertyKey.origin.rawValue: origin.rawValue.protobufValue
-            ]
-        )
+        var fields: [String: Google_Protobuf_Value] = [
+            BundledPropertyKey.name.rawValue: name.protobufValue,
+            BundledPropertyKey.origin.rawValue: origin.rawValue.protobufValue
+        ]
+        if !createdInContext.isEmpty {
+            fields[BundledPropertyKey.createdInContext.rawValue] = createdInContext.protobufValue
+        }
+        if !createdInContextRef.isEmpty {
+            fields[BundledPropertyKey.createdInContextRef.rawValue] = createdInContextRef.protobufValue
+        }
+        let details = Google_Protobuf_Struct(fields: fields)
         
         let internalFlags: [Anytype_Model_InternalFlag] = .builder {
             if shouldDeleteEmptyObject {

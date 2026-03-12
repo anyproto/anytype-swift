@@ -154,28 +154,28 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
         try await fileService.uploadFileBlock(path: data.path, contextID: contextID, blockID: blockID)
     }
     
-    func uploadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails {
+    func uploadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> FileDetails {
         defer {
             if data.isTemporary {
                 try? FileManager.default.removeItem(atPath: data.path)
             }
         }
 
-        return try await fileService.uploadFileObject(path: data.path, spaceId: spaceId, origin: origin)
+        return try await fileService.uploadFileObject(path: data.path, spaceId: spaceId, origin: origin, createdInContext: createdInContext, createdInContextRef: createdInContextRef)
     }
 
-    func preloadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> String {
-        return try await fileService.preloadFileObject(path: data.path, spaceId: spaceId, origin: origin)
+    func preloadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> String {
+        return try await fileService.preloadFileObject(path: data.path, spaceId: spaceId, origin: origin, createdInContext: createdInContext, createdInContextRef: createdInContextRef)
     }
 
-    func uploadPreloadedFileObject(fileId: String, spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails {
+    func uploadPreloadedFileObject(fileId: String, spaceId: String, data: FileData, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> FileDetails {
         defer {
             if data.isTemporary {
                 try? FileManager.default.removeItem(atPath: data.path)
             }
         }
-        
-        return try await fileService.uploadPreloadedFileObject(fileId: fileId, spaceId: spaceId, origin: origin)
+
+        return try await fileService.uploadPreloadedFileObject(fileId: fileId, spaceId: spaceId, origin: origin, createdInContext: createdInContext, createdInContextRef: createdInContextRef)
     }
 
     func discardPreloadFile(fileId: String, spaceId: String) async throws {
@@ -187,9 +187,9 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
         try await uploadDataAt(data: data, contextID: contextID, blockID: blockID)
     }
     
-    func uploadImage(spaceId: String, source: FileUploadingSource, origin: ObjectOrigin) async throws -> FileDetails {
+    func uploadImage(spaceId: String, source: FileUploadingSource, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> FileDetails {
         let data = try await createFileData(source: source)
-        return try await uploadFileObject(spaceId: spaceId, data: data, origin: origin)
+        return try await uploadFileObject(spaceId: spaceId, data: data, origin: origin, createdInContext: createdInContext, createdInContextRef: createdInContextRef)
     }
     
     func clearCache() async throws {
