@@ -16,7 +16,7 @@ struct ChatCoordinatorView: View {
     }
     
     private var content: some View {
-        ChatView(spaceId: model.spaceId, chatId: model.chatId, output: model, settingsOutput: model)
+        ChatView(spaceId: model.spaceId, chatId: model.chatId, messageId: model.messageId, output: model, settingsOutput: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
             }

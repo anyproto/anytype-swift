@@ -8,6 +8,7 @@ import UIKit
 import NotificationsCore
 import ProtobufMessages
 import AsyncAlgorithms
+import DeepLinks
 @preconcurrency import Combine
 
 @MainActor
@@ -59,13 +60,16 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     private var universalLinkParser: any UniversalLinkParserProtocol
     @Injected(\.shareSuggestionService) @ObservationIgnored
     private var shareSuggestionService: any ShareSuggestionServiceProtocol
+    @Injected(\.deepLinkParser) @ObservationIgnored
+    private var deepLinkParser: any DeepLinkParserProtocol
 
     private let participantSubscription: any ParticipantsSubscriptionProtocol
     private let chatStorage: any ChatMessagesStorageProtocol
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private let chatMessageBuilder: any ChatMessageBuilderProtocol
     private let chatObject: any BaseDocumentProtocol
-    
+    private let initialMessageId: String?
+
     // MARK: - State
     
     // Global
@@ -138,9 +142,10 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     var showSendLimitAlert = false
     var toastBarData: ToastBarData?
     
-    init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
+    init(spaceId: String, chatId: String, messageId: String? = nil, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
         self.chatId = chatId
+        self.initialMessageId = messageId
         self.output = output
         self.chatStorage = Container.shared.chatMessageStorage((spaceId, chatId))
         self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
@@ -268,7 +273,11 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 await updateMessages()
                 self.dataLoaded = true
                 if prevChatIsEmpty {
-                    if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
+                    if let initialMessageId {
+                        try? await chatStorage.loadPagesTo(messageId: initialMessageId)
+                        collectionViewScrollProxy.scrollTo(itemId: initialMessageId, position: .center, animated: false)
+                        messageHiglightId = initialMessageId
+                    } else if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
                         collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
                     } else if let message = messages.last {
                         collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
@@ -605,7 +614,17 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         AnytypeAnalytics.instance().logClickMessageMenuCopy()
         UIPasteboard.general.string = NSAttributedString(message.messageString).string
     }
-    
+
+    func didSelectCopyLink(message: MessageViewData) {
+        AnytypeAnalytics.instance().logClickMessageMenuCopyLink()
+        let link = deepLinkParser.createUrl(
+            deepLink: .chatMessage(chatObjectId: chatId, spaceId: spaceId, messageId: message.message.id),
+            scheme: .main
+        )
+        UIPasteboard.general.string = link?.absoluteString
+        toastBarData = ToastBarData(Loc.copied)
+    }
+
     // MARK: - ChatActionProviderHandler
     
     func addAttachment(_ attachment: ChatLinkObject, clearInput needsClearInput: Bool) {
