@@ -4,9 +4,9 @@ import AnytypeCore
 
 public protocol FileServiceProtocol: AnyObject, Sendable {
     func uploadFileBlock(path: String, contextID: String, blockID: String) async throws
-    func uploadFileObject(path: String, spaceId: String, origin: ObjectOrigin) async throws -> FileDetails
-    func preloadFileObject(path: String, spaceId: String, origin: ObjectOrigin) async throws -> String
-    func uploadPreloadedFileObject(fileId: String, spaceId: String, origin: ObjectOrigin) async throws -> FileDetails
+    func uploadFileObject(path: String, spaceId: String, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> FileDetails
+    func preloadFileObject(path: String, spaceId: String, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> String
+    func uploadPreloadedFileObject(fileId: String, spaceId: String, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> FileDetails
     func discardPreloadFile(fileId: String, spaceId: String) async throws
     func clearCache() async throws
     func nodeUsage() async throws -> NodeUsageInfo
@@ -14,6 +14,18 @@ public protocol FileServiceProtocol: AnyObject, Sendable {
     func cancelCacheDownload(fileObjectId: String) async throws
     func setAutoDownload(enabled: Bool, wifiOnly: Bool) async throws
     func setAutoDownloadSizeLimit(mebibytes: Int64) async throws
+}
+
+public extension FileServiceProtocol {
+    func uploadFileObject(path: String, spaceId: String, origin: ObjectOrigin) async throws -> FileDetails {
+        try await uploadFileObject(path: path, spaceId: spaceId, origin: origin, createdInContext: "", createdInContextRef: "")
+    }
+    func preloadFileObject(path: String, spaceId: String, origin: ObjectOrigin) async throws -> String {
+        try await preloadFileObject(path: path, spaceId: spaceId, origin: origin, createdInContext: "", createdInContextRef: "")
+    }
+    func uploadPreloadedFileObject(fileId: String, spaceId: String, origin: ObjectOrigin) async throws -> FileDetails {
+        try await uploadPreloadedFileObject(fileId: fileId, spaceId: spaceId, origin: origin, createdInContext: "", createdInContextRef: "")
+    }
 }
 
 final class FileService: FileServiceProtocol {
@@ -28,7 +40,7 @@ final class FileService: FileServiceProtocol {
         }).invoke()
     }
     
-    public func uploadFileObject(path: String, spaceId: String, origin: ObjectOrigin) async throws -> FileDetails {
+    public func uploadFileObject(path: String, spaceId: String, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> FileDetails {
         let result = try await ClientCommands.fileUpload(.with {
             $0.localPath = path
             $0.disableEncryption = false
@@ -36,32 +48,36 @@ final class FileService: FileServiceProtocol {
             $0.spaceID = spaceId
             $0.origin = origin
             $0.preloadOnly = false
+            $0.createdInContext = createdInContext
+            $0.createdInContextRef = createdInContextRef
         }).invoke()
         return FileDetails(objectDetails: try ObjectDetails(protobufStruct: result.details))
     }
 
-    public func preloadFileObject(path: String, spaceId: String, origin: ObjectOrigin) async throws -> String {
+    public func preloadFileObject(path: String, spaceId: String, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> String {
         let result = try await ClientCommands.fileUpload(.with {
             $0.localPath = path
-            
             $0.disableEncryption = false
             $0.style = .auto
             $0.spaceID = spaceId
             $0.origin = origin
             $0.preloadOnly = true
+            $0.createdInContext = createdInContext
+            $0.createdInContextRef = createdInContextRef
         }).invoke()
         return result.preloadFileID
     }
 
-    public func uploadPreloadedFileObject(fileId: String, spaceId: String, origin: ObjectOrigin) async throws -> FileDetails {
+    public func uploadPreloadedFileObject(fileId: String, spaceId: String, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> FileDetails {
         let result = try await ClientCommands.fileUpload(.with {
             $0.preloadFileID = fileId
-            
             $0.disableEncryption = false
             $0.style = .auto
             $0.spaceID = spaceId
             $0.origin = origin
             $0.preloadOnly = false
+            $0.createdInContext = createdInContext
+            $0.createdInContextRef = createdInContextRef
         }).invoke()
         return FileDetails(objectDetails: try ObjectDetails(protobufStruct: result.details))
     }
