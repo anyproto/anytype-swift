@@ -15,6 +15,7 @@ public struct DecryptedPushContent: Codable {
         public let text: String
         public let spaceName: String
         public let senderName: String
+        public let chatName: String?
         public let hasAttachments: Bool
         public let attachments: [Attachment]?
 
