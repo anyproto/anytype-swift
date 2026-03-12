@@ -615,7 +615,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         UIPasteboard.general.string = NSAttributedString(message.messageString).string
     }
 
-    func didSelectCopyLink(message: MessageViewData) async {
+    func didSelectCopyLink(message: MessageViewData) {
         AnytypeAnalytics.instance().logClickMessageMenuCopyLink()
         let link = deepLinkParser.createUrl(
             deepLink: .chatMessage(chatObjectId: chatId, spaceId: spaceId, messageId: message.message.id),

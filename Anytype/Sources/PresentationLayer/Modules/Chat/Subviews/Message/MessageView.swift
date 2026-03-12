@@ -291,8 +291,8 @@ struct MessageView: View {
             }
         }
 
-        AsyncButton {
-            await output?.didSelectCopyLink(message: data)
+        Button {
+            output?.didSelectCopyLink(message: data)
         } label: {
             Label(Loc.copyLink, systemImage: "link")
         }
