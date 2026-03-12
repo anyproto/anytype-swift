@@ -76,7 +76,7 @@ extension DecryptedPushContent.Message {
         resolvedCategory.localizedText(count: count)
     }
 
-    var formattedNotificationBody: String {
+    func formattedNotificationBody(showSenderPrefix: Bool) -> String {
         let contentPart: String
         if hasAttachments, hasText {
             contentPart = attachmentEmoji + " " + text
@@ -86,10 +86,31 @@ extension DecryptedPushContent.Message {
             contentPart = text
         }
 
-        if senderName.isNotEmpty {
+        if showSenderPrefix, senderName.isNotEmpty {
             return senderName + ": " + contentPart
         }
         return contentPart
+    }
+}
+
+// MARK: - DecryptedPushContent Extension
+
+extension DecryptedPushContent {
+
+    // Values from Anytype_Model_SpaceUxType.
+    // Services module cannot be linked to the extension
+    // (it pulls in Lib.xcframework ~779 MB, exceeding the ~24 MB extension memory limit).
+    private enum SpaceUxTypeValue {
+        static let data = 1
+        static let oneToOne = 4
+    }
+
+    var isOneToOne: Bool {
+        spaceUxType == SpaceUxTypeValue.oneToOne
+    }
+
+    var supportsMultiChats: Bool {
+        spaceUxType == SpaceUxTypeValue.data
     }
 }
 
@@ -129,7 +150,8 @@ class NotificationService: UNNotificationServiceExtension {
             return
         }
         
-        bestAttemptContent.body = decryptedMessage.newMessage.formattedNotificationBody
+        bestAttemptContent.body = decryptedMessage.newMessage
+            .formattedNotificationBody(showSenderPrefix: !decryptedMessage.isOneToOne)
 
         bestAttemptContent.userInfo[DecryptedPushKeys.decryptedMessage] = [
             DecryptedPushKeys.spaceId : decryptedMessage.spaceId,
@@ -137,23 +159,24 @@ class NotificationService: UNNotificationServiceExtension {
         ]
 
         let spaceName = decryptedMessage.newMessage.spaceName.isNotEmpty ? decryptedMessage.newMessage.spaceName : Loc.untitled
+        let title = decryptedMessage.isOneToOne ? decryptedMessage.newMessage.senderName : spaceName
         let avatar = spaceIconStorage.iconLocalUrl(forSpaceId: decryptedMessage.spaceId).map { INImage(url: $0) } ?? nil
-
-        let chatName = decryptedMessage.newMessage.chatName
-        let hasChatName = chatName?.isNotEmpty == true
 
         // sender.displayName → rendered as notification Title
         let sender = INPerson(
             personHandle: INPersonHandle(value: nil, type: .unknown),
             nameComponents: nil,
-            displayName: spaceName,
+            displayName: title,
             image: nil,
             contactIdentifier: nil,
             customIdentifier: nil
         )
 
+        let chatName = decryptedMessage.newMessage.chatName
+        let showSubtitle = decryptedMessage.supportsMultiChats && chatName?.isNotEmpty == true
+
         let intent: INSendMessageIntent
-        if hasChatName {
+        if showSubtitle {
             // Group mode: speakableGroupName → rendered as notification Subtitle
             intent = INSendMessageIntent(
                 recipients: [makeFakeUser(), makeFakeUser()],

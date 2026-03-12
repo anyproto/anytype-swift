@@ -1,5 +1,6 @@
 public struct DecryptedPushContent: Codable {
     public let spaceId: String
+    public let spaceUxType: Int
     public let type: Int
     public let senderId: String
     public let newMessage: Message
