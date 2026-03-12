@@ -70,33 +70,13 @@ struct SpaceCard: View {
     @ViewBuilder
     private var muteButton: some View {
         if model.supportsMultiChats {
-            notificationModeSubmenu
+            NotificationModeMenu(
+                currentMode: model.currentNotificationMode,
+                onModeChange: { onTapNotificationMode($0) }
+            )
         } else {
             MuteToggleMenuButton(isMuted: model.isMuted) {
                 onTapMute()
-            }
-        }
-    }
-
-    private var notificationModeSubmenu: some View {
-        Menu {
-            ForEach(SpacePushNotificationsMode.displayModes, id: \.self) { mode in
-                Button {
-                    onTapNotificationMode(mode)
-                } label: {
-                    HStack {
-                        Text(mode == .nothing ? Loc.Space.Notifications.Settings.State.muteAndHide : mode.title)
-                        if model.currentNotificationMode == mode {
-                            Image(systemName: "checkmark")
-                        }
-                    }
-                }
-            }
-        } label: {
-            HStack {
-                Text(Loc.notifications)
-                Spacer()
-                Image(systemName: "bell.fill")
             }
         }
     }

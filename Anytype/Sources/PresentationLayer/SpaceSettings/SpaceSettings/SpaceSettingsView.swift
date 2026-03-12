@@ -224,33 +224,40 @@ struct SpaceSettingsView: View {
         }
     }
 
+    @ViewBuilder
     private func collaborationSection(memberDecoration: RoundedButtonDecoration? = nil) -> some View {
-        VStack(spacing: 0) {
-            SectionHeaderView(title: Loc.collaboration)
-            SettingsSection {
-                if !model.isOneToOne {
-                    RoundedButton(
-                        Loc.members,
-                        icon: .X24.member,
-                        decoration: memberDecoration
-                    ) { model.onMembersTap() }
-                    .settingsRow(showDivider: model.showNotificationsSection || model.uxTypeSettingsData != nil, leadingPadding: 48)
-                }
-                if model.showNotificationsSection {
-                    RoundedButton(
-                        Loc.notifications,
-                        icon: pushNotificationsSettingIcon(),
-                        decoration: .caption(pushNotificationsSettingCaption())
-                    ) { model.onNotificationsTap() }
-                    .settingsRow(showDivider: model.uxTypeSettingsData != nil, leadingPadding: 48)
-                }
-                if let data = model.uxTypeSettingsData {
-                    RoundedButton(
-                        Loc.channelType,
-                        icon: data.icon,
-                        decoration: .caption(data.typaName)
-                    ) { model.onUxTypeTap() }
-                    .settingsRow(showDivider: false, leadingPadding: 48)
+        let showMembers = !model.isOneToOne
+        let showNotifications = model.showNotificationsSection
+        let showUxType = model.uxTypeSettingsData != nil
+
+        if showMembers || showNotifications || showUxType {
+            VStack(spacing: 0) {
+                SectionHeaderView(title: Loc.collaboration)
+                SettingsSection {
+                    if showMembers {
+                        RoundedButton(
+                            Loc.members,
+                            icon: .X24.member,
+                            decoration: memberDecoration
+                        ) { model.onMembersTap() }
+                        .settingsRow(showDivider: showNotifications || showUxType, leadingPadding: 48)
+                    }
+                    if showNotifications {
+                        RoundedButton(
+                            Loc.notifications,
+                            icon: pushNotificationsSettingIcon(),
+                            decoration: .caption(pushNotificationsSettingCaption())
+                        ) { model.onNotificationsTap() }
+                        .settingsRow(showDivider: showUxType, leadingPadding: 48)
+                    }
+                    if let data = model.uxTypeSettingsData {
+                        RoundedButton(
+                            Loc.channelType,
+                            icon: data.icon,
+                            decoration: .caption(data.typaName)
+                        ) { model.onUxTypeTap() }
+                        .settingsRow(showDivider: false, leadingPadding: 48)
+                    }
                 }
             }
         }

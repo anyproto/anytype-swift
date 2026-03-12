@@ -92,9 +92,17 @@ private struct WidgetsHeaderMenuContent: View {
         }
     }
 
+    @ViewBuilder
     private var notificationsMenu: some View {
-        MuteToggleMenuButton(isMuted: model.isMuted) {
-            await model.toggleMute()
+        if model.isDataSpace {
+            NotificationModeMenu(
+                currentMode: model.currentNotificationMode,
+                onModeChange: { await model.onNotificationModeChanged($0) }
+            )
+        } else {
+            MuteToggleMenuButton(isMuted: model.isMuted) {
+                await model.toggleMute()
+            }
         }
     }
 
