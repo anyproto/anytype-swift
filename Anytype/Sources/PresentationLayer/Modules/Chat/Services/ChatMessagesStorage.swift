@@ -447,6 +447,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         let updated = attachments.update(details: details)
         if updated {
             updateFullMessages()
+            let allDetails = subscribedAttachmentIds.compactMap { attachments.details(id: $0) }
+            await mediaCacheHeatingService.updateVisibleMedia(attachmentDetails: allDetails)
         }
     }
 }
