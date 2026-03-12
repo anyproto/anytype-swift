@@ -165,7 +165,7 @@ gh pr diff <PR_NUMBER> --repo anyproto/anytype-swift
 - Update progress with Linear MCP tools
 
 ## 📋 Tips
-- For trivial PRs, add label "🧠 No brainer"
+- For trivial visual/cosmetic PRs only (color changes, spacing tweaks, copy updates), add label "🧠 No brainer". Never use for logic, caching, data flow, or bug fixes.
 - Use `rg` for searching large files
 - Feature flags for all new features
 - `Loc` is pre-imported; import `AnytypeCore` for feature flags
