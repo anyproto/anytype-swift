@@ -283,14 +283,20 @@ struct MessageView: View {
             }
         }
         
-        if !data.messageString.isEmpty {   
+        if !data.messageString.isEmpty {
             Button {
                 output?.didSelectCopyPlainText(message: data)
             } label: {
                 Label(Loc.Message.Action.copyPlainText, systemImage: "doc.on.doc")
             }
         }
-        
+
+        AsyncButton {
+            await output?.didSelectCopyLink(message: data)
+        } label: {
+            Label(Loc.copyLink, systemImage: "link")
+        }
+
         if data.canEdit {
             AsyncButton {
                 await output?.didSelectEditMessage(message: data)

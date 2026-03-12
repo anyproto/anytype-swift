@@ -1529,7 +1529,11 @@ extension AnytypeAnalytics {
     func logClickMessageMenuCopy() {
         logEvent("ClickMessageMenuCopy")
     }
-    
+
+    func logClickMessageMenuCopyLink() {
+        logEvent("ClickMessageMenuCopyLink")
+    }
+
     func logClickMessageMenuReaction() {
         logEvent("ClickMessageMenuReaction")
     }
