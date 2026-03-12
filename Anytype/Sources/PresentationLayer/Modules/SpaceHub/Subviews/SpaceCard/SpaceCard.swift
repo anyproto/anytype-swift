@@ -85,7 +85,7 @@ struct SpaceCard: View {
                     onTapNotificationMode(mode)
                 } label: {
                     HStack {
-                        Text(mode.title)
+                        Text(mode == .nothing ? Loc.Space.Notifications.Settings.State.muteAndHide : mode.title)
                         if model.currentNotificationMode == mode {
                             Image(systemName: "checkmark")
                         }

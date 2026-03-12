@@ -99,7 +99,7 @@ final class SpaceSettingsViewModel {
     var canAddWriters = true
     var joiningCount: Int = 0
     var isOneToOne = false
-    var showNotificationsSection = true
+    var showNotificationsSection = false
     var wallpaper: SpaceWallpaperType = .default
     var membership: MembershipStatus = .empty
     var hasMembership = false
