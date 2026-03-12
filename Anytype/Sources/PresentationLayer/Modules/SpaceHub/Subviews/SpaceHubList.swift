@@ -58,6 +58,9 @@ struct SpaceHubList: View {
             onTapMute: {
                 model.muteSpace(spaceViewId: cardModel.spaceViewId)
             },
+            onTapNotificationMode: { mode in
+                model.setSpaceNotificationMode(spaceViewId: cardModel.spaceViewId, mode: mode)
+            },
             onTapPin: {
                 try await model.pin(spaceViewId: cardModel.spaceViewId)
             },

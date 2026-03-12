@@ -93,12 +93,9 @@ private struct WidgetsHeaderMenuContent: View {
     }
 
     private var notificationsMenu: some View {
-        NotificationModeMenu(
-            currentMode: model.currentNotificationMode,
-            onModeChange: { mode in
-                await model.onNotificationModeChanged(mode)
-            }
-        )
+        MuteToggleMenuButton(isMuted: model.isMuted) {
+            await model.toggleMute()
+        }
     }
 
     private var inviteMembersButton: some View {

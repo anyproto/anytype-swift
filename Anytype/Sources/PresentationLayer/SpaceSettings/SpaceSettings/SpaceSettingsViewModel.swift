@@ -99,6 +99,7 @@ final class SpaceSettingsViewModel {
     var canAddWriters = true
     var joiningCount: Int = 0
     var isOneToOne = false
+    var showNotificationsSection = true
     var wallpaper: SpaceWallpaperType = .default
     var membership: MembershipStatus = .empty
     var hasMembership = false
@@ -355,6 +356,7 @@ final class SpaceSettingsViewModel {
         allowRemoteStorage = participantSpaceView.isOwner
         canAddWriters = spaceView.canAddWriters(participants: participants)
         isOneToOne = spaceView.uxType.isOneToOne
+        showNotificationsSection = spaceView.uxType.supportsMultiChats
 
         uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat && FeatureFlags.channelTypeSwitcher ? SpaceUxTypeSettingsData(uxType: spaceView.uxType) : nil
 
