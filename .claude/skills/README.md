@@ -301,7 +301,25 @@ Skills provide **automatic activation** based on your prompts and file context, 
 
 ---
 
-### 15. **linear-developer** (Smart Router)
+### 15. **self-review** (Workflow)
+**Purpose**: Agent self-reviews its own diff against `TASTE_INVARIANTS.md` before presenting to user
+
+**Auto-activates when**:
+- Checking own code changes for quality
+- Keywords: self-review, taste check, verify changes, quality check
+
+**Provides**:
+- Mechanical invariant checks (grep-able rules)
+- Deprecated API detection
+- Hardcoded string/color detection
+- Refactoring completeness verification
+- **→ Routes to**: `TASTE_INVARIANTS.md` for the full rules list
+
+**Location**: `.claude/skills/self-review/SKILL.md`
+
+---
+
+### 16. **linear-developer** (Smart Router)
 **Purpose**: Routes to Linear issue tracking using `linctl` CLI. Replaces Linear MCP tools with faster, more reliable command-line operations.
 
 **Auto-activates when**:
@@ -475,6 +493,9 @@ Read the file .claude/skills/ios-dev-guidelines/SKILL.md
 │
 ├── confidence-check/
 │   └── SKILL.md (workflow gate)
+│
+├── self-review/
+│   └── SKILL.md (workflow)
 │
 ├── claudemd-maintainer/
 │   └── SKILL.md (smart router - meta!)
@@ -791,7 +812,7 @@ For comprehensive coverage of:
 The skills system provides:
 - ✅ **Progressive disclosure architecture** - 3 levels of documentation
 - ✅ **Automatic skill suggestions** based on context - Zero friction
-- ✅ **16 smart router skills** - Lightweight and fast (including skills from Dimillian/Skills and AvdLee)
+- ✅ **17 smart router skills** - Lightweight and fast (including skills from Dimillian/Skills and AvdLee)
 - ✅ **Hook-based activation** - Analyzed prompts trigger relevant skills
 - ✅ **Context token efficiency** - Load only what's needed
 - ✅ **Single Source of Truth** - Each piece of knowledge lives in one place
