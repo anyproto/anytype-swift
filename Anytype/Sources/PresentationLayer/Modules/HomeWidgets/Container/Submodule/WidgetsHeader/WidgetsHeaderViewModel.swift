@@ -53,6 +53,10 @@ final class WidgetsHeaderViewModel {
         spaceView?.uxType.isOneToOne == true
     }
 
+    var isDataSpace: Bool {
+        spaceView?.uxType.isData == true
+    }
+
     var hasInviteLink: Bool {
         inviteLink != nil
     }
