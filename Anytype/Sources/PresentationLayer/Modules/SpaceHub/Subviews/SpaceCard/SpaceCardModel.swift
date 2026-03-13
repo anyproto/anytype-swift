@@ -10,8 +10,12 @@ struct SpaceCardModel: Equatable, Identifiable {
     let isLoading: Bool
     let isShared: Bool
     let isMuted: Bool
+    let canBeDeleted: Bool
+    let canLeave: Bool
     let uxTypeName: String
     let supportsMultiChats: Bool
+    let isOneToOne: Bool
+    let currentNotificationMode: SpacePushNotificationsMode
     let showsMessageAuthor: Bool
 
     let lastMessage: MessagePreviewModel?

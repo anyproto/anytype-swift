@@ -924,10 +924,6 @@ public enum Loc {
     public static let pleaseTryAgain = Loc.tr("UI", "Error occurred. Please try again", fallback: "Error occurred. Please try again")
   }
   public enum Experimental {
-    public enum CompactVault {
-      public static let subtitle = Loc.tr("UI", "Experimental.CompactVault.subtitle", fallback: "Automatically hide message previews for channels with no unread messages")
-      public static let title = Loc.tr("UI", "Experimental.CompactVault.title", fallback: "Auto-hide read previews")
-    }
     public enum NewObjectCreationMenu {
       public static let subtitle = Loc.tr("UI", "Experimental.NewObjectCreationMenu.subtitle", fallback: "Always pick object type when creating")
       public static let title = Loc.tr("UI", "Experimental.NewObjectCreationMenu.title", fallback: "New Object Creation Menu")
@@ -2248,7 +2244,9 @@ public enum Loc {
         public enum State {
           public static let all = Loc.tr("Workspace", "Space.Notifications.Settings.State.All", fallback: "All messages")
           public static let disabled = Loc.tr("Workspace", "Space.Notifications.Settings.State.Disabled", fallback: "Disable all")
+          public static let enable = Loc.tr("Workspace", "Space.Notifications.Settings.State.Enable", fallback: "Enable")
           public static let mentions = Loc.tr("Workspace", "Space.Notifications.Settings.State.Mentions", fallback: "Mentions only")
+          public static let muteAndHide = Loc.tr("Workspace", "Space.Notifications.Settings.State.MuteAndHide", fallback: "Mute and hide")
         }
       }
     }

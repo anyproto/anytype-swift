@@ -337,6 +337,29 @@ Skills provide **automatic activation** based on your prompts and file context, 
 
 ---
 
+### 16. **swiftui-expert-skill** (Expert Reference)
+**Purpose**: Comprehensive SwiftUI expert reference covering state management, animations, charts, accessibility, scroll patterns, and latest APIs
+
+**Auto-activates when**:
+- Working with SwiftUI animations, transitions, or charts
+- Discussing accessibility patterns or VoiceOver
+- Optimizing scroll performance or image loading
+- Migrating from deprecated APIs
+- Keywords: animation, transition, chart, accessibility, VoiceOver, scroll, AsyncImage, deprecated api
+
+**Provides**:
+- Decision tree workflow (review, improve, or implement)
+- Core guidelines (state, composition, performance, animations, accessibility)
+- 18 deep reference files covering all major SwiftUI topics
+- Latest API migration tables (iOS 15+ through iOS 26+)
+- macOS-specific patterns (scenes, windows, views)
+
+**Location**: `.claude/skills/swiftui-expert-skill/SKILL.md`
+
+**Attribution**: Created by [Antoine van der Lee](https://github.com/AvdLee/SwiftUI-Agent-Skill) (MIT License).
+
+---
+
 ## 📊 Progressive Disclosure Architecture
 
 This documentation system follows the principle of **progressive disclosure** - load only what's needed, when it's needed.
@@ -477,8 +500,31 @@ Read the file .claude/skills/ios-dev-guidelines/SKILL.md
 ├── claudemd-maintainer/
 │   └── SKILL.md (smart router - meta!)
 │
-└── linear-developer/
-    └── SKILL.md (smart router)
+├── linear-developer/
+│   └── SKILL.md (smart router)
+│
+└── swiftui-expert-skill/
+    ├── SKILL.md (expert reference)
+    └── references/
+        ├── accessibility-patterns.md
+        ├── animation-advanced.md
+        ├── animation-basics.md
+        ├── animation-transitions.md
+        ├── charts-accessibility.md
+        ├── charts.md
+        ├── image-optimization.md
+        ├── latest-apis.md
+        ├── layout-best-practices.md
+        ├── liquid-glass.md
+        ├── list-patterns.md
+        ├── macos-scenes.md
+        ├── macos-views.md
+        ├── macos-window-styling.md
+        ├── performance-patterns.md
+        ├── scroll-patterns.md
+        ├── sheet-navigation-patterns.md
+        ├── state-management.md
+        └── view-structure.md
 ```
 
 **Note**: Resource files removed in favor of specialized documentation at Level 3.
@@ -766,7 +812,7 @@ For comprehensive coverage of:
 The skills system provides:
 - ✅ **Progressive disclosure architecture** - 3 levels of documentation
 - ✅ **Automatic skill suggestions** based on context - Zero friction
-- ✅ **16 smart router skills** - Lightweight and fast (including 2 from Dimillian/Skills)
+- ✅ **17 smart router skills** - Lightweight and fast (including skills from Dimillian/Skills and AvdLee)
 - ✅ **Hook-based activation** - Analyzed prompts trigger relevant skills
 - ✅ **Context token efficiency** - Load only what's needed
 - ✅ **Single Source of Truth** - Each piece of knowledge lives in one place

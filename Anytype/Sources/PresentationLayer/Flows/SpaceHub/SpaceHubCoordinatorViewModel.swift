@@ -445,6 +445,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
         case let .object(objectId, spaceId, cid, key):
             await handleObjectDeelpink(objectId: objectId, spaceId: spaceId, cid: cid, key: key, source: source)
+        case let .chatMessage(chatObjectId, spaceId, messageId):
+            await handleChatMessageDeepLink(chatObjectId: chatObjectId, spaceId: spaceId, messageId: messageId)
         case .membership(let tierId):
             guard accountManager.account.allowMembership else { return }
             membershipTierId = tierId.identifiable
@@ -472,6 +474,19 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
             AnytypeAnalytics.instance().logOpenObjectByLink(type: .invite, route: route)
+        }
+    }
+
+    private func handleChatMessageDeepLink(chatObjectId: String, spaceId: String, messageId: String) async {
+        let document = documentsProvider.document(objectId: chatObjectId, spaceId: spaceId, mode: .preview)
+        do {
+            try await document.open()
+            guard let details = document.details, details.editorViewType == .chat else { return }
+            let chatId = details.resolvedLayoutValue == .chatDerived ? details.id : details.chatId
+            let data = ChatCoordinatorData(chatId: chatId, spaceId: spaceId, messageId: messageId)
+            try? await showScreen(data: .chat(data))
+        } catch {
+            showObjectIsNotAvailableAlert = true
         }
     }
 

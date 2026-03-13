@@ -49,12 +49,6 @@ struct ChatHeaderView: View {
                 IconView(icon: model.icon)
                     .frame(width: 32, height: 32)
                 Spacer.fixedWidth(8)
-                if model.showLoading {
-                    CircleLoadingView(.Text.primary)
-                        .frame(width: 18, height: 18)
-                        .transition(.scale.combined(with: .opacity))
-                    Spacer.fixedWidth(4)
-                }
                 if model.isOneToOne {
                     VStack(alignment: .leading, spacing: 0) {
                         HStack(spacing: 4) {
@@ -93,6 +87,12 @@ struct ChatHeaderView: View {
                     }
                 }
                 Spacer()
+                if model.showLoading {
+                    CircleLoadingView(.Text.primary)
+                        .frame(width: 18, height: 18)
+                        .transition(.scale.combined(with: .opacity))
+                    Spacer.fixedWidth(4)
+                }
             }
             .padding(.horizontal, 6)
         }
@@ -124,10 +124,9 @@ struct ChatHeaderView: View {
                         }
                     }
 
-                    NotificationModeMenu(
-                        currentMode: model.notificationMode,
-                        onModeChange: model.changeNotificationMode
-                    )
+                    MuteToggleMenuButton(isMuted: model.muted) {
+                        await model.toggleMute()
+                    }
                 } label: {
                     Image(asset: .X24.more)
                         .foregroundStyle(Color.Control.primary)

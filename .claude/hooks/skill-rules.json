@@ -808,6 +808,52 @@
         "contentPatterns": []
       }
     },
+    "swiftui-expert-skill": {
+      "type": "domain",
+      "priority": "medium",
+      "description": "Comprehensive SwiftUI expert reference (AvdLee). State management, animations, charts, accessibility, scroll patterns, latest APIs",
+      "promptTriggers": {
+        "keywords": [
+          "swiftui expert",
+          "animation",
+          "transition",
+          "chart",
+          "Swift Charts",
+          "accessibility",
+          "VoiceOver",
+          "ScaledMetric",
+          "scroll",
+          "ScrollViewReader",
+          "sheet pattern",
+          "navigation pattern",
+          "image optimization",
+          "AsyncImage",
+          "latest api",
+          "deprecated api",
+          "api migration"
+        ],
+        "intentPatterns": [
+          "(animate|transition).*?(view|element|state)",
+          "(create|build|add).*?(chart|graph)",
+          "(accessibility|a11y).*?(swiftui|view|pattern)",
+          "(scroll|paging).*?(behavior|pattern|position)",
+          "(deprecated|migrate|replace).*?(api|modifier|view)",
+          "(optimize|cache|downsample).*?(image)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": ["**/*.swift"],
+        "contentPatterns": [
+          "withAnimation",
+          "\\.transition\\(",
+          "Chart\\s*\\{",
+          "ScrollViewReader",
+          "\\.scrollPosition",
+          "AsyncImage",
+          "\\.accessibilityLabel"
+        ]
+      }
+    },
     "ios-simulator-skill": {
       "type": "workflow",
       "priority": "medium",
@@ -840,6 +886,39 @@
           "(navigate|open|go to).*?(screen|view|page)",
           "(audit|check).*?(accessibility|a11y)",
           "(compare|diff).*?(screenshot|visual|screen)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [],
+        "contentPatterns": []
+      }
+    },
+    "apple-docs-developer": {
+      "type": "reference",
+      "priority": "medium",
+      "description": "Smart router to Apple Developer documentation via sosumi CLI. Fetch API docs, check availability, explore WWDC sessions",
+      "relatedSkills": ["ios-dev-guidelines", "swiftui-expert-skill", "swift-concurrency-developer"],
+      "promptTriggers": {
+        "keywords": [
+          "apple docs",
+          "apple documentation",
+          "developer docs",
+          "sosumi",
+          "api reference",
+          "check api",
+          "look up api",
+          "wwdc",
+          "availability",
+          "deprecated",
+          "what api",
+          "how does.*work in swift",
+          "method signature"
+        ],
+        "intentPatterns": [
+          "(look up|fetch|check|find|search).*?(api|doc|documentation|reference|signature)",
+          "(what|how|which).*?(api|method|property|modifier|protocol).*?(available|work|use)",
+          "(check|verify).*?(availability|deprecated|minimum.*ios)",
+          "(explore|browse|read).*?(apple|wwdc|developer)"
         ]
       },
       "fileTriggers": {

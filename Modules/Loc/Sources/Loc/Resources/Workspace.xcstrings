@@ -59389,6 +59389,17 @@
         }
       }
     },
+    "Space.Notifications.Settings.State.Enable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable"
+          }
+        }
+      }
+    },
     "Space.Notifications.Settings.State.Mentions" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -59540,6 +59551,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Mentions only"
+          }
+        }
+      }
+    },
+    "Space.Notifications.Settings.State.MuteAndHide" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mute and hide"
           }
         }
       }

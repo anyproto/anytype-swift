@@ -365,18 +365,10 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         return textView.compare(triggerSymbolPosition, to: caretPosition) == .orderedDescending
     }
     
-    private func updateHeight(textView: UITextView) {
+    func updateHeight(textView: UITextView) {
         let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: .infinity))
-        var newHeight: CGFloat
-        
-        if size.height > maxHeight {
-            textView.isScrollEnabled = true
-            newHeight = maxHeight
-        } else {
-            textView.isScrollEnabled = false
-            newHeight = size.height
-        }
-        
+        let newHeight = min(max(size.height, 0), maxHeight)
+
         if newHeight != height {
             height = newHeight
         }

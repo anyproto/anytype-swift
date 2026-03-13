@@ -88,6 +88,10 @@ final class ChatHeaderViewModel {
 
     func tapOpenSpaceSettings() { onTapOpenSpaceSettings() }
 
+    func toggleMute() async {
+        await changeNotificationMode(notificationMode.toggled(isOneToOne: isOneToOne))
+    }
+
     func changeNotificationMode(_ mode: SpacePushNotificationsMode) async {
         do {
             try await workspaceService.pushNotificationSetSpaceMode(

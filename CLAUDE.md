@@ -52,8 +52,29 @@ This file is a **table of contents**, not an encyclopedia. Deeper docs live in-r
 | CI workflows | `.github/WORKFLOWS_REFERENCE.md` |
 
 ### Skills (Auto-Activate)
+<<<<<<< HEAD
 Skills in `.claude/skills/` auto-activate based on prompt keywords.
 See `.claude/skills/README.md` for full list and tuning guide.
+=======
+| Skill | Triggers On | Full Guide |
+|-------|-------------|------------|
+| `ios-dev-guidelines` | `.swift` files | `Anytype/Sources/IOS_DEVELOPMENT_GUIDE.md` |
+| `localization-developer` | Localization work | `Anytype/Sources/PresentationLayer/Common/LOCALIZATION_GUIDE.md` |
+| `design-system-developer` | UI/design work | `Anytype/Sources/PresentationLayer/Common/DESIGN_SYSTEM_MAPPING.md` |
+| `code-generation-developer` | Code generation | `Modules/AnytypeCore/CODE_GENERATION_GUIDE.md` |
+| `code-review-developer` | PR reviews | `.claude/CODE_REVIEW_GUIDE.md` |
+| `analytics-developer` | Analytics events | Auto-activates |
+| `feature-toggle-developer` | Feature flags | Auto-activates |
+| `liquid-glass-developer` | iOS 26 glass effects | Auto-activates |
+| `swiftui-expert-skill` | SwiftUI expert work | Auto-activates (from AvdLee) |
+| `swift-concurrency-developer` | Concurrency/actors | Auto-activates (from Dimillian/Skills + AvdLee) |
+| `swiftui-performance-developer` | Performance issues | Auto-activates (from Dimillian/Skills) |
+| `swiftui-patterns-developer` | View structure/MV | Auto-activates (from Dimillian/Skills) |
+| `confidence-check` | Implementation tasks | Auto-activates (from SuperClaude) |
+| `linear-developer` | Linear issues/CLI | `.claude/skills/linear-developer/SKILL.md` |
+| `ios-simulator-skill` | Simulator/build/test | `.claude/skills/ios-simulator-skill/SKILL.md` |
+| `apple-docs-developer` | Apple API lookup | `.claude/skills/apple-docs-developer/SKILL.md` |
+>>>>>>> develop-claude
 
 | Skill | Triggers On |
 |-------|-------------|
@@ -93,11 +114,50 @@ Modules/                 # Swift packages (AnytypeCore, Loc, Assets, Services)
 ```
 
 ## 🔄 Git Workflow
+<<<<<<< HEAD
 - **Main branch**: `develop` | **Feature branches**: `ios-XXXX-description`
 - **Task start**: `linctl issue get IOS-XXXX --json` → extract `gitBranchName` → checkout
 - **Commits**: Single line, direct, technical
 - **PRs**: `## Summary` + 1-3 bullets. Trivial PRs get "🧠 No brainer" label.
 - **GitHub**: `gh pr view <N> --repo anyproto/anytype-swift`
+=======
+
+### Task-Based Branching
+**First thing when starting any task**:
+1. Fetch Linear issue: `linctl issue get IOS-XXXX --json`
+2. Extract `gitBranchName` field: `| jq -r '.gitBranchName'`
+3. Switch immediately: `git checkout <branch-name>`
+
+**linctl reference**: `.claude/skills/linear-developer/SKILL.md` | https://github.com/dorkitude/linctl
+
+### Branches & PRs
+- **Main branch**: `develop`
+- **Feature branches**: `ios-XXXX-description`
+- **Commit messages**: Single line
+- **Commit tone**: Direct, technical, no buzzwords. Focus on what changed and why.
+- **PR format**: `## Summary` + 1-3 bullet points (no test plan needed)
+- **Release branches**: Target release branch in PR, add "Release" label
+
+### GitHub CLI
+```bash
+gh pr view <PR_NUMBER> --repo anyproto/anytype-swift
+gh pr diff <PR_NUMBER> --repo anyproto/anytype-swift
+```
+
+**Workflows documentation**: `.github/WORKFLOWS_REFERENCE.md`
+
+### Linear Integration
+- Extract task ID from user request or branch name
+- Use `gh` tool for related PRs
+- Update progress with Linear MCP tools
+
+## 📋 Tips
+- For trivial visual/cosmetic PRs only (color changes, spacing tweaks, copy updates), add label "🧠 No brainer". Never use for logic, caching, data flow, or bug fixes.
+- Use `rg` for searching large files
+- Feature flags for all new features
+- `Loc` is pre-imported; import `AnytypeCore` for feature flags
+- When stuck after 2-3 attempts, step back and try a different approach
+>>>>>>> develop-claude
 
 ## ⚠️ Common Mistakes
 - **Autonomous Committing**: NEVER commit unless user explicitly asks

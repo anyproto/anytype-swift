@@ -32,6 +32,8 @@ struct ChatInput: View {
     let disableHeaderAndAttachments: Bool
     
     private let mainObjectTypeToCreateKey = ObjectTypeUniqueKey.page
+    private let sendButtonSize: CGFloat = 32
+    private let sendButtonTrailingPadding: CGFloat = 6
 
     private var showSendButton: Bool {
         linkedObjects.isNotEmpty || !text.string.isEmpty
@@ -118,14 +120,19 @@ struct ChatInput: View {
         .animation(.easeInOut(duration: 0.2), value: showSendButton)
     }
 
+    private var textTrailingInset: CGFloat {
+        showSendButton ? (sendButtonSize + sendButtonTrailingPadding) : 12
+    }
+
     private var textInputArea: some View {
-        HStack(alignment: .bottom, spacing: 0) {
+        ZStack(alignment: .bottomTrailing) {
             ZStack(alignment: .topLeading) {
                 if text.string.isEmpty {
                     Text(spaceUxType.isStream ? Loc.Message.Input.Stream.emptyPlaceholder : Loc.Message.Input.Chat.emptyPlaceholder)
                         .anytypeStyle(.chatText)
                         .foregroundStyle(Color.Text.tertiary)
                         .padding(.top, 9)
+                        .padding(.trailing, textTrailingInset)
                         .allowsHitTesting(false)
                         .lineLimit(1)
                 }
@@ -135,16 +142,16 @@ struct ChatInput: View {
                     mention: $mention,
                     minHeight: 40,
                     maxHeight: 260,
+                    trailingInset: textTrailingInset,
                     linkTo: onTapLinkTo,
                     linkParsed: onLinkAdded,
                     pasteAttachmentsFromBuffer: onPasteAttachmentsFromBuffer
                 )
             }
             .padding(.leading, 12)
-            .padding(.trailing, showSendButton ? 8 : 12)
             if showSendButton {
                 sendButton
-                    .padding(.trailing, 6)
+                    .padding(.trailing, sendButtonTrailingPadding)
                     .padding(.bottom, 4)
                     .transition(.scale.combined(with: .opacity))
             }
@@ -161,10 +168,10 @@ struct ChatInput: View {
             } else {
                 Image(asset: .Chat.SendMessage.active)
                     .resizable()
-                    .frame(width: 32, height: 32)
+                    .frame(width: sendButtonSize, height: sendButtonSize)
             }
         }
-        .frame(width: 32, height: 32)
+        .frame(width: sendButtonSize, height: sendButtonSize)
         .clipShape(Circle())
         .disabled(disableSendButton)
     }

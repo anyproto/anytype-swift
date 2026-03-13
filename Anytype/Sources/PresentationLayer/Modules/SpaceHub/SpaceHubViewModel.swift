@@ -17,11 +17,11 @@ final class SpaceHubViewModel {
     
     var wallpapers: [String: SpaceWallpaperType] = [:]
 
-    var hideReadPreviews = false
     var notificationsNotDetermined = false
     var spaceMuteData: SpaceMuteData?
     var profileIcon: Icon?
     var spaceToDelete: StringIdentifiable?
+    var spaceToLeave: StringIdentifiable?
     
     @ObservationIgnored
     private weak var output: (any SpaceHubModuleOutput)?
@@ -42,9 +42,7 @@ final class SpaceHubViewModel {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.spaceCardModelBuilder) @ObservationIgnored
     private var spaceCardModelBuilder: any SpaceCardModelBuilderProtocol
-    @Injected(\.experimentalFeaturesStorage) @ObservationIgnored
-    private var experimentalFeaturesStorage: any ExperimentalFeaturesStorageProtocol
-    
+
     init(output: (any SpaceHubModuleOutput)?) {
         self.output = output
     }
@@ -74,10 +72,17 @@ final class SpaceHubViewModel {
     
     func muteSpace(spaceViewId: String) {
         guard let spaceView = spaces?.first(where: { $0.spaceView.id == spaceViewId })?.spaceView else { return }
-        let isUnmutedAll = spaceView.pushNotificationMode.isUnmutedAll
         spaceMuteData = SpaceMuteData(
             spaceId: spaceView.targetSpaceId,
-            mode: isUnmutedAll ? .mentions : .all
+            mode: spaceView.pushNotificationMode.toggled(isOneToOne: spaceView.uxType.isOneToOne)
+        )
+    }
+
+    func setSpaceNotificationMode(spaceViewId: String, mode: SpacePushNotificationsMode) {
+        guard let spaceView = spaces?.first(where: { $0.spaceView.id == spaceViewId })?.spaceView else { return }
+        spaceMuteData = SpaceMuteData(
+            spaceId: spaceView.targetSpaceId,
+            mode: mode
         )
     }
     
@@ -104,15 +109,18 @@ final class SpaceHubViewModel {
     func onDeleteSpace(spaceId: String) {
         spaceToDelete = spaceId.identifiable
     }
+
+    func onLeaveSpace(spaceId: String) {
+        spaceToLeave = spaceId.identifiable
+    }
     
     func startSubscriptions() async {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()
         async let profileSub: () = subscribeOnProfile()
         async let notificationsSub: () = notificationsStatusSubscription()
-        async let hideReadPreviewsSub: () = subscribeOnHideReadPreviews()
 
-        _ = await (spacesSub, wallpapersSub, profileSub, notificationsSub, hideReadPreviewsSub)
+        _ = await (spacesSub, wallpapersSub, profileSub, notificationsSub)
     }
     
     func pushNotificationSetSpaceMode(data: SpaceMuteData) async {
@@ -139,7 +147,7 @@ final class SpaceHubViewModel {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
             self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
             await updateFilteredSpaces()
-            self.dataLoaded = spaces.isNotEmpty
+            self.dataLoaded = true
         }
     }
     
@@ -215,12 +223,6 @@ final class SpaceHubViewModel {
     private func notificationsStatusSubscription() async {
         for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
             notificationsNotDetermined = status.isNotDetermined
-        }
-    }
-
-    private func subscribeOnHideReadPreviews() async {
-        for await value in experimentalFeaturesStorage.hideReadPreviewsSequence {
-            hideReadPreviews = value
         }
     }
 
