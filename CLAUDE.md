@@ -67,6 +67,7 @@ After making code changes, report them to the user who will verify compilation i
 | `confidence-check` | Implementation tasks | Auto-activates (from SuperClaude) |
 | `linear-developer` | Linear issues/CLI | `.claude/skills/linear-developer/SKILL.md` |
 | `ios-simulator-skill` | Simulator/build/test | `.claude/skills/ios-simulator-skill/SKILL.md` |
+| `apple-docs-developer` | Apple API lookup | `.claude/skills/apple-docs-developer/SKILL.md` |
 
 **When you see "Relevant Skill: X"** in system reminders → Read `.claude/skills/X/SKILL.md` and apply its patterns.
 
