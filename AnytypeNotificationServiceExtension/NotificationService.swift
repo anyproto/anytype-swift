@@ -172,17 +172,16 @@ class NotificationService: UNNotificationServiceExtension {
             customIdentifier: nil
         )
 
-        let chatName = decryptedMessage.newMessage.chatName
-        let showSubtitle = decryptedMessage.supportsMultiChats && chatName?.isNotEmpty == true
-
         let intent: INSendMessageIntent
-        if showSubtitle {
+        if let chatName = decryptedMessage.newMessage.chatName,
+           chatName.isNotEmpty,
+           decryptedMessage.supportsMultiChats {
             // Group mode: speakableGroupName → rendered as notification Subtitle
             intent = INSendMessageIntent(
                 recipients: [makeFakeUser(), makeFakeUser()],
                 outgoingMessageType: .outgoingMessageText,
                 content: nil,
-                speakableGroupName: INSpeakableString(spokenPhrase: chatName!),
+                speakableGroupName: INSpeakableString(spokenPhrase: chatName),
                 conversationIdentifier: decryptedMessage.spaceId,
                 serviceName: nil,
                 sender: sender,
