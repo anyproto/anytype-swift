@@ -20,13 +20,16 @@ extension DecryptedPushContent.Message {
 
     private enum AttachmentCategory: Equatable {
         case image
+        case video
         case file
         case object
 
         init(layout: Int) {
             switch layout {
-            case LayoutValue.image, LayoutValue.video:
+            case LayoutValue.image:
                 self = .image
+            case LayoutValue.video:
+                self = .video
             case LayoutValue.file, LayoutValue.audio, LayoutValue.pdf:
                 self = .file
             default:
@@ -37,14 +40,16 @@ extension DecryptedPushContent.Message {
         var emoji: String {
             switch self {
             case .image: return "📷"
+            case .video: return "📹"
             case .file: return "📎"
-            case .object: return "📁"
+            case .object: return "📄"
             }
         }
 
         func localizedText(count: Int) -> String {
             switch self {
             case .image: return Loc.image(count)
+            case .video: return Loc.video(count)
             case .file: return Loc.file(count)
             case .object: return Loc.object(count)
             }
@@ -69,6 +74,43 @@ extension DecryptedPushContent.Message {
 
     func localizedAttachmentText(count: Int) -> String {
         resolvedCategory.localizedText(count: count)
+    }
+
+    func formattedNotificationBody(showSenderPrefix: Bool) -> String {
+        let contentPart: String
+        if hasAttachments, hasText {
+            contentPart = attachmentEmoji + " " + text
+        } else if hasAttachments {
+            contentPart = attachmentEmoji + " " + localizedAttachmentText(count: attachmentCount)
+        } else {
+            contentPart = text
+        }
+
+        if showSenderPrefix, senderName.isNotEmpty {
+            return senderName + ": " + contentPart
+        }
+        return contentPart
+    }
+}
+
+// MARK: - DecryptedPushContent Extension
+
+extension DecryptedPushContent {
+
+    // Values from Anytype_Model_SpaceUxType.
+    // Services module cannot be linked to the extension
+    // (it pulls in Lib.xcframework ~779 MB, exceeding the ~24 MB extension memory limit).
+    private enum SpaceUxTypeValue {
+        static let data = 1
+        static let oneToOne = 4
+    }
+
+    var isOneToOne: Bool {
+        spaceUxType == SpaceUxTypeValue.oneToOne
+    }
+
+    var supportsMultiChats: Bool {
+        spaceUxType == SpaceUxTypeValue.data
     }
 }
 
@@ -108,44 +150,58 @@ class NotificationService: UNNotificationServiceExtension {
             return
         }
         
-        if decryptedMessage.newMessage.hasAttachments, decryptedMessage.newMessage.hasText {
-            bestAttemptContent.body = decryptedMessage.newMessage.attachmentEmoji + " " + decryptedMessage.newMessage.text
-        } else if decryptedMessage.newMessage.hasAttachments, !decryptedMessage.newMessage.hasText {
-            let count = decryptedMessage.newMessage.attachmentCount
-            bestAttemptContent.body = decryptedMessage.newMessage.attachmentEmoji + " " + decryptedMessage.newMessage.localizedAttachmentText(count: count)
-        } else {
-            bestAttemptContent.body = decryptedMessage.newMessage.text
-        }
+        bestAttemptContent.body = decryptedMessage.newMessage
+            .formattedNotificationBody(showSenderPrefix: !decryptedMessage.isOneToOne)
 
         bestAttemptContent.userInfo[DecryptedPushKeys.decryptedMessage] = [
             DecryptedPushKeys.spaceId : decryptedMessage.spaceId,
             DecryptedPushKeys.chatId : decryptedMessage.newMessage.chatId
         ]
-        
+
+        let spaceName = decryptedMessage.newMessage.spaceName.isNotEmpty ? decryptedMessage.newMessage.spaceName : Loc.untitled
+        let title = decryptedMessage.isOneToOne ? decryptedMessage.newMessage.senderName : spaceName
+        let avatar = spaceIconStorage.iconLocalUrl(forSpaceId: decryptedMessage.spaceId).map { INImage(url: $0) } ?? nil
+
+        // sender.displayName → rendered as notification Title
         let sender = INPerson(
             personHandle: INPersonHandle(value: nil, type: .unknown),
             nameComponents: nil,
-            displayName: decryptedMessage.newMessage.senderName,
-            image: nil,
+            displayName: title,
+            image: avatar,
             contactIdentifier: nil,
             customIdentifier: nil
         )
-        
-        let spaceName = decryptedMessage.newMessage.spaceName.isNotEmpty ? decryptedMessage.newMessage.spaceName : Loc.untitled
-        let intent = INSendMessageIntent(
-            recipients: [makeFakeUser(), makeFakeUser()], // The system identifies the message as a group message and displays the group name
-            outgoingMessageType: .outgoingMessageText,
-            content: nil,
-            speakableGroupName: INSpeakableString(spokenPhrase: spaceName),
-            conversationIdentifier: decryptedMessage.spaceId,
-            serviceName: nil,
-            sender: sender,
-            attachments: nil
-        )
-        
-        let avatar = spaceIconStorage.iconLocalUrl(forSpaceId: decryptedMessage.spaceId).map { INImage(url: $0) } ?? nil
-        intent.setImage(avatar, forParameterNamed: \.speakableGroupName)
-        
+
+        let intent: INSendMessageIntent
+        if let chatName = decryptedMessage.newMessage.chatName,
+           chatName.isNotEmpty,
+           decryptedMessage.supportsMultiChats {
+            // Group mode: speakableGroupName → rendered as notification Subtitle
+            intent = INSendMessageIntent(
+                recipients: [makeFakeUser(), makeFakeUser()],
+                outgoingMessageType: .outgoingMessageText,
+                content: nil,
+                speakableGroupName: INSpeakableString(spokenPhrase: chatName),
+                conversationIdentifier: decryptedMessage.spaceId,
+                serviceName: nil,
+                sender: sender,
+                attachments: nil
+            )
+            intent.setImage(avatar, forParameterNamed: \.speakableGroupName)
+        } else {
+            // Non-group mode: Title only, no subtitle
+            intent = INSendMessageIntent(
+                recipients: nil,
+                outgoingMessageType: .outgoingMessageText,
+                content: nil,
+                speakableGroupName: nil,
+                conversationIdentifier: decryptedMessage.spaceId,
+                serviceName: nil,
+                sender: sender,
+                attachments: nil
+            )
+        }
+
         do {
             let update = try bestAttemptContent.updating(from: intent)
             contentHandler(update)
