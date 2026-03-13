@@ -167,7 +167,7 @@ class NotificationService: UNNotificationServiceExtension {
             personHandle: INPersonHandle(value: nil, type: .unknown),
             nameComponents: nil,
             displayName: title,
-            image: nil,
+            image: avatar,
             contactIdentifier: nil,
             customIdentifier: nil
         )
@@ -201,7 +201,6 @@ class NotificationService: UNNotificationServiceExtension {
                 sender: sender,
                 attachments: nil
             )
-            intent.setImage(avatar, forParameterNamed: \.sender)
         }
 
         do {
