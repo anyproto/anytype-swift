@@ -208,9 +208,13 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     func onSelectSpace(spaceId: String) {
-        Task { try await showSpace(spaceId: spaceId) }
+        Task { await showSpace(spaceId: spaceId) }
     }
-    
+
+    func onSpaceJoined(spaceId: String, spaceUxType: SpaceUxType) {
+        Task { await showSpace(spaceId: spaceId, spaceUxType: spaceUxType) }
+    }
+
     func onOpenSpaceSettings(spaceId: String) {
         showScreenSync(data: .spaceInfo(.settings(spaceId: spaceId)))
     }
@@ -259,7 +263,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         Task { try await showScreen(data: data) }
     }
     
-    private func homeObjectScreenData(spaceId: String) async -> AnyHashable {
+    private func homeObjectScreenData(spaceId: String, spaceUxType: SpaceUxType? = nil) async -> AnyHashable {
         if let objectId = userDefaults.homeObjectId(spaceId: spaceId) {
             let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
             if let details, !details.isArchivedOrDeleted, let editorData = details.screenData().editorScreenData {
@@ -267,18 +271,22 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             }
         }
 
-        if let spaceView = workspaceStorage.spaceView(spaceId: spaceId), spaceView.initialScreenIsChat {
+        let isChat = spaceUxType?.initialScreenIsChat
+            ?? workspaceStorage.spaceView(spaceId: spaceId)?.initialScreenIsChat
+            ?? false
+
+        if isChat {
             return SpaceChatCoordinatorData(spaceId: spaceId)
         } else {
             return HomeWidgetData(spaceId: spaceId)
         }
     }
 
-    private func showSpace(spaceId: String) async throws {
+    private func showSpace(spaceId: String, spaceUxType: SpaceUxType? = nil) async {
         guard currentSpaceId != spaceId else { return }
-        
-        _ = try await setActiveSpace(spaceId: spaceId)
-        let homeObject = await homeObjectScreenData(spaceId: spaceId)
+
+        setActiveSpace(spaceId: spaceId)
+        let homeObject = await homeObjectScreenData(spaceId: spaceId, spaceUxType: spaceUxType)
         
         let path: [AnyHashable] = .builder {
             SpaceHubNavigationItem()
@@ -297,7 +305,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private func showScreen(data: ScreenData) async throws {
         guard try await checkIsDataSupportedForOpening(data) else { return }
 
-        try await showSpace(spaceId: data.spaceId)
+        await showSpace(spaceId: data.spaceId)
 
         var currentPath = navigationPath
 
@@ -385,34 +393,18 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         }
     }
     
-    private func setActiveSpace(spaceId: String) async throws -> SpaceView {
-        // Check if space is deleted
-        guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else {
-            currentSpaceId = nil
-            try await activeSpaceManager.setActiveSpace(spaceId: nil)
-            throw CommonError.undefined
-        }
-        
-        guard currentSpaceId != spaceId else { return spaceView }
-        
+    private func setActiveSpace(spaceId: String) {
+        guard currentSpaceId != spaceId else { return }
         currentSpaceId = spaceId
-        
-        // This is not required. But it help to load space as fast as possible
+        // Preload space in middleware for faster loading. SpaceLoadingContainerView will also call this.
         Task { try await activeSpaceManager.setActiveSpace(spaceId: spaceId) }
-        
-        return spaceView
     }
     
     private func handleActiveSpace(info: AccountInfo?) async {
         guard info?.accountSpaceId != currentSpaceId else { return }
-        
+
         if let info {
-            do {
-                try await showSpace(spaceId: info.accountSpaceId)
-            } catch {
-                await dismissAllPresented?()
-                navigationPath.popToRoot()
-            }
+            await showSpace(spaceId: info.accountSpaceId)
         } else {
             await dismissAllPresented?()
             navigationPath.popToRoot()
