@@ -298,6 +298,10 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     
     func sendMessageTask() async throws {
         guard sendMessageTaskInProgress else { return }
+        guard message.string.trimmingCharacters(in: .whitespacesAndNewlines).isNotEmpty || linkedObjects.isNotEmpty else {
+            sendMessageTaskInProgress = false
+            return
+        }
         let loadingTask = Task {
             try await Task.sleep(seconds: 0.3)
             try Task.checkCancellation()
