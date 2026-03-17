@@ -208,9 +208,13 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     func onSelectSpace(spaceId: String) {
-        Task { try await showSpace(spaceId: spaceId) }
+        Task { await showSpace(spaceId: spaceId) }
     }
-    
+
+    func onSpaceJoined(spaceId: String, spaceUxType: SpaceUxType) {
+        Task { await showSpace(spaceId: spaceId, spaceUxType: spaceUxType) }
+    }
+
     func onOpenSpaceSettings(spaceId: String) {
         showScreenSync(data: .spaceInfo(.settings(spaceId: spaceId)))
     }
@@ -259,7 +263,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         Task { try await showScreen(data: data) }
     }
     
-    private func homeObjectScreenData(spaceId: String) async -> AnyHashable {
+    private func homeObjectScreenData(spaceId: String, spaceUxType: SpaceUxType? = nil) async -> AnyHashable {
         if let objectId = userDefaults.homeObjectId(spaceId: spaceId) {
             let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
             if let details, !details.isArchivedOrDeleted, let editorData = details.screenData().editorScreenData {
@@ -267,18 +271,22 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             }
         }
 
-        if let spaceView = workspaceStorage.spaceView(spaceId: spaceId), spaceView.initialScreenIsChat {
+        let isChat = spaceUxType?.initialScreenIsChat
+            ?? workspaceStorage.spaceView(spaceId: spaceId)?.initialScreenIsChat
+            ?? false
+
+        if isChat {
             return SpaceChatCoordinatorData(spaceId: spaceId)
         } else {
             return HomeWidgetData(spaceId: spaceId)
         }
     }
 
-    private func showSpace(spaceId: String) async throws {
+    private func showSpace(spaceId: String, spaceUxType: SpaceUxType? = nil) async {
         guard currentSpaceId != spaceId else { return }
-        
-        _ = try await setActiveSpace(spaceId: spaceId)
-        let homeObject = await homeObjectScreenData(spaceId: spaceId)
+
+        setActiveSpace(spaceId: spaceId)
+        let homeObject = await homeObjectScreenData(spaceId: spaceId, spaceUxType: spaceUxType)
         
         let path: [AnyHashable] = .builder {
             SpaceHubNavigationItem()
@@ -297,7 +305,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private func showScreen(data: ScreenData) async throws {
         guard try await checkIsDataSupportedForOpening(data) else { return }
 
-        try await showSpace(spaceId: data.spaceId)
+        await showSpace(spaceId: data.spaceId)
 
         var currentPath = navigationPath
 
@@ -325,7 +333,20 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
                 spaceProfileData = spaceInfo
             }
         case .chat(let data):
-            currentPath.openOnce(data)
+            // Chat-type spaces already have SpaceChatCoordinatorData as home screen.
+            // Match by spaceId to avoid pushing a duplicate chat screen.
+            if let existingData = currentPath.path.lazy.compactMap({ $0.base as? SpaceChatCoordinatorData }).first(where: { $0.spaceId == data.spaceId }) {
+                currentPath.popTo(existingData)
+                if data.messageId != nil {
+                    currentPath.replaceLast(SpaceChatCoordinatorData(spaceId: data.spaceId, messageId: data.messageId))
+                    // SpaceChatCoordinatorData.== compares only spaceId (required for
+                    // openOnce dedup), so the guard below won't detect messageId change.
+                    navigationPath = currentPath
+                    return
+                }
+            } else {
+                currentPath.openOnce(data)
+            }
         case .spaceChat(let data):
             currentPath.openOnce(data)
         case .widget(let data):
@@ -385,34 +406,18 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         }
     }
     
-    private func setActiveSpace(spaceId: String) async throws -> SpaceView {
-        // Check if space is deleted
-        guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else {
-            currentSpaceId = nil
-            try await activeSpaceManager.setActiveSpace(spaceId: nil)
-            throw CommonError.undefined
-        }
-        
-        guard currentSpaceId != spaceId else { return spaceView }
-        
+    private func setActiveSpace(spaceId: String) {
+        guard currentSpaceId != spaceId else { return }
         currentSpaceId = spaceId
-        
-        // This is not required. But it help to load space as fast as possible
+        // Preload space in middleware for faster loading. SpaceLoadingContainerView will also call this.
         Task { try await activeSpaceManager.setActiveSpace(spaceId: spaceId) }
-        
-        return spaceView
     }
     
     private func handleActiveSpace(info: AccountInfo?) async {
         guard info?.accountSpaceId != currentSpaceId else { return }
-        
+
         if let info {
-            do {
-                try await showSpace(spaceId: info.accountSpaceId)
-            } catch {
-                await dismissAllPresented?()
-                navigationPath.popToRoot()
-            }
+            await showSpace(spaceId: info.accountSpaceId)
         } else {
             await dismissAllPresented?()
             navigationPath.popToRoot()
@@ -426,8 +431,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         switch action {
         case .createObjectFromQuickAction(let typeId):
             await createAndShowNewObject(typeId: typeId, route: .homeScreen)
-        case .openObject(let objectId, let spaceId):
-            try await handleOpenObject(objectId: objectId, spaceId: spaceId)
         case .deepLink(let deepLink, let source):
             try await handleDeepLink(deepLink: deepLink, source: source)
         }
@@ -503,18 +506,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         }
     }
 
-    private func handleOpenObject(objectId: String, spaceId: String) async throws {
-        guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
-        if spaceView.chatId == objectId, spaceView.initialScreenIsChat {
-            try await showScreen(data: .spaceChat(SpaceChatCoordinatorData(spaceId: spaceId)))
-        } else {
-            let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
-            try await document.open()
-            guard let editorData = document.details?.screenData() else { return }
-            try await showScreen(data: editorData)
-        }
-    }
-    
     // MARK: - Object creation
     private func createAndShowNewObject(
         typeId: String,

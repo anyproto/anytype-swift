@@ -779,6 +779,35 @@
         ]
       }
     },
+    "self-review": {
+      "type": "workflow",
+      "priority": "medium",
+      "description": "Agent self-reviews its own diff against TASTE_INVARIANTS.md before presenting to user. Catches mechanical violations early.",
+      "promptTriggers": {
+        "keywords": [
+          "self-review",
+          "taste check",
+          "taste invariants",
+          "check my changes",
+          "verify changes",
+          "review my code",
+          "quality check",
+          "before submit",
+          "pre-submit"
+        ],
+        "intentPatterns": [
+          "(check|verify|review).*?(my|own|these).*?(changes|code|diff)",
+          "(self|auto).*?review",
+          "(taste|invariant).*?(check|verify)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/TASTE_INVARIANTS.md"
+        ],
+        "contentPatterns": []
+      }
+    },
     "swiftui-expert-skill": {
       "type": "domain",
       "priority": "medium",

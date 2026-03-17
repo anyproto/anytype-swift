@@ -122,7 +122,7 @@ final class PrimaryAuthViewModel {
     
     private func handleAppAction(action: AppAction) throws {
         switch action {
-        case .createObjectFromQuickAction, .openObject:
+        case .createObjectFromQuickAction:
             throw AuthViewModelError.unsupportedAppAction
         case .deepLink(let deeplink, _):
             switch deeplink {
