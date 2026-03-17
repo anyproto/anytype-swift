@@ -342,6 +342,10 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
                 currentPath.popTo(existingData)
                 if data.messageId != nil {
                     currentPath.replaceLast(SpaceChatCoordinatorData(spaceId: data.spaceId, messageId: data.messageId))
+                    // Assign directly — equality check below can't detect messageId change
+                    // because SpaceChatCoordinatorData.== ignores messageId
+                    navigationPath = currentPath
+                    return
                 }
             } else {
                 currentPath.openOnce(data)
