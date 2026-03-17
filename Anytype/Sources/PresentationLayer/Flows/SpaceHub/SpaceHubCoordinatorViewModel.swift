@@ -333,17 +333,14 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
                 spaceProfileData = spaceInfo
             }
         case .chat(let data):
-            // For chat-type spaces, the home screen is SpaceChatCoordinatorData.
-            // Deep links and push notifications resolve to ChatCoordinatorData instead.
-            // Detect existing SpaceChatCoordinatorData for the same space and pop to it
-            // to avoid pushing a duplicate chat screen. If messageId is present,
-            // replace the entry to pass the scroll-to-message target through.
+            // Chat-type spaces already have SpaceChatCoordinatorData as home screen.
+            // Match by spaceId to avoid pushing a duplicate chat screen.
             if let existingData = currentPath.path.lazy.compactMap({ $0.base as? SpaceChatCoordinatorData }).first(where: { $0.spaceId == data.spaceId }) {
                 currentPath.popTo(existingData)
                 if data.messageId != nil {
                     currentPath.replaceLast(SpaceChatCoordinatorData(spaceId: data.spaceId, messageId: data.messageId))
-                    // Assign directly — equality check below can't detect messageId change
-                    // because SpaceChatCoordinatorData.== ignores messageId
+                    // SpaceChatCoordinatorData.== compares only spaceId (required for
+                    // openOnce dedup), so the guard below won't detect messageId change.
                     navigationPath = currentPath
                     return
                 }
