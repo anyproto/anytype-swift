@@ -3,6 +3,7 @@ import AnytypeCore
 import FirebaseMessaging
 import Services
 import NotificationsCore
+import DeepLinks
 #if DEBUG
 import Network
 #endif
@@ -124,8 +125,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
            let spaceId = decryptedMessage[DecryptedPushKeys.spaceId] as? String,
            let chatId = decryptedMessage[DecryptedPushKeys.chatId] as? String {
             AnytypeAnalytics.instance().logOpenChatByPush()
+            let msgId = decryptedMessage[DecryptedPushKeys.msgId] as? String
+            let deepLink: DeepLink
+            if let msgId, msgId.isNotEmpty {
+                deepLink = .chatMessage(chatObjectId: chatId, spaceId: spaceId, messageId: msgId)
+            } else {
+                deepLink = .object(objectId: chatId, spaceId: spaceId)
+            }
             Task { @MainActor in
-                appActionStorage.action = .openObject(objectId: chatId, spaceId: spaceId)
+                appActionStorage.action = .deepLink(deepLink, .internal)
             }
         }
         

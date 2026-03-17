@@ -333,7 +333,20 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
                 spaceProfileData = spaceInfo
             }
         case .chat(let data):
-            currentPath.openOnce(data)
+            // Chat-type spaces already have SpaceChatCoordinatorData as home screen.
+            // Match by spaceId to avoid pushing a duplicate chat screen.
+            if let existingData = currentPath.path.lazy.compactMap({ $0.base as? SpaceChatCoordinatorData }).first(where: { $0.spaceId == data.spaceId }) {
+                currentPath.popTo(existingData)
+                if data.messageId != nil {
+                    currentPath.replaceLast(SpaceChatCoordinatorData(spaceId: data.spaceId, messageId: data.messageId))
+                    // SpaceChatCoordinatorData.== compares only spaceId (required for
+                    // openOnce dedup), so the guard below won't detect messageId change.
+                    navigationPath = currentPath
+                    return
+                }
+            } else {
+                currentPath.openOnce(data)
+            }
         case .spaceChat(let data):
             currentPath.openOnce(data)
         case .widget(let data):
@@ -418,8 +431,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         switch action {
         case .createObjectFromQuickAction(let typeId):
             await createAndShowNewObject(typeId: typeId, route: .homeScreen)
-        case .openObject(let objectId, let spaceId):
-            try await handleOpenObject(objectId: objectId, spaceId: spaceId)
         case .deepLink(let deepLink, let source):
             try await handleDeepLink(deepLink: deepLink, source: source)
         }
@@ -495,18 +506,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         }
     }
 
-    private func handleOpenObject(objectId: String, spaceId: String) async throws {
-        guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
-        if spaceView.chatId == objectId, spaceView.initialScreenIsChat {
-            try await showScreen(data: .spaceChat(SpaceChatCoordinatorData(spaceId: spaceId)))
-        } else {
-            let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
-            try await document.open()
-            guard let editorData = document.details?.screenData() else { return }
-            try await showScreen(data: editorData)
-        }
-    }
-    
     // MARK: - Object creation
     private func createAndShowNewObject(
         typeId: String,
