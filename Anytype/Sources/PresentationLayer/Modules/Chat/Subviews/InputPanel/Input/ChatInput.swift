@@ -36,7 +36,7 @@ struct ChatInput: View {
     private let sendButtonTrailingPadding: CGFloat = 6
 
     private var showSendButton: Bool {
-        linkedObjects.isNotEmpty || !text.string.isEmpty
+        linkedObjects.isNotEmpty || !text.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     var body: some View {
