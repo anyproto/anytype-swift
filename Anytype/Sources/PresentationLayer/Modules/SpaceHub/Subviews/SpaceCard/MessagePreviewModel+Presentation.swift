@@ -14,6 +14,10 @@ extension MessagePreviewModel {
         notificationMode.mentionCounterStyle
     }
 
+    var reactionStyle: MentionBadgeStyle {
+        notificationMode.mentionCounterStyle
+    }
+
     var messagePreviewText: String {
         if let authorName = creatorTitle, authorName.isNotEmpty {
             return "\(authorName): \(localizedAttachmentsText)"
@@ -39,6 +43,6 @@ extension MessagePreviewModel {
     }
 
     var hasCounters: Bool {
-        totalCounter > 0
+        totalCounter > 0 || hasUnreadReactions
     }
 }
