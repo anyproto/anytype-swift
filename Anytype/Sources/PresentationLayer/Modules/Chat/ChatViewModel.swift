@@ -460,7 +460,15 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
         Task {
             bottomVisibleOrderId = to.messageOrderId
-            forceHiddenActionPanel = false // Without update panel. Waiting middleware event.
+            // updateActions() is normally triggered by .state middleware events,
+            // but those arrive before forceHiddenActionPanel resets to false,
+            // so action buttons (e.g. scroll-to-reaction) would never appear.
+            // Trigger once when the panel becomes visible for the first time.
+            let wasForceHidden = forceHiddenActionPanel
+            forceHiddenActionPanel = false
+            if wasForceHidden {
+                updateActions()
+            }
             await chatStorage.updateVisibleRange(startMessageId: from.messageId, endMessageId: to.messageId)
         }
     }
