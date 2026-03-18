@@ -169,11 +169,14 @@ enum AttributedTextConverter {
             }
             return ""
         case .italic:
-            guard let font = attributes[.font] as? UIFont,
-                  font.fontDescriptor.symbolicTraits.contains(.traitItalic) else {
-                return nil
+            guard let font = attributes[.font] as? UIFont else { return nil }
+            if font.fontDescriptor.symbolicTraits.contains(.traitItalic) {
+                return ""
             }
-            return ""
+            if let obliqueness = attributes[.obliqueness] as? Double, obliqueness != 0.0 {
+                return ""
+            }
+            return nil
         case .keyboard:
             guard let font = attributes[.font] as? UIFont,
                   font.isCode else {

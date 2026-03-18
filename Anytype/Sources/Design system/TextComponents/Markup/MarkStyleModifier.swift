@@ -80,10 +80,14 @@ final class MarkStyleModifier {
             
             
         case .italic:
-            guard let oldFont = old[.font] as? UIFont else { return nil }
-            
-            let newFont = shouldApplyMarkup ? oldFont.italic : oldFont.nonItalic
-            return AttributedStringChange(changeAttributes: [.font : newFont])
+            if shouldApplyMarkup {
+                // Use synthetic italic (obliqueness) instead of italic font variant.
+                // CJK fallback fonts (Apple SD Gothic Neo, etc.) lack italic glyphs,
+                // so obliqueness provides consistent italic rendering across all scripts.
+                return AttributedStringChange(changeAttributes: [.obliqueness: 0.2])
+            } else {
+                return AttributedStringChange(deletedKeys: [.obliqueness])
+            }
             
         case .keyboard:
             return keyboardUpdate(with: old, shouldHaveStyle: shouldApplyMarkup)
