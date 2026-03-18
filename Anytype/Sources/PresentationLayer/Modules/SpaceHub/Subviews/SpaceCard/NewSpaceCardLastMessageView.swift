@@ -75,7 +75,7 @@ struct NewSpaceCardLastMessageView: View {
                 Spacer.fixedWidth(2)
 
                 ForEach(model.attachments) {
-                    IconView(icon: $0.icon).frame(width: 18, height: 18)
+                    IconView(icon: $0.icon).frame(width: 16, height: 16)
                 }
 
                 Spacer.fixedWidth(2)
