@@ -9,7 +9,7 @@ extension NSAttributedString {
     }
     
     func italicState(range: NSRange) -> Bool {
-        return isFontInWhole(range: range, has: .traitItalic)
+        return isFontInWhole(range: range, has: .traitItalic) || isOblique(range: range)
     }
     
     func strikethroughState(range: NSRange) -> Bool {

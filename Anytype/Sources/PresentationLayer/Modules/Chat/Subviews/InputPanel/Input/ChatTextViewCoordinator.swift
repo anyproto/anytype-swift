@@ -278,9 +278,11 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
             }
             
             if attrs[.chatItalic] != nil {
-                newFont = newFont.italic
+                newText.addAttribute(.obliqueness, value: Float(0.2), range: range)
+            } else {
+                newText.removeAttribute(.obliqueness, range: range)
             }
-            
+
             if attrs[.chatKeyboard] != nil {
                 newFont = UIKitFontBuilder.uiKitFont(font: anytypeCodeFont)
             }
