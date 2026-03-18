@@ -536,6 +536,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
 
     func onTapReaction() {
         guard let chatState, chatState.unreadReactionOrderID.isNotEmpty else { return }
+        AnytypeAnalytics.instance().logClickScrollToReaction(chatId: chatId)
         Task {
             let message = try await chatStorage.loadPagesTo(orderId: chatState.unreadReactionOrderID)
             collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
