@@ -96,6 +96,24 @@ When the agent struggles with a rule, the fix is encoding it here — not "tryin
 
 ## Code Quality Invariants
 
+### No optional booleans for tri-state — use enums
+- **Grep**: `:\s*Bool\?`
+- **Why**: `Bool?` (true/false/nil) creates ambiguous logic — the meaning of `nil` is implicit and context-dependent (loading? not determined? unknown?)
+- **Fix**: Define an enum with explicit named cases
+- **Exception**: API/middleware parameters that simply pass through optionals
+
+```swift
+// ❌ WRONG — What does nil mean here?
+var isEnabled: Bool?
+
+// ✅ CORRECT — Intent is explicit
+enum EnabledState {
+    case enabled
+    case disabled
+    case loading
+}
+```
+
 ### No force unwraps in production code
 - **Grep**: `[^/]![^=\s]` (rough — excludes `!=`, comments)
 - **Why**: Runtime crash risk
