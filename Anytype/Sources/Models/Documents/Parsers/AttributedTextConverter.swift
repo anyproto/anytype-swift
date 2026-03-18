@@ -173,7 +173,7 @@ enum AttributedTextConverter {
             if font.fontDescriptor.symbolicTraits.contains(.traitItalic) {
                 return ""
             }
-            if let obliqueness = attributes[.obliqueness] as? Double, obliqueness != 0.0 {
+            if let obliqueness = attributes[.obliqueness] as? Float, !obliqueness.isZero {
                 return ""
             }
             return nil

@@ -84,9 +84,15 @@ final class MarkStyleModifier {
                 // Use synthetic italic (obliqueness) instead of italic font variant.
                 // CJK fallback fonts (Apple SD Gothic Neo, etc.) lack italic glyphs,
                 // so obliqueness provides consistent italic rendering across all scripts.
-                return AttributedStringChange(changeAttributes: [.obliqueness: 0.2])
+                return AttributedStringChange(changeAttributes: [.obliqueness: Float(0.2)])
             } else {
-                return AttributedStringChange(deletedKeys: [.obliqueness])
+                // Also reset font to nonItalic for backwards compatibility with
+                // content saved before this change (which used font trait italic).
+                guard let oldFont = old[.font] as? UIFont else { return nil }
+                return AttributedStringChange(
+                    changeAttributes: [.font: oldFont.nonItalic],
+                    deletedKeys: [.obliqueness]
+                )
             }
             
         case .keyboard:

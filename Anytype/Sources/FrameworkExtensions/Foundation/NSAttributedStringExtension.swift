@@ -40,7 +40,7 @@ extension NSAttributedString {
         guard isRangeValid(range) else { return false }
         var hasObliqueness = false
         enumerateAttribute(.obliqueness, in: range) { value, _, shouldStop in
-            guard let obliqueness = value as? Double, obliqueness != 0.0 else {
+            guard let obliqueness = value as? Float, !obliqueness.isZero else {
                 hasObliqueness = false
                 shouldStop[0] = true
                 return
