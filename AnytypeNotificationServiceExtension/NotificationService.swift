@@ -122,6 +122,9 @@ class NotificationService: UNNotificationServiceExtension {
     
     @Injected(\.spaceIconStorage)
     private var spaceIconStorage: any SpaceIconStorageProtocol
+
+    @Injected(\.badgeCountStorage)
+    private var badgeCountStorage: any BadgeCountStorageProtocol
     
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
@@ -157,6 +160,10 @@ class NotificationService: UNNotificationServiceExtension {
             DecryptedPushKeys.spaceId : decryptedMessage.spaceId,
             DecryptedPushKeys.chatId : decryptedMessage.newMessage.chatId
         ]
+
+        let newBadgeCount = badgeCountStorage.badgeCount + 1
+        badgeCountStorage.badgeCount = newBadgeCount
+        bestAttemptContent.badge = NSNumber(value: newBadgeCount)
 
         let spaceName = decryptedMessage.newMessage.spaceName.isNotEmpty ? decryptedMessage.newMessage.spaceName : Loc.untitled
         let title = decryptedMessage.isOneToOne ? decryptedMessage.newMessage.senderName : spaceName
