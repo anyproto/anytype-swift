@@ -41,6 +41,10 @@ final class TreeWidgetViewModel: ObservableObject {
     @Published private(set) var availableMore: Bool = false
     var dragId: String? { widgetBlockId }
     var allowCreateObject: Bool { internalModel.allowCreateObject }
+    var contentState: WidgetContentState {
+        guard let rows else { return .loading }
+        return rows.isEmpty ? .empty : .hasData
+    }
     
     init(
         widgetBlockId: String,

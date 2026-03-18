@@ -30,6 +30,8 @@ struct TreeWidgetView: View {
             name: model.name,
             icon: model.icon,
             dragId: model.dragId,
+            contentState: model.contentState,
+            defaultExpanded: false,
             onCreateObjectTap: createTap,
             onHeaderTap: {
                 model.onHeaderTap()
