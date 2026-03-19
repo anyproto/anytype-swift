@@ -1,6 +1,11 @@
 import Foundation
 
 enum HomepagePickerResult {
-    case homepageSet(homepageId: String)
+    case homepageSet(HomepageValue)
     case later
+}
+
+enum HomepageValue {
+    case widgets
+    case object(id: String)
 }

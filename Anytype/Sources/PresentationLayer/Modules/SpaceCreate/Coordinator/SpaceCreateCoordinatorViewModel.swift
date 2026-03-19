@@ -49,9 +49,9 @@ final class SpaceCreateCoordinatorViewModel: SpaceCreateModuleOutput {
         pendingSpaceId = nil
 
         switch result {
-        case .homepageSet:
+        case .homepageSet(let homepageValue):
             try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-            // TODO: Navigate to the homepage object (separate task)
+            // TODO: Navigate to the homepage object using homepageValue (separate task)
         case .later:
             try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
             // TODO: Handle temporary widgets (separate task)

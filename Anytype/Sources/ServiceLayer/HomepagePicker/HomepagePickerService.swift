@@ -4,22 +4,20 @@ import AnytypeCore
 
 final class HomepagePickerService: HomepagePickerServiceProtocol, @unchecked Sendable {
 
+    private static let widgetsHomepageId = "widgets"
+
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
 
-    func createHomepage(spaceId: String, option: HomepagePickerOption) async throws -> String {
+    func createHomepage(spaceId: String, option: HomepagePickerOption) async throws -> HomepageValue {
         switch option {
         case .widgets:
-            try await setHomepage(spaceId: spaceId, homepageId: HomepageValue.widgets)
-            return HomepageValue.widgets
-        case .chat, .page, .collection:
-            guard let typeKey = option.objectTypeKey else {
-                anytypeAssertionFailure("Option \(option) should have objectTypeKey")
-                throw HomepagePickerServiceError.missingObjectType
-            }
+            try await setHomepage(spaceId: spaceId, homepageId: Self.widgetsHomepageId)
+            return .widgets
+        case .object(let type):
             let details = try await objectActionsService.createObject(
                 name: "",
-                typeUniqueKey: typeKey,
+                typeUniqueKey: type.objectTypeKey,
                 shouldDeleteEmptyObject: false,
                 shouldSelectType: false,
                 shouldSelectTemplate: false,
@@ -30,7 +28,7 @@ final class HomepagePickerService: HomepagePickerServiceProtocol, @unchecked Sen
                 createdInContextRef: ""
             )
             try await setHomepage(spaceId: spaceId, homepageId: details.id)
-            return details.id
+            return .object(id: details.id)
         }
     }
 
@@ -42,6 +40,13 @@ final class HomepagePickerService: HomepagePickerServiceProtocol, @unchecked Sen
     }
 }
 
-enum HomepagePickerServiceError: Error {
-    case missingObjectType
+private extension ObjectHomepageType {
+
+    var objectTypeKey: ObjectTypeUniqueKey {
+        switch self {
+        case .chat: return .chatDerived
+        case .page: return .page
+        case .collection: return .collection
+        }
+    }
 }

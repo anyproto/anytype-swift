@@ -8,7 +8,7 @@ final class HomepagePickerViewModel {
     @ObservationIgnored @Injected(\.homepagePickerService)
     private var homepagePickerService: any HomepagePickerServiceProtocol
 
-    var selectedOption: HomepagePickerOption = .chat
+    var selectedOption: HomepagePickerOption = .object(.chat)
     var dismiss = false
 
     let options = HomepagePickerOption.allCases
@@ -24,11 +24,11 @@ final class HomepagePickerViewModel {
     }
 
     func onCreate() async throws {
-        let homepageId = try await homepagePickerService.createHomepage(
+        let homepageValue = try await homepagePickerService.createHomepage(
             spaceId: spaceId,
             option: selectedOption
         )
-        try await onFinish(.homepageSet(homepageId: homepageId))
+        try await onFinish(.homepageSet(homepageValue))
         dismiss = true
     }
 

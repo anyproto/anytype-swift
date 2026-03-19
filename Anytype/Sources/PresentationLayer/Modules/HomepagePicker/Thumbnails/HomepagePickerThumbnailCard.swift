@@ -28,14 +28,17 @@ struct HomepagePickerThumbnailCard: View {
     @ViewBuilder
     private var thumbnailContent: some View {
         switch option {
-        case .chat:
-            ChatThumbnail(isSelected: isSelected)
         case .widgets:
             WidgetsThumbnail(isSelected: isSelected)
-        case .page:
-            PageThumbnail(isSelected: isSelected)
-        case .collection:
-            CollectionThumbnail(isSelected: isSelected)
+        case .object(let type):
+            switch type {
+            case .chat:
+                ChatThumbnail(isSelected: isSelected)
+            case .page:
+                PageThumbnail(isSelected: isSelected)
+            case .collection:
+                CollectionThumbnail(isSelected: isSelected)
+            }
         }
     }
 }
