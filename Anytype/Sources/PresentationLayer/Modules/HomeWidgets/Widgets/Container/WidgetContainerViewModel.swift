@@ -37,23 +37,19 @@ final class WidgetContainerViewModel {
     var homeState: HomeWidgetsState = .readonly
     var toastData: ToastBarData?
     let menuItems: [WidgetMenuItem]
-
-    @ObservationIgnored
-    private var isAutoExpanding = false
     
     init(
         widgetBlockId: String,
         widgetObject: some BaseDocumentProtocol,
         expectedMenuItems: [WidgetMenuItem],
-        defaultExpanded: Bool = true,
         output: (any CommonWidgetModuleOutput)?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.output = output
-
+        
         expandedService = Container.shared.expandedService()
-        isExpanded = expandedService.isExpanded(id: widgetBlockId, defaultValue: defaultExpanded)
+        isExpanded = expandedService.isExpanded(id: widgetBlockId, defaultValue: true)
         
         let source = widgetObject.widgetInfo(blockId: widgetBlockId)?.source
         
@@ -62,25 +58,9 @@ final class WidgetContainerViewModel {
         self.menuItems = (source?.isLibrary ?? false) ? menuItems.filter { $0 != .remove } : menuItems.filter { $0 != .removeSystemWidget }
     }
     
-    func updateExpanded(contentState: WidgetContentState, animated: Bool = true) {
-        guard contentState != .loading else { return }
-        guard !expandedService.hasUserOverride(id: widgetBlockId) else { return }
-        let shouldExpand = contentState == .hasData
-        isAutoExpanding = true
-        if animated {
-            withAnimation {
-                isExpanded = shouldExpand
-            }
-        } else {
-            isExpanded = shouldExpand
-        }
-        isAutoExpanding = false
-    }
-
     // MARK: - Private
-
+    
     private func expandedDidChange() {
-        guard !isAutoExpanding else { return }
         UISelectionFeedbackGenerator().selectionChanged()
         if let info = widgetObject.widgetInfo(blockId: widgetBlockId) {
             if isExpanded {

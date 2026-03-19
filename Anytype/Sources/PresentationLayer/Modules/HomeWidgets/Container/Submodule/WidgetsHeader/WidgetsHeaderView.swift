@@ -60,9 +60,7 @@ private struct WidgetsHeaderMenuContent: View {
         channelSettingsButton
 
         if model.isSharedSpace {
-            if !model.isOneToOneSpace {
-                membersButton
-            }
+            membersButton
             notificationsMenu
 
             if model.hasInviteLink {
@@ -80,7 +78,13 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onChannelSettingsTap()
         } label: {
-            Label(Loc.Chat.channelSettings, systemImage: "gear")
+            Label {
+                Text(Loc.SpaceSettings.title)
+            } icon: {
+                Image(asset: .X24.spaceSettings)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.Text.primary)
+            }
         }
     }
 
@@ -88,29 +92,36 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onMembersTap()
         } label: {
-            Label(Loc.members, systemImage: "person.2.fill")
+            Label {
+                Text(Loc.members)
+            } icon: {
+                Image(asset: .X24.member)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.Text.primary)
+            }
         }
     }
 
-    @ViewBuilder
     private var notificationsMenu: some View {
-        if model.isDataSpace {
-            NotificationModeMenu(
-                currentMode: model.currentNotificationMode,
-                onModeChange: { await model.onNotificationModeChanged($0) }
-            )
-        } else {
-            MuteToggleMenuButton(isMuted: model.isMuted) {
-                await model.toggleMute()
+        NotificationModeMenu(
+            currentMode: model.currentNotificationMode,
+            onModeChange: { mode in
+                await model.onNotificationModeChanged(mode)
             }
-        }
+        )
     }
 
     private var inviteMembersButton: some View {
         Button {
             model.onInviteMembersTap()
         } label: {
-            Label(Loc.Chat.inviteMembers, systemImage: "person.fill.badge.plus")
+            Label {
+                Text(Loc.Chat.inviteMembers)
+            } icon: {
+                Image(asset: .X24.member)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.Text.primary)
+            }
         }
     }
 
@@ -118,7 +129,13 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onShowQrCodeTap()
         } label: {
-            Label(Loc.qrCode, systemImage: "qrcode")
+            Label {
+                Text(Loc.qrCode)
+            } icon: {
+                Image(asset: .X24.qrCode)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.Text.primary)
+            }
         }
     }
 
@@ -126,7 +143,13 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onCopyInviteLinkTap()
         } label: {
-            Label(Loc.copyInviteLink, systemImage: "document.on.document.fill")
+            Label {
+                Text(Loc.copyLink)
+            } icon: {
+                Image(asset: .X24.url)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.Text.primary)
+            }
         }
     }
 }

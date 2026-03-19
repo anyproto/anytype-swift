@@ -48,7 +48,7 @@ final class TextIconPickerViewModel {
     func uploadImage(from itemProvider: NSItemProvider) {
         let safeSendableItemProvider = itemProvider.sendable()
         Task {
-            let fileDetails = try await fileService.uploadImage(spaceId: spaceId, source: .itemProvider(safeSendableItemProvider.value), origin: .none, createdInContext: contextId, createdInContextRef: objectId)
+            let fileDetails = try await fileService.uploadImage(spaceId: spaceId, source: .itemProvider(safeSendableItemProvider.value), origin: .none)
             try await textServiceHandler.setTextIcon(
                 contextId: contextId,
                 blockId: objectId,

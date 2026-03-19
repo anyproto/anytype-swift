@@ -24,17 +24,4 @@ extension BlockContentType {
     public static var allTextTypes: [BlockContentType] {
         BlockText.Style.allCases.map { BlockContentType.text($0) }
     }
-
-    public var canContainChildBlocks: Bool {
-        switch self {
-        case .file, .divider, .relation, .dataView,
-             .featuredRelations, .bookmark, .smartblock,
-             .text(.title), .table, .link,
-             .tableOfContents, .tableColumn, .tableRow,
-             .widget, .chat, .embed:
-            return false
-        case .text, .layout:
-            return true
-        }
-    }
 }

@@ -14,12 +14,6 @@ enum CursorModeAccessoryViewAction {
     case editingMode
     /// Show undo / redo mode
     case undoRedo
-    /// Delete the current block
-    case deleteBlock
-    /// Indent left (outdent - move outside parent)
-    case indentLeft
-    /// Indent right (indent - move inside previous sibling)
-    case indentRight
 }
 
 
@@ -35,12 +29,12 @@ final class CursorModeAccessoryViewModel {
         } else {
             switch configuration.usecase {
             case .editor:
-                actions = [.slash, .style, .actions, .undoRedo, .deleteBlock, .indentRight, .indentLeft]
+                actions = [.slash, .style, .actions, .undoRedo]
             case .simpleTable:
                 actions = [.style, .actions, .undoRedo]
             }
         }
-
+        
         self.items = actions
     }
     

@@ -21,6 +21,10 @@ final class SetViewPickerViewModel {
     private var dataviewService: any DataviewServiceProtocol
 
     @ObservationIgnored
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
+
+    @ObservationIgnored
     private weak var output: (any SetViewPickerCoordinatorOutput)?
     
     init(
@@ -121,13 +125,21 @@ final class SetViewPickerViewModel {
     
     func createView() async throws {
         guard let details = setDocument.details else { return }
-        
+
         var type = DataviewViewType.list
+        let galleryTypeKeys: [ObjectTypeUniqueKey] = [.image, .video]
         if details.isObjectType {
-            let listObjectTypesKeys = [ObjectTypeUniqueKey.task, ObjectTypeUniqueKey.template, ObjectTypeUniqueKey.project]
-            type = listObjectTypesKeys.contains(ObjectType(details: details).uniqueKey) ? .list : .table
+            let objectType = ObjectType(details: details)
+            if galleryTypeKeys.contains(objectType.uniqueKey) {
+                type = .gallery
+            }
+        } else if let sourceTypeId = details.filteredSetOf.first {
+            if let sourceType = try? objectTypeProvider.objectType(id: sourceTypeId),
+               galleryTypeKeys.contains(sourceType.uniqueKey) {
+                type = .gallery
+            }
         }
-        
+
         let newView = setDocument.activeView.updated(
             name: "",
             type: type,

@@ -318,7 +318,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "App version: %@"
+            "value": "إصدار التطبيق: %@"
           }
         },
         "be": {
@@ -366,7 +366,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "App version: %@"
+            "value": "Version de l'application : %@"
           }
         },
         "id": {
@@ -456,7 +456,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "App version: %@"
+            "value": "程序版本：%@"
           }
         },
         "zh-Hant": {
@@ -473,7 +473,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Build number: %@"
+            "value": "رقم البناء: %@"
           }
         },
         "be": {
@@ -521,7 +521,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Build number: %@"
+            "value": "Numéro de build : %@"
           }
         },
         "id": {
@@ -611,7 +611,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Build number: %@"
+            "value": "构建版本：%@"
           }
         },
         "zh-Hant": {
@@ -628,7 +628,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Contact Us"
+            "value": "تواصل معنا"
           }
         },
         "be": {
@@ -783,7 +783,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Device: %@"
+            "value": "الجهاز: %@"
           }
         },
         "be": {
@@ -831,7 +831,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Device: %@"
+            "value": "Appareil : %@"
           }
         },
         "id": {
@@ -921,7 +921,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Device: %@"
+            "value": "设备：%@"
           }
         },
         "zh-Hant": {
@@ -938,7 +938,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Help & Community"
+            "value": "المساعدة والمجتمع"
           }
         },
         "be": {
@@ -1093,7 +1093,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Help & Tutorials"
+            "value": "المساعدة والبرامج التعليمية"
           }
         },
         "be": {
@@ -1403,7 +1403,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Library version: %@"
+            "value": "إصدار المكتبة: %@"
           }
         },
         "be": {
@@ -1451,7 +1451,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Library version: %@"
+            "value": "Version de la bibliothèque :  %@"
           }
         },
         "id": {
@@ -1541,7 +1541,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Library version: %@"
+            "value": "库版本：%@"
           }
         },
         "zh-Hant": {
@@ -1558,7 +1558,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "\n\nTechnical information\n%@"
+            "value": "\n\nمعلومات تقنية\n%@"
           }
         },
         "be": {
@@ -1606,7 +1606,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "\n\nTechnical information\n%@"
+            "value": "\n\nInformation technique\n%@"
           }
         },
         "id": {
@@ -1696,7 +1696,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "\n\nTechnical information\n%@"
+            "value": "\n\n技术信息\n%@"
           }
         },
         "zh-Hant": {
@@ -1713,7 +1713,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Support request, Vault ID %@"
+            "value": "طلب دعم، معرف الخزانة %@"
           }
         },
         "be": {
@@ -1731,7 +1731,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "Support request, Vault ID %@"
+            "value": "Supportanfrage, Tresor-ID %@"
           }
         },
         "en": {
@@ -1851,7 +1851,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Support request, Vault ID %@"
+            "value": "支持请求，库 ID %@"
           }
         },
         "zh-Hant": {
@@ -1868,7 +1868,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "OS version: %@"
+            "value": "إصدار نظام التشغيل: %@"
           }
         },
         "be": {
@@ -1916,7 +1916,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "OS version: %@"
+            "value": "Version de l'OS : %@"
           }
         },
         "id": {
@@ -2006,7 +2006,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "OS version: %@"
+            "value": "系统版本：%@"
           }
         },
         "zh-Hant": {
@@ -2178,7 +2178,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Tech Info"
+            "value": "معلومات تقنية"
           }
         },
         "be": {
@@ -2488,7 +2488,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "What’s New"
+            "value": "ما الجديد"
           }
         },
         "be": {
@@ -2643,7 +2643,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Analytics ID: %@"
+            "value": "معرف التحليلات: %@"
           }
         },
         "be": {
@@ -2661,7 +2661,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "Analytics ID: %@"
+            "value": "Analytics-ID: %@"
           }
         },
         "en": {
@@ -2691,7 +2691,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Analytics ID: %@"
+            "value": "ID analytique : %@"
           }
         },
         "id": {
@@ -2781,7 +2781,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Analytics ID: %@"
+            "value": "分析 ID：%@"
           }
         },
         "zh-Hant": {
@@ -2798,7 +2798,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Anytype ID: %@"
+            "value": "معرف Anytype: %@"
           }
         },
         "be": {
@@ -2846,7 +2846,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Anytype ID: %@"
+            "value": "ID Anytype : %@"
           }
         },
         "id": {
@@ -2936,7 +2936,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Anytype ID: %@"
+            "value": "Anytype ID：%@"
           }
         },
         "zh-Hant": {
@@ -2953,7 +2953,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Device ID: %@"
+            "value": "معرف الجهاز: %@"
           }
         },
         "be": {
@@ -3001,7 +3001,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Device ID: %@"
+            "value": "ID de l'appareil : %@"
           }
         },
         "id": {
@@ -3091,7 +3091,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Device ID: %@"
+            "value": "设备 ID：%@"
           }
         },
         "zh-Hant": {
@@ -3263,7 +3263,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Access to key from keychain"
+            "value": "الوصول إلى المفتاح من سلسلة المفاتيح"
           }
         },
         "be": {
@@ -4348,7 +4348,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Add a description..."
+            "value": "إضافة وصف..."
           }
         },
         "be": {
@@ -4658,7 +4658,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Add email"
+            "value": "إضافة بريد إلكتروني"
           }
         },
         "be": {
@@ -4968,7 +4968,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Add phone"
+            "value": "إضافة هاتف"
           }
         },
         "be": {
@@ -5278,7 +5278,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Anytype and set Camera to ON"
+            "value": "AnyType يحتاج الوصول إلى الكاميرا لمسح رموز QR.\n\nيرجى الذهاب إلى إعدادات جهازك -> Anytype -> وتعيين الكاميرا إلى \"تشغيل\""
           }
         },
         "be": {
@@ -5589,7 +5589,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Align center"
+            "value": "محاذاة للوسط"
           }
         },
         "be": {
@@ -5744,7 +5744,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Align justify"
+            "value": "ضبط المحاذاة"
           }
         },
         "be": {
@@ -5899,7 +5899,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Align left"
+            "value": "محاذاة لليسار"
           }
         },
         "be": {
@@ -6054,7 +6054,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Align right"
+            "value": "محاذاة لليمين"
           }
         },
         "be": {
@@ -7963,7 +7963,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Date created"
+            "value": "Date de création"
           }
         },
         "id": {
@@ -8690,7 +8690,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Amber background"
+            "value": "خلفية عنبرية"
           }
         },
         "be": {
@@ -9310,7 +9310,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Application"
+            "value": "التطبيق"
           }
         },
         "be": {
@@ -9448,7 +9448,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Application"
+            "value": "应用"
           }
         },
         "zh-Hant": {
@@ -9465,7 +9465,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Application icon"
+            "value": "أيقونة التطبيق"
           }
         },
         "be": {
@@ -9775,7 +9775,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Are you sure you want to delete %#@object@?"
+            "value": "هل أنت متأكد أنك تريد حذف كائن %#@@؟"
           },
           "substitutions": {
             "object": {
@@ -9785,37 +9785,37 @@
                   "few": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg objects"
+                      "value": "هل أنت متأكد أنك تريد حذف %a كائنات؟"
                     }
                   },
                   "many": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg objects"
+                      "value": "هل أنت متأكد أنك تريد حذف %a كائنات؟"
                     }
                   },
                   "one": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg object"
+                      "value": "هل أنت متأكد أنك تريد حذف %a كائن؟"
                     }
                   },
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg objects"
+                      "value": "هل أنت متأكد أنك تريد حذف %a كائنات؟"
                     }
                   },
                   "two": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg objects"
+                      "value": "هل أنت متأكد أنك تريد حذف %a كائنات؟"
                     }
                   },
                   "zero": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg objects"
+                      "value": "هل أنت متأكد أنك تريد حذف %a كائن؟"
                     }
                   }
                 }
@@ -10066,7 +10066,7 @@
         "id": {
           "stringUnit": {
             "state": "new",
-            "value": "Yakin ingin menghapus %#@object@?"
+            "value": "Apakah Anda yakin ingin menghapus objek %#@@?"
           },
           "substitutions": {
             "object": {
@@ -10456,7 +10456,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Are you sure you want to delete %#@object@?"
+            "value": "您确定要删除 %#@ 个对象吗？"
           },
           "substitutions": {
             "object": {
@@ -10466,7 +10466,7 @@
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg objects"
+                      "value": "%a 个对象"
                     }
                   }
                 }
@@ -10658,7 +10658,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Attach Object"
+            "value": "إرفاق كائن"
           }
         },
         "be": {
@@ -10706,7 +10706,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Attach Object"
+            "value": "Joindre un objet"
           }
         },
         "id": {
@@ -10760,7 +10760,7 @@
         "pt-BR": {
           "stringUnit": {
             "state": "new",
-            "value": "Attach Object"
+            "value": "Anexar um objeto"
           }
         },
         "pt-PT": {
@@ -10816,37 +10816,37 @@
               "few": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Attachments"
+                  "value": "%lld مرفقات"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Attachments"
+                  "value": "%lld مرفقات"
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "Attachment"
+                  "value": "%lld مرفق"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Attachments"
+                  "value": "%lld مرفقات"
                 }
               },
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Attachments"
+                  "value": "%lld مرفقات"
                 }
               },
               "zero": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Attachments"
+                  "value": "%lld مرفقات"
                 }
               }
             }
@@ -11319,37 +11319,37 @@
               "few": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Audios"
+                  "value": "%lld صوتيات"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Audios"
+                  "value": "%lld صوتيات"
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "Audio"
+                  "value": "%lld صوتية"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Audios"
+                  "value": "%lld صوتيات"
                 }
               },
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Audios"
+                  "value": "%lld صوتيات"
                 }
               },
               "zero": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Audios"
+                  "value": "%lld صوتيات"
                 }
               }
             }
@@ -11974,7 +11974,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Back up key"
+            "value": "المفتاح الاحتياطي"
           }
         },
         "be": {
@@ -12299,7 +12299,7 @@
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%d backlink"
+                  "value": "%d رابط خلفي"
                 }
               },
               "other": {
@@ -12311,7 +12311,7 @@
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%d backlinks"
+                  "value": "%d روابط خلفية"
                 }
               },
               "zero": {
@@ -13097,7 +13097,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Black"
+            "value": "أسود"
           }
         },
         "be": {
@@ -15113,7 +15113,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Highlighted text"
+            "value": "النص المظلل"
           }
         },
         "be": {
@@ -15734,7 +15734,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Blue background"
+            "value": "خلفية زرقاء"
           }
         },
         "be": {
@@ -15889,7 +15889,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Blurred\n icon"
+            "value": "أيقونة\n ضبابية"
           }
         },
         "be": {
@@ -16047,37 +16047,37 @@
               "few": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Bookmarks"
+                  "value": "%lld إشارات مرجعية"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Bookmarks"
+                  "value": "%lld إشارات مرجعية"
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "Bookmark"
+                  "value": "%lld إشارة مرجعية"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Bookmarks"
+                  "value": "%lld إشارات مرجعية"
                 }
               },
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Bookmarks"
+                  "value": "%lld إشارات مرجعية"
                 }
               },
               "zero": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Bookmarks"
+                  "value": "%lld إشارة مرجعية"
                 }
               }
             }
@@ -16239,13 +16239,13 @@
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "Bookmark"
+                  "value": "Favori"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Bookmarks"
+                  "value": "%lld Favoris"
                 }
               }
             }
@@ -16857,7 +16857,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Camera"
+            "value": "الكاميرا"
           }
         },
         "be": {
@@ -17012,7 +17012,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Take photo or video"
+            "value": "التقط صورة أو مقطع مرئي"
           }
         },
         "be": {
@@ -17632,7 +17632,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Change email"
+            "value": "تغيير البريد الإلكتروني"
           }
         },
         "be": {
@@ -18252,7 +18252,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Channel Type"
+            "value": "نوع القناة"
           }
         },
         "be": {
@@ -18390,7 +18390,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Channel Type"
+            "value": "频道类型"
           }
         },
         "zh-Hant": {
@@ -18562,7 +18562,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Choose default object type"
+            "value": "اختر نوع الكائن الافتراضي"
           }
         },
         "be": {
@@ -19027,7 +19027,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Error, try again later"
+            "value": "حدث خطأ ما، حاول مرة أخرى لاحقًا"
           }
         },
         "be": {
@@ -19183,7 +19183,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Cache sucessfully cleared"
+            "value": "تم مسح ذاكرة التخزين المؤقت بنجاح"
           }
         },
         "be": {
@@ -20114,7 +20114,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Collection of objects"
+            "value": "مجموعة من الكائنات"
           }
         },
         "be": {
@@ -20579,7 +20579,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "No data found"
+            "value": "لم يتم العثور على بيانات"
           }
         },
         "be": {
@@ -20734,7 +20734,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Companies, contacts, friends and family"
+            "value": "الشركات، جهات الاتصال، الأصدقاء، والعائلة"
           }
         },
         "be": {
@@ -21044,7 +21044,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Connect"
+            "value": "الاتصال"
           }
         },
         "be": {
@@ -21199,7 +21199,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Connect with me on Anytype"
+            "value": "تواصل معي على Anytype"
           }
         },
         "be": {
@@ -21217,7 +21217,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "Connect with me on Anytype"
+            "value": "Verbinde dich mit mir auf Anytype"
           }
         },
         "en": {
@@ -21354,7 +21354,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Connecting..."
+            "value": "جارٍ الاتصال..."
           }
         },
         "be": {
@@ -21819,7 +21819,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Yes, convert"
+            "value": "نعم، تحويل"
           }
         },
         "be": {
@@ -21957,7 +21957,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Yes, convert"
+            "value": "是的，转换"
           }
         },
         "zh-Hant": {
@@ -21974,7 +21974,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Switching between Space and Chat will significantly change the experience."
+            "value": "التبديل بين المساحة والمحادثة سيغير التجربة بشكل كبير."
           }
         },
         "be": {
@@ -22112,7 +22112,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Switching between Space and Chat will significantly change the experience."
+            "value": "在“空间”与“聊天”之间切换将显著改变您的使用体验。"
           }
         },
         "zh-Hant": {
@@ -22129,7 +22129,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Convert Channel Type?"
+            "value": "تحويل نوع القناة؟"
           }
         },
         "be": {
@@ -22267,7 +22267,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Convert Channel Type?"
+            "value": "要转换频道类型吗？"
           }
         },
         "zh-Hant": {
@@ -22284,7 +22284,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Copied"
+            "value": "تم النسخ"
           }
         },
         "be": {
@@ -22594,7 +22594,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Copy Invite Link"
+            "value": "نسخ رابط الدعوة"
           }
         },
         "be": {
@@ -22732,7 +22732,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Copy Invite Link"
+            "value": "复制邀请链接"
           }
         },
         "zh-Hant": {
@@ -22904,7 +22904,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Copy space info"
+            "value": "نسخ معلومات المساحة"
           }
         },
         "be": {
@@ -23525,7 +23525,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Create Space"
+            "value": "إنشاء مساحة"
           }
         },
         "be": {
@@ -23543,7 +23543,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "Create Space"
+            "value": "Space erstellen"
           }
         },
         "en": {
@@ -23680,7 +23680,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Create a new one or search for something else"
+            "value": "إنشاء واحد جديد أو البحث عن شيء آخر"
           }
         },
         "be": {
@@ -23990,7 +23990,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Create new object \"%@\""
+            "value": "إنشاء كائن \"%@\" جديد"
           }
         },
         "be": {
@@ -24128,7 +24128,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Create new object \"%@\""
+            "value": "创建对象“%@”"
           }
         },
         "zh-Hant": {
@@ -24300,7 +24300,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Create Object"
+            "value": "إنشاء كائن"
           }
         },
         "be": {
@@ -24610,7 +24610,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Create option ‘%@’"
+            "value": "إنشاء خيار '%@'"
           }
         },
         "be": {
@@ -24748,7 +24748,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Create option ‘%@’"
+            "value": "创建选项“%@”"
           }
         },
         "zh-Hant": {
@@ -24765,7 +24765,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Create property ‘%@’"
+            "value": "إنشاء خاصية '%@’"
           }
         },
         "be": {
@@ -24903,7 +24903,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Create property ‘%@’"
+            "value": "创建属性“%@”"
           }
         },
         "zh-Hant": {
@@ -24920,7 +24920,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Create type"
+            "value": "إنشاء نوع"
           }
         },
         "be": {
@@ -25230,7 +25230,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Customize URL"
+            "value": "تخصيص الرابط"
           }
         },
         "be": {
@@ -25278,7 +25278,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Customize URL"
+            "value": "Personnaliser l'URL"
           }
         },
         "id": {
@@ -25385,7 +25385,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Calendar"
+            "value": "التقويم"
           }
         },
         "be": {
@@ -25695,7 +25695,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Graph"
+            "value": "الرسم البياني"
           }
         },
         "be": {
@@ -26319,37 +26319,37 @@
               "few": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Dates"
+                  "value": "%lld تواريخ"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Dates"
+                  "value": "%lld تواريخ"
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "Date"
+                  "value": "%lld تاريخ"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Dates"
+                  "value": "%lld تواريخ"
                 }
               },
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Dates"
+                  "value": "%lld تواريخ"
                 }
               },
               "zero": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Dates"
+                  "value": "%lld تاريخ"
                 }
               }
             }
@@ -27285,7 +27285,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "This vault will be deleted %#@days@"
+            "value": "سيتم حذف هذه الخزنة خلال %#@ أيام"
           },
           "substitutions": {
             "days": {
@@ -27295,37 +27295,37 @@
                   "few": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "in %arg days"
+                      "value": "خلال %a أيام"
                     }
                   },
                   "many": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "in %arg days"
+                      "value": "خلال %a يوم"
                     }
                   },
                   "one": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "tomorrow"
+                      "value": "غدًا"
                     }
                   },
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "in %arg days"
+                      "value": "خلال %a يوم"
                     }
                   },
                   "two": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "in %arg days"
+                      "value": "خلال %a يوم"
                     }
                   },
                   "zero": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "in %arg days"
+                      "value": "خلال %a أيام"
                     }
                   }
                 }
@@ -27426,7 +27426,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "This vault will be deleted %#@days@"
+            "value": "Dieser Tresor wird gelöscht in %#@days@"
           },
           "substitutions": {
             "days": {
@@ -28098,7 +28098,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "This vault will be deleted %#@days@"
+            "value": "此保险库将于 %#@ 天后删除"
           },
           "substitutions": {
             "days": {
@@ -28157,7 +28157,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Debug Info"
+            "value": "معلومات التصحيح"
           }
         },
         "be": {
@@ -28313,7 +28313,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Mime Types - %@"
+            "value": "أنواع الوسائط - %@"
           }
         },
         "be": {
@@ -28451,7 +28451,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Mime Types - %@"
+            "value": "媒体类型 - %@"
           }
         },
         "zh-Hant": {
@@ -28468,7 +28468,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Release: %@, %@"
+            "value": "الإصدار: %@، %@"
           }
         },
         "be": {
@@ -28606,7 +28606,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Release: %@, %@"
+            "value": "发行版本：%@，%@"
           }
         },
         "zh-Hant": {
@@ -28623,7 +28623,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Default background"
+            "value": "الخلفية الافتراضية"
           }
         },
         "be": {
@@ -29243,7 +29243,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Delete Object Type"
+            "value": "حذف نوع الكائن"
           }
         },
         "be": {
@@ -29381,7 +29381,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Delete Object Type"
+            "value": "删除对象类型"
           }
         },
         "zh-Hant": {
@@ -29553,7 +29553,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Deletion error"
+            "value": "خطأ بالحذف"
           }
         },
         "be": {
@@ -29708,7 +29708,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently."
+            "value": "سيتم تسجيل خروجك من جميع الأجهزة الأخرى. سيكون لديك 30 يومًا لاستعادة خزنتك. بعد ذلك سيتم حذفها نهائيًا."
           }
         },
         "be": {
@@ -29864,7 +29864,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Are you sure you want to delete your vault?"
+            "value": "هل أنت متأكد من حذف مخزنك؟"
           }
         },
         "be": {
@@ -30174,7 +30174,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Deselect"
+            "value": "إلغاء التحديد"
           }
         },
         "be": {
@@ -30329,7 +30329,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Deselect all"
+            "value": "إلغاء تحديد الكل"
           }
         },
         "be": {
@@ -30639,7 +30639,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "%#@device@ connected"
+            "value": "%#@ أجهزة متصلة"
           },
           "substitutions": {
             "device": {
@@ -30649,37 +30649,37 @@
                   "few": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg devices"
+                      "value": "%a أجهزة"
                     }
                   },
                   "many": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg devices"
+                      "value": "%a جهاز"
                     }
                   },
                   "one": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg device"
+                      "value": "%a جهاز"
                     }
                   },
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg devices"
+                      "value": "%a جهاز"
                     }
                   },
                   "two": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg devices"
+                      "value": "%a أجهزة"
                     }
                   },
                   "zero": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg devices"
+                      "value": "%a جهاز"
                     }
                   }
                 }
@@ -30999,7 +30999,7 @@
         "ko": {
           "stringUnit": {
             "state": "new",
-            "value": "%#@device@ connected"
+            "value": "%#@개의 기기 연결됨"
           },
           "substitutions": {
             "device": {
@@ -31320,7 +31320,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "%#@device@ connected"
+            "value": "%#@ 设备已连接"
           },
           "substitutions": {
             "device": {
@@ -31330,7 +31330,7 @@
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg devices"
+                      "value": "%a 个设备"
                     }
                   }
                 }
@@ -31367,7 +31367,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Disabled"
+            "value": "معطلة"
           }
         },
         "be": {
@@ -31505,7 +31505,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Disabled"
+            "value": "已禁用"
           }
         },
         "zh-Hant": {
@@ -31522,7 +31522,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Document scan failed"
+            "value": "فشل المسح الضوئي للمستند"
           }
         },
         "be": {
@@ -31540,7 +31540,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "Document scan failed"
+            "value": "Dokumentenscan fehlgeschlagen"
           }
         },
         "en": {
@@ -32762,7 +32762,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Edit property"
+            "value": "تحرير الخاصية"
           }
         },
         "be": {
@@ -32917,7 +32917,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Edit type"
+            "value": "تحرير النوع"
           }
         },
         "be": {
@@ -33072,7 +33072,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Email successfully validated"
+            "value": "تم التحقق من البريد الإلكتروني بنجاح"
           }
         },
         "be": {
@@ -33227,7 +33227,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ embed. Opens in external app or browser"
+            "value": "%@ المضمن. يفتح في تطبيق خارجي أو المتصفح الخارجي"
           }
         },
         "be": {
@@ -33245,7 +33245,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ embed. Opens in external app or browser"
+            "value": "%@ eingebettet. Öffnet in externer App oder Browser"
           }
         },
         "en": {
@@ -33365,7 +33365,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ embed. Opens in external app or browser"
+            "value": "%@ 内嵌内容。可在第三方应用或浏览器中打开"
           }
         },
         "zh-Hant": {
@@ -33382,7 +33382,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ embed. This content is not available on mobile"
+            "value": "%@ المضمن. هذا المحتوى غير متوفر على الجوال"
           }
         },
         "be": {
@@ -33400,7 +33400,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ embed. This content is not available on mobile"
+            "value": "%@ eingebettet. Dieser Inhalt ist nicht mobil verfügbar"
           }
         },
         "en": {
@@ -33520,7 +33520,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ embed. This content is not available on mobile"
+            "value": "%@ 内嵌内容。此内容在移动端不可用"
           }
         },
         "zh-Hant": {
@@ -33537,7 +33537,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ embed is empty"
+            "value": "%@ تضمين فارغ"
           }
         },
         "be": {
@@ -33555,7 +33555,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ embed is empty"
+            "value": "%@ Einbettung ist leer"
           }
         },
         "en": {
@@ -33675,7 +33675,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ embed is empty"
+            "value": "%@ 内嵌内容是空的"
           }
         },
         "zh-Hant": {
@@ -33999,16 +33999,10 @@
     "Empty Name": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Empty Name"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Empty Name"
+            "value": "بلا اسم"
           }
         },
         "be": {
@@ -34026,6 +34020,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "Empty Name"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "Empty Name"
           }
         },
@@ -34140,7 +34140,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Empty Name"
+            "value": "空名称"
           }
         },
         "zh-Hant": {
@@ -34312,7 +34312,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Your bin is empty."
+            "value": "سلة المهملات الخاصة بك فارغة."
           }
         },
         "be": {
@@ -34778,7 +34778,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Publish your first web site to get started."
+            "value": "انشر موقعك الأول على الويب للبدء."
           }
         },
         "be": {
@@ -34916,7 +34916,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Publish your first web site to get started."
+            "value": "发布首个网站，开启探索之旅。"
           }
         },
         "zh-Hant": {
@@ -34933,7 +34933,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Enabled"
+            "value": "مفعلة"
           }
         },
         "be": {
@@ -35071,7 +35071,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Enabled"
+            "value": "已启用"
           }
         },
         "zh-Hant": {
@@ -35398,7 +35398,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Enter email"
+            "value": "أدخل البريد الإلكتروني"
           }
         },
         "be": {
@@ -35708,7 +35708,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Enter phone number"
+            "value": "أدخل رقم الهاتف"
           }
         },
         "be": {
@@ -36329,7 +36329,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Error creating wallet"
+            "value": "خطأ في إنشاء المحفظة"
           }
         },
         "be": {
@@ -36484,7 +36484,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Error occurred. Please try again"
+            "value": "حدث خطأ. الرجاء المحاولة مرة أخرى"
           }
         },
         "be": {
@@ -36639,7 +36639,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Error select vault"
+            "value": "خطأ في اختيار الخزنة"
           }
         },
         "be": {
@@ -36794,7 +36794,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Error wallet recover vault"
+            "value": "خطأ في استعادة المحفظة"
           }
         },
         "be": {
@@ -37104,7 +37104,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "This object was modified in a newer version of Anytype. Please update the app to open it on this device"
+            "value": "تم تعديل هذا الكائن في إصدار أحدث من Anytype. يرجى تحديث التطبيق لفتحه على هذا الجهاز"
           }
         },
         "be": {
@@ -37260,7 +37260,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Update Your App"
+            "value": "قم بتحديث التطبيق"
           }
         },
         "be": {
@@ -37415,7 +37415,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug)."
+            "value": "الرجاء التحقق من اتصالك بالإنترنت وحاول مرة أخرى أو [نشر تقرير في المنتدى](http://community.anytype.io/report-bug)."
           }
         },
         "be": {
@@ -37725,7 +37725,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Please connect to the internet"
+            "value": "الرجاء الاتصال بالإنترنت"
           }
         },
         "be": {
@@ -37880,7 +37880,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Everywhere"
+            "value": "في كل مكان"
           }
         },
         "be": {
@@ -38345,7 +38345,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Experimental Features"
+            "value": "ميزات تجريبية"
           }
         },
         "be": {
@@ -38500,7 +38500,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Always pick object type when creating"
+            "value": "اختر دائما نوع الكائن عند الإنشاء"
           }
         },
         "be": {
@@ -38655,7 +38655,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "New Object Creation Menu"
+            "value": "قائمة إنشاء كائن جديد"
           }
         },
         "be": {
@@ -38810,7 +38810,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Export"
+            "value": "تصدير"
           }
         },
         "be": {
@@ -38965,7 +38965,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Failed to sync, trying again..."
+            "value": "فشلت المزامنة، جارٍ المحاولة مرة أخرى…"
           }
         },
         "be": {
@@ -39120,7 +39120,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Featured properties"
+            "value": "الخصائص المميزة"
           }
         },
         "be": {
@@ -39433,37 +39433,37 @@
               "few": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Files"
+                  "value": "%lld ملفات"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Files"
+                  "value": "%lld ملفات"
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "File"
+                  "value": "ملف"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Files"
+                  "value": "%lld ملف"
                 }
               },
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Files"
+                  "value": "%lld ملفات"
                 }
               },
               "zero": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Files"
+                  "value": "%lld ملفات"
                 }
               }
             }
@@ -39930,16 +39930,10 @@
     "FileStorage.AutoDownload.Gb1": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 GB"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "1 GB"
+            "value": "1 جيجابايت"
           }
         },
         "be": {
@@ -39957,6 +39951,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "1 GB"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "1 GB"
           }
         },
@@ -40085,16 +40085,10 @@
     "FileStorage.AutoDownload.Mb100": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "100 MB"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "100 MB"
+            "value": "100 ميغابايت"
           }
         },
         "be": {
@@ -40112,6 +40106,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "100 MB"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "100 MB"
           }
         },
@@ -40240,16 +40240,10 @@
     "FileStorage.AutoDownload.Mb20": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "20 MB"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "20 MB"
+            "value": "20 ميغابايت"
           }
         },
         "be": {
@@ -40267,6 +40261,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "20 MB"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "20 MB"
           }
         },
@@ -40395,16 +40395,10 @@
     "FileStorage.AutoDownload.Mb250": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "250 MB"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "250 MB"
+            "value": "250 ميغابايت"
           }
         },
         "be": {
@@ -40422,6 +40416,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "250 MB"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "250 MB"
           }
         },
@@ -40550,16 +40550,10 @@
     "FileStorage.AutoDownload.Off": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Off"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Off"
+            "value": "إيقاف"
           }
         },
         "be": {
@@ -40577,6 +40571,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "Deaktiviert"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "Off"
           }
         },
@@ -40607,7 +40607,7 @@
         "id": {
           "stringUnit": {
             "state": "new",
-            "value": "Off"
+            "value": "Mati"
           }
         },
         "it": {
@@ -40691,7 +40691,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Off"
+            "value": "关闭"
           }
         },
         "zh-Hant": {
@@ -40705,16 +40705,10 @@
     "FileStorage.AutoDownload.SectionTitle": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Offline access"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Offline access"
+            "value": "الوصول دون اتصال"
           }
         },
         "be": {
@@ -40732,6 +40726,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "Offline-Zugriff"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "Offline access"
           }
         },
@@ -40762,7 +40762,7 @@
         "id": {
           "stringUnit": {
             "state": "new",
-            "value": "Offline access"
+            "value": "Akses luring"
           }
         },
         "it": {
@@ -40846,7 +40846,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Offline access"
+            "value": "离线访问"
           }
         },
         "zh-Hant": {
@@ -40860,16 +40860,10 @@
     "FileStorage.AutoDownload.Subtitle": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Auto sync files up to a selected size"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Auto sync files up to a selected size"
+            "value": "المزامنة التلقائية للملفات حتى الحجم المحدد"
           }
         },
         "be": {
@@ -40887,6 +40881,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "Automatische Synchronisierung von Dateien bis zu einer ausgewählten Größe"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "Auto sync files up to a selected size"
           }
         },
@@ -40917,7 +40917,7 @@
         "id": {
           "stringUnit": {
             "state": "new",
-            "value": "Auto sync files up to a selected size"
+            "value": "Sinkron otomatis hingga ukuran tertentu"
           }
         },
         "it": {
@@ -41001,7 +41001,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Auto sync files up to a selected size"
+            "value": "自动同步大小在限制范围内的文件"
           }
         },
         "zh-Hant": {
@@ -41015,16 +41015,10 @@
     "FileStorage.AutoDownload.Title": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Offline Downloads"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Offline Downloads"
+            "value": "التنزيلات دون اتصال"
           }
         },
         "be": {
@@ -41042,6 +41036,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "Offline-Downloads"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "Offline Downloads"
           }
         },
@@ -41072,7 +41072,7 @@
         "id": {
           "stringUnit": {
             "state": "new",
-            "value": "Offline Downloads"
+            "value": "Unduhan Luring"
           }
         },
         "it": {
@@ -41156,7 +41156,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Offline Downloads"
+            "value": "离线下载"
           }
         },
         "zh-Hant": {
@@ -41170,12 +41170,6 @@
     "FileStorage.AutoDownload.Unlimited": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
@@ -41198,6 +41192,12 @@
           "stringUnit": {
             "state": "new",
             "value": "Unbegrenzt"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unlimited"
           }
         },
         "es": {
@@ -41325,16 +41325,10 @@
     "FileStorage.AutoDownload.UseCellularData": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Use Cellular Data"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Use Cellular Data"
+            "value": "استخدام بيانات الجوال"
           }
         },
         "be": {
@@ -41352,6 +41346,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "Mobile Daten verwenden"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "Use Cellular Data"
           }
         },
@@ -41382,7 +41382,7 @@
         "id": {
           "stringUnit": {
             "state": "new",
-            "value": "Use Cellular Data"
+            "value": "Gunakan Data Seluler"
           }
         },
         "it": {
@@ -41466,7 +41466,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Use Cellular Data"
+            "value": "使用移动数据"
           }
         },
         "zh-Hant": {
@@ -41638,7 +41638,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "You exceeded file limit upload"
+            "value": "تجاوزت حد رفع الملف"
           }
         },
         "be": {
@@ -41948,7 +41948,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Free | %@"
+            "value": "مجانًا | %@"
           }
         },
         "be": {
@@ -42086,7 +42086,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Free | %@"
+            "value": "可用空间 | %@"
           }
         },
         "zh-Hant": {
@@ -42103,7 +42103,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Other spaces | %@"
+            "value": "المساحات الأخرى | %@"
           }
         },
         "be": {
@@ -42241,7 +42241,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Other spaces | %@"
+            "value": "其他空间 | %@"
           }
         },
         "zh-Hant": {
@@ -42568,7 +42568,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ used"
+            "value": "تم استخدام %@"
           }
         },
         "be": {
@@ -42586,7 +42586,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ used"
+            "value": "%@ verwendet"
           }
         },
         "en": {
@@ -42706,7 +42706,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ used"
+            "value": "%@ 已使用"
           }
         },
         "zh-Hant": {
@@ -43033,7 +43033,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally."
+            "value": "يمكنك تخزين ملفاتك على عقدة النسخ الاحتياطي المشفرة. بمجرد أن تصل إلى الحد الأقصى الخاص بك، ستتوقف الملفات عن المزامنة وسيتم تخزينها فقط محليًا."
           }
         },
         "be": {
@@ -43188,7 +43188,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Remote storage is not available in local-only mode. Your files are stored locally on your device."
+            "value": "التخزين عن بعد غير متوفر في الوضع المحلي فقط. يتم تخزين ملفاتك محليًا على جهازك."
           }
         },
         "be": {
@@ -43206,7 +43206,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "Remote storage is not available in local-only mode. Your files are stored locally on your device."
+            "value": "Der Remotespeicher ist nicht im lokalen Modus verfügbar. Deine Dateien werden lokal auf deinem Gerät gespeichert."
           }
         },
         "en": {
@@ -43498,7 +43498,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ of %@ used"
+            "value": "تم استخدام %@ من %@"
           }
         },
         "be": {
@@ -43516,7 +43516,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ of %@ used"
+            "value": "%@ von %@ verwendet"
           }
         },
         "en": {
@@ -43636,7 +43636,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ of %@ used"
+            "value": "已使用 %@，共有 %@ "
           }
         },
         "zh-Hant": {
@@ -43654,7 +43654,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "File storage"
+            "value": "تخزين الملفات"
           }
         },
         "be": {
@@ -43964,7 +43964,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "%#@file@ uploading"
+            "value": "جارٍ رفع %#@ ملف"
           },
           "substitutions": {
             "file": {
@@ -43974,37 +43974,37 @@
                   "few": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg files"
+                      "value": "%a ملفات"
                     }
                   },
                   "many": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg files"
+                      "value": "%a ملف"
                     }
                   },
                   "one": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg file"
+                      "value": "%a ملف"
                     }
                   },
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg files"
+                      "value": "%a ملف"
                     }
                   },
                   "two": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg files"
+                      "value": "%a ملفات"
                     }
                   },
                   "zero": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg files"
+                      "value": "%a ملف"
                     }
                   }
                 }
@@ -44093,7 +44093,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "%#@file@ uploading"
+            "value": "%#@file@ hochladen"
           },
           "substitutions": {
             "file": {
@@ -44645,7 +44645,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "%#@file@ uploading"
+            "value": "%#@ 个文件正在上传"
           },
           "substitutions": {
             "file": {
@@ -44655,7 +44655,7 @@
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg files"
+                      "value": "%a 个文件"
                     }
                   }
                 }
@@ -44848,7 +44848,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Clean up files"
+            "value": "تنظيف الملفات"
           }
         },
         "be": {
@@ -45313,7 +45313,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Forever free"
+            "value": "مجانًا للأبد"
           }
         },
         "be": {
@@ -45779,7 +45779,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Made by @%@"
+            "value": "صُنع بواسطة @%@"
           }
         },
         "be": {
@@ -45797,7 +45797,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "Made by @%@"
+            "value": "Erstellt von @%@"
           }
         },
         "en": {
@@ -45917,7 +45917,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Made by @%@"
+            "value": "作者：@%@"
           }
         },
         "zh-Hant": {
@@ -46399,7 +46399,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum."
+            "value": "عفواً! \"%@\" لم يتم تثبيته. الرجاء التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى أو نشر تقرير على المنتدى."
           }
         },
         "be": {
@@ -46417,7 +46417,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum."
+            "value": "Hoppla! \"%@\" wurde nicht installiert. Bitte überprüfe deine Internetverbindung und versuche es erneut oder poste einen Bericht im Forum."
           }
         },
         "en": {
@@ -46537,7 +46537,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum."
+            "value": "哎呀！ “%@” 未安装。请检查您的互联网连接，然后重试或在论坛上反馈。"
           }
         },
         "zh-Hant": {
@@ -46554,7 +46554,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Experience was successfully installed to the \"%@\" space. You can now open and start using it."
+            "value": "تم تثبيت التجربة بنجاح على المساحة \"%@\". يمكنك الآن الفتح والبدء باستخدامها."
           }
         },
         "be": {
@@ -46692,7 +46692,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Experience was successfully installed to the \"%@\" space. You can now open and start using it."
+            "value": "体验已成功安装到 “%@” 空间。您现在可以打开并开始使用它。"
           }
         },
         "zh-Hant": {
@@ -46864,7 +46864,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Create new object or search for something else"
+            "value": "إنشاء كائن جديد أو البحث عن شيء آخر"
           }
         },
         "be": {
@@ -47019,7 +47019,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Swipe left to see related objects. Note, it works only for objects that have related objects."
+            "value": "قم بالتمرير لليسار لرؤية الكائنات المرتبطة. ملاحظة، تعمل فقط للكائنات التي تحتوي على علاقات مع كائنات أخرى."
           }
         },
         "be": {
@@ -47174,7 +47174,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Related objects"
+            "value": "الكائنات المرتبطة"
           }
         },
         "be": {
@@ -47484,7 +47484,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "I got it!"
+            "value": "لقد فهمت!"
           }
         },
         "be": {
@@ -47949,7 +47949,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Green background"
+            "value": "خلفية خضراء"
           }
         },
         "be": {
@@ -48104,7 +48104,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Grey"
+            "value": "رمادي"
           }
         },
         "be": {
@@ -48259,7 +48259,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Grey background"
+            "value": "خلفية رمادية"
           }
         },
         "be": {
@@ -48426,7 +48426,7 @@
         "cs": {
           "stringUnit": {
             "state": "new",
-            "value": "Header"
+            "value": "Nadpis"
           }
         },
         "de": {
@@ -48879,7 +48879,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Hide Description"
+            "value": "إخفاء الوصف"
           }
         },
         "be": {
@@ -49499,7 +49499,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Home"
+            "value": "الرئيسية"
           }
         },
         "be": {
@@ -49655,7 +49655,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Library is available in desktop app"
+            "value": "المكتبة متاحة على تطبيق سطح المكتب"
           }
         },
         "be": {
@@ -49969,37 +49969,37 @@
               "few": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Images"
+                  "value": "%lld صور"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Images"
+                  "value": "%lld صورة"
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "Image"
+                  "value": "%lld صورة"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Images"
+                  "value": "%lld صورة"
                 }
               },
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Images"
+                  "value": "%lld صور"
                 }
               },
               "zero": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Images"
+                  "value": "%lld صور"
                 }
               }
             }
@@ -50469,7 +50469,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Image from Photo Library"
+            "value": "صورة من مكتبة الصور"
           }
         },
         "be": {
@@ -50624,7 +50624,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "In this object"
+            "value": "في هذا الكائن"
           }
         },
         "be": {
@@ -51555,7 +51555,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Into object"
+            "value": "في الكائن"
           }
         },
         "be": {
@@ -51710,7 +51710,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "%#@item@ syncing..."
+            "value": "%#@ عناصر تتم مزامنتها..."
           },
           "substitutions": {
             "item": {
@@ -51720,37 +51720,37 @@
                   "few": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg items"
+                      "value": "%a عناصر"
                     }
                   },
                   "many": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg items"
+                      "value": "%a عنصر"
                     }
                   },
                   "one": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg item"
+                      "value": "%a عنصر"
                     }
                   },
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg items"
+                      "value": "%a عنصر"
                     }
                   },
                   "two": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg items"
+                      "value": "%a عناصر"
                     }
                   },
                   "zero": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg items"
+                      "value": "%a عناصر"
                     }
                   }
                 }
@@ -51839,7 +51839,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "%#@item@ syncing..."
+            "value": "%#@item@ wird synchronisiert ..."
           },
           "substitutions": {
             "item": {
@@ -52070,7 +52070,7 @@
         "ko": {
           "stringUnit": {
             "state": "new",
-            "value": "%#@item@ syncing..."
+            "value": "%#@개의 항목 동기화 중..."
           },
           "substitutions": {
             "item": {
@@ -52391,7 +52391,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "%#@item@ syncing..."
+            "value": "%#@ 个项正在同步…"
           },
           "substitutions": {
             "item": {
@@ -52401,7 +52401,7 @@
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg items"
+                      "value": "%a 个项"
                     }
                   }
                 }
@@ -52593,7 +52593,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Just e-mail"
+            "value": "فقط البريد الإلكتروني"
           }
         },
         "be": {
@@ -52748,7 +52748,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Keychain"
+            "value": "سلسلة المفاتيح"
           }
         },
         "be": {
@@ -53213,7 +53213,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Leave a space"
+            "value": "مغادرة مساحة"
           }
         },
         "be": {
@@ -53231,7 +53231,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "Leave a space"
+            "value": "Space verlassen"
           }
         },
         "en": {
@@ -53368,7 +53368,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Let’s Go"
+            "value": "لنذهب"
           }
         },
         "be": {
@@ -53523,7 +53523,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Let's try it"
+            "value": "لنجرب ذلك"
           }
         },
         "be": {
@@ -54763,7 +54763,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Create bookmark"
+            "value": "إنشاء إشارة مرجعية"
           }
         },
         "be": {
@@ -54918,7 +54918,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Paste as link"
+            "value": "لصق كرابط"
           }
         },
         "be": {
@@ -55074,7 +55074,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Paste as text"
+            "value": "لصق كنص"
           }
         },
         "be": {
@@ -55244,7 +55244,7 @@
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%d link"
+                  "value": "%d رابط"
                 }
               },
               "other": {
@@ -55256,7 +55256,7 @@
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%d links"
+                  "value": "%d روابط"
                 }
               },
               "zero": {
@@ -55735,37 +55735,37 @@
               "few": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Lists"
+                  "value": "%lld قوائم"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Lists"
+                  "value": "%lld قائمة"
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "List"
+                  "value": "%lld قائمة"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Lists"
+                  "value": "%lld قائمة"
                 }
               },
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Lists"
+                  "value": "%lld قوائم"
                 }
               },
               "zero": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Lists"
+                  "value": "%lld قوائم"
                 }
               }
             }
@@ -56855,7 +56855,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Locked"
+            "value": "مقفل"
           }
         },
         "be": {
@@ -57010,7 +57010,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Log out"
+            "value": "تسجيل الخروج"
           }
         },
         "be": {
@@ -57165,7 +57165,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Logout and clear data"
+            "value": "تسجيل الخروج ومسح البيانات"
           }
         },
         "be": {
@@ -57320,7 +57320,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Long tap on Create Object button to open menu with types"
+            "value": "انقر مطولًا على إنشاء زر الكائن لفتح القائمة مع الأنواع"
           }
         },
         "be": {
@@ -57476,7 +57476,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Create Objects with specific Type"
+            "value": "إنشاء كائنات ذات نوع محدد"
           }
         },
         "be": {
@@ -58252,7 +58252,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Min %@ characters"
+            "value": "الحد الأدنى %@ أحرف"
           }
         },
         "be": {
@@ -58270,7 +58270,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "Min %@ characters"
+            "value": "Min. %@ Zeichen"
           }
         },
         "en": {
@@ -58390,7 +58390,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Min %@ characters"
+            "value": "最少 %@ 个字符"
           }
         },
         "zh-Hant": {
@@ -59183,7 +59183,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Move To Bin"
+            "value": "نقل إلى سلة المهملات"
           }
         },
         "be": {
@@ -59493,7 +59493,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Mute"
+            "value": "كتم"
           }
         },
         "be": {
@@ -59631,7 +59631,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Mute"
+            "value": "静音"
           }
         },
         "zh-Hant": {
@@ -59958,7 +59958,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "My Sites"
+            "value": "مواقعي"
           }
         },
         "be": {
@@ -60096,7 +60096,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "My Sites"
+            "value": "我的站点"
           }
         },
         "zh-Hant": {
@@ -60733,7 +60733,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "New Page"
+            "value": "صفحة جديدة"
           }
         },
         "be": {
@@ -61353,7 +61353,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "New Object"
+            "value": "كائن جديد"
           }
         },
         "be": {
@@ -61973,7 +61973,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "No items match filter"
+            "value": "لا توجد عناصر تتطابق مع عامل التصفية"
           }
         },
         "be": {
@@ -62128,7 +62128,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "No matches found.\nTry a different keyword or check your spelling."
+            "value": "لا يوجد تطابق.\nجرب استخدام كلمات مختلفة أو راجع الإملاء."
           }
         },
         "be": {
@@ -62283,7 +62283,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "No properties yet. Add some to this type."
+            "value": "لا توجد خصائص بعد. أضف بعضًا إلى هذا النوع."
           }
         },
         "be": {
@@ -62593,7 +62593,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "No type “%@” found. Change your request or create new type."
+            "value": "لم يتم العثور على نوع \"%@\". قم بتغيير طلبك أو أنشئ نوع جديد."
           }
         },
         "be": {
@@ -62731,7 +62731,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "No type “%@” found. Change your request or create new type."
+            "value": "找不到类型“%@”，请更改您的请求或创建新类型。"
           }
         },
         "zh-Hant": {
@@ -63213,7 +63213,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Nothing to redo"
+            "value": "لا شيء لإعادة فعله"
           }
         },
         "be": {
@@ -63368,7 +63368,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Nothing to undo"
+            "value": "لا شيء للتراجع عنه"
           }
         },
         "be": {
@@ -63526,37 +63526,37 @@
               "few": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Objects"
+                  "value": "%lld كائنات"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Objects"
+                  "value": "%lld كائن"
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "Object"
+                  "value": "كائن"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Objects"
+                  "value": "%lld كائن"
                 }
               },
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Objects"
+                  "value": "%lld كائنات"
                 }
               },
               "zero": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Objects"
+                  "value": "%lld كائنات"
                 }
               }
             }
@@ -64181,7 +64181,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "%#@object@ selected"
+            "value": "تم تحديد %#@ كائنات"
           },
           "substitutions": {
             "object": {
@@ -64191,37 +64191,37 @@
                   "few": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg objects"
+                      "value": "هل أنت متأكد أنك تريد حذف %a كائنات؟"
                     }
                   },
                   "many": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg objects"
+                      "value": "هل أنت متأكد أنك تريد حذف %a كائنات؟"
                     }
                   },
                   "one": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg object"
+                      "value": "هل أنت متأكد أنك تريد حذف %a كائن؟"
                     }
                   },
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg objects"
+                      "value": "هل أنت متأكد أنك تريد حذف %a كائنات؟"
                     }
                   },
                   "two": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg objects"
+                      "value": "هل أنت متأكد أنك تريد حذف %a كائنات؟"
                     }
                   },
                   "zero": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg objects"
+                      "value": "هل أنت متأكد أنك تريد حذف %a كائن؟"
                     }
                   }
                 }
@@ -64310,7 +64310,7 @@
         "de": {
           "stringUnit": {
             "state": "new",
-            "value": "%#@object@ selected"
+            "value": "%#@object@ ausgewählt"
           },
           "substitutions": {
             "object": {
@@ -64862,7 +64862,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "%#@object@ selected"
+            "value": "已选择 %#@ 个对象"
           },
           "substitutions": {
             "object": {
@@ -64872,7 +64872,7 @@
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg objects"
+                      "value": "%a 个对象"
                     }
                   }
                 }
@@ -64912,37 +64912,37 @@
               "few": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Object types"
+                  "value": "%lld أنواع الكائنات"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Object types"
+                  "value": "%lld نوع الكائن"
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "Object type"
+                  "value": "%lld نوع الكائن"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Object types"
+                  "value": "%lld نوع الكائن"
                 }
               },
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Object types"
+                  "value": "%lld أنواع الكائنات"
                 }
               },
               "zero": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Object types"
+                  "value": "%lld أنواع الكائنات"
                 }
               }
             }
@@ -65412,7 +65412,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Are you sure you want to delete this Type? All existing objects of this type will be preserved, but will no longer be associated with it."
+            "value": "هل أنت متأكد أنك تريد حذف هذا النوع؟ سيتم الحفاظ على جميع الكائنات الموجودة من هذا النوع، ولكن لن تكون مرتبطة به."
           }
         },
         "be": {
@@ -65567,7 +65567,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Delete Object Type?"
+            "value": "حذف نوع الكائن؟"
           }
         },
         "be": {
@@ -66187,7 +66187,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "On analytics"
+            "value": "على التحليلات"
           }
         },
         "be": {
@@ -66652,7 +66652,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Not supported type \"%@\". You can open it via desktop."
+            "value": "نوع \"%@\" غير معتمد. يمكنك فتحه عبر تطبيق سطح المكتب."
           }
         },
         "be": {
@@ -66790,7 +66790,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Not supported type \"%@\". You can open it via desktop."
+            "value": "不支持的类型 “%@”。您可以使用桌面端打开。"
           }
         },
         "zh-Hant": {
@@ -66807,7 +66807,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Open as Object"
+            "value": "فتح ككائن"
           }
         },
         "be": {
@@ -67427,7 +67427,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Open web page"
+            "value": "فتح صفحة الويب"
           }
         },
         "be": {
@@ -67582,7 +67582,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Open Settings"
+            "value": "فتح الإعدادات"
           }
         },
         "be": {
@@ -67720,7 +67720,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Open Settings"
+            "value": "打开设置"
           }
         },
         "zh-Hant": {
@@ -67892,7 +67892,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Other properties"
+            "value": "خصائص أخرى"
           }
         },
         "be": {
@@ -68217,7 +68217,7 @@
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "PDF"
+                  "value": "%lld PDF"
                 }
               },
               "other": {
@@ -68235,7 +68235,7 @@
               "zero": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld PDFs"
+                  "value": "%lld PDF"
                 }
               }
             }
@@ -68705,7 +68705,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Paid by %@"
+            "value": "مدفوع بواسطة %@"
           }
         },
         "be": {
@@ -68843,7 +68843,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Paid by %@"
+            "value": "由 %@ 支付"
           }
         },
         "zh-Hant": {
@@ -69015,7 +69015,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Paste or type URL"
+            "value": "لصق أو كتابة رابط"
           }
         },
         "be": {
@@ -69170,7 +69170,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Paste processing..."
+            "value": "جارٍ معالجة اللصق..."
           }
         },
         "be": {
@@ -69636,7 +69636,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node."
+            "value": "نحن آسفون لرؤيتك ترحل. لديك 30 يومًا لإلغاء هذا الطلب. بعد 30 يوم، سيتم إزالة بيانات الخزنة المشفرة الخاصة بك بشكل دائم من عقدة النسخ الاحتياطي."
           }
         },
         "be": {
@@ -69791,7 +69791,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "per %#@day@"
+            "value": "لكل %#@ يومًا"
           },
           "substitutions": {
             "day": {
@@ -69801,37 +69801,37 @@
                   "few": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg days"
+                      "value": "%a أيام"
                     }
                   },
                   "many": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg days"
+                      "value": "%a يوم"
                     }
                   },
                   "one": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "day"
+                      "value": "يوم"
                     }
                   },
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg days"
+                      "value": "%a يومًا"
                     }
                   },
                   "two": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg days"
+                      "value": "%a أيام"
                     }
                   },
                   "zero": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg days"
+                      "value": "%a أيام"
                     }
                   }
                 }
@@ -70472,7 +70472,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "per %#@day@"
+            "value": "每 %#@ 天"
           },
           "substitutions": {
             "day": {
@@ -70519,7 +70519,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "per %#@month@"
+            "value": "لكل %#@ شهرًا"
           },
           "substitutions": {
             "month": {
@@ -70529,37 +70529,37 @@
                   "few": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg months"
+                      "value": "%a أشهر"
                     }
                   },
                   "many": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg months"
+                      "value": "%a شهر"
                     }
                   },
                   "one": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "month"
+                      "value": "شهر"
                     }
                   },
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg months"
+                      "value": "%a شهرًا"
                     }
                   },
                   "two": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg months"
+                      "value": "%a أشهر"
                     }
                   },
                   "zero": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg months"
+                      "value": "%a أشهر"
                     }
                   }
                 }
@@ -71200,7 +71200,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "per %#@month@"
+            "value": "每 %#@ 月"
           },
           "substitutions": {
             "month": {
@@ -71247,7 +71247,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "per %#@week@"
+            "value": "لكل %#@ أسبوعًا"
           },
           "substitutions": {
             "week": {
@@ -71257,37 +71257,37 @@
                   "few": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg weeks"
+                      "value": "%a أسابيع"
                     }
                   },
                   "many": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg weeks"
+                      "value": "%a أسبوع"
                     }
                   },
                   "one": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "week"
+                      "value": "أسبوع"
                     }
                   },
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg weeks"
+                      "value": "%a أسبوعًا"
                     }
                   },
                   "two": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg weeks"
+                      "value": "%a أسابيع"
                     }
                   },
                   "zero": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg weeks"
+                      "value": "%a أسابيع"
                     }
                   }
                 }
@@ -71928,7 +71928,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "per %#@week@"
+            "value": "每 %#@ 周"
           },
           "substitutions": {
             "week": {
@@ -71975,7 +71975,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "per %#@year@"
+            "value": "لكل %#@ عامًا"
           },
           "substitutions": {
             "year": {
@@ -71985,37 +71985,37 @@
                   "few": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg years"
+                      "value": "%a أعوام"
                     }
                   },
                   "many": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg years"
+                      "value": "%a عام"
                     }
                   },
                   "one": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "year"
+                      "value": "عام"
                     }
                   },
                   "other": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg years"
+                      "value": "%a عامًا"
                     }
                   },
                   "two": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg years"
+                      "value": "%a أعوام"
                     }
                   },
                   "zero": {
                     "stringUnit": {
                       "state": "new",
-                      "value": "%arg years"
+                      "value": "%a أعوام"
                     }
                   }
                 }
@@ -72656,7 +72656,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "per %#@year@"
+            "value": "每 %#@ 年"
           },
           "substitutions": {
             "year": {
@@ -72858,7 +72858,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Photo"
+            "value": "صورة"
           }
         },
         "be": {
@@ -73013,7 +73013,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Photos"
+            "value": "صور"
           }
         },
         "be": {
@@ -73323,7 +73323,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Pin"
+            "value": "تثبيت"
           }
         },
         "be": {
@@ -73478,7 +73478,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "You've reached the limit of %d pinned spaces."
+            "value": "لقد وصلت إلى الحد الأقصى من المساحات المثبتة %d."
           }
         },
         "be": {
@@ -73616,7 +73616,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "You've reached the limit of %d pinned spaces."
+            "value": "已达到 %d 个置顶空间的上限。"
           }
         },
         "zh-Hant": {
@@ -73943,7 +73943,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Pink background"
+            "value": "خلفية وردية"
           }
         },
         "be": {
@@ -74250,16 +74250,10 @@
     "Pre-Fill Name": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pre-Fill Name"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Pre-Fill Name"
+            "value": "التعبئة المسبقة للعنوان"
           }
         },
         "be": {
@@ -74277,6 +74271,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "Pre-Fill Name"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "Pre-Fill Name"
           }
         },
@@ -74391,7 +74391,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Pre-Fill Name"
+            "value": "预填名称"
           }
         },
         "zh-Hant": {
@@ -75041,7 +75041,7 @@
         "cs": {
           "stringUnit": {
             "state": "new",
-            "value": "Profile"
+            "value": "Profil"
           }
         },
         "de": {
@@ -75184,7 +75184,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Progress..."
+            "value": "التقدم..."
           }
         },
         "be": {
@@ -75339,7 +75339,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Publish"
+            "value": "نشر"
           }
         },
         "be": {
@@ -75387,7 +75387,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Publish"
+            "value": "Publier"
           }
         },
         "id": {
@@ -75477,7 +75477,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Publish"
+            "value": "发布"
           }
         },
         "zh-Hant": {
@@ -75494,7 +75494,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Publish to Web"
+            "value": "نشر على الويب"
           }
         },
         "be": {
@@ -75804,7 +75804,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Purple background"
+            "value": "خلفية بنفسجية"
           }
         },
         "be": {
@@ -75959,7 +75959,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Puzzle"
+            "value": "لغز"
           }
         },
         "be": {
@@ -76097,7 +76097,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Puzzle"
+            "value": "拼图"
           }
         },
         "zh-Hant": {
@@ -76114,7 +76114,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Puzzles"
+            "value": "ألغاز"
           }
         },
         "be": {
@@ -76252,7 +76252,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Puzzles"
+            "value": "拼图"
           }
         },
         "zh-Hant": {
@@ -76425,7 +76425,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Create %@"
+            "value": "إنشاء %@"
           }
         },
         "be": {
@@ -76563,7 +76563,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Create %@"
+            "value": "创建 %@"
           }
         },
         "zh-Hant": {
@@ -76735,7 +76735,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Recent"
+            "value": "الأخيرة"
           }
         },
         "be": {
@@ -77045,7 +77045,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Red background"
+            "value": "خلفية حمراء"
           }
         },
         "be": {
@@ -77201,7 +77201,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Wake up, Neo"
+            "value": "استيقظ، نيو"
           }
         },
         "be": {
@@ -77356,7 +77356,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Red pill"
+            "value": "الحبوب الحمراء"
           }
         },
         "be": {
@@ -77666,7 +77666,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes."
+            "value": "لقد قمنا بتنفيذ مكتبة بحث جديدة للحصول على نتائج أسرع وأكثر دقة. قد تستغرق عملية إعادة الفهرسة بضع دقائق."
           }
         },
         "be": {
@@ -77822,7 +77822,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Upgrading your search experience"
+            "value": "ترقية تجربة البحث الخاصة بك"
           }
         },
         "be": {
@@ -77980,37 +77980,37 @@
               "few": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Relations"
+                  "value": "%lld علاقات"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Relations"
+                  "value": "%lld علاقة"
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "Relation"
+                  "value": "%lld علاقة"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Relations"
+                  "value": "%lld علاقة"
                 }
               },
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Relations"
+                  "value": "%lld علاقات"
                 }
               },
               "zero": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Relations"
+                  "value": "%lld علاقات"
                 }
               }
             }
@@ -78946,7 +78946,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Remove photo"
+            "value": "إزالة الصورة"
           }
         },
         "be": {
@@ -79256,7 +79256,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Resend in %@ sec"
+            "value": "إعادة الإرسال في %@ ثانية"
           }
         },
         "be": {
@@ -79394,7 +79394,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Resend in %@ sec"
+            "value": "在 %@ 秒内重新发送"
           }
         },
         "zh-Hant": {
@@ -79459,7 +79459,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Reset to default"
+            "value": "Réinitialiser aux valeurs par défaut"
           }
         },
         "id": {
@@ -79877,7 +79877,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Restore from keychain"
+            "value": "استعادة من سلسلة المفاتيح"
           }
         },
         "be": {
@@ -80032,7 +80032,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Restore Key from the keychain"
+            "value": "استعادة المفتاح من سلسلة المفاتيح"
           }
         },
         "be": {
@@ -80187,7 +80187,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Long press the back button to return to widgets instead of tapping it repeatedly."
+            "value": "اضغط مطولًا على زر الرجوع للعودة إلى الأدوات بدلًا من النقر عليه مرارًا."
           }
         },
         "be": {
@@ -80343,7 +80343,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Long Press to Return to Widgets"
+            "value": "اضغط مطولًا للعودة إلى الأدوات"
           }
         },
         "be": {
@@ -80653,7 +80653,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Saved to Photos"
+            "value": "حفظ في الصور"
           }
         },
         "be": {
@@ -80808,7 +80808,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Scan QR code"
+            "value": "مسح رمز QR"
           }
         },
         "be": {
@@ -80963,7 +80963,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Scan documents"
+            "value": "مسح ضوئي للمستندات"
           }
         },
         "be": {
@@ -81119,7 +81119,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Scanning not supported"
+            "value": "المسح الضوئي غير مدعوم"
           }
         },
         "be": {
@@ -81274,7 +81274,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "بحث"
+            "value": "بحث..."
           }
         },
         "be": {
@@ -81429,7 +81429,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Search for language"
+            "value": "البحث عن لغة"
           }
         },
         "be": {
@@ -81739,7 +81739,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Related to: %@"
+            "value": "مرتبط بـ: %@"
           }
         },
         "be": {
@@ -81877,7 +81877,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Related to: %@"
+            "value": "与之相关的：%@"
           }
         },
         "zh-Hant": {
@@ -81894,7 +81894,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Show related objects"
+            "value": "عرض الكائنات المرتبطة"
           }
         },
         "be": {
@@ -82049,7 +82049,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Related to"
+            "value": "مرتبط بـ"
           }
         },
         "be": {
@@ -82204,7 +82204,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Proceed anyway"
+            "value": "المتابعة على أي حال"
           }
         },
         "be": {
@@ -82359,7 +82359,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "You phone doesn’t have a passcode or biometric authorization. It might make it easier to steal your data. Enable it in your app settings to secure your data."
+            "value": "لا يحتوي هاتفك على رمز مرور أو مصادقة حيوية. قد يسهل ذلك سرقة بياناتك. قم بتمكين هذه الميزة في إعدادات التطبيق لتأمين بياناتك."
           }
         },
         "be": {
@@ -82514,7 +82514,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Secure your phone"
+            "value": "تأمين هاتفك"
           }
         },
         "be": {
@@ -82669,7 +82669,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "See all"
+            "value": "عرض الكل"
           }
         },
         "be": {
@@ -82824,7 +82824,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Select Objects"
+            "value": "تحديد الكائنات"
           }
         },
         "be": {
@@ -83289,7 +83289,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Select file"
+            "value": "حدد الملف"
           }
         },
         "be": {
@@ -83444,7 +83444,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Select object"
+            "value": "حدد الكائن"
           }
         },
         "be": {
@@ -83599,7 +83599,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Select option"
+            "value": "حدد الخيار"
           }
         },
         "be": {
@@ -83754,7 +83754,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Select options"
+            "value": "حدد الخيارات"
           }
         },
         "be": {
@@ -84064,7 +84064,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Select vault error"
+            "value": "خطأ في تحديد المخزن"
           }
         },
         "be": {
@@ -84222,37 +84222,37 @@
               "few": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%d selected blocks"
+                  "value": "%d كتل مختارة"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%d selected blocks"
+                  "value": "%d كتلة مختارة"
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%d selected block"
+                  "value": "%d كتلة مختارة"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%d selected blocks"
+                  "value": "%d كتلة مختارة"
                 }
               },
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%d selected blocks"
+                  "value": "%d كتل مختارة"
                 }
               },
               "zero": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%d selected blocks"
+                  "value": "%d كتل مختارة"
                 }
               }
             }
@@ -84696,7 +84696,7 @@
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%d selected blocks"
+                  "value": "已选择%d个块"
                 }
               }
             }
@@ -84877,7 +84877,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Send"
+            "value": "إرسال"
           }
         },
         "be": {
@@ -85032,7 +85032,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Add Self-hosted Network"
+            "value": "إضافة شبكة مضافة ذاتيًا"
           }
         },
         "be": {
@@ -85497,7 +85497,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Yes, I accept risks"
+            "value": "نعم، أنا أقبل المخاطر"
           }
         },
         "be": {
@@ -85652,7 +85652,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "No, don’t use it"
+            "value": "لا، لا تستخدمها"
           }
         },
         "be": {
@@ -85807,7 +85807,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur."
+            "value": "الوضع المحلي فقط هو ميزة تجريبية ولا يوفر مزايا أمنية. يرجى استخدامه على مسؤوليتك الخاصة، حيث قد يحدث فقدان للبيانات."
           }
         },
         "be": {
@@ -86118,7 +86118,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "الشبكة"
+            "value": "حدد الشبكة"
           }
         },
         "be": {
@@ -86584,7 +86584,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Set access"
+            "value": "تعيين الوصول"
           }
         },
         "be": {
@@ -86722,7 +86722,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Set access"
+            "value": "设置访问权限"
           }
         },
         "zh-Hant": {
@@ -86894,7 +86894,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Query of %@"
+            "value": "استعلام من %@"
           }
         },
         "be": {
@@ -87032,7 +87032,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Query of %@"
+            "value": "%@ 的查询"
           }
         },
         "zh-Hant": {
@@ -87359,7 +87359,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Delete view"
+            "value": "حذف العرض"
           }
         },
         "be": {
@@ -88135,7 +88135,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Queries"
+            "value": "الاستعلامات"
           }
         },
         "be": {
@@ -88445,7 +88445,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Explore plans"
+            "value": "استكشف الخطط"
           }
         },
         "be": {
@@ -88583,7 +88583,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Explore plans"
+            "value": "浏览计划"
           }
         },
         "zh-Hant": {
@@ -88600,7 +88600,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+            "value": "كن عضوًا لجعل معرفك قابل للقراءة البشرية، حتى يتمكن الأعضاء الآخرون من العثور عليها بسهولة والاتصال بك."
           }
         },
         "be": {
@@ -88738,7 +88738,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+            "value": "成为会员，使您的ID更易于人类阅读，以便其他会员轻松找到并与您联系。"
           }
         },
         "zh-Hant": {
@@ -88755,7 +88755,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "This is your ANY ID"
+            "value": "هذا هو معرف ANY الخاص بك"
           }
         },
         "be": {
@@ -88893,7 +88893,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "This is your ANY ID"
+            "value": "这是您的 ANY ID"
           }
         },
         "zh-Hant": {
@@ -88910,7 +88910,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Auto Create Type Widgets"
+            "value": "إنشاء تلقائي لنوع الأدوات"
           }
         },
         "be": {
@@ -89065,7 +89065,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Chat is disabled"
+            "value": "المحادثة معطلة"
           }
         },
         "be": {
@@ -89220,7 +89220,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Chat is enabled"
+            "value": "المحادثة مفعلة"
           }
         },
         "be": {
@@ -89685,7 +89685,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Space type"
+            "value": "نوع المساحة"
           }
         },
         "be": {
@@ -89996,7 +89996,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Space information updated"
+            "value": "تم تحديث المساحة"
           }
         },
         "be": {
@@ -90306,7 +90306,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Share QR Code"
+            "value": "مشاركة رمز QR"
           }
         },
         "be": {
@@ -90616,7 +90616,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Show Description"
+            "value": "إظهار الوصف"
           }
         },
         "be": {
@@ -92787,7 +92787,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Reset style"
+            "value": "إعادة تعيين النمط"
           }
         },
         "be": {
@@ -93562,7 +93562,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Sky background"
+            "value": "خلفية السماء"
           }
         },
         "be": {
@@ -94182,7 +94182,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Start"
+            "value": "إبدأ"
           }
         },
         "be": {
@@ -94337,7 +94337,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Payment unsuccessfull, User Actions on Apple side required to pay."
+            "value": "لم يتم الدفع بنجاح، إجراءات المستخدم على جانب Apple مطلوبة للدفع."
           }
         },
         "be": {
@@ -94492,7 +94492,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Purchase cancelled"
+            "value": "تم إلغاء الشراء"
           }
         },
         "be": {
@@ -94803,7 +94803,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "A"
+            "value": "أ"
           }
         },
         "be": {
@@ -95113,7 +95113,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ deleted successfully"
+            "value": "تم حذف %@ بنجاح"
           }
         },
         "be": {
@@ -95251,7 +95251,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ deleted successfully"
+            "value": "已删除 %@"
           }
         },
         "zh-Hant": {
@@ -95268,7 +95268,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Create objects inside widgets by easily swiping them left."
+            "value": "يمكنك إنشاء كائنات داخل الأدوات ببساطة عن طريق سحبها إلى اليسار."
           }
         },
         "be": {
@@ -95424,7 +95424,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Swipe to Create Objects"
+            "value": "اسحب لإنشاء كائنات"
           }
         },
         "be": {
@@ -97130,7 +97130,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Restricted. Tap to open device settings."
+            "value": "مقيد. انقر لفتح إعدادات الجهاز."
           }
         },
         "be": {
@@ -97440,7 +97440,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Syncing..."
+            "value": "تتم المزامنة..."
           }
         },
         "be": {
@@ -97488,7 +97488,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Syncing..."
+            "value": "Synchronisation en cours..."
           }
         },
         "id": {
@@ -97753,37 +97753,37 @@
               "few": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Tags"
+                  "value": "%lld أوسمة"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Tags"
+                  "value": "%lld وسم"
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "Tag"
+                  "value": "%lld وسم"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Tags"
+                  "value": "%lld وسم"
                 }
               },
               "two": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Tags"
+                  "value": "%lld أوسمة"
                 }
               },
               "zero": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%lld Tags"
+                  "value": "%lld أوسمة"
                 }
               }
             }
@@ -98254,7 +98254,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Add headings to create a table of contents"
+            "value": "أضف عناوين لإنشاء جدول المحتوى"
           }
         },
         "be": {
@@ -98564,7 +98564,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Teal background"
+            "value": "خلفية خضراء مزرقة"
           }
         },
         "be": {
@@ -98874,7 +98874,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "The template was set as default"
+            "value": "تم تعيين القالب كافتراضي"
           }
         },
         "be": {
@@ -99029,7 +99029,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "The template was duplicated"
+            "value": "تم تكرار القالب"
           }
         },
         "be": {
@@ -99184,7 +99184,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "The template was removed"
+            "value": "تم حذف القالب"
           }
         },
         "be": {
@@ -99494,7 +99494,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "New template was added to the type %@"
+            "value": "تم إضافة قالب جديد إلى النوع %@"
           }
         },
         "be": {
@@ -99632,7 +99632,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "New template was added to the type %@"
+            "value": "新模板已添加到类型 %@"
           }
         },
         "zh-Hant": {
@@ -99649,7 +99649,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Text Style"
+            "value": "نمط النص"
           }
         },
         "be": {
@@ -102127,16 +102127,10 @@
     "TextStyle.ToggleHeading.Title": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toggled heading"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Toggled heading"
+            "value": "عنوان الصفحة المتبدل"
           }
         },
         "be": {
@@ -102154,6 +102148,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "Toggled heading"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "Toggled heading"
           }
         },
@@ -102268,7 +102268,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Toggled heading"
+            "value": "已切换标题"
           }
         },
         "zh-Hant": {
@@ -102282,16 +102282,10 @@
     "TextStyle.ToggleSubheading.Title": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toggle subheading"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Toggle subheading"
+            "value": "عنوان فرعي متبدل"
           }
         },
         "be": {
@@ -102309,6 +102303,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "Toggle subheading"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "Toggle subheading"
           }
         },
@@ -102423,7 +102423,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Toggle subheading"
+            "value": "已切换副标题"
           }
         },
         "zh-Hant": {
@@ -102437,16 +102437,10 @@
     "TextStyle.ToggleTitle.Title": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toggled title"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Toggled title"
+            "value": "عنوان متبدل"
           }
         },
         "be": {
@@ -102464,6 +102458,12 @@
         "de": {
           "stringUnit": {
             "state": "new",
+            "value": "Toggled title"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "Toggled title"
           }
         },
@@ -102578,7 +102578,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Toggled title"
+            "value": "已切换标题"
           }
         },
         "zh-Hant": {
@@ -102750,7 +102750,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "There are no spaces yet"
+            "value": "لا توجد مساحات حتى الآن"
           }
         },
         "be": {
@@ -102905,7 +102905,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "There is no emoji named"
+            "value": "لا يوجد رمز تعبيري مسمى"
           }
         },
         "be": {
@@ -103060,7 +103060,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "There is no icon named"
+            "value": "لا يوجد أيقونة مسماه"
           }
         },
         "be": {
@@ -103216,7 +103216,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "There is no object named %@"
+            "value": "لا يوجد كائن بالاسم %@"
           }
         },
         "be": {
@@ -103354,7 +103354,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "There is no object named %@"
+            "value": "没有名为 “%@” 的对象"
           }
         },
         "zh-Hant": {
@@ -103371,7 +103371,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "There is no property named %@"
+            "value": "لا توجد خاصية بالاسم %@"
           }
         },
         "be": {
@@ -103509,7 +103509,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "There is no property named %@"
+            "value": "没有名为 %@ 的属性"
           }
         },
         "zh-Hant": {
@@ -103526,7 +103526,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "There is no type named %@"
+            "value": "لا يوجد نوع بالاسم %@"
           }
         },
         "be": {
@@ -103664,7 +103664,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "There is no type named %@"
+            "value": "没有名为 “%@” 的类型"
           }
         },
         "zh-Hant": {
@@ -103681,7 +103681,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "These objects will be deleted irrevocably. You can’t undo this action."
+            "value": "سيتم حذف هذه الكائنات نهائيًا. لا يمكنك التراجع عن هذا الإجراء."
           }
         },
         "be": {
@@ -103991,7 +103991,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Toggle empty. Tap to create block."
+            "value": "تبديل فارغ. انقر لإنشاء كتلة."
           }
         },
         "be": {
@@ -104301,7 +104301,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Try to find a new one"
+            "value": "حاول العثور على واحدة جديدة"
           }
         },
         "be": {
@@ -104456,7 +104456,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Try to find a new one or upload your image"
+            "value": "حاول العثور على واحدة جديدة أو رفع صورتك"
           }
         },
         "be": {
@@ -104766,7 +104766,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Type Name"
+            "value": "اسم النوع"
           }
         },
         "be": {
@@ -105386,7 +105386,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Undo typing"
+            "value": "التراجع عن الكتابة"
           }
         },
         "be": {
@@ -106162,7 +106162,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Unlocked"
+            "value": "غير مقفل"
           }
         },
         "be": {
@@ -106317,7 +106317,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Unmute"
+            "value": "إلغاء الكتم"
           }
         },
         "be": {
@@ -106455,7 +106455,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Unmute"
+            "value": "取消静音"
           }
         },
         "zh-Hant": {
@@ -106627,7 +106627,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Unpinned"
+            "value": "غير مثبتة"
           }
         },
         "be": {
@@ -106782,7 +106782,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Unpublish"
+            "value": "إلغاء النشر"
           }
         },
         "be": {
@@ -106830,7 +106830,7 @@
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Unpublish"
+            "value": "Dépublier"
           }
         },
         "id": {
@@ -106920,7 +106920,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Unpublish"
+            "value": "取消发布"
           }
         },
         "zh-Hant": {
@@ -106937,7 +106937,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Unread"
+            "value": "غير مقروءة"
           }
         },
         "be": {
@@ -107075,7 +107075,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Unread"
+            "value": "未读"
           }
         },
         "zh-Hant": {
@@ -108022,7 +108022,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Unsupported deeplink"
+            "value": "رابط عميق غير مدعوم"
           }
         },
         "be": {
@@ -108177,7 +108177,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Unsupported value"
+            "value": "قيمة غير مدعومة"
           }
         },
         "be": {
@@ -108642,7 +108642,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Upgrade"
+            "value": "ترقية"
           }
         },
         "be": {
@@ -108952,7 +108952,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Valid until:"
+            "value": "صالح حتى:"
           }
         },
         "be": {
@@ -109107,7 +109107,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Valid until %@"
+            "value": "صالح حتى %@"
           }
         },
         "be": {
@@ -109245,7 +109245,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Valid until %@"
+            "value": "有效期至 %@"
           }
         },
         "zh-Hant": {
@@ -109274,7 +109274,7 @@
         "cs": {
           "stringUnit": {
             "state": "new",
-            "value": "Vault"
+            "value": "Trezor"
           }
         },
         "de": {
@@ -110176,7 +110176,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Version %@ was restored"
+            "value": "版本 %@ 已恢复"
           }
         },
         "zh-Hant": {
@@ -110851,7 +110851,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "View in Browser"
+            "value": "عرض في المتصفح"
           }
         },
         "be": {
@@ -112093,7 +112093,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "You can’t undo this action."
+            "value": "لا يمكنك التراجع عن هذا الإجراء."
           }
         },
         "be": {
@@ -112587,13 +112587,13 @@
               "one": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "One object deleted"
+                  "value": "Ett objekt slettet"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%d objects deleted"
+                  "value": "%d objekter slettet"
                 }
               },
               "zero": {
@@ -112895,7 +112895,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Change Widget Type"
+            "value": "تغيير نوع الأداة"
           }
         },
         "be": {
@@ -113205,7 +113205,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "New Object"
+            "value": "كائن جديد"
           }
         },
         "be": {
@@ -113963,7 +113963,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "Widget %@ was added"
+            "value": "已添加小部件 %@"
           }
         },
         "zh-Hant": {
@@ -113980,7 +113980,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "Create Object"
+            "value": "إنشاء كائن"
           }
         },
         "be": {
@@ -117080,7 +117080,7 @@
         "ar": {
           "stringUnit": {
             "state": "new",
-            "value": "This Widget Cannot Be Restored"
+            "value": "لا يمكن استعادة هذه الأداة"
           }
         },
         "be": {
@@ -117218,7 +117218,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "This Widget Cannot Be Restored"
+            "value": "此小组件无法恢复"
           }
         },
         "zh-Hant": {
@@ -117838,7 +117838,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "You joined %@"
+            "value": "您已加入 %@"
           }
         },
         "zh-Hant": {
@@ -118148,7 +118148,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "new",
-            "value": "%@ copied to clipboard"
+            "value": "%@ 已复制到剪贴板"
           }
         },
         "zh-Hant": {
@@ -118952,7 +118952,7 @@
               "other": {
                 "stringUnit": {
                   "state": "new",
-                  "value": "%d members"
+                  "value": "%d 个成员"
                 }
               }
             }

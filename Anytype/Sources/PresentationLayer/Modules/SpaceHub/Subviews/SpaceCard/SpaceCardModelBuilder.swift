@@ -55,19 +55,11 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
                 chatPreviewDate: chatPreviewDateFormatter.localizedDateString(for: lastMessagePreview.createdAt, showTodayTime: true),
                 unreadCounter: 0, // unsupported in space hub
                 mentionCounter: 0, // unsupported in space hub
-                hasUnreadReactions: false, // unsupported in space hub
                 notificationMode: .all, // unsupported in space hub
                 chatName: chatName
             )
         } else {
             lastMessage = nil
-        }
-
-        let multichatCompactPreview: String?
-        if spaceView.uxType.supportsMultiChats {
-            multichatCompactPreview = await buildMultichatCompactPreview(unreadPreviews: spaceData.unreadPreviews)
-        } else {
-            multichatCompactPreview = nil
         }
 
         return SpaceCardModel(
@@ -79,44 +71,17 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             isLoading: spaceView.isLoading,
             isShared: spaceView.isShared,
             isMuted: !spaceView.pushNotificationMode.isUnmutedAll,
-            canBeDeleted: spaceData.space.canBeDeleted,
-            canLeave: spaceData.space.canLeave,
             uxTypeName: spaceView.uxType.name,
             supportsMultiChats: spaceView.uxType.supportsMultiChats,
-            isOneToOne: spaceView.uxType.isOneToOne,
-            currentNotificationMode: spaceView.pushNotificationMode,
             showsMessageAuthor: spaceView.uxType.showsMessageAuthor,
             lastMessage: lastMessage,
             unreadCounter: spaceData.totalUnreadCounter,
             mentionCounter: spaceData.totalMentionCounter,
-            hasUnreadReactions: spaceData.hasUnreadReactions,
             unreadCounterStyle: spaceData.unreadCounterStyle,
             mentionCounterStyle: spaceData.mentionCounterStyle,
-            reactionStyle: spaceData.reactionStyle,
             hasCounters: spaceData.hasCounters,
-            multichatCompactPreview: multichatCompactPreview,
             wallpaper: wallpapers[spaceView.targetSpaceId] ?? .default
         )
-    }
-    private func buildMultichatCompactPreview(unreadPreviews: [ChatMessagePreview]) async -> String? {
-        guard unreadPreviews.isNotEmpty else { return nil }
-
-        let maxVisible = 3
-        var names = [String]()
-        for preview in unreadPreviews.prefix(maxVisible) {
-            if let chatDetail = await chatDetailsStorage.chat(id: preview.chatId) {
-                names.append(chatDetail.name.withPlaceholder)
-            }
-        }
-
-        guard names.isNotEmpty else { return nil }
-
-        let remaining = unreadPreviews.count - maxVisible
-        if remaining > 0 {
-            return names.joined(separator: ", ") + " +\(remaining)"
-        } else {
-            return names.joined(separator: ", ")
-        }
     }
 }
 

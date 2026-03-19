@@ -32,9 +32,7 @@ final class BlockViewModelBuilder {
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.pasteboardBlockDocumentService)
-    private var pasteboardService: any PasteboardBlockDocumentServiceProtocol
-    @Injected(\.blockService)
-    private var blockService: any BlockServiceProtocol
+    private var pasteboardService: any PasteboardBlockDocumentServiceProtocol    
     
     init(
         document: some BaseDocumentProtocol,
@@ -201,15 +199,6 @@ final class BlockViewModelBuilder {
                     },
                     onSelectUndoRedo: { [weak self] in
                         self?.output?.didUndoRedo()
-                    },
-                    onDeleteBlock: { [weak self] blockInformation in
-                        self?.handler.delete(blockIds: [blockInformation.id])
-                    },
-                    onIndentLeft: { [weak self] blockInformation in
-                        self?.indentLeft(blockInformation: blockInformation)
-                    },
-                    onIndentRight: { [weak self] blockInformation in
-                        self?.indentRight(blockInformation: blockInformation)
                     },
                     showTextIconPicker: { [weak router, weak document] in
                         guard let router, let document else { return }
@@ -432,68 +421,12 @@ final class BlockViewModelBuilder {
         }
     }
     // MARK: - Actions
-
+    
     private func showBookmarkBar(info: BlockInformation) {
         router.showBookmarkBar() { [weak self] url in
             Task { [weak self] in
                 try await self?.handler.fetch(url: url, blockId: info.id)
             }
-        }
-    }
-
-    // MARK: - Indentation
-
-    private func indentLeft(blockInformation: BlockInformation) {
-        guard let parentId = blockInformation.configurationData.parentId,
-              parentId != document.objectId,
-              let parent = infoContainer.get(id: parentId) else {
-            return
-        }
-
-        // Check grandparent can accept children (root document always can)
-        if let grandparentId = parent.configurationData.parentId,
-           grandparentId != document.objectId,
-           let grandparent = infoContainer.get(id: grandparentId),
-           !grandparent.content.type.canContainChildBlocks {
-            return
-        }
-
-        Task {
-            try await blockService.move(
-                objectId: document.objectId,
-                blockId: blockInformation.id,
-                targetId: parentId,
-                position: .bottom
-            )
-        }
-    }
-
-    private func indentRight(blockInformation: BlockInformation) {
-        guard let parentId = blockInformation.configurationData.parentId,
-              let parent = infoContainer.get(id: parentId) else {
-            return
-        }
-
-        let siblings = parent.childrenIds
-        guard let currentIndex = siblings.firstIndex(of: blockInformation.id),
-              currentIndex > 0 else {
-            return
-        }
-
-        let previousSiblingId = siblings[currentIndex - 1]
-
-        guard let previousSibling = infoContainer.get(id: previousSiblingId),
-              previousSibling.content.type.canContainChildBlocks else {
-            return
-        }
-
-        Task {
-            try await blockService.move(
-                objectId: document.objectId,
-                blockId: blockInformation.id,
-                targetId: previousSiblingId,
-                position: .inner
-            )
         }
     }
 }

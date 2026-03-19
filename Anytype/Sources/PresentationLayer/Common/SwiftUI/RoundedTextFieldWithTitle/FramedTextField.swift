@@ -10,7 +10,6 @@ struct FramedTextField<LeadingView: View>: View {
     private let leadingView: () -> LeadingView
 
     @Binding private var text: String
-    @FocusState private var isFocused: Bool
 
     init(
         title: String? = nil,
@@ -31,38 +30,45 @@ struct FramedTextField<LeadingView: View>: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             if let title {
-                AnytypeText(title, style: .caption1Medium)
+                AnytypeText(title, style: .uxCalloutRegular)
                     .foregroundStyle(Color.Text.secondary)
-                    .padding(.horizontal, 16)
                     .accessibilityLabel("Title")
             }
 
             HStack(alignment: .center, spacing: 8) {
                 leadingView()
 
-                AnytypeTextField(
-                    placeholder: placeholder,
-                    font: .bodyRegular,
-                    axis: axis,
-                    text: $text
-                )
-                .focused($isFocused)
-                .autocorrectionDisabled()
+                if shouldFocus {
+                    AutofocusedTextField(
+                        placeholder: placeholder,
+                        font: .bodyRegular,
+                        axis: axis,
+                        text: $text
+                    )
+                    .autocorrectionDisabled()
+                } else {
+                    AnytypeTextField(
+                        placeholder: placeholder,
+                        font: .bodyRegular,
+                        axis: axis,
+                        text: $text
+                    )
+                    .autocorrectionDisabled()
+                }
 
                 Spacer()
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 14)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(isFocused ? Color.Shape.transparentSecondary : Color.Shape.transparentTertiary)
-            )
         }
-        .task {
-            if shouldFocus {
-                isFocused = true
-            }
-        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 14)
+        .background(
+            RoundedRectangle(cornerRadius: 26)
+                .fill(Color.Shape.transparentSecondary)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 26)
+                .stroke(Color.Shape.transparentSecondary, lineWidth: 1)
+        )
         .accessibilityLabel("TextFieldContainer")
     }
 }

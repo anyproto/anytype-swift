@@ -14,9 +14,6 @@ public extension BlockText {
         case bulleted
         case numbered
         case toggle
-        case toggleHeader
-        case toggleHeader2
-        case toggleHeader3
         case code
         case callout
         
@@ -25,11 +22,11 @@ public extension BlockText {
             case .title: self = .title
             case .paragraph: self = .text
             case .header1: self = .header
-            case .toggleHeader1: self = .toggleHeader
+            case .toggleHeader1: self = .header
             case .header2: self = .header2
-            case .toggleHeader2: self = .toggleHeader2
+            case .toggleHeader2: self = .header2
             case .header3: self = .header3
-            case .toggleHeader3: self = .toggleHeader3
+            case .toggleHeader3: self = .header3
             case .header4: self = .header4
             case .quote: self = .quote
             case .code: self = .code
@@ -46,20 +43,13 @@ public extension BlockText {
         /// Returns true in case of content type is list, otherwise returns false
         public var isList: Bool {
             switch self {
-            case .checkbox, .bulleted, .numbered, .toggle, .toggleHeader, .toggleHeader2, .toggleHeader3:
+            case .checkbox, .bulleted, .numbered, .toggle:
                 return true
             default:
                 return false
             }
         }
         
-        public var isToggleHeader: Bool {
-            switch self {
-            case .toggleHeader, .toggleHeader2, .toggleHeader3: return true
-            default: return false
-            }
-        }
-
         public var asMiddleware: Anytype_Model_Block.Content.Text.Style {
             switch self {
             case .title: return .title
@@ -74,9 +64,6 @@ public extension BlockText {
             case .bulleted: return .marked
             case .numbered: return .numbered
             case .toggle: return .toggle
-            case .toggleHeader: return .toggleHeader1
-            case .toggleHeader2: return .toggleHeader2
-            case .toggleHeader3: return .toggleHeader3
             case .code: return .code
             case .callout: return .callout
             }

@@ -427,16 +427,4 @@ extension SimpleTablesTextBlockActionHandler: AccessoryViewOutput {
     func didSelectUndoRedo() {
         onSelectUndoRedo()
     }
-
-    func didSelectDeleteBlock() {
-        anytypeAssertionFailure("Simple tables should not have delete block")
-    }
-
-    func didSelectIndentLeft() {
-        anytypeAssertionFailure("Simple tables should not have indent left")
-    }
-
-    func didSelectIndentRight() {
-        anytypeAssertionFailure("Simple tables should not have indent right")
-    }
 }

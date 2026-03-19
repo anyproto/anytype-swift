@@ -3,12 +3,13 @@ import SwiftUI
 import Services
 
 struct TodoIconView: View {
-
+    
+    private static let maxSide = 28.0
     @State private var model = TodoIconViewModel()
-
+    
     let checked: Bool
     let objectId: String?
-
+    
     var body: some View {
         Button {
             guard let objectId else { return }
@@ -18,7 +19,7 @@ struct TodoIconView: View {
                 .resizable()
                 .scaledToFit()
                 .buttonDynamicForegroundStyle()
-                .frame(maxWidth: 20, maxHeight: 20)
+                .frame(maxWidth: 28, maxHeight: 28)
         }
         .buttonStyle(.plain)
     }

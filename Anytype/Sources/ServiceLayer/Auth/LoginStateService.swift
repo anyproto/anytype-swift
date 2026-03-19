@@ -44,7 +44,6 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol = Container.shared.pushNotificationsPermissionService()
     private let spaceIconForNotificationsHandler: any SpaceIconForNotificationsHandlerProtocol = Container.shared.spaceIconForNotificationsHandler()
     private let spaceFileUploadService: any SpaceFileUploadServiceProtocol = Container.shared.spaceFileUploadService()
-    private let appIconBadgeService: any AppIconBadgeServiceProtocol = Container.shared.appIconBadgeService()
         
     // MARK: - LoginStateServiceProtocol
     
@@ -95,9 +94,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await profileStorage.startSubscription()
         await activeSpaceManager.startSubscription()
         await spaceIconForNotificationsHandler.startUpdating()
-
-        await appIconBadgeService.startUpdating()
-
+        
         Task {
             await membershipStatusStorage.startSubscription()
         }
@@ -118,6 +115,5 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await profileStorage.stopSubscription()
         await activeSpaceManager.stopSubscription()
         await spaceIconForNotificationsHandler.stopUpdatingAndClearData()
-        await appIconBadgeService.stopUpdatingAndClearBadge()
     }
 }

@@ -85,10 +85,10 @@ public extension BlockContent {
     }
     
     var isToggle: Bool {
-        if case let .text(text) = self {
-            return text.contentType == .toggle || text.contentType.isToggleHeader
+        if case let .text(text) = self, text.contentType == .toggle {
+            return true
         }
-
+        
         return false
     }
 }

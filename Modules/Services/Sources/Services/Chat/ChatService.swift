@@ -21,7 +21,6 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
     ) async throws
     func unreadMessage(chatObjectId: String, afterOrderId: String, type: ChatUnreadReadType) async throws
     func readAllMessages() async throws
-    func readReactions(chatObjectId: String, orderId: String) async throws
 }
 
 public extension ChatServiceProtocol {
@@ -138,12 +137,5 @@ final class ChatService: ChatServiceProtocol {
     
     func readAllMessages() async throws {
         try await ClientCommands.chatReadAll().invoke()
-    }
-
-    func readReactions(chatObjectId: String, orderId: String) async throws {
-        try await ClientCommands.chatReadReactions(.with {
-            $0.chatObjectID = chatObjectId
-            $0.orderID = orderId
-        }).invoke()
     }
 }

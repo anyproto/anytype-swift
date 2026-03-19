@@ -36,7 +36,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         linkedObjects: [ChatLinkedObject],
         replyToMessageId: String?
     ) async throws -> String {
-        let chatMessage = await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId)
+        let chatMessage = await makeMessage(spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId)
         return try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
     }
     
@@ -48,7 +48,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         linkedObjects: [ChatLinkedObject],
         replyToMessageId: String?
     ) async throws {
-        var chatMessage = await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId)
+        var chatMessage = await makeMessage(spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId)
         chatMessage.id = messageId
         try await chatService.updateMessage(chatObjectId: chatId, message: chatMessage)
     }
@@ -56,17 +56,16 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
     // MARK: - Private
     
     private func makeMessage(
-        chatId: String,
         spaceId: String,
         message: SafeSendable<NSAttributedString>,
         linkedObjects: [ChatLinkedObject],
         replyToMessageId: String?
     ) async -> ChatMessage {
-
+        
         var chatMessage = ChatMessage()
         chatMessage.message = chatInputConverter.convert(message: message.value)
         chatMessage.replyToMessageID = replyToMessageId ?? ""
-
+        
         for linkedObject in linkedObjects {
             switch linkedObject {
             case .uploadedObject(let objectDetails):
@@ -76,11 +75,11 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
                 chatMessage.attachments.append(attachment)
             case .localPhotosFile(let chatLocalFile):
                 guard let data = chatLocalFile.data else { continue }
-                if let attachment = try? await uploadFile(spaceId: spaceId, data: data.data, preloadFileId: chatLocalFile.data?.preloadFileId, createdInContext: chatId) {
+                if let attachment = try? await uploadFile(spaceId: spaceId, data: data.data, preloadFileId: chatLocalFile.data?.preloadFileId) {
                     chatMessage.attachments.append(attachment)
                 }
             case .localBinaryFile(let binaryFile):
-                if let attachment = try? await uploadFile(spaceId: spaceId, data: binaryFile.data, preloadFileId: binaryFile.preloadFileId, createdInContext: chatId) {
+                if let attachment = try? await uploadFile(spaceId: spaceId, data: binaryFile.data, preloadFileId: binaryFile.preloadFileId) {
                     chatMessage.attachments.append(attachment)
                 }
             case .localBookmark(let data):
@@ -91,9 +90,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
                     spaceId: spaceId,
                     url: url,
                     templateId: type?.defaultTemplateId,
-                    origin: .none,
-                    createdInContext: chatId,
-                    createdInContextRef: ""
+                    origin: .none
                 ) {
                     var attachment = ChatMessageAttachment()
                     attachment.target = bookmark.id
@@ -102,17 +99,17 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
                 break
             }
         }
-
+        
         return chatMessage
     }
-
-    private func uploadFile(spaceId: String, data: FileData, preloadFileId: String?, createdInContext: String) async throws -> ChatMessageAttachment {
+    
+    private func uploadFile(spaceId: String, data: FileData, preloadFileId: String?) async throws -> ChatMessageAttachment {
         let fileDetails: FileDetails
 
         if let preloadFileId = preloadFileId {
-            fileDetails = try await fileActionsService.uploadPreloadedFileObject(fileId: preloadFileId, spaceId: spaceId, data: data, origin: .none, createdInContext: createdInContext, createdInContextRef: "")
+            fileDetails = try await fileActionsService.uploadPreloadedFileObject(fileId: preloadFileId, spaceId: spaceId, data: data, origin: .none)
         } else {
-            fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none, createdInContext: createdInContext, createdInContextRef: "")
+            fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
         }
 
         var attachment = ChatMessageAttachment()

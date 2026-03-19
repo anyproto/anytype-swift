@@ -22,16 +22,13 @@ struct UnreadChatRowView: View {
                 IconView(icon: model.icon)
                     .frame(width: 20, height: 20)
 
-                AnytypeText(model.name, style: .bodySemibold)
+                AnytypeText(model.name, style: .previewTitle2Medium)
                     .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
 
                 Spacer()
 
                 HStack(spacing: 4) {
-                    if model.hasUnreadReactions {
-                        HeartBadge(style: model.muted ? .muted : .highlighted)
-                    }
                     if model.hasMentions {
                         MentionBadge(style: model.muted ? .muted : .highlighted)
                     }

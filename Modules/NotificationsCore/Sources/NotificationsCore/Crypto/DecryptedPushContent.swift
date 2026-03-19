@@ -1,6 +1,5 @@
 public struct DecryptedPushContent: Codable {
     public let spaceId: String
-    public let spaceUxType: Int
     public let type: Int
     public let senderId: String
     public let newMessage: Message
@@ -16,7 +15,6 @@ public struct DecryptedPushContent: Codable {
         public let text: String
         public let spaceName: String
         public let senderName: String
-        public let chatName: String?
         public let hasAttachments: Bool
         public let attachments: [Attachment]?
 

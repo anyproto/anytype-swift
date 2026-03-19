@@ -374,29 +374,6 @@ func showQrCode(url: URL) {
 
 **When to create custom wrappers**: Only when you need multiple fields or additional context (e.g., `SpaceShareData` with `spaceId` + `route`).
 
-### No Optional Booleans for Tri-State
-
-Never use `Bool?` to represent three states. The meaning of `nil` is always implicit and context-dependent. Use an enum with explicit cases instead:
-
-```swift
-// ❌ WRONG — What does nil mean? Loading? Not determined? Unknown?
-var isEnabled: Bool?
-
-// ✅ CORRECT — Intent is explicit
-enum EnabledState {
-    case enabled
-    case disabled
-    case loading
-}
-var enabledState: EnabledState = .loading
-```
-
-**Exception**: API/middleware parameters that simply pass through optionals are acceptable.
-
-**Existing examples in codebase**:
-- `AttributeState` — `.disabled`, `.applied`, `.notApplied`
-- `PushNotificationsPermissionStatus` — `.notDetermined`, `.denied`, `.authorized`, `.unknown`
-
 ### Trailing Closures
 
 ```swift
@@ -826,7 +803,6 @@ struct ExpensiveView: View {
 - Hardcode strings (use Loc.*)
 - Use computed properties accessing storage in ViewModels (causes re-render overhead)
 - Use `Group` with conditionals + lifecycle modifiers (use `@ViewBuilder` instead)
-- Use `Bool?` for tri-state values (use explicit enum instead)
 
 ### Testing
 

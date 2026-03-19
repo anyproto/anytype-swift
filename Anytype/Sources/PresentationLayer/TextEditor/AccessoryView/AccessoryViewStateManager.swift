@@ -19,7 +19,7 @@ enum AccessoryViewInputState {
 @MainActor
 protocol AccessoryViewOutput: AnyObject {
     var accessoryState: AccessoryViewInputState { get set }
-
+    
     func showLinkToSearch(range: NSRange, text: NSAttributedString)
     func setNewText(attributedString: SafeNSAttributedString) async throws
     func didSelectAddMention(
@@ -27,19 +27,16 @@ protocol AccessoryViewOutput: AnyObject {
         at position: Int,
         attributedString: SafeNSAttributedString
     ) async throws
-
+    
     func didSelectSlashAction(
         _ action: SlashAction,
         at position: Int,
         textView: UITextView?
     ) async throws
-
+    
     func didSelectEditButton()
     func didSelectShowStyleMenu()
     func didSelectUndoRedo()
-    func didSelectDeleteBlock()
-    func didSelectIndentLeft()
-    func didSelectIndentRight()
 }
 
 @MainActor
@@ -416,7 +413,7 @@ extension AccessoryViewStateManagerImpl {
 extension AccessoryViewStateManagerImpl {
     func handle(_ action: CursorModeAccessoryViewAction) {
         logEvent(for: action)
-
+        
         switch action {
         case .showStyleMenu:
             configuration?.output?.didSelectShowStyleMenu()
@@ -431,12 +428,6 @@ extension AccessoryViewStateManagerImpl {
             configuration?.output?.didSelectEditButton()
         case .undoRedo:
             configuration?.output?.didSelectUndoRedo()
-        case .deleteBlock:
-            configuration?.output?.didSelectDeleteBlock()
-        case .indentLeft:
-            configuration?.output?.didSelectIndentLeft()
-        case .indentRight:
-            configuration?.output?.didSelectIndentRight()
         }
     }
     
@@ -463,8 +454,6 @@ extension AccessoryViewStateManagerImpl {
             AnytypeAnalytics.instance().logKeyboardBarSelectionMenu()
         case .undoRedo:
             AnytypeAnalytics.instance().logKeyboardBarUndoMenu()
-        case .deleteBlock, .indentLeft, .indentRight:
-            break
         }
     }
 }

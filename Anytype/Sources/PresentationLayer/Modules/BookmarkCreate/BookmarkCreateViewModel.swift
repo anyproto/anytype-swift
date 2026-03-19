@@ -57,9 +57,7 @@ final class BookmarkCreateViewModel {
                     spaceId: data.spaceId,
                     url: url,
                     templateId: type?.defaultTemplateId,
-                    origin: .none,
-                    createdInContext: data.collectionId ?? "",
-                    createdInContextRef: ""
+                    origin: .none
                 )
             } catch {
                 toastBarData = ToastBarData(error.localizedDescription, type: .failure)

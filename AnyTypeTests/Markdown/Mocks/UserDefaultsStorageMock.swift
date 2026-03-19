@@ -16,8 +16,6 @@ final class UserDefaultsStorageMock: UserDefaultsStorageProtocol {
     var rowsPerPageInSet: Int { get { fatalError() } set { fatalError() } }
     var rowsPerPageInGroupedSet: Int { get { fatalError() } set { fatalError() } }
     var userInterfaceStyle: UIUserInterfaceStyle { get { fatalError() } set { fatalError() } }
-    var autoDownloadSizeLimitRawValue: Int { get { fatalError() } set { fatalError() } }
-    var autoDownloadUseCellular: Bool { get { fatalError() } set { fatalError() } }
     
     func wallpapersPublisher() -> AnyPublisher<[String : Anytype.SpaceWallpaperType], Never> {
         fatalError()

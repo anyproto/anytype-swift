@@ -114,8 +114,7 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
     private func notificationsMenuItem(mode: SpacePushNotificationsMode) -> some View {
         NotificationModeMenu(
             currentMode: mode,
-            onModeChange: viewModel.handleNotificationModeChange,
-            useMuteAndHideLabel: true
+            onModeChange: viewModel.handleNotificationModeChange
         )
     }
 

@@ -1,6 +1,5 @@
 import SwiftUI
 import AnytypeCore
-import Services
 
 struct SpaceCard: View {
 
@@ -9,12 +8,10 @@ struct SpaceCard: View {
     let onTap: () -> Void
     let onTapCopy: () -> Void
     let onTapMute: () -> Void
-    let onTapNotificationMode: (SpacePushNotificationsMode) -> Void
     let onTapPin: () async throws -> Void
     let onTapUnpin: () async throws -> Void
     let onTapSettings: () -> Void
     let onTapDelete: () -> Void
-    let onTapLeave: () -> Void
 
     var body: some View {
         Button {
@@ -45,17 +42,11 @@ struct SpaceCard: View {
         if model.isShared {
             muteButton
         }
-
-        if !model.isLoading {
-            settingsButton
-        }
-
-        if model.canBeDeleted {
-            Divider()
+        
+        if model.isLoading {
             deleteButton
-        } else if model.canLeave {
-            Divider()
-            leaveButton
+        } else {
+            settingsButton
         }
     }
     
@@ -67,16 +58,14 @@ struct SpaceCard: View {
         }
     }
     
-    @ViewBuilder
     private var muteButton: some View {
-        if model.supportsMultiChats {
-            NotificationModeMenu(
-                currentMode: model.currentNotificationMode,
-                onModeChange: { onTapNotificationMode($0) }
-            )
-        } else {
-            MuteToggleMenuButton(isMuted: model.isMuted) {
-                onTapMute()
+        Button {
+            onTapMute()
+        } label: {
+            HStack {
+                Text(!model.isMuted ? Loc.mute : Loc.unmute)
+                Spacer()
+                Image(systemName: !model.isMuted ? "bell.slash" : "bell")
             }
         }
     }
@@ -117,18 +106,6 @@ struct SpaceCard: View {
             onTapDelete()
         } label: {
             Text(Loc.SpaceSettings.deleteButton)
-                .tint(.red)
-            Spacer()
-            Image(systemName: "trash")
-                .tint(.red)
-        }
-    }
-
-    private var leaveButton: some View {
-        Button(role: .destructive) {
-            onTapLeave()
-        } label: {
-            Text(Loc.SpaceSettings.leaveButton)
                 .tint(.red)
             Spacer()
             Image(systemName: "trash")

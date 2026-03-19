@@ -49,13 +49,13 @@ extension DataviewViewType {
     var setContentViewType: SetContentViewType {
         switch self {
         case .table, .calendar, .graph:
-            return .table
+            return .collection(.list)
         case .gallery:
             return .collection(.gallery)
         case .list:
             return .collection(.list)
         case .kanban:
-            return FeatureFlags.setKanbanView ? .kanban : .table
+            return FeatureFlags.setKanbanView ? .kanban : .collection(.list)
         }
     }
     
@@ -89,9 +89,9 @@ extension DataviewViewType {
     
     var isSupportedOnDevice: Bool {
         switch self {
-        case .table, .gallery, .list:
+        case .gallery, .list:
             return true
-        case .calendar, .graph:
+        case .table, .calendar, .graph:
             return false
         case .kanban:
             return FeatureFlags.setKanbanView

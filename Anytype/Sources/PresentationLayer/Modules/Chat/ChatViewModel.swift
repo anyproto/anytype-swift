@@ -8,7 +8,6 @@ import UIKit
 import NotificationsCore
 import ProtobufMessages
 import AsyncAlgorithms
-import DeepLinks
 @preconcurrency import Combine
 
 @MainActor
@@ -60,16 +59,13 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     private var universalLinkParser: any UniversalLinkParserProtocol
     @Injected(\.shareSuggestionService) @ObservationIgnored
     private var shareSuggestionService: any ShareSuggestionServiceProtocol
-    @Injected(\.deepLinkParser) @ObservationIgnored
-    private var deepLinkParser: any DeepLinkParserProtocol
 
     private let participantSubscription: any ParticipantsSubscriptionProtocol
     private let chatStorage: any ChatMessagesStorageProtocol
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private let chatMessageBuilder: any ChatMessageBuilderProtocol
     private let chatObject: any BaseDocumentProtocol
-    private let initialMessageId: String?
-
+    
     // MARK: - State
     
     // Global
@@ -142,10 +138,9 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     var showSendLimitAlert = false
     var toastBarData: ToastBarData?
     
-    init(spaceId: String, chatId: String, messageId: String? = nil, output: (any ChatModuleOutput)?) {
+    init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
         self.chatId = chatId
-        self.initialMessageId = messageId
         self.output = output
         self.chatStorage = Container.shared.chatMessageStorage((spaceId, chatId))
         self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
@@ -273,11 +268,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 await updateMessages()
                 self.dataLoaded = true
                 if prevChatIsEmpty {
-                    if let initialMessageId {
-                        try? await chatStorage.loadPagesTo(messageId: initialMessageId)
-                        collectionViewScrollProxy.scrollTo(itemId: initialMessageId, position: .center, animated: false)
-                        messageHiglightId = initialMessageId
-                    } else if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
+                    if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
                         collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
                     } else if let message = messages.last {
                         collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
@@ -298,10 +289,6 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     
     func sendMessageTask() async throws {
         guard sendMessageTaskInProgress else { return }
-        guard message.string.trimmingCharacters(in: .whitespacesAndNewlines).isNotEmpty || linkedObjects.isNotEmpty else {
-            sendMessageTaskInProgress = false
-            return
-        }
         let loadingTask = Task {
             try await Task.sleep(seconds: 0.3)
             try Task.checkCancellation()
@@ -464,15 +451,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
         Task {
             bottomVisibleOrderId = to.messageOrderId
-            // updateActions() is normally triggered by .state middleware events,
-            // but those arrive before forceHiddenActionPanel resets to false,
-            // so action buttons (e.g. scroll-to-reaction) would never appear.
-            // Trigger once when the panel becomes visible for the first time.
-            let wasForceHidden = forceHiddenActionPanel
-            forceHiddenActionPanel = false
-            if wasForceHidden {
-                updateActions()
-            }
+            forceHiddenActionPanel = false // Without update panel. Waiting middleware event.
             await chatStorage.updateVisibleRange(startMessageId: from.messageId, endMessageId: to.messageId)
         }
     }
@@ -533,16 +512,6 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         AnytypeAnalytics.instance().logClickScrollToMention(chatId: chatId)
         Task {
             let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
-            collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
-            messageHiglightId = message.id
-        }
-    }
-
-    func onTapReaction() {
-        guard let chatState, chatState.unreadReactionOrderID.isNotEmpty else { return }
-        AnytypeAnalytics.instance().logClickScrollToReaction(chatId: chatId)
-        Task {
-            let message = try await chatStorage.loadPagesTo(orderId: chatState.unreadReactionOrderID)
             collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
             messageHiglightId = message.id
         }
@@ -636,17 +605,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         AnytypeAnalytics.instance().logClickMessageMenuCopy()
         UIPasteboard.general.string = NSAttributedString(message.messageString).string
     }
-
-    func didSelectCopyLink(message: MessageViewData) {
-        AnytypeAnalytics.instance().logClickMessageMenuCopyLink()
-        let link = deepLinkParser.createUrl(
-            deepLink: .chatMessage(chatObjectId: chatId, spaceId: spaceId, messageId: message.message.id),
-            scheme: .main
-        )
-        UIPasteboard.general.string = link?.absoluteString
-        toastBarData = ToastBarData(Loc.copied)
-    }
-
+    
     // MARK: - ChatActionProviderHandler
     
     func addAttachment(_ attachment: ChatLinkObject, clearInput needsClearInput: Bool) {
@@ -772,9 +731,8 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     
     private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
         if attachment.resolvedLayoutValue.isFileOrMedia {
-            let fileAndMediaAttachments = attachments.filter { $0.resolvedLayoutValue.isFileOrMedia }
             output?.onObjectSelected(screenData: .preview(
-                MediaFileScreenData(selectedItem: attachment, allItems: fileAndMediaAttachments, route: .chat)
+                MediaFileScreenData(selectedItem: attachment, allItems: attachments, route: .chat)
             ))
         } else {
             output?.onObjectSelected(screenData: attachment.screenData())
@@ -792,16 +750,14 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 showScrollToBottom: chatState.messages.counter > 0 || bigDistanceToBottom,
                 srollToBottomCounter: Int(chatState.messages.counter),
                 showMentions: chatState.mentions.counter > 0,
-                mentionsCounter: Int(chatState.mentions.counter),
-                showReactions: chatState.unreadReactionOrderID.isNotEmpty
+                mentionsCounter: Int(chatState.mentions.counter)
             )
         } else {
             actionModel = ChatActionPanelModel(
                 showScrollToBottom: bigDistanceToBottom,
                 srollToBottomCounter: 0,
                 showMentions: false,
-                mentionsCounter: 0,
-                showReactions: false
+                mentionsCounter: 0
             )
         }
     }

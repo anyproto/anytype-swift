@@ -59,7 +59,7 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         await objectTypeProvider.prepareData(spaceId: spaceId)
         
         // Create objects for media & bookmarks
-        let contentItems = try await createObjectsFromSharedContent(spaceId: spaceId, content: content, chatId: chatId)
+        let contentItems = try await createObjectsFromSharedContent(spaceId: spaceId, content: content)
         
         try await linkToObjectFlow(spaceId: spaceId, content: content, savedContent: contentItems, linkToObjects: linkToObjects)
         
@@ -184,38 +184,35 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
     
     private func createObjectsFromSharedContent(
         spaceId: String,
-        content: SharedContent,
-        chatId: String?
+        content: SharedContent
     ) async throws -> [SharedSavedContentItem] {
         var details = [SharedSavedContentItem]()
-
+        
         for contentItem in content.items {
             switch contentItem {
             case let .text(text):
                 details.append(.text(text))
             case let .url(url):
-                let objectDetails = try await createBookmarkObject(url: AnytypeURL(url: url), spaceId: spaceId, createdInContext: chatId ?? "")
+                let objectDetails = try await createBookmarkObject(url: AnytypeURL(url: url), spaceId: spaceId)
                 details.append(.bookmark(objectDetails))
             case let .file(url):
-                let objectDetails = try await createFileObject(url: url, spaceId: spaceId, createdInContext: chatId ?? "")
+                let objectDetails = try await createFileObject(url: url, spaceId: spaceId)
                 details.append(.file(objectDetails))
             }
         }
-
+        
         return details
     }
     
     
-    private func createBookmarkObject(url: AnytypeURL, spaceId: String, createdInContext: String) async throws -> ObjectDetails {
+    private func createBookmarkObject(url: AnytypeURL, spaceId: String) async throws -> ObjectDetails {
         let type = try? objectTypeProvider.objectType(uniqueKey: ObjectTypeUniqueKey.bookmark, spaceId: spaceId)
-
+        
         let newBookmark = try await bookmarkService.createBookmarkObject(
             spaceId: spaceId,
             url: url,
             templateId: type?.defaultTemplateId,
-            origin: .sharingExtension,
-            createdInContext: createdInContext,
-            createdInContextRef: ""
+            origin: .sharingExtension
         )
         try await bookmarkService.fetchBookmarkContent(bookmarkId: newBookmark.id, url: url)
         
@@ -227,10 +224,10 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         return newBookmark
     }
     
-    private func createFileObject(url: URL, spaceId: String, createdInContext: String) async throws -> FileDetails {
+    private func createFileObject(url: URL, spaceId: String) async throws -> FileDetails {
         let resources = try url.resourceValues(forKeys: [.fileSizeKey])
         let data = FileData(path: url.relativePath, type: .data, sizeInBytes: resources.fileSize, isTemporary: false)
-        let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension, createdInContext: createdInContext, createdInContextRef: "")
+        let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension)
         
         AnytypeAnalytics.instance().logCreateObject(
             objectType: details.analyticsType,

@@ -201,15 +201,6 @@ final class ObjectSettingsViewModel {
         try await propertiesService.toggleDescription(objectId: document.objectId, isOn: !descriptionIsOn)
     }
     
-    func onTapPrefillName() async throws {
-        guard let details = document.details else { return }
-        let newValue = details.isTemplateNamePrefilled ? 0 : 1
-        try await service.updateBundledDetails(
-            contextID: document.objectId,
-            details: [.templateNamePrefillType(newValue)]
-        )
-    }
-
     func onTapResolveConflict() {
         showConflictAlert.toggle()
     }

@@ -46,9 +46,7 @@ final class SpaceJoinViewModel {
 
     private var inviteView: SpaceInviteView?
     private var onManageSpaces: () -> Void
-    private var onJoinedSpace: ((String, SpaceUxType) -> Void)?
     private var callManageSpaces = false
-    private var joinedSpaceId: String?
 
     var errorMessage: String = ""
     var title: String = Loc.SpaceShare.Join.title
@@ -61,10 +59,9 @@ final class SpaceJoinViewModel {
     var joinTaskId: String?
     var dismiss = false
     
-    init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void, onJoinedSpace: ((String, SpaceUxType) -> Void)? = nil) {
+    init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void) {
         self.data = data
         self.onManageSpaces = onManageSpaces
-        self.onJoinedSpace = onJoinedSpace
     }
     
     func onJoinTapped() {
@@ -87,7 +84,6 @@ final class SpaceJoinViewModel {
                 networkId: accountManager.account.info.networkId
             )
             if inviteView.inviteType.withoutApprove {
-                joinedSpaceId = inviteView.spaceId
                 toast = ToastBarData(Loc.youJoined(inviteView.spaceName))
                 dismiss.toggle()
             } else {
@@ -130,9 +126,6 @@ final class SpaceJoinViewModel {
         // Notify parent after dismiss.
         if callManageSpaces {
             onManageSpaces()
-        }
-        if let joinedSpaceId, let inviteView {
-            onJoinedSpace?(joinedSpaceId, inviteView.spaceUxType)
         }
     }
     

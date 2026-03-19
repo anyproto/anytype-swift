@@ -117,8 +117,6 @@ final class ObjectSettingsMenuViewModel {
             viewModel.onTapResolveConflict()
         case .webPublishing:
             viewModel.onTapPublishing()
-        case .prefillName:
-            try? await viewModel.onTapPrefillName()
         case .notifications:
             break // Handled by submenu
         }

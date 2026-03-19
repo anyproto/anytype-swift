@@ -10,11 +10,7 @@ extension MessagePreviewModel {
         notificationMode.unreadCounterStyle
     }
 
-    var mentionCounterStyle: BadgeStyle {
-        notificationMode.mentionCounterStyle
-    }
-
-    var reactionStyle: BadgeStyle {
+    var mentionCounterStyle: MentionBadgeStyle {
         notificationMode.mentionCounterStyle
     }
 
@@ -43,6 +39,6 @@ extension MessagePreviewModel {
     }
 
     var hasCounters: Bool {
-        totalCounter > 0 || hasUnreadReactions
+        totalCounter > 0
     }
 }

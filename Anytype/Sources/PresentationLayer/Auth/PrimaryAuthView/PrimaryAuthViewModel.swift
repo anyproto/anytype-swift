@@ -122,13 +122,13 @@ final class PrimaryAuthViewModel {
     
     private func handleAppAction(action: AppAction) throws {
         switch action {
-        case .createObjectFromQuickAction:
+        case .createObjectFromQuickAction, .openObject:
             throw AuthViewModelError.unsupportedAppAction
         case .deepLink(let deeplink, _):
             switch deeplink {
             case .networkConfig(let config):
                 try updateNetworkConfig(config)
-            case .createObjectFromWidget, .showSharingExtension, .galleryImport, .invite, .object, .membership, .hi, .chatMessage:
+            case .createObjectFromWidget, .showSharingExtension, .galleryImport, .invite, .object, .membership, .hi:
                 throw AuthViewModelError.unsupportedAppAction
             }
         }

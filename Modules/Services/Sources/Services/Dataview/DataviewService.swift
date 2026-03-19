@@ -4,7 +4,9 @@ import Combine
 import AnytypeCore
 
 final class DataviewService: DataviewServiceProtocol {
-    
+
+    private let dataviewDefaultViewCorrectorService: any DataviewDefaultViewCorrectorServiceProtocol = Container.shared.dataviewDefaultViewCorrectorService()
+
     public func updateView(objectId: String, blockId: String, view: DataviewView) async throws {
         try await ClientCommands.blockDataviewViewUpdate(.with {
             $0.contextID = objectId
@@ -170,26 +172,17 @@ final class DataviewService: DataviewServiceProtocol {
         typeUniqueKey: ObjectTypeUniqueKey?,
         templateId: String,
         spaceId: String,
-        details: ObjectDetails,
-        createdInContext: String,
-        createdInContextRef: String
+        details: ObjectDetails
     ) async throws -> ObjectDetails {
-
+        
         let internalFlags: [Anytype_Model_InternalFlag] = .builder {
             Anytype_Model_InternalFlag.with { $0.value = .editorSelectTemplate }
         }
 
-        var fields = details.values
-        if !createdInContext.isEmpty {
-            fields[BundledPropertyKey.createdInContext.rawValue] = createdInContext.protobufValue
-        }
-        if !createdInContextRef.isEmpty {
-            fields[BundledPropertyKey.createdInContextRef.rawValue] = createdInContextRef.protobufValue
-        }
-        let detailsStruct: Google_Protobuf_Struct = .init(fields: fields)
+        let details: Google_Protobuf_Struct = .init(fields: details.values)
 
         let response = try await ClientCommands.objectCreate(.with {
-            $0.details = detailsStruct
+            $0.details = details
             $0.internalFlags = internalFlags
             $0.templateID = templateId
             $0.spaceID = spaceId
@@ -198,9 +191,11 @@ final class DataviewService: DataviewServiceProtocol {
             }
         }).invoke()
 
-        return try ObjectDetails(protobufStruct: response.details)
+        let objectDetails = try ObjectDetails(protobufStruct: response.details)
+        try? await dataviewDefaultViewCorrectorService.correctDefaultViewTypeIfNeeded(objectId: objectDetails.id, spaceId: spaceId)
+        return objectDetails
     }
-    
+
     public func setPositionForView(objectId: String, blockId: String, viewId: String, position: Int) async throws {
         try await ClientCommands.blockDataviewViewSetPosition(.with {
             $0.contextID = objectId

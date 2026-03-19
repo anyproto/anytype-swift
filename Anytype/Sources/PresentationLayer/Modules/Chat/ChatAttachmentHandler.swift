@@ -93,7 +93,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     init(spaceId: String, chatId: String) {
         self.spaceId = spaceId
         self.chatId = chatId
-        self.state = ChatAttachmentState(spaceId: spaceId, chatId: chatId)
+        self.state = ChatAttachmentState(spaceId: spaceId)
     }
     
     // MARK: - Public Methods

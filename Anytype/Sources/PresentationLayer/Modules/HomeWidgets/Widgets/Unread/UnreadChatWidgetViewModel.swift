@@ -25,7 +25,6 @@ final class UnreadChatWidgetViewModel {
     private(set) var icon: Icon?
     private(set) var unreadCounter: Int = 0
     private(set) var hasMentions: Bool = false
-    private(set) var hasUnreadReactions: Bool = false
     private(set) var muted: Bool = false
 
     init(data: UnreadChatWidgetData) {
@@ -69,7 +68,6 @@ final class UnreadChatWidgetViewModel {
             }
             unreadCounter = preview.unreadCounter
             hasMentions = preview.mentionCounter > 0
-            hasUnreadReactions = preview.hasUnreadReactions
         }
     }
 }

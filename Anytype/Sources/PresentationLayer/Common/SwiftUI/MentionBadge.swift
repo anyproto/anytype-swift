@@ -1,13 +1,13 @@
 import SwiftUI
 
-enum BadgeStyle {
+enum MentionBadgeStyle {
     case muted
     case highlighted
 }
 
 struct MentionBadge: View {
     
-    let style: BadgeStyle
+    let style: MentionBadgeStyle
       
     var body: some View {
         Text("@")

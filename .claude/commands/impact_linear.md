@@ -1,8 +1,3 @@
----
-description: Analyze Linear issue impact and dependencies
-model: opus
----
-
 USE EXTENDED THINKING
 
 # Linear Context Gathering for iOS Release (Task Hierarchy Approach)

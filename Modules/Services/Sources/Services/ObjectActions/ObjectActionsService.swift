@@ -5,9 +5,11 @@ import ProtobufMessages
 import AnytypeCore
 
 final class ObjectActionsService: ObjectActionsServiceProtocol {
-    
+
+    private let dataviewDefaultViewCorrectorService: any DataviewDefaultViewCorrectorServiceProtocol = Container.shared.dataviewDefaultViewCorrectorService()
+
     // MARK: - ObjectActionsServiceProtocol
-    
+
     public func createObject(
         name: String,
         typeUniqueKey: ObjectTypeUniqueKey,
@@ -16,21 +18,14 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         shouldSelectTemplate: Bool,
         spaceId: String,
         origin: ObjectOrigin,
-        templateId: String? = nil,
-        createdInContext: String = "",
-        createdInContextRef: String = ""
+        templateId: String? = nil
     ) async throws -> ObjectDetails {
-        var fields: [String: Google_Protobuf_Value] = [
-            BundledPropertyKey.name.rawValue: name.protobufValue,
-            BundledPropertyKey.origin.rawValue: origin.rawValue.protobufValue
-        ]
-        if !createdInContext.isEmpty {
-            fields[BundledPropertyKey.createdInContext.rawValue] = createdInContext.protobufValue
-        }
-        if !createdInContextRef.isEmpty {
-            fields[BundledPropertyKey.createdInContextRef.rawValue] = createdInContextRef.protobufValue
-        }
-        let details = Google_Protobuf_Struct(fields: fields)
+        let details = Google_Protobuf_Struct(
+            fields: [
+                BundledPropertyKey.name.rawValue: name.protobufValue,
+                BundledPropertyKey.origin.rawValue: origin.rawValue.protobufValue
+            ]
+        )
         
         let internalFlags: [Anytype_Model_InternalFlag] = .builder {
             if shouldDeleteEmptyObject {
@@ -51,10 +46,12 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.spaceID = spaceId
             $0.objectTypeUniqueKey = typeUniqueKey.value
         }).invoke()
-        
-        return try response.details.toDetails()
+
+        let objectDetails = try response.details.toDetails()
+        try? await dataviewDefaultViewCorrectorService.correctDefaultViewTypeIfNeeded(objectId: objectDetails.id, spaceId: spaceId)
+        return objectDetails
     }
-    
+
     public func delete(objectIds: [String]) async throws {
         try await ClientCommands.objectListDelete(.with {
             $0.objectIds = objectIds
@@ -241,11 +238,15 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         
         let details = Google_Protobuf_Struct(fields: fields)
         
-        return try await ClientCommands.objectCreateSet(.with {
+        let response = try await ClientCommands.objectCreateSet(.with {
             $0.details = details
             $0.source = [setOfObjectType]
             $0.spaceID = spaceId
             $0.withChat = false
-        }).invoke().details.toDetails()
+        }).invoke()
+
+        let objectDetails = try response.details.toDetails()
+        try? await dataviewDefaultViewCorrectorService.correctDefaultViewTypeIfNeeded(objectId: objectDetails.id, spaceId: spaceId)
+        return objectDetails
     }
 }

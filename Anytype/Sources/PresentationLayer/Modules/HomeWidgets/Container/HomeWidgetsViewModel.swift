@@ -218,7 +218,7 @@ final class HomeWidgetsViewModel {
         for await (previews, chatDetails) in combineLatest(previewsSequence, chatsSequence) {
             let newUnreadChats = previews
                 .filter { preview in
-                    guard preview.spaceId == spaceId && (preview.unreadCounter > 0 || preview.hasUnreadReactions) else { return false }
+                    guard preview.spaceId == spaceId && preview.unreadCounter > 0 else { return false }
                     guard let chatDetail = chatDetails.first(where: { $0.id == preview.chatId }) else { return false }
                     return !chatDetail.isArchivedOrDeleted
                 }

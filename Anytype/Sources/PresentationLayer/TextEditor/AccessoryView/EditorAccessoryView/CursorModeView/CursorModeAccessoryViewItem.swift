@@ -6,22 +6,13 @@ extension CursorModeAccessoryView {
         case style
         case actions
         case undoRedo
-        case deleteBlock
-        case indentRight
-        case indentLeft
-
+        
         var image: UIImage? {
             switch self {
             case .slash:
                 return UIImage(asset: .X32.slashMenu)
             case .style:
                 return UIImage(asset: .X32.style)
-            case .deleteBlock:
-                return UIImage(asset: .X32.delete)
-            case .indentLeft:
-                return UIImage(asset: .X32.Insert.right)
-            case .indentRight:
-                return UIImage(asset: .X32.Insert.left)
             case .actions:
                 return UIImage(asset: .X32.actions)
             case .undoRedo:
@@ -35,12 +26,6 @@ extension CursorModeAccessoryView {
                 return .slashMenu
             case .style:
                 return .showStyleMenu
-            case .deleteBlock:
-                return .deleteBlock
-            case .indentLeft:
-                return .indentLeft
-            case .indentRight:
-                return .indentRight
             case .actions:
                 return .editingMode
             case .undoRedo:

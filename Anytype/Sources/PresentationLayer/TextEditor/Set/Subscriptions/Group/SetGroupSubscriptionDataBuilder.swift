@@ -17,7 +17,7 @@ final class SetGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProt
     nonisolated init() {}
     
     func groupsData(_ setDocument: some SetDocumentProtocol) -> GroupsSubscriptionData {
-        var filters = setDocument.activeView.filters.removingUnsupportedFilters()
+        var filters = setDocument.activeView.filters
         filters.append(SearchHelper.filterOutParticipantType())
         return GroupsSubscriptionData(
             spaceId: setDocument.spaceId,

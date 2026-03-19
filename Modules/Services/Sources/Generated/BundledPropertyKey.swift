@@ -433,7 +433,7 @@ public enum BundledPropertyKey: String, Sendable {
     /// Lexicographic id for object ordering
     case orderId = "orderId"
 
-    /// OneToOne other participant identity
+    /// OneToOne (second) participant identity
     case oneToOneIdentity = "oneToOneIdentity"
 
     /// OneToOne Inbox invite sent status

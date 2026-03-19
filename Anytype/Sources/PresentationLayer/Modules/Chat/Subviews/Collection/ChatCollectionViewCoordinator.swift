@@ -184,11 +184,6 @@ final class ChatCollectionViewCoordinator<
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        // Reset flag when user starts dragging. Programmatic animated scroll
-        // (scrollToItem/setContentOffset with animated:true) may not trigger
-        // scrollViewDidEndScrollingAnimation if the distance is too small,
-        // leaving the flag stuck and blocking all updateStateAfterTransaction calls.
-        isProgrammaticAnimatedScroll = false
         if let collectionView = scrollView as? UICollectionView {
             updateHeaders(collectionView: collectionView)
         }

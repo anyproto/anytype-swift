@@ -28,12 +28,6 @@ extension BlockText.Style {
             return "Numbered"
         case .toggle:
             return "Toggle"
-        case .toggleHeader:
-            return "ToggleHeader1"
-        case .toggleHeader2:
-            return "ToggleHeader2"
-        case .toggleHeader3:
-            return "ToggleHeader3"
         case .code:
             return "Code"
         case .callout:

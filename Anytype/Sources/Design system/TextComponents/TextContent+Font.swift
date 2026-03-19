@@ -8,11 +8,11 @@ extension BlockText.Style {
             return .title
         case .description:
             return .relation1Regular
-        case .header, .toggleHeader:
+        case .header:
             return .title
-        case .header2, .toggleHeader2:
+        case .header2:
             return .heading
-        case .header3, .toggleHeader3:
+        case .header3:
             return .subheading
         case .text, .checkbox, .bulleted, .numbered, .toggle, .header4, .quote, .callout:
             return .bodyRegular

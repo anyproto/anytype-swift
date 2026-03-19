@@ -54,8 +54,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
             setDocument: setDocument,
             type: objectType,
             relationsDetails: [],
-            templateId: templateId,
-            createdInContext: setDocument.objectId
+            templateId: templateId
         )
 
         if case .showObject(let details, _) = result {
@@ -106,17 +105,13 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
         setDocument: some SetDocumentProtocol,
         type: ObjectType?,
         relationsDetails: [PropertyDetails],
-        templateId: String?,
-        createdInContext: String = "",
-        createdInContextRef: String = ""
+        templateId: String?
     ) async throws -> SetObjectCreationAction {
         let details = try await dataviewService.addRecord(
             typeUniqueKey: type?.uniqueKey,
             templateId: templateId ?? "",
             spaceId: setDocument.spaceId,
-            details: prefilledFieldsBuilder.buildPrefilledFields(from: setDocument.activeViewFilters, relationsDetails: relationsDetails),
-            createdInContext: createdInContext,
-            createdInContextRef: createdInContextRef
+            details: prefilledFieldsBuilder.buildPrefilledFields(from: setDocument.activeViewFilters, relationsDetails: relationsDetails)
         )
         if let type, type.isNoteLayout {
             guard let newBlockId = try? await blockService.addFirstBlock(contextId: details.id, info: .emptyText) else {

@@ -41,13 +41,9 @@ struct ChatMessagePreview: Hashable {
     var mentionCounter: Int {
         Int(state?.mentions.counter ?? 0)
     }
-
-    var hasUnreadReactions: Bool {
-        state?.unreadReactionOrderID.isNotEmpty ?? false
-    }
-
+    
     var hasCounters: Bool {
-        unreadCounter > 0 || mentionCounter > 0 || hasUnreadReactions
+        unreadCounter > 0 || mentionCounter > 0
     }
 }
 

@@ -1,6 +1,4 @@
 ---
-description: Analyze git branch changes and impact
-model: opus
 allowed-tools: Bash(git rev-parse:*), Bash(git diff:*), Bash(git fetch:*)
 ---
 

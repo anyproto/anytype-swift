@@ -29,6 +29,8 @@ final class PropertyCalendarViewModel {
         self.date = date ?? Date()
         self.config = configuration
         self.output = output
+        let value = self.date.timeIntervalSince1970
+        updateDateRelation(with: value)
     }
     
     func dateChanged(_ newDate: Date) {

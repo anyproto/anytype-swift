@@ -6,7 +6,6 @@ struct NewSpaceCardLastMessageView: View {
     let model: MessagePreviewModel
     let supportsMultiChats: Bool
     let showsMessageAuthor: Bool
-    let previewTextColor: Color
 
     var body: some View {
         Group {
@@ -16,7 +15,7 @@ struct NewSpaceCardLastMessageView: View {
                 messageWithoutAttachements
             } else {
                 AnytypeText(model.creatorTitle ?? Loc.Chat.newMessages, style: .chatPreviewRegular)
-                    .foregroundStyle(previewTextColor)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(1)
             }
         }
@@ -29,11 +28,11 @@ struct NewSpaceCardLastMessageView: View {
                 multiChatMessageView(chatName: chatName, messageText: model.text, creatorTitle: model.creatorTitle)
             } else if showsMessageAuthor, let creatorTitle = model.creatorTitle {
                 AnytypeText("\(creatorTitle): \(model.text)", style: .chatPreviewRegular)
-                    .foregroundStyle(previewTextColor)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(2)
             } else {
                 AnytypeText(model.text, style: .chatPreviewRegular)
-                    .foregroundStyle(previewTextColor)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(2)
             }
         }
@@ -43,15 +42,15 @@ struct NewSpaceCardLastMessageView: View {
     private func multiChatMessageView(chatName: String, messageText: String, creatorTitle: String?) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             AnytypeText(chatName, style: .chatPreviewMedium)
-                .foregroundStyle(previewTextColor)
+                .foregroundStyle(Color.Text.transparentSecondary)
                 .lineLimit(1)
             if let creatorTitle {
                 AnytypeText("\(creatorTitle): \(messageText)", style: .chatPreviewRegular)
-                    .foregroundStyle(previewTextColor)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(1)
             } else {
                 AnytypeText(messageText, style: .chatPreviewRegular)
-                    .foregroundStyle(previewTextColor)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(1)
             }
         }
@@ -59,30 +58,34 @@ struct NewSpaceCardLastMessageView: View {
 
     private var messageWithAttachements: some View {
         VStack(alignment: .leading, spacing: 2) {
-            if supportsMultiChats, let chatName = model.chatName {
-                AnytypeText(chatName, style: .chatPreviewMedium)
-                    .foregroundStyle(previewTextColor)
+            if supportsMultiChats {
+                if let chatName = model.chatName {
+                    AnytypeText(chatName, style: .chatPreviewMedium)
+                        .foregroundStyle(Color.Text.transparentSecondary)
+                        .lineLimit(1)
+                }
+            } else if showsMessageAuthor, let creatorTitle = model.creatorTitle {
+                AnytypeText(creatorTitle, style: .chatPreviewRegular)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(1)
             }
 
             HStack(spacing: 2) {
-                if let creatorTitle = model.creatorTitle {
+                if supportsMultiChats, let creatorTitle = model.creatorTitle {
                     AnytypeText("\(creatorTitle):", style: .chatPreviewRegular)
-                        .foregroundStyle(previewTextColor)
+                        .foregroundStyle(Color.Text.transparentSecondary)
                         .lineLimit(1)
-                        .fixedSize(horizontal: true, vertical: false)
                 }
                 Spacer.fixedWidth(2)
-
+                
                 ForEach(model.attachments) {
-                    IconView(icon: $0.icon).frame(width: 16, height: 16)
+                    IconView(icon: $0.icon).frame(width: 18, height: 18)
                 }
 
                 Spacer.fixedWidth(2)
                 AnytypeText(model.localizedAttachmentsText, style: .chatPreviewRegular)
-                    .foregroundStyle(previewTextColor)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(1)
-                    .layoutPriority(-1)
             }
         }
     }

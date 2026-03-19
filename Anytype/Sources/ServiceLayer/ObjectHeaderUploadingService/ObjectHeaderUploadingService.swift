@@ -62,21 +62,14 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol, 
                 try await detailsService.setCover(
                     objectId: objectId,
                     spaceId: spaceId,
-                    source: .itemProvider(safeSendableItemProvider.value),
-                    createdInContext: objectId,
-                    createdInContextRef: BundledPropertyKey.coverId.rawValue
+                    source: .itemProvider(safeSendableItemProvider.value)
                 )
             case let .unsplash(unsplashItem):
                 AnytypeAnalytics.instance().logSetCover()
                 
                 coverUploadSubject.send((objectId, spaceId, .coverUploading(.remotePreviewURL(unsplashItem.url))))
                 
-                let imageObjectId = try await unsplashService.downloadImage(
-                    spaceId: spaceId,
-                    id: unsplashItem.id,
-                    createdInContext: objectId,
-                    createdInContextRef: BundledPropertyKey.coverId.rawValue
-                )
+                let imageObjectId = try await unsplashService.downloadImage(spaceId: spaceId, id: unsplashItem.id)
                 try await detailsService.setCover(objectId: objectId, imageObjectId: imageObjectId)
             }
         case .removeCover:
@@ -102,13 +95,7 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol, 
                 AnytypeAnalytics.instance().logSetIcon()
                 let safeSendableItemProvider = itemProvider.sendable()
                 let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
-                let fileDetails = try await fileService.uploadFileObject(
-                    spaceId: spaceId,
-                    data: data,
-                    origin: .none,
-                    createdInContext: objectId,
-                    createdInContextRef: BundledPropertyKey.iconImage.rawValue
-                )
+                let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
                 try await detailsService.updateBundledDetails(
                     objectId: objectId,
                     bundledDetails: BundledDetails.iconDetails(objectId: fileDetails.id)

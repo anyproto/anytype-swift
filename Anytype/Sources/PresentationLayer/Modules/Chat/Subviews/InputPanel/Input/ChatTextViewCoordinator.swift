@@ -278,11 +278,9 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
             }
             
             if attrs[.chatItalic] != nil {
-                newText.addAttribute(.obliqueness, value: Float(0.2), range: range)
-            } else {
-                newText.removeAttribute(.obliqueness, range: range)
+                newFont = newFont.italic
             }
-
+            
             if attrs[.chatKeyboard] != nil {
                 newFont = UIKitFontBuilder.uiKitFont(font: anytypeCodeFont)
             }
@@ -367,10 +365,18 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         return textView.compare(triggerSymbolPosition, to: caretPosition) == .orderedDescending
     }
     
-    func updateHeight(textView: UITextView) {
+    private func updateHeight(textView: UITextView) {
         let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: .infinity))
-        let newHeight = min(max(size.height, 0), maxHeight)
-
+        var newHeight: CGFloat
+        
+        if size.height > maxHeight {
+            textView.isScrollEnabled = true
+            newHeight = maxHeight
+        } else {
+            textView.isScrollEnabled = false
+            newHeight = size.height
+        }
+        
         if newHeight != height {
             height = newHeight
         }

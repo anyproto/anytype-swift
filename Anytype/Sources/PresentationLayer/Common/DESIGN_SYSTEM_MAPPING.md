@@ -198,53 +198,6 @@ Image(asset: .X32.plus)
     .frame(width: 32, height: 32)
 ```
 
-### SF Symbols in Figma Context Menus
-
-Figma context menus (three-dot menus, action sheets) render icons as **SF Symbol characters** in the `SF Pro` font. These appear as special Unicode characters in the private use area (U+100000–U+10FFFD) in the Figma design context data.
-
-#### How to Identify SF Symbols from Figma
-
-1. **Look at the font**: If the icon element uses `SF Pro` font family, it's an SF Symbol — not a custom asset
-2. **Copy the character** from the Figma design context (e.g., `􀅏`)
-3. **Look up the name** using Apple's SF Symbols app (macOS):
-   - Open SF Symbols app
-   - Paste the character into the search field
-   - Copy the symbol name (e.g., `character`)
-4. **Use in code**: Return `.system("symbolName")` from `menuIcon`, not `.asset()`
-
-#### Implementation Pattern
-
-The `MenuIcon` enum in `ObjectSetting.swift` supports both custom assets and SF Symbols:
-
-```swift
-enum MenuIcon {
-    case asset(ImageAsset)   // Custom design system icon
-    case system(String)      // SF Symbol by name
-}
-
-// In ObjectSetting.menuIcon:
-case .relations:
-    .system("list.bullet")   // SF Symbol
-case .prefillName:
-    .system("character")     // SF Symbol
-default:
-    .asset(imageAsset)       // Custom asset fallback
-```
-
-#### Common Mistake
-
-**Do NOT** map SF Symbol characters from Figma to custom `ImageAsset` icons. When Figma's design context shows an icon rendered in `SF Pro` font, always use `.system("name")` via `MenuIcon`, not `.asset()`.
-
-```swift
-// ❌ WRONG - Using custom asset for an SF Symbol
-case .prefillName:
-    .asset(.X24.name)
-
-// ✅ CORRECT - Using SF Symbol name
-case .prefillName:
-    .system("character")
-```
-
 ## Layout & Spacing
 
 ### Common Spacing Values

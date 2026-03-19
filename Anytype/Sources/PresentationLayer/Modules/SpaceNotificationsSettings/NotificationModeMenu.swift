@@ -4,7 +4,6 @@ import Services
 struct NotificationModeMenu: View {
     let currentMode: SpacePushNotificationsMode
     let onModeChange: (SpacePushNotificationsMode) async -> Void
-    var useMuteAndHideLabel: Bool = false
 
     var body: some View {
         Menu {
@@ -15,7 +14,7 @@ struct NotificationModeMenu: View {
                     }
                 } label: {
                     HStack {
-                        Text(useMuteAndHideLabel && mode == .nothing ? Loc.Space.Notifications.Settings.State.muteAndHide : mode.title)
+                        Text(mode.title)
                         if currentMode == mode {
                             Image(systemName: "checkmark")
                         }
@@ -26,7 +25,7 @@ struct NotificationModeMenu: View {
             Label {
                 Text(Loc.notifications)
             } icon: {
-                Image(systemName: "bell.fill")
+                Image(systemName: "bell")
             }
         }
     }

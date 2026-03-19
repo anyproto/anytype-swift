@@ -12,9 +12,6 @@ enum SlashActionStyle: CaseIterable {
     case bulleted
     case numberedList
     case toggle
-    case toggleTitle
-    case toggleHeading
-    case toggleSubheading
     case bold
     case italic
     case strikethrough
@@ -44,12 +41,6 @@ enum SlashActionStyle: CaseIterable {
             return Loc.TextStyle.Numbered.title
         case .toggle:
             return Loc.TextStyle.Toggle.title
-        case .toggleTitle:
-            return Loc.TextStyle.ToggleTitle.title
-        case .toggleHeading:
-            return Loc.TextStyle.ToggleHeading.title
-        case .toggleSubheading:
-            return Loc.TextStyle.ToggleSubheading.title
         case .bold:
             return Loc.TextStyle.Bold.title
         case .italic:
@@ -87,12 +78,6 @@ enum SlashActionStyle: CaseIterable {
             return .X40.numbered
         case .toggle:
             return .X40.toggle
-        case .toggleTitle:
-            return .X40.toggleTitle
-        case .toggleHeading:
-            return .X40.toggleHeading
-        case .toggleSubheading:
-            return .X40.toggleSubheading
         case .bold:
             return .X40.bold
         case .italic:
@@ -130,12 +115,6 @@ enum SlashActionStyle: CaseIterable {
             return .text(.numbered)
         case .toggle:
             return .text(.toggle)
-        case .toggleTitle:
-            return .text(.toggleHeader)
-        case .toggleHeading:
-            return .text(.toggleHeader2)
-        case .toggleSubheading:
-            return .text(.toggleHeader3)
         case .code:
             return .text(.code)
         case .bold, .italic, .strikethrough, .link, .underline:

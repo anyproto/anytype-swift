@@ -36,20 +36,6 @@ extension NSAttributedString {
         return result
     }
     
-    func isOblique(range: NSRange) -> Bool {
-        guard isRangeValid(range) else { return false }
-        var hasObliqueness = false
-        enumerateAttribute(.obliqueness, in: range) { value, _, shouldStop in
-            guard let obliqueness = value as? Float, !obliqueness.isZero else {
-                hasObliqueness = false
-                shouldStop[0] = true
-                return
-            }
-            hasObliqueness = true
-        }
-        return hasObliqueness
-    }
-
     func isCodeFontInWhole(range: NSRange) -> Bool {
         guard isRangeValid(range) else { return false }
         var result = true

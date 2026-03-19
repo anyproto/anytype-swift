@@ -8,21 +8,7 @@ struct NewSpaceCardLabel: View {
     @Binding var draggedSpaceViewId: String?
 
     @Namespace private var namespace
-
-    private let iconSize: CGFloat = 40
-    private let verticalPadding: CGFloat = 16
-    private let cellHeight: CGFloat = 72
-    private var showMessage: Bool {
-        guard model.lastMessage != nil else { return false }
-        // DMs, Chat, Stream: always show preview
-        if !model.supportsMultiChats { return true }
-        // Data: only show when has unread counters
-        return model.hasCounters
-    }
-    private var previewTextColor: Color {
-        (!model.supportsMultiChats && model.hasCounters) ? Color.Text.primary : Color.Text.transparentSecondary
-    }
-
+    
     var body: some View {
         content
             .onDragIf(model.isPinned) {
@@ -36,15 +22,21 @@ struct NewSpaceCardLabel: View {
     private var content: some View {
         HStack(alignment: .center, spacing: 12) {
             IconView(icon: model.objectIconImage)
-                .frame(width: iconSize, height: iconSize)
+                .frame(width: 56, height: 56)
 
-            mainContent
-                .matchedGeometryEffect(id: "content", in: namespace, properties: .position, anchor: .topLeading)
+            Group {
+                if let message = model.lastMessage {
+                    mainContentWithMessage(message)
+                } else {
+                    mainContentWithoutMessage
+                }
+            }
+            .matchedGeometryEffect(id: "content", in: namespace, properties: .position, anchor: .topLeading)
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, verticalPadding)
+        .padding(.vertical, 17)
         // Optimization for fast sizeThatFits
-        .frame(height: cellHeight)
+        .frame(height: 98)
 
         .clipShape(.rect(cornerRadius: 20, style: .continuous))
         .background(DashboardWallpaper(
@@ -54,19 +46,6 @@ struct NewSpaceCardLabel: View {
         ))
         .background(Color.Background.primary)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-    }
-
-    @ViewBuilder
-    private var mainContent: some View {
-        if showMessage, let message = model.lastMessage {
-            if model.supportsMultiChats, let preview = model.multichatCompactPreview {
-                compactMultichatContent(preview)
-            } else {
-                mainContentWithMessage(message)
-            }
-        } else {
-            mainContentWithoutMessage
-        }
     }
     
     private func mainContentWithMessage(_ message: MessagePreviewModel) -> some View {
@@ -91,7 +70,7 @@ struct NewSpaceCardLabel: View {
             }
 
             HStack(alignment: .top) {
-                NewSpaceCardLastMessageView(model: message, supportsMultiChats: model.supportsMultiChats, showsMessageAuthor: model.showsMessageAuthor, previewTextColor: previewTextColor)
+                NewSpaceCardLastMessageView(model: message, supportsMultiChats: model.supportsMultiChats, showsMessageAuthor: model.showsMessageAuthor)
                 Spacer()
                 decoration
             }
@@ -115,39 +94,6 @@ struct NewSpaceCardLabel: View {
             }
         }
     }
-
-    private func compactMultichatContent(_ preview: String) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack(alignment: .bottom) {
-                HStack(alignment: .center) {
-                    AnytypeText(model.nameWithPlaceholder, style: .bodySemibold)
-                        .lineLimit(1)
-                        .foregroundStyle(Color.Text.primary)
-                    if model.isMuted {
-                        Spacer.fixedWidth(4)
-                        Image(asset: .X18.muted).foregroundStyle(Color.Control.transparentSecondary)
-                    }
-                }
-
-                Spacer(minLength: 8)
-
-                VStack(spacing: 0) {
-                    lastMessageDate
-                    Spacer.fixedHeight(2)
-                }
-            }
-
-            HStack(alignment: .top) {
-                AnytypeText(preview, style: .chatPreviewMedium)
-                    .foregroundStyle(Color.Text.primary)
-                    .lineLimit(1)
-                Spacer()
-                decoration
-            }
-
-            Spacer(minLength: 0)
-        }
-    }
     
     @ViewBuilder
     private var lastMessageDate: some View {
@@ -168,9 +114,6 @@ struct NewSpaceCardLabel: View {
 
     private var unreadCounters: some View {
         HStack(spacing: 4) {
-            if model.hasUnreadReactions {
-                HeartBadge(style: model.reactionStyle)
-            }
             if model.mentionCounter > 0 {
                 MentionBadge(style: model.mentionCounterStyle)
             }

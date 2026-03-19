@@ -144,18 +144,6 @@ struct DebugMenuView: View {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 try await model.getGoroutinesData()
             }
-
-            StandardButton(
-                model.debugServerURL.map { "Debug Server: \($0)" } ?? "Run Debug Server 🖥️",
-                style: .secondaryLarge
-            ) {
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                if let url = model.debugServerURL {
-                    UIPasteboard.general.string = url
-                } else {
-                    model.startDebugServer()
-                }
-            }
             StandardButton(model.debugRunProfilerData.text, style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.onDebugRunProfiler()

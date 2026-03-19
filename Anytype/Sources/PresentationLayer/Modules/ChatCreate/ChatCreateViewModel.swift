@@ -79,9 +79,7 @@ final class ChatCreateViewModel {
                 shouldSelectTemplate: false,
                 spaceId: data.spaceId,
                 origin: .none,
-                templateId: nil,
-                createdInContext: data.collectionId ?? "",
-                createdInContextRef: ""
+                templateId: nil
             )
         } catch {
             toastBarData = ToastBarData(error.localizedDescription, type: .failure)
@@ -190,9 +188,7 @@ final class ChatCreateViewModel {
             let fileDetails = try await fileActionsService.uploadFileObject(
                 spaceId: data.spaceId,
                 data: fileData,
-                origin: .none,
-                createdInContext: objectId,
-                createdInContextRef: BundledPropertyKey.iconImage.rawValue
+                origin: .none
             )
             try await detailsService.updateBundledDetails(
                 objectId: objectId,

@@ -15,7 +15,6 @@ struct ChatTextView: UIViewRepresentable {
     @Binding var mention: ChatTextMention
     let minHeight: CGFloat
     let maxHeight: CGFloat
-    let trailingInset: CGFloat
     let linkTo: (_ range: NSRange) -> Void
     let linkParsed: (_ url: URL) -> Void
     let pasteAttachmentsFromBuffer: ((_ items: [NSItemProvider]) -> Void)
@@ -38,13 +37,10 @@ struct ChatTextView: UIViewRepresentable {
         let textView = AnytypeUITextView(usingTextLayoutManager: true)
         textView.delegate = context.coordinator
         textView.anytypeDelegate = context.coordinator
-        textView.textContainerInset = UIEdgeInsets(top: 9, left: 0, bottom: 9, right: trailingInset)
-        textView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
+        textView.textContainerInset = UIEdgeInsets(top: 9, left: 0, bottom: 9, right: 16)
         textView.textContainer.lineFragmentPadding = 0
         textView.notEditableAttributes = [.chatMention]
         textView.backgroundColor = .clear
-        textView.isScrollEnabled = true
-        textView.alwaysBounceVertical = false
         
         if let textContentManager = textView.textLayoutManager?.textContentManager {
             textContentManager.delegate = context.coordinator
@@ -68,12 +64,7 @@ struct ChatTextView: UIViewRepresentable {
         context.coordinator.linkTo = linkTo
         context.coordinator.linkParsed = linkParsed
         context.coordinator.pasteAttachmentsFromBuffer = pasteAttachmentsFromBuffer
-
-        if textView.textContainerInset.right != trailingInset {
-            textView.textContainerInset.right = trailingInset
-            context.coordinator.updateHeight(textView: textView)
-        }
-
+        
         Task { @MainActor in
             // Async for fix "AttributeGraph: cycle detected through attribute"
             context.coordinator.changeEditingStateIfNeeded(textView: textView, editing: editing)
@@ -93,7 +84,6 @@ struct ChatTextView: UIViewRepresentable {
         mention: .constant(.finish),
         minHeight: 54,
         maxHeight: 212,
-        trailingInset: 0,
         linkTo: { _ in },
         linkParsed: { _ in },
         pasteAttachmentsFromBuffer: { _ in }

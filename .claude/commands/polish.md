@@ -1,5 +1,4 @@
 ---
-description: Simplify and clean up code in current branch changes
 allowed-tools: Bash(git diff:*), Bash(git checkout:*), Grep, Glob, Read, Edit
 ---
 

@@ -1,10 +1,3 @@
----
-description: Two-way validation between SwiftUI implementation and Figma designs
-argument-hint: "Linear: IOS-XXXX Files: path/to/view.swift"
-model: opus
-allowed-tools: Read, Grep, Glob, Bash(git diff:*), Bash(linctl:*), Write, mcp__figma-remote-mcp__get_screenshot, mcp__figma-remote-mcp__get_design_context, mcp__figma-remote-mcp__get_metadata, mcp__linear-server__get_issue
----
-
 USE EXTENDED THINKING
 
 # Design Review Command

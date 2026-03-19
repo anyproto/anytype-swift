@@ -22,9 +22,6 @@ struct SetChatPreviewView: View {
 
                 if chatPreview.hasCounters {
                     HStack(spacing: 4) {
-                        if chatPreview.hasUnreadReactions {
-                            HeartBadge(style: chatPreview.reactionStyle)
-                        }
                         if chatPreview.mentionCounter > 0 {
                             MentionBadge(style: chatPreview.mentionCounterStyle)
                         }

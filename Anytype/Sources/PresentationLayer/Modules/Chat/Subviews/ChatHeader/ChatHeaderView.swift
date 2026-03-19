@@ -37,7 +37,6 @@ struct ChatHeaderView: View {
         }
         .animation(.bouncy, value: model.showLoading)
         .animation(.bouncy, value: model.muted)
-        .animation(.bouncy, value: model.isArchived)
         .snackbar(toastBarData: $model.toastBarData)
     }
 
@@ -49,6 +48,12 @@ struct ChatHeaderView: View {
                 IconView(icon: model.icon)
                     .frame(width: 32, height: 32)
                 Spacer.fixedWidth(8)
+                if model.showLoading {
+                    CircleLoadingView(.Text.primary)
+                        .frame(width: 18, height: 18)
+                        .transition(.scale.combined(with: .opacity))
+                    Spacer.fixedWidth(4)
+                }
                 if model.isOneToOne {
                     VStack(alignment: .leading, spacing: 0) {
                         HStack(spacing: 4) {
@@ -61,10 +66,6 @@ struct ChatHeaderView: View {
                             }
                             if model.muted {
                                 Image(asset: .X18.muted)
-                                    .foregroundStyle(Color.Control.transparentSecondary)
-                            }
-                            if model.isArchived {
-                                Image(asset: .X18.delete)
                                     .foregroundStyle(Color.Control.transparentSecondary)
                             }
                         }
@@ -80,19 +81,8 @@ struct ChatHeaderView: View {
                         Image(asset: .X18.muted)
                             .foregroundStyle(Color.Control.transparentSecondary)
                     }
-                    if model.isArchived {
-                        Spacer.fixedWidth(4)
-                        Image(asset: .X18.delete)
-                            .foregroundStyle(Color.Control.transparentSecondary)
-                    }
                 }
                 Spacer()
-                if model.showLoading {
-                    CircleLoadingView(.Text.primary)
-                        .frame(width: 18, height: 18)
-                        .transition(.scale.combined(with: .opacity))
-                    Spacer.fixedWidth(4)
-                }
             }
             .padding(.horizontal, 6)
         }
@@ -124,9 +114,10 @@ struct ChatHeaderView: View {
                         }
                     }
 
-                    MuteToggleMenuButton(isMuted: model.muted) {
-                        await model.toggleMute()
-                    }
+                    NotificationModeMenu(
+                        currentMode: model.notificationMode,
+                        onModeChange: model.changeNotificationMode
+                    )
                 } label: {
                     Image(asset: .X24.more)
                         .foregroundStyle(Color.Control.primary)

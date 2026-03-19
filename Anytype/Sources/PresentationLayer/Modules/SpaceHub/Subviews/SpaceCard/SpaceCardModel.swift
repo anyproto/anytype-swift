@@ -10,23 +10,16 @@ struct SpaceCardModel: Equatable, Identifiable {
     let isLoading: Bool
     let isShared: Bool
     let isMuted: Bool
-    let canBeDeleted: Bool
-    let canLeave: Bool
     let uxTypeName: String
     let supportsMultiChats: Bool
-    let isOneToOne: Bool
-    let currentNotificationMode: SpacePushNotificationsMode
     let showsMessageAuthor: Bool
 
     let lastMessage: MessagePreviewModel?
     let unreadCounter: Int
     let mentionCounter: Int
-    let hasUnreadReactions: Bool
     let unreadCounterStyle: CounterViewStyle
-    let mentionCounterStyle: BadgeStyle
-    let reactionStyle: BadgeStyle
+    let mentionCounterStyle: MentionBadgeStyle
     let hasCounters: Bool
-    let multichatCompactPreview: String?
 
     let wallpaper: SpaceWallpaperType
 

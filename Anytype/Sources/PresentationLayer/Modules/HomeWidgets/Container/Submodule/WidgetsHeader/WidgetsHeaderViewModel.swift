@@ -49,24 +49,12 @@ final class WidgetsHeaderViewModel {
         spaceView?.spaceAccessType == .private
     }
 
-    var isOneToOneSpace: Bool {
-        spaceView?.uxType.isOneToOne == true
-    }
-
-    var isDataSpace: Bool {
-        spaceView?.uxType.isData == true
-    }
-
     var hasInviteLink: Bool {
         inviteLink != nil
     }
 
     var currentNotificationMode: SpacePushNotificationsMode {
         spaceView?.pushNotificationMode ?? .all
-    }
-
-    var isMuted: Bool {
-        !currentNotificationMode.isUnmutedAll
     }
 
     init(
@@ -137,10 +125,6 @@ final class WidgetsHeaderViewModel {
 
     func onInviteMembersTap() {
         onMembersSelected(accountSpaceId, .navigation)
-    }
-
-    func toggleMute() async {
-        await onNotificationModeChanged(currentNotificationMode.toggled(isOneToOne: isOneToOneSpace))
     }
 
     func onNotificationModeChanged(_ mode: SpacePushNotificationsMode) async {

@@ -7,13 +7,6 @@ import AnytypeCore
 struct ChatCoordinatorData: Hashable, Codable {
     let chatId: String
     let spaceId: String
-    let messageId: String?
-
-    init(chatId: String, spaceId: String, messageId: String? = nil) {
-        self.chatId = chatId
-        self.spaceId = spaceId
-        self.messageId = messageId
-    }
 }
 
 @MainActor
@@ -24,8 +17,6 @@ final class ChatCoordinatorViewModel: ChatModuleOutput, ObjectSettingsCoordinato
     let chatId: String
     @ObservationIgnored
     let spaceId: String
-    @ObservationIgnored
-    let messageId: String?
     
     var objectToMessageSearchData: ObjectSearchWithMetaModuleData?
     var showEmojiData: MessageReactionPickerData?
@@ -60,7 +51,6 @@ final class ChatCoordinatorViewModel: ChatModuleOutput, ObjectSettingsCoordinato
     init(data: ChatCoordinatorData) {
         self.chatId = data.chatId
         self.spaceId = data.spaceId
-        self.messageId = data.messageId
     }
     
     func onLinkObjectSelected(data: ObjectSearchWithMetaModuleData) {

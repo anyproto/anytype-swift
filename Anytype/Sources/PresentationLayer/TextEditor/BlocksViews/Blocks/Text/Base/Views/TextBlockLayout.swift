@@ -8,9 +8,9 @@ enum TextBlockLayout {
             return .zero
         case .description:
             return .zero
-        case .header, .toggleHeader:
+        case .header:
             return .init(top: 5, leading: 0, bottom: 5, trailing: 0)
-        case .header2, .toggleHeader2:
+        case .header2:
             return .init(top: 5, leading: 0, bottom: 5, trailing: 0)
         case .quote:
             return .init(top: 10, leading: 0, bottom: 10, trailing: 0)

@@ -21,14 +21,13 @@ enum ObjectSetting: Hashable {
     case resolveConflict
     case webPublishing
     case notifications(mode: SpacePushNotificationsMode)
-    case prefillName(isEnabled: Bool)
 }
 
 extension ObjectSetting {
     
     var section: ObjectSettingsSectionType {
         switch self {
-        case .icon, .cover, .description, .relations, .resolveConflict, .prefillName:
+        case .icon, .cover, .description, .relations, .resolveConflict:
             return .layout
         case .history, .webPublishing, .notifications:
             return .object
@@ -45,12 +44,10 @@ extension ObjectSetting {
             return 2
         case .description:
             return 10
-        case .prefillName:
-            return 11
         case .resolveConflict:
-            return 12
+            return 11
         case .webPublishing:
-            return 13
+            return 12
         case .notifications:
             return 20
         case .history:
@@ -76,11 +73,9 @@ extension ObjectSetting {
             Loc.publishToWeb
         case .notifications:
             Loc.notifications
-        case .prefillName(let isEnabled):
-            isEnabled ? Loc.preFillName : Loc.emptyName
         }
     }
-
+    
     var imageAsset: ImageAsset {
         switch self {
         case .icon:
@@ -99,8 +94,6 @@ extension ObjectSetting {
             .X24.web
         case .notifications:
             .PushNotifications.bell
-        case .prefillName:
-            .ObjectSettings.description
         }
     }
 
@@ -108,8 +101,6 @@ extension ObjectSetting {
         switch self {
         case .relations:
             .system("list.bullet")
-        case .prefillName:
-            .system("character")
         default:
             .asset(imageAsset)
         }

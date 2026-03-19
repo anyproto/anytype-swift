@@ -37,7 +37,7 @@ final class SpaceObjectIconPickerViewModel {
         let safeSendableItemProvider = itemProvider.sendable()
         Task {
             let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
-            let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none, createdInContext: spaceId, createdInContextRef: BundledPropertyKey.iconImage.rawValue)
+            let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
             try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId(fileDetails.id)])
         }
     }

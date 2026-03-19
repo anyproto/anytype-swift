@@ -98,11 +98,6 @@ extension BundledPropertiesValueProvider {
     }
     
     var isTemplate: Bool { objectType.isTemplateType }
-
-    var isTemplateNamePrefilled: Bool {
-        (templateNamePrefillType ?? 0) != 0
-    }
-
     var isTemplateType: Bool { uniqueKey == ObjectTypeUniqueKey.template.value }
     
     var canMakeTemplate: Bool {

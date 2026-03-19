@@ -53,24 +53,13 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                         previews: nonArchivedPreviews
                     )
 
-                    let unreadPreviews = nonArchivedPreviews
-                        .filter { $0.hasCounters }
-                        .sorted { preview1, preview2 in
-                            let date1 = preview1.lastMessage?.createdAt ?? .distantPast
-                            let date2 = preview2.lastMessage?.createdAt ?? .distantPast
-                            return date1 > date2
-                        }
-
                     return ParticipantSpaceViewDataWithPreview(
                         space: space,
                         latestPreview: latestPreview,
                         totalUnreadCounter: counterData.totalUnread,
                         totalMentionCounter: counterData.totalMentions,
-                        hasUnreadReactions: counterData.hasUnreadReactions,
                         unreadCounterStyle: counterData.unreadStyle,
-                        mentionCounterStyle: counterData.mentionStyle,
-                        reactionStyle: counterData.reactionStyle,
-                        unreadPreviews: unreadPreviews
+                        mentionCounterStyle: counterData.mentionStyle
                     )
                 }
             }

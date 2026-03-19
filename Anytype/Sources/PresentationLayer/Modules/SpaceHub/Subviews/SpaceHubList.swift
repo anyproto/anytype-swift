@@ -58,9 +58,6 @@ struct SpaceHubList: View {
             onTapMute: {
                 model.muteSpace(spaceViewId: cardModel.spaceViewId)
             },
-            onTapNotificationMode: { mode in
-                model.setSpaceNotificationMode(spaceViewId: cardModel.spaceViewId, mode: mode)
-            },
             onTapPin: {
                 try await model.pin(spaceViewId: cardModel.spaceViewId)
             },
@@ -72,9 +69,6 @@ struct SpaceHubList: View {
             },
             onTapDelete: {
                 model.onDeleteSpace(spaceId: cardModel.targetSpaceId)
-            },
-            onTapLeave: {
-                model.onLeaveSpace(spaceId: cardModel.targetSpaceId)
             }
         )
         .padding(.horizontal, 16)

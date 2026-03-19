@@ -78,9 +78,6 @@ extension Anytype_Rpc.BlockDataview {
           /// Clears the value of `event`. Subsequent reads from it will return its default value.
           public mutating func clearEvent() {self._event = nil}
 
-          /// ID of added filter
-          public var filterID: String = String()
-
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
           public struct Error: Sendable {
@@ -317,9 +314,6 @@ extension Anytype_Rpc.BlockDataview {
           public var hasEvent: Bool {return self._event != nil}
           /// Clears the value of `event`. Subsequent reads from it will return its default value.
           public mutating func clearEvent() {self._event = nil}
-
-          /// ID of new filter
-          public var filterID: String = String()
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -591,7 +585,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Request: SwiftProtobuf.Message, S
 
 extension Anytype_Rpc.BlockDataview.Filter.Add.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Filter.Add.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}event\0\u{1}filterId\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}event\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -601,7 +595,6 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Response: SwiftProtobuf.Message, 
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.filterID) }()
       default: break
       }
     }
@@ -618,16 +611,12 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Response: SwiftProtobuf.Message, 
     try { if let v = self._event {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
-    if !self.filterID.isEmpty {
-      try visitor.visitSingularStringField(value: self.filterID, fieldNumber: 3)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Add.Response, rhs: Anytype_Rpc.BlockDataview.Filter.Add.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs._event != rhs._event {return false}
-    if lhs.filterID != rhs.filterID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -889,7 +878,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Request: SwiftProtobuf.Messag
 
 extension Anytype_Rpc.BlockDataview.Filter.Replace.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockDataview.Filter.Replace.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}event\0\u{1}filterId\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}event\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -899,7 +888,6 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Response: SwiftProtobuf.Messa
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.filterID) }()
       default: break
       }
     }
@@ -916,16 +904,12 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Response: SwiftProtobuf.Messa
     try { if let v = self._event {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
-    if !self.filterID.isEmpty {
-      try visitor.visitSingularStringField(value: self.filterID, fieldNumber: 3)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Replace.Response, rhs: Anytype_Rpc.BlockDataview.Filter.Replace.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs._event != rhs._event {return false}
-    if lhs.filterID != rhs.filterID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
