@@ -4,7 +4,7 @@ struct ChatThumbnail: View {
     let isSelected: Bool
 
     private var lineColor: Color { isSelected ? Color.Control.accent50 : Color.Control.tertiary }
-    private var backgroundgColor: Color { isSelected ? Color.Control.accent25 : Color.Shape.secondary }
+    private var backgroundColor: Color { isSelected ? Color.Control.accent25 : Color.Shape.secondary }
     private var avatarColor: Color { isSelected ? Color.Control.accent50 : Color.Control.tertiary }
 
     var body: some View {
@@ -17,13 +17,13 @@ struct ChatThumbnail: View {
 
             // 2. Left bubble
             RoundedRectangle(cornerRadius: 6, style: .continuous)
-                .fill(backgroundgColor)
+                .fill(backgroundColor)
                 .frame(width: 48, height: 12)
                 .position(x: 24 + 24, y: 36 + 6)
 
             // 3. Left tall bubble (image placeholder)
             RoundedRectangle(cornerRadius: 6, style: .continuous)
-                .fill(backgroundgColor)
+                .fill(backgroundColor)
                 .frame(width: 40, height: 44)
                 .position(x: 24 + 20, y: 52 + 22)
 
@@ -53,7 +53,7 @@ struct ChatThumbnail: View {
 
             // 8. Left bubble next to bottom avatar
             RoundedRectangle(cornerRadius: 6, style: .continuous)
-                .fill(backgroundgColor)
+                .fill(backgroundColor)
                 .frame(width: 40, height: 12)
                 .position(x: 24 + 20, y: 152 + 6)
         }
