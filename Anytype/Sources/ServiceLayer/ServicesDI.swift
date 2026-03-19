@@ -348,6 +348,10 @@ extension Container {
         self { ProfileStorage() }.singleton
     }
 
+    var homepagePickerService: Factory<any HomepagePickerServiceProtocol> {
+        self { HomepagePickerService() }.shared
+    }
+
     var iconColorService: Factory<any IconColorServiceProtocol> {
         self { IconColorService() }.shared
     }
