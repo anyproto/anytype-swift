@@ -1,4 +1,5 @@
 import SwiftUI
+import Loc
 
 struct PageThumbnail: View {
     let isSelected: Bool
@@ -20,7 +21,7 @@ struct PageThumbnail: View {
                 Text("📄")
                     .font(.system(size: 20))
                 // "Idea" title
-                Text("Idea")
+                Text(Loc.HomepagePicker.Thumbnail.idea)
                     .font(.system(size: 10, weight: .semibold))
                     .foregroundStyle(textColor)
                     .lineLimit(1)

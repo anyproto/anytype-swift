@@ -1,4 +1,5 @@
 import SwiftUI
+import Loc
 
 struct CollectionThumbnail: View {
     let isSelected: Bool
@@ -10,7 +11,7 @@ struct CollectionThumbnail: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             // "Tasks" title
-            Text("Tasks")
+            Text(Loc.HomepagePicker.Thumbnail.tasks)
                 .font(.system(size: 10, weight: .semibold))
                 .foregroundStyle(textColor)
                 .lineLimit(1)
