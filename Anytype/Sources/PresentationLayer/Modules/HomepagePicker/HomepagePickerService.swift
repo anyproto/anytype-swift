@@ -2,7 +2,7 @@ import Foundation
 import Services
 import AnytypeCore
 
-final class HomepagePickerService: HomepagePickerServiceProtocol {
+final class HomepagePickerService: HomepagePickerServiceProtocol, @unchecked Sendable {
 
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
