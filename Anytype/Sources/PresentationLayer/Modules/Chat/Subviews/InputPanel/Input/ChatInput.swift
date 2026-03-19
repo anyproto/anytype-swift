@@ -32,22 +32,19 @@ struct ChatInput: View {
     let disableHeaderAndAttachments: Bool
     
     private let mainObjectTypeToCreateKey = ObjectTypeUniqueKey.page
+    private let sendButtonSize: CGFloat = 32
+    private let sendButtonTrailingPadding: CGFloat = 6
 
     private var showSendButton: Bool {
-        linkedObjects.isNotEmpty || !text.string.isEmpty
+        linkedObjects.isNotEmpty || !text.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
             plusMenu
             inputBubble
-            if showSendButton {
-                sendButton
-                    .transition(.scale.combined(with: .opacity))
-            }
         }
         .padding(.horizontal, 16)
-        .animation(.easeInOut(duration: 0.2), value: showSendButton)
     }
 
     private var plusMenu: some View {
@@ -120,30 +117,45 @@ struct ChatInput: View {
         }
         .clipShape(.rect(cornerRadius: 20, style: .continuous))
         .glassEffectInteractiveIOS26(in: .rect(cornerRadius: 20))
+        .animation(.easeInOut(duration: 0.2), value: showSendButton)
+    }
+
+    private var textTrailingInset: CGFloat {
+        showSendButton ? (sendButtonSize + sendButtonTrailingPadding) : 12
     }
 
     private var textInputArea: some View {
-        ZStack(alignment: .topLeading) {
-            if text.string.isEmpty {
-                Text(spaceUxType.isStream ? Loc.Message.Input.Stream.emptyPlaceholder : Loc.Message.Input.Chat.emptyPlaceholder)
-                    .anytypeStyle(.chatText)
-                    .foregroundStyle(Color.Text.tertiary)
-                    .padding(.top, 9)
-                    .allowsHitTesting(false)
-                    .lineLimit(1)
+        ZStack(alignment: .bottomTrailing) {
+            ZStack(alignment: .topLeading) {
+                if text.string.isEmpty {
+                    Text(spaceUxType.isStream ? Loc.Message.Input.Stream.emptyPlaceholder : Loc.Message.Input.Chat.emptyPlaceholder)
+                        .anytypeStyle(.chatText)
+                        .foregroundStyle(Color.Text.tertiary)
+                        .padding(.top, 9)
+                        .padding(.trailing, textTrailingInset)
+                        .allowsHitTesting(false)
+                        .lineLimit(1)
+                }
+                ChatTextView(
+                    text: $text,
+                    editing: $editing,
+                    mention: $mention,
+                    minHeight: 40,
+                    maxHeight: 260,
+                    trailingInset: textTrailingInset,
+                    linkTo: onTapLinkTo,
+                    linkParsed: onLinkAdded,
+                    pasteAttachmentsFromBuffer: onPasteAttachmentsFromBuffer
+                )
             }
-            ChatTextView(
-                text: $text,
-                editing: $editing,
-                mention: $mention,
-                minHeight: 40,
-                maxHeight: 156,
-                linkTo: onTapLinkTo,
-                linkParsed: onLinkAdded,
-                pasteAttachmentsFromBuffer: onPasteAttachmentsFromBuffer
-            )
+            .padding(.leading, 12)
+            if showSendButton {
+                sendButton
+                    .padding(.trailing, sendButtonTrailingPadding)
+                    .padding(.bottom, 4)
+                    .transition(.scale.combined(with: .opacity))
+            }
         }
-        .padding(.horizontal, 16)
     }
     
     private var sendButton: some View {
@@ -156,10 +168,10 @@ struct ChatInput: View {
             } else {
                 Image(asset: .Chat.SendMessage.active)
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: sendButtonSize, height: sendButtonSize)
             }
         }
-        .frame(width: 40, height: 40)
+        .frame(width: sendButtonSize, height: sendButtonSize)
         .clipShape(Circle())
         .disabled(disableSendButton)
     }

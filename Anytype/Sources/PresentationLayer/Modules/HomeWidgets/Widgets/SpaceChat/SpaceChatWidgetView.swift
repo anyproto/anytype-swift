@@ -22,6 +22,9 @@ struct SpaceChatWidgetView: View {
                     icon: .asset(.X24.chat),
                     rightAccessory: {
                         HStack(spacing: 4) {
+                            if model.hasUnreadReactions {
+                                HeartBadge(style: model.muted ? .muted : .highlighted)
+                            }
                             if model.hasMentions {
                                 MentionBadge(style: model.muted ? .muted : .highlighted)
                             }

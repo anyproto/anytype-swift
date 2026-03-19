@@ -41,7 +41,7 @@ struct ObjectSettingRow: View {
                 Image(asset: .RightAttribute.disclosure)
             case .description(let isVisible):
                 AnytypeText(isVisible ? Loc.hide : Loc.show, style: .previewTitle1Regular).foregroundStyle(Color.Text.secondary)
-            case .resolveConflict:
+            case .resolveConflict, .prefillName:
                 EmptyView()
             case .notifications(let mode):
                 AnytypeText(mode.titleShort, style: .previewTitle1Regular).foregroundStyle(Color.Text.secondary)
