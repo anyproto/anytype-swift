@@ -411,4 +411,8 @@ extension Container {
     var mediaCacheHeatingService: Factory<any MediaCacheHeatingServiceProtocol> {
         self { MediaCacheHeatingService() }
     }
+
+    var appIconBadgeService: Factory<any AppIconBadgeServiceProtocol> {
+        self { AppIconBadgeService() }.singleton
+    }
 }

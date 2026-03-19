@@ -104,7 +104,10 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
         let contentType = configuration.content.contentType
         let isToggleType = contentType == .toggle || contentType.isToggleHeader
         let displayPlaceholder = isToggleType && configuration.shouldDisplayPlaceholder
-        createEmptyBlockButton.isHidden = !displayPlaceholder
+        UIView.performWithoutAnimation {
+            createEmptyBlockButton.isHidden = !displayPlaceholder
+            mainStackView.setNeedsLayout()
+        }
         
         focusSubscription = configuration
             .focusPublisher

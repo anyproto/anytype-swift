@@ -44,7 +44,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
             case .keyboard:
                 message[range].font = AnytypeFontBuilder.font(anytypeFont: .codeBlock)
             case .italic:
-                message[range].font = message[range].font?.italic()
+                message[range].uiKit.obliqueness = CGFloat(0.2)
             case .bold:
                 message[range].font = message[range].font?.weight(.semibold)
             case .underscored:
