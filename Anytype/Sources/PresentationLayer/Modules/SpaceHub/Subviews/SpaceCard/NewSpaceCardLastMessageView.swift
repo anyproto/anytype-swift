@@ -70,7 +70,6 @@ struct NewSpaceCardLastMessageView: View {
                     AnytypeText("\(creatorTitle):", style: .chatPreviewRegular)
                         .foregroundStyle(previewTextColor)
                         .lineLimit(1)
-                        .fixedSize(horizontal: true, vertical: false)
                 }
                 Spacer.fixedWidth(2)
 
