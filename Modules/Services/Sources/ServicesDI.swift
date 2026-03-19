@@ -33,10 +33,6 @@ public extension Container {
     var dataviewService: Factory<DataviewServiceProtocol> {
         self { DataviewService() }.shared
     }
-
-    var dataviewDefaultViewCorrectorService: Factory<DataviewDefaultViewCorrectorServiceProtocol> {
-        self { DataviewDefaultViewCorrectorService() }.shared
-    }
     
     var debugService: Factory<DebugServiceProtocol> {
         self { DebugService() }.shared

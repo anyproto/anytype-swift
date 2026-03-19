@@ -812,6 +812,9 @@ extension ImageAsset {
     public static let text = ImageAsset.bundle(name: "x40/Text")
     public static let title = ImageAsset.bundle(name: "x40/Title")
     public static let toggle = ImageAsset.bundle(name: "x40/Toggle")
+    public static let toggleHeading = ImageAsset.bundle(name: "x40/ToggleHeading")
+    public static let toggleSubheading = ImageAsset.bundle(name: "x40/ToggleSubheading")
+    public static let toggleTitle = ImageAsset.bundle(name: "x40/ToggleTitle")
     public static let underline = ImageAsset.bundle(name: "x40/Underline")
   }
   public enum X54 {

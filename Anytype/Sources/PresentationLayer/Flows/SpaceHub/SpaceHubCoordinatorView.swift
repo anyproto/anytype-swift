@@ -42,6 +42,8 @@ struct SpaceHubCoordinatorView: View {
             .anytypeSheet(item: $model.spaceJoinData) {
                 SpaceJoinView(data: $0, onManageSpaces: {
                     model.onManageSpacesSelected()
+                }, onJoinedSpace: { spaceId, spaceUxType in
+                    model.onSpaceJoined(spaceId: spaceId, spaceUxType: spaceUxType)
                 })
             }
             .anytypeSheet(item: $model.userWarningAlert, dismissOnBackgroundView: false) {

@@ -30,14 +30,21 @@ final class BookmarkService: BookmarkServiceProtocol {
         spaceId: String,
         url: AnytypeURL,
         templateId: String?,
-        origin: ObjectOrigin
+        origin: ObjectOrigin,
+        createdInContext: String,
+        createdInContextRef: String
     ) async throws -> ObjectDetails {
-        let details = Google_Protobuf_Struct(
-            fields: [
-                BundledPropertyKey.source.rawValue: url.absoluteString.protobufValue,
-                BundledPropertyKey.origin.rawValue: origin.rawValue.protobufValue
-            ]
-        )
+        var fields: [String: Google_Protobuf_Value] = [
+            BundledPropertyKey.source.rawValue: url.absoluteString.protobufValue,
+            BundledPropertyKey.origin.rawValue: origin.rawValue.protobufValue
+        ]
+        if !createdInContext.isEmpty {
+            fields[BundledPropertyKey.createdInContext.rawValue] = createdInContext.protobufValue
+        }
+        if !createdInContextRef.isEmpty {
+            fields[BundledPropertyKey.createdInContextRef.rawValue] = createdInContextRef.protobufValue
+        }
+        let details = Google_Protobuf_Struct(fields: fields)
         let result = try await ClientCommands.objectCreateBookmark(.with {
             $0.details = details
             $0.spaceID = spaceId

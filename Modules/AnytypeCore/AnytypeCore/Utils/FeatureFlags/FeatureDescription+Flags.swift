@@ -6,8 +6,8 @@ public extension FeatureDescription {
 
     static let showUploadStatusIndicator = FeatureDescription(
         title: "Show visual indicator for uploading files - IOS-5054",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "17"),
-        defaultValue: true
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
+        defaultValue: false
     )
     
     static let homePage = FeatureDescription(

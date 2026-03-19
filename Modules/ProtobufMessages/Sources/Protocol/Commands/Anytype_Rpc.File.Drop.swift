@@ -36,6 +36,11 @@ extension Anytype_Rpc.File {
 
         public var localFilePaths: [String] = []
 
+        /// used when contextId is empty to identify target space
+        public var spaceID: String = String()
+
+        public var type: Anytype_Model_Block.Content.File.TypeEnum = .none
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -63,6 +68,8 @@ extension Anytype_Rpc.File {
         public var hasEvent: Bool {return self._event != nil}
         /// Clears the value of `event`. Subsequent reads from it will return its default value.
         public mutating func clearEvent() {self._event = nil}
+
+        public var filesCount: Int64 = 0
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -151,7 +158,7 @@ extension Anytype_Rpc.File.Drop: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 
 extension Anytype_Rpc.File.Drop.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.File.Drop.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}dropTargetId\0\u{1}position\0\u{1}localFilePaths\0\u{1}style\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}dropTargetId\0\u{1}position\0\u{1}localFilePaths\0\u{1}style\0\u{1}spaceId\0\u{1}type\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -164,6 +171,8 @@ extension Anytype_Rpc.File.Drop.Request: SwiftProtobuf.Message, SwiftProtobuf._M
       case 3: try { try decoder.decodeSingularEnumField(value: &self.position) }()
       case 4: try { try decoder.decodeRepeatedStringField(value: &self.localFilePaths) }()
       case 5: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.type) }()
       default: break
       }
     }
@@ -185,6 +194,12 @@ extension Anytype_Rpc.File.Drop.Request: SwiftProtobuf.Message, SwiftProtobuf._M
     if self.style != .auto {
       try visitor.visitSingularEnumField(value: self.style, fieldNumber: 5)
     }
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 6)
+    }
+    if self.type != .none {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -194,6 +209,8 @@ extension Anytype_Rpc.File.Drop.Request: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs.position != rhs.position {return false}
     if lhs.style != rhs.style {return false}
     if lhs.localFilePaths != rhs.localFilePaths {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.type != rhs.type {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -201,7 +218,7 @@ extension Anytype_Rpc.File.Drop.Request: SwiftProtobuf.Message, SwiftProtobuf._M
 
 extension Anytype_Rpc.File.Drop.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.File.Drop.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}event\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}event\0\u{1}filesCount\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -211,6 +228,7 @@ extension Anytype_Rpc.File.Drop.Response: SwiftProtobuf.Message, SwiftProtobuf._
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.filesCount) }()
       default: break
       }
     }
@@ -227,12 +245,16 @@ extension Anytype_Rpc.File.Drop.Response: SwiftProtobuf.Message, SwiftProtobuf._
     try { if let v = self._event {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
+    if self.filesCount != 0 {
+      try visitor.visitSingularInt64Field(value: self.filesCount, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.File.Drop.Response, rhs: Anytype_Rpc.File.Drop.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs._event != rhs._event {return false}
+    if lhs.filesCount != rhs.filesCount {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

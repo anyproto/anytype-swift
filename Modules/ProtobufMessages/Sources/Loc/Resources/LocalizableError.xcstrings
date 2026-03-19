@@ -782,7 +782,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "هذا الاسم محجوز مسبقًا"
+            "value" : "This name is already reserved"
           }
         },
         "be" : {
@@ -3882,7 +3882,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "عذراً! حدث خطأ ما. يرجى إعادة المحاولة لاحقاً."
+            "value" : "Oops! Something went wrong. Please try again later."
           }
         },
         "be" : {
@@ -4657,7 +4657,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "عذراً! حدث خطأ ما. يرجى إعادة المحاولة لاحقاً."
+            "value" : "Oops! Something went wrong. Please try again later."
           }
         },
         "be" : {
@@ -5587,7 +5587,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "عذراً! حدث خطأ ما. يرجى إعادة المحاولة لاحقاً."
+            "value" : "Oops! Something went wrong. Please try again later."
           }
         },
         "be" : {
@@ -6982,7 +6982,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "عذراً! حدث خطأ ما. يرجى إعادة المحاولة لاحقاً."
+            "value" : "Oops! Something went wrong. Please try again later."
           }
         },
         "be" : {
@@ -7757,7 +7757,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "الطلب لم يعد موجودًا. لا توجد إجراءات مطلوبة، ولكن يرجى التأكد من مزامنة أجهزتك."
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
           }
         },
         "be" : {
@@ -7912,7 +7912,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "عذراً! حدث خطأ ما. يرجى إعادة المحاولة لاحقاً."
+            "value" : "Oops! Something went wrong. Please try again later."
           }
         },
         "be" : {
@@ -8687,7 +8687,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "الطلب لم يعد موجودًا. لا توجد إجراءات مطلوبة، ولكن يرجى التأكد من مزامنة أجهزتك."
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
           }
         },
         "be" : {
@@ -8842,7 +8842,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "عذراً! حدث خطأ ما. يرجى إعادة المحاولة لاحقاً."
+            "value" : "Oops! Something went wrong. Please try again later."
           }
         },
         "be" : {
@@ -9617,7 +9617,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "عذراً! حدث خطأ ما. يرجى إعادة المحاولة لاحقاً."
+            "value" : "Oops! Something went wrong. Please try again later."
           }
         },
         "be" : {
@@ -10082,7 +10082,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "لا يمكن منح حقوق الوصول لعضو المساحة. يرجى التأكد من تعيين حقوق الوصول الصحيحة."
+            "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
           }
         },
         "be" : {
@@ -10392,7 +10392,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "عذراً! حدث خطأ ما. يرجى إعادة المحاولة لاحقاً."
+            "value" : "Oops! Something went wrong. Please try again later."
           }
         },
         "be" : {
@@ -10702,7 +10702,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "تعذر العثور على عضو المساحة. يرجى التأكد من مزامنة أجهزتك."
+            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
           }
         },
         "be" : {
@@ -11322,7 +11322,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "عذراً! حدث خطأ ما. يرجى إعادة المحاولة لاحقاً."
+            "value" : "Oops! Something went wrong. Please try again later."
           }
         },
         "be" : {
@@ -11632,7 +11632,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "تعذر العثور على عضو المساحة. يرجى التأكد من مزامنة أجهزتك."
+            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
           }
         },
         "be" : {
@@ -12097,7 +12097,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "لا يمكن الموافقة على الطلب مع حقوق الوصول هذه. الرجاء التأكد من تعيين حقوق الوصول الصحيحة."
+            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
           }
         },
         "be" : {
@@ -12407,7 +12407,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "الطلب لم يعد موجودًا. لا توجد إجراءات مطلوبة، ولكن يرجى التأكد من مزامنة أجهزتك."
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
           }
         },
         "be" : {
@@ -12562,7 +12562,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "عذراً! حدث خطأ ما. يرجى إعادة المحاولة لاحقاً."
+            "value" : "Oops! Something went wrong. Please try again later."
           }
         },
         "be" : {
@@ -13337,7 +13337,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "الطلب لم يعد موجودًا. لا توجد إجراءات مطلوبة، ولكن يرجى التأكد من مزامنة أجهزتك."
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
           }
         },
         "be" : {
@@ -13492,7 +13492,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "عذراً! حدث خطأ ما. يرجى إعادة المحاولة لاحقاً."
+            "value" : "Oops! Something went wrong. Please try again later."
           }
         },
         "be" : {
@@ -14267,7 +14267,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "عذراً! حدث خطأ ما. يرجى إعادة المحاولة لاحقاً."
+            "value" : "Oops! Something went wrong. Please try again later."
           }
         },
         "be" : {

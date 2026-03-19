@@ -11,7 +11,9 @@ struct PageBlockRestrictions: BlockRestrictions {
     let canApplyEmoji = false
     let canDeleteOrDuplicate = true
     let turnIntoStyles: [BlockContentType] = [
-        .text(.text), .text(.header), .text(.header2), .text(.header3), .text(.quote), .text(.code),
+        .text(.text), .text(.header), .text(.header2), .text(.header3),
+        .text(.toggleHeader), .text(.toggleHeader2), .text(.toggleHeader3),
+        .text(.quote), .text(.code),
         .text(.checkbox), .text(.bulleted), .text(.numbered), .text(.toggle)
     ]
    

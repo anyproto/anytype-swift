@@ -110,6 +110,7 @@ final class LinkWidgetViewModel {
             chatPreviewDate: dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true),
             unreadCounter: chatPreview.unreadCounter,
             mentionCounter: chatPreview.mentionCounter,
+            hasUnreadReactions: chatPreview.hasUnreadReactions,
             notificationMode: notificationMode,
             chatName: nil
         )

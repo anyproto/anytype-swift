@@ -180,6 +180,12 @@ final class SlashMenuActionHandler {
         case .toggle:
             try await actionHandler.turnInto(.toggle, blockId: blockInformation.id, route: .slashMenu)
             modifiedStringHandler(nil)
+        case .toggleTitle:
+            try await actionHandler.turnInto(.toggleHeader, blockId: blockInformation.id, route: .slashMenu)
+        case .toggleHeading:
+            try await actionHandler.turnInto(.toggleHeader2, blockId: blockInformation.id, route: .slashMenu)
+        case .toggleSubheading:
+            try await actionHandler.turnInto(.toggleHeader3, blockId: blockInformation.id, route: .slashMenu)
         case .bold:
             let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,

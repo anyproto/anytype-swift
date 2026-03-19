@@ -21,9 +21,9 @@ final class DetailsService: DetailsServiceProtocol, Sendable {
         try await service.updateLayout(contextID: objectId, value: detailsLayout.rawValue)
     }
     
-    func setCover(objectId: String, spaceId: String, source: FileUploadingSource) async throws {
+    func setCover(objectId: String, spaceId: String, source: FileUploadingSource, createdInContext: String, createdInContextRef: String) async throws {
         let data = try await fileService.createFileData(source: source)
-        let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
+        let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none, createdInContext: createdInContext, createdInContextRef: createdInContextRef)
         try await setCover(objectId: objectId, imageObjectId: fileDetails.id)
     }
     
