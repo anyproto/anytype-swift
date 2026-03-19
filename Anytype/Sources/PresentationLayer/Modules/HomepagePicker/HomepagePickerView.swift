@@ -4,6 +4,7 @@ import DesignKit
 struct HomepagePickerView: View {
 
     @State private var model: HomepagePickerViewModel
+    @State private var contentHeight: CGFloat = 516
     @Environment(\.dismiss) private var dismiss
 
     init(spaceId: String, onFinish: @escaping (HomepagePickerResult) async throws -> Void) {
@@ -11,30 +12,30 @@ struct HomepagePickerView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(31)
-
-            titleSection
-
-            Spacer.fixedHeight(24)
-
-            optionsScroll
-
-            Spacer.fixedHeight(24)
-
-            buttons
-
-            Spacer.fixedHeight(16)
+        content
+        .readSize { size in
+            contentHeight = size.height
         }
-        .background(Color.Background.secondary)
-        .fitPresentationDetents()
+        .presentationDetents([.height(contentHeight)])
         .presentationDragIndicator(.hidden)
+        .presentationBackground(Color.Background.secondary)
+        .presentationBackgroundInteraction(.enabled)
         .onChange(of: model.dismiss) {
             dismiss()
         }
     }
 
     // MARK: - Sections
+    
+    private var content: some View {
+          VStack(spacing: 31) {
+              titleSection
+              optionsScroll
+              buttons
+          }
+          .padding(.top, 31)
+          .padding(.bottom, 16)
+      }
 
     private var titleSection: some View {
         VStack(spacing: 8) {
@@ -45,7 +46,8 @@ struct HomepagePickerView: View {
             AnytypeText(Loc.HomepagePicker.description, style: .uxTitle2Regular)
                 .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 37)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.horizontal, 32)
         }
     }
 
@@ -79,5 +81,11 @@ struct HomepagePickerView: View {
             }
             .padding(.horizontal, 16)
         }
+    }
+}
+
+#Preview {
+    HomepagePickerView(spaceId: "") { result in
+        print("Result: \(result)")
     }
 }

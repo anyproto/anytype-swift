@@ -45,3 +45,8 @@ struct ChatThumbnail: View {
         }
     }
 }
+
+#Preview {
+    ChatThumbnail(isSelected: false)
+    ChatThumbnail(isSelected: true)
+}
