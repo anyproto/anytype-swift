@@ -10,8 +10,8 @@ final class HomepagePickerService: HomepagePickerServiceProtocol, @unchecked Sen
     func createHomepage(spaceId: String, option: HomepagePickerOption) async throws -> String {
         switch option {
         case .widgets:
-            try await setHomepage(spaceId: spaceId, homepageId: "widgets")
-            return "widgets"
+            try await setHomepage(spaceId: spaceId, homepageId: HomepageValue.widgets)
+            return HomepageValue.widgets
         case .chat, .page, .collection:
             guard let typeKey = option.objectTypeKey else {
                 anytypeAssertionFailure("Option \(option) should have objectTypeKey")
