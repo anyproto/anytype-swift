@@ -99,17 +99,6 @@
         ]
       }
     ],
-    "Notification": [
-      {
-        "matcher": "permission_prompt",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".claude/hooks/notification-alert.sh"
-          }
-        ]
-      }
-    ],
     "Stop": [
       {
         "hooks": [
