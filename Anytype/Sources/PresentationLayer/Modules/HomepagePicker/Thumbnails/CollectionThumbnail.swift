@@ -3,18 +3,19 @@ import SwiftUI
 struct CollectionThumbnail: View {
     let isSelected: Bool
 
-    private var lineColor: Color { isSelected ? Color.Control.accent50 : Color.Shape.tertiary }
-    private var accentDot: Color { isSelected ? Color.Control.accent100 : Color.Shape.tertiary }
+    private var textColor: Color { isSelected ? Color.Control.accent100 : Color.Control.secondary }
+    private var lineColor: Color { isSelected ? Color.Control.accent50 : Color.Control.tertiary }
+    private var accentDot: Color { isSelected ? Color.Control.accent100 : Color.Control.tertiary }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            // "Tasks" title placeholder
-            RoundedRectangle(cornerRadius: 2)
-                .fill(lineColor)
-                .frame(width: 40, height: 11)
-                .padding(.top, 30)
+        VStack(alignment: .leading, spacing: 10) {
+            // "Tasks" title
+            Text("Tasks")
+                .font(.system(size: 10, weight: .semibold))
+                .foregroundStyle(textColor)
+                .lineLimit(1)
 
-            // Header row: subtitle line + toggle pill
+            // Subtitle line + toggle pill
             HStack {
                 RoundedRectangle(cornerRadius: 2)
                     .fill(lineColor)
@@ -24,10 +25,9 @@ struct CollectionThumbnail: View {
                     .fill(accentDot)
                     .frame(width: 20, height: 10)
             }
-            .padding(.top, 6)
 
-            // 4 row groups (alternating line widths)
-            VStack(alignment: .leading, spacing: 0) {
+            // 8 bullet rows
+            VStack(alignment: .leading, spacing: 6) {
                 bulletRow(width: 58)
                 bulletRow(width: 43)
                 bulletRow(width: 58)
@@ -37,11 +37,10 @@ struct CollectionThumbnail: View {
                 bulletRow(width: 58)
                 bulletRow(width: 28)
             }
-            .padding(.top, 8)
-
-            Spacer()
         }
         .padding(.horizontal, 10)
+        .padding(.top, 30)
+        .padding(.bottom, 16)
     }
 
     private func bulletRow(width: CGFloat) -> some View {
@@ -53,6 +52,10 @@ struct CollectionThumbnail: View {
                 .fill(lineColor)
                 .frame(width: width, height: 4)
         }
-        .padding(.top, 5)
     }
+}
+
+#Preview {
+    CollectionThumbnail(isSelected: false).frame(height: 172)
+    CollectionThumbnail(isSelected: true).frame(height: 172)
 }
