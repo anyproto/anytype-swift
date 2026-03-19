@@ -1408,6 +1408,7 @@ public enum Loc {
   public static let invite = Loc.tr("Workspace", "Invite", fallback: "Invite")
   public static let joinSpace = Loc.tr("Workspace", "Join Space", fallback: "Join Space")
   public static let joinSpaceButton = Loc.tr("Workspace", "Join Space Button", fallback: "Join Space Button")
+  public static let later = Loc.tr("Workspace", "Later", fallback: "Later")
   public static let members = Loc.tr("Workspace", "Members", fallback: "Members")
   public static let membership = Loc.tr("Workspace", "Membership", fallback: "Membership")
   public static let newProperty = Loc.tr("Workspace", "NewProperty", fallback: "New Property")
@@ -1722,6 +1723,10 @@ public enum Loc {
     public static func updated(_ p1: Any) -> String {
       return Loc.tr("Workspace", "Fields.Updated", String(describing: p1), fallback: "Property ‘%@’ has been updated")
     }
+  }
+  public enum HomepagePicker {
+    public static let description = Loc.tr("Workspace", "HomepagePicker.description", fallback: "Select what you and channel members see when they open the channel. You can always change it in settings.")
+    public static let title = Loc.tr("Workspace", "HomepagePicker.title", fallback: "Create Home")
   }
   public enum Membership {
     public static let emailValidation = Loc.tr("Workspace", "Membership.EmailValidation", fallback: "Enter the code sent to your email")

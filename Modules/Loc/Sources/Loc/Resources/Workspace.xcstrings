@@ -22290,7 +22290,29 @@
         }
       }
     },
-    "Invite" : {
+    "HomepagePicker.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select what you and channel members see when they open the channel. You can always change it in settings."
+          }
+        }
+      }
+    },
+    "HomepagePicker.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Home"
+          }
+        }
+      }
+    },
+        "Invite" : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
@@ -22755,7 +22777,18 @@
         }
       }
     },
-    "Members" : {
+    "Later" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Later"
+          }
+        }
+      }
+    },
+        "Members" : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
