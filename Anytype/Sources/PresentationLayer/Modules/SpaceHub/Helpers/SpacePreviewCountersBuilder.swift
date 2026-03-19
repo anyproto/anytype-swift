@@ -5,8 +5,8 @@ struct SpacePreviewCountersData: Equatable {
     let totalMentions: Int
     let hasUnreadReactions: Bool
     let unreadStyle: CounterViewStyle
-    let mentionStyle: MentionBadgeStyle
-    let reactionStyle: MentionBadgeStyle
+    let mentionStyle: BadgeStyle
+    let reactionStyle: BadgeStyle
 }
 
 enum SpacePreviewCountersBuilder {
@@ -88,7 +88,7 @@ enum SpacePreviewCountersBuilder {
     private static func determineStyles(
         spaceView: SpaceView,
         counters: AggregatedCounters
-    ) -> (unread: CounterViewStyle, mention: MentionBadgeStyle, reaction: MentionBadgeStyle) {
+    ) -> (unread: CounterViewStyle, mention: BadgeStyle, reaction: BadgeStyle) {
         let hasCustomOverrides = spaceView.forceAllIds.isNotEmpty ||
                                  spaceView.forceMuteIds.isNotEmpty ||
                                  spaceView.forceMentionIds.isNotEmpty

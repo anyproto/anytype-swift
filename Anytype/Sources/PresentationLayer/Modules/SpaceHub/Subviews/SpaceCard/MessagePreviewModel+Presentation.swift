@@ -10,11 +10,11 @@ extension MessagePreviewModel {
         notificationMode.unreadCounterStyle
     }
 
-    var mentionCounterStyle: MentionBadgeStyle {
+    var mentionCounterStyle: BadgeStyle {
         notificationMode.mentionCounterStyle
     }
 
-    var reactionStyle: MentionBadgeStyle {
+    var reactionStyle: BadgeStyle {
         notificationMode.mentionCounterStyle
     }
 

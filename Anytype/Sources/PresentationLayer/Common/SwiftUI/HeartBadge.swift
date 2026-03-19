@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HeartBadge: View {
 
-    let style: MentionBadgeStyle
+    let style: BadgeStyle
 
     var body: some View {
         Image(systemName: "heart.fill")
