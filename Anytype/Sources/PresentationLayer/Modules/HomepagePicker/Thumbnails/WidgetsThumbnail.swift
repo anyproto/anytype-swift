@@ -8,31 +8,39 @@ struct WidgetsThumbnail: View {
 
     var body: some View {
         VStack(spacing: 6) {
-            widgetCard(rows: 3, height: 52)
+            widgetCard(rowPattern: [22, 54, 36, 54], height: 52)
             statusBar
-            widgetCard(rows: 4, height: 64)
+            widgetCard(rowPattern: [22, 54, 36, 54, 36], height: 64)
         }
         .padding(6)
     }
 
-    private func widgetCard(rows: Int, height: CGFloat) -> some View {
+    private func widgetCard(rowPattern: [CGFloat], height: CGFloat) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            ForEach(0..<rows, id: \.self) { index in
-                HStack(spacing: 4) {
-                    Circle()
+            ForEach(Array(rowPattern.enumerated()), id: \.offset) { index, width in
+                if index == 0 {
+                    // Title line (no dot)
+                    RoundedRectangle(cornerRadius: 3)
                         .fill(lineColor)
-                        .frame(width: 6, height: 6)
-                    RoundedRectangle(cornerRadius: 2)
-                        .fill(lineColor)
-                        .frame(width: index == rows - 1 ? 36 : 54, height: 4)
+                        .frame(width: width, height: 4)
+                        .padding(.top, 5)
+                } else {
+                    HStack(spacing: 4) {
+                        Circle()
+                            .fill(lineColor)
+                            .frame(width: 6, height: 6)
+                        RoundedRectangle(cornerRadius: 2)
+                            .fill(lineColor)
+                            .frame(width: width, height: 4)
+                    }
+                    .padding(.top, 4)
                 }
-                .padding(.vertical, 3)
             }
         }
         .padding(6)
         .frame(maxWidth: .infinity, alignment: .leading)
         .frame(height: height)
-        .background(cardBg)
+        .background(cardBg.opacity(0.5))
         .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 
@@ -48,7 +56,7 @@ struct WidgetsThumbnail: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 6)
         .frame(height: 16)
-        .background(cardBg)
+        .background(cardBg.opacity(0.5))
         .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 }

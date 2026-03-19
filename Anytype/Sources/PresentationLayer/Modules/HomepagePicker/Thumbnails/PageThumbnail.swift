@@ -4,16 +4,26 @@ struct PageThumbnail: View {
     let isSelected: Bool
 
     private var lineColor: Color { isSelected ? Color.Control.accent50 : Color.Shape.tertiary }
+    private var headerBg: Color { isSelected ? Color.Control.accent25 : Color.Shape.transparentTertiary }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // Document icon placeholder
-            RoundedRectangle(cornerRadius: 4, style: .continuous)
-                .fill(lineColor)
-                .frame(width: 24, height: 24)
-                .padding(.top, 24)
+            // Header area with tinted background
+            ZStack(alignment: .bottomLeading) {
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(headerBg)
+                    .frame(height: 38)
 
-            // "Idea" title
+                // Page icon placeholder
+                RoundedRectangle(cornerRadius: 4, style: .continuous)
+                    .fill(lineColor)
+                    .frame(width: 24, height: 24)
+                    .padding(.leading, 4)
+                    .padding(.bottom, -5)
+            }
+            .padding(.top, 2)
+
+            // "Idea" title placeholder
             RoundedRectangle(cornerRadius: 2)
                 .fill(lineColor)
                 .frame(width: 28, height: 11)

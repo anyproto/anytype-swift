@@ -9,39 +9,53 @@ struct ChatThumbnail: View {
 
     var body: some View {
         ZStack {
-            // Right-aligned message bubble (top)
+            // 1. Small right bubble (top)
             RoundedRectangle(cornerRadius: 8, style: .continuous)
                 .fill(lineColor)
                 .frame(width: 40, height: 12)
-                .position(x: 60, y: 30)
+                .position(x: 40 + 20, y: 20 + 6)
 
-            // Left-aligned bubble with avatar
-            HStack(spacing: 4) {
-                Circle()
-                    .fill(avatarColor)
-                    .frame(width: 12, height: 12)
-                RoundedRectangle(cornerRadius: 6, style: .continuous)
-                    .fill(bgColor)
-                    .frame(width: 40, height: 44)
-            }
-            .position(x: 40, y: 72)
+            // 2. Left bubble
+            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                .fill(bgColor)
+                .frame(width: 48, height: 12)
+                .position(x: 24 + 24, y: 36 + 6)
 
-            // Right-aligned bubble (bottom)
+            // 3. Left tall bubble (image placeholder)
+            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                .fill(bgColor)
+                .frame(width: 40, height: 44)
+                .position(x: 24 + 20, y: 52 + 22)
+
+            // 4. Avatar circle (left, aligned with tall bubble)
+            Circle()
+                .fill(avatarColor)
+                .frame(width: 12, height: 12)
+                .position(x: 8 + 6, y: 84 + 6)
+
+            // 5. Right bubble
+            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                .fill(lineColor)
+                .frame(width: 48, height: 12)
+                .position(x: 32 + 24, y: 100 + 6)
+
+            // 6. Right tall bubble
             RoundedRectangle(cornerRadius: 6, style: .continuous)
                 .fill(lineColor)
                 .frame(width: 40, height: 32)
-                .position(x: 60, y: 126)
+                .position(x: 40 + 20, y: 116 + 16)
 
-            // Left-aligned small bubble + avatar
-            HStack(spacing: 4) {
-                Circle()
-                    .fill(avatarColor)
-                    .frame(width: 12, height: 12)
-                RoundedRectangle(cornerRadius: 6, style: .continuous)
-                    .fill(bgColor)
-                    .frame(width: 40, height: 12)
-            }
-            .position(x: 40, y: 158)
+            // 7. Avatar circle (bottom left)
+            Circle()
+                .fill(avatarColor)
+                .frame(width: 12, height: 12)
+                .position(x: 8 + 6, y: 152 + 6)
+
+            // 8. Left bubble next to bottom avatar
+            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                .fill(bgColor)
+                .frame(width: 40, height: 12)
+                .position(x: 24 + 20, y: 152 + 6)
         }
     }
 }

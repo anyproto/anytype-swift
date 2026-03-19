@@ -36,3 +36,15 @@ struct HomepagePickerThumbnailCard: View {
         }
     }
 }
+
+#Preview("Thumbnails") {
+    HStack(spacing: 24) {
+        ForEach(HomepagePickerOption.allCases) { option in
+            VStack(spacing: 16) {
+                HomepagePickerThumbnailCard(option: option, isSelected: true)
+                HomepagePickerThumbnailCard(option: option, isSelected: false)
+            }
+        }
+    }
+    .padding()
+}
