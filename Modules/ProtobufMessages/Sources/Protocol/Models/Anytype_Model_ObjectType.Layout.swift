@@ -44,6 +44,7 @@ extension Anytype_Model_ObjectType {
     case notification // = 24
     case missingObject // = 25
     case devices // = 26
+    case discussion // = 27
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -79,6 +80,7 @@ extension Anytype_Model_ObjectType {
       case 24: self = .notification
       case 25: self = .missingObject
       case 26: self = .devices
+      case 27: self = .discussion
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -112,6 +114,7 @@ extension Anytype_Model_ObjectType {
       case .notification: return 24
       case .missingObject: return 25
       case .devices: return 26
+      case .discussion: return 27
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -145,12 +148,13 @@ extension Anytype_Model_ObjectType {
       .notification,
       .missingObject,
       .devices,
+      .discussion,
     ]
 
   }}
 
 extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0basic\0\u{1}profile\0\u{1}todo\0\u{1}set\0\u{1}objectType\0\u{1}relation\0\u{1}file\0\u{1}dashboard\0\u{1}image\0\u{1}note\0\u{1}space\0\u{1}bookmark\0\u{1}relationOptionsList\0\u{1}relationOption\0\u{1}collection\0\u{1}audio\0\u{1}video\0\u{1}date\0\u{1}spaceView\0\u{1}participant\0\u{1}pdf\0\u{1}chatDeprecated\0\u{1}chatDerived\0\u{1}tag\0\u{1}notification\0\u{1}missingObject\0\u{1}devices\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0basic\0\u{1}profile\0\u{1}todo\0\u{1}set\0\u{1}objectType\0\u{1}relation\0\u{1}file\0\u{1}dashboard\0\u{1}image\0\u{1}note\0\u{1}space\0\u{1}bookmark\0\u{1}relationOptionsList\0\u{1}relationOption\0\u{1}collection\0\u{1}audio\0\u{1}video\0\u{1}date\0\u{1}spaceView\0\u{1}participant\0\u{1}pdf\0\u{1}chatDeprecated\0\u{1}chatDerived\0\u{1}tag\0\u{1}notification\0\u{1}missingObject\0\u{1}devices\0\u{1}discussion\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

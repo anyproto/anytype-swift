@@ -3114,6 +3114,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectAddDiscussion(
+        _ request: Anytype_Rpc.Object.DiscussionAdd.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.DiscussionAdd.Request, Anytype_Rpc.Object.DiscussionAdd.Response> {
+        return Invocation(messageName: "ObjectAddDiscussion", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectAddDiscussion(requestData) ?? Data()
+            return try Anytype_Rpc.Object.DiscussionAdd.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func chatReadAll(
         _ request: Anytype_Rpc.Chat.ReadAll.Request = .init()
     ) -> Invocation<Anytype_Rpc.Chat.ReadAll.Request, Anytype_Rpc.Chat.ReadAll.Response> {

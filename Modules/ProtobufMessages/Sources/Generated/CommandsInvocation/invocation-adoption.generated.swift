@@ -1115,6 +1115,11 @@ extension Anytype_Rpc.Object.DateByTimestamp.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Object.DiscussionAdd.Response: ResultWithError {}
+extension Anytype_Rpc.Object.DiscussionAdd.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Object.Duplicate.Response: ResultWithError {}
 extension Anytype_Rpc.Object.Duplicate.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

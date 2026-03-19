@@ -4,6 +4,11 @@ import SwiftUI
 import Services
 import AnytypeCore
 
+struct DiscussionCoordinatorData: Hashable, Codable {
+    let discussionId: String
+    let spaceId: String
+}
+
 struct ChatCoordinatorData: Hashable, Codable {
     let chatId: String
     let spaceId: String

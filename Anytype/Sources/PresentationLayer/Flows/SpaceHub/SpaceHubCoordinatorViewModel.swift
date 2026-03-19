@@ -351,6 +351,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             currentPath.openOnce(data)
         case .widget(let data):
             currentPath.openOnce(data)
+        case .discussion(let data):
+            currentPath.openOnce(data)
         }
         
         if navigationPath != currentPath {

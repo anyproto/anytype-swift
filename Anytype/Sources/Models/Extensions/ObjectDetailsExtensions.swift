@@ -78,6 +78,8 @@ extension BundledPropertiesValueProvider {
             return .bookmark
         case .chatDeprecated, .chatDerived:
             return .chat
+        case .discussion:
+            return .chat // TBD;
         }
     }
     
