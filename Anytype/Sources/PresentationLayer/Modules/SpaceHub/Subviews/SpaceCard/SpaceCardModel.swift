@@ -21,8 +21,10 @@ struct SpaceCardModel: Equatable, Identifiable {
     let lastMessage: MessagePreviewModel?
     let unreadCounter: Int
     let mentionCounter: Int
+    let hasUnreadReactions: Bool
     let unreadCounterStyle: CounterViewStyle
-    let mentionCounterStyle: MentionBadgeStyle
+    let mentionCounterStyle: BadgeStyle
+    let reactionStyle: BadgeStyle
     let hasCounters: Bool
     let multichatCompactPreview: String?
 

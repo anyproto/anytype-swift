@@ -464,7 +464,15 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
         Task {
             bottomVisibleOrderId = to.messageOrderId
-            forceHiddenActionPanel = false // Without update panel. Waiting middleware event.
+            // updateActions() is normally triggered by .state middleware events,
+            // but those arrive before forceHiddenActionPanel resets to false,
+            // so action buttons (e.g. scroll-to-reaction) would never appear.
+            // Trigger once when the panel becomes visible for the first time.
+            let wasForceHidden = forceHiddenActionPanel
+            forceHiddenActionPanel = false
+            if wasForceHidden {
+                updateActions()
+            }
             await chatStorage.updateVisibleRange(startMessageId: from.messageId, endMessageId: to.messageId)
         }
     }
@@ -525,6 +533,16 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         AnytypeAnalytics.instance().logClickScrollToMention(chatId: chatId)
         Task {
             let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
+            collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
+            messageHiglightId = message.id
+        }
+    }
+
+    func onTapReaction() {
+        guard let chatState, chatState.unreadReactionOrderID.isNotEmpty else { return }
+        AnytypeAnalytics.instance().logClickScrollToReaction(chatId: chatId)
+        Task {
+            let message = try await chatStorage.loadPagesTo(orderId: chatState.unreadReactionOrderID)
             collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
             messageHiglightId = message.id
         }
@@ -774,14 +792,16 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 showScrollToBottom: chatState.messages.counter > 0 || bigDistanceToBottom,
                 srollToBottomCounter: Int(chatState.messages.counter),
                 showMentions: chatState.mentions.counter > 0,
-                mentionsCounter: Int(chatState.mentions.counter)
+                mentionsCounter: Int(chatState.mentions.counter),
+                showReactions: chatState.unreadReactionOrderID.isNotEmpty
             )
         } else {
             actionModel = ChatActionPanelModel(
                 showScrollToBottom: bigDistanceToBottom,
                 srollToBottomCounter: 0,
                 showMentions: false,
-                mentionsCounter: 0
+                mentionsCounter: 0,
+                showReactions: false
             )
         }
     }
