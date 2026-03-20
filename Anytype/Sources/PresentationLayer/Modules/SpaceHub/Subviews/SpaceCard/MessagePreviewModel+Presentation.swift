@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 extension MessagePreviewModel {
 
@@ -44,5 +45,18 @@ extension MessagePreviewModel {
 
     var hasCounters: Bool {
         totalCounter > 0 || hasUnreadReactions
+    }
+
+    var shouldShowUnreadCounter: Bool {
+        guard FeatureFlags.muteAndHide else { return unreadCounter > 0 }
+        return unreadCounter > 0 && notificationMode != .nothing
+    }
+
+    var hasVisibleCounters: Bool {
+        guard FeatureFlags.muteAndHide else { return hasCounters }
+        if notificationMode == .nothing {
+            return mentionCounter > 0 || hasUnreadReactions
+        }
+        return hasCounters
     }
 }
