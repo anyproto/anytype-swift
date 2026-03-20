@@ -1,13 +1,17 @@
 import Foundation
+import Factory
 import Services
 import AnytypeCore
 
-final class HomepagePickerService: HomepagePickerServiceProtocol, @unchecked Sendable {
+final class HomepagePickerService: HomepagePickerServiceProtocol {
 
     private static let widgetsHomepageId = "widgets"
 
-    @Injected(\.objectActionsService)
-    private var objectActionsService: any ObjectActionsServiceProtocol
+    private let objectActionsService: any ObjectActionsServiceProtocol
+
+    init() {
+        self.objectActionsService = Container.shared.objectActionsService()
+    }
 
     func createHomepage(spaceId: String, option: HomepagePickerOption) async throws -> HomepageValue {
         switch option {
