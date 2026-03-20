@@ -216,7 +216,10 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
 
     func onSelectQrCodeJoin() {
-        shouldScanQrCode = true
+        Task {
+            await dismissAllPresented?()
+            shouldScanQrCode = true
+        }
     }
     
     func onSelectSpace(spaceId: String) {
