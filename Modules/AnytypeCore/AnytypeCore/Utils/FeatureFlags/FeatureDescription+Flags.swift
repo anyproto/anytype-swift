@@ -30,6 +30,12 @@ public extension FeatureDescription {
         defaultValue: false
     )
 
+    static let muteAndHide = FeatureDescription(
+        title: "Mute and hide notification setting - IOS-5809",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(

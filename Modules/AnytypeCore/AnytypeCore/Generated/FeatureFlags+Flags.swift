@@ -22,6 +22,10 @@ public extension FeatureFlags {
         value(for: .channelTypeSwitcher)
     }
 
+    static var muteAndHide: Bool {
+        value(for: .muteAndHide)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -108,6 +112,7 @@ public extension FeatureFlags {
         .homePage,
         .qrCodeCircularText,
         .channelTypeSwitcher,
+        .muteAndHide,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
