@@ -66,8 +66,10 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                         latestPreview: latestPreview,
                         totalUnreadCounter: counterData.totalUnread,
                         totalMentionCounter: counterData.totalMentions,
+                        hasUnreadReactions: counterData.hasUnreadReactions,
                         unreadCounterStyle: counterData.unreadStyle,
                         mentionCounterStyle: counterData.mentionStyle,
+                        reactionStyle: counterData.reactionStyle,
                         unreadPreviews: unreadPreviews
                     )
                 }

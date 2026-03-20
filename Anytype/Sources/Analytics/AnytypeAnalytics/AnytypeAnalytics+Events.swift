@@ -1498,6 +1498,15 @@ extension AnytypeAnalytics {
         )
     }
 
+    func logClickScrollToReaction(chatId: String) {
+        logEvent(
+            "ClickScrollToReaction",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.chatId: chatId
+            ]
+        )
+    }
+
     func logClickScrollToBottom(chatId: String) {
         logEvent(
             "ClickScrollToBottom",

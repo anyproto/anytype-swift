@@ -29,6 +29,9 @@ struct UnreadChatRowView: View {
                 Spacer()
 
                 HStack(spacing: 4) {
+                    if model.hasUnreadReactions {
+                        HeartBadge(style: model.muted ? .muted : .highlighted)
+                    }
                     if model.hasMentions {
                         MentionBadge(style: model.muted ? .muted : .highlighted)
                     }

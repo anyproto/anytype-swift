@@ -1,32 +1,28 @@
 import SwiftUI
 
-enum BadgeStyle {
-    case muted
-    case highlighted
-}
+struct HeartBadge: View {
 
-struct MentionBadge: View {
-    
     let style: BadgeStyle
-      
+
     var body: some View {
-        Text("@")
-            .anytypeFontStyle(.caption1Medium) // Without line height multiple
+        Image(systemName: "heart.fill")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 10, height: 10)
             .foregroundStyle(Color.Control.white)
-            .baselineOffset(3)
             .frame(width: 20, height: 20)
             .background(
                 Capsule()
                     .fill(fillColor)
                     .background(.ultraThinMaterial)
-                    .clipShape(Capsule()) // From iOS 17: Delete clip and use .fill for material
+                    .clipShape(Capsule())
             )
     }
-    
+
     private var fillColor: Color {
         switch style {
         case .muted: return Color.Control.transparentTertiary
-        case .highlighted: return Color.Control.accent100
+        case .highlighted: return Color.Pure.red
         }
     }
 }
