@@ -4,7 +4,8 @@ import AnytypeCore
 extension MessagePreviewModel {
 
     var isMuted: Bool {
-        !notificationMode.isUnmutedAll
+        guard FeatureFlags.muteAndHide else { return !notificationMode.isUnmutedAll }
+        return notificationMode == .nothing
     }
 
     var unreadCounterStyle: CounterViewStyle {
