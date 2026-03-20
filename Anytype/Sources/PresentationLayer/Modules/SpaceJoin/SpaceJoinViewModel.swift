@@ -114,14 +114,14 @@ final class SpaceJoinViewModel {
         dismiss.toggle()
     }
     
-    func onTapManageSpaces() {
-        callManageSpaces = true
-        dismiss.toggle()
-    }
-    
     func onTapGoToSpace() async throws {
         guard let inviteView else { return }
         try await activeSpaceManager.setActiveSpace(spaceId: inviteView.spaceId)
+        dismiss.toggle()
+    }
+
+    func onTapManageSpaces() {
+        callManageSpaces = true
         dismiss.toggle()
     }
     
@@ -155,24 +155,33 @@ final class SpaceJoinViewModel {
         do {
             let inviteView = try await workspaceService.inviteView(cid: data.cid, key: data.key)
             
-            handleInviteType(inviteView: inviteView)
-            
             self.inviteView = inviteView
-            state = .data
-            
-            let inviteWithoutApprove = inviteView.inviteType.withoutApprove
+
             if let spaceView = workspaceStorage.allSpaceViews.first(where: { $0.targetSpaceId == inviteView.spaceId }) {
                 switch spaceView.accountStatus {
+                case .spaceActive:
+                    // IOS-5522: Auto-open space for existing members
+                    try? await activeSpaceManager.setActiveSpace(spaceId: inviteView.spaceId)
+                    dismiss.toggle()
+                    return
+                case .unknown:
+                    dataState = .alreadyJoined
+                    state = .data
+                    return
                 case .spaceJoining:
                     dataState = .requestSent
-                case .spaceActive, .unknown:
-                    dataState = .alreadyJoined
+                    state = .data
+                    return
                 default:
-                    dataState = .invite(withoutApprove: inviteWithoutApprove)
+                    break
                 }
-            } else {
-                dataState = .invite(withoutApprove: inviteWithoutApprove)
             }
+
+            handleInviteType(inviteView: inviteView)
+
+            let inviteWithoutApprove = inviteView.inviteType.withoutApprove
+            dataState = .invite(withoutApprove: inviteWithoutApprove)
+            state = .data
         } catch let error as SpaceInviteViewError where error.code == .inviteNotFound {
             dataState = .inviteNotFound
             state = .data
