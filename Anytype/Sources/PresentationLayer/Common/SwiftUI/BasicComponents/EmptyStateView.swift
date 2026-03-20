@@ -1,16 +1,26 @@
 import SwiftUI
 
-struct EmptyStateView: View {
+struct EmptyStateView<ButtonContent: View>: View {
     let title: String
     let subtitle: String
     let style: Style
     let buttonData: ButtonData?
+    let customButton: ButtonContent?
     
-    init(title: String, subtitle: String = "", style: Style, buttonData: ButtonData? = nil) {
+    init(title: String, subtitle: String = "", style: Style, buttonData: ButtonData? = nil) where ButtonContent == Never {
         self.title = title
         self.subtitle = subtitle
         self.style = style
         self.buttonData = buttonData
+        self.customButton = nil
+    }
+
+    init(title: String, subtitle: String = "", style: Style, @ViewBuilder button: () -> ButtonContent) {
+        self.title = title
+        self.subtitle = subtitle
+        self.style = style
+        self.buttonData = nil
+        self.customButton = button()
     }
     
     var body: some View {
@@ -42,6 +52,8 @@ struct EmptyStateView: View {
                 AsyncStandardButton(buttonData.title, style: .secondarySmall) {
                     try await buttonData.action()
                 }
+            } else if let customButton {
+                customButton
             }
             Spacer.fixedHeight(48)
             Spacer()

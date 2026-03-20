@@ -23,6 +23,13 @@ public extension FeatureDescription {
         debugValue: true
     )
     
+    static let createChannelFlow = FeatureDescription(
+        title: "Create Channel Flow - IOS-5856",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // should be disabled
     static let channelTypeSwitcher = FeatureDescription(
         title: "Channel type switcher - IOS-5378",

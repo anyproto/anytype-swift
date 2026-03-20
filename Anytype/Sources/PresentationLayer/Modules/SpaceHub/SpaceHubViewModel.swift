@@ -54,6 +54,18 @@ final class SpaceHubViewModel {
     func onTapCreateSpace() {
         output?.onSelectCreateObject()
     }
+
+    func onTapCreatePersonalChannel() {
+        output?.onSelectCreatePersonalChannel()
+    }
+
+    func onTapCreateGroupChannel() {
+        output?.onSelectCreateGroupChannel()
+    }
+
+    func onTapJoinViaQrCode() {
+        output?.onSelectQrCodeJoin()
+    }
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenVault(type: "General")
