@@ -23,7 +23,7 @@ struct UnreadChatRowView: View {
                     .frame(width: 20, height: 20)
 
                 AnytypeText(model.name, style: .bodySemibold)
-                    .foregroundStyle(Color.Text.primary)
+                    .foregroundStyle(model.muted ? Color.Text.secondary : Color.Text.primary)
                     .lineLimit(1)
 
                 Spacer()
@@ -35,7 +35,7 @@ struct UnreadChatRowView: View {
                     if model.hasMentions {
                         MentionBadge(style: model.muted ? .muted : .highlighted)
                     }
-                    if model.unreadCounter > 0 {
+                    if model.unreadCounter > 0 && !(FeatureFlags.muteAndHide && model.notificationMode == .nothing) {
                         CounterView(count: model.unreadCounter, style: model.muted ? .muted : .highlighted)
                     }
                 }
