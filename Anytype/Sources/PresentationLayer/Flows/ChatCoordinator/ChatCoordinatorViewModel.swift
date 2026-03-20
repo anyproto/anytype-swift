@@ -4,15 +4,22 @@ import SwiftUI
 import Services
 import AnytypeCore
 
+struct DiscussionCoordinatorData: Hashable, Codable {
+    let discussionId: String
+    let spaceId: String
+}
+
 struct ChatCoordinatorData: Hashable, Codable {
     let chatId: String
     let spaceId: String
     let messageId: String?
+    let useBlocksFormat: Bool
 
-    init(chatId: String, spaceId: String, messageId: String? = nil) {
+    init(chatId: String, spaceId: String, messageId: String? = nil, useBlocksFormat: Bool = false) {
         self.chatId = chatId
         self.spaceId = spaceId
         self.messageId = messageId
+        self.useBlocksFormat = useBlocksFormat
     }
 }
 
@@ -26,6 +33,8 @@ final class ChatCoordinatorViewModel: ChatModuleOutput, ObjectSettingsCoordinato
     let spaceId: String
     @ObservationIgnored
     let messageId: String?
+    @ObservationIgnored
+    let useBlocksFormat: Bool
     
     var objectToMessageSearchData: ObjectSearchWithMetaModuleData?
     var showEmojiData: MessageReactionPickerData?
@@ -61,6 +70,7 @@ final class ChatCoordinatorViewModel: ChatModuleOutput, ObjectSettingsCoordinato
         self.chatId = data.chatId
         self.spaceId = data.spaceId
         self.messageId = data.messageId
+        self.useBlocksFormat = data.useBlocksFormat
     }
     
     func onLinkObjectSelected(data: ObjectSearchWithMetaModuleData) {

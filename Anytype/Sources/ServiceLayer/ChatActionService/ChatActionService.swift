@@ -8,16 +8,18 @@ protocol ChatActionServiceProtocol: AnyObject, Sendable {
         spaceId: String,
         message: SafeSendable<NSAttributedString>,
         linkedObjects: [ChatLinkedObject],
-        replyToMessageId: String?
+        replyToMessageId: String?,
+        useBlocksFormat: Bool
     ) async throws -> String
-    
+
     func updateMessage(
         chatId: String,
         spaceId: String,
         messageId: String,
         message: SafeSendable<NSAttributedString>,
         linkedObjects: [ChatLinkedObject],
-        replyToMessageId: String?
+        replyToMessageId: String?,
+        useBlocksFormat: Bool
     ) async throws
 }
 
@@ -34,21 +36,23 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         spaceId: String,
         message: SafeSendable<NSAttributedString>,
         linkedObjects: [ChatLinkedObject],
-        replyToMessageId: String?
+        replyToMessageId: String?,
+        useBlocksFormat: Bool
     ) async throws -> String {
-        let chatMessage = await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId)
+        let chatMessage = await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId, useBlocksFormat: useBlocksFormat)
         return try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
     }
-    
+
     func updateMessage(
         chatId: String,
         spaceId: String,
         messageId: String,
         message: SafeSendable<NSAttributedString>,
         linkedObjects: [ChatLinkedObject],
-        replyToMessageId: String?
+        replyToMessageId: String?,
+        useBlocksFormat: Bool
     ) async throws {
-        var chatMessage = await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId)
+        var chatMessage = await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId, useBlocksFormat: useBlocksFormat)
         chatMessage.id = messageId
         try await chatService.updateMessage(chatObjectId: chatId, message: chatMessage)
     }
@@ -60,11 +64,23 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         spaceId: String,
         message: SafeSendable<NSAttributedString>,
         linkedObjects: [ChatLinkedObject],
-        replyToMessageId: String?
+        replyToMessageId: String?,
+        useBlocksFormat: Bool
     ) async -> ChatMessage {
 
         var chatMessage = ChatMessage()
-        chatMessage.message = chatInputConverter.convert(message: message.value)
+        let content = chatInputConverter.convert(message: message.value)
+        if useBlocksFormat {
+            chatMessage.message = chatInputConverter.convert(message: NSAttributedString("")) // TODO: remove after MW fixes crash on their side
+            var textBlock = ChatMessage.MessageBlockText()
+            textBlock.text = content.text
+            textBlock.marks = content.marks
+            var block = ChatMessage.MessageBlock()
+            block.content = .text(textBlock)
+            chatMessage.blocks = [block]
+        } else {
+            chatMessage.message = content
+        }
         chatMessage.replyToMessageID = replyToMessageId ?? ""
 
         for linkedObject in linkedObjects {

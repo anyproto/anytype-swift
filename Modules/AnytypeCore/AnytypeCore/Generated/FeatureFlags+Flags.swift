@@ -14,6 +14,10 @@ public extension FeatureFlags {
         value(for: .homePage)
     }
 
+    static var discussionButton: Bool {
+        value(for: .discussionButton)
+    }
+
     static var qrCodeCircularText: Bool {
         value(for: .qrCodeCircularText)
     }
@@ -106,6 +110,7 @@ public extension FeatureFlags {
     static let features: [FeatureDescription] = [
         .showUploadStatusIndicator,
         .homePage,
+        .discussionButton,
         .qrCodeCircularText,
         .channelTypeSwitcher,
         .setKanbanView,

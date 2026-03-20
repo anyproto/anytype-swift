@@ -145,6 +145,11 @@ struct SpaceHubCoordinatorView: View {
                                 ChatCoordinatorView(data: data)
                             }
                         }
+                        builder.appendBuilder(for: DiscussionCoordinatorData.self) { data in
+                            SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) { _ in
+                                ChatCoordinatorView(data: ChatCoordinatorData(chatId: data.discussionId, spaceId: data.spaceId, useBlocksFormat: true))
+                            }
+                        }
                         builder.appendBuilder(for: SpaceInfoScreenData.self) { data in
                             switch data {
                             case .settings(let spaceId):

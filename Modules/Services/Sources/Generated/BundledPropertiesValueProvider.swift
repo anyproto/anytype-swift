@@ -147,6 +147,7 @@ public protocol BundledPropertiesValueProvider {
     var syncError: Int? { get }
     var hasChat: Bool { get }
     var chatId: ObjectId { get }
+    var discussionId: ObjectId { get }
     var mentions: [ObjectId] { get }
     var timestamp: Date? { get }
     var layoutWidth: Int? { get }
@@ -726,6 +727,10 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Chat id
     var chatId: ObjectId {
         return value(for: BundledPropertyKey.chatId.rawValue)
+    }
+    /// Discussion id
+    var discussionId: ObjectId {
+        return value(for: BundledPropertyKey.discussionId.rawValue)
     }
     /// Objects that are mentioned in blocks of this object
     var mentions: [ObjectId] {

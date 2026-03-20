@@ -20,6 +20,8 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     let spaceId: String
     let chatId: String
     @ObservationIgnored
+    let useBlocksFormat: Bool
+    @ObservationIgnored
     private weak var output: (any ChatModuleOutput)?
     
     @Injected(\.blockService) @ObservationIgnored
@@ -142,13 +144,14 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     var showSendLimitAlert = false
     var toastBarData: ToastBarData?
     
-    init(spaceId: String, chatId: String, messageId: String? = nil, output: (any ChatModuleOutput)?) {
+    init(spaceId: String, chatId: String, messageId: String? = nil, useBlocksFormat: Bool = false, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
         self.chatId = chatId
         self.initialMessageId = messageId
+        self.useBlocksFormat = useBlocksFormat
         self.output = output
         self.chatStorage = Container.shared.chatMessageStorage((spaceId, chatId))
-        self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
+        self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId, useBlocksFormat: useBlocksFormat)
         self.participantSubscription = Container.shared.participantSubscription(spaceId)
         // Open object. Middleware will know that we are using the object and will be make a refresh after open from background
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
@@ -315,7 +318,8 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 messageId: editMessage.id,
                 message: message.sendable(),
                 linkedObjects: linkedObjects,
-                replyToMessageId: replyToMessage?.id
+                replyToMessageId: replyToMessage?.id,
+                useBlocksFormat: useBlocksFormat
             )
             clearInput()
         } else if chatMessageLimits.canSendMessage() {
@@ -324,7 +328,8 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 spaceId: spaceId,
                 message: message.sendable(),
                 linkedObjects: linkedObjects,
-                replyToMessageId: replyToMessage?.id
+                replyToMessageId: replyToMessage?.id,
+                useBlocksFormat: useBlocksFormat
             )
             let type: SentMessageType = linkedObjects.isNotEmpty ? (message.string.isNotEmpty ? .mixed : .attachment) : .text
             AnytypeAnalytics.instance().logSentMessage(type: type, chatId: chatId)
@@ -592,7 +597,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 id: message.message.id,
                 title: Loc.Chat.replyTo(message.authorName),
                 // Without style. Request from designers.
-                description: messageTextBuilder.makeMessaeWithoutStyle(content: message.message.message),
+                description: messageTextBuilder.makeMessaeWithoutStyle(content: message.message.resolvedContent(useBlocksFormat: useBlocksFormat)),
                 icon: message.attachmentsDetails.first?.objectIconImage
             )
         }
@@ -617,7 +622,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         AnytypeAnalytics.instance().logClickMessageMenuEdit()
         clearInput()
         editMessage = messageToEdit.message
-        message = await chatInputConverter.convert(content: messageToEdit.message.message, spaceId: spaceId).value
+        message = await chatInputConverter.convert(content: messageToEdit.message.resolvedContent(useBlocksFormat: useBlocksFormat), spaceId: spaceId).value
         let attachments = await chatStorage.attachments(message: messageToEdit.message)
         let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }
         attachmentHandler.setLinkedObjects(messageAttachments.map { .uploadedObject($0) })

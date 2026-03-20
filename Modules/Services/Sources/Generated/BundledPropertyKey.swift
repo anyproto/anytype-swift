@@ -399,6 +399,9 @@ public enum BundledPropertyKey: String, Sendable {
     /// Chat id
     case chatId = "chatId"
 
+    /// Discussion id
+    case discussionId = "discussionId"
+
     /// Objects that are mentioned in blocks of this object
     case mentions = "mentions"
 

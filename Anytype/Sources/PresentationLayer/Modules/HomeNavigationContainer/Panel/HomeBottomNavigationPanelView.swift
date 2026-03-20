@@ -39,6 +39,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     searchButton
                         .glassEffectIDIOS26("search", in: glassNamespace)
                     Spacer()
+                    if model.showDiscussButton {
+                        discussButton
+                            .glassEffectIDIOS26("discuss", in: glassNamespace)
+                        Spacer()
+                    }
                     createButton
                         .glassEffectIDIOS26("create", in: glassNamespace)
                 }
@@ -70,6 +75,18 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 model.updateVisibleScreen(data: last)
             }
         }
+    }
+
+    private var discussButton: some View {
+        Button {
+            model.onTapDiscuss()
+        } label: {
+            Image(asset: .X32.Island.discuss)
+                .renderingMode(.template)
+                .foregroundStyle(Color.Control.primary)
+        }
+        .frame(width: 48, height: 48)
+        .glassEffectInteractiveIOS26(in: Circle())
     }
 
     private var searchButton: some View {

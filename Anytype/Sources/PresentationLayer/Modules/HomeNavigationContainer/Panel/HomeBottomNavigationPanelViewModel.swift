@@ -27,6 +27,8 @@ final class HomeBottomNavigationPanelViewModel {
     private var experimentalFeaturesStorage: any ExperimentalFeaturesStorageProtocol
     @ObservationIgnored @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored @Injected(\.documentsProvider)
+    private var documentsProvider: any DocumentsProviderProtocol
 
     @ObservationIgnored
     private weak var output: (any HomeBottomNavigationPanelModuleOutput)?
@@ -35,9 +37,14 @@ final class HomeBottomNavigationPanelViewModel {
     private var currentData: AnyHashable?
     @ObservationIgnored
     private var participantSpaceView: ParticipantSpaceViewData?
+    @ObservationIgnored
+    private var currentDiscussionId: String?
+    @ObservationIgnored
+    private var detailsSubscriptionTask: Task<Void, Never>?
 
     // MARK: - Public properties
 
+    var showDiscussButton: Bool = false
     var canCreateObject: Bool = false
     var pageObjectType: ObjectType?
     var noteObjectType: ObjectType?
@@ -61,6 +68,15 @@ final class HomeBottomNavigationPanelViewModel {
         output?.onSearchSelected()
     }
 
+    func onTapDiscuss() {
+        guard let discussionId = currentDiscussionId else {
+            anytypeAssertionFailure("Discuss button tapped but no discussionId available")
+            return
+        }
+        let screenData = ScreenData.discussion(DiscussionCoordinatorData(discussionId: discussionId, spaceId: info.accountSpaceId))
+        output?.onCreateObjectSelected(screenData: screenData)
+    }
+
     func startSubscriptions() async {
         async let participantSub: () = participantSubscription()
         async let typesSub: () = typesSubscription()
@@ -71,7 +87,11 @@ final class HomeBottomNavigationPanelViewModel {
     
     func updateVisibleScreen(data: AnyHashable) {
         currentData = data
+        detailsSubscriptionTask?.cancel()
+        detailsSubscriptionTask = nil
+        currentDiscussionId = nil
         updateState()
+        subscribeToDiscussionId(from: data)
     }
 
     func onTapCreateObject(type: ObjectType) {
@@ -131,7 +151,21 @@ final class HomeBottomNavigationPanelViewModel {
     }
     
     // MARK: - Private
-    
+
+    private func subscribeToDiscussionId(from data: AnyHashable) {
+        guard let editorData = data as? EditorScreenData,
+              let objectId = editorData.objectId else { return }
+        let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
+        detailsSubscriptionTask = Task { [weak self] in
+            for await details in document.detailsPublisher.values {
+                guard !Task.isCancelled else { return }
+                let discussionId = details.discussionId
+                self?.currentDiscussionId = discussionId.isNotEmpty ? discussionId : nil
+                self?.updateState()
+            }
+        }
+    }
+
     private func participantSubscription() async {
         for await data in participantSpacesStorage.participantSpaceViewPublisher(spaceId: info.accountSpaceId).values {
             participantSpaceView = data
@@ -172,6 +206,7 @@ final class HomeBottomNavigationPanelViewModel {
     private func updateState() {
         guard let participantSpaceView else { return }
         canCreateObject = participantSpaceView.permissions.canEdit
+        showDiscussButton = FeatureFlags.discussionButton && currentDiscussionId != nil
     }
 
     private func handleCreateObject() {

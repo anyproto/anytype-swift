@@ -11,8 +11,8 @@ struct ChatView: View {
 
     private let settingsOutput: (any ObjectSettingsCoordinatorOutput)?
 
-    init(spaceId: String, chatId: String, messageId: String? = nil, output: (any ChatModuleOutput)?, settingsOutput: (any ObjectSettingsCoordinatorOutput)?) {
-        self._model = State(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, messageId: messageId, output: output))
+    init(spaceId: String, chatId: String, messageId: String? = nil, useBlocksFormat: Bool = false, output: (any ChatModuleOutput)?, settingsOutput: (any ObjectSettingsCoordinatorOutput)?) {
+        self._model = State(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, messageId: messageId, useBlocksFormat: useBlocksFormat, output: output))
         self.settingsOutput = settingsOutput
     }
     
