@@ -54,7 +54,7 @@ enum SpacePreviewCountersBuilder {
         for preview in previews {
             let effectiveMode = spaceView.effectiveNotificationMode(for: preview.chatId)
 
-            if FeatureFlags.muteAndHide {
+            if FeatureFlags.muteAndHide && spaceView.uxType.supportsMultiChats {
                 switch effectiveMode {
                 case .all, .UNRECOGNIZED:
                     totalUnread += preview.unreadCounter
