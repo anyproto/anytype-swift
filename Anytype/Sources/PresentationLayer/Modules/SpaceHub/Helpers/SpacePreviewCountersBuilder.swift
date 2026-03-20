@@ -1,4 +1,5 @@
 import Services
+import AnytypeCore
 
 struct SpacePreviewCountersData: Equatable {
     let totalUnread: Int
@@ -53,10 +54,29 @@ enum SpacePreviewCountersBuilder {
         for preview in previews {
             let effectiveMode = spaceView.effectiveNotificationMode(for: preview.chatId)
 
-            totalUnread += preview.unreadCounter
-            // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
-            if spaceView.uxType.supportsMentions {
-                totalMentions += preview.mentionCounter
+            if FeatureFlags.muteAndHide {
+                switch effectiveMode {
+                case .all:
+                    totalUnread += preview.unreadCounter
+                    // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
+                    if spaceView.uxType.supportsMentions {
+                        totalMentions += preview.mentionCounter
+                    }
+                case .mentions:
+                    if spaceView.uxType.supportsMentions {
+                        totalMentions += preview.mentionCounter
+                    }
+                case .nothing, .UNRECOGNIZED:
+                    if spaceView.uxType.supportsMentions {
+                        totalMentions += preview.mentionCounter
+                    }
+                }
+            } else {
+                totalUnread += preview.unreadCounter
+                // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
+                if spaceView.uxType.supportsMentions {
+                    totalMentions += preview.mentionCounter
+                }
             }
 
             if preview.unreadCounter > 0 && effectiveMode == .all {
