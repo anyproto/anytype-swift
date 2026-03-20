@@ -76,6 +76,9 @@ struct WidgetContainerView<Content: View>: View {
                         rightAccessory: {
                             if let badgeModel, badgeModel.hasCounters {
                                 HStack(spacing: 4) {
+                                    if badgeModel.hasUnreadReactions {
+                                        HeartBadge(style: badgeModel.reactionStyle)
+                                    }
                                     if badgeModel.mentionCounter > 0 {
                                         MentionBadge(style: badgeModel.mentionCounterStyle)
                                     }

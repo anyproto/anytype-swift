@@ -55,6 +55,7 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
                 chatPreviewDate: chatPreviewDateFormatter.localizedDateString(for: lastMessagePreview.createdAt, showTodayTime: true),
                 unreadCounter: 0, // unsupported in space hub
                 mentionCounter: 0, // unsupported in space hub
+                hasUnreadReactions: false, // unsupported in space hub
                 notificationMode: .all, // unsupported in space hub
                 chatName: chatName
             )
@@ -88,8 +89,10 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             lastMessage: lastMessage,
             unreadCounter: spaceData.totalUnreadCounter,
             mentionCounter: spaceData.totalMentionCounter,
+            hasUnreadReactions: spaceData.hasUnreadReactions,
             unreadCounterStyle: spaceData.unreadCounterStyle,
             mentionCounterStyle: spaceData.mentionCounterStyle,
+            reactionStyle: spaceData.reactionStyle,
             hasCounters: spaceData.hasCounters,
             multichatCompactPreview: multichatCompactPreview,
             wallpaper: wallpapers[spaceView.targetSpaceId] ?? .default
