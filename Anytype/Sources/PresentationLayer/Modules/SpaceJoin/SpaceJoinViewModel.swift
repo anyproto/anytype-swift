@@ -161,9 +161,15 @@ final class SpaceJoinViewModel {
                 switch spaceView.accountStatus {
                 case .spaceActive:
                     // IOS-5522: Auto-open space for existing members
-                    try? await activeSpaceManager.setActiveSpace(spaceId: inviteView.spaceId)
-                    dismiss.toggle()
-                    return
+                    do {
+                        try await activeSpaceManager.setActiveSpace(spaceId: inviteView.spaceId)
+                        dismiss.toggle()
+                        return
+                    } catch {
+                        dataState = .alreadyJoined
+                        state = .data
+                        return
+                    }
                 case .unknown:
                     dataState = .alreadyJoined
                     state = .data
