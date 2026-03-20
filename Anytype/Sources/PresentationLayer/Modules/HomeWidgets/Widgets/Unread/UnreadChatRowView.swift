@@ -23,7 +23,7 @@ struct UnreadChatRowView: View {
                     .frame(width: 20, height: 20)
 
                 AnytypeText(model.name, style: .bodySemibold)
-                    .foregroundStyle(model.muted ? Color.Text.secondary : Color.Text.primary)
+                    .foregroundStyle(model.notificationMode == .nothing ? Color.Text.secondary : Color.Text.primary)
                     .lineLimit(1)
 
                 Spacer()
