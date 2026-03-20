@@ -56,13 +56,9 @@ enum SpacePreviewCountersBuilder {
 
             if FeatureFlags.muteAndHide && spaceView.uxType.supportsMultiChats {
                 switch effectiveMode {
-                case .all, .UNRECOGNIZED:
+                case .all, .mentions, .UNRECOGNIZED:
                     totalUnread += preview.unreadCounter
                     // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
-                    if spaceView.uxType.supportsMentions {
-                        totalMentions += preview.mentionCounter
-                    }
-                case .mentions:
                     if spaceView.uxType.supportsMentions {
                         totalMentions += preview.mentionCounter
                     }
