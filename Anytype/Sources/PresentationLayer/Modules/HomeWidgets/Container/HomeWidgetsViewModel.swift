@@ -228,7 +228,7 @@ final class HomeWidgetsViewModel {
                         }
                     }
 
-                    guard preview.unreadCounter > 0 || preview.hasUnreadReactions else { return false }
+                    guard preview.hasCounters else { return false }
                     guard let chatDetail = chatDetails.first(where: { $0.id == preview.chatId }) else { return false }
                     return !chatDetail.isArchivedOrDeleted
                 }

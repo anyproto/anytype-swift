@@ -29,6 +29,11 @@ final class UnreadChatWidgetViewModel {
     private(set) var notificationMode: SpacePushNotificationsMode = .all
     var muted: Bool { notificationMode != .all }
 
+    var shouldShowUnreadCounter: Bool {
+        guard FeatureFlags.muteAndHide else { return unreadCounter > 0 }
+        return unreadCounter > 0 && notificationMode != .nothing
+    }
+
     init(data: UnreadChatWidgetData) {
         self.data = data
     }

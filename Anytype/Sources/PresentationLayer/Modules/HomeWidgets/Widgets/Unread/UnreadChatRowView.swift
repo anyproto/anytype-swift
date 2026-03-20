@@ -35,7 +35,7 @@ struct UnreadChatRowView: View {
                     if model.hasMentions {
                         MentionBadge(style: model.muted ? .muted : .highlighted)
                     }
-                    if model.unreadCounter > 0 && !(FeatureFlags.muteAndHide && model.notificationMode == .nothing) {
+                    if model.shouldShowUnreadCounter {
                         CounterView(count: model.unreadCounter, style: model.muted ? .muted : .highlighted)
                     }
                 }
