@@ -71,7 +71,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         var chatMessage = ChatMessage()
         let content = chatInputConverter.convert(message: message.value)
         if useBlocksFormat {
-            chatMessage.message = ""
+            chatMessage.message = chatInputConverter.convert(message: NSAttributedString("")) // TODO: remove after MW fixes crash on their side
             var textBlock = ChatMessage.MessageBlockText()
             textBlock.text = content.text
             textBlock.marks = content.marks

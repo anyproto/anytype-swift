@@ -35,7 +35,7 @@ public extension ChatMessage {
             if !combinedText.isEmpty {
                 combinedText += "\n"
             }
-            let textOffset = Int32(combinedText.utf8.count)
+            let textOffset = Int32(combinedText.utf16.count)
             combinedText += textBlock.text
             for var mark in textBlock.marks {
                 mark.range.from += textOffset
