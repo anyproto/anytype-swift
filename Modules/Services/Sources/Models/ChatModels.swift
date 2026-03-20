@@ -16,9 +16,36 @@ public extension ChatMessage {
     var createdAtDate: Date {
         Date(timeIntervalSince1970: TimeInterval(createdAt))
     }
-    
+
     var modifiedAtDate: Date? {
         guard modifiedAt != 0 else { return nil }
         return Date(timeIntervalSince1970: TimeInterval(modifiedAt))
+    }
+
+    /// Temporary solution to render discussions
+    func resolvedContent(useBlocksFormat: Bool) -> ChatMessageContent {
+        guard useBlocksFormat, !blocks.isEmpty else { return message }
+
+        var content = ChatMessageContent()
+        var combinedText = ""
+        var combinedMarks: [Anytype_Model_Block.Content.Text.Mark] = []
+
+        for block in blocks {
+            guard case .text(let textBlock) = block.content else { continue }
+            if !combinedText.isEmpty {
+                combinedText += "\n"
+            }
+            let textOffset = Int32(combinedText.utf8.count)
+            combinedText += textBlock.text
+            for var mark in textBlock.marks {
+                mark.range.from += textOffset
+                mark.range.to += textOffset
+                combinedMarks.append(mark)
+            }
+        }
+
+        content.text = combinedText
+        content.marks = combinedMarks
+        return content
     }
 }

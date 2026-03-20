@@ -23,12 +23,14 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
 
     private let spaceId: String
     private let chatId: String
+    private let useBlocksFormat: Bool
 
     private let dateFormatter = HistoryDateFormatter()
 
-    init(spaceId: String, chatId: String) {
+    init(spaceId: String, chatId: String, useBlocksFormat: Bool = false) {
         self.spaceId = spaceId
         self.chatId = chatId
+        self.useBlocksFormat = useBlocksFormat
     }
     
     func makeMessage(
@@ -84,7 +86,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
                 authorId: authorParticipant?.id,
                 createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
-                messageString: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position),
+                messageString: messageTextBuilder.makeMessage(content: message.resolvedContent(useBlocksFormat: useBlocksFormat), spaceId: spaceId, position: position),
                 replyModel: mapReply(
                     fullMessage: fullMessage,
                     participants: participants,
@@ -183,10 +185,10 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             let filesCout = fullMessage.replyAttachments.count(where: \.resolvedLayoutValue.isFile)
             
             let description: String
-            if replyChat.message.text.isNotEmpty {
+            if replyChat.resolvedContent(useBlocksFormat: useBlocksFormat).text.isNotEmpty {
                 // Without style. Request from designers.
                 description = messageTextBuilder
-                    .makeMessaeWithoutStyle(content: replyChat.message)
+                    .makeMessaeWithoutStyle(content: replyChat.resolvedContent(useBlocksFormat: useBlocksFormat))
                     .replacingOccurrences(of: "\n+", with: "\n", options: .regularExpression)
             } else if fullMessage.replyAttachments.count == 1 {
                 description = replyAttachment?.title ?? ""
