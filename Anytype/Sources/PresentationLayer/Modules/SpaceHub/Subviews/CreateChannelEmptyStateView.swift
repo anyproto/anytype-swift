@@ -8,7 +8,7 @@ struct CreateChannelEmptyStateView: View {
 
     var body: some View {
         EmptyStateView(
-            title: Loc.thereAreNoSpacesYet,
+            title: Loc.Channel.Create.EmptyState.title,
             subtitle: "",
             style: .withImage
         ) {
@@ -19,7 +19,7 @@ struct CreateChannelEmptyStateView: View {
                     onTapJoinQR: onTapJoinQR
                 )
             } label: {
-                StandardButton(.text(Loc.createSpace), style: .secondarySmall) {}
+                StandardButton(.text(Loc.Channel.Create.EmptyState.button), style: .secondarySmall) {}
                     .allowsHitTesting(false)
             }
         }
