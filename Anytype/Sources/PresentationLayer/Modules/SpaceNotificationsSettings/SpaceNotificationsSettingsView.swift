@@ -15,8 +15,9 @@ struct SpaceNotificationsSettingsView: View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: Loc.notifications)
-            content
-            Spacer()
+            ScrollView {
+                content
+            }
         }
         .task {
             await model.startSubscriptions()
