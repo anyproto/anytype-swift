@@ -1424,6 +1424,10 @@ public enum Loc {
     public enum Create {
       public static let group = Loc.tr("Workspace", "Channel.Create.Group", fallback: "Group")
       public static let personal = Loc.tr("Workspace", "Channel.Create.Personal", fallback: "Personal")
+      public enum EmptyState {
+        public static let button = Loc.tr("Workspace", "Channel.Create.EmptyState.button", fallback: "Create Channel")
+        public static let title = Loc.tr("Workspace", "Channel.Create.EmptyState.title", fallback: "There are no channels yet")
+      }
     }
   }
   public enum Chat {
