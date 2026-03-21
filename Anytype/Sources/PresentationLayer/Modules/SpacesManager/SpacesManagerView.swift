@@ -14,7 +14,6 @@ struct SpacesManagerView: View {
             .onAppear {
                 model.onAppear()
             }
-            .background(Color.Background.primary)
             .anytypeSheet(item: $model.spaceForCancelRequestAlert) { space in
                 SpaceCancelRequestAlert(spaceId: space.targetSpaceId)
             }
@@ -30,7 +29,7 @@ struct SpacesManagerView: View {
             .sheet(item: $model.exportSpaceUrl) { link in
                 ActivityView(activityItems: [link])
             }
-            .anytypeSheet(isPresented: $model.showSpaceTypeForCreate) {
+            .sheet(isPresented: $model.showSpaceTypeForCreate) {
                 SpaceCreateTypePickerView(onSelectSpaceType: { type in
                     model.onSpaceTypeSelected(type)
                 }, onSelectQrCodeScan: {

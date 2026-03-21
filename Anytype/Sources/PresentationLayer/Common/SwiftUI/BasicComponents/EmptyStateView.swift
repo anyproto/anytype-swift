@@ -59,6 +59,7 @@ struct EmptyStateView<ButtonContent: View>: View {
             Spacer()
         }
         .padding(.horizontal, 20)
+        .frame(maxWidth: .infinity)
     }
 }
 
