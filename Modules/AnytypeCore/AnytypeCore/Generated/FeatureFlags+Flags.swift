@@ -22,6 +22,10 @@ public extension FeatureFlags {
         value(for: .qrCodeCircularText)
     }
 
+    static var createChannelFlow: Bool {
+        value(for: .createChannelFlow)
+    }
+
     static var channelTypeSwitcher: Bool {
         value(for: .channelTypeSwitcher)
     }
@@ -112,6 +116,7 @@ public extension FeatureFlags {
         .homePage,
         .discussionButton,
         .qrCodeCircularText,
+        .createChannelFlow,
         .channelTypeSwitcher,
         .setKanbanView,
         .fullInlineSetImpl,

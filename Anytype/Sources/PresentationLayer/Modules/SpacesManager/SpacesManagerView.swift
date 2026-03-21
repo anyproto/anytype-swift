@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct SpacesManagerView: View {
 
@@ -46,6 +47,19 @@ struct SpacesManagerView: View {
     private var content: some View {
         if model.participantSpaces.isNotEmpty {
             spaces
+        } else {
+            emptyState
+        }
+    }
+    
+    @ViewBuilder
+    private var emptyState: some View {
+        if FeatureFlags.createChannelFlow {
+            CreateChannelEmptyStateView(
+                onTapPersonal: { model.onTapCreatePersonalChannel() },
+                onTapGroup: { model.onTapCreateGroupChannel() },
+                onTapJoinQR: { model.onSelectQrCodeScan() }
+            )
         } else {
             EmptyStateView(
                 title: Loc.thereAreNoSpacesYet,

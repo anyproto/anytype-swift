@@ -39,9 +39,12 @@ struct SpaceHubList: View {
     }
     
     private var emptyStateView: some View {
-        SpaceHubEmptyStateView {
-            model.onTapCreateSpace()
-        }
+        SpaceHubEmptyStateView(
+            onTapCreateSpace: { model.onTapCreateSpace() },
+            onTapCreatePersonalChannel: { model.onTapCreatePersonalChannel() },
+            onTapCreateGroupChannel: { model.onTapCreateGroupChannel() },
+            onTapJoinViaQrCode: { model.onTapJoinViaQrCode() }
+        )
     }
     
     @ViewBuilder

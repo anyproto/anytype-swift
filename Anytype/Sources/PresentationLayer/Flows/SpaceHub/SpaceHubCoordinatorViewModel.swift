@@ -206,6 +206,21 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     func onSelectCreateObject() {
         showSpaceTypeForCreate = true
     }
+
+    func onSelectCreatePersonalChannel() {
+        spaceCreateData = SpaceCreateData(spaceUxType: .data)
+    }
+
+    func onSelectCreateGroupChannel() {
+        // Placeholder — will be implemented in IOS-5906
+    }
+
+    func onSelectQrCodeJoin() {
+        Task {
+            await dismissAllPresented?()
+            shouldScanQrCode = true
+        }
+    }
     
     func onSelectSpace(spaceId: String) {
         Task { await showSpace(spaceId: spaceId) }
