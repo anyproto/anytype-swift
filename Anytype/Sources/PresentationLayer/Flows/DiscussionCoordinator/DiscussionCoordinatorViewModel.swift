@@ -4,33 +4,20 @@ import SwiftUI
 import Services
 import AnytypeCore
 
-struct ChatCoordinatorData: Hashable, Codable {
-    let chatId: String
+struct DiscussionCoordinatorData: Hashable, Codable {
+    let discussionId: String
     let spaceId: String
-    let messageId: String?
-    let useBlocksFormat: Bool
-
-    init(chatId: String, spaceId: String, messageId: String? = nil, useBlocksFormat: Bool = false) {
-        self.chatId = chatId
-        self.spaceId = spaceId
-        self.messageId = messageId
-        self.useBlocksFormat = useBlocksFormat
-    }
 }
 
 @MainActor
 @Observable
-final class ChatCoordinatorViewModel: ChatModuleOutput, ObjectSettingsCoordinatorOutput {
-    
+final class DiscussionCoordinatorViewModel: DiscussionModuleOutput, ObjectSettingsCoordinatorOutput {
+
     @ObservationIgnored
-    let chatId: String
+    let discussionId: String
     @ObservationIgnored
     let spaceId: String
-    @ObservationIgnored
-    let messageId: String?
-    @ObservationIgnored
-    let useBlocksFormat: Bool
-    
+
     var objectToMessageSearchData: ObjectSearchWithMetaModuleData?
     var showEmojiData: MessageReactionPickerData?
     var showSyncStatusInfo = false
@@ -54,68 +41,66 @@ final class ChatCoordinatorViewModel: ChatModuleOutput, ObjectSettingsCoordinato
     private var filesPickerData: FilesPickerData?
     @ObservationIgnored
     private var photosPickerData: ChatPhotosPickerData?
-    
+
     @ObservationIgnored
     var pageNavigation: PageNavigation?
-    
+
     @Injected(\.objectActionsService) @ObservationIgnored
     private var objectActionsService: any ObjectActionsServiceProtocol
-    
-    init(data: ChatCoordinatorData) {
-        self.chatId = data.chatId
+
+    init(data: DiscussionCoordinatorData) {
+        self.discussionId = data.discussionId
         self.spaceId = data.spaceId
-        self.messageId = data.messageId
-        self.useBlocksFormat = data.useBlocksFormat
     }
-    
+
     func onLinkObjectSelected(data: ObjectSearchWithMetaModuleData) {
         objectToMessageSearchData = data
     }
-    
+
     func didSelectAddReaction(messageId: String) {
-        showEmojiData = MessageReactionPickerData(chatObjectId: chatId, messageId: messageId)
+        showEmojiData = MessageReactionPickerData(chatObjectId: discussionId, messageId: messageId)
     }
-    
+
     func didLongTapOnReaction(data: MessageParticipantsReactionData) {
         participantsReactionData = data
     }
-    
+
     func didSelectLinkToObject(data: LinkToObjectSearchModuleData) {
         linkToObjectData = data
     }
-    
+
     func onObjectSelected(screenData: ScreenData) {
         pageNavigation?.open(screenData)
     }
-    
+
     func onUrlSelected(url: URL) {
         safariUrl = url
     }
-    
+
     func onPhotosPickerSelected(data: ChatPhotosPickerData) {
         photosItems = data.selectedItems
         photosPickerData = data
         showPhotosPicker = true
     }
-    
+
     func onFilePickerSelected(data: FilesPickerData) {
         showFilesPicker = true
         filesPickerData = data
     }
-    
+
     func onShowCameraSelected(data: SimpleCameraData) {
         cameraData = data
     }
-    
+
     func photosPickerFinished() {
         guard photosItems != photosPickerData?.selectedItems else { return }
         photosPickerData?.handler(photosItems)
     }
-    
+
     func fileImporterFinished(result: Result<[URL], any Error>) {
         filesPickerData?.handler(result)
     }
-    
+
     func onWidgetsSelected() {
         let widgetData = HomeWidgetData(spaceId: spaceId)
         pageNavigation?.open(.alert(.widgets(widgetData)))
@@ -132,13 +117,13 @@ final class ChatCoordinatorViewModel: ChatModuleOutput, ObjectSettingsCoordinato
     func onShowQrCodeSelected(url: URL) {
         qrCodeInviteLink = url
     }
-    
+
     func onPushNotificationsAlertSelected() {
         pushNotificationsAlertData = PushNotificationsAlertData(completion: { [weak self] granted in
             self?.showDisabledPushNotificationsAlert = !granted
         })
     }
-    
+
     func didSelectCreateObject(type: ObjectType) {
         Task {
             let object = try await objectActionsService.createObject(

@@ -79,7 +79,7 @@ extension BundledPropertiesValueProvider {
         case .chatDeprecated, .chatDerived:
             return .chat
         case .discussion:
-            return .chat // TBD;
+            return .discussion
         }
     }
     
