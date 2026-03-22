@@ -133,6 +133,8 @@ extension BundledPropertiesValueProvider {
     
     var isObjectType: Bool { resolvedLayoutValue.isObjectType }
     
+    var isBookmark: Bool { resolvedLayoutValue == .bookmark }
+    
     var isSupportedForOpening: Bool { resolvedLayoutValue.isSupportedForOpening }
 
     var isSupportedForDiscussion: Bool { resolvedLayoutValue.isSupportedForDiscussion }

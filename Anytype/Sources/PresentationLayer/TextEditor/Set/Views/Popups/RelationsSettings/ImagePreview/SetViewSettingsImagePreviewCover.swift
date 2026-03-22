@@ -1,6 +1,7 @@
 enum SetViewSettingsImagePreviewCover: String, CaseIterable, Identifiable {
     case none = ""
     case pageCover
+    case picture = "picture"
     
     var id: String {
         rawValue
@@ -12,6 +13,8 @@ enum SetViewSettingsImagePreviewCover: String, CaseIterable, Identifiable {
             return Loc.none
         case .pageCover:
             return Loc.cover
+        case .picture:
+            return Loc.picture
         }
     }
 }
