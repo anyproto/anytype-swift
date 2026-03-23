@@ -173,6 +173,8 @@ struct DiscussionView: View {
             model.onTapScrollToBottom()
         } onTapMention: {
             model.onTapMention()
+        } onTapReaction: {
+            anytypeAssertionFailure("Reactions are not supported in discussions")
         }
     }
 

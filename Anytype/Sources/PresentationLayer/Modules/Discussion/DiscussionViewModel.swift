@@ -769,14 +769,16 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
                 showScrollToBottom: chatState.messages.counter > 0 || bigDistanceToBottom,
                 srollToBottomCounter: Int(chatState.messages.counter),
                 showMentions: chatState.mentions.counter > 0,
-                mentionsCounter: Int(chatState.mentions.counter)
+                mentionsCounter: Int(chatState.mentions.counter),
+                showReactions: false
             )
         } else {
             actionModel = ChatActionPanelModel(
                 showScrollToBottom: bigDistanceToBottom,
                 srollToBottomCounter: 0,
                 showMentions: false,
-                mentionsCounter: 0
+                mentionsCounter: 0,
+                showReactions: false
             )
         }
     }
