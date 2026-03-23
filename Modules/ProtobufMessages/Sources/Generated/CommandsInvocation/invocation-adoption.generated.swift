@@ -636,6 +636,11 @@ extension Anytype_Rpc.Chat.GetMessagesByIds.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Chat.GetPinnedMessages.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.GetPinnedMessages.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Chat.ReadAll.Response: ResultWithError {}
 extension Anytype_Rpc.Chat.ReadAll.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -646,8 +651,18 @@ extension Anytype_Rpc.Chat.ReadMessages.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Chat.ReadReactions.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.ReadReactions.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Chat.Search.Response: ResultWithError {}
 extension Anytype_Rpc.Chat.Search.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Chat.SetPinnedMessages.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.SetPinnedMessages.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
@@ -1097,6 +1112,11 @@ extension Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response.Error: Respons
 
 extension Anytype_Rpc.Object.DateByTimestamp.Response: ResultWithError {}
 extension Anytype_Rpc.Object.DateByTimestamp.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Object.DiscussionAdd.Response: ResultWithError {}
+extension Anytype_Rpc.Object.DiscussionAdd.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.Chat {
-    public struct EditMessageContent: Sendable {
+    public struct SetPinnedMessages: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -26,22 +26,13 @@ extension Anytype_Rpc.Chat {
 
         public var chatObjectID: String = String()
 
-        public var messageID: String = String()
+        public var messageIds: [String] = []
 
-        public var editedMessage: Anytype_Model_ChatMessage {
-          get {return _editedMessage ?? Anytype_Model_ChatMessage()}
-          set {_editedMessage = newValue}
-        }
-        /// Returns true if `editedMessage` has been explicitly set.
-        public var hasEditedMessage: Bool {return self._editedMessage != nil}
-        /// Clears the value of `editedMessage`. Subsequent reads from it will return its default value.
-        public mutating func clearEditedMessage() {self._editedMessage = nil}
+        public var pinned: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
-
-        fileprivate var _editedMessage: Anytype_Model_ChatMessage? = nil
       }
 
       public struct Response: Sendable {
@@ -49,14 +40,23 @@ extension Anytype_Rpc.Chat {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Chat.EditMessageContent.Response.Error {
-          get {return _error ?? Anytype_Rpc.Chat.EditMessageContent.Response.Error()}
+        public var error: Anytype_Rpc.Chat.SetPinnedMessages.Response.Error {
+          get {return _error ?? Anytype_Rpc.Chat.SetPinnedMessages.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
         public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
+
+        public var event: Anytype_ResponseEvent {
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        public var hasEvent: Bool {return self._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        public mutating func clearEvent() {self._event = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -65,7 +65,7 @@ extension Anytype_Rpc.Chat {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Chat.EditMessageContent.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Chat.SetPinnedMessages.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -103,7 +103,7 @@ extension Anytype_Rpc.Chat {
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Chat.EditMessageContent.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Chat.SetPinnedMessages.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
@@ -116,15 +116,16 @@ extension Anytype_Rpc.Chat {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Chat.EditMessageContent.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.Chat.SetPinnedMessages.Response.Error? = nil
+        fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Chat.EditMessageContent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.protoMessageName + ".EditMessageContent"
+extension Anytype_Rpc.Chat.SetPinnedMessages: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.protoMessageName + ".SetPinnedMessages"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -136,15 +137,15 @@ extension Anytype_Rpc.Chat.EditMessageContent: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.EditMessageContent, rhs: Anytype_Rpc.Chat.EditMessageContent) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.SetPinnedMessages, rhs: Anytype_Rpc.Chat.SetPinnedMessages) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Chat.EditMessageContent.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.EditMessageContent.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}chatObjectId\0\u{1}messageId\0\u{1}editedMessage\0")
+extension Anytype_Rpc.Chat.SetPinnedMessages.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.SetPinnedMessages.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}chatObjectId\0\u{1}messageIds\0\u{1}pinned\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -153,42 +154,38 @@ extension Anytype_Rpc.Chat.EditMessageContent.Request: SwiftProtobuf.Message, Sw
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.messageID) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._editedMessage) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.messageIds) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.pinned) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.chatObjectID.isEmpty {
       try visitor.visitSingularStringField(value: self.chatObjectID, fieldNumber: 1)
     }
-    if !self.messageID.isEmpty {
-      try visitor.visitSingularStringField(value: self.messageID, fieldNumber: 2)
+    if !self.messageIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.messageIds, fieldNumber: 2)
     }
-    try { if let v = self._editedMessage {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    } }()
+    if self.pinned != false {
+      try visitor.visitSingularBoolField(value: self.pinned, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.EditMessageContent.Request, rhs: Anytype_Rpc.Chat.EditMessageContent.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.SetPinnedMessages.Request, rhs: Anytype_Rpc.Chat.SetPinnedMessages.Request) -> Bool {
     if lhs.chatObjectID != rhs.chatObjectID {return false}
-    if lhs.messageID != rhs.messageID {return false}
-    if lhs._editedMessage != rhs._editedMessage {return false}
+    if lhs.messageIds != rhs.messageIds {return false}
+    if lhs.pinned != rhs.pinned {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Chat.EditMessageContent.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.EditMessageContent.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0")
+extension Anytype_Rpc.Chat.SetPinnedMessages.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.SetPinnedMessages.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}event\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -197,6 +194,7 @@ extension Anytype_Rpc.Chat.EditMessageContent.Response: SwiftProtobuf.Message, S
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
       default: break
       }
     }
@@ -210,18 +208,22 @@ extension Anytype_Rpc.Chat.EditMessageContent.Response: SwiftProtobuf.Message, S
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.EditMessageContent.Response, rhs: Anytype_Rpc.Chat.EditMessageContent.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.SetPinnedMessages.Response, rhs: Anytype_Rpc.Chat.SetPinnedMessages.Response) -> Bool {
     if lhs._error != rhs._error {return false}
+    if lhs._event != rhs._event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Chat.EditMessageContent.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.EditMessageContent.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Chat.SetPinnedMessages.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.SetPinnedMessages.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -247,7 +249,7 @@ extension Anytype_Rpc.Chat.EditMessageContent.Response.Error: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.EditMessageContent.Response.Error, rhs: Anytype_Rpc.Chat.EditMessageContent.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.SetPinnedMessages.Response.Error, rhs: Anytype_Rpc.Chat.SetPinnedMessages.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -255,7 +257,7 @@ extension Anytype_Rpc.Chat.EditMessageContent.Response.Error: SwiftProtobuf.Mess
   }
 }
 
-extension Anytype_Rpc.Chat.EditMessageContent.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Chat.SetPinnedMessages.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
