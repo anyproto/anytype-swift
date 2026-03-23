@@ -46,7 +46,9 @@ final class SpaceJoinViewModel {
 
     private var inviteView: SpaceInviteView?
     private var onManageSpaces: () -> Void
+    private var onJoinedSpace: ((String, SpaceUxType) -> Void)?
     private var callManageSpaces = false
+    private var joinedSpaceId: String?
 
     var errorMessage: String = ""
     var title: String = Loc.SpaceShare.Join.title
@@ -59,9 +61,10 @@ final class SpaceJoinViewModel {
     var joinTaskId: String?
     var dismiss = false
     
-    init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void) {
+    init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void, onJoinedSpace: ((String, SpaceUxType) -> Void)? = nil) {
         self.data = data
         self.onManageSpaces = onManageSpaces
+        self.onJoinedSpace = onJoinedSpace
     }
     
     func onJoinTapped() {
@@ -84,6 +87,7 @@ final class SpaceJoinViewModel {
                 networkId: accountManager.account.info.networkId
             )
             if inviteView.inviteType.withoutApprove {
+                joinedSpaceId = inviteView.spaceId
                 toast = ToastBarData(Loc.youJoined(inviteView.spaceName))
                 dismiss.toggle()
             } else {
@@ -110,14 +114,14 @@ final class SpaceJoinViewModel {
         dismiss.toggle()
     }
     
-    func onTapManageSpaces() {
-        callManageSpaces = true
-        dismiss.toggle()
-    }
-    
     func onTapGoToSpace() async throws {
         guard let inviteView else { return }
         try await activeSpaceManager.setActiveSpace(spaceId: inviteView.spaceId)
+        dismiss.toggle()
+    }
+
+    func onTapManageSpaces() {
+        callManageSpaces = true
         dismiss.toggle()
     }
     
@@ -126,6 +130,9 @@ final class SpaceJoinViewModel {
         // Notify parent after dismiss.
         if callManageSpaces {
             onManageSpaces()
+        }
+        if let joinedSpaceId, let inviteView {
+            onJoinedSpace?(joinedSpaceId, inviteView.spaceUxType)
         }
     }
     
@@ -148,24 +155,39 @@ final class SpaceJoinViewModel {
         do {
             let inviteView = try await workspaceService.inviteView(cid: data.cid, key: data.key)
             
-            handleInviteType(inviteView: inviteView)
-            
             self.inviteView = inviteView
-            state = .data
-            
-            let inviteWithoutApprove = inviteView.inviteType.withoutApprove
+
             if let spaceView = workspaceStorage.allSpaceViews.first(where: { $0.targetSpaceId == inviteView.spaceId }) {
                 switch spaceView.accountStatus {
+                case .spaceActive:
+                    // IOS-5522: Auto-open space for existing members
+                    do {
+                        try await activeSpaceManager.setActiveSpace(spaceId: inviteView.spaceId)
+                        dismiss.toggle()
+                        return
+                    } catch {
+                        dataState = .alreadyJoined
+                        state = .data
+                        return
+                    }
+                case .unknown:
+                    dataState = .alreadyJoined
+                    state = .data
+                    return
                 case .spaceJoining:
                     dataState = .requestSent
-                case .spaceActive, .unknown:
-                    dataState = .alreadyJoined
+                    state = .data
+                    return
                 default:
-                    dataState = .invite(withoutApprove: inviteWithoutApprove)
+                    break
                 }
-            } else {
-                dataState = .invite(withoutApprove: inviteWithoutApprove)
             }
+
+            handleInviteType(inviteView: inviteView)
+
+            let inviteWithoutApprove = inviteView.inviteType.withoutApprove
+            dataState = .invite(withoutApprove: inviteWithoutApprove)
+            state = .data
         } catch let error as SpaceInviteViewError where error.code == .inviteNotFound {
             dataState = .inviteNotFound
             state = .data

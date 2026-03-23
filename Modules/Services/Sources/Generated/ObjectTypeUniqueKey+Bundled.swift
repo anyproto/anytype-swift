@@ -21,5 +21,6 @@ public extension ObjectTypeUniqueKey {
     static let set = ObjectTypeUniqueKey(value: "ot-set")
     static let bookmark = ObjectTypeUniqueKey(value: "ot-bookmark")
     static let chatDerived = ObjectTypeUniqueKey(value: "ot-chatDerived")
+    static let discussion = ObjectTypeUniqueKey(value: "ot-discussion")
 
 }

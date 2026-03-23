@@ -12,6 +12,7 @@ struct WidgetContainerView<Content: View>: View {
     let icon: Icon?
     let badgeModel: MessagePreviewModel?
     let dragId: String?
+    let contentState: WidgetContentState
     let onCreateObjectTap: (() -> Void)?
     let onHeaderTap: () -> Void
     let content: Content
@@ -24,6 +25,8 @@ struct WidgetContainerView<Content: View>: View {
         icon: Icon? = nil,
         badgeModel: MessagePreviewModel? = nil,
         dragId: String?,
+        contentState: WidgetContentState = .hasData,
+        defaultExpanded: Bool = true,
         menuItems: [WidgetMenuItem] = [.changeType, .remove, .removeSystemWidget],
         onCreateObjectTap: (() -> Void)?,
         onHeaderTap: @escaping () -> Void,
@@ -35,6 +38,7 @@ struct WidgetContainerView<Content: View>: View {
         self.icon = icon
         self.badgeModel = badgeModel
         self.dragId = dragId
+        self.contentState = contentState
         self.onCreateObjectTap = onCreateObjectTap
         self.onHeaderTap = onHeaderTap
         self.content = content()
@@ -43,6 +47,7 @@ struct WidgetContainerView<Content: View>: View {
                 widgetBlockId: widgetBlockId,
                 widgetObject: widgetObject,
                 expectedMenuItems: menuItems,
+                defaultExpanded: defaultExpanded,
                 output: output
             )
         )
@@ -69,12 +74,15 @@ struct WidgetContainerView<Content: View>: View {
                         titleColor: badgeModel?.titleColor ?? .Text.primary,
                         icon: icon,
                         rightAccessory: {
-                            if let badgeModel, badgeModel.hasCounters {
+                            if let badgeModel, badgeModel.hasVisibleCounters {
                                 HStack(spacing: 4) {
+                                    if badgeModel.hasUnreadReactions {
+                                        HeartBadge(style: badgeModel.reactionStyle)
+                                    }
                                     if badgeModel.mentionCounter > 0 {
                                         MentionBadge(style: badgeModel.mentionCounterStyle)
                                     }
-                                    if badgeModel.unreadCounter > 0 {
+                                    if badgeModel.shouldShowUnreadCounter {
                                         CounterView(
                                             count: badgeModel.unreadCounter,
                                             style: badgeModel.unreadCounterStyle
@@ -99,6 +107,10 @@ struct WidgetContainerView<Content: View>: View {
             .snackbar(toastBarData: $model.toastData)
         }
         .twoWayBinding(viewState: $homeState, modelState: $model.homeState)
+        .onChange(of: contentState) { oldValue, newValue in
+            let animated = oldValue != .loading
+            model.updateExpanded(contentState: newValue, animated: animated)
+        }
     }
     
     @ViewBuilder

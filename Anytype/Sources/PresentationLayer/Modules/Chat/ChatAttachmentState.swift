@@ -19,9 +19,11 @@ final class ChatAttachmentState {
     private var photosItems: [PhotosPickerItem] = []
     
     let spaceId: String
-    
-    nonisolated init(spaceId: String) {
+    let chatId: String
+
+    nonisolated init(spaceId: String, chatId: String) {
         self.spaceId = spaceId
+        self.chatId = chatId
     }
     
     var linkedObjectsPublisher: AnyPublisher<[ChatLinkedObject], Never> {
@@ -130,9 +132,9 @@ final class ChatAttachmentState {
 
     private func startPreload(linkedObject: ChatLinkedObject) {
         guard let data = linkedObject.fileData else { return }
-        
-        let task = Task { [weak self, fileActionsService, spaceId] in
-            if let preloadFileId = try? await fileActionsService.preloadFileObject(spaceId: spaceId, data: data, origin: .none) {
+
+        let task = Task { [weak self, fileActionsService, spaceId, chatId] in
+            if let preloadFileId = try? await fileActionsService.preloadFileObject(spaceId: spaceId, data: data, origin: .none, createdInContext: chatId, createdInContextRef: "") {
                 self?.updatePreloadFileId(for: linkedObject.id, preloadFileId: preloadFileId)
             }
             self?.removePreloadTask(objectId: linkedObject.id)

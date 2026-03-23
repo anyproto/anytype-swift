@@ -73,6 +73,14 @@ final class SpacesManagerViewModel {
     func onSpaceTypeSelected(_ type: SpaceUxType) {
             spaceCreateData = SpaceCreateData(spaceUxType: type)
     }
+
+    func onTapCreatePersonalChannel() {
+        spaceCreateData = SpaceCreateData(spaceUxType: .data)
+    }
+
+    func onTapCreateGroupChannel() {
+        // Placeholder — will be implemented in IOS-5906
+    }
 }
 
 private extension ParticipantSpaceViewData {

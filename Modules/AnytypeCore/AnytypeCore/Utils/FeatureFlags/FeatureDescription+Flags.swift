@@ -6,14 +6,21 @@ public extension FeatureDescription {
 
     static let showUploadStatusIndicator = FeatureDescription(
         title: "Show visual indicator for uploading files - IOS-5054",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "17"),
-        defaultValue: true
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
+        defaultValue: false
     )
     
     static let homePage = FeatureDescription(
         title: "Home Page",
         category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
         defaultValue: false
+    )
+
+    static let discussionButton = FeatureDescription(
+        title: "Discussion button in bottom navigation - IOS-5913",
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
+        defaultValue: false,
+        debugValue: true
     )
 
     static let qrCodeCircularText = FeatureDescription(
@@ -23,11 +30,24 @@ public extension FeatureDescription {
         debugValue: true
     )
     
+    static let createChannelFlow = FeatureDescription(
+        title: "Create Channel Flow - IOS-5856",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // should be disabled
     static let channelTypeSwitcher = FeatureDescription(
         title: "Channel type switcher - IOS-5378",
         category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
         defaultValue: false
+    )
+
+    static let muteAndHide = FeatureDescription(
+        title: "Mute and hide notification setting - IOS-5809",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: true
     )
 
     // MARK: - Experemental

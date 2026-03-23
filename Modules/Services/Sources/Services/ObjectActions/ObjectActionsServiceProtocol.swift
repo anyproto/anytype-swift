@@ -11,7 +11,9 @@ public protocol ObjectActionsServiceProtocol: Sendable {
         shouldSelectTemplate: Bool,
         spaceId: String,
         origin: ObjectOrigin,
-        templateId: String?
+        templateId: String?,
+        createdInContext: String,
+        createdInContextRef: String
     ) async throws -> ObjectDetails
     
     func delete(objectIds: [String]) async throws
@@ -39,4 +41,30 @@ public protocol ObjectActionsServiceProtocol: Sendable {
     func move(dashboadId: String, blockId: String, dropPositionblockId: String, position: Anytype_Model_Block.Position) async throws
     
     func createSet(name: String, iconEmoji: Emoji?, setOfObjectType: String, spaceId: String) async throws -> ObjectDetails
+}
+
+public extension ObjectActionsServiceProtocol {
+    func createObject(
+        name: String,
+        typeUniqueKey: ObjectTypeUniqueKey,
+        shouldDeleteEmptyObject: Bool,
+        shouldSelectType: Bool,
+        shouldSelectTemplate: Bool,
+        spaceId: String,
+        origin: ObjectOrigin,
+        templateId: String?
+    ) async throws -> ObjectDetails {
+        try await createObject(
+            name: name,
+            typeUniqueKey: typeUniqueKey,
+            shouldDeleteEmptyObject: shouldDeleteEmptyObject,
+            shouldSelectType: shouldSelectType,
+            shouldSelectTemplate: shouldSelectTemplate,
+            spaceId: spaceId,
+            origin: origin,
+            templateId: templateId,
+            createdInContext: "",
+            createdInContextRef: ""
+        )
+    }
 }

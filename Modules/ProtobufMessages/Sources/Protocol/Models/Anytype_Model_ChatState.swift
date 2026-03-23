@@ -41,6 +41,9 @@ public struct Anytype_Model_ChatState: Sendable {
   /// Order is serial number of this state. Client should apply chat state only if its order is greater than previously saved order
   public var order: Int64 = 0
 
+  /// order id of the newest message with any unread reactions
+  public var unreadReactionOrderID: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -51,7 +54,7 @@ public struct Anytype_Model_ChatState: Sendable {
 
 extension Anytype_Model_ChatState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ChatState"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}messages\0\u{1}mentions\0\u{1}lastStateId\0\u{1}order\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}messages\0\u{1}mentions\0\u{1}lastStateId\0\u{1}order\0\u{1}unreadReactionOrderId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -63,6 +66,7 @@ extension Anytype_Model_ChatState: SwiftProtobuf.Message, SwiftProtobuf._Message
       case 2: try { try decoder.decodeSingularMessageField(value: &self._mentions) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.lastStateID) }()
       case 4: try { try decoder.decodeSingularInt64Field(value: &self.order) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.unreadReactionOrderID) }()
       default: break
       }
     }
@@ -85,6 +89,9 @@ extension Anytype_Model_ChatState: SwiftProtobuf.Message, SwiftProtobuf._Message
     if self.order != 0 {
       try visitor.visitSingularInt64Field(value: self.order, fieldNumber: 4)
     }
+    if !self.unreadReactionOrderID.isEmpty {
+      try visitor.visitSingularStringField(value: self.unreadReactionOrderID, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -93,6 +100,7 @@ extension Anytype_Model_ChatState: SwiftProtobuf.Message, SwiftProtobuf._Message
     if lhs._mentions != rhs._mentions {return false}
     if lhs.lastStateID != rhs.lastStateID {return false}
     if lhs.order != rhs.order {return false}
+    if lhs.unreadReactionOrderID != rhs.unreadReactionOrderID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -320,6 +320,7 @@ extension Container {
         self { ChatActionService() }
     }
 
+
     var shareSuggestionService: Factory<any ShareSuggestionServiceProtocol> {
         self { ShareSuggestionService() }
     }
@@ -346,6 +347,10 @@ extension Container {
     
     var profileStorage: Factory<any ProfileStorageProtocol> {
         self { ProfileStorage() }.singleton
+    }
+
+    var homepagePickerService: Factory<any HomepagePickerServiceProtocol> {
+        self { HomepagePickerService() }.shared
     }
 
     var iconColorService: Factory<any IconColorServiceProtocol> {
@@ -410,5 +415,9 @@ extension Container {
 
     var mediaCacheHeatingService: Factory<any MediaCacheHeatingServiceProtocol> {
         self { MediaCacheHeatingService() }
+    }
+
+    var appIconBadgeService: Factory<any AppIconBadgeServiceProtocol> {
+        self { AppIconBadgeService() }.singleton
     }
 }

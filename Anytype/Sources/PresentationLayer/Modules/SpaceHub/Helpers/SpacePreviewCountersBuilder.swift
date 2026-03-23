@@ -1,10 +1,13 @@
 import Services
+import AnytypeCore
 
 struct SpacePreviewCountersData: Equatable {
     let totalUnread: Int
     let totalMentions: Int
+    let hasUnreadReactions: Bool
     let unreadStyle: CounterViewStyle
-    let mentionStyle: MentionBadgeStyle
+    let mentionStyle: BadgeStyle
+    let reactionStyle: BadgeStyle
 }
 
 enum SpacePreviewCountersBuilder {
@@ -19,8 +22,10 @@ enum SpacePreviewCountersBuilder {
         return SpacePreviewCountersData(
             totalUnread: counters.totalUnread,
             totalMentions: counters.totalMentions,
+            hasUnreadReactions: counters.hasUnreadReactions,
             unreadStyle: styles.unread,
-            mentionStyle: styles.mention
+            mentionStyle: styles.mention,
+            reactionStyle: styles.reaction
         )
     }
 
@@ -29,8 +34,10 @@ enum SpacePreviewCountersBuilder {
     private struct AggregatedCounters {
         let totalUnread: Int
         let totalMentions: Int
+        let hasUnreadReactions: Bool
         let hasHighlightedUnread: Bool
         let hasHighlightedMention: Bool
+        let hasHighlightedReaction: Bool
     }
 
     private static func aggregateCounters(
@@ -39,16 +46,33 @@ enum SpacePreviewCountersBuilder {
     ) -> AggregatedCounters {
         var totalUnread = 0
         var totalMentions = 0
+        var hasUnreadReactions = false
         var hasHighlightedUnread = false
         var hasHighlightedMention = false
+        var hasHighlightedReaction = false
 
         for preview in previews {
             let effectiveMode = spaceView.effectiveNotificationMode(for: preview.chatId)
 
-            totalUnread += preview.unreadCounter
-            // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
-            if spaceView.uxType.supportsMentions {
-                totalMentions += preview.mentionCounter
+            if FeatureFlags.muteAndHide && spaceView.uxType.supportsMultiChats {
+                switch effectiveMode {
+                case .all, .mentions, .UNRECOGNIZED:
+                    totalUnread += preview.unreadCounter
+                    // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
+                    if spaceView.uxType.supportsMentions {
+                        totalMentions += preview.mentionCounter
+                    }
+                case .nothing:
+                    if spaceView.uxType.supportsMentions {
+                        totalMentions += preview.mentionCounter
+                    }
+                }
+            } else {
+                totalUnread += preview.unreadCounter
+                // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
+                if spaceView.uxType.supportsMentions {
+                    totalMentions += preview.mentionCounter
+                }
             }
 
             if preview.unreadCounter > 0 && effectiveMode == .all {
@@ -57,13 +81,21 @@ enum SpacePreviewCountersBuilder {
             if preview.mentionCounter > 0 && (effectiveMode == .all || effectiveMode == .mentions) {
                 hasHighlightedMention = true
             }
+            if preview.hasUnreadReactions {
+                hasUnreadReactions = true
+                if effectiveMode == .all || effectiveMode == .mentions {
+                    hasHighlightedReaction = true
+                }
+            }
         }
 
         return AggregatedCounters(
             totalUnread: totalUnread,
             totalMentions: totalMentions,
+            hasUnreadReactions: hasUnreadReactions,
             hasHighlightedUnread: hasHighlightedUnread,
-            hasHighlightedMention: hasHighlightedMention
+            hasHighlightedMention: hasHighlightedMention,
+            hasHighlightedReaction: hasHighlightedReaction
         )
     }
 
@@ -72,7 +104,7 @@ enum SpacePreviewCountersBuilder {
     private static func determineStyles(
         spaceView: SpaceView,
         counters: AggregatedCounters
-    ) -> (unread: CounterViewStyle, mention: MentionBadgeStyle) {
+    ) -> (unread: CounterViewStyle, mention: BadgeStyle, reaction: BadgeStyle) {
         let hasCustomOverrides = spaceView.forceAllIds.isNotEmpty ||
                                  spaceView.forceMuteIds.isNotEmpty ||
                                  spaceView.forceMentionIds.isNotEmpty
@@ -80,17 +112,18 @@ enum SpacePreviewCountersBuilder {
         if hasCustomOverrides {
             return (
                 unread: counters.hasHighlightedUnread ? .highlighted : .muted,
-                mention: counters.hasHighlightedMention ? .highlighted : .muted
+                mention: counters.hasHighlightedMention ? .highlighted : .muted,
+                reaction: counters.hasHighlightedReaction ? .highlighted : .muted
             )
         }
 
         switch spaceView.pushNotificationMode {
         case .all:
-            return (unread: .highlighted, mention: .highlighted)
+            return (unread: .highlighted, mention: .highlighted, reaction: .highlighted)
         case .mentions:
-            return (unread: .muted, mention: .highlighted)
+            return (unread: .muted, mention: .highlighted, reaction: .highlighted)
         case .nothing, .UNRECOGNIZED:
-            return (unread: .muted, mention: .muted)
+            return (unread: .muted, mention: .muted, reaction: .muted)
         }
     }
 }

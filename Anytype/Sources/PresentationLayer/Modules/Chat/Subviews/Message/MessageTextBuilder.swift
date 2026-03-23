@@ -44,7 +44,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
             case .keyboard:
                 message[range].font = AnytypeFontBuilder.font(anytypeFont: .codeBlock)
             case .italic:
-                message[range].font = message[range].font?.italic()
+                message[range].uiKit.obliqueness = CGFloat(0.2)
             case .bold:
                 message[range].font = message[range].font?.weight(.semibold)
             case .underscored:
@@ -62,7 +62,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
             case .textColor:
                 message[range].foregroundColor = MiddlewareColor(rawValue: mark.param).map { Color.Dark.color(from: $0) }
             case .backgroundColor:
-                message[range].backgroundColor = MiddlewareColor(rawValue: mark.param).map { Color.VeryLight.color(from: $0) }
+                message[range].backgroundColor = MiddlewareColor(rawValue: mark.param).map { Color.Light.color(from: $0) }
             case .mention:
                 message[range].uiKit.underlineStyle = .single
                 if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {

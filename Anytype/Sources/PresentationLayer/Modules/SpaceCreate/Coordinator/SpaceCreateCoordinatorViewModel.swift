@@ -20,6 +20,7 @@ final class SpaceCreateCoordinatorViewModel: SpaceCreateModuleOutput {
 
     var localObjectIconPickerData: LocalObjectIconPickerData?
     var homePagePickerData: HomePagePickerData?
+    var newHomepagePickerData: HomePagePickerData?
 
     @ObservationIgnored
     private var pendingSpaceId: String?
@@ -43,10 +44,24 @@ final class SpaceCreateCoordinatorViewModel: SpaceCreateModuleOutput {
         )
     }
 
+    func onHomepagePickerFinished(result: HomepagePickerResult) async throws {
+        guard let spaceId = pendingSpaceId else { return }
+        pendingSpaceId = nil
+
+        switch result {
+        case .homepageSet:
+            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+            // TODO: Navigate to the homepage object (separate task)
+        case .later:
+            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+            // TODO: Handle temporary widgets (separate task)
+        }
+    }
+
     func onSpaceCreated(spaceId: String) async throws {
         if FeatureFlags.homePage {
             pendingSpaceId = spaceId
-            homePagePickerData = HomePagePickerData(spaceId: spaceId)
+            newHomepagePickerData = HomePagePickerData(spaceId: spaceId)
         } else {
             try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
         }

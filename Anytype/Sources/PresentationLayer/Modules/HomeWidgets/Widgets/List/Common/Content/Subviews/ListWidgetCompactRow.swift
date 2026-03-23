@@ -27,12 +27,15 @@ struct ListWidgetCompactRow: View {
 
                 Spacer()
 
-                if let chatPreview = model.chatPreview, chatPreview.hasCounters {
+                if let chatPreview = model.chatPreview, chatPreview.hasVisibleCounters {
                     HStack(spacing: 4) {
+                        if chatPreview.hasUnreadReactions {
+                            HeartBadge(style: chatPreview.reactionStyle)
+                        }
                         if chatPreview.mentionCounter > 0 {
                             MentionBadge(style: chatPreview.mentionCounterStyle)
                         }
-                        if chatPreview.unreadCounter > 0 {
+                        if chatPreview.shouldShowUnreadCounter {
                             CounterView(
                                 count: chatPreview.unreadCounter,
                                 style: chatPreview.unreadCounterStyle

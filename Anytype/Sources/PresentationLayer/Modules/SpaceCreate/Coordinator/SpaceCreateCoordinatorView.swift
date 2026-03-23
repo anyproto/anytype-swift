@@ -21,5 +21,11 @@ struct SpaceCreateCoordinatorView: View {
                 try await model.onHomePagePickerFinished()
             }.interactiveDismissDisabled(true)
         }
+        .sheet(item: $model.newHomepagePickerData) { data in
+            HomepagePickerView(spaceId: data.spaceId) { result in
+                try await model.onHomepagePickerFinished(result: result)
+            }
+            .interactiveDismissDisabled(true)
+        }
     }
 }

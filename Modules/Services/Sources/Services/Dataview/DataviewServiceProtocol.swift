@@ -30,9 +30,29 @@ public protocol DataviewServiceProtocol: Sendable {
         typeUniqueKey: ObjectTypeUniqueKey?,
         templateId: String,
         spaceId: String,
-        details: ObjectDetails
+        details: ObjectDetails,
+        createdInContext: String,
+        createdInContextRef: String
     ) async throws -> ObjectDetails
     func setPositionForView(objectId: String, blockId: String, viewId: String, position: Int) async throws
     func objectOrderUpdate(objectId: String, blockId: String, order: [DataviewObjectOrder]) async throws
     func groupOrderUpdate(objectId: String, blockId: String, viewId: String, groupOrder: DataviewGroupOrder) async throws
+}
+
+public extension DataviewServiceProtocol {
+    func addRecord(
+        typeUniqueKey: ObjectTypeUniqueKey?,
+        templateId: String,
+        spaceId: String,
+        details: ObjectDetails
+    ) async throws -> ObjectDetails {
+        try await addRecord(
+            typeUniqueKey: typeUniqueKey,
+            templateId: templateId,
+            spaceId: spaceId,
+            details: details,
+            createdInContext: "",
+            createdInContextRef: ""
+        )
+    }
 }

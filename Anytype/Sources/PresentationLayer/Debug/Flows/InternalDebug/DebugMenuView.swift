@@ -15,6 +15,7 @@ struct DebugMenuView: View {
     @State private var showColors = false
     @State private var showObjectIcons = false
     @State private var showMembershipDebug = false
+    @State private var showHomepagePicker = false
     
     var body: some View {
         VStack {
@@ -75,6 +76,12 @@ struct DebugMenuView: View {
         .sheet(isPresented: $showColors) { ColorsExample() }
         .sheet(isPresented: $showObjectIcons) { ObjectIconExample() }
         .sheet(isPresented: $showMembershipDebug) { MembershipDebugView() }
+        .sheet(isPresented: $showHomepagePicker) {
+            HomepagePickerView(spaceId: "") { result in
+                print("HomepagePicker result: \(result)")
+            }
+            .interactiveDismissDisabled(true)
+        }
         .sheet(item: $model.shareUrlFile) { url in
             ActivityViewController(activityItems: [url], applicationActivities: nil)
         }
@@ -109,6 +116,10 @@ struct DebugMenuView: View {
                 }
             }
             
+            StandardButton("Homepage Picker Preview 🏠", style: .secondaryLarge) {
+                showHomepagePicker = true
+            }
+
             Toggle(isOn: Binding(
                 get: { model.shouldRunDebugProfilerOnNextStartup } ,
                 set: { model.shouldRunDebugProfilerOnNextStartup = $0 }
@@ -143,6 +154,18 @@ struct DebugMenuView: View {
             AsyncStandardButton("Debug stack Goroutines 💤", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 try await model.getGoroutinesData()
+            }
+
+            StandardButton(
+                model.debugServerURL.map { "Debug Server: \($0)" } ?? "Run Debug Server 🖥️",
+                style: .secondaryLarge
+            ) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                if let url = model.debugServerURL {
+                    UIPasteboard.general.string = url
+                } else {
+                    model.startDebugServer()
+                }
             }
             StandardButton(model.debugRunProfilerData.text, style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()

@@ -277,6 +277,9 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             case let .chatUpdateMentionReadStatus(data):
                 guard data.subIds.contains(subId) else { break }
                 messages.chatUpdateMentionReadStatus(data)
+            case let .chatUpdateReactionReadStatus(data):
+                guard data.subIds.contains(subId) else { break }
+                messages.chatUpdateReactionReadStatus(data)
             case let .chatStateUpdate(data):
                 guard data.subIds.contains(subId) else { break }
                 if (chatState?.order ?? -1) < data.state.order {
@@ -441,12 +444,23 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 lastStateId: chatState.lastStateID
             )
         }
+
+        if chatState.unreadReactionOrderID.isNotEmpty,
+           chatState.unreadReactionOrderID >= afterOrderId,
+           chatState.unreadReactionOrderID <= beforeOrderId {
+            try? await chatService.readReactions(
+                chatObjectId: chatObjectId,
+                orderId: chatState.unreadReactionOrderID
+            )
+        }
     }
     
     private func handleAttachmentSubscription(details: [ObjectDetails]) async {
         let updated = attachments.update(details: details)
         if updated {
             updateFullMessages()
+            let allDetails = subscribedAttachmentIds.compactMap { attachments.details(id: $0) }
+            await mediaCacheHeatingService.updateVisibleMedia(attachmentDetails: allDetails)
         }
     }
 }

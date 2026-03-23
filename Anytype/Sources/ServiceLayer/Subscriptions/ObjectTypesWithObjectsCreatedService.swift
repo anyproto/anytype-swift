@@ -39,7 +39,7 @@ final class ObjectTypesWithObjectsCreatedService: ObjectTypesWithObjectsCreatedS
 
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilters()
-            SearchHelper.layoutFilter(DetailsLayout.visibleLayouts(spaceUxType: spaceUxType))
+            SearchHelper.layoutFilter(DetailsLayout.widgetTypeLayouts(spaceUxType: spaceUxType))
             SearchHelper.templateScheme(include: false)
         }
 
