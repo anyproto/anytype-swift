@@ -123,7 +123,6 @@ struct DiscussionMessageView: View {
 
         if !data.messageString.isEmpty {
             Text(data.messageString)
-                .anytypeStyle(.chatText)
                 .padding(.vertical, 2)
         }
 

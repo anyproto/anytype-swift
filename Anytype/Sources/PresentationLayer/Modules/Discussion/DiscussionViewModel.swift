@@ -38,8 +38,8 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var chatInputConverter: any ChatInputConverterProtocol
     @Injected(\.discussionMessageLimits) @ObservationIgnored
     private var discussionMessageLimits: any ChatMessageLimitsProtocol
-    @Injected(\.messageTextBuilder) @ObservationIgnored
-    private var messageTextBuilder: any MessageTextBuilderProtocol
+    @Injected(\.discussionTextBuilder) @ObservationIgnored
+    private var discussionTextBuilder: any DiscussionTextBuilderProtocol
     @Injected(\.searchService) @ObservationIgnored
     private var searchService: any SearchServiceProtocol
     @Injected(\.objectTypeProvider) @ObservationIgnored
@@ -572,7 +572,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             replyToMessage = ChatInputReplyModel(
                 id: message.message.id,
                 title: Loc.Chat.replyTo(message.authorName),
-                description: messageTextBuilder.makeMessaeWithoutStyle(content: message.message.resolvedContent(useBlocksFormat: true)),
+                description: discussionTextBuilder.makeMessageWithoutStyle(content: message.message.resolvedDiscussionContent()),
                 icon: message.attachmentsDetails.first?.objectIconImage
             )
         }
@@ -597,7 +597,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         AnytypeAnalytics.instance().logClickMessageMenuEdit()
         clearInput()
         editMessage = messageToEdit.message
-        message = await chatInputConverter.convert(content: messageToEdit.message.resolvedContent(useBlocksFormat: true), spaceId: spaceId).value
+        message = await chatInputConverter.convert(content: messageToEdit.message.resolvedDiscussionContent().content, spaceId: spaceId).value
         let attachments = await chatStorage.attachments(message: messageToEdit.message)
         let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }
         attachmentHandler.setLinkedObjects(messageAttachments.map { .uploadedObject($0) })
