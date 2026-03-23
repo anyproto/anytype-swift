@@ -88,3 +88,5 @@ vendor/
 # Local settings
 *.local.json
 CLAUDE.local.md
+plans/
+docs/superpowers/

@@ -74,12 +74,15 @@ struct WidgetContainerView<Content: View>: View {
                         titleColor: badgeModel?.titleColor ?? .Text.primary,
                         icon: icon,
                         rightAccessory: {
-                            if let badgeModel, badgeModel.hasCounters {
+                            if let badgeModel, badgeModel.hasVisibleCounters {
                                 HStack(spacing: 4) {
+                                    if badgeModel.hasUnreadReactions {
+                                        HeartBadge(style: badgeModel.reactionStyle)
+                                    }
                                     if badgeModel.mentionCounter > 0 {
                                         MentionBadge(style: badgeModel.mentionCounterStyle)
                                     }
-                                    if badgeModel.unreadCounter > 0 {
+                                    if badgeModel.shouldShowUnreadCounter {
                                         CounterView(
                                             count: badgeModel.unreadCounter,
                                             style: badgeModel.unreadCounterStyle

@@ -54,7 +54,16 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                     )
 
                     let unreadPreviews = nonArchivedPreviews
-                        .filter { $0.hasCounters }
+                        .filter { preview in
+                            guard preview.hasCounters else { return false }
+                            if FeatureFlags.muteAndHide && space.spaceView.uxType.supportsMultiChats {
+                                let mode = space.spaceView.effectiveNotificationMode(for: preview.chatId)
+                                if mode == .nothing {
+                                    return preview.mentionCounter > 0 || preview.hasUnreadReactions
+                                }
+                            }
+                            return true
+                        }
                         .sorted { preview1, preview2 in
                             let date1 = preview1.lastMessage?.createdAt ?? .distantPast
                             let date2 = preview2.lastMessage?.createdAt ?? .distantPast
@@ -66,8 +75,10 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                         latestPreview: latestPreview,
                         totalUnreadCounter: counterData.totalUnread,
                         totalMentionCounter: counterData.totalMentions,
+                        hasUnreadReactions: counterData.hasUnreadReactions,
                         unreadCounterStyle: counterData.unreadStyle,
                         mentionCounterStyle: counterData.mentionStyle,
+                        reactionStyle: counterData.reactionStyle,
                         unreadPreviews: unreadPreviews
                     )
                 }

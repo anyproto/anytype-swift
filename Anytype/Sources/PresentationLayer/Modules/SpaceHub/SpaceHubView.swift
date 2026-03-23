@@ -45,15 +45,22 @@ struct SpaceHubView: View {
         .ignoresSafeArea(edges: .bottom)
     }
     
+    private var isEmptyState: Bool {
+        model.filteredSpaces.isEmpty && model.searchText.isEmpty
+    }
+
+    @ViewBuilder
     private func spacesView() -> some View {
         NavigationStack {
             SpaceHubList(model: model)
                 .navigationTitle(Loc.myChannels)
                 .scrollEdgeEffectStyleIOS26(.soft, for: .top)
                 .toolbar { toolbarItems }
-                .searchable(text: $model.searchText)
-                .onChange(of: model.searchText) {
-                    model.searchTextUpdated()
+                .if(!isEmptyState) { view in
+                    view.searchable(text: $model.searchText)
+                        .onChange(of: model.searchText) {
+                            model.searchTextUpdated()
+                        }
                 }
         }.tint(Color.Text.secondary)
     }
@@ -62,9 +69,19 @@ struct SpaceHubView: View {
         SpaceHubToolbar(
             profileIcon: model.profileIcon,
             notificationsNotDetermined: model.notificationsNotDetermined,
+            hideCreateButton: isEmptyState,
             namespace: namespace,
             onTapCreateSpace: {
                 model.onTapCreateSpace()
+            },
+            onTapCreatePersonalChannel: {
+                model.onTapCreatePersonalChannel()
+            },
+            onTapCreateGroupChannel: {
+                model.onTapCreateGroupChannel()
+            },
+            onTapJoinViaQrCode: {
+                model.onTapJoinViaQrCode()
             },
             onTapSettings: {
                 model.onTapSettings()

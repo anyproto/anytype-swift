@@ -30,11 +30,24 @@ public extension FeatureDescription {
         debugValue: true
     )
     
+    static let createChannelFlow = FeatureDescription(
+        title: "Create Channel Flow - IOS-5856",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // should be disabled
     static let channelTypeSwitcher = FeatureDescription(
         title: "Channel type switcher - IOS-5378",
         category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
         defaultValue: false
+    )
+
+    static let muteAndHide = FeatureDescription(
+        title: "Mute and hide notification setting - IOS-5809",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: true
     )
 
     // MARK: - Experemental

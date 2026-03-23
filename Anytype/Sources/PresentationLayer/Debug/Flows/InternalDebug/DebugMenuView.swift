@@ -15,6 +15,7 @@ struct DebugMenuView: View {
     @State private var showColors = false
     @State private var showObjectIcons = false
     @State private var showMembershipDebug = false
+    @State private var showHomepagePicker = false
     
     var body: some View {
         VStack {
@@ -75,6 +76,12 @@ struct DebugMenuView: View {
         .sheet(isPresented: $showColors) { ColorsExample() }
         .sheet(isPresented: $showObjectIcons) { ObjectIconExample() }
         .sheet(isPresented: $showMembershipDebug) { MembershipDebugView() }
+        .sheet(isPresented: $showHomepagePicker) {
+            HomepagePickerView(spaceId: "") { result in
+                print("HomepagePicker result: \(result)")
+            }
+            .interactiveDismissDisabled(true)
+        }
         .sheet(item: $model.shareUrlFile) { url in
             ActivityViewController(activityItems: [url], applicationActivities: nil)
         }
@@ -109,6 +116,10 @@ struct DebugMenuView: View {
                 }
             }
             
+            StandardButton("Homepage Picker Preview 🏠", style: .secondaryLarge) {
+                showHomepagePicker = true
+            }
+
             Toggle(isOn: Binding(
                 get: { model.shouldRunDebugProfilerOnNextStartup } ,
                 set: { model.shouldRunDebugProfilerOnNextStartup = $0 }

@@ -180,6 +180,9 @@ extension Anytype_Event.Block {
           /// List view size setting
           public var listSize: Anytype_Model_Block.Content.Dataview.View.ListSize = .compact
 
+          /// Alternate row background colors in grid view
+          public var alternateRows: Bool = false
+
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
           public init() {}
@@ -926,7 +929,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate: SwiftProtobuf.Message, SwiftP
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.protoMessageName + ".Fields"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}type\0\u{1}name\0\u{1}coverRelationKey\0\u{1}hideIcon\0\u{1}cardSize\0\u{1}coverFit\0\u{1}groupRelationKey\0\u{1}groupBackgroundColors\0\u{1}pageLimit\0\u{1}defaultTemplateId\0\u{2}\u{5}defaultObjectTypeId\0\u{1}endRelationKey\0\u{1}wrapContent\0\u{1}listSize\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}type\0\u{1}name\0\u{1}coverRelationKey\0\u{1}hideIcon\0\u{1}cardSize\0\u{1}coverFit\0\u{1}groupRelationKey\0\u{1}groupBackgroundColors\0\u{1}pageLimit\0\u{1}defaultTemplateId\0\u{2}\u{5}defaultObjectTypeId\0\u{1}endRelationKey\0\u{1}wrapContent\0\u{1}listSize\0\u{1}alternateRows\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -948,6 +951,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
       case 16: try { try decoder.decodeSingularStringField(value: &self.endRelationKey) }()
       case 17: try { try decoder.decodeSingularBoolField(value: &self.wrapContent) }()
       case 18: try { try decoder.decodeSingularEnumField(value: &self.listSize) }()
+      case 19: try { try decoder.decodeSingularBoolField(value: &self.alternateRows) }()
       default: break
       }
     }
@@ -996,6 +1000,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
     if self.listSize != .compact {
       try visitor.visitSingularEnumField(value: self.listSize, fieldNumber: 18)
     }
+    if self.alternateRows != false {
+      try visitor.visitSingularBoolField(value: self.alternateRows, fieldNumber: 19)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1014,6 +1021,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
     if lhs.defaultObjectTypeID != rhs.defaultObjectTypeID {return false}
     if lhs.wrapContent != rhs.wrapContent {return false}
     if lhs.listSize != rhs.listSize {return false}
+    if lhs.alternateRows != rhs.alternateRows {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

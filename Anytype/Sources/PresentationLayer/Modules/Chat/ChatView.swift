@@ -173,6 +173,8 @@ struct ChatView: View {
             model.onTapScrollToBottom()
         } onTapMention: {
             model.onTapMention()
+        } onTapReaction: {
+            model.onTapReaction()
         }
     }
     

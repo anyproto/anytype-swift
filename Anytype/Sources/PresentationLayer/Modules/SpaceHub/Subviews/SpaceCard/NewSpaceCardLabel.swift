@@ -168,6 +168,9 @@ struct NewSpaceCardLabel: View {
 
     private var unreadCounters: some View {
         HStack(spacing: 4) {
+            if model.hasUnreadReactions {
+                HeartBadge(style: model.reactionStyle)
+            }
             if model.mentionCounter > 0 {
                 MentionBadge(style: model.mentionCounterStyle)
             }

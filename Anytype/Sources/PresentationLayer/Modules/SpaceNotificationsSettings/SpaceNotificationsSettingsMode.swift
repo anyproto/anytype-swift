@@ -48,7 +48,7 @@ extension SpacePushNotificationsMode {
         }
     }
 
-    var mentionCounterStyle: MentionBadgeStyle {
+    var mentionCounterStyle: BadgeStyle {
         switch self {
         case .all, .mentions:
             return .highlighted
