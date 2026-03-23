@@ -18,7 +18,7 @@ struct DiscussionView: View {
 
     var body: some View {
         ZStack {
-            HomeWallpaperView(spaceId: model.spaceId)
+            Color.Background.primary
             mainView
                 .ignoresSafeArea()
         }
@@ -211,7 +211,7 @@ struct DiscussionView: View {
     private func cell(data: MessageSectionItem) -> some View {
         switch data {
         case .message(let data):
-            MessageView(data: data, output: model)
+            DiscussionMessageView(data: data, output: model)
         case .unread:
             ChatMessageUnreadView()
         }

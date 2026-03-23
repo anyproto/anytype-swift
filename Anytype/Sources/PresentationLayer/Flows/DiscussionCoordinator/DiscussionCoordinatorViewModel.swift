@@ -31,7 +31,6 @@ final class DiscussionCoordinatorViewModel: DiscussionModuleOutput, ObjectSettin
     var participantsReactionData: MessageParticipantsReactionData?
     var safariUrl: URL?
     var cameraData: SimpleCameraData?
-    var showSpaceSettingsData: AccountInfo?
     var newLinkedObject: EditorScreenData?
     var spaceShareData: SpaceShareData?
     var qrCodeInviteLink: URL?

@@ -18,7 +18,6 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
 
     private let accountParticipantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
     private let messageTextBuilder: any MessageTextBuilderProtocol = Container.shared.messageTextBuilder()
-    private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
 
     private let spaceId: String
@@ -38,9 +37,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         limits: any ChatMessageLimitsProtocol
     ) async -> [MessageSectionData] {
 
-        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
-        let showsMessageAuthor = spaceUxType?.showsMessageAuthor ?? true
-        let positionsYourMessageOnRight = spaceUxType?.positionsYourMessageOnRight ?? true
+        // Discussion always shows all authors equally, no left/right distinction
         let participant = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
         let chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
         let isChatDeletedOrArchived = (chatObject.details?.isDeleted ?? false) || (chatObject.details?.isArchived ?? false)
@@ -73,7 +70,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
 
             let isYourMessage = message.creator == yourProfileIdentity
             let authorParticipant = participants.first { $0.identity == message.creator }
-            let position: MessageHorizontalPosition = (isYourMessage && positionsYourMessageOnRight) ? .right : .left
+            let position: MessageHorizontalPosition = .left
             let isUnread = message.orderID == firstUnreadMessageOrderId
             let nextIsUnread = nextMessage?.orderID == firstUnreadMessageOrderId
 
@@ -83,7 +80,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 authorName: authorParticipant?.title ?? "",
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
                 authorId: authorParticipant?.id,
-                createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
+                createDate: message.createdAtDate.formatted(date: .abbreviated, time: .omitted),
                 messageString: messageTextBuilder.makeMessage(content: message.resolvedContent(useBlocksFormat: true), spaceId: spaceId, position: position),
                 replyModel: mapReply(
                     fullMessage: fullMessage,
@@ -102,8 +99,8 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
                 canReply: canEdit,
                 nextSpacing: (lastInSection || nextIsUnread) ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
-                authorIconMode: (isYourMessage || !showsMessageAuthor) ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
-                showAuthorName: (firstForCurrentUser || prevDateIntervalIsBig) && !isYourMessage && showsMessageAuthor,
+                authorIconMode: .show,
+                showAuthorName: firstForCurrentUser || prevDateIntervalIsBig,
                 canDelete: isYourMessage && canEdit,
                 canEdit: isYourMessage && canEdit,
                 showMessageSyncIndicator: isYourMessage,

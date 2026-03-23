@@ -38,7 +38,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
 
     private let chatService: any ChatServiceProtocol = Container.shared.chatService()
     @Injected(\.searchService)
-    private var seachService: any SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     @Injected(\.objectIdsSubscriptionService)
     private var objectIdsSubscriptionService: any ObjectIdsSubscriptionServiceProtocol
     private let mediaCacheHeatingService: any MediaCacheHeatingServiceProtocol = Container.shared.mediaCacheHeatingService()
@@ -321,7 +321,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
 
         guard newAttachmentsIds.isNotEmpty else { return }
         do {
-            let newAttachmentsDetails = try await seachService.searchObjects(spaceId: spaceId, objectIds: Array(newAttachmentsIds))
+            let newAttachmentsDetails = try await searchService.searchObjects(spaceId: spaceId, objectIds: Array(newAttachmentsIds))
             attachments.update(details: newAttachmentsDetails)
         } catch {}
     }
