@@ -120,6 +120,12 @@ extension Anytype_Model_Block.Content.Dataview {
           set {_uniqueStorage()._listSize = newValue}
         }
 
+        /// Alternate row background colors in grid view
+        public var alternateRows: Bool {
+          get {return _storage._alternateRows}
+          set {_uniqueStorage()._alternateRows = newValue}
+        }
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum TypeEnum: SwiftProtobuf.Enum, Swift.CaseIterable {
@@ -256,7 +262,7 @@ extension Anytype_Model_Block.Content.Dataview {
 
 extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".View"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}type\0\u{1}name\0\u{1}sorts\0\u{1}filters\0\u{1}relations\0\u{1}coverRelationKey\0\u{1}hideIcon\0\u{1}cardSize\0\u{1}coverFit\0\u{1}groupRelationKey\0\u{1}groupBackgroundColors\0\u{1}pageLimit\0\u{1}defaultTemplateId\0\u{1}defaultObjectTypeId\0\u{1}endRelationKey\0\u{1}wrapContent\0\u{1}listSize\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}type\0\u{1}name\0\u{1}sorts\0\u{1}filters\0\u{1}relations\0\u{1}coverRelationKey\0\u{1}hideIcon\0\u{1}cardSize\0\u{1}coverFit\0\u{1}groupRelationKey\0\u{1}groupBackgroundColors\0\u{1}pageLimit\0\u{1}defaultTemplateId\0\u{1}defaultObjectTypeId\0\u{1}endRelationKey\0\u{1}wrapContent\0\u{1}listSize\0\u{1}alternateRows\0")
 
   fileprivate class _StorageClass {
     var _id: String = String()
@@ -277,6 +283,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     var _endRelationKey: String = String()
     var _wrapContent: Bool = false
     var _listSize: Anytype_Model_Block.Content.Dataview.View.ListSize = .compact
+    var _alternateRows: Bool = false
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -305,6 +312,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
       _endRelationKey = source._endRelationKey
       _wrapContent = source._wrapContent
       _listSize = source._listSize
+      _alternateRows = source._alternateRows
     }
   }
 
@@ -341,6 +349,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
         case 16: try { try decoder.decodeSingularStringField(value: &_storage._endRelationKey) }()
         case 17: try { try decoder.decodeSingularBoolField(value: &_storage._wrapContent) }()
         case 18: try { try decoder.decodeSingularEnumField(value: &_storage._listSize) }()
+        case 19: try { try decoder.decodeSingularBoolField(value: &_storage._alternateRows) }()
         default: break
         }
       }
@@ -403,6 +412,9 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
       if _storage._listSize != .compact {
         try visitor.visitSingularEnumField(value: _storage._listSize, fieldNumber: 18)
       }
+      if _storage._alternateRows != false {
+        try visitor.visitSingularBoolField(value: _storage._alternateRows, fieldNumber: 19)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -430,6 +442,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
         if _storage._endRelationKey != rhs_storage._endRelationKey {return false}
         if _storage._wrapContent != rhs_storage._wrapContent {return false}
         if _storage._listSize != rhs_storage._listSize {return false}
+        if _storage._alternateRows != rhs_storage._alternateRows {return false}
         return true
       }
       if !storagesAreEqual {return false}
