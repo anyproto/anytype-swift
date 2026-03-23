@@ -628,7 +628,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Please allow access"
+            "value" : "يرجى السماح بالوصول"
           }
         },
         "be" : {
@@ -783,7 +783,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We’d love to share tips, tricks and product updates with you. Your email is never linked to your identity. We won’t share your data. Ever."
+            "value" : "نحن نحب مشاركة النصائح وتحديثات المنتج معك. بريدك الإلكتروني لا يرتبط أبدا بهويتك. لن نشارك بياناتك. قط."
           }
         },
         "be" : {
@@ -921,7 +921,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We’d love to share tips, tricks and product updates with you. Your email is never linked to your identity. We won’t share your data. Ever."
+            "value" : "我们很乐意向您介绍小技巧和功能更新。您的电子邮件永远不会被用来追踪您的身份。我们不会分享您的数据，永远不会。"
           }
         },
         "zh-Hant" : {
@@ -938,7 +938,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Incorrect email"
+            "value" : "بريد إلكتروني غير صحيح"
           }
         },
         "be" : {
@@ -1076,7 +1076,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Incorrect email"
+            "value" : "邮箱错误"
           }
         },
         "zh-Hant" : {
@@ -1093,7 +1093,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Enter your email"
+            "value" : "أدخل عنوان بريدك الإلكتروني"
           }
         },
         "be" : {
@@ -1231,7 +1231,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Enter your email"
+            "value" : "请输入您的邮箱"
           }
         },
         "zh-Hant" : {
@@ -1248,7 +1248,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Stay in the loop"
+            "value" : "كن على علم بآخر المستجدات"
           }
         },
         "be" : {
@@ -1386,7 +1386,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Stay in the loop"
+            "value" : "敬请关注"
           }
         },
         "zh-Hant" : {
@@ -1696,7 +1696,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Read more"
+            "value" : "了解更多"
           }
         },
         "zh-Hant" : {
@@ -2161,7 +2161,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Reveal and copy"
+            "value" : "显示并复制密钥"
           }
         },
         "zh-Hant" : {
@@ -2316,7 +2316,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It replaces login and password. Keep it safe — you control your data. You can find this Key later in app settings."
+            "value" : "您的密钥代表着用户名与密码。记得妥善保管，您的数据只由您掌握。之后，您可以在应用程序的设置中找到它。"
           }
         },
         "zh-Hant" : {
@@ -2488,7 +2488,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It’s your login and password"
+            "value" : "هو طريقة تسجيل الدخول وكلمة المرور الخاصة بك"
           }
         },
         "be" : {
@@ -2626,7 +2626,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It’s your login and password"
+            "value" : "它是您的登录名和密码"
           }
         },
         "zh-Hant" : {
@@ -2798,7 +2798,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Whoever has the key, has access"
+            "value" : "كل من يملك المفتاح، لديه إمكانية الوصول"
           }
         },
         "be" : {
@@ -2936,7 +2936,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Whoever has the key, has access"
+            "value" : "谁拥有密钥，谁就拥有访问权"
           }
         },
         "zh-Hant" : {
@@ -3108,7 +3108,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Only you responsible for it"
+            "value" : "أنت فقط المسؤول عن ذلك"
           }
         },
         "be" : {
@@ -3246,7 +3246,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Only you responsible for it"
+            "value" : "只有您对它负责"
           }
         },
         "zh-Hant" : {
@@ -3574,7 +3574,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select one role or background that best fits you"
+            "value" : "حدد دور أو خلفية علمية واحدة تناسبك بشكل أفضل"
           }
         },
         "be" : {
@@ -3712,7 +3712,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select one role or background that best fits you"
+            "value" : "选择一个最适合您的角色或背景"
           }
         },
         "zh-Hant" : {
@@ -3729,7 +3729,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tell Us About Yourself"
+            "value" : "أخبرنا عن نفسك"
           }
         },
         "be" : {
@@ -3867,7 +3867,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tell Us About Yourself"
+            "value" : "介绍一下自己"
           }
         },
         "zh-Hant" : {
@@ -3884,7 +3884,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Artist / Content Creator"
+            "value" : "فنان / منشئ محتوى"
           }
         },
         "be" : {
@@ -4022,7 +4022,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Artist / Content Creator"
+            "value" : "艺术家 / 内容创作者"
           }
         },
         "zh-Hant" : {
@@ -4039,7 +4039,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Consultant"
+            "value" : "مستشار"
           }
         },
         "be" : {
@@ -4177,7 +4177,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Consultant"
+            "value" : "顾问"
           }
         },
         "zh-Hant" : {
@@ -4194,7 +4194,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Designer"
+            "value" : "مصمم"
           }
         },
         "be" : {
@@ -4332,7 +4332,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Designer"
+            "value" : "设计师"
           }
         },
         "zh-Hant" : {
@@ -4349,7 +4349,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Software Developer"
+            "value" : "مطور برمجيات"
           }
         },
         "be" : {
@@ -4487,7 +4487,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Software Developer"
+            "value" : "软件开发者"
           }
         },
         "zh-Hant" : {
@@ -4504,7 +4504,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Founder / Entrepreneur"
+            "value" : "مؤسس / رجل أعمال"
           }
         },
         "be" : {
@@ -4642,7 +4642,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Founder / Entrepreneur"
+            "value" : "创始人 / 企业家"
           }
         },
         "zh-Hant" : {
@@ -4659,7 +4659,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Manager / IT Professional"
+            "value" : "مدير / فني تكنولوجيا المعلومات"
           }
         },
         "be" : {
@@ -4797,7 +4797,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Manager / IT Professional"
+            "value" : "经理 / IT 专业人士"
           }
         },
         "zh-Hant" : {
@@ -4814,7 +4814,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Marketer"
+            "value" : "خبير تسويق"
           }
         },
         "be" : {
@@ -4952,7 +4952,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Marketer"
+            "value" : "市场营销人员"
           }
         },
         "zh-Hant" : {
@@ -4969,7 +4969,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Researcher / Academic"
+            "value" : "باحث / أكاديمي"
           }
         },
         "be" : {
@@ -5107,7 +5107,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Researcher / Academic"
+            "value" : "研究员 / 学者"
           }
         },
         "zh-Hant" : {
@@ -5124,7 +5124,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Student"
+            "value" : "طالب"
           }
         },
         "be" : {
@@ -5172,7 +5172,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Student"
+            "value" : "Étudiant"
           }
         },
         "id" : {
@@ -5262,7 +5262,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Student"
+            "value" : "学生"
           }
         },
         "zh-Hant" : {
@@ -5279,7 +5279,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Writer / Journalist"
+            "value" : "كاتب / صحفي"
           }
         },
         "be" : {
@@ -5417,7 +5417,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Writer / Journalist"
+            "value" : "作家 / 记者"
           }
         },
         "zh-Hant" : {
@@ -5434,7 +5434,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Habit tracking"
+            "value" : "تتبع العادات"
           }
         },
         "be" : {
@@ -5572,7 +5572,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Habit tracking"
+            "value" : "习惯跟踪"
           }
         },
         "zh-Hant" : {
@@ -5589,7 +5589,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal knowledge base / PKM"
+            "value" : "قاعدة المعرفة الشخصية / PKM"
           }
         },
         "be" : {
@@ -5727,7 +5727,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal knowledge base / PKM"
+            "value" : "个人知识库 / PKM"
           }
         },
         "zh-Hant" : {
@@ -5744,7 +5744,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Life planning"
+            "value" : "التخطيط للحياة"
           }
         },
         "be" : {
@@ -5882,7 +5882,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Life planning"
+            "value" : "人生规划"
           }
         },
         "zh-Hant" : {
@@ -5899,7 +5899,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Messaging & group chats"
+            "value" : "المراسلة والمحادثة الجماعية"
           }
         },
         "be" : {
@@ -6037,7 +6037,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Messaging & group chats"
+            "value" : "消息与群聊"
           }
         },
         "zh-Hant" : {
@@ -6054,7 +6054,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal note-taking"
+            "value" : "تدوين الملاحظات الشخصية"
           }
         },
         "be" : {
@@ -6192,7 +6192,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal note-taking"
+            "value" : "个人笔记"
           }
         },
         "zh-Hant" : {
@@ -6209,7 +6209,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Projects & tasks management"
+            "value" : "إدارة المشاريع والمهام"
           }
         },
         "be" : {
@@ -6347,7 +6347,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Projects & tasks management"
+            "value" : "项目与任务管理"
           }
         },
         "zh-Hant" : {
@@ -6364,7 +6364,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Team work & shared docs"
+            "value" : "العمل مع الفريق ومشاركة المستندات"
           }
         },
         "be" : {
@@ -6502,7 +6502,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Team work & shared docs"
+            "value" : "团队协作与文档共享"
           }
         },
         "zh-Hant" : {
@@ -6847,7 +6847,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add Your Name"
+            "value" : "Füge deinen Namen hinzu"
           }
         },
         "en" : {
@@ -6967,7 +6967,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add Your Name"
+            "value" : "添加您的姓名"
           }
         },
         "zh-Hant" : {
@@ -6984,7 +6984,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pick one use case that fits you best"
+            "value" : "اختر حالة استخدام واحدة تناسبك بشكل أفضل"
           }
         },
         "be" : {
@@ -7122,7 +7122,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pick one use case that fits you best"
+            "value" : "挑选一个最适合你的使用场景"
           }
         },
         "zh-Hant" : {
@@ -7139,7 +7139,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "What do you want to use Anytype for?"
+            "value" : "ماذا تريد استخدام Anytype لأجله؟"
           }
         },
         "be" : {
@@ -7277,7 +7277,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "What do you want to use Anytype for?"
+            "value" : "您想用 Anytype 做什么？"
           }
         },
         "zh-Hant" : {
@@ -7449,7 +7449,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "or enter with"
+            "value" : "أو أدخل باستخدام"
           }
         },
         "be" : {
@@ -7587,7 +7587,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "or enter with"
+            "value" : "或者输入"
           }
         },
         "zh-Hant" : {
@@ -8225,7 +8225,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Use keychain"
+            "value" : "استخدام سلسلة المفاتيح"
           }
         },
         "be" : {
@@ -8535,7 +8535,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Encrypted, local,"
+            "value" : "مشفّرة، محلية،"
           }
         },
         "be" : {
@@ -8673,7 +8673,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Encrypted, local,"
+            "value" : "已加密，本地，"
           }
         },
         "zh-Hant" : {
@@ -8690,7 +8690,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "yours forever"
+            "value" : "لك للأبد"
           }
         },
         "be" : {
@@ -8828,7 +8828,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "yours forever"
+            "value" : "永远属于您"
           }
         },
         "zh-Hant" : {
@@ -8845,7 +8845,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Continue with current vault"
+            "value" : "المتابعة مع الخزنة الحالية"
           }
         },
         "be" : {
@@ -9000,7 +9000,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Logout from current vault"
+            "value" : "تسجيل الخروج من الخزنة الحالية"
           }
         },
         "be" : {
@@ -9155,7 +9155,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken."
+            "value" : "أشغلت التطبيق ببرنامج وسيط غير مستقر. لا تستخدم مخزنك المصدر. مخزنك قد يتم كسره."
           }
         },
         "be" : {
@@ -9311,7 +9311,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Warning"
+            "value" : "تحذير"
           }
         },
         "be" : {
@@ -9466,7 +9466,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "I won't be using my production vault"
+            "value" : "لن أستخدم خزنتي المصدرة"
           }
         },
         "be" : {
@@ -9621,7 +9621,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Data to String conversion error"
+            "value" : "خطأ في تحويل البيانات إلى سلسلة نصية"
           }
         },
         "be" : {
@@ -9776,7 +9776,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "String to Data conversion error"
+            "value" : "خطأ في تحويل السلسلة النصية إلى بيانات"
           }
         },
         "be" : {
@@ -9931,7 +9931,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unknown Keychain Error"
+            "value" : "خطأ غير معروف في سلسلة المفاتيح"
           }
         },
         "be" : {
@@ -10086,7 +10086,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Have you backed up your key?"
+            "value" : "هل قمت بنسخ مفتاحك احتياطًا؟"
           }
         },
         "be" : {
@@ -10397,7 +10397,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Key copied"
+            "value" : "تم نسخ المفتاح"
           }
         },
         "be" : {
@@ -10862,7 +10862,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Show and copy key"
+            "value" : "إظهار ونسخ العبارة"
           }
         },
         "be" : {
@@ -11017,7 +11017,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Login Key"
+            "value" : "مفتاح الدخول"
           }
         },
         "be" : {
@@ -11327,7 +11327,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Not enough space"
+            "value" : "لا توجد مساحة كافية"
           }
         },
         "be" : {
@@ -12258,7 +12258,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Update is in progress..."
+            "value" : "جارٍ التحديث..."
           }
         },
         "be" : {
@@ -12676,7 +12676,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format."
+            "value" : "Durante esta actualização, os teus dados permanecem totalmente seguros. A actualização é realizada directamente no teu dispositivo e os teus dados sincronizados permanecem inalterados. Iremos apenas copiá-los para um novo formato e será criada uma cópia de segurança local no teu dispositivo, contendo todos os teus dados no formato anterior."
           }
         },
         "ru" : {
@@ -13188,7 +13188,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version."
+            "value" : "لم نتمكن من استرداد بيانات خزنتك لأن الإصدار الخاص بك قديم. الرجاء تحديث Anytype إلى أحدث إصدار."
           }
         },
         "be" : {
