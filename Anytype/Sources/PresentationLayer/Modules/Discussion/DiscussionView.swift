@@ -18,7 +18,7 @@ struct DiscussionView: View {
 
     var body: some View {
         ZStack {
-            HomeWallpaperView(spaceId: model.spaceId)
+            Color.Background.primary
             mainView
                 .ignoresSafeArea()
         }
