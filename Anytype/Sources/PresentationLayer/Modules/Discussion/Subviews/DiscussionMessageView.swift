@@ -40,6 +40,24 @@ struct DiscussionMessageView: View {
     }
 
     private var content: some View {
+        messageBody
+            .fixTappableArea()
+            .coordinateSpace(name: Constants.coordinateSpace)
+            .messageFlashBackground(id: data.id)
+            .background(Color.Background.primary)
+            .contentShape(.contextMenuPreview, Rectangle())
+            .contextMenu {
+                contextMenu
+            } preview: {
+                messageBody
+                    .background(Color.Background.primary)
+            }
+            .readFrame(space: .named(Constants.coordinateSpace)) {
+                contentCenterOffsetY = $0.midY
+            }
+    }
+
+    private var messageBody: some View {
         VStack(alignment: .leading, spacing: 0) {
             header
             reply
@@ -48,16 +66,6 @@ struct DiscussionMessageView: View {
         }
         .padding(.horizontal, Constants.messageHorizontalPadding)
         .padding(.bottom, data.nextSpacing.height)
-        .fixTappableArea()
-        .coordinateSpace(name: Constants.coordinateSpace)
-        .messageFlashBackground(id: data.id)
-        .contentShape(.contextMenuPreview, Rectangle())
-        .contextMenu {
-            contextMenu
-        }
-        .readFrame(space: .named(Constants.coordinateSpace)) {
-            contentCenterOffsetY = $0.midY
-        }
     }
 
     @ViewBuilder
