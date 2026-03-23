@@ -147,7 +147,7 @@ struct SpaceHubCoordinatorView: View {
                         }
                         builder.appendBuilder(for: DiscussionCoordinatorData.self) { data in
                             SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) { _ in
-                                ChatCoordinatorView(data: ChatCoordinatorData(chatId: data.discussionId, spaceId: data.spaceId, useBlocksFormat: true))
+                                DiscussionCoordinatorView(data: data)
                             }
                         }
                         builder.appendBuilder(for: SpaceInfoScreenData.self) { data in

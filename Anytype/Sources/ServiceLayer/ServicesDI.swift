@@ -320,6 +320,7 @@ extension Container {
         self { ChatActionService() }
     }
 
+
     var shareSuggestionService: Factory<any ShareSuggestionServiceProtocol> {
         self { ShareSuggestionService() }
     }

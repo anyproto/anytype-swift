@@ -10,7 +10,8 @@ enum ScreenType {
     case mediaFile
     case bookmark
     case chat
-    
+    case discussion
+
     var isMediaFile: Bool {
         self == .mediaFile
     }
