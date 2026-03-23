@@ -16,7 +16,7 @@ extension DetailsLayout {
         case .set, .collection, .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation,
                 .relationOption, .dashboard, .relationOptionsList, .pdf, .audio,
                 .video, .date, .spaceView, .tag, .chatDeprecated, .chatDerived, .notification,
-                .missingObject, .devices:
+                .missingObject, .devices, .discussion:
             return .noImage
         }
     }
@@ -38,7 +38,7 @@ extension DetailsLayout {
         case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation,
                 .relationOption, .dashboard, .relationOptionsList, .pdf, .audio,
                 .video, .date, .spaceView, .tag, .chatDeprecated, .chatDerived, .notification,
-                .missingObject, .devices:
+                .missingObject, .devices, .discussion:
             return ""
         }
     }
@@ -58,7 +58,7 @@ extension DetailsLayout {
         case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation,
                 .relationOption, .dashboard, .relationOptionsList, .pdf, .audio,
                 .video, .date, .spaceView, .tag, .chatDeprecated, .chatDerived, .notification,
-                .missingObject, .devices:
+                .missingObject, .devices, .discussion:
             return ""
         }
     }

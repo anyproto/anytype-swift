@@ -46,7 +46,7 @@ final class AttachmentsTextInfoBuilder {
         case .tag:
             return Loc.tag(count)
         case .UNRECOGNIZED, .dashboard, .space, .relationOptionsList, .relationOption, .spaceView,
-                .participant, .chatDeprecated, .chatDerived, .notification, .missingObject, .devices:
+                .participant, .chatDeprecated, .chatDerived, .notification, .missingObject, .devices, .discussion:
             return Loc.attachment(count)
         }
     }
