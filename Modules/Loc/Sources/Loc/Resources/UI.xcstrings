@@ -5225,7 +5225,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add property"
+            "value" : "Adicionar propriedade"
           }
         },
         "pt-PT" : {
@@ -9785,37 +9785,37 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "هل أنت متأكد أنك تريد حذف %a كائنات؟"
+                      "value" : "%a كائنات"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "هل أنت متأكد أنك تريد حذف %a كائنات؟"
+                      "value" : "%a كائن"
                     }
                   },
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "هل أنت متأكد أنك تريد حذف %a كائن؟"
+                      "value" : "%a كائن"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "هل أنت متأكد أنك تريد حذف %a كائنات؟"
+                      "value" : "%a كائن"
                     }
                   },
                   "two" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "هل أنت متأكد أنك تريد حذف %a كائنات؟"
+                      "value" : "%a كائنان"
                     }
                   },
                   "zero" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "هل أنت متأكد أنك تريد حذف %a كائن؟"
+                      "value" : "%a كائنات"
                     }
                   }
                 }
@@ -10822,7 +10822,7 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld مرفقات"
+                  "value" : "%lld مرفق"
                 }
               },
               "one" : {
@@ -10834,13 +10834,13 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld مرفقات"
+                  "value" : "%lld مرفق"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld مرفقات"
+                  "value" : "%lld مرفقان"
                 }
               },
               "zero" : {
@@ -11325,7 +11325,7 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld صوتيات"
+                  "value" : "%lld صوتية"
                 }
               },
               "one" : {
@@ -11337,13 +11337,13 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld صوتيات"
+                  "value" : "%lld صوتية"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld صوتيات"
+                  "value" : "%lld صوتيتان"
                 }
               },
               "zero" : {
@@ -12293,7 +12293,7 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d روابط خلفية"
+                  "value" : "%d رابط خلفي"
                 }
               },
               "one" : {
@@ -12305,13 +12305,13 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d روابط خلفية"
+                  "value" : "%d رابط خلفي"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d روابط خلفية"
+                  "value" : "%d رابطان خلفيان"
                 }
               },
               "zero" : {
@@ -16053,7 +16053,7 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld إشارات مرجعية"
+                  "value" : "%lld إشارة مرجعية"
                 }
               },
               "one" : {
@@ -16065,19 +16065,19 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld إشارات مرجعية"
+                  "value" : "%lld إشارة مرجعية"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld إشارات مرجعية"
+                  "value" : "%lld إشارتان مرجعيتان"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld إشارة مرجعية"
+                  "value" : "%lld إشارات مرجعية"
                 }
               }
             }
@@ -26325,31 +26325,31 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld تواريخ"
+                  "value" : "%lld تاريخ"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld تاريخ"
+                  "value" : "تاريخ"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld تواريخ"
+                  "value" : "%lld تاريخ"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld تواريخ"
+                  "value" : "%lld تاريخان"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld تاريخ"
+                  "value" : "%lld تواريخ"
                 }
               }
             }
@@ -27319,7 +27319,7 @@
                   "two" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "خلال %a يوم"
+                      "value" : "خلال %a يومان"
                     }
                   },
                   "zero" : {
@@ -29846,7 +29846,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "您将在所有其他设备上登出。您将有 30 天来恢复您的文库。再然后它们将被永久删除。"
+            "value" : "您在所有其他设备上的登录状态将被注销。您有 30 天的时间可以恢复您的库。逾期后，该库将被永久删除。"
           }
         },
         "zh-Hant" : {
@@ -30002,7 +30002,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "您确定要删除您的文库吗？"
+            "value" : "您确定要删除您的库吗？"
           }
         },
         "zh-Hant" : {
@@ -30673,13 +30673,13 @@
                   "two" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a أجهزة"
+                      "value" : "%a جهازان"
                     }
                   },
                   "zero" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a جهاز"
+                      "value" : "%a أجهزة"
                     }
                   }
                 }
@@ -36777,7 +36777,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "选择文库时出错"
+            "value" : "选择库时出错"
           }
         },
         "zh-Hant" : {
@@ -36932,7 +36932,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "错误，钱包恢复文库"
+            "value" : "恢复库时发生错误"
           }
         },
         "zh-Hant" : {
@@ -39439,7 +39439,7 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld ملفات"
+                  "value" : "%lld ملف"
                 }
               },
               "one" : {
@@ -39457,7 +39457,7 @@
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld ملفات"
+                  "value" : "%lld ملفان"
                 }
               },
               "zero" : {
@@ -41173,7 +41173,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unlimited"
+            "value" : "لا محدود"
           }
         },
         "be" : {
@@ -43998,13 +43998,13 @@
                   "two" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a ملفات"
+                      "value" : "%a ملفان"
                     }
                   },
                   "zero" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a ملف"
+                      "value" : "%a ملفات"
                     }
                   }
                 }
@@ -48671,7 +48671,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hidden"
+            "value" : "Oculto"
           }
         },
         "pt-PT" : {
@@ -49793,7 +49793,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "文库在桌面端应用程序中可用"
+            "value" : "库在桌面端应用程序中可用"
           }
         },
         "zh-Hant" : {
@@ -49993,7 +49993,7 @@
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld صور"
+                  "value" : "%lld صورتان"
                 }
               },
               "zero" : {
@@ -51744,7 +51744,7 @@
                   "two" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a عناصر"
+                      "value" : "%a عنصران"
                     }
                   },
                   "zero" : {
@@ -55238,7 +55238,7 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d روابط"
+                  "value" : "%d رابط"
                 }
               },
               "one" : {
@@ -55250,13 +55250,13 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d روابط"
+                  "value" : "%d رابط"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d روابط"
+                  "value" : "%d رابطان"
                 }
               },
               "zero" : {
@@ -55759,7 +55759,7 @@
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld قوائم"
+                  "value" : "%lld قائمتان"
                 }
               },
               "zero" : {
@@ -58199,7 +58199,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mentions"
+            "value" : "Menções"
           }
         },
         "pt-PT" : {
@@ -59905,7 +59905,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My Properties"
+            "value" : "Minhas Propriedades"
           }
         },
         "pt-PT" : {
@@ -60990,7 +60990,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New property"
+            "value" : "Nova propriedade"
           }
         },
         "pt-PT" : {
@@ -63550,7 +63550,7 @@
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld كائنات"
+                  "value" : "%lld كائنان"
                 }
               },
               "zero" : {
@@ -64128,7 +64128,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Object Types"
+            "value" : "Tipos de Objeto"
           }
         },
         "pt-PT" : {
@@ -64191,37 +64191,37 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "هل أنت متأكد أنك تريد حذف %a كائنات؟"
+                      "value" : "%a كائنات"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "هل أنت متأكد أنك تريد حذف %a كائنات؟"
+                      "value" : "%a كائن"
                     }
                   },
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "هل أنت متأكد أنك تريد حذف %a كائن؟"
+                      "value" : "%a كائن"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "هل أنت متأكد أنك تريد حذف %a كائنات؟"
+                      "value" : "%a كائن"
                     }
                   },
                   "two" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "هل أنت متأكد أنك تريد حذف %a كائنات؟"
+                      "value" : "%a كائنان"
                     }
                   },
                   "zero" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "هل أنت متأكد أنك تريد حذف %a كائن؟"
+                      "value" : "%a كائنات"
                     }
                   }
                 }
@@ -64912,13 +64912,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld أنواع الكائنات"
+                  "value" : "%lld أنواع للكائن"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld نوع الكائن"
+                  "value" : "%lld نوع للكائن"
                 }
               },
               "one" : {
@@ -64930,19 +64930,19 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld نوع الكائن"
+                  "value" : "%lld نوع للكائن"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld أنواع الكائنات"
+                  "value" : "%lld نوعان للكائن"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld أنواع الكائنات"
+                  "value" : "%lld أنواع للكائن"
                 }
               }
             }
@@ -68235,7 +68235,7 @@
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld PDF"
+                  "value" : "%lld PDFs"
                 }
               }
             }
@@ -69819,13 +69819,13 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a يومًا"
+                      "value" : "%a يوم"
                     }
                   },
                   "two" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a أيام"
+                      "value" : "%a يومان"
                     }
                   },
                   "zero" : {
@@ -70547,13 +70547,13 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a شهرًا"
+                      "value" : "%a شهر"
                     }
                   },
                   "two" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a أشهر"
+                      "value" : "%a شهران"
                     }
                   },
                   "zero" : {
@@ -71275,13 +71275,13 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a أسبوعًا"
+                      "value" : "%a أسبوع"
                     }
                   },
                   "two" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a أسابيع"
+                      "value" : "%a أسبوعان"
                     }
                   },
                   "zero" : {
@@ -71985,13 +71985,13 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a أعوام"
+                      "value" : "%a سنوات"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a عام"
+                      "value" : "%a سنة"
                     }
                   },
                   "one" : {
@@ -72003,19 +72003,19 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a عامًا"
+                      "value" : "%a سنة"
                     }
                   },
                   "two" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a أعوام"
+                      "value" : "%a سنتان"
                     }
                   },
                   "zero" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a أعوام"
+                      "value" : "%a سنوات"
                     }
                   }
                 }
@@ -74510,7 +74510,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Preferences"
+            "value" : "Preferências"
           }
         },
         "pt-PT" : {
@@ -76371,7 +76371,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "QR Code"
+            "value" : "Código QR"
           }
         },
         "pt-PT" : {
@@ -78004,7 +78004,7 @@
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld علاقات"
+                  "value" : "%lld علاقتان"
                 }
               },
               "zero" : {
@@ -81686,7 +81686,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Search or create new"
+            "value" : "Buscar ou criar novo"
           }
         },
         "pt-PT" : {
@@ -84202,7 +84202,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "文库选择发生错误"
+            "value" : "选择库时发生错误"
           }
         },
         "zh-Hant" : {
@@ -84246,7 +84246,7 @@
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d كتل مختارة"
+                  "value" : "%d كتلتان مختارتان"
                 }
               },
               "zero" : {
@@ -88463,7 +88463,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Explore plans"
+            "value" : "Pläne erkunden"
           }
         },
         "en" : {
@@ -89477,7 +89477,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Data Management"
+            "value" : "Gerenciamento de Dados"
           }
         },
         "pt-PT" : {
@@ -97697,7 +97697,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "System Properties"
+            "value" : "Propriedades do Sistema"
           }
         },
         "pt-PT" : {
@@ -97777,7 +97777,7 @@
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld أوسمة"
+                  "value" : "%lld وسمان"
                 }
               },
               "zero" : {
@@ -107247,7 +107247,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unset as default"
+            "value" : "إلغاء التعيين كافتراضي"
           }
         },
         "be" : {
@@ -107402,7 +107402,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unset default"
+            "value" : "إلغاء تعيبن الافتراضي"
           }
         },
         "be" : {
@@ -109417,7 +109417,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Vault deleted"
+            "value" : "تم حذف الخزانة"
           }
         },
         "be" : {
@@ -109555,7 +109555,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "文库已删除"
+            "value" : "库已删除"
           }
         },
         "zh-Hant" : {
@@ -109572,7 +109572,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Vault recover error, try again"
+            "value" : "خطأ في استرداد الخزانة، حاول مرة أخرى"
           }
         },
         "be" : {
@@ -109710,7 +109710,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "文库恢复错误，请重试"
+            "value" : "库恢复错误，请重试"
           }
         },
         "zh-Hant" : {
@@ -109727,7 +109727,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Vault recover error, probably no internet connection"
+            "value" : "خطأ في استرداد الخزانة، ربما لا يوجد اتصال بالإنترنت"
           }
         },
         "be" : {
@@ -109883,7 +109883,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Version History"
+            "value" : "سجل الإصدار"
           }
         },
         "be" : {
@@ -110038,7 +110038,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Version %@ was restored"
+            "value" : "تم استعادة الإصدار %@"
           }
         },
         "be" : {
@@ -110196,37 +110196,37 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Videos"
+                  "value" : "%lld مقاطع مرئية"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Videos"
+                  "value" : "%lld مقطع مرئي"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Video"
+                  "value" : "مقطع مرئي"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Videos"
+                  "value" : "%lld مقطع مرئي"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Videos"
+                  "value" : "%lld مقطعان مرئيان"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Videos"
+                  "value" : "%lld مقاطع مرئية"
                 }
               }
             }
@@ -111782,7 +111782,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create a new object on the fly"
+            "value" : "إنشاء كائن جديد بشكل فوري"
           }
         },
         "be" : {
@@ -112251,37 +112251,37 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d objects deleted"
+                  "value" : "تم حذف %d كائنات"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d objects deleted"
+                  "value" : "تم حذف %d كائن"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "One object deleted"
+                  "value" : "تم حذف كائن واحد"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d objects deleted"
+                  "value" : "تم حذف %d كائن"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d objects deleted"
+                  "value" : "تم حذف %d كائنان"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d objects deleted"
+                  "value" : "تم حذف %d كائنات"
                 }
               }
             }
@@ -112895,7 +112895,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "تغيير نوع الأداة"
+            "value" : "تغيير نوع التطبيق المصغر"
           }
         },
         "be" : {
@@ -113670,7 +113670,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Anytype is ready to update"
+            "value" : "Anytype جاهز للتحديث"
           }
         },
         "be" : {
@@ -113825,7 +113825,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget %@ was added"
+            "value" : "تم إضافة التطبيق المصغر %@"
           }
         },
         "be" : {
@@ -114135,7 +114135,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There are no objects here"
+            "value" : "لا يوجد كائنات هنا"
           }
         },
         "be" : {
@@ -116925,7 +116925,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We’ve redesigned how widgets work, and this widget is no longer supported. Once deleted, this widget cannot be restored."
+            "value" : "لقد قمنا بإعادة تصميم كيفية عمل التطبيقات المصغرة، وهذا التطبيق المصغر لم يعد مدعومًا. بمجرد حذفه، لا يمكن استعادته."
           }
         },
         "be" : {
@@ -117080,7 +117080,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "لا يمكن استعادة هذه الأداة"
+            "value" : "لا يمكن استعادة هذا التطبيق المصغر"
           }
         },
         "be" : {
@@ -117390,7 +117390,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yellow background"
+            "value" : "خلفية صفراء"
           }
         },
         "be" : {
@@ -117700,7 +117700,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You joined %@"
+            "value" : "لقد انضممت إلى %@"
           }
         },
         "be" : {
@@ -118010,7 +118010,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ copied to clipboard"
+            "value" : "تم نسخ %@ إلى الحافظة"
           }
         },
         "be" : {
@@ -118478,37 +118478,37 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d أعضاء"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d عضو"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d member"
+                  "value" : "%d عضو"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d عضو"
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d عضوان"
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d أعضاء"
                 }
               }
             }
@@ -118978,7 +118978,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per"
+            "value" : "لكل"
           }
         },
         "be" : {
@@ -119133,7 +119133,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Send Message"
+            "value" : "أرسل الرسالة"
           }
         },
         "be" : {
@@ -119288,7 +119288,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unlimited"
+            "value" : "لا محدود"
           }
         },
         "be" : {
