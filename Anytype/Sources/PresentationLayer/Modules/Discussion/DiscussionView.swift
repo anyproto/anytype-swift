@@ -209,7 +209,7 @@ struct DiscussionView: View {
     private func cell(data: MessageSectionItem) -> some View {
         switch data {
         case .message(let data):
-            MessageView(data: data, output: model)
+            DiscussionMessageView(data: data, output: model)
         case .unread:
             ChatMessageUnreadView()
         }
