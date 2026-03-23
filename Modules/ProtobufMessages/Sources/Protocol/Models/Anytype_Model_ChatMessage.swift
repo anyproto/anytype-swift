@@ -10,164 +10,298 @@
 
 import Foundation
 import SwiftProtobuf
-public struct Anytype_Model_ChatMessage: Sendable {
+public struct Anytype_Model_ChatMessage: @unchecked Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// Unique message identifier
-  public var id: String = String()
+  public var id: String {
+    get {return _storage._id}
+    set {_uniqueStorage()._id = newValue}
+  }
 
   /// Lexicographical id for message in order of tree traversal
-  public var orderID: String = String()
+  public var orderID: String {
+    get {return _storage._orderID}
+    set {_uniqueStorage()._orderID = newValue}
+  }
 
   /// Identifier for the message creator
-  public var creator: String = String()
+  public var creator: String {
+    get {return _storage._creator}
+    set {_uniqueStorage()._creator = newValue}
+  }
 
-  public var createdAt: Int64 = 0
+  public var createdAt: Int64 {
+    get {return _storage._createdAt}
+    set {_uniqueStorage()._createdAt = newValue}
+  }
 
-  public var modifiedAt: Int64 = 0
+  public var modifiedAt: Int64 {
+    get {return _storage._modifiedAt}
+    set {_uniqueStorage()._modifiedAt = newValue}
+  }
 
   /// stateId is ever-increasing id (BSON ObjectId) for this message. Unlike orderId, this ID is ordered by the time messages are added. For example, it's useful to prevent accidental reading of messages from the past when a ChatReadMessages request is sent: a message from the past may appear, but the client is still unaware of it
-  public var stateID: String = String()
+  public var stateID: String {
+    get {return _storage._stateID}
+    set {_uniqueStorage()._stateID = newValue}
+  }
 
   /// Identifier for the message being replied to
-  public var replyToMessageID: String = String()
+  public var replyToMessageID: String {
+    get {return _storage._replyToMessageID}
+    set {_uniqueStorage()._replyToMessageID = newValue}
+  }
 
   /// Message content
   public var message: Anytype_Model_ChatMessage.MessageContent {
-    get {return _message ?? Anytype_Model_ChatMessage.MessageContent()}
-    set {_message = newValue}
+    get {return _storage._message ?? Anytype_Model_ChatMessage.MessageContent()}
+    set {_uniqueStorage()._message = newValue}
   }
   /// Returns true if `message` has been explicitly set.
-  public var hasMessage: Bool {return self._message != nil}
+  public var hasMessage: Bool {return _storage._message != nil}
   /// Clears the value of `message`. Subsequent reads from it will return its default value.
-  public mutating func clearMessage() {self._message = nil}
+  public mutating func clearMessage() {_uniqueStorage()._message = nil}
 
   /// Attachments slice
-  public var attachments: [Anytype_Model_ChatMessage.Attachment] = []
+  public var attachments: [Anytype_Model_ChatMessage.Attachment] {
+    get {return _storage._attachments}
+    set {_uniqueStorage()._attachments = newValue}
+  }
 
   /// Reactions to the message
   public var reactions: Anytype_Model_ChatMessage.Reactions {
-    get {return _reactions ?? Anytype_Model_ChatMessage.Reactions()}
-    set {_reactions = newValue}
+    get {return _storage._reactions ?? Anytype_Model_ChatMessage.Reactions()}
+    set {_uniqueStorage()._reactions = newValue}
   }
   /// Returns true if `reactions` has been explicitly set.
-  public var hasReactions: Bool {return self._reactions != nil}
+  public var hasReactions: Bool {return _storage._reactions != nil}
   /// Clears the value of `reactions`. Subsequent reads from it will return its default value.
-  public mutating func clearReactions() {self._reactions = nil}
+  public mutating func clearReactions() {_uniqueStorage()._reactions = nil}
 
   /// Message read status
-  public var read: Bool = false
+  public var read: Bool {
+    get {return _storage._read}
+    set {_uniqueStorage()._read = newValue}
+  }
 
-  public var mentionRead: Bool = false
+  public var mentionRead: Bool {
+    get {return _storage._mentionRead}
+    set {_uniqueStorage()._mentionRead = newValue}
+  }
 
-  public var hasMention_p: Bool = false
+  public var hasMention_p: Bool {
+    get {return _storage._hasMention_p}
+    set {_uniqueStorage()._hasMention_p = newValue}
+  }
 
-  public var synced: Bool = false
+  public var synced: Bool {
+    get {return _storage._synced}
+    set {_uniqueStorage()._synced = newValue}
+  }
+
+  public var pinned: Bool {
+    get {return _storage._pinned}
+    set {_uniqueStorage()._pinned = newValue}
+  }
+
+  public var unreadReaction: Bool {
+    get {return _storage._unreadReaction}
+    set {_uniqueStorage()._unreadReaction = newValue}
+  }
+
+  /// Ordered list of content blocks
+  public var blocks: [Anytype_Model_ChatMessage.MessageBlock] {
+    get {return _storage._blocks}
+    set {_uniqueStorage()._blocks = newValue}
+  }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _message: Anytype_Model_ChatMessage.MessageContent? = nil
-  fileprivate var _reactions: Anytype_Model_ChatMessage.Reactions? = nil
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ChatMessage"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}orderId\0\u{1}creator\0\u{1}createdAt\0\u{1}replyToMessageId\0\u{1}message\0\u{1}attachments\0\u{1}reactions\0\u{1}modifiedAt\0\u{1}read\0\u{1}stateId\0\u{1}mentionRead\0\u{1}synced\0\u{1}hasMention\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}orderId\0\u{1}creator\0\u{1}createdAt\0\u{1}replyToMessageId\0\u{1}message\0\u{1}attachments\0\u{1}reactions\0\u{1}modifiedAt\0\u{1}read\0\u{1}stateId\0\u{1}mentionRead\0\u{1}synced\0\u{1}hasMention\0\u{1}pinned\0\u{1}unreadReaction\0\u{1}blocks\0")
+
+  fileprivate class _StorageClass {
+    var _id: String = String()
+    var _orderID: String = String()
+    var _creator: String = String()
+    var _createdAt: Int64 = 0
+    var _modifiedAt: Int64 = 0
+    var _stateID: String = String()
+    var _replyToMessageID: String = String()
+    var _message: Anytype_Model_ChatMessage.MessageContent? = nil
+    var _attachments: [Anytype_Model_ChatMessage.Attachment] = []
+    var _reactions: Anytype_Model_ChatMessage.Reactions? = nil
+    var _read: Bool = false
+    var _mentionRead: Bool = false
+    var _hasMention_p: Bool = false
+    var _synced: Bool = false
+    var _pinned: Bool = false
+    var _unreadReaction: Bool = false
+    var _blocks: [Anytype_Model_ChatMessage.MessageBlock] = []
+
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _orderID = source._orderID
+      _creator = source._creator
+      _createdAt = source._createdAt
+      _modifiedAt = source._modifiedAt
+      _stateID = source._stateID
+      _replyToMessageID = source._replyToMessageID
+      _message = source._message
+      _attachments = source._attachments
+      _reactions = source._reactions
+      _read = source._read
+      _mentionRead = source._mentionRead
+      _hasMention_p = source._hasMention_p
+      _synced = source._synced
+      _pinned = source._pinned
+      _unreadReaction = source._unreadReaction
+      _blocks = source._blocks
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.orderID) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.creator) }()
-      case 4: try { try decoder.decodeSingularInt64Field(value: &self.createdAt) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self.replyToMessageID) }()
-      case 6: try { try decoder.decodeSingularMessageField(value: &self._message) }()
-      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.attachments) }()
-      case 8: try { try decoder.decodeSingularMessageField(value: &self._reactions) }()
-      case 9: try { try decoder.decodeSingularInt64Field(value: &self.modifiedAt) }()
-      case 10: try { try decoder.decodeSingularBoolField(value: &self.read) }()
-      case 11: try { try decoder.decodeSingularStringField(value: &self.stateID) }()
-      case 12: try { try decoder.decodeSingularBoolField(value: &self.mentionRead) }()
-      case 13: try { try decoder.decodeSingularBoolField(value: &self.synced) }()
-      case 14: try { try decoder.decodeSingularBoolField(value: &self.hasMention_p) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._orderID) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._creator) }()
+        case 4: try { try decoder.decodeSingularInt64Field(value: &_storage._createdAt) }()
+        case 5: try { try decoder.decodeSingularStringField(value: &_storage._replyToMessageID) }()
+        case 6: try { try decoder.decodeSingularMessageField(value: &_storage._message) }()
+        case 7: try { try decoder.decodeRepeatedMessageField(value: &_storage._attachments) }()
+        case 8: try { try decoder.decodeSingularMessageField(value: &_storage._reactions) }()
+        case 9: try { try decoder.decodeSingularInt64Field(value: &_storage._modifiedAt) }()
+        case 10: try { try decoder.decodeSingularBoolField(value: &_storage._read) }()
+        case 11: try { try decoder.decodeSingularStringField(value: &_storage._stateID) }()
+        case 12: try { try decoder.decodeSingularBoolField(value: &_storage._mentionRead) }()
+        case 13: try { try decoder.decodeSingularBoolField(value: &_storage._synced) }()
+        case 14: try { try decoder.decodeSingularBoolField(value: &_storage._hasMention_p) }()
+        case 15: try { try decoder.decodeSingularBoolField(value: &_storage._pinned) }()
+        case 16: try { try decoder.decodeSingularBoolField(value: &_storage._unreadReaction) }()
+        case 17: try { try decoder.decodeRepeatedMessageField(value: &_storage._blocks) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
-    if !self.orderID.isEmpty {
-      try visitor.visitSingularStringField(value: self.orderID, fieldNumber: 2)
-    }
-    if !self.creator.isEmpty {
-      try visitor.visitSingularStringField(value: self.creator, fieldNumber: 3)
-    }
-    if self.createdAt != 0 {
-      try visitor.visitSingularInt64Field(value: self.createdAt, fieldNumber: 4)
-    }
-    if !self.replyToMessageID.isEmpty {
-      try visitor.visitSingularStringField(value: self.replyToMessageID, fieldNumber: 5)
-    }
-    try { if let v = self._message {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-    } }()
-    if !self.attachments.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.attachments, fieldNumber: 7)
-    }
-    try { if let v = self._reactions {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-    } }()
-    if self.modifiedAt != 0 {
-      try visitor.visitSingularInt64Field(value: self.modifiedAt, fieldNumber: 9)
-    }
-    if self.read != false {
-      try visitor.visitSingularBoolField(value: self.read, fieldNumber: 10)
-    }
-    if !self.stateID.isEmpty {
-      try visitor.visitSingularStringField(value: self.stateID, fieldNumber: 11)
-    }
-    if self.mentionRead != false {
-      try visitor.visitSingularBoolField(value: self.mentionRead, fieldNumber: 12)
-    }
-    if self.synced != false {
-      try visitor.visitSingularBoolField(value: self.synced, fieldNumber: 13)
-    }
-    if self.hasMention_p != false {
-      try visitor.visitSingularBoolField(value: self.hasMention_p, fieldNumber: 14)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if !_storage._id.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
+      }
+      if !_storage._orderID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._orderID, fieldNumber: 2)
+      }
+      if !_storage._creator.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._creator, fieldNumber: 3)
+      }
+      if _storage._createdAt != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._createdAt, fieldNumber: 4)
+      }
+      if !_storage._replyToMessageID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._replyToMessageID, fieldNumber: 5)
+      }
+      try { if let v = _storage._message {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      } }()
+      if !_storage._attachments.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._attachments, fieldNumber: 7)
+      }
+      try { if let v = _storage._reactions {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      } }()
+      if _storage._modifiedAt != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._modifiedAt, fieldNumber: 9)
+      }
+      if _storage._read != false {
+        try visitor.visitSingularBoolField(value: _storage._read, fieldNumber: 10)
+      }
+      if !_storage._stateID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._stateID, fieldNumber: 11)
+      }
+      if _storage._mentionRead != false {
+        try visitor.visitSingularBoolField(value: _storage._mentionRead, fieldNumber: 12)
+      }
+      if _storage._synced != false {
+        try visitor.visitSingularBoolField(value: _storage._synced, fieldNumber: 13)
+      }
+      if _storage._hasMention_p != false {
+        try visitor.visitSingularBoolField(value: _storage._hasMention_p, fieldNumber: 14)
+      }
+      if _storage._pinned != false {
+        try visitor.visitSingularBoolField(value: _storage._pinned, fieldNumber: 15)
+      }
+      if _storage._unreadReaction != false {
+        try visitor.visitSingularBoolField(value: _storage._unreadReaction, fieldNumber: 16)
+      }
+      if !_storage._blocks.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._blocks, fieldNumber: 17)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_ChatMessage, rhs: Anytype_Model_ChatMessage) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.orderID != rhs.orderID {return false}
-    if lhs.creator != rhs.creator {return false}
-    if lhs.createdAt != rhs.createdAt {return false}
-    if lhs.modifiedAt != rhs.modifiedAt {return false}
-    if lhs.stateID != rhs.stateID {return false}
-    if lhs.replyToMessageID != rhs.replyToMessageID {return false}
-    if lhs._message != rhs._message {return false}
-    if lhs.attachments != rhs.attachments {return false}
-    if lhs._reactions != rhs._reactions {return false}
-    if lhs.read != rhs.read {return false}
-    if lhs.mentionRead != rhs.mentionRead {return false}
-    if lhs.hasMention_p != rhs.hasMention_p {return false}
-    if lhs.synced != rhs.synced {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._orderID != rhs_storage._orderID {return false}
+        if _storage._creator != rhs_storage._creator {return false}
+        if _storage._createdAt != rhs_storage._createdAt {return false}
+        if _storage._modifiedAt != rhs_storage._modifiedAt {return false}
+        if _storage._stateID != rhs_storage._stateID {return false}
+        if _storage._replyToMessageID != rhs_storage._replyToMessageID {return false}
+        if _storage._message != rhs_storage._message {return false}
+        if _storage._attachments != rhs_storage._attachments {return false}
+        if _storage._reactions != rhs_storage._reactions {return false}
+        if _storage._read != rhs_storage._read {return false}
+        if _storage._mentionRead != rhs_storage._mentionRead {return false}
+        if _storage._hasMention_p != rhs_storage._hasMention_p {return false}
+        if _storage._synced != rhs_storage._synced {return false}
+        if _storage._pinned != rhs_storage._pinned {return false}
+        if _storage._unreadReaction != rhs_storage._unreadReaction {return false}
+        if _storage._blocks != rhs_storage._blocks {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
