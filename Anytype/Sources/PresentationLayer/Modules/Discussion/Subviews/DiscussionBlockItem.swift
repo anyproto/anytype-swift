@@ -6,7 +6,7 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
     case callout(id: Int, content: AttributedString)
     case checkbox(id: Int, content: AttributedString, checked: Bool)
     case bulleted(id: Int, content: AttributedString)
-    case numbered(id: Int, content: AttributedString)
+    case numbered(id: Int, content: AttributedString, number: Int)
     case toggle(id: Int, content: AttributedString)
     case unsupported(id: Int, blockName: String)
 
@@ -17,7 +17,7 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
              .callout(let id, _),
              .checkbox(let id, _, _),
              .bulleted(let id, _),
-             .numbered(let id, _),
+             .numbered(let id, _, _),
              .toggle(let id, _),
              .unsupported(let id, _):
             return id
@@ -31,7 +31,7 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
              .callout(_, let content),
              .checkbox(_, let content, _),
              .bulleted(_, let content),
-             .numbered(_, let content),
+             .numbered(_, let content, _),
              .toggle(_, let content):
             let text = NSAttributedString(content).string
             return text.isEmpty ? nil : text

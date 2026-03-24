@@ -22,6 +22,7 @@ extension ChatMessage {
         }
 
         var result: [DiscussionBlockItem] = []
+        var numberedCounter = 0
 
         for (index, block) in blocks.enumerated() {
             switch block.content {
@@ -33,6 +34,10 @@ extension ChatMessage {
                     spaceId: spaceId,
                     position: position
                 )
+
+                if textBlock.style != .numbered {
+                    numberedCounter = 0
+                }
 
                 switch textBlock.style {
                 case .paragraph, .description_, .title,
@@ -47,7 +52,8 @@ extension ChatMessage {
                 case .marked:
                     result.append(.bulleted(id: index, content: content))
                 case .numbered:
-                    result.append(.numbered(id: index, content: content))
+                    numberedCounter += 1
+                    result.append(.numbered(id: index, content: content, number: numberedCounter))
                 case .toggle:
                     result.append(.toggle(id: index, content: content))
                 case .code, .toggleHeader1, .toggleHeader2, .toggleHeader3, .UNRECOGNIZED:

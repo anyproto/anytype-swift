@@ -572,7 +572,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             replyToMessage = ChatInputReplyModel(
                 id: message.message.id,
                 title: Loc.Chat.replyTo(message.authorName),
-                description: message.message.resolvedDiscussionBlocks(spaceId: spaceId, position: .left, textBuilder: discussionTextBuilder).plainText,
+                description: message.discussionBlocks.plainText,
                 icon: message.attachmentsDetails.first?.objectIconImage
             )
         }

@@ -22,7 +22,7 @@ struct DiscussionBlockItemView: View {
                 .padding(8)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.Background.secondary)
-                .cornerRadius(8)
+                .clipShape(.rect(cornerRadius: 8))
                 .padding(.vertical, 2)
         case .checkbox(_, let content, let checked):
             HStack(alignment: .top, spacing: 6) {
@@ -38,9 +38,9 @@ struct DiscussionBlockItemView: View {
                 Text(content)
             }
             .padding(.vertical, 2)
-        case .numbered(_, let content):
+        case .numbered(_, let content, let number):
             HStack(alignment: .top, spacing: 6) {
-                Text("\(block.id + 1).")
+                Text("\(number).")
                     .foregroundStyle(Color.Text.secondary)
                 Text(content)
             }
@@ -54,9 +54,13 @@ struct DiscussionBlockItemView: View {
             }
             .padding(.vertical, 2)
         case .unsupported(_, let blockName):
+            #if DEBUG
             Text("UNSUPPORTED: \(blockName)")
                 .foregroundStyle(Color.Pure.red)
                 .padding(.vertical, 2)
+            #else
+            EmptyView()
+            #endif
         }
     }
 }
