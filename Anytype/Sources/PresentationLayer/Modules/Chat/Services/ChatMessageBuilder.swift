@@ -85,6 +85,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 authorId: authorParticipant?.id,
                 createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
                 messageString: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position),
+                discussionBlocks: [],
                 replyModel: mapReply(
                     fullMessage: fullMessage,
                     participants: participants,

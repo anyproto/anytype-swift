@@ -12,6 +12,7 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let authorId: String?
     let createDate: String
     let messageString: AttributedString
+    let discussionBlocks: [DiscussionBlockItem]
     let replyModel: MessageReplyModel?
     let position: MessageHorizontalPosition
     let linkedObjects: MessageLinkedObjectsLayout?

@@ -572,7 +572,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             replyToMessage = ChatInputReplyModel(
                 id: message.message.id,
                 title: Loc.Chat.replyTo(message.authorName),
-                description: discussionTextBuilder.makeMessageWithoutStyle(content: message.message.resolvedDiscussionContent()),
+                description: message.discussionBlocks.plainText,
                 icon: message.attachmentsDetails.first?.objectIconImage
             )
         }
@@ -597,7 +597,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         AnytypeAnalytics.instance().logClickMessageMenuEdit()
         clearInput()
         editMessage = messageToEdit.message
-        message = await chatInputConverter.convert(content: messageToEdit.message.resolvedDiscussionContent().content, spaceId: spaceId).value
+        message = await chatInputConverter.convert(content: messageToEdit.message.combinedMessageContent(), spaceId: spaceId).value
         let attachments = await chatStorage.attachments(message: messageToEdit.message)
         let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }
         attachmentHandler.setLinkedObjects(messageAttachments.map { .uploadedObject($0) })
@@ -614,7 +614,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func didSelectCopyPlainText(message: MessageViewData) {
         AnytypeAnalytics.instance().logClickMessageMenuCopy()
-        UIPasteboard.general.string = NSAttributedString(message.messageString).string
+        UIPasteboard.general.string = message.discussionBlocks.plainText
     }
 
     func didSelectCopyLink(message: MessageViewData) {

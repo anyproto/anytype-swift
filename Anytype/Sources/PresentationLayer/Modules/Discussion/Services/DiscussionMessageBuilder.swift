@@ -81,7 +81,8 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
                 authorId: authorParticipant?.id,
                 createDate: message.createdAtDate.formatted(date: .abbreviated, time: .omitted),
-                messageString: discussionTextBuilder.makeMessage(content: message.resolvedDiscussionContent(), spaceId: spaceId, position: position),
+                messageString: AttributedString(),
+                discussionBlocks: message.resolvedDiscussionBlocks(spaceId: spaceId, position: position, textBuilder: discussionTextBuilder),
                 replyModel: mapReply(
                     fullMessage: fullMessage,
                     participants: participants,
@@ -180,9 +181,10 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             let filesCout = fullMessage.replyAttachments.count(where: \.resolvedLayoutValue.isFile)
 
             let description: String
-            if replyChat.resolvedDiscussionContent().content.text.isNotEmpty {
-                description = discussionTextBuilder
-                    .makeMessageWithoutStyle(content: replyChat.resolvedDiscussionContent())
+            let replyBlocks = replyChat.resolvedDiscussionBlocks(spaceId: spaceId, position: .left, textBuilder: discussionTextBuilder)
+            let replyPlainText = replyBlocks.plainText
+            if replyPlainText.isNotEmpty {
+                description = replyPlainText
                     .replacingOccurrences(of: "\n+", with: "\n", options: .regularExpression)
             } else if fullMessage.replyAttachments.count == 1 {
                 description = replyAttachment?.title ?? ""
