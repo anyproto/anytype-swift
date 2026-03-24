@@ -5,22 +5,33 @@ import DeepLinks
 import ProtobufMessages
 
 protocol DiscussionTextBuilderProtocol: Sendable {
-    func makeMessage(content: ResolvedDiscussionContent, spaceId: String, position: MessageHorizontalPosition) -> AttributedString
-    func makeMessageWithoutStyle(content: ResolvedDiscussionContent) -> String
+    func makeAttributedString(
+        text: String,
+        marks: [Anytype_Model_Block.Content.Text.Mark],
+        style: Anytype_Model_Block.Content.Text.Style,
+        spaceId: String,
+        position: MessageHorizontalPosition
+    ) -> AttributedString
 }
 
 struct DiscussionTextBuilder: DiscussionTextBuilderProtocol, Sendable {
 
     private let deepLinkParser: any DeepLinkParserProtocol = Container.shared.deepLinkParser()
 
-    func makeMessage(content: ResolvedDiscussionContent, spaceId: String, position: MessageHorizontalPosition) -> AttributedString {
-        let baseFont: AnytypeFont = .chatText
-        var message = AttributedString(content.content.text)
+    func makeAttributedString(
+        text: String,
+        marks: [Anytype_Model_Block.Content.Text.Mark],
+        style: Anytype_Model_Block.Content.Text.Style,
+        spaceId: String,
+        position: MessageHorizontalPosition
+    ) -> AttributedString {
+        let font = anytypeFont(for: style)
+        var message = AttributedString(text)
 
-        message.font = AnytypeFontBuilder.font(anytypeFont: baseFont)
-        message.kern = baseFont.config.kern
+        message.font = AnytypeFontBuilder.font(anytypeFont: font)
+        message.kern = font.config.kern
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = baseFont.lineHeightMultiple
+        paragraphStyle.lineHeightMultiple = font.lineHeightMultiple
         message.paragraphStyle = paragraphStyle
 
         let textColor = position.isRight ? UIColor.Text.white : UIColor.Text.primary
@@ -28,7 +39,7 @@ struct DiscussionTextBuilder: DiscussionTextBuilderProtocol, Sendable {
         let underlineColor = textColor.withAlphaComponent(0.3)
         message.uiKit.underlineColor = underlineColor
 
-        for mark in content.content.marks.reversed() {
+        for mark in marks.reversed() {
             let nsRange = NSRange(mark.range)
             guard let range = Range(nsRange, in: message) else {
                 continue
@@ -72,40 +83,21 @@ struct DiscussionTextBuilder: DiscussionTextBuilderProtocol, Sendable {
             }
         }
 
-        // Apply block style fonts for headers/title
-        for blockStyle in content.blockStyleRanges {
-            guard let font = anytypeFont(for: blockStyle.style) else { continue }
-            guard font != baseFont else { continue }
-            guard let range = Range(blockStyle.range, in: message) else { continue }
-
-            message[range].font = AnytypeFontBuilder.font(anytypeFont: font)
-            message[range].kern = font.config.kern
-            let styleParagraph = NSMutableParagraphStyle()
-            styleParagraph.lineHeightMultiple = font.lineHeightMultiple
-            message[range].paragraphStyle = styleParagraph
-        }
-
         return message.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    func makeMessageWithoutStyle(content: ResolvedDiscussionContent) -> String {
-        NSAttributedString(makeMessage(content: content, spaceId: "", position: .right)).string
-    }
-
-    private func anytypeFont(for style: Anytype_Model_Block.Content.Text.Style) -> AnytypeFont? {
+    private func anytypeFont(for style: Anytype_Model_Block.Content.Text.Style) -> AnytypeFont {
         switch style {
-        case .header1:
+        case .header1, .title:
             return .title
         case .header2:
             return .heading
         case .header3, .header4:
             return .subheading
-        case .title:
-            return .title
         case .description_, .paragraph, .toggle, .numbered, .marked, .checkbox, .quote, .callout:
             return .chatText
         default:
-            return nil
+            return .chatText
         }
     }
 

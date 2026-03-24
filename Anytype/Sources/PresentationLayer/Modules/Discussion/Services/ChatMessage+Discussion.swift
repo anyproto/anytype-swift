@@ -4,22 +4,75 @@ import ProtobufMessages
 
 extension ChatMessage {
 
-    /// Discussion-specific resolved content that preserves block style information for header rendering
-    func resolvedDiscussionContent() -> ResolvedDiscussionContent {
+    func resolvedDiscussionBlocks(
+        spaceId: String,
+        position: MessageHorizontalPosition,
+        textBuilder: any DiscussionTextBuilderProtocol
+    ) -> [DiscussionBlockItem] {
         guard !blocks.isEmpty else {
-            return ResolvedDiscussionContent(content: message, blockStyleRanges: [])
+            let content = textBuilder.makeAttributedString(
+                text: message.text,
+                marks: message.marks,
+                style: .paragraph,
+                spaceId: spaceId,
+                position: position
+            )
+            if content.characters.isEmpty { return [] }
+            return [.text(id: 0, content: content)]
         }
 
-        let supportedTextStyles: Set<Anytype_Model_Block.Content.Text.Style> = [
-            .paragraph, .description_, .title,
-            .header1, .header2, .header3, .header4,
-            .toggle, .numbered, .marked, .checkbox, .quote, .callout
-        ]
+        var result: [DiscussionBlockItem] = []
+
+        for (index, block) in blocks.enumerated() {
+            switch block.content {
+            case .text(let textBlock):
+                let content = textBuilder.makeAttributedString(
+                    text: textBlock.text,
+                    marks: textBlock.marks,
+                    style: textBlock.style,
+                    spaceId: spaceId,
+                    position: position
+                )
+
+                switch textBlock.style {
+                case .paragraph, .description_, .title,
+                     .header1, .header2, .header3, .header4:
+                    result.append(.text(id: index, content: content))
+                case .quote:
+                    result.append(.quote(id: index, content: content))
+                case .callout:
+                    result.append(.callout(id: index, content: content))
+                case .checkbox:
+                    result.append(.checkbox(id: index, content: content, checked: textBlock.checked))
+                case .marked:
+                    result.append(.bulleted(id: index, content: content))
+                case .numbered:
+                    result.append(.numbered(id: index, content: content))
+                case .toggle:
+                    result.append(.toggle(id: index, content: content))
+                case .code, .toggleHeader1, .toggleHeader2, .toggleHeader3, .UNRECOGNIZED:
+                    result.append(.unsupported(id: index, blockName: "style:\(textBlock.style)"))
+                }
+
+            case .link:
+                result.append(.unsupported(id: index, blockName: "link"))
+            case .embed:
+                result.append(.unsupported(id: index, blockName: "embed"))
+            case nil:
+                result.append(.unsupported(id: index, blockName: "unknown"))
+            }
+        }
+
+        return result
+    }
+
+    /// Combined text+marks for the edit input converter (needs the legacy flat format)
+    func combinedMessageContent() -> ChatMessageContent {
+        guard !blocks.isEmpty else { return message }
 
         var content = ChatMessageContent()
         var combinedText = ""
         var combinedMarks: [Anytype_Model_Block.Content.Text.Mark] = []
-        var blockStyleRanges: [ResolvedDiscussionContent.BlockStyleRange] = []
 
         for block in blocks {
             if !combinedText.isEmpty {
@@ -27,46 +80,18 @@ extension ChatMessage {
             }
             let textOffset = Int32(combinedText.utf16.count)
 
-            if case .text(let textBlock) = block.content, supportedTextStyles.contains(textBlock.style) {
+            if case .text(let textBlock) = block.content {
                 combinedText += textBlock.text
                 for var mark in textBlock.marks {
                     mark.range.from += textOffset
                     mark.range.to += textOffset
                     combinedMarks.append(mark)
                 }
-                let range = NSRange(location: Int(textOffset), length: textBlock.text.utf16.count)
-                blockStyleRanges.append(ResolvedDiscussionContent.BlockStyleRange(style: textBlock.style, range: range))
-            } else if case .text(let textBlock) = block.content {
-                let placeholder = "UNSUPPORTED STYLE (\(textBlock.style)): \(textBlock.text)"
-                combinedText += placeholder
-                var mark = Anytype_Model_Block.Content.Text.Mark()
-                mark.type = .textColor
-                mark.param = MiddlewareColor.red.rawValue
-                mark.range = Anytype_Model_Range()
-                mark.range.from = textOffset
-                mark.range.to = textOffset + Int32(placeholder.utf16.count)
-                combinedMarks.append(mark)
-            } else {
-                let blockName: String
-                switch block.content {
-                case .link: blockName = "link"
-                case .embed: blockName = "embed"
-                case .text, nil: blockName = "unknown"
-                }
-                let placeholder = "UNSUPPORTED BLOCK: \(blockName)"
-                combinedText += placeholder
-                var mark = Anytype_Model_Block.Content.Text.Mark()
-                mark.type = .textColor
-                mark.param = MiddlewareColor.red.rawValue
-                mark.range = Anytype_Model_Range()
-                mark.range.from = textOffset
-                mark.range.to = textOffset + Int32(placeholder.utf16.count)
-                combinedMarks.append(mark)
             }
         }
 
         content.text = combinedText
         content.marks = combinedMarks
-        return ResolvedDiscussionContent(content: content, blockStyleRanges: blockStyleRanges)
+        return content
     }
 }
