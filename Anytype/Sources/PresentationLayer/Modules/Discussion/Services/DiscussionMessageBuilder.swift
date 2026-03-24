@@ -17,7 +17,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
     }
 
     private let accountParticipantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
-    private let messageTextBuilder: any MessageTextBuilderProtocol = Container.shared.messageTextBuilder()
+    private let discussionTextBuilder: any DiscussionTextBuilderProtocol = Container.shared.discussionTextBuilder()
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
 
     private let spaceId: String
@@ -81,7 +81,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
                 authorId: authorParticipant?.id,
                 createDate: message.createdAtDate.formatted(date: .abbreviated, time: .omitted),
-                messageString: messageTextBuilder.makeMessage(content: message.resolvedContent(useBlocksFormat: true), spaceId: spaceId, position: position),
+                messageString: discussionTextBuilder.makeMessage(content: message.resolvedDiscussionContent(), spaceId: spaceId, position: position),
                 replyModel: mapReply(
                     fullMessage: fullMessage,
                     participants: participants,
@@ -180,9 +180,9 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             let filesCout = fullMessage.replyAttachments.count(where: \.resolvedLayoutValue.isFile)
 
             let description: String
-            if replyChat.resolvedContent(useBlocksFormat: true).text.isNotEmpty {
-                description = messageTextBuilder
-                    .makeMessaeWithoutStyle(content: replyChat.resolvedContent(useBlocksFormat: true))
+            if replyChat.resolvedDiscussionContent().content.text.isNotEmpty {
+                description = discussionTextBuilder
+                    .makeMessageWithoutStyle(content: replyChat.resolvedDiscussionContent())
                     .replacingOccurrences(of: "\n+", with: "\n", options: .regularExpression)
             } else if fullMessage.replyAttachments.count == 1 {
                 description = replyAttachment?.title ?? ""
