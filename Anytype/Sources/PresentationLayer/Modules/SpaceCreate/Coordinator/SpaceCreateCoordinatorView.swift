@@ -12,7 +12,9 @@ struct SpaceCreateCoordinatorView: View {
     var body: some View {
         Group {
             if FeatureFlags.createChannelFlow {
-                ChannelCreateView(data: model.data, output: model)
+                NavigationStack {
+                    ChannelCreateView(data: model.data, output: model)
+                }
             } else {
                 SpaceCreateView(data: model.data, output: model)
             }
