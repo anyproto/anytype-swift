@@ -221,7 +221,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             if contacts.isEmpty {
                 spaceCreateData = SpaceCreateData(spaceUxType: .data)
             } else {
-                let writersLimit = spaceViewsStorage.allSpaceViews
+                let writersLimit = workspaceStorage.allSpaceViews
                     .first { $0.isActive && $0.isShared }?.writersLimit
                 groupChannelCreateData = GroupChannelCreateData(contacts: contacts, writersLimit: writersLimit)
             }
