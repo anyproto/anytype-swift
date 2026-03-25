@@ -40,8 +40,8 @@ struct SpacesManagerView: View {
             .sheet(item: $model.spaceCreateData) {
                 SpaceCreateCoordinatorView(data: $0)
             }
-            .sheet(item: $model.groupChannelCreateData) { data in
-                GroupChannelCreateCoordinatorView(data: data)
+            .sheet(item: $model.channelCreateType) { type in
+                ChannelCreateCoordinatorView(type: type)
             }
     }
     

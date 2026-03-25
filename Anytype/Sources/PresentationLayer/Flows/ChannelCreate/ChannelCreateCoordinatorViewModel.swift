@@ -4,7 +4,7 @@ import AnytypeCore
 
 @MainActor
 @Observable
-final class GroupChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
+final class ChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
 
     @ObservationIgnored
     @Injected(\.activeSpaceManager)
@@ -15,6 +15,8 @@ final class GroupChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
     @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
+
+    let type: ChannelCreateType
 
     var contacts: [Contact] = []
     var writersLimit: Int?
@@ -27,18 +29,19 @@ final class GroupChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
     @ObservationIgnored
     private var pendingSpaceId: String?
 
+    init(type: ChannelCreateType) {
+        self.type = type
+    }
+
     // MARK: - Lifecycle
 
     func onAppear() {
-        Task {
-            contacts = await contactsService.loadContacts()
-            writersLimit = spaceViewsStorage.allSpaceViews
-                .first { $0.isActive && $0.isShared }?.writersLimit
+        switch type {
+        case .personal:
             isLoading = false
-
-            if contacts.isEmpty {
-                showSpaceCreate = true
-            }
+            showSpaceCreate = true
+        case .group:
+            loadGroupData()
         }
     }
 
@@ -78,6 +81,21 @@ final class GroupChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
         case .later:
             try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
             // TODO: Handle temporary widgets (separate task)
+        }
+    }
+
+    // MARK: - Private
+
+    private func loadGroupData() {
+        Task {
+            contacts = await contactsService.loadContacts()
+            writersLimit = spaceViewsStorage.allSpaceViews
+                .first { $0.isActive && $0.isShared }?.writersLimit
+            isLoading = false
+
+            if contacts.isEmpty {
+                showSpaceCreate = true
+            }
         }
     }
 }

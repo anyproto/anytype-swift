@@ -30,7 +30,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var bookmarkCreateData: BookmarkCreateScreenData?
     var overlayWidgetsData: HomeWidgetData?
     var showSpaceTypeForCreate = false
-    var groupChannelCreateData: GroupChannelCreateData?
+    var channelCreateType: ChannelCreateType?
     var shouldScanQrCode = false
     var showAppSettings = false
     
@@ -208,11 +208,11 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
 
     func onSelectCreatePersonalChannel() {
-        spaceCreateData = SpaceCreateData(spaceUxType: .data)
+        channelCreateType = .personal
     }
 
     func onSelectCreateGroupChannel() {
-        groupChannelCreateData = GroupChannelCreateData()
+        channelCreateType = .group
     }
 
     func onSelectQrCodeJoin() {
