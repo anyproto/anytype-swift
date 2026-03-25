@@ -37,7 +37,7 @@ struct ChannelCreateView: View {
                     try await model.onTapCreate()
                 } label: {
                     Text(Loc.create)
-                        .foregroundStyle(Color.Control.accent)
+                        .foregroundStyle(Color.Control.accent100)
                 }
                 .disabled(model.spaceName.isEmpty || model.spaceName.count > ThresholdCounterUsecase.spaceName.threshold)
             }
