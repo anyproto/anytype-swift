@@ -10,10 +10,12 @@ struct SpaceCreateCoordinatorView: View {
     }
 
     var body: some View {
-        if FeatureFlags.createChannelFlow {
-            ChannelCreateView(data: model.data, output: model)
-        } else {
-            SpaceCreateView(data: model.data, output: model)
+        Group {
+            if FeatureFlags.createChannelFlow {
+                ChannelCreateView(data: model.data, output: model)
+            } else {
+                SpaceCreateView(data: model.data, output: model)
+            }
         }
         .sheet(item: $model.localObjectIconPickerData) {
             LocalObjectIconPickerView(data: $0)
