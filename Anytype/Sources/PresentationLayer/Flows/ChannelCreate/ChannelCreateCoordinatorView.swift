@@ -10,21 +10,13 @@ struct ChannelCreateCoordinatorView: View {
 
     var body: some View {
         NavigationStack {
-            Group {
-                if model.isLoading {
-                    ProgressView()
-                } else if model.type == .group, model.contacts.isNotEmpty, !model.showSpaceCreate {
-                    SelectMembersView(contacts: model.contacts, writersLimit: model.writersLimit) { selectedMembers in
-                        model.onSelectMembersNext(selectedMembers)
-                    }
+            stepView
+                .navigationDestination(isPresented: showSpaceCreate) {
+                    SpaceCreateView(
+                        data: SpaceCreateData(spaceUxType: .data),
+                        output: model
+                    )
                 }
-            }
-            .navigationDestination(isPresented: $model.showSpaceCreate) {
-                SpaceCreateView(
-                    data: SpaceCreateData(spaceUxType: .data),
-                    output: model
-                )
-            }
         }
         .task {
             model.onAppear()
@@ -38,5 +30,29 @@ struct ChannelCreateCoordinatorView: View {
             }
             .interactiveDismissDisabled(true)
         }
+    }
+
+    @ViewBuilder
+    private var stepView: some View {
+        switch model.step {
+        case .loading:
+            ProgressView()
+        case .selectMembers(let contacts, let writersLimit):
+            SelectMembersView(contacts: contacts, writersLimit: writersLimit) { selectedMembers in
+                model.onSelectMembersNext(selectedMembers)
+            }
+        case .spaceCreate:
+            EmptyView()
+        }
+    }
+
+    private var showSpaceCreate: Binding<Bool> {
+        Binding(
+            get: {
+                if case .spaceCreate = model.step { return true }
+                return false
+            },
+            set: { _ in }
+        )
     }
 }

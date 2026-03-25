@@ -6,6 +6,12 @@ import AnytypeCore
 @Observable
 final class ChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
 
+    enum Step {
+        case loading
+        case selectMembers(contacts: [Contact], writersLimit: Int?)
+        case spaceCreate
+    }
+
     @ObservationIgnored
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
@@ -18,10 +24,7 @@ final class ChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
 
     let type: ChannelCreateType
 
-    var contacts: [Contact] = []
-    var writersLimit: Int?
-    var isLoading = true
-    var showSpaceCreate = false
+    var step: Step = .loading
     var selectedMembers: [SelectedMember] = []
     var localObjectIconPickerData: LocalObjectIconPickerData?
     var newHomepagePickerData: HomePagePickerData?
@@ -38,8 +41,7 @@ final class ChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
     func onAppear() {
         switch type {
         case .personal:
-            isLoading = false
-            showSpaceCreate = true
+            step = .spaceCreate
         case .group:
             loadGroupData()
         }
@@ -49,7 +51,7 @@ final class ChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
 
     func onSelectMembersNext(_ members: [SelectedMember]) {
         selectedMembers = members
-        showSpaceCreate = true
+        step = .spaceCreate
     }
 
     // MARK: - SpaceCreateModuleOutput
@@ -88,13 +90,14 @@ final class ChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
 
     private func loadGroupData() {
         Task {
-            contacts = await contactsService.loadContacts()
-            writersLimit = spaceViewsStorage.allSpaceViews
+            let contacts = await contactsService.loadContacts()
+            let writersLimit = spaceViewsStorage.allSpaceViews
                 .first { $0.isActive && $0.isShared }?.writersLimit
-            isLoading = false
 
             if contacts.isEmpty {
-                showSpaceCreate = true
+                step = .spaceCreate
+            } else {
+                step = .selectMembers(contacts: contacts, writersLimit: writersLimit)
             }
         }
     }
