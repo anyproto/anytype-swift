@@ -83065,6 +83065,17 @@
         }
       }
     },
+    "Channel.Create.NewChannel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New channel"
+          }
+        }
+      }
+    },
     "Channel.Create.SelectMembers.editorsCount" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct SpaceCreateCoordinatorView: View {
 
@@ -7,12 +8,13 @@ struct SpaceCreateCoordinatorView: View {
     init(data: SpaceCreateData) {
         _model = State(initialValue: SpaceCreateCoordinatorViewModel(data: data))
     }
-    
+
     var body: some View {
-        SpaceCreateView(
-            data: model.data,
-            output: model
-        )
+        if FeatureFlags.createChannelFlow {
+            ChannelCreateView(data: model.data, output: model)
+        } else {
+            SpaceCreateView(data: model.data, output: model)
+        }
         .sheet(item: $model.localObjectIconPickerData) {
             LocalObjectIconPickerView(data: $0)
         }
