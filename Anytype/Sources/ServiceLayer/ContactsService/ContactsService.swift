@@ -1,6 +1,5 @@
 import Foundation
 import Services
-import Combine
 
 protocol ContactsServiceProtocol: Sendable {
     func loadContacts() async -> [Contact]
