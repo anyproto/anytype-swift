@@ -30,6 +30,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var bookmarkCreateData: BookmarkCreateScreenData?
     var overlayWidgetsData: HomeWidgetData?
     var showSpaceTypeForCreate = false
+    var groupChannelCreateData: GroupChannelCreateData?
     var shouldScanQrCode = false
     var showAppSettings = false
     
@@ -111,6 +112,9 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.searchService) @ObservationIgnored
     private var searchService: any SearchServiceProtocol
+    @ObservationIgnored
+    @Injected(\.contactsService)
+    private var contactsService: any ContactsServiceProtocol
 
     @ObservationIgnored
     private var needSetup = true
@@ -212,7 +216,14 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
 
     func onSelectCreateGroupChannel() {
-        // Placeholder — will be implemented in IOS-5906
+        Task {
+            let contacts = await contactsService.loadContacts()
+            if contacts.isEmpty {
+                spaceCreateData = SpaceCreateData(spaceUxType: .data)
+            } else {
+                groupChannelCreateData = GroupChannelCreateData(contacts: contacts)
+            }
+        }
     }
 
     func onSelectQrCodeJoin() {
