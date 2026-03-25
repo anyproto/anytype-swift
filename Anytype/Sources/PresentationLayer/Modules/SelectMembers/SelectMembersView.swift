@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SelectMembersView: View {
 
-    @State var model: SelectMembersViewModel
+    @State private var model: SelectMembersViewModel
 
     init(contacts: [Contact], writersLimit: Int?, onNext: @escaping ([SelectedMember]) -> Void) {
         _model = State(initialValue: SelectMembersViewModel(contacts: contacts, writersLimit: writersLimit, onNext: onNext))
