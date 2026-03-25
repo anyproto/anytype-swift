@@ -93,7 +93,7 @@ final class SetFiltersContentViewBuilder {
                     interactor: TagsSearchInteractor(
                         spaceId: self.spaceId,
                         relationKey: self.filter.relationDetails.key,
-                        selectedTagIds: selectedTagIds,
+                        selectedTagIds: [],
                         isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
                     ),
                     onSelect: onSelect
@@ -122,7 +122,7 @@ final class SetFiltersContentViewBuilder {
                     interactor: StatusSearchInteractor(
                         spaceId: self.spaceId,
                         relationKey: self.filter.relationDetails.key,
-                        selectedStatusesIds: selectedStatusesIds,
+                        selectedStatusesIds: [],
                         isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
                     ),
                     onSelect: onSelect

@@ -88,17 +88,18 @@ private extension Array where Element == ObjectDetails {
 
     func asRowConfigurations(with selectedIds: [String], selectionMode: LegacySearchViewModel.SelectionMode) -> [ListRowConfiguration] {
         map { details in
-            ListRowConfiguration(
+            let selectionIndicator = selectionMode.asSelectionIndicatorViewModel(
+                details: details,
+                selectedIds: selectedIds
+            )
+            return ListRowConfiguration(
                 id: details.id,
-                contentHash: details.hashValue
+                contentHash: details.hashValue ^ (selectionIndicator?.hashValue ?? 0)
             ) {
                 AnyView(
                     SearchObjectRowView(
                         viewModel: SearchObjectRowView.Model(details: details),
-                        selectionIndicatorViewModel: selectionMode.asSelectionIndicatorViewModel(
-                            details: details,
-                            selectedIds: selectedIds
-                        )
+                        selectionIndicatorViewModel: selectionIndicator
                     )
                 )
             }

@@ -79,9 +79,10 @@ private extension Array where Element == Property.Status.Option {
 
     func asRowConfigurations(with selectedIds: [String], selectionMode: LegacySearchViewModel.SelectionMode) -> [ListRowConfiguration] {
         map { option in
-            ListRowConfiguration(
+            let selectionIndicator = selectionMode.asSelectionIndicatorViewModel(option: option, selectedIds: selectedIds)
+            return ListRowConfiguration(
                 id: option.id,
-                contentHash: option.hashValue
+                contentHash: option.hashValue ^ (selectionIndicator?.hashValue ?? 0)
             ) {
                 AnyView(
                     StatusSearchRowView(
@@ -89,7 +90,7 @@ private extension Array where Element == Property.Status.Option {
                             text: option.text,
                             color: option.color
                         ),
-                        selectionIndicatorViewModel: selectionMode.asSelectionIndicatorViewModel(option: option, selectedIds: selectedIds)
+                        selectionIndicatorViewModel: selectionIndicator
                     )
                 )
             }
