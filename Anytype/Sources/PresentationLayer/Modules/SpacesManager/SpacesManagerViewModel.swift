@@ -12,6 +12,9 @@ final class SpacesManagerViewModel {
     @ObservationIgnored
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
+    @ObservationIgnored
+    @Injected(\.contactsService)
+    private var contactsService: any ContactsServiceProtocol
 
     var participantSpaces: [ParticipantSpaceViewData] = []
     var spaceForCancelRequestAlert: SpaceView?
@@ -21,6 +24,7 @@ final class SpacesManagerViewModel {
     var spaceCreateData: SpaceCreateData?
     var exportSpaceUrl: URL?
     var showSpaceTypeForCreate = false
+    var groupChannelCreateData: GroupChannelCreateData?
     var shouldScanQrCode = false
     
     func onAppear() {
@@ -79,7 +83,14 @@ final class SpacesManagerViewModel {
     }
 
     func onTapCreateGroupChannel() {
-        // Placeholder — will be implemented in IOS-5906
+        Task {
+            let contacts = await contactsService.loadContacts()
+            if contacts.isEmpty {
+                spaceCreateData = SpaceCreateData(spaceUxType: .data)
+            } else {
+                groupChannelCreateData = GroupChannelCreateData(contacts: contacts)
+            }
+        }
     }
 }
 
