@@ -40,6 +40,9 @@ struct SpacesManagerView: View {
             .sheet(item: $model.spaceCreateData) {
                 SpaceCreateCoordinatorView(data: $0)
             }
+            .sheet(isPresented: $model.showGroupChannelCreate) {
+                GroupChannelCreateCoordinatorView()
+            }
     }
     
     @ViewBuilder

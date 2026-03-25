@@ -20,6 +20,10 @@ extension Container {
         self { SpaceViewsStorage() }.singleton
     }
 
+    var contactsService: Factory<any ContactsServiceProtocol> {
+        self { ContactsService() }
+    }
+
     var chatDetailsStorage: Factory<any ChatDetailsStorageProtocol> {
         self { ChatDetailsStorage() }.singleton
     }

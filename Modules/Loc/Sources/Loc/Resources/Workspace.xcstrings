@@ -83065,6 +83065,61 @@
         }
       }
     },
+    "Channel.Create.NewChannel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New channel"
+          }
+        }
+      }
+    },
+    "Channel.Create.SelectMembers.editorsCount" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld/%lld Editors"
+          }
+        }
+      }
+    },
+    "Channel.Create.SelectMembers.next" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        }
+      }
+    },
+    "Channel.Create.SelectMembers.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select members"
+          }
+        }
+      }
+    },
+    "Channel.Create.SelectMembers.viewersCount" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld/%lld Viewers"
+          }
+        }
+      }
+    },
     "Channel.Create.EmptyState.button" : {
       "extractionState" : "manual",
       "localizations" : {

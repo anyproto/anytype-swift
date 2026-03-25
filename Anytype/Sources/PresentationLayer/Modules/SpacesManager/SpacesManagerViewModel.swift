@@ -21,6 +21,7 @@ final class SpacesManagerViewModel {
     var spaceCreateData: SpaceCreateData?
     var exportSpaceUrl: URL?
     var showSpaceTypeForCreate = false
+    var showGroupChannelCreate = false
     var shouldScanQrCode = false
     
     func onAppear() {
@@ -79,7 +80,7 @@ final class SpacesManagerViewModel {
     }
 
     func onTapCreateGroupChannel() {
-        // Placeholder — will be implemented in IOS-5906
+        showGroupChannelCreate = true
     }
 }
 
