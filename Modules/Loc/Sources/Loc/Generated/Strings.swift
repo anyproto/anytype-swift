@@ -1428,6 +1428,16 @@ public enum Loc {
         public static let button = Loc.tr("Workspace", "Channel.Create.EmptyState.button", fallback: "Create Channel")
         public static let title = Loc.tr("Workspace", "Channel.Create.EmptyState.title", fallback: "There are no channels yet")
       }
+      public enum SelectMembers {
+        public static func editorsCount(_ p1: Int, _ p2: Int) -> String {
+          return Loc.tr("Workspace", "Channel.Create.SelectMembers.editorsCount", p1, p2, fallback: "%lld/%lld Editors")
+        }
+        public static let next = Loc.tr("Workspace", "Channel.Create.SelectMembers.next", fallback: "Next")
+        public static let title = Loc.tr("Workspace", "Channel.Create.SelectMembers.title", fallback: "Select members")
+        public static func viewersCount(_ p1: Int, _ p2: Int) -> String {
+          return Loc.tr("Workspace", "Channel.Create.SelectMembers.viewersCount", p1, p2, fallback: "%lld/%lld Viewers")
+        }
+      }
     }
   }
   public enum Chat {
