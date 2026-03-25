@@ -893,6 +893,47 @@
         "contentPatterns": []
       }
     },
+    "decompose": {
+      "type": "workflow",
+      "priority": "high",
+      "description": "Decompose a large Linear task into independent subtasks with PLAN.md and Linear sub-issues. Analyzes issue, project, middleware, comments, PRs, and codebase.",
+      "relatedSkills": ["linear-developer", "confidence-check"],
+      "promptTriggers": {
+        "keywords": [
+          "decompose",
+          "decomposition",
+          "break down",
+          "break down task",
+          "split task",
+          "subtasks",
+          "sub-tasks",
+          "plan feature",
+          "feature plan",
+          "task breakdown",
+          "work breakdown",
+          "create subtasks",
+          "create sub-issues",
+          "split into tasks",
+          "independent tasks",
+          "parallel tasks"
+        ],
+        "intentPatterns": [
+          "(decompose|break down|split|divide).*?(task|issue|feature|ticket|story)",
+          "(create|make|plan).*?(subtask|sub-task|sub-issue|breakdown|decomposition)",
+          "(analyze|review).*?(task|issue|feature).*?(plan|split|break)",
+          "(large|big|complex).*?(task|feature|issue).*?(plan|split|break|decompose)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/PLAN_IOS_*.md"
+        ],
+        "contentPatterns": [
+          "## Decomposition & Progress",
+          "Layer 0: Foundation"
+        ]
+      }
+    },
     "apple-docs-developer": {
       "type": "reference",
       "priority": "medium",
