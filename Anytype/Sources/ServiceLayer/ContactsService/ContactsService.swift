@@ -16,27 +16,37 @@ final class ContactsService: ContactsServiceProtocol {
             $0.uxType == .oneToOne && $0.isActive
         }
 
-        var contacts: [Contact] = []
+        let contacts = await withTaskGroup(of: Contact?.self, returning: [Contact].self) { group in
+            for spaceView in oneToOneSpaces {
+                group.addTask { [participantSubscriptionProvider] in
+                    let subscription = participantSubscriptionProvider.subscription(spaceId: spaceView.targetSpaceId)
 
-        for spaceView in oneToOneSpaces {
-            let subscription = participantSubscriptionProvider.subscription(spaceId: spaceView.targetSpaceId)
+                    for await participants in subscription.participantsPublisher.values {
+                        guard !participants.isEmpty else { continue }
 
-            for await participants in subscription.participantsPublisher.values {
-                guard !participants.isEmpty else { continue }
-
-                if let participant = participants.first(where: { $0.identity == spaceView.oneToOneIdentity }) {
-                    let contact = Contact(
-                        identity: participant.identity,
-                        name: participant.title,
-                        globalName: participant.displayGlobalName,
-                        icon: participant.icon
-                    )
-                    contacts.append(contact)
+                        if let participant = participants.first(where: { $0.identity == spaceView.oneToOneIdentity }) {
+                            return Contact(
+                                identity: participant.identity,
+                                name: participant.title,
+                                globalName: participant.displayGlobalName,
+                                icon: participant.icon
+                            )
+                        }
+                        break
+                    }
+                    return nil
                 }
-                break
             }
+
+            var results: [Contact] = []
+            for await contact in group {
+                if let contact {
+                    results.append(contact)
+                }
+            }
+            return results
         }
 
-        return contacts
+        return contacts.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
     }
 }
