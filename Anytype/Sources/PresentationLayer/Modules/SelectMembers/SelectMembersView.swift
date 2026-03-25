@@ -1,0 +1,44 @@
+import SwiftUI
+
+struct SelectMembersView: View {
+
+    @State var model: SelectMembersViewModel
+
+    init(contacts: [Contact], onNext: @escaping ([SelectedMember]) -> Void) {
+        _model = State(initialValue: SelectMembersViewModel(contacts: contacts, onNext: onNext))
+    }
+
+    var body: some View {
+        PlainList {
+            ForEach(model.filteredContacts) { contact in
+                MemberSelectionRow(
+                    icon: contact.icon,
+                    name: contact.name,
+                    globalName: contact.globalName,
+                    isSelected: Binding(
+                        get: { model.isSelected(contact) },
+                        set: { _ in model.toggle(contact) }
+                    )
+                )
+            }
+        }
+        .searchable(text: $model.searchText)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack(spacing: 0) {
+                    Text(Loc.Channel.Create.SelectMembers.title)
+                        .anytypeStyle(.uxTitle1Semibold)
+                    Text(model.subtitle)
+                        .anytypeStyle(.caption1Regular)
+                        .foregroundStyle(Color.Text.secondary)
+                }
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(Loc.Channel.Create.SelectMembers.next) {
+                    model.onTapNext()
+                }
+            }
+        }
+    }
+}
