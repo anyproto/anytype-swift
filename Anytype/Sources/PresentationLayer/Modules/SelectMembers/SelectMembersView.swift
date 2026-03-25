@@ -4,8 +4,8 @@ struct SelectMembersView: View {
 
     @State var model: SelectMembersViewModel
 
-    init(contacts: [Contact], onNext: @escaping ([SelectedMember]) -> Void) {
-        _model = State(initialValue: SelectMembersViewModel(contacts: contacts, onNext: onNext))
+    init(contacts: [Contact], writersLimit: Int?, onNext: @escaping ([SelectedMember]) -> Void) {
+        _model = State(initialValue: SelectMembersViewModel(contacts: contacts, writersLimit: writersLimit, onNext: onNext))
     }
 
     var body: some View {
@@ -29,9 +29,11 @@ struct SelectMembersView: View {
                 VStack(spacing: 0) {
                     Text(Loc.Channel.Create.SelectMembers.title)
                         .anytypeStyle(.uxTitle1Semibold)
-                    Text(model.subtitle)
-                        .anytypeStyle(.caption1Regular)
-                        .foregroundStyle(Color.Text.secondary)
+                    if model.showSubtitle {
+                        Text(model.subtitle)
+                            .anytypeStyle(.caption1Regular)
+                            .foregroundStyle(Color.Text.secondary)
+                    }
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {

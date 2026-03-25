@@ -13,12 +13,12 @@ final class SelectMembersViewModel {
     var searchText: String = ""
     var selectedIdentities: [String] = [] // ordered array, not Set
 
-    // TODO: IOS-5904 — replace hardcoded limit with real tier data
-    private let writersLimit: Int = 10
+    private let writersLimit: Int?
     private let viewersLimit: Int = 1000
 
-    init(contacts: [Contact], onNext: @escaping ([SelectedMember]) -> Void) {
+    init(contacts: [Contact], writersLimit: Int?, onNext: @escaping ([SelectedMember]) -> Void) {
         self.contacts = contacts
+        self.writersLimit = writersLimit
         self.onNext = onNext
     }
 
@@ -33,15 +33,22 @@ final class SelectMembersViewModel {
     }
 
     var editorsCount: Int {
-        min(selectedIdentities.count, writersLimit)
+        guard let writersLimit else { return selectedIdentities.count }
+        return min(selectedIdentities.count, writersLimit)
     }
 
     var viewersCount: Int {
-        max(0, selectedIdentities.count - writersLimit)
+        guard let writersLimit else { return 0 }
+        return max(0, selectedIdentities.count - writersLimit)
+    }
+
+    var showSubtitle: Bool {
+        writersLimit != nil
     }
 
     var subtitle: String {
-        Loc.Channel.Create.SelectMembers.editorsCount(editorsCount, writersLimit) +
+        guard let writersLimit else { return "" }
+        return Loc.Channel.Create.SelectMembers.editorsCount(editorsCount, writersLimit) +
         " · " +
         Loc.Channel.Create.SelectMembers.viewersCount(viewersCount, viewersLimit)
     }
@@ -69,7 +76,12 @@ final class SelectMembersViewModel {
 
     private func buildSelectedMembers() -> [SelectedMember] {
         selectedIdentities.enumerated().map { index, identity in
-            let role: ParticipantPermissions = index >= writersLimit ? .reader : .writer
+            let role: ParticipantPermissions
+            if let writersLimit, index >= writersLimit {
+                role = .reader
+            } else {
+                role = .writer
+            }
             return SelectedMember(identity: identity, role: role)
         }
     }

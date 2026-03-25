@@ -11,6 +11,7 @@ final class GroupChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
 
     let contacts: [Contact]
+    let writersLimit: Int?
 
     var showSpaceCreate = false
     var selectedMembers: [SelectedMember] = []
@@ -20,8 +21,9 @@ final class GroupChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
     @ObservationIgnored
     private var pendingSpaceId: String?
 
-    init(contacts: [Contact]) {
+    init(contacts: [Contact], writersLimit: Int?) {
         self.contacts = contacts
+        self.writersLimit = writersLimit
     }
 
     // MARK: - SelectMembers output

@@ -15,6 +15,9 @@ final class SpacesManagerViewModel {
     @ObservationIgnored
     @Injected(\.contactsService)
     private var contactsService: any ContactsServiceProtocol
+    @ObservationIgnored
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
     var participantSpaces: [ParticipantSpaceViewData] = []
     var spaceForCancelRequestAlert: SpaceView?
@@ -88,7 +91,9 @@ final class SpacesManagerViewModel {
             if contacts.isEmpty {
                 spaceCreateData = SpaceCreateData(spaceUxType: .data)
             } else {
-                groupChannelCreateData = GroupChannelCreateData(contacts: contacts)
+                let writersLimit = spaceViewsStorage.allSpaceViews
+                    .first { $0.isActive && $0.isShared }?.writersLimit
+                groupChannelCreateData = GroupChannelCreateData(contacts: contacts, writersLimit: writersLimit)
             }
         }
     }
