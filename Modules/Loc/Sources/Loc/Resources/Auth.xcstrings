@@ -7897,7 +7897,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "继续使用当前文库"
+            "value" : "继续使用当前库"
           }
         },
         "zh-Hant" : {
@@ -8052,7 +8052,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "退出当前文库"
+            "value" : "退出当前库"
           }
         },
         "zh-Hant" : {
@@ -8207,7 +8207,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "您启动了一个不稳定的中间程序。不要使用您的生产文库。您的文库可能已损坏。"
+            "value" : "您正在通过不稳定的中间件启动应用。请勿使用生产环境下的库。您的库数据可能会损坏。"
           }
         },
         "zh-Hant" : {
@@ -12240,7 +12240,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "我们无法检索您的文库数据，因为您的版本已过时。请更新 Anytype 到最新版本。"
+            "value" : "由于您的版本过旧，我们无法检索您的库数据。请将 Anytype 更新至最新版本。"
           }
         },
         "zh-Hant" : {
