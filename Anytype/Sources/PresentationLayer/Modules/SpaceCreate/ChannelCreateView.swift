@@ -37,13 +37,9 @@ struct ChannelCreateView: View {
                     try await model.onTapCreate()
                 } label: {
                     Text(Loc.create)
-                        .anytypeStyle(.uxBodyRegular)
-                        .foregroundStyle(Color.Control.white)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 6)
-                        .background(Color.Control.accent100)
-                        .cornerRadius(8)
                 }
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.capsule)
                 .disabled(model.spaceName.isEmpty || model.spaceName.count > ThresholdCounterUsecase.spaceName.threshold)
             }
         }
