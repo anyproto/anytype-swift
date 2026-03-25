@@ -9,6 +9,7 @@ protocol ContactsServiceProtocol: Sendable {
 final class ContactsService: ContactsServiceProtocol {
 
     private let spaceViewsStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
+    private let participantSubscriptionProvider: any ParticipantsSubscriptionProviderProtocol = Container.shared.participantSubscriptionProvider()
 
     func loadContacts() async -> [Contact] {
         let oneToOneSpaces = spaceViewsStorage.allSpaceViews.filter {
@@ -18,7 +19,7 @@ final class ContactsService: ContactsServiceProtocol {
         var contacts: [Contact] = []
 
         for spaceView in oneToOneSpaces {
-            let subscription = Container.shared.participantSubscription(spaceView.targetSpaceId)
+            let subscription = participantSubscriptionProvider.subscription(spaceId: spaceView.targetSpaceId)
 
             for await participants in subscription.participantsPublisher.values {
                 guard !participants.isEmpty else { continue }

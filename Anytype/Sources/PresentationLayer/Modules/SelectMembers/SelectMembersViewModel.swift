@@ -49,7 +49,7 @@ final class SelectMembersViewModel {
     var subtitle: String {
         guard let writersLimit else { return "" }
         return Loc.Channel.Create.SelectMembers.editorsCount(editorsCount, writersLimit) +
-        " · " +
+        ", " +
         Loc.Channel.Create.SelectMembers.viewersCount(viewersCount, viewersLimit)
     }
 

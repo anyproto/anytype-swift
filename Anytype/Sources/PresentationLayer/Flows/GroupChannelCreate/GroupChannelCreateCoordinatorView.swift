@@ -2,16 +2,18 @@ import SwiftUI
 
 struct GroupChannelCreateCoordinatorView: View {
 
-    @State private var model: GroupChannelCreateCoordinatorViewModel
-
-    init(data: GroupChannelCreateData) {
-        _model = State(initialValue: GroupChannelCreateCoordinatorViewModel(contacts: data.contacts, writersLimit: data.writersLimit))
-    }
+    @State private var model = GroupChannelCreateCoordinatorViewModel()
 
     var body: some View {
         NavigationStack {
-            SelectMembersView(contacts: model.contacts, writersLimit: model.writersLimit) { selectedMembers in
-                model.onSelectMembersNext(selectedMembers)
+            Group {
+                if model.isLoading {
+                    ProgressView()
+                } else if model.contacts.isNotEmpty {
+                    SelectMembersView(contacts: model.contacts, writersLimit: model.writersLimit) { selectedMembers in
+                        model.onSelectMembersNext(selectedMembers)
+                    }
+                }
             }
             .navigationDestination(isPresented: $model.showSpaceCreate) {
                 SpaceCreateView(
@@ -19,6 +21,9 @@ struct GroupChannelCreateCoordinatorView: View {
                     output: model
                 )
             }
+        }
+        .task {
+            model.onAppear()
         }
         .sheet(item: $model.localObjectIconPickerData) {
             LocalObjectIconPickerView(data: $0)

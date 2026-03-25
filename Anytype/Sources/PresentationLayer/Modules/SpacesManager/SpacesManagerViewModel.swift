@@ -12,12 +12,6 @@ final class SpacesManagerViewModel {
     @ObservationIgnored
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @ObservationIgnored
-    @Injected(\.contactsService)
-    private var contactsService: any ContactsServiceProtocol
-    @ObservationIgnored
-    @Injected(\.spaceViewsStorage)
-    private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
     var participantSpaces: [ParticipantSpaceViewData] = []
     var spaceForCancelRequestAlert: SpaceView?
@@ -86,16 +80,7 @@ final class SpacesManagerViewModel {
     }
 
     func onTapCreateGroupChannel() {
-        Task {
-            let contacts = await contactsService.loadContacts()
-            if contacts.isEmpty {
-                spaceCreateData = SpaceCreateData(spaceUxType: .data)
-            } else {
-                let writersLimit = spaceViewsStorage.allSpaceViews
-                    .first { $0.isActive && $0.isShared }?.writersLimit
-                groupChannelCreateData = GroupChannelCreateData(contacts: contacts, writersLimit: writersLimit)
-            }
-        }
+        groupChannelCreateData = GroupChannelCreateData()
     }
 }
 

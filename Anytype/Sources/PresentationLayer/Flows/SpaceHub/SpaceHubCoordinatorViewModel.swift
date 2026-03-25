@@ -113,10 +113,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     @Injected(\.searchService) @ObservationIgnored
     private var searchService: any SearchServiceProtocol
     @ObservationIgnored
-    @Injected(\.contactsService)
-    private var contactsService: any ContactsServiceProtocol
-
-    @ObservationIgnored
     private var needSetup = true
     
     init() { }
@@ -216,16 +212,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
 
     func onSelectCreateGroupChannel() {
-        Task {
-            let contacts = await contactsService.loadContacts()
-            if contacts.isEmpty {
-                spaceCreateData = SpaceCreateData(spaceUxType: .data)
-            } else {
-                let writersLimit = workspaceStorage.allSpaceViews
-                    .first { $0.isActive && $0.isShared }?.writersLimit
-                groupChannelCreateData = GroupChannelCreateData(contacts: contacts, writersLimit: writersLimit)
-            }
-        }
+        groupChannelCreateData = GroupChannelCreateData()
     }
 
     func onSelectQrCodeJoin() {

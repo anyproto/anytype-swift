@@ -9,10 +9,16 @@ final class GroupChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
     @ObservationIgnored
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
+    @ObservationIgnored
+    @Injected(\.contactsService)
+    private var contactsService: any ContactsServiceProtocol
+    @ObservationIgnored
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
-    let contacts: [Contact]
-    let writersLimit: Int?
-
+    var contacts: [Contact] = []
+    var writersLimit: Int?
+    var isLoading = true
     var showSpaceCreate = false
     var selectedMembers: [SelectedMember] = []
     var localObjectIconPickerData: LocalObjectIconPickerData?
@@ -21,9 +27,19 @@ final class GroupChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
     @ObservationIgnored
     private var pendingSpaceId: String?
 
-    init(contacts: [Contact], writersLimit: Int?) {
-        self.contacts = contacts
-        self.writersLimit = writersLimit
+    // MARK: - Lifecycle
+
+    func onAppear() {
+        Task {
+            contacts = await contactsService.loadContacts()
+            writersLimit = spaceViewsStorage.allSpaceViews
+                .first { $0.isActive && $0.isShared }?.writersLimit
+            isLoading = false
+
+            if contacts.isEmpty {
+                showSpaceCreate = true
+            }
+        }
     }
 
     // MARK: - SelectMembers output

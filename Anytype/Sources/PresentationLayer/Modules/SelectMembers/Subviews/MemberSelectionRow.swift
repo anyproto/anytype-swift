@@ -33,6 +33,7 @@ struct MemberSelectionRow: View {
                     .allowsHitTesting(false)
             }
             .fixTappableArea()
+            .padding(.horizontal, 16)
             .padding(.vertical, 9)
             .frame(height: 72)
             .newDivider()
