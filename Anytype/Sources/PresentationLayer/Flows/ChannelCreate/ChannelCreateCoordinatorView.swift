@@ -11,7 +11,7 @@ struct ChannelCreateCoordinatorView: View {
     var body: some View {
         NavigationStack {
             stepView
-                .navigationDestination(isPresented: showSpaceCreate) {
+                .navigationDestination(isPresented: $model.showSpaceCreate) {
                     SpaceCreateView(
                         data: SpaceCreateData(spaceUxType: .data),
                         output: model
@@ -41,18 +41,6 @@ struct ChannelCreateCoordinatorView: View {
             SelectMembersView(contacts: contacts, writersLimit: writersLimit) { selectedMembers in
                 model.onSelectMembersNext(selectedMembers)
             }
-        case .spaceCreate:
-            EmptyView()
         }
-    }
-
-    private var showSpaceCreate: Binding<Bool> {
-        Binding(
-            get: {
-                if case .spaceCreate = model.step { return true }
-                return false
-            },
-            set: { _ in }
-        )
     }
 }

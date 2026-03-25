@@ -9,7 +9,6 @@ final class ChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
     enum Step {
         case loading
         case selectMembers(contacts: [Contact], writersLimit: Int?)
-        case spaceCreate
     }
 
     @ObservationIgnored
@@ -25,6 +24,7 @@ final class ChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
     let type: ChannelCreateType
 
     var step: Step = .loading
+    var showSpaceCreate = false
     var selectedMembers: [SelectedMember] = []
     var localObjectIconPickerData: LocalObjectIconPickerData?
     var newHomepagePickerData: HomePagePickerData?
@@ -41,7 +41,7 @@ final class ChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
     func onAppear() {
         switch type {
         case .personal:
-            step = .spaceCreate
+            showSpaceCreate = true
         case .group:
             loadGroupData()
         }
@@ -51,7 +51,7 @@ final class ChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
 
     func onSelectMembersNext(_ members: [SelectedMember]) {
         selectedMembers = members
-        step = .spaceCreate
+        showSpaceCreate = true
     }
 
     // MARK: - SpaceCreateModuleOutput
@@ -95,7 +95,7 @@ final class ChannelCreateCoordinatorViewModel: SpaceCreateModuleOutput {
                 .first { $0.isActive && $0.isShared }?.writersLimit
 
             if contacts.isEmpty {
-                step = .spaceCreate
+                showSpaceCreate = true
             } else {
                 step = .selectMembers(contacts: contacts, writersLimit: writersLimit)
             }
