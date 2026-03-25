@@ -21,8 +21,6 @@ final class ContactsService: ContactsServiceProtocol {
                     let subscription = participantSubscriptionProvider.subscription(spaceId: spaceView.targetSpaceId)
 
                     for await participants in subscription.participantsPublisher.values {
-                        guard !participants.isEmpty else { continue }
-
                         if let participant = participants.first(where: { $0.identity == spaceView.oneToOneIdentity }) {
                             return Contact(
                                 identity: participant.identity,
@@ -31,7 +29,6 @@ final class ContactsService: ContactsServiceProtocol {
                                 icon: participant.icon
                             )
                         }
-                        break
                     }
                     return nil
                 }
