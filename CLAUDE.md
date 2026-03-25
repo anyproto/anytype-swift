@@ -72,6 +72,7 @@ This file is a **table of contents**, not an encyclopedia. Deeper docs live in-r
 | `feature-toggle-developer` | Feature flags |
 | `tests-developer` | Unit tests, mocks |
 | `apple-docs-developer` | Apple API lookup |
+| `decompose` | Task breakdown, subtasks |
 
 ## 🔒 Pre-Implementation Gate
 When `confidence-check` activates, run 5-check assessment before writing code:
