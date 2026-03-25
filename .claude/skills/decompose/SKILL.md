@@ -7,7 +7,7 @@ description: Decompose a large Linear task into independent subtasks with a mast
 
 ## Purpose
 
-Break down a large feature/task into independent, implementable subtasks. Produces a `PLAN_IOS_XXXX.md` at repo root and creates Linear sub-issues — all designed so future Claude sessions can pick up any subtask with full context.
+Break down a large feature/task into independent, implementable subtasks. Produces a `PLAN_IOS_XXXX.md` in the `plans/` directory and creates Linear sub-issues — all designed so future Claude sessions can pick up any subtask with full context.
 
 ## When Auto-Activated
 
@@ -69,7 +69,7 @@ Present the decomposition to the user as a numbered list organized in **dependen
 
 #### 3a. Create PLAN_IOS_XXXX.md
 
-Create at **repo root** with this structure:
+Create at **`plans/PLAN_IOS_XXXX.md`** (relative to repo root) with this structure:
 
 ```markdown
 # IOS-XXXX: Feature Title
@@ -147,7 +147,7 @@ Which subtasks must be done first.
 ```
 
 **Each subtask description must be self-contained** — a fresh Claude session should be able to work on it by reading only:
-1. `PLAN_IOS_XXXX.md` (full context)
+1. `plans/PLAN_IOS_XXXX.md` (full context)
 2. The Linear sub-issue (specific instructions)
 
 #### 3c. Update Memory
@@ -160,16 +160,16 @@ Save a project memory entry so future sessions know this decomposition exists:
 
 ### Phase 4: Commit
 
-Commit `PLAN_IOS_XXXX.md` to the parent feature branch. Ask user before committing.
+Commit `plans/PLAN_IOS_XXXX.md` to the parent feature branch. Ask user before committing.
 
 ## Working on Subtasks (Future Sessions)
 
 When starting a subtask in a new session:
-1. Read `PLAN_IOS_XXXX.md` — full feature context + progress
+1. Read `plans/PLAN_IOS_XXXX.md` — full feature context + progress
 2. Read Linear sub-issue — specific instructions
 3. Checkout subtask branch from `origin/develop`
 4. Implement
-5. After PR merge, update PLAN.md status in the parent branch
+5. After PR merge, update `plans/PLAN_IOS_XXXX.md` status in the parent branch
 
 ## Common Mistakes
 
