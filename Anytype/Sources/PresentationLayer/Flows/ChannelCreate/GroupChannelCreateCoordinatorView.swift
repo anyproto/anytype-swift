@@ -8,7 +8,7 @@ struct GroupChannelCreateCoordinatorView: View {
         NavigationStack {
             contentView
                 .navigationDestination(item: $model.spaceCreateData) { data in
-                    SpaceCreateCoordinatorView(data: data)
+                    SpaceCreateCoordinatorView(data: data, embedInNavigationStack: false)
                 }
         }
     }

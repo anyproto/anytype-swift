@@ -4,15 +4,21 @@ import AnytypeCore
 struct SpaceCreateCoordinatorView: View {
 
     @State private var model: SpaceCreateCoordinatorViewModel
+    private let embedInNavigationStack: Bool
 
-    init(data: SpaceCreateData) {
+    init(data: SpaceCreateData, embedInNavigationStack: Bool = true) {
         _model = State(initialValue: SpaceCreateCoordinatorViewModel(data: data))
+        self.embedInNavigationStack = embedInNavigationStack
     }
 
     var body: some View {
         Group {
             if FeatureFlags.createChannelFlow {
-                NavigationStack {
+                if embedInNavigationStack {
+                    NavigationStack {
+                        ChannelCreateView(data: model.data, output: model)
+                    }
+                } else {
                     ChannelCreateView(data: model.data, output: model)
                 }
             } else {
