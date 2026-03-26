@@ -11,8 +11,8 @@
 import Foundation
 import SwiftProtobuf
 
-extension Anytype_Rpc.Object {
-    public struct WorkspaceSetDashboard: Sendable {
+extension Anytype_Rpc.Workspace {
+    public struct SetHomepage: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -24,9 +24,9 @@ extension Anytype_Rpc.Object {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var contextID: String = String()
+        public var spaceID: String = String()
 
-        public var objectID: String = String()
+        public var homepage: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -38,25 +38,14 @@ extension Anytype_Rpc.Object {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error {
-          get {return _error ?? Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error()}
+        public var error: Anytype_Rpc.Workspace.SetHomepage.Response.Error {
+          get {return _error ?? Anytype_Rpc.Workspace.SetHomepage.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
         public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
-
-        public var event: Anytype_ResponseEvent {
-          get {return _event ?? Anytype_ResponseEvent()}
-          set {_event = newValue}
-        }
-        /// Returns true if `event` has been explicitly set.
-        public var hasEvent: Bool {return self._event != nil}
-        /// Clears the value of `event`. Subsequent reads from it will return its default value.
-        public mutating func clearEvent() {self._event = nil}
-
-        public var objectID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -65,7 +54,7 @@ extension Anytype_Rpc.Object {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Workspace.SetHomepage.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -101,7 +90,7 @@ extension Anytype_Rpc.Object {
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Workspace.SetHomepage.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
@@ -114,16 +103,15 @@ extension Anytype_Rpc.Object {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error? = nil
-        fileprivate var _event: Anytype_ResponseEvent? = nil
+        fileprivate var _error: Anytype_Rpc.Workspace.SetHomepage.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Object.WorkspaceSetDashboard: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".WorkspaceSetDashboard"
+extension Anytype_Rpc.Workspace.SetHomepage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.protoMessageName + ".SetHomepage"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -135,15 +123,15 @@ extension Anytype_Rpc.Object.WorkspaceSetDashboard: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.WorkspaceSetDashboard, rhs: Anytype_Rpc.Object.WorkspaceSetDashboard) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Workspace.SetHomepage, rhs: Anytype_Rpc.Workspace.SetHomepage) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.WorkspaceSetDashboard.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.WorkspaceSetDashboard.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}objectId\0")
+extension Anytype_Rpc.Workspace.SetHomepage.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.SetHomepage.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}homepage\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -151,34 +139,34 @@ extension Anytype_Rpc.Object.WorkspaceSetDashboard.Request: SwiftProtobuf.Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.homepage) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.contextID.isEmpty {
-      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
     }
-    if !self.objectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 2)
+    if !self.homepage.isEmpty {
+      try visitor.visitSingularStringField(value: self.homepage, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.WorkspaceSetDashboard.Request, rhs: Anytype_Rpc.Object.WorkspaceSetDashboard.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {return false}
-    if lhs.objectID != rhs.objectID {return false}
+  public static func ==(lhs: Anytype_Rpc.Workspace.SetHomepage.Request, rhs: Anytype_Rpc.Workspace.SetHomepage.Request) -> Bool {
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.homepage != rhs.homepage {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.WorkspaceSetDashboard.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}event\0\u{1}objectId\0")
+extension Anytype_Rpc.Workspace.SetHomepage.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.SetHomepage.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -187,8 +175,6 @@ extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response: SwiftProtobuf.Messa
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
       default: break
       }
     }
@@ -202,26 +188,18 @@ extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response: SwiftProtobuf.Messa
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    try { if let v = self._event {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
-    if !self.objectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 3)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.WorkspaceSetDashboard.Response, rhs: Anytype_Rpc.Object.WorkspaceSetDashboard.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Workspace.SetHomepage.Response, rhs: Anytype_Rpc.Workspace.SetHomepage.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs._event != rhs._event {return false}
-    if lhs.objectID != rhs.objectID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.WorkspaceSetDashboard.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Workspace.SetHomepage.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.SetHomepage.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -247,7 +225,7 @@ extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error: SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error, rhs: Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Workspace.SetHomepage.Response.Error, rhs: Anytype_Rpc.Workspace.SetHomepage.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -255,7 +233,7 @@ extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error: SwiftProtobuf
   }
 }
 
-extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Workspace.SetHomepage.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 

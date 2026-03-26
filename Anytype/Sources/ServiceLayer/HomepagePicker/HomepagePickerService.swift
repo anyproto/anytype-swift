@@ -8,9 +8,11 @@ final class HomepagePickerService: HomepagePickerServiceProtocol {
     private static let widgetsHomepageId = "widgets"
 
     private let objectActionsService: any ObjectActionsServiceProtocol
+    private let workspaceService: any WorkspaceServiceProtocol
 
     init() {
         self.objectActionsService = Container.shared.objectActionsService()
+        self.workspaceService = Container.shared.workspaceService()
     }
 
     func createHomepage(spaceId: String, option: HomepagePickerOption) async throws -> HomepageValue {
@@ -36,11 +38,8 @@ final class HomepagePickerService: HomepagePickerServiceProtocol {
         }
     }
 
-    // MARK: - Stub
-
-    /// TODO: Replace with Rpc.Workspace.SetHomepage when middleware #2 is ready
     private func setHomepage(spaceId: String, homepageId: String) async throws {
-        anytypeAssertionFailure("SetHomepage stub called: spaceId=\(spaceId), homepageId=\(homepageId)")
+        try await workspaceService.setHomepage(spaceId: spaceId, homepage: homepageId)
     }
 }
 

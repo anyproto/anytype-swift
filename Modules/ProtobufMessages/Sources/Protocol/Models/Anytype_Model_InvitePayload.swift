@@ -33,7 +33,10 @@ public struct Anytype_Model_InvitePayload: Sendable {
 
   public var spaceIconOption: UInt32 = 0
 
+  /// deprecated
   public var spaceUxType: UInt32 = 0
+
+  public var spaceType: UInt32 = 0
 
   public var spaceIconEncryptionKeys: [Anytype_Model_FileEncryptionKey] = []
 
@@ -48,7 +51,7 @@ public struct Anytype_Model_InvitePayload: Sendable {
 
 extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".InvitePayload"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}creatorIdentity\0\u{1}creatorName\0\u{1}aclKey\0\u{1}spaceId\0\u{1}spaceName\0\u{1}spaceIconCid\0\u{1}spaceIconEncryptionKeys\0\u{1}inviteType\0\u{1}guestKey\0\u{1}spaceIconOption\0\u{1}spaceUxType\0\u{1}creatorIconCid\0\u{1}creatorIconEncryptionKeys\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}creatorIdentity\0\u{1}creatorName\0\u{1}aclKey\0\u{1}spaceId\0\u{1}spaceName\0\u{1}spaceIconCid\0\u{1}spaceIconEncryptionKeys\0\u{1}inviteType\0\u{1}guestKey\0\u{1}spaceIconOption\0\u{1}spaceUxType\0\u{1}creatorIconCid\0\u{1}creatorIconEncryptionKeys\0\u{1}spaceType\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -69,6 +72,7 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
       case 11: try { try decoder.decodeSingularUInt32Field(value: &self.spaceUxType) }()
       case 12: try { try decoder.decodeSingularStringField(value: &self.creatorIconCid) }()
       case 13: try { try decoder.decodeRepeatedMessageField(value: &self.creatorIconEncryptionKeys) }()
+      case 14: try { try decoder.decodeSingularUInt32Field(value: &self.spaceType) }()
       default: break
       }
     }
@@ -114,6 +118,9 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if !self.creatorIconEncryptionKeys.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.creatorIconEncryptionKeys, fieldNumber: 13)
     }
+    if self.spaceType != 0 {
+      try visitor.visitSingularUInt32Field(value: self.spaceType, fieldNumber: 14)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -128,6 +135,7 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if lhs.spaceIconCid != rhs.spaceIconCid {return false}
     if lhs.spaceIconOption != rhs.spaceIconOption {return false}
     if lhs.spaceUxType != rhs.spaceUxType {return false}
+    if lhs.spaceType != rhs.spaceType {return false}
     if lhs.spaceIconEncryptionKeys != rhs.spaceIconEncryptionKeys {return false}
     if lhs.inviteType != rhs.inviteType {return false}
     if lhs.guestKey != rhs.guestKey {return false}
