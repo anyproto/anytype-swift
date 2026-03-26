@@ -22,7 +22,7 @@ struct DiscussionVideoBlockView: View {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth: .infinity, maxHeight: Constants.maxHeight)
+                        .frame(maxHeight: Constants.maxHeight)
                     MessageMediaUploadingStatus(
                         syncStatus: details.syncStatus,
                         syncError: details.syncError
@@ -43,6 +43,7 @@ struct DiscussionVideoBlockView: View {
             }
         }
         .clipShape(.rect(cornerRadius: Constants.cornerRadius))
+        .frame(maxWidth: .infinity, alignment: .leading)
         .task {
             guard let url = ContentUrlBuilder.fileUrl(fileId: details.id) else { return }
             let size = CGSize(width: Constants.thumbnailSize, height: Constants.thumbnailSize)

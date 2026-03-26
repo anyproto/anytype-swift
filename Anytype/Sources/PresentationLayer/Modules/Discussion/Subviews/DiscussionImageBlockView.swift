@@ -24,10 +24,11 @@ struct DiscussionImageBlockView: View {
                     image
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth: .infinity, maxHeight: Constants.maxHeight)
+                        .frame(maxHeight: Constants.maxHeight)
                         .clipShape(.rect(cornerRadius: Constants.cornerRadius))
                     MessageMediaUploadingStatus(syncStatus: details.syncStatus, syncError: details.syncError)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
             case .failure:
                 MessageAttachmentErrorIndicator()
                     .frame(height: 200)
