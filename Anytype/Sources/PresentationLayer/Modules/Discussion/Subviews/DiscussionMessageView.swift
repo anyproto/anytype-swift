@@ -122,7 +122,12 @@ struct DiscussionMessageView: View {
         linkedObjectsForTop
 
         ForEach(data.discussionBlocks) { block in
-            DiscussionBlockItemView(block: block)
+            DiscussionBlockItemView(block: block) { attachmentId in
+                if let objectDetails = data.attachmentsDetails.first(where: { $0.id == attachmentId }) {
+                    let details = MessageAttachmentDetails(details: objectDetails)
+                    output?.didSelectAttachment(data: data, details: details)
+                }
+            }
         }
 
         linkedObjectsForBottom

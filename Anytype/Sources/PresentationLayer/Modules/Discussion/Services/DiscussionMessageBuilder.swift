@@ -82,7 +82,12 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 authorId: authorParticipant?.id,
                 createDate: message.createdAtDate.formatted(date: .abbreviated, time: .omitted),
                 messageString: AttributedString(),
-                discussionBlocks: message.resolvedDiscussionBlocks(spaceId: spaceId, position: position, textBuilder: discussionTextBuilder),
+                discussionBlocks: message.resolvedDiscussionBlocks(
+                    spaceId: spaceId,
+                    position: position,
+                    textBuilder: discussionTextBuilder,
+                    attachmentDetails: Dictionary(fullMessage.attachments.map { ($0.id, $0) }, uniquingKeysWith: { _, last in last })
+                ),
                 replyModel: mapReply(
                     fullMessage: fullMessage,
                     participants: participants,

@@ -7,7 +7,8 @@ extension ChatMessage {
     func resolvedDiscussionBlocks(
         spaceId: String,
         position: MessageHorizontalPosition,
-        textBuilder: any DiscussionTextBuilderProtocol
+        textBuilder: any DiscussionTextBuilderProtocol,
+        attachmentDetails: [String: ObjectDetails] = [:]
     ) -> [DiscussionBlockItem] {
         guard !blocks.isEmpty else {
             let content = textBuilder.makeAttributedString(
@@ -60,8 +61,29 @@ extension ChatMessage {
                     result.append(.unsupported(id: index, blockName: "style:\(textBlock.style)"))
                 }
 
-            case .link:
-                result.append(.unsupported(id: index, blockName: "link"))
+            case .link(let linkBlock):
+                let targetId = linkBlock.targetObjectID
+                guard let details = attachmentDetails[targetId] else {
+                    result.append(.unsupported(id: index, blockName: "link:\(linkBlock.type)"))
+                    break
+                }
+                let attachmentInfo = MessageAttachmentDetails(details: details)
+                switch linkBlock.type {
+                case .image:
+                    result.append(.image(id: index, details: attachmentInfo))
+                case .file:
+                    if details.resolvedLayoutValue == .video {
+                        result.append(.video(id: index, details: attachmentInfo))
+                    } else {
+                        result.append(.file(id: index, details: attachmentInfo))
+                    }
+                case .object:
+                    result.append(.linkObject(id: index, details: attachmentInfo))
+                case .bookmark:
+                    result.append(.bookmark(id: index, details: details))
+                case .UNRECOGNIZED:
+                    result.append(.unsupported(id: index, blockName: "link:unrecognized"))
+                }
             case .embed:
                 result.append(.unsupported(id: index, blockName: "embed"))
             case nil:

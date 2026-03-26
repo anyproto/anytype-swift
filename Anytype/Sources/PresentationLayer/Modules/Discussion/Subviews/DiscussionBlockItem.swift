@@ -1,4 +1,5 @@
 import SwiftUI
+import Services
 
 enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
     case text(id: Int, content: AttributedString)
@@ -8,6 +9,11 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
     case bulleted(id: Int, content: AttributedString)
     case numbered(id: Int, content: AttributedString, number: Int)
     case toggle(id: Int, content: AttributedString)
+    case image(id: Int, details: MessageAttachmentDetails)
+    case video(id: Int, details: MessageAttachmentDetails)
+    case file(id: Int, details: MessageAttachmentDetails)
+    case linkObject(id: Int, details: MessageAttachmentDetails)
+    case bookmark(id: Int, details: ObjectDetails)
     case unsupported(id: Int, blockName: String)
 
     var id: Int {
@@ -19,6 +25,11 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
              .bulleted(let id, _),
              .numbered(let id, _, _),
              .toggle(let id, _),
+             .image(let id, _),
+             .video(let id, _),
+             .file(let id, _),
+             .linkObject(let id, _),
+             .bookmark(let id, _),
              .unsupported(let id, _):
             return id
         }
@@ -35,7 +46,7 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
              .toggle(_, let content):
             let text = NSAttributedString(content).string
             return text.isEmpty ? nil : text
-        case .unsupported:
+        case .image, .video, .file, .linkObject, .bookmark, .unsupported:
             return nil
         }
     }

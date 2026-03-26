@@ -189,7 +189,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     }
 
     func attachments(message: ChatMessage) async -> [ObjectDetails] {
-        let ids = message.attachments.map(\.target)
+        let ids = linkBlockTargetIds(from: message)
         return await attachments(ids: ids)
     }
 
@@ -228,6 +228,15 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     }
 
     // MARK: - Private
+
+    private func linkBlockTargetIds(from message: ChatMessage) -> [String] {
+        message.blocks.compactMap { block in
+            if case .link(let link) = block.content {
+                return link.targetObjectID
+            }
+            return nil
+        }
+    }
 
     private func handle(events: EventsBunch) async {
         var updates: Set<ChatUpdate> = []
@@ -310,8 +319,8 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     private func loadAttachments() async {
         let loadedAttachmentsIds = Set(attachments.ids)
 
-        let attachmentsForVisibleMessages = messages.messages.flatMap { $0.attachments.map(\.target) }
-        let attachmentsForReplies = replies.values.flatMap { $0.attachments.map(\.target) }
+        let attachmentsForVisibleMessages = messages.messages.flatMap { linkBlockTargetIds(from: $0) }
+        let attachmentsForReplies = replies.values.flatMap { linkBlockTargetIds(from: $0) }
         let attachmentsInMessage = Set(attachmentsForVisibleMessages + attachmentsForReplies)
 
         let newAttachmentsIds = attachmentsInMessage.subtracting(loadedAttachmentsIds)
@@ -352,10 +361,13 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     private func updateFullMessages(notify: Bool = true) {
         let newFullAllMessages = messages.messages.map { message in
             let replyMessage = messages.message(id: message.replyToMessageID) ?? replies[message.replyToMessageID]
-            let replyAttachments = replyMessage?.attachments.compactMap { attachments.details(id: $0.target) } ?? []
+            let replyLinkIds = replyMessage.map { linkBlockTargetIds(from: $0) } ?? []
+            let replyAttachments = replyLinkIds.compactMap { attachments.details(id: $0) }
+            let messageLinkIds = linkBlockTargetIds(from: message)
+            let messageAttachments = messageLinkIds.compactMap { attachments.details(id: $0) }
             return FullChatMessage(
                 message: message,
-                attachments: message.attachments.compactMap { attachments.details(id: $0.target) },
+                attachments: messageAttachments,
                 reply: replyMessage,
                 replyAttachments: replyAttachments
             )
@@ -380,7 +392,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
 
         for index in startIndex...endIndex {
             if let message = messages.message(index: index) {
-                let ids = message.attachments.map(\.target)
+                let ids = linkBlockTargetIds(from: message)
                 attachmentIds = attachmentIds.union(ids)
             }
         }
