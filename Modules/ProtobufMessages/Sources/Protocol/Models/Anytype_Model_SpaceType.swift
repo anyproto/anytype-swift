@@ -11,34 +11,24 @@
 import Foundation
 import SwiftProtobuf
 
-public enum Anytype_Model_SpaceUxType: SwiftProtobuf.Enum, Swift.CaseIterable {
+public enum Anytype_Model_SpaceType: SwiftProtobuf.Enum, Swift.CaseIterable {
   public typealias RawValue = Int
-
-  /// old value for chat, deprecated
-  case none // = 0
-
-  /// objects-first UX
-  case data // = 1
-
-  /// stream UX (chat with limited amount of owners)
-  case stream // = 2
-
-  /// chat UX, deprecated
+  case unknown // = 0
+  case regular // = 1
+  case tech // = 2
   case chat // = 3
-
-  /// onetoone UX (space with chat and immutable ACL between two participants)
   case oneToOne // = 4
   case UNRECOGNIZED(Int)
 
   public init() {
-    self = .none
+    self = .unknown
   }
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .none
-    case 1: self = .data
-    case 2: self = .stream
+    case 0: self = .unknown
+    case 1: self = .regular
+    case 2: self = .tech
     case 3: self = .chat
     case 4: self = .oneToOne
     default: self = .UNRECOGNIZED(rawValue)
@@ -47,9 +37,9 @@ public enum Anytype_Model_SpaceUxType: SwiftProtobuf.Enum, Swift.CaseIterable {
 
   public var rawValue: Int {
     switch self {
-    case .none: return 0
-    case .data: return 1
-    case .stream: return 2
+    case .unknown: return 0
+    case .regular: return 1
+    case .tech: return 2
     case .chat: return 3
     case .oneToOne: return 4
     case .UNRECOGNIZED(let i): return i
@@ -57,18 +47,18 @@ public enum Anytype_Model_SpaceUxType: SwiftProtobuf.Enum, Swift.CaseIterable {
   }
 
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_SpaceUxType] = [
-    .none,
-    .data,
-    .stream,
+  public static let allCases: [Anytype_Model_SpaceType] = [
+    .unknown,
+    .regular,
+    .tech,
     .chat,
     .oneToOne,
   ]
 
 }
 
-extension Anytype_Model_SpaceUxType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0None\0\u{1}Data\0\u{1}Stream\0\u{1}Chat\0\u{1}OneToOne\0")
+extension Anytype_Model_SpaceType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0SpaceTypeUnknown\0\u{1}SpaceTypeRegular\0\u{1}SpaceTypeTech\0\u{1}SpaceTypeChat\0\u{1}SpaceTypeOneToOne\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

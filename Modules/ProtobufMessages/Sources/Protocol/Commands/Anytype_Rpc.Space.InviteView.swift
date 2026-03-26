@@ -61,6 +61,8 @@ extension Anytype_Rpc.Space {
 
         public var spaceUxType: UInt32 = 0
 
+        public var spaceType: Anytype_Model_SpaceType = .unknown
+
         /// deprecated, use inviteType
         public var isGuestUserInvite: Bool = false
 
@@ -197,7 +199,7 @@ extension Anytype_Rpc.Space.InviteView.Request: SwiftProtobuf.Message, SwiftProt
 
 extension Anytype_Rpc.Space.InviteView.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Space.InviteView.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}spaceId\0\u{1}spaceName\0\u{1}spaceIconCid\0\u{1}creatorName\0\u{1}isGuestUserInvite\0\u{1}inviteType\0\u{1}spaceIconOption\0\u{1}spaceUxType\0\u{1}creatorIconCid\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}spaceId\0\u{1}spaceName\0\u{1}spaceIconCid\0\u{1}creatorName\0\u{1}isGuestUserInvite\0\u{1}inviteType\0\u{1}spaceIconOption\0\u{1}spaceUxType\0\u{1}creatorIconCid\0\u{1}spaceType\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -215,6 +217,7 @@ extension Anytype_Rpc.Space.InviteView.Response: SwiftProtobuf.Message, SwiftPro
       case 8: try { try decoder.decodeSingularUInt32Field(value: &self.spaceIconOption) }()
       case 9: try { try decoder.decodeSingularUInt32Field(value: &self.spaceUxType) }()
       case 10: try { try decoder.decodeSingularStringField(value: &self.creatorIconCid) }()
+      case 11: try { try decoder.decodeSingularEnumField(value: &self.spaceType) }()
       default: break
       }
     }
@@ -255,6 +258,9 @@ extension Anytype_Rpc.Space.InviteView.Response: SwiftProtobuf.Message, SwiftPro
     if !self.creatorIconCid.isEmpty {
       try visitor.visitSingularStringField(value: self.creatorIconCid, fieldNumber: 10)
     }
+    if self.spaceType != .unknown {
+      try visitor.visitSingularEnumField(value: self.spaceType, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -267,6 +273,7 @@ extension Anytype_Rpc.Space.InviteView.Response: SwiftProtobuf.Message, SwiftPro
     if lhs.creatorIconCid != rhs.creatorIconCid {return false}
     if lhs.spaceIconOption != rhs.spaceIconOption {return false}
     if lhs.spaceUxType != rhs.spaceUxType {return false}
+    if lhs.spaceType != rhs.spaceType {return false}
     if lhs.isGuestUserInvite != rhs.isGuestUserInvite {return false}
     if lhs.inviteType != rhs.inviteType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}

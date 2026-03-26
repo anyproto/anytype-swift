@@ -1315,11 +1315,6 @@ extension Anytype_Rpc.Object.Undo.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
-extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response: ResultWithError {}
-extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
 extension Anytype_Rpc.ObjectCollection.Add.Response: ResultWithError {}
 extension Anytype_Rpc.ObjectCollection.Add.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1667,6 +1662,11 @@ extension Anytype_Rpc.Workspace.Open.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Workspace.Select.Response: ResultWithError {}
 extension Anytype_Rpc.Workspace.Select.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Workspace.SetHomepage.Response: ResultWithError {}
+extension Anytype_Rpc.Workspace.SetHomepage.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
