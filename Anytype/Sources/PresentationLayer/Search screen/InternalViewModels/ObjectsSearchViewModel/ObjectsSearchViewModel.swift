@@ -40,7 +40,7 @@ extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text)
         
-        if objects.isEmpty && text.isEmpty {
+        if objects.isEmpty && text.isNotEmpty {
             handleError(for: text)
         } else {
             handleSearchResults(objects)

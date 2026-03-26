@@ -65,7 +65,7 @@ final class SetFiltersContentViewBuilder {
         case .tag:
             return buildTagsSearchView(onSelect: onSelect)
         case .object, .file:
-            return buildObjectsSearchView(onSelect: onSelect)
+            return buildObjectsSearchView(isFileFormat: format == .file, onSelect: onSelect)
         case .status:
             return buildStatusesSearchView(onSelect: onSelect)
         default:
@@ -133,6 +133,7 @@ final class SetFiltersContentViewBuilder {
     
     @MainActor
     private func buildObjectsSearchView(
+        isFileFormat: Bool,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> AnyView {
         let selectedObjectsIds: [String] = {
@@ -141,13 +142,26 @@ final class SetFiltersContentViewBuilder {
                 if case let .listValue(listValue) = value.kind {
                     return listValue.values
                 }
-                
+
                 return [value]
             }()
             return values.map { $0.stringValue }
         }()
         let selectionMode = LegacySearchViewModel.SelectionMode.multipleItems(preselectedIds: selectedObjectsIds)
-        
+
+        let interactor: any ObjectsSearchInteractorProtocol = if isFileFormat {
+            FilesSearchInteractor(
+                spaceId: self.spaceId,
+                excludedFileIds: []
+            )
+        } else {
+            ObjectsSearchInteractor(
+                spaceId: self.spaceId,
+                excludedObjectIds: [],
+                limitedObjectType: self.filter.relationDetails.objectTypes
+            )
+        }
+
         return LegacySearchView(
             viewModel: LegacySearchViewModel(
                 title: nil,
@@ -156,11 +170,7 @@ final class SetFiltersContentViewBuilder {
                 selectionMode: selectionMode,
                 internalViewModel: ObjectsSearchViewModel(
                     selectionMode: selectionMode,
-                    interactor: ObjectsSearchInteractor(
-                        spaceId: self.spaceId,
-                        excludedObjectIds: [],
-                        limitedObjectType: self.filter.relationDetails.objectTypes
-                    ),
+                    interactor: interactor,
                     onSelect: { details in onSelect(details.map(\.id)) }
                 )
             )
