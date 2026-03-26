@@ -86,7 +86,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                     spaceId: spaceId,
                     position: position,
                     textBuilder: discussionTextBuilder,
-                    attachmentDetails: Dictionary(uniqueKeysWithValues: fullMessage.attachments.map { ($0.id, $0) })
+                    attachmentDetails: Dictionary(fullMessage.attachments.map { ($0.id, $0) }, uniquingKeysWith: { _, last in last })
                 ),
                 replyModel: mapReply(
                     fullMessage: fullMessage,
