@@ -40,7 +40,9 @@ final class GroupChannelCreateCoordinatorViewModel {
     func onSelectMembersNext(_ members: [SelectedMember]) {
         selectedMembers = members
         let selectedIdentities = Set(members.map(\.identity))
-        let contacts = selectMembersData?.contacts.filter { selectedIdentities.contains($0.identity) } ?? []
+        let contacts = selectMembersData?.contacts
+            .filter { selectedIdentities.contains($0.identity) }
+            .sorted { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending } ?? []
         spaceCreateData = SpaceCreateData(spaceUxType: .data, selectedContacts: contacts)
     }
 }
