@@ -31,6 +31,20 @@ extension DataviewFilter {
 }
 
 extension Array where Element == DataviewFilter {
+    func enrichingFormats(with relationsDetails: [PropertyDetails]) -> [DataviewFilter] {
+        map { filter in
+            var enriched = filter
+            if !filter.relationKey.isEmpty,
+               let details = relationsDetails.first(where: { $0.key == filter.relationKey }) {
+                enriched.format = details.format.asMiddleware
+            }
+            if filter.operator != .no {
+                enriched.nestedFilters = filter.nestedFilters.enrichingFormats(with: relationsDetails)
+            }
+            return enriched
+        }
+    }
+
     func removingUnsupportedFilters() -> [DataviewFilter] {
         compactMap { filter in
             // Advanced filter: recursively clean nested filters
