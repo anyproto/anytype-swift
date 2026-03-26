@@ -4,7 +4,13 @@ import AnytypeCore
 
 struct SpaceCreateData: Equatable, Identifiable, Hashable {
     let spaceUxType: SpaceUxType
-    
+    let selectedContacts: [Contact]
+
+    init(spaceUxType: SpaceUxType, selectedContacts: [Contact] = []) {
+        self.spaceUxType = spaceUxType
+        self.selectedContacts = selectedContacts
+    }
+
     var id: Int { hashValue }
     
     var title: String {
