@@ -26,6 +26,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var chatProvider = ChatActionProvider()
     var bookmarkScreenData: BookmarkScreenData?
     var spaceCreateData: SpaceCreateData?
+    var homepagePickerData: HomePagePickerData?
     var chatCreateData: ChatCreateScreenData?
     var bookmarkCreateData: BookmarkCreateScreenData?
     var overlayWidgetsData: HomeWidgetData?
@@ -41,6 +42,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     
     @ObservationIgnored
     private var uploadSpaceId: String?
+    @ObservationIgnored
+    private var pendingHomepageSpaceId: String?
     
     var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -92,8 +95,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.spaceViewsStorage) @ObservationIgnored
     private var workspaceStorage: any SpaceViewsStorageProtocol
-    @Injected(\.userDefaultsStorage) @ObservationIgnored
-    private var userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.objectTypeProvider) @ObservationIgnored
     private var typeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectActionsService) @ObservationIgnored
@@ -208,7 +209,30 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
 
     func onSelectCreatePersonalChannel() {
-        spaceCreateData = SpaceCreateData(spaceUxType: .data)
+        spaceCreateData = SpaceCreateData(spaceUxType: .data, channelType: .personal)
+    }
+
+    func setPendingHomepagePicker(spaceId: String) {
+        pendingHomepageSpaceId = spaceId
+    }
+
+    func onHomepagePickerFinished(spaceId: String, result: HomepagePickerResult) async throws {
+        homepagePickerData = nil
+
+        guard case .homepageSet(let value) = result, case .object(let objectId) = value else { return }
+
+        let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
+        guard let details, !details.isArchivedOrDeleted else { return }
+
+        let homeObject: AnyHashable
+        switch details.screenData() {
+        case .editor(let data): homeObject = data
+        case .chat(let data): homeObject = data
+        case .discussion(let data): homeObject = data
+        default: return
+        }
+
+        navigationPath = HomePath(initialPath: [SpaceHubNavigationItem(), homeObject])
     }
 
     func onSelectCreateGroupChannel() {
@@ -279,22 +303,38 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     private func homeObjectScreenData(spaceId: String, spaceUxType: SpaceUxType? = nil) async -> AnyHashable {
-        if let objectId = userDefaults.homeObjectId(spaceId: spaceId) {
-            let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
-            if let details, !details.isArchivedOrDeleted, let editorData = details.screenData().editorScreenData {
+        let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
+
+        // 1-1 spaces always open on chat
+        let isOneToOne = spaceUxType == .oneToOne || spaceView?.uxType == .oneToOne
+        if isOneToOne {
+            return SpaceChatCoordinatorData(spaceId: spaceId)
+        }
+
+        // Read homepage from middleware-synced SpaceView
+        let homepage = spaceView?.homepage ?? ""
+
+        if homepage == "widgets" || homepage.isEmpty {
+            return HomeWidgetData(spaceId: spaceId)
+        }
+
+        // Homepage is an object ID — validate and open it
+        let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [homepage]).first
+        if let details, !details.isArchivedOrDeleted {
+            switch details.screenData() {
+            case .editor(let editorData):
                 return editorData
+            case .chat(let chatData):
+                return chatData
+            case .discussion(let discussionData):
+                return discussionData
+            default:
+                break
             }
         }
 
-        let isChat = spaceUxType?.initialScreenIsChat
-            ?? workspaceStorage.spaceView(spaceId: spaceId)?.initialScreenIsChat
-            ?? false
-
-        if isChat {
-            return SpaceChatCoordinatorData(spaceId: spaceId)
-        } else {
-            return HomeWidgetData(spaceId: spaceId)
-        }
+        // Fallback: object not found or deleted → widgets
+        return HomeWidgetData(spaceId: spaceId)
     }
 
     private func showSpace(spaceId: String, spaceUxType: SpaceUxType? = nil) async {
@@ -302,18 +342,23 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
 
         setActiveSpace(spaceId: spaceId)
         let homeObject = await homeObjectScreenData(spaceId: spaceId, spaceUxType: spaceUxType)
-        
+
         let path: [AnyHashable] = .builder {
             SpaceHubNavigationItem()
             homeObject
         }
-        
+
         let currentPath = HomePath(initialPath: path)
         if navigationPath != currentPath {
             await dismissAllPresented?()
             navigationPath = currentPath
         }
-        
+
+        // Show homepage picker after space is loaded (if pending from create flow)
+        if let pendingSpaceId = pendingHomepageSpaceId, pendingSpaceId == spaceId {
+            pendingHomepageSpaceId = nil
+            homepagePickerData = HomePagePickerData(spaceId: spaceId)
+        }
     }
     
     // main show screen logic

@@ -62,8 +62,16 @@ struct SpaceHubCoordinatorView: View {
             .safariBookmarkObject($model.bookmarkScreenData) {
                 model.onOpenBookmarkAsObject($0)
             }
-            .sheet(item: $model.spaceCreateData) {
-                SpaceCreateCoordinatorView(data: $0)
+            .sheet(item: $model.spaceCreateData) { data in
+                SpaceCreateCoordinatorView(data: data) { spaceId in
+                    model.setPendingHomepagePicker(spaceId: spaceId)
+                }
+            }
+            .sheet(item: $model.homepagePickerData) { data in
+                HomepagePickerView(spaceId: data.spaceId) { result in
+                    try await model.onHomepagePickerFinished(spaceId: data.spaceId, result: result)
+                }
+                .interactiveDismissDisabled(true)
             }
             .sheet(isPresented: $model.showGroupChannelCreate) {
                 GroupChannelCreateCoordinatorView()

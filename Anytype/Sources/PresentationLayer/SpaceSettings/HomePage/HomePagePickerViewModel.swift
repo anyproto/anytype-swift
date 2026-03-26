@@ -1,7 +1,6 @@
 import Foundation
 import Services
 import AnytypeCore
-import Combine
 
 @MainActor
 @Observable
@@ -9,8 +8,8 @@ final class HomePagePickerViewModel {
 
     @ObservationIgnored @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
-    @ObservationIgnored @Injected(\.userDefaultsStorage)
-    private var userDefaults: any UserDefaultsStorageProtocol
+    @ObservationIgnored @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
 
     var searchText = ""
     var objects: [ObjectDetails] = []
@@ -29,7 +28,8 @@ final class HomePagePickerViewModel {
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
         self.spaceUxType = spaceView?.uxType
         self.isChatSpace = spaceView?.initialScreenIsChat ?? false
-        self.currentObjectId = Container.shared.userDefaultsStorage().homeObjectId(spaceId: spaceId)
+        let homepage = spaceView?.homepage ?? ""
+        self.currentObjectId = homepage.isEmpty || homepage == "widgets" ? nil : homepage
     }
 
     var defaultOptionTitle: String {
@@ -54,13 +54,13 @@ final class HomePagePickerViewModel {
     }
 
     func onWidgetsSelected() async throws {
-        userDefaults.setHomeObjectId(spaceId: spaceId, objectId: nil)
+        try await workspaceService.setHomepage(spaceId: spaceId, homepage: "widgets")
         try await onFinish()
         dismiss = true
     }
 
     func onObjectSelected(_ details: ObjectDetails) async throws {
-        userDefaults.setHomeObjectId(spaceId: spaceId, objectId: details.id)
+        try await workspaceService.setHomepage(spaceId: spaceId, homepage: details.id)
         try await onFinish()
         dismiss = true
     }

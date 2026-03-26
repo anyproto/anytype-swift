@@ -6,8 +6,8 @@ struct SpaceCreateCoordinatorView: View {
     @State private var model: SpaceCreateCoordinatorViewModel
     private let embedInNavigationStack: Bool
 
-    init(data: SpaceCreateData, embedInNavigationStack: Bool = true) {
-        _model = State(initialValue: SpaceCreateCoordinatorViewModel(data: data))
+    init(data: SpaceCreateData, embedInNavigationStack: Bool = true, onShowHomepagePicker: ((String) -> Void)? = nil) {
+        _model = State(initialValue: SpaceCreateCoordinatorViewModel(data: data, onShowHomepagePicker: onShowHomepagePicker))
         self.embedInNavigationStack = embedInNavigationStack
     }
 

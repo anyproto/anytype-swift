@@ -10,11 +10,10 @@ struct HomePagePickerData: Identifiable, Equatable {
 
 @Observable
 final class SpaceCreateCoordinatorViewModel: SpaceCreateModuleOutput {
-  
+
     @ObservationIgnored
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
-
 
     let data: SpaceCreateData
 
@@ -24,9 +23,12 @@ final class SpaceCreateCoordinatorViewModel: SpaceCreateModuleOutput {
 
     @ObservationIgnored
     private var pendingSpaceId: String?
-    
-    init(data: SpaceCreateData) {
+    @ObservationIgnored
+    private let onShowHomepagePicker: ((String) -> Void)?
+
+    init(data: SpaceCreateData, onShowHomepagePicker: ((String) -> Void)? = nil) {
         self.data = data
+        self.onShowHomepagePicker = onShowHomepagePicker
     }
 
     func onHomePagePickerFinished() async throws {
@@ -59,7 +61,13 @@ final class SpaceCreateCoordinatorViewModel: SpaceCreateModuleOutput {
     }
 
     func onSpaceCreated(spaceId: String) async throws {
-        if FeatureFlags.homePage {
+        if data.channelType != nil, let onShowHomepagePicker {
+            // New channel flow: activate space first (dismisses create sheet),
+            // then hub shows homepage picker after dismiss
+            onShowHomepagePicker(spaceId)
+            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+        } else if FeatureFlags.homePage {
+            // Legacy homepage picker flow (shown inside create sheet)
             pendingSpaceId = spaceId
             newHomepagePickerData = HomePagePickerData(spaceId: spaceId)
         } else {
