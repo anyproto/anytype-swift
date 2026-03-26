@@ -1,8 +1,15 @@
 import SwiftUI
+import Services
 
 struct DiscussionBlockItemView: View {
 
     let block: DiscussionBlockItem
+    let onTapAttachment: ((String) -> Void)?
+
+    init(block: DiscussionBlockItem, onTapAttachment: ((String) -> Void)? = nil) {
+        self.block = block
+        self.onTapAttachment = onTapAttachment
+    }
 
     var body: some View {
         switch block {
@@ -52,6 +59,36 @@ struct DiscussionBlockItemView: View {
                     .font(.caption)
                 Text(content)
             }
+            .padding(.vertical, 2)
+        case .image(_, let details):
+            Button { onTapAttachment?(details.id) } label: {
+                DiscussionImageBlockView(details: details)
+            }
+            .buttonStyle(.plain)
+            .padding(.vertical, 2)
+        case .video(_, let details):
+            Button { onTapAttachment?(details.id) } label: {
+                DiscussionVideoBlockView(details: details)
+            }
+            .buttonStyle(.plain)
+            .padding(.vertical, 2)
+        case .file(_, let details):
+            Button { onTapAttachment?(details.id) } label: {
+                DiscussionFileBlockView(details: details)
+            }
+            .buttonStyle(.plain)
+            .padding(.vertical, 2)
+        case .linkObject(_, let details):
+            Button { onTapAttachment?(details.id) } label: {
+                DiscussionFileBlockView(details: details)
+            }
+            .buttonStyle(.plain)
+            .padding(.vertical, 2)
+        case .bookmark(_, let details):
+            Button { onTapAttachment?(details.id) } label: {
+                DiscussionBookmarkBlockView(details: details)
+            }
+            .buttonStyle(.plain)
             .padding(.vertical, 2)
         case .unsupported(_, let blockName):
             DiscussionUnsupportedBlockView(blockName: blockName)
