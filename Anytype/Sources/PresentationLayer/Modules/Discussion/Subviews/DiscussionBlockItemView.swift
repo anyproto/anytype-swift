@@ -60,17 +60,10 @@ struct DiscussionBlockItemView: View {
                 Text(content)
             }
             .padding(.vertical, 2)
-        case .image(_, let details):
-            Button { onTapAttachment?(details.id) } label: {
-                DiscussionImageBlockView(details: details)
+        case .image(_, let details), .video(_, let details):
+            MessageGridAttachmentsContainer(objects: [details], spacing: 0) { attachment in
+                onTapAttachment?(attachment.id)
             }
-            .buttonStyle(.plain)
-            .padding(.vertical, 2)
-        case .video(_, let details):
-            Button { onTapAttachment?(details.id) } label: {
-                DiscussionVideoBlockView(details: details)
-            }
-            .buttonStyle(.plain)
             .padding(.vertical, 2)
         case .file(_, let details):
             Button { onTapAttachment?(details.id) } label: {
