@@ -65,13 +65,7 @@ struct DiscussionBlockItemView: View {
                 onTapAttachment?(attachment.id)
             }
             .padding(.vertical, 2)
-        case .file(_, let details):
-            Button { onTapAttachment?(details.id) } label: {
-                DiscussionFileBlockView(details: details)
-            }
-            .buttonStyle(.plain)
-            .padding(.vertical, 2)
-        case .linkObject(_, let details):
+        case .file(_, let details), .linkObject(_, let details):
             Button { onTapAttachment?(details.id) } label: {
                 DiscussionFileBlockView(details: details)
             }
