@@ -54,13 +54,8 @@ struct DiscussionBlockItemView: View {
             }
             .padding(.vertical, 2)
         case .unsupported(_, let blockName):
-            #if DEBUG
-            Text("UNSUPPORTED: \(blockName)")
-                .foregroundStyle(Color.Pure.red)
+            DiscussionUnsupportedBlockView(blockName: blockName)
                 .padding(.vertical, 2)
-            #else
-            EmptyView()
-            #endif
         }
     }
 }
