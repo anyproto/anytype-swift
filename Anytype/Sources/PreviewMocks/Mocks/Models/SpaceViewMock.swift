@@ -33,7 +33,7 @@ extension SpaceView {
             forceMuteIds: [],
             forceMentionIds: [],
             oneToOneIdentity: "oneToOneIdentity",
-            homepage: ""
+            homepage: .widgets
         )
     }
 }

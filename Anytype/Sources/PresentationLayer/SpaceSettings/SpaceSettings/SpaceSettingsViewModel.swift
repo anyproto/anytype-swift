@@ -306,18 +306,18 @@ final class SpaceSettingsViewModel {
         }
     }
 
-    private func loadHomePageState(homepage: String) async {
-        if homepage.isEmpty || homepage == "widgets" {
+    private func loadHomePageState(homepage: SpaceHomepage) async {
+        switch homepage {
+        case .empty, .widgets:
             homePageState = .default(Loc.SpaceSettings.HomePage.widgets)
-            return
-        }
-
-        let spaceId = workspaceInfo.accountSpaceId
-        let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [homepage]).first
-        if let details, !details.isArchivedOrDeleted {
-            homePageState = .object(icon: details.objectIconImage, name: details.name)
-        } else {
-            homePageState = .default(Loc.SpaceSettings.HomePage.widgets)
+        case .object(let objectId):
+            let spaceId = workspaceInfo.accountSpaceId
+            let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
+            if let details, !details.isArchivedOrDeleted {
+                homePageState = .object(icon: details.objectIconImage, name: details.name)
+            } else {
+                homePageState = .default(Loc.SpaceSettings.HomePage.widgets)
+            }
         }
     }
     

@@ -28,8 +28,13 @@ final class HomePagePickerViewModel {
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
         self.spaceUxType = spaceView?.uxType
         self.isChatSpace = spaceView?.initialScreenIsChat ?? false
-        let homepage = spaceView?.homepage ?? ""
-        self.currentObjectId = homepage.isEmpty || homepage == "widgets" ? nil : homepage
+        let homepage = spaceView?.homepage ?? .empty
+        switch homepage {
+        case .empty, .widgets:
+            self.currentObjectId = nil
+        case .object(let objectId):
+            self.currentObjectId = objectId
+        }
     }
 
     var defaultOptionTitle: String {
@@ -54,7 +59,7 @@ final class HomePagePickerViewModel {
     }
 
     func onWidgetsSelected() async throws {
-        try await workspaceService.setHomepage(spaceId: spaceId, homepage: "widgets")
+        try await workspaceService.setHomepage(spaceId: spaceId, homepage: SpaceHomepage.widgets.rawValue)
         try await onFinish()
         dismiss = true
     }
