@@ -13,30 +13,10 @@ struct MemberSelectionRow: View {
         Button {
             isSelected.toggle()
         } label: {
-            HStack(spacing: 12) {
-                IconView(icon: icon?.icon)
-                    .frame(width: 48, height: 48)
-
-                VStack(alignment: .leading, spacing: 0) {
-                    AnytypeText(name, style: .uxTitle2Medium)
-                        .foregroundStyle(Color.Text.primary)
-                        .lineLimit(1)
-                        .truncationMode(.middle)
-                    AnytypeText(globalName, style: .caption1Regular)
-                        .foregroundStyle(Color.Text.secondary)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-
+            MemberRow(icon: icon, name: name, globalName: globalName) {
                 AnytypeCircleCheckbox(checked: $isSelected)
                     .allowsHitTesting(false)
             }
-            .fixTappableArea()
-            .padding(.horizontal, 16)
-            .padding(.vertical, 9)
-            .frame(height: 72)
-            .newDivider()
         }
         .buttonStyle(.plain)
     }
