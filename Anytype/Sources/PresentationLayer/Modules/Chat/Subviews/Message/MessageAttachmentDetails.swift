@@ -12,8 +12,6 @@ struct MessageAttachmentDetails: Equatable, Identifiable, Hashable {
     let syncStatus: SyncStatus?
     let syncError: SyncError?
     let downloadingState: Bool
-    let widthInPixels: Int?
-    let heightInPixels: Int?
 }
 
 extension MessageAttachmentDetails {
@@ -29,9 +27,7 @@ extension MessageAttachmentDetails {
             source: source,
             syncStatus: details.syncStatusValue,
             syncError: details.syncErrorValue,
-            downloadingState: false,
-            widthInPixels: details.widthInPixels,
-            heightInPixels: details.heightInPixels
+            downloadingState: false
         )
     }
     
@@ -46,9 +42,7 @@ extension MessageAttachmentDetails {
             source: nil,
             syncStatus: nil,
             syncError: nil,
-            downloadingState: true,
-            widthInPixels: nil,
-            heightInPixels: nil
+            downloadingState: true
         )
     }
 }
