@@ -92,8 +92,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.spaceViewsStorage) @ObservationIgnored
     private var workspaceStorage: any SpaceViewsStorageProtocol
-    @Injected(\.userDefaultsStorage) @ObservationIgnored
-    private var userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.objectTypeProvider) @ObservationIgnored
     private var typeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectActionsService) @ObservationIgnored
@@ -208,8 +206,10 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
 
     func onSelectCreatePersonalChannel() {
-        spaceCreateData = SpaceCreateData(spaceUxType: .data)
+        spaceCreateData = SpaceCreateData(spaceUxType: .data, channelType: .personal)
     }
+
+
 
     func onSelectCreateGroupChannel() {
         showGroupChannelCreate = true
@@ -279,22 +279,38 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     private func homeObjectScreenData(spaceId: String, spaceUxType: SpaceUxType? = nil) async -> AnyHashable {
-        if let objectId = userDefaults.homeObjectId(spaceId: spaceId) {
-            let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
-            if let details, !details.isArchivedOrDeleted, let editorData = details.screenData().editorScreenData {
+        let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
+
+        // 1-1 spaces always open on chat
+        let isOneToOne = spaceUxType == .oneToOne || spaceView?.uxType == .oneToOne
+        if isOneToOne {
+            return SpaceChatCoordinatorData(spaceId: spaceId)
+        }
+
+        // Read homepage from middleware-synced SpaceView
+        let homepage = spaceView?.homepage ?? ""
+
+        if homepage == "widgets" || homepage.isEmpty {
+            return HomeWidgetData(spaceId: spaceId)
+        }
+
+        // Homepage is an object ID — validate and open it
+        let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [homepage]).first
+        if let details, !details.isArchivedOrDeleted {
+            switch details.screenData() {
+            case .editor(let editorData):
                 return editorData
+            case .chat(let chatData):
+                return chatData
+            case .discussion(let discussionData):
+                return discussionData
+            default:
+                break
             }
         }
 
-        let isChat = spaceUxType?.initialScreenIsChat
-            ?? workspaceStorage.spaceView(spaceId: spaceId)?.initialScreenIsChat
-            ?? false
-
-        if isChat {
-            return SpaceChatCoordinatorData(spaceId: spaceId)
-        } else {
-            return HomeWidgetData(spaceId: spaceId)
-        }
+        // Fallback: object not found or deleted → widgets
+        return HomeWidgetData(spaceId: spaceId)
     }
 
     private func showSpace(spaceId: String, spaceUxType: SpaceUxType? = nil) async {
@@ -302,18 +318,17 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
 
         setActiveSpace(spaceId: spaceId)
         let homeObject = await homeObjectScreenData(spaceId: spaceId, spaceUxType: spaceUxType)
-        
+
         let path: [AnyHashable] = .builder {
             SpaceHubNavigationItem()
             homeObject
         }
-        
+
         let currentPath = HomePath(initialPath: path)
         if navigationPath != currentPath {
             await dismissAllPresented?()
             navigationPath = currentPath
         }
-        
     }
     
     // main show screen logic

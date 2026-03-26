@@ -29,7 +29,7 @@ final class GroupChannelCreateCoordinatorViewModel {
             .first { $0.isActive && $0.isShared }?.writersLimit
 
         if contacts.isEmpty {
-            spaceCreateData = SpaceCreateData(spaceUxType: .data)
+            spaceCreateData = SpaceCreateData(spaceUxType: .data, channelType: .group)
         } else {
             selectMembersData = SelectMembersData(contacts: contacts, writersLimit: writersLimit)
         }
@@ -43,6 +43,6 @@ final class GroupChannelCreateCoordinatorViewModel {
         let contacts = selectMembersData?.contacts
             .filter { selectedIdentities.contains($0.identity) }
             .sorted { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending } ?? []
-        spaceCreateData = SpaceCreateData(spaceUxType: .data, selectedContacts: contacts)
+        spaceCreateData = SpaceCreateData(spaceUxType: .data, selectedContacts: contacts, channelType: .group)
     }
 }

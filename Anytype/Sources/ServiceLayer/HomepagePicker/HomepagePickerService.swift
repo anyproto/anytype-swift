@@ -34,7 +34,7 @@ final class HomepagePickerService: HomepagePickerServiceProtocol {
                 createdInContextRef: ""
             )
             try await setHomepage(spaceId: spaceId, homepageId: details.id)
-            return .object(id: details.id)
+            return .object(details: details)
         }
     }
 

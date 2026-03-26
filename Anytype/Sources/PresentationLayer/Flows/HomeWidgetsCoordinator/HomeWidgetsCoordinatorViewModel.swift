@@ -18,12 +18,32 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     var showGlobalSearchData: GlobalSearchModuleData?
     var spaceShareData: SpaceShareData?
     var qrCodeInviteData: URLIdentifiable?
+    var showHomepagePicker = false
 
     @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
 
     init(info: AccountInfo) {
         self.spaceInfo = info
+    }
+
+    func onAppear() {
+        let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceInfo.accountSpaceId)
+        var homepageNotSet = spaceView?.homepage.isEmpty == true
+        #if DEBUG
+        // TODO: Remove when middleware stops setting "widgets" as default homepage for new spaces
+        homepageNotSet = homepageNotSet || spaceView?.homepage == "widgets"
+        #endif
+        if homepageNotSet, !showHomepagePicker {
+            showHomepagePicker = true
+        }
+    }
+
+    func onHomepagePickerFinished(result: HomepagePickerResult) {
+        showHomepagePicker = false
+
+        guard case .homepageSet(let value) = result, case .object(let details) = value else { return }
+        pageNavigation?.open(details.screenData())
     }
 
     // MARK: - HomeWidgetsModuleOutput

@@ -54,6 +54,7 @@ private struct HomeWidgetsCoordinatorInternalView: View {
         HomeWidgetsView(info: model.spaceInfo, context: context, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
+                model.onAppear()
             }
             .sheet(item: $model.showChangeTypeData) {
                 WidgetTypeChangeView(data: $0)
@@ -72,6 +73,12 @@ private struct HomeWidgetsCoordinatorInternalView: View {
             }
             .anytypeSheet(item: $model.qrCodeInviteData) {
                 QrCodeView(title: Loc.joinSpace, data: $0.value.absoluteString, analyticsType: .inviteSpace, route: .inviteLink)
+            }
+            .sheet(isPresented: $model.showHomepagePicker) {
+                HomepagePickerView(spaceId: model.spaceInfo.accountSpaceId) { result in
+                    model.onHomepagePickerFinished(result: result)
+                }
+                .interactiveDismissDisabled(true)
             }
     }
 }

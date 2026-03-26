@@ -289,8 +289,8 @@ final class SpaceSettingsViewModel {
     }
 
     private func startHomeObjectTask() async {
-        for await _ in userDefaults.homeObjectIdPublisher(spaceId: workspaceInfo.accountSpaceId).values {
-            await loadHomePageState()
+        for await spaceView in spaceViewsStorage.spaceViewPublisher(spaceId: workspaceInfo.accountSpaceId).values {
+            await loadHomePageState(homepage: spaceView.homepage)
         }
     }
 
@@ -306,26 +306,18 @@ final class SpaceSettingsViewModel {
         }
     }
 
-    private func loadHomePageState() async {
-        let spaceId = workspaceInfo.accountSpaceId
-        guard let objectId = userDefaults.homeObjectId(spaceId: spaceId) else {
-            homePageState = .default(defaultHomePageTitle(spaceId: spaceId))
+    private func loadHomePageState(homepage: String) async {
+        if homepage.isEmpty || homepage == "widgets" {
+            homePageState = .default(Loc.SpaceSettings.HomePage.widgets)
             return
         }
 
-        let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
+        let spaceId = workspaceInfo.accountSpaceId
+        let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [homepage]).first
         if let details, !details.isArchivedOrDeleted {
             homePageState = .object(icon: details.objectIconImage, name: details.name)
         } else {
-            homePageState = .default(defaultHomePageTitle(spaceId: spaceId))
-        }
-    }
-
-    private func defaultHomePageTitle(spaceId: String) -> String {
-        if let spaceView = spaceViewsStorage.spaceView(spaceId: spaceId), spaceView.initialScreenIsChat {
-            return Loc.chat
-        } else {
-            return Loc.SpaceSettings.HomePage.widgets
+            homePageState = .default(Loc.SpaceSettings.HomePage.widgets)
         }
     }
     
