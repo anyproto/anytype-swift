@@ -6,6 +6,7 @@ import DesignKit
 struct ChannelCreateView: View {
 
     @State private var model: SpaceCreateViewModel
+    @State private var isCreating = false
     @Environment(\.dismiss) private var dismiss
 
     init(data: SpaceCreateData, output: (any SpaceCreateModuleOutput)?) {
@@ -37,14 +38,26 @@ struct ChannelCreateView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                AsyncButton {
-                    try await model.onTapCreate()
+                Button {
+                    guard !isCreating else { return }
+                    isCreating = true
+                    Task {
+                        do {
+                            try await model.onTapCreate()
+                        } catch {
+                            isCreating = false
+                        }
+                    }
                 } label: {
-                    Text(Loc.create)
+                    if isCreating {
+                        ProgressView()
+                    } else {
+                        Text(Loc.create)
+                    }
                 }
                 .buttonStyle(.borderedProminent)
                 .buttonBorderShape(.capsule)
-                .disabled(model.spaceName.isEmpty || model.spaceName.count > ThresholdCounterUsecase.spaceName.threshold)
+                .disabled(isCreating || model.spaceName.isEmpty || model.spaceName.count > ThresholdCounterUsecase.spaceName.threshold)
             }
         }
         .onAppear {
