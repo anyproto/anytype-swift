@@ -12,60 +12,34 @@ struct DiscussionImageBlockView: View {
 
     let details: MessageAttachmentDetails
 
-    private var imageHeight: CGFloat? {
-        guard let w = details.widthInPixels, let h = details.heightInPixels, w > 0 else { return nil }
-        return nil // calculated per available width in body
+    private var aspectRatio: CGFloat? {
+        guard let w = details.widthInPixels, let h = details.heightInPixels, w > 0, h > 0 else { return nil }
+        return CGFloat(w) / CGFloat(h)
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            let size = imageSize(availableWidth: geometry.size.width)
-            CachedAsyncImage(
-                url: ImageMetadata(id: details.id, side: .original).contentUrl
-            ) { content in
-                switch content {
-                case .empty:
-                    MessageAttachmentLoadingIndicator()
-                        .frame(width: size.width, height: size.height)
-                case .success(let image):
-                    ZStack {
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: size.width, height: size.height)
-                            .clipped()
-                        MessageMediaUploadingStatus(syncStatus: details.syncStatus, syncError: details.syncError)
-                    }
-                    .clipShape(.rect(cornerRadius: Constants.cornerRadius))
-                case .failure:
-                    MessageAttachmentErrorIndicator()
-                        .frame(width: size.width, height: size.height)
-                @unknown default:
-                    MessageAttachmentLoadingIndicator()
-                        .frame(width: size.width, height: size.height)
+        CachedAsyncImage(
+            url: ImageMetadata(id: details.id, side: .original).contentUrl
+        ) { content in
+            switch content {
+            case .empty:
+                MessageAttachmentLoadingIndicator()
+            case .success(let image):
+                ZStack {
+                    image
+                        .resizable()
+                        .scaledToFill()
+                    MessageMediaUploadingStatus(syncStatus: details.syncStatus, syncError: details.syncError)
                 }
+                .clipShape(.rect(cornerRadius: Constants.cornerRadius))
+            case .failure:
+                MessageAttachmentErrorIndicator()
+            @unknown default:
+                MessageAttachmentLoadingIndicator()
             }
-            .frame(maxWidth: .infinity, alignment: .center)
         }
-        .frame(height: fixedHeight)
-    }
-
-    private var fixedHeight: CGFloat {
-        // Screen width as approximation — GeometryReader will refine
-        let screenWidth = UIScreen.main.bounds.width - 32
-        return imageSize(availableWidth: screenWidth).height
-    }
-
-    private func imageSize(availableWidth: CGFloat) -> CGSize {
-        guard let w = details.widthInPixels, let h = details.heightInPixels, w > 0, h > 0 else {
-            return CGSize(width: availableWidth, height: Constants.placeholderHeight)
-        }
-
-        let aspectRatio = CGFloat(w) / CGFloat(h)
-        let fittedHeight = availableWidth / aspectRatio
-        let clampedHeight = min(fittedHeight, Constants.maxHeight)
-        let finalWidth = clampedHeight < fittedHeight ? clampedHeight * aspectRatio : availableWidth
-
-        return CGSize(width: finalWidth, height: clampedHeight)
+        .aspectRatio(aspectRatio, contentMode: .fit)
+        .frame(maxHeight: Constants.maxHeight)
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 }
