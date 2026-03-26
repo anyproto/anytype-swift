@@ -26,7 +26,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var chatProvider = ChatActionProvider()
     var bookmarkScreenData: BookmarkScreenData?
     var spaceCreateData: SpaceCreateData?
-    var homepagePickerData: HomePagePickerData?
     var chatCreateData: ChatCreateScreenData?
     var bookmarkCreateData: BookmarkCreateScreenData?
     var overlayWidgetsData: HomeWidgetData?
@@ -42,8 +41,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     
     @ObservationIgnored
     private var uploadSpaceId: String?
-    @ObservationIgnored
-    private var pendingHomepageSpaceId: String?
     
     var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -212,28 +209,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         spaceCreateData = SpaceCreateData(spaceUxType: .data, channelType: .personal)
     }
 
-    func setPendingHomepagePicker(spaceId: String) {
-        pendingHomepageSpaceId = spaceId
-    }
 
-    func onHomepagePickerFinished(spaceId: String, result: HomepagePickerResult) async throws {
-        homepagePickerData = nil
-
-        guard case .homepageSet(let value) = result, case .object(let objectId) = value else { return }
-
-        let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
-        guard let details, !details.isArchivedOrDeleted else { return }
-
-        let homeObject: AnyHashable
-        switch details.screenData() {
-        case .editor(let data): homeObject = data
-        case .chat(let data): homeObject = data
-        case .discussion(let data): homeObject = data
-        default: return
-        }
-
-        navigationPath = HomePath(initialPath: [SpaceHubNavigationItem(), homeObject])
-    }
 
     func onSelectCreateGroupChannel() {
         showGroupChannelCreate = true
@@ -352,12 +328,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         if navigationPath != currentPath {
             await dismissAllPresented?()
             navigationPath = currentPath
-        }
-
-        // Show homepage picker after space is loaded (if pending from create flow)
-        if let pendingSpaceId = pendingHomepageSpaceId, pendingSpaceId == spaceId {
-            pendingHomepageSpaceId = nil
-            homepagePickerData = HomePagePickerData(spaceId: spaceId)
         }
     }
     

@@ -2,12 +2,6 @@ import SwiftUI
 import Factory
 import AnytypeCore
 
-
-struct HomePagePickerData: Identifiable, Equatable {
-    let spaceId: String
-    var id: String { spaceId }
-}
-
 @Observable
 final class SpaceCreateCoordinatorViewModel: SpaceCreateModuleOutput {
 
@@ -18,23 +12,9 @@ final class SpaceCreateCoordinatorViewModel: SpaceCreateModuleOutput {
     let data: SpaceCreateData
 
     var localObjectIconPickerData: LocalObjectIconPickerData?
-    var homePagePickerData: HomePagePickerData?
-    var newHomepagePickerData: HomePagePickerData?
 
-    @ObservationIgnored
-    private var pendingSpaceId: String?
-    @ObservationIgnored
-    private let onShowHomepagePicker: ((String) -> Void)?
-
-    init(data: SpaceCreateData, onShowHomepagePicker: ((String) -> Void)? = nil) {
+    init(data: SpaceCreateData) {
         self.data = data
-        self.onShowHomepagePicker = onShowHomepagePicker
-    }
-
-    func onHomePagePickerFinished() async throws {
-        guard let spaceId = pendingSpaceId else { return }
-        pendingSpaceId = nil
-        try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
     }
 
     // MARK: - SpaceCreateModuleOutput
@@ -46,32 +26,7 @@ final class SpaceCreateCoordinatorViewModel: SpaceCreateModuleOutput {
         )
     }
 
-    func onHomepagePickerFinished(result: HomepagePickerResult) async throws {
-        guard let spaceId = pendingSpaceId else { return }
-        pendingSpaceId = nil
-
-        switch result {
-        case .homepageSet:
-            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-            // TODO: Navigate to the homepage object (separate task)
-        case .later:
-            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-            // TODO: Handle temporary widgets (separate task)
-        }
-    }
-
     func onSpaceCreated(spaceId: String) async throws {
-        if data.channelType != nil, let onShowHomepagePicker {
-            // New channel flow: activate space first (dismisses create sheet),
-            // then hub shows homepage picker after dismiss
-            onShowHomepagePicker(spaceId)
-            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-        } else if FeatureFlags.homePage {
-            // Legacy homepage picker flow (shown inside create sheet)
-            pendingSpaceId = spaceId
-            newHomepagePickerData = HomePagePickerData(spaceId: spaceId)
-        } else {
-            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-        }
+        try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
     }
 }

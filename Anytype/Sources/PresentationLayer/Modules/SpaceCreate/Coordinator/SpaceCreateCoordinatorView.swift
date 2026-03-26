@@ -6,8 +6,8 @@ struct SpaceCreateCoordinatorView: View {
     @State private var model: SpaceCreateCoordinatorViewModel
     private let embedInNavigationStack: Bool
 
-    init(data: SpaceCreateData, embedInNavigationStack: Bool = true, onShowHomepagePicker: ((String) -> Void)? = nil) {
-        _model = State(initialValue: SpaceCreateCoordinatorViewModel(data: data, onShowHomepagePicker: onShowHomepagePicker))
+    init(data: SpaceCreateData, embedInNavigationStack: Bool = true) {
+        _model = State(initialValue: SpaceCreateCoordinatorViewModel(data: data))
         self.embedInNavigationStack = embedInNavigationStack
     }
 
@@ -27,17 +27,6 @@ struct SpaceCreateCoordinatorView: View {
         }
         .sheet(item: $model.localObjectIconPickerData) {
             LocalObjectIconPickerView(data: $0)
-        }
-        .sheet(item: $model.homePagePickerData) { data in
-            HomePagePickerView(spaceId: data.spaceId) {
-                try await model.onHomePagePickerFinished()
-            }.interactiveDismissDisabled(true)
-        }
-        .sheet(item: $model.newHomepagePickerData) { data in
-            HomepagePickerView(spaceId: data.spaceId) { result in
-                try await model.onHomepagePickerFinished(result: result)
-            }
-            .interactiveDismissDisabled(true)
         }
     }
 }
