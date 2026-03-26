@@ -32,7 +32,8 @@ extension SpaceView {
             forceAllIds: [],
             forceMuteIds: [],
             forceMentionIds: [],
-            oneToOneIdentity: "oneToOneIdentity"
+            oneToOneIdentity: "oneToOneIdentity",
+            homepage: ""
         )
     }
 }

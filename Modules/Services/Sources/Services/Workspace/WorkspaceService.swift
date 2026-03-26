@@ -30,6 +30,7 @@ public protocol WorkspaceServiceProtocol: Sendable {
     func pushNotificationSetSpaceMode(spaceId: String, mode: SpacePushNotificationsMode) async throws
     func pushNotificationResetIds(spaceId: String, chatIds: [String]) async throws
     func pushNotificationSetChatMode(spaceId: String, chatIds: [String], mode: SpacePushNotificationsMode) async throws
+    func setHomepage(spaceId: String, homepage: String) async throws
 }
 
 public extension WorkspaceServiceProtocol {
@@ -252,6 +253,13 @@ final class WorkspaceService: WorkspaceServiceProtocol {
             $0.spaceID = spaceId
             $0.chatIds = chatIds
             $0.mode = mode
+        }).invoke()
+    }
+
+    public func setHomepage(spaceId: String, homepage: String) async throws {
+        try await ClientCommands.workspaceSetHomepage(.with {
+            $0.spaceID = spaceId
+            $0.homepage = homepage
         }).invoke()
     }
 }
