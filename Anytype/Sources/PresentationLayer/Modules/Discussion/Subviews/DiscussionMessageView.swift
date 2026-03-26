@@ -65,12 +65,12 @@ struct DiscussionMessageView: View {
             reactions
         }
         .padding(.horizontal, Constants.messageHorizontalPadding)
-        .padding(.bottom, data.nextSpacing.height)
+        // In discussions every comment is independent — no small/medium grouping spacing from chat
+        .padding(.bottom, 16)
     }
 
-    @ViewBuilder
     private var header: some View {
-        if data.showAuthorName {
+        VStack(alignment: .leading, spacing: 0) {
             Divider()
                 .foregroundStyle(Color.Shape.tertiary)
                 .padding(.top, 4)
