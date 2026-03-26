@@ -5,8 +5,6 @@ import AnytypeCore
 
 final class HomepagePickerService: HomepagePickerServiceProtocol {
 
-    private static let widgetsHomepageId = "widgets"
-
     private let objectActionsService: any ObjectActionsServiceProtocol
     private let workspaceService: any WorkspaceServiceProtocol
 
@@ -18,7 +16,7 @@ final class HomepagePickerService: HomepagePickerServiceProtocol {
     func createHomepage(spaceId: String, option: HomepagePickerOption) async throws -> HomepageValue {
         switch option {
         case .widgets:
-            try await setHomepage(spaceId: spaceId, homepageId: Self.widgetsHomepageId)
+            try await setHomepage(spaceId: spaceId, homepageId: SpaceHomepage.widgets.rawValue)
             return .widgets
         case .object(let type):
             let details = try await objectActionsService.createObject(

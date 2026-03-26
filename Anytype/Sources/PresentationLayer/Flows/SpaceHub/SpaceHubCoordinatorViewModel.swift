@@ -288,29 +288,28 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         }
 
         // Read homepage from middleware-synced SpaceView
-        let homepage = spaceView?.homepage ?? ""
+        let homepage = spaceView?.homepage ?? .empty
 
-        if homepage == "widgets" || homepage.isEmpty {
+        switch homepage {
+        case .empty, .widgets:
+            return HomeWidgetData(spaceId: spaceId)
+        case .object(let objectId):
+            let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
+            if let details, !details.isArchivedOrDeleted {
+                switch details.screenData() {
+                case .editor(let editorData):
+                    return editorData
+                case .chat(let chatData):
+                    return chatData
+                case .discussion(let discussionData):
+                    return discussionData
+                default:
+                    break
+                }
+            }
+            // Fallback: object not found or deleted → widgets
             return HomeWidgetData(spaceId: spaceId)
         }
-
-        // Homepage is an object ID — validate and open it
-        let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [homepage]).first
-        if let details, !details.isArchivedOrDeleted {
-            switch details.screenData() {
-            case .editor(let editorData):
-                return editorData
-            case .chat(let chatData):
-                return chatData
-            case .discussion(let discussionData):
-                return discussionData
-            default:
-                break
-            }
-        }
-
-        // Fallback: object not found or deleted → widgets
-        return HomeWidgetData(spaceId: spaceId)
     }
 
     private func showSpace(spaceId: String, spaceUxType: SpaceUxType? = nil) async {
