@@ -20,11 +20,14 @@ struct DiscussionImageBlockView: View {
                 MessageAttachmentLoadingIndicator()
                     .frame(height: 200)
             case .success(let image):
-                image
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity, maxHeight: Constants.maxHeight)
-                    .clipShape(.rect(cornerRadius: Constants.cornerRadius))
+                ZStack {
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: Constants.maxHeight)
+                        .clipShape(.rect(cornerRadius: Constants.cornerRadius))
+                    MessageMediaUploadingStatus(syncStatus: details.syncStatus, syncError: details.syncError)
+                }
             case .failure:
                 MessageAttachmentErrorIndicator()
                     .frame(height: 200)

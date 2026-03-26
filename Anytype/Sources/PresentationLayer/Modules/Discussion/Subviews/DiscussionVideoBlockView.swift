@@ -18,17 +18,22 @@ struct DiscussionVideoBlockView: View {
     var body: some View {
         ZStack {
             if let image = model.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity, maxHeight: Constants.maxHeight)
-                    .overlay {
+                ZStack {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: Constants.maxHeight)
+                    MessageMediaUploadingStatus(
+                        syncStatus: details.syncStatus,
+                        syncError: details.syncError
+                    ) {
                         MessageLoadingStateContainer {
                             Image(asset: .Controls.play)
                                 .foregroundStyle(Color.white)
                         }
                         .background(.black.opacity(0.5))
                     }
+                }
             } else if model.hasError {
                 MessageAttachmentErrorIndicator()
                     .frame(height: 200)
