@@ -8,7 +8,7 @@ struct DiscussionUnsupportedBlockView: View {
     var body: some View {
         Text(title)
             .anytypeStyle(.caption1Medium)
-            .foregroundColor(.Text.secondary)
+            .foregroundStyle(Color.Text.secondary)
             .padding(12)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color.Shape.transparentSecondary)
