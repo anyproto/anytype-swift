@@ -12,10 +12,6 @@ protocol DiscussionMessageBuilderProtocol: AnyObject, Sendable {
 
 actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
 
-    private enum Constants {
-        static let grouppingDateInterval: Int = 60 // seconds
-    }
-
     private let accountParticipantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
     private let discussionTextBuilder: any DiscussionTextBuilderProtocol = Container.shared.discussionTextBuilder()
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
@@ -47,32 +43,20 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         var currentSectionData: MessageSectionData?
         var newMessageBlocks: [MessageSectionData] = []
 
-        var prevDateInterval: Int64?
-        var prevCreator: String?
         var sectionDateDay: Date?
 
         for messageIndex in 0..<messages.count {
 
             let fullMessage = messages[messageIndex]
             let message = fullMessage.message
-            let nextMessage = messages[safe: messageIndex + 1]?.message
 
             let createDateDay = dayDate(for: message.createdAtDate)
 
             let firstInSection = sectionDateDay.map { $0.timeIntervalSince1970 < createDateDay.timeIntervalSince1970 } ?? true
-            let lastInSectionDate = firstInSection ? createDateDay : (sectionDateDay ?? createDateDay)
-            let lastInSection = nextMessage.map { dayDate(for: $0.createdAtDate).timeIntervalSince1970 > lastInSectionDate.timeIntervalSince1970 } ?? true
-            let firstForCurrentUser = prevCreator != message.creator
-            let prevDateIntervalIsBig = prevDateInterval.map { (message.createdAt - $0) > Constants.grouppingDateInterval } ?? true
-            let nextDateIntervalIsBig = nextMessage.map { ($0.createdAt - message.createdAt) > Constants.grouppingDateInterval } ?? true
-
-            let lastForCurrentUser = nextMessage?.creator != message.creator
-
             let isYourMessage = message.creator == yourProfileIdentity
             let authorParticipant = participants.first { $0.identity == message.creator }
             let position: MessageHorizontalPosition = .left
             let isUnread = message.orderID == firstUnreadMessageOrderId
-            let nextIsUnread = nextMessage?.orderID == firstUnreadMessageOrderId
 
             let messageModel = MessageViewData(
                 spaceId: spaceId,
@@ -104,9 +88,9 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 ),
                 canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
                 canReply: canEdit,
-                nextSpacing: (lastInSection || nextIsUnread) ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
+                nextSpacing: .disable,
                 authorIconMode: .show,
-                showAuthorName: firstForCurrentUser || prevDateIntervalIsBig,
+                showAuthorName: true,
                 canDelete: isYourMessage && canEdit,
                 canEdit: isYourMessage && canEdit,
                 showMessageSyncIndicator: isYourMessage,
@@ -134,8 +118,6 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             }
             currentSectionData?.items.append(.message(messageModel))
 
-            prevCreator = message.creator
-            prevDateInterval = message.createdAt
         }
 
         if let currentSectionData {
