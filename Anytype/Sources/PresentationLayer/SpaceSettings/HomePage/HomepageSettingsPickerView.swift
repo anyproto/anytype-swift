@@ -16,9 +16,6 @@ struct HomepageSettingsPickerView: View {
             TitleView(title: Loc.SpaceSettings.HomePage.chooseHome)
 
             SearchBar(text: $model.searchText, focused: false, placeholder: Loc.search)
-                .padding(.horizontal, 16)
-
-            emptyOption
 
             content
         }
@@ -29,6 +26,20 @@ struct HomepageSettingsPickerView: View {
         .onChange(of: model.dismiss) {
             dismiss()
         }
+    }
+
+    private var content: some View {
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                emptyOption
+
+                ForEach(model.objects) { object in
+                    objectRow(object)
+                }
+            }
+            .padding(.horizontal, 20)
+        }
+        .scrollIndicators(.never)
     }
 
     private var emptyOption: some View {
@@ -50,30 +61,8 @@ struct HomepageSettingsPickerView: View {
                         .foregroundStyle(Color.Control.secondary)
                 }
             }
-            .padding(.horizontal, 20)
             .padding(.vertical, 14)
         }
-    }
-
-    @ViewBuilder
-    private var content: some View {
-        if model.objects.isEmpty {
-            Spacer()
-        } else {
-            objectsList
-        }
-    }
-
-    private var objectsList: some View {
-        ScrollView {
-            LazyVStack(spacing: 0) {
-                ForEach(model.objects) { object in
-                    objectRow(object)
-                }
-            }
-            .padding(.horizontal, 20)
-        }
-        .scrollIndicators(.never)
     }
 
     private func objectRow(_ details: ObjectDetails) -> some View {
