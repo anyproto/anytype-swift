@@ -75,7 +75,7 @@ private struct HomeWidgetsCoordinatorInternalView: View {
                 QrCodeView(title: Loc.joinSpace, data: $0.value.absoluteString, analyticsType: .inviteSpace, route: .inviteLink)
             }
             .sheet(isPresented: $model.showHomepagePicker) {
-                HomepagePickerView(spaceId: model.spaceInfo.accountSpaceId) { result in
+                HomepageCreatePickerView(spaceId: model.spaceInfo.accountSpaceId) { result in
                     model.onHomepagePickerFinished(result: result)
                 }
                 .interactiveDismissDisabled(true)
