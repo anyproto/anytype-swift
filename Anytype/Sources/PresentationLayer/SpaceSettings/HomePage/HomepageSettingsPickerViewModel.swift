@@ -48,6 +48,7 @@ final class HomepageSettingsPickerViewModel {
             // Ignore
         } catch {
             objects = []
+            isSearchCompleted = true
         }
     }
 
