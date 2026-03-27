@@ -28,18 +28,23 @@ struct HomepageSettingsPickerView: View {
         }
     }
 
+    @ViewBuilder
     private var content: some View {
-        ScrollView {
-            LazyVStack(spacing: 0) {
-                emptyOption
+        if model.isSearchCompleted {
+            ScrollView {
+                LazyVStack(spacing: 0) {
+                    emptyOption
 
-                ForEach(model.objects) { object in
-                    objectRow(object)
+                    ForEach(model.objects) { object in
+                        objectRow(object)
+                    }
                 }
+                .padding(.horizontal, 16)
             }
-            .padding(.horizontal, 16)
+            .scrollIndicators(.never)
+        } else {
+            Spacer()
         }
-        .scrollIndicators(.never)
     }
 
     private var emptyOption: some View {

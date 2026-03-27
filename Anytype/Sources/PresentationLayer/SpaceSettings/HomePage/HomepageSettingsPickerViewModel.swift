@@ -14,6 +14,7 @@ final class HomepageSettingsPickerViewModel {
     var searchText = ""
     var objects: [ObjectDetails] = []
     var dismiss = false
+    var isSearchCompleted = false
 
     let currentObjectId: String?
 
@@ -42,6 +43,7 @@ final class HomepageSettingsPickerViewModel {
                 excludedIds: [],
                 spaceId: spaceId
             ).filter { !$0.isArchivedOrDeleted }
+            isSearchCompleted = true
         } catch is CancellationError {
             // Ignore
         } catch {
