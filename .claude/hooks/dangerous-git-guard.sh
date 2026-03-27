@@ -4,11 +4,11 @@
 # Catches dangerous git patterns that prefix-based deny rules miss,
 # e.g. "git push origin main --force" where --force is not right after push.
 
-set -euo pipefail
+set -eo pipefail
 
 # Read tool input from stdin
 INPUT=$(cat)
-COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // ""')
+COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // ""' 2>/dev/null || echo "")
 
 # Skip non-git commands
 if [[ ! "$COMMAND" =~ ^[[:space:]]*git[[:space:]] ]]; then

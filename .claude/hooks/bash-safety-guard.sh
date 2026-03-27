@@ -3,11 +3,11 @@
 # Bash Safety Guard (PreToolUse on Bash)
 # Blocks bash patterns that trigger un-bypassable Claude Code security prompts.
 
-set -euo pipefail
+set -eo pipefail
 
 # Read tool input from stdin
 INPUT=$(cat)
-COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // ""')
+COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // ""' 2>/dev/null || echo "")
 
 # Block find -exec with \; (triggers security prompt for backslash before shell operator)
 # Suggest using {} + or piping to xargs instead

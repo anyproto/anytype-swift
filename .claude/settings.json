@@ -103,12 +103,7 @@
           {
             "type": "command",
             "command": ".claude/hooks/dangerous-git-guard.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
+          },
           {
             "type": "command",
             "command": ".claude/hooks/bash-safety-guard.sh"
