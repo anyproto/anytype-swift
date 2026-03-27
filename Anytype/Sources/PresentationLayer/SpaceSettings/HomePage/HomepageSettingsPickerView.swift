@@ -37,7 +37,7 @@ struct HomepageSettingsPickerView: View {
                     objectRow(object)
                 }
             }
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 16)
         }
         .scrollIndicators(.never)
     }
