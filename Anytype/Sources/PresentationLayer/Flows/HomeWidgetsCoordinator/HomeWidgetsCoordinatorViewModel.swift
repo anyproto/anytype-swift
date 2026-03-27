@@ -22,21 +22,30 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
 
     @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
+    @Injected(\.stubWidgetDismissalStorage) @ObservationIgnored
+    private var dismissalStorage: any StubWidgetDismissalStorageProtocol
 
     init(info: AccountInfo) {
         self.spaceInfo = info
     }
 
     func onAppear() {
+        guard FeatureFlags.createChannelFlow else { return }
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceInfo.accountSpaceId)
         let homepageNotSet = spaceView?.homepage == .empty
-        if homepageNotSet, !showHomepagePicker {
+        let pickerAlreadyDismissed = dismissalStorage.isHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
+        if homepageNotSet, !pickerAlreadyDismissed, !showHomepagePicker {
             showHomepagePicker = true
         }
     }
 
     func onHomepagePickerFinished(result: HomepagePickerResult) {
         showHomepagePicker = false
+
+        if case .later = result {
+            dismissalStorage.setHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
+            return
+        }
 
         guard case .homepageSet(let value) = result, case .object(let details) = value else { return }
         pageNavigation?.open(details.screenData())
