@@ -25,7 +25,10 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let canDelete: Bool
     let canEdit: Bool
     let showMessageSyncIndicator: Bool
-    
+    let isMember: Bool
+    let isEdited: Bool
+    let showTopDivider: Bool
+
     // Raw data for action logic
     let message: ChatMessage
     let attachmentsDetails: [ObjectDetails]

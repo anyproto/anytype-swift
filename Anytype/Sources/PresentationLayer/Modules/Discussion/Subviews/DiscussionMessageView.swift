@@ -59,49 +59,66 @@ struct DiscussionMessageView: View {
 
     private var messageBody: some View {
         VStack(alignment: .leading, spacing: 0) {
-            header
-            reply
-            messageContent
-            reactions
+            if data.showTopDivider {
+                Divider()
+                    .foregroundStyle(Color.Shape.tertiary)
+            }
+            VStack(alignment: .leading, spacing: 0) {
+                header
+                    .padding(.bottom, 8)
+                reply
+                messageContent
+                reactions
+            }
+            .padding(.horizontal, Constants.messageHorizontalPadding)
+            .padding(.vertical, 12)
         }
-        .padding(.horizontal, Constants.messageHorizontalPadding)
-        // In discussions every comment is independent — no small/medium grouping spacing from chat
-        .padding(.bottom, 16)
     }
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Divider()
-                .foregroundStyle(Color.Shape.tertiary)
-                .padding(.top, 4)
+        HStack(spacing: 0) {
+            Button {
+                if let authorId = data.authorId {
+                    output?.didSelectAuthor(authorId: authorId)
+                }
+            } label: {
+                HStack(spacing: 0) {
+                    IconView(icon: data.authorIcon)
+                        .frame(width: 28, height: 28)
 
-            HStack(spacing: 8) {
-                Button {
-                    if let authorId = data.authorId {
-                        output?.didSelectAuthor(authorId: authorId)
-                    }
-                } label: {
-                    HStack(spacing: 8) {
-                        IconView(icon: data.authorIcon)
-                            .frame(width: 28, height: 28)
+                    Spacer().frame(width: 6)
 
-                        Text(data.authorName.isNotEmpty ? data.authorName : " ")
-                            .anytypeStyle(.caption1Medium)
-                            .lineLimit(1)
-                            .foregroundStyle(Color.Text.primary)
+                    Text(data.authorName.isNotEmpty ? data.authorName : " ")
+                        .anytypeStyle(.caption1Medium)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .foregroundStyle(Color.Text.primary)
+
+                    if data.isMember {
+                        Spacer().frame(width: 4)
+                        Image(asset: .X18.membershipBadge)
                     }
                 }
-                .buttonStyle(.plain)
-
-                Spacer()
-
-                Text(data.createDate)
-                    .anytypeStyle(.caption2Regular)
-                    .foregroundStyle(Color.Text.secondary)
             }
-            .padding(.top, 12)
-            .padding(.bottom, 4)
+            .buttonStyle(.plain)
+            .layoutPriority(-1)
+
+            Spacer().frame(width: 8)
+
+            timestampLabel
+                .fixedSize()
         }
+        .frame(height: 32)
+    }
+
+    private var timestampLabel: some View {
+        let text: String = data.isEdited
+            ? "\(data.createDate) (\(Loc.Message.edited))"
+            : data.createDate
+        return Text(text)
+            .anytypeStyle(.caption2Regular)
+            .foregroundStyle(Color.Text.secondary)
+            .lineLimit(1)
     }
 
     @ViewBuilder

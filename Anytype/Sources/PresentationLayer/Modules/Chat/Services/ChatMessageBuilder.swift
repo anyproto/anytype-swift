@@ -108,6 +108,9 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 canDelete: isYourMessage && canEdit,
                 canEdit: isYourMessage && canEdit,
                 showMessageSyncIndicator: isYourMessage,
+                isMember: false,
+                isEdited: false,
+                showTopDivider: false,
                 message: message,
                 attachmentsDetails: fullMessage.attachments,
                 reply: fullMessage.reply

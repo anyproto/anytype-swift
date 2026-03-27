@@ -19,7 +19,8 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
     private let spaceId: String
     private let chatId: String
 
-    private let dateFormatter = HistoryDateFormatter()
+    private let sectionDateFormatter = HistoryDateFormatter()
+    private let timestampFormatter = MessageTimestampFormatter()
 
     init(spaceId: String, chatId: String) {
         self.spaceId = spaceId
@@ -44,6 +45,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         var newMessageBlocks: [MessageSectionData] = []
 
         var sectionDateDay: Date?
+        var isFirstMessageInSection = true
 
         for messageIndex in 0..<messages.count {
 
@@ -64,7 +66,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 authorName: authorParticipant?.title ?? "",
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
                 authorId: authorParticipant?.id,
-                createDate: message.createdAtDate.formatted(date: .abbreviated, time: .omitted),
+                createDate: timestampFormatter.string(for: message.createdAtDate),
                 messageString: AttributedString(),
                 discussionBlocks: message.resolvedDiscussionBlocks(
                     spaceId: spaceId,
@@ -94,6 +96,9 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 canDelete: isYourMessage && canEdit,
                 canEdit: isYourMessage && canEdit,
                 showMessageSyncIndicator: isYourMessage,
+                isMember: authorParticipant?.globalName.isNotEmpty ?? false,
+                isEdited: message.modifiedAtDate != nil,
+                showTopDivider: !isFirstMessageInSection,
                 message: message,
                 attachmentsDetails: fullMessage.attachments,
                 reply: fullMessage.reply
@@ -106,17 +111,19 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                     newMessageBlocks.append(currentSectionData)
                 }
                 currentSectionData = MessageSectionData(
-                    header: dateFormatter.localizedDateString(for: createDateDay),
+                    header: sectionDateFormatter.localizedDateString(for: createDateDay),
                     id: createDateDay.hashValue,
                     items: []
                 )
                 sectionDateDay = createDateDay
+                isFirstMessageInSection = true
             }
 
             if let unreadItem {
                 currentSectionData?.items.append(unreadItem)
             }
             currentSectionData?.items.append(.message(messageModel))
+            isFirstMessageInSection = false
 
         }
 
