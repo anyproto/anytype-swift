@@ -17,7 +17,9 @@ struct SpaceView: Identifiable, Equatable, Hashable {
     let writersLimit: Int?
     let chatId: String
     let spaceOrder: String
+    @available(*, deprecated, message: "Use spaceType instead")
     let uxType: SpaceUxType
+    let spaceType: SpaceType
     let pushNotificationEncryptionKey: String
     let pushNotificationMode: SpacePushNotificationsMode
     let forceAllIds: [String]
@@ -44,6 +46,7 @@ extension SpaceView: DetailsModel {
         self.chatId = details.chatId
         self.spaceOrder = details.spaceOrder
         self.uxType = details.spaceUxTypeValue ?? .data
+        self.spaceType = details.spaceTypeValue ?? .regular
         self.pushNotificationEncryptionKey = details.spacePushNotificationEncryptionKey
         self.pushNotificationMode = details.spacePushNotificationModeValue ?? .all
         self.forceAllIds = details.spacePushNotificationForceAllIds
@@ -70,6 +73,7 @@ extension SpaceView: DetailsModel {
         BundledPropertyKey.chatId
         BundledPropertyKey.spaceOrder
         BundledPropertyKey.spaceUxType
+        BundledPropertyKey.spaceType
         BundledPropertyKey.spacePushNotificationEncryptionKey
         BundledPropertyKey.spacePushNotificationMode
         BundledPropertyKey.spacePushNotificationForceAllIds
@@ -111,14 +115,21 @@ extension SpaceView {
         return spaceIsLoading && spaceIsNotDeleted && spaceIsNotJoining
     }
     
+    var isOneToOne: Bool {
+        spaceType == .oneToOne
+    }
+
+    @available(*, deprecated, message: "Use homepage to determine initial screen")
     var initialScreenIsChat: Bool {
         uxType.initialScreenIsChat
     }
-    
+
+    @available(*, deprecated, message: "Will be reworked with homepage logic")
     var canAddChatWidget: Bool {
         !initialScreenIsChat && isShared && hasChat
     }
 
+    @available(*, deprecated, message: "Will be reworked with homepage logic")
     var canShowChatWidget: Bool {
         !uxType.supportsMultiChats
     }

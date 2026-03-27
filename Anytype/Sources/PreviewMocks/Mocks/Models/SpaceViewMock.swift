@@ -27,6 +27,7 @@ extension SpaceView {
             chatId: Bool.random() ? "123" : "",
             spaceOrder: "",
             uxType: .allCases.randomElement()!,
+            spaceType: .regular,
             pushNotificationEncryptionKey: "",
             pushNotificationMode: .allCases.randomElement()!,
             forceAllIds: [],

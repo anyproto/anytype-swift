@@ -105,7 +105,12 @@ extension BundledPropertiesValueProvider {
         guard let spaceUxType else { return nil }
         return SpaceUxType(rawValue: spaceUxType)
     }
-    
+
+    public var spaceTypeValue: SpaceType? {
+        guard let spaceType else { return nil }
+        return SpaceType(rawValue: spaceType)
+    }
+
     public var customIcon: CustomIcon? {
         CustomIcon(fromString: iconName)
     }
