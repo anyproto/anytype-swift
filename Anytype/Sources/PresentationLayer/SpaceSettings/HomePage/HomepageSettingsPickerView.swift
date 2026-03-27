@@ -1,24 +1,24 @@
 import SwiftUI
 import Services
 
-struct HomePagePickerView: View {
+struct HomepageSettingsPickerView: View {
 
-    @State private var model: HomePagePickerViewModel
+    @State private var model: HomepageSettingsPickerViewModel
     @Environment(\.dismiss) private var dismiss
 
-    init(spaceId: String, onFinish: @escaping () async throws -> Void = {}) {
-        _model = State(initialValue: HomePagePickerViewModel(spaceId: spaceId, onFinish: onFinish))
+    init(spaceId: String) {
+        _model = State(initialValue: HomepageSettingsPickerViewModel(spaceId: spaceId))
     }
 
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.SpaceSettings.HomePage.title)
-
-            widgetsOption
+            TitleView(title: Loc.SpaceSettings.HomePage.chooseHome)
 
             SearchBar(text: $model.searchText, focused: false, placeholder: Loc.search)
                 .padding(.horizontal, 16)
+
+            emptyOption
 
             content
         }
@@ -31,15 +31,16 @@ struct HomePagePickerView: View {
         }
     }
 
-    private var widgetsOption: some View {
+    private var emptyOption: some View {
         AsyncButton {
-            try await model.onWidgetsSelected()
+            try await model.onEmptySelected()
         } label: {
             HStack(spacing: 12) {
-                Image(systemName: model.isChatSpace ? "bubble.left.and.bubble.right" : "house")
+                Image(systemName: "minus.circle")
                     .foregroundStyle(Color.Control.primary)
+                    .frame(width: 24, height: 24)
 
-                AnytypeText(model.defaultOptionTitle, style: .uxBodyRegular)
+                AnytypeText(Loc.empty, style: .uxBodyRegular)
                     .foregroundStyle(Color.Text.primary)
 
                 Spacer()

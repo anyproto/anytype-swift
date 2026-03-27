@@ -58,7 +58,7 @@ fileprivate struct SpaceSettingInternalsCoordinator: View {
                 SpaceTypeChangeView(data: $0)
             }
             .sheet(item: $model.homePagePickerSpaceId) {
-                HomePagePickerView(spaceId: $0.value)
+                HomepageSettingsPickerView(spaceId: $0.value)
             }
     }
 }
