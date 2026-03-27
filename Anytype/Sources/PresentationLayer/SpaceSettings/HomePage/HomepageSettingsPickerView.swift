@@ -61,7 +61,7 @@ struct HomepageSettingsPickerView: View {
                         .foregroundStyle(Color.Control.secondary)
                 }
             }
-            .padding(.vertical, 14)
+            .frame(height: 72)
         }
     }
 
