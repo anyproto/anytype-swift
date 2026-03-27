@@ -64197,6 +64197,17 @@
         }
       }
     },
+    "SpaceSettings.HomePage.ChooseHome" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Home"
+          }
+        }
+      }
+    },
     "SpaceSettings.HomePage.Title" : {
       "extractionState" : "manual",
       "localizations" : {
