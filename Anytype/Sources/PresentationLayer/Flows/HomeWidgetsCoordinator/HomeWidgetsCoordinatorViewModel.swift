@@ -52,6 +52,10 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         createTypeData = CreateObjectTypeData(spaceId: spaceInfo.accountSpaceId, name: "", route: .screenWidget)
     }
 
+    func onShowHomepagePicker() {
+        showHomepagePicker = true
+    }
+
     func onObjectSelected(screenData: ScreenData) {
         pageNavigation?.open(screenData)
     }
