@@ -185,7 +185,8 @@ struct ChatView: View {
             scrollProxy: model.collectionViewScrollProxy,
             bottomPanel: bottomPanel,
             emptyView: emptyView,
-            showEmptyState: model.showEmptyState
+            showEmptyState: model.showEmptyState,
+            showSectionHeaders: true
         ) {
             cell(data: $0)
         } headerBuilder: {

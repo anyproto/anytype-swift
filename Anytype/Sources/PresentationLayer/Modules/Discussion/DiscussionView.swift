@@ -185,7 +185,8 @@ struct DiscussionView: View {
             scrollProxy: model.collectionViewScrollProxy,
             bottomPanel: bottomPanel,
             emptyView: emptyView,
-            showEmptyState: model.showEmptyState
+            showEmptyState: model.showEmptyState,
+            showSectionHeaders: false
         ) {
             cell(data: $0)
         } headerBuilder: {
