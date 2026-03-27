@@ -33,7 +33,9 @@ struct HomepageSettingsPickerView: View {
         if model.isSearchCompleted {
             ScrollView {
                 LazyVStack(spacing: 0) {
-                    emptyOption
+                    if model.searchText.isEmpty {
+                        emptyOption
+                    }
 
                     ForEach(model.objects) { object in
                         objectRow(object)
