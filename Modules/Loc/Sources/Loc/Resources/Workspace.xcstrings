@@ -22296,7 +22296,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Idea"
+            "value" : "فكرة"
           }
         },
         "be" : {
@@ -22451,7 +22451,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tasks"
+            "value" : "المهام"
           }
         },
         "be" : {
@@ -22606,7 +22606,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select what you and channel members see when they open the channel. You can always change it in settings."
+            "value" : "حدد ما تراه أنت وأعضاء القناة عند فتحها. يمكنك دائماً تغييره في الإعدادات."
           }
         },
         "be" : {
@@ -22761,7 +22761,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Home"
+            "value" : "إنشاء صفحة رئيسية"
           }
         },
         "be" : {
@@ -82617,7 +82617,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal"
+            "value" : "شخصية"
           }
         },
         "be" : {
@@ -82755,7 +82755,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal"
+            "value" : "个人"
           }
         },
         "zh-Hant" : {
@@ -82772,7 +82772,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Group"
+            "value" : "مجموعة"
           }
         },
         "be" : {
@@ -82802,7 +82802,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Group"
+            "value" : "Grupo"
           }
         },
         "fa" : {
@@ -82910,7 +82910,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Group"
+            "value" : "分组"
           }
         },
         "zh-Hant" : {
@@ -82927,7 +82927,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There are no channels yet"
+            "value" : "لا توجد قنوات حتى الآن"
           }
         },
         "be" : {
@@ -82957,7 +82957,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There are no channels yet"
+            "value" : "Aún no hay ningún canal"
           }
         },
         "fa" : {
@@ -83065,7 +83065,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There are no channels yet"
+            "value" : "还没有频道"
           }
         },
         "zh-Hant" : {
@@ -83137,7 +83137,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Channel"
+            "value" : "إنشاء قناة"
           }
         },
         "be" : {
@@ -83167,7 +83167,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Channel"
+            "value" : "Crear canal"
           }
         },
         "fa" : {
@@ -83275,7 +83275,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Channel"
+            "value" : "创建频道"
           }
         },
         "zh-Hant" : {

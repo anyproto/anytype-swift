@@ -281,7 +281,25 @@ Skills provide **automatic activation** based on your prompts and file context, 
 
 ---
 
-### 14. **confidence-check** (Workflow Gate)
+### 14. **decompose** (Workflow)
+**Purpose**: Decompose a large Linear task into independent subtasks with PLAN.md and Linear sub-issues
+
+**Auto-activates when**:
+- User shares a Linear issue URL and asks to decompose/break down
+- Keywords: decompose, break down, split task, subtasks, plan feature, task breakdown
+
+**Provides**:
+- 4-phase workflow: Gather Context → Propose Decomposition → Create Artifacts → Commit
+- Dependency-layered decomposition (Layer 0 = foundation, Layer N = integration)
+- PLAN_IOS_XXXX.md template with full feature context for future sessions
+- Self-contained Linear sub-issue descriptions
+- Memory entry for cross-session continuity
+
+**Location**: `.claude/skills/decompose/SKILL.md`
+
+---
+
+### 15. **confidence-check** (Workflow Gate)
 **Purpose**: Pre-implementation confidence assessment to prevent wrong-direction work
 
 **Auto-activates when**:
@@ -490,6 +508,9 @@ Read the file .claude/skills/ios-dev-guidelines/SKILL.md
 │   ├── SKILL.md (smart router)
 │   └── references/
 │       └── mv-patterns.md
+│
+├── decompose/
+│   └── SKILL.md (workflow)
 │
 ├── confidence-check/
 │   └── SKILL.md (workflow gate)
