@@ -1,24 +1,21 @@
 import SwiftUI
 import Services
 
-struct HomePagePickerView: View {
+struct HomepageSettingsPickerView: View {
 
-    @State private var model: HomePagePickerViewModel
+    @State private var model: HomepageSettingsPickerViewModel
     @Environment(\.dismiss) private var dismiss
 
-    init(spaceId: String, onFinish: @escaping () async throws -> Void = {}) {
-        _model = State(initialValue: HomePagePickerViewModel(spaceId: spaceId, onFinish: onFinish))
+    init(spaceId: String) {
+        _model = State(initialValue: HomepageSettingsPickerViewModel(spaceId: spaceId))
     }
 
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.SpaceSettings.HomePage.title)
-
-            widgetsOption
+            TitleView(title: Loc.SpaceSettings.HomePage.chooseHome)
 
             SearchBar(text: $model.searchText, focused: false, placeholder: Loc.search)
-                .padding(.horizontal, 16)
 
             content
         }
@@ -31,15 +28,37 @@ struct HomePagePickerView: View {
         }
     }
 
-    private var widgetsOption: some View {
+    @ViewBuilder
+    private var content: some View {
+        if model.isSearchCompleted {
+            ScrollView {
+                LazyVStack(spacing: 0) {
+                    if model.searchText.isEmpty {
+                        emptyOption
+                    }
+
+                    ForEach(model.objects) { object in
+                        objectRow(object)
+                    }
+                }
+                .padding(.horizontal, 16)
+            }
+            .scrollIndicators(.never)
+        } else {
+            Spacer()
+        }
+    }
+
+    private var emptyOption: some View {
         AsyncButton {
-            try await model.onWidgetsSelected()
+            try await model.onEmptySelected()
         } label: {
             HStack(spacing: 12) {
-                Image(systemName: model.isChatSpace ? "bubble.left.and.bubble.right" : "house")
+                Image(systemName: "minus.circle")
                     .foregroundStyle(Color.Control.primary)
+                    .frame(width: 24, height: 24)
 
-                AnytypeText(model.defaultOptionTitle, style: .uxBodyRegular)
+                AnytypeText(Loc.empty, style: .uxBodyRegular)
                     .foregroundStyle(Color.Text.primary)
 
                 Spacer()
@@ -49,30 +68,8 @@ struct HomePagePickerView: View {
                         .foregroundStyle(Color.Control.secondary)
                 }
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 14)
+            .frame(height: 72)
         }
-    }
-
-    @ViewBuilder
-    private var content: some View {
-        if model.objects.isEmpty {
-            Spacer()
-        } else {
-            objectsList
-        }
-    }
-
-    private var objectsList: some View {
-        ScrollView {
-            LazyVStack(spacing: 0) {
-                ForEach(model.objects) { object in
-                    objectRow(object)
-                }
-            }
-            .padding(.horizontal, 20)
-        }
-        .scrollIndicators(.never)
     }
 
     private func objectRow(_ details: ObjectDetails) -> some View {

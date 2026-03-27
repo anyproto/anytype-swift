@@ -3,14 +3,14 @@ import Services
 import UIKit
 import AnytypeCore
 
-enum HomePageState {
-    case `default`(String)
+enum HomepageSettingsState {
+    case empty
     case object(icon: Icon?, name: String)
 
     var buttonDecoration: RoundedButtonDecoration {
         switch self {
-        case .default(let title):
-            return .caption(title)
+        case .empty:
+            return .chevron
         case .object(let icon, let name):
             return .object(icon: icon, name: name)
         }
@@ -87,7 +87,7 @@ final class SpaceSettingsViewModel {
     var membershipUpgradeReason: MembershipUpgradeReason?
     var storageInfo = RemoteStorageSegmentInfo()
     var defaultObjectType: ObjectType?
-    var homePageState: HomePageState = .default("")
+    var homePageState: HomepageSettingsState = .empty
     var showIconPickerSpaceId: StringIdentifiable?
     var editingData: SettingsInfoEditingViewData?
     var pushNotificationsSettingsMode: SpacePushNotificationsMode = .all
@@ -309,14 +309,14 @@ final class SpaceSettingsViewModel {
     private func loadHomePageState(homepage: SpaceHomepage) async {
         switch homepage {
         case .empty, .widgets:
-            homePageState = .default(Loc.SpaceSettings.HomePage.widgets)
+            homePageState = .empty
         case .object(let objectId):
             let spaceId = workspaceInfo.accountSpaceId
             let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
             if let details, !details.isArchivedOrDeleted {
                 homePageState = .object(icon: details.objectIconImage, name: details.name)
             } else {
-                homePageState = .default(Loc.SpaceSettings.HomePage.widgets)
+                homePageState = .empty
             }
         }
     }

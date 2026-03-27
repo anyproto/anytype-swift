@@ -4,30 +4,26 @@ import AnytypeCore
 
 @MainActor
 @Observable
-final class HomePagePickerViewModel {
+final class HomepageSettingsPickerViewModel {
 
     @ObservationIgnored @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
-    @ObservationIgnored @Injected(\.workspaceService)
-    private var workspaceService: any WorkspaceServiceProtocol
+    @ObservationIgnored @Injected(\.homepagePickerService)
+    private var homepagePickerService: any HomepagePickerServiceProtocol
 
     var searchText = ""
     var objects: [ObjectDetails] = []
     var dismiss = false
+    var isSearchCompleted = false
+
+    let currentObjectId: String?
 
     @ObservationIgnored
-    private let onFinish: () async throws -> Void
     private let spaceId: String
-    private let spaceUxType: SpaceUxType?
-    let currentObjectId: String?
-    let isChatSpace: Bool
 
-    init(spaceId: String, onFinish: @escaping () async throws -> Void = {}) {
+    init(spaceId: String) {
         self.spaceId = spaceId
-        self.onFinish = onFinish
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
-        self.spaceUxType = spaceView?.uxType
-        self.isChatSpace = spaceView?.initialScreenIsChat ?? false
         let homepage = spaceView?.homepage ?? .empty
         switch homepage {
         case .empty, .widgets:
@@ -37,36 +33,32 @@ final class HomePagePickerViewModel {
         }
     }
 
-    var defaultOptionTitle: String {
-        isChatSpace ? Loc.chat : Loc.SpaceSettings.HomePage.widgets
-    }
-
     func search() async {
         do {
             try await Task.sleep(for: .milliseconds(300))
-            let layouts: [DetailsLayout] = DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType)
+            let layouts: [DetailsLayout] = DetailsLayout.visibleLayoutsWithFiles(spaceUxType: nil)
             objects = try await searchService.searchObjectsWithLayouts(
                 text: searchText,
                 layouts: layouts,
                 excludedIds: [],
                 spaceId: spaceId
             ).filter { !$0.isArchivedOrDeleted }
+            isSearchCompleted = true
         } catch is CancellationError {
             // Ignore
         } catch {
             objects = []
+            isSearchCompleted = true
         }
     }
 
-    func onWidgetsSelected() async throws {
-        try await workspaceService.setHomepage(spaceId: spaceId, homepage: SpaceHomepage.widgets.rawValue)
-        try await onFinish()
+    func onEmptySelected() async throws {
+        try await homepagePickerService.setHomepage(spaceId: spaceId, homepage: .widgets)
         dismiss = true
     }
 
     func onObjectSelected(_ details: ObjectDetails) async throws {
-        try await workspaceService.setHomepage(spaceId: spaceId, homepage: details.id)
-        try await onFinish()
+        try await homepagePickerService.setHomepage(spaceId: spaceId, homepage: .object(objectId: details.id))
         dismiss = true
     }
 }

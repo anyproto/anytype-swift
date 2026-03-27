@@ -3,7 +3,7 @@ import Services
 
 @MainActor
 @Observable
-final class HomepagePickerViewModel {
+final class HomepageCreatePickerViewModel {
 
     @ObservationIgnored @Injected(\.homepagePickerService)
     private var homepagePickerService: any HomepagePickerServiceProtocol
