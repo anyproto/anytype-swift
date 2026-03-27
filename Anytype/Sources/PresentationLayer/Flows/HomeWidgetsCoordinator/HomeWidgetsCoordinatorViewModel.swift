@@ -29,11 +29,7 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
 
     func onAppear() {
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceInfo.accountSpaceId)
-        var homepageNotSet = spaceView?.homepage == .empty
-        #if DEBUG
-        // TODO: Remove when middleware stops setting "widgets" as default homepage for new spaces
-        homepageNotSet = homepageNotSet || spaceView?.homepage == .widgets
-        #endif
+        let homepageNotSet = spaceView?.homepage == .empty
         if homepageNotSet, !showHomepagePicker {
             showHomepagePicker = true
         }
