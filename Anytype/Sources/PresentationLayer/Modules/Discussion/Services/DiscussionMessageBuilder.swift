@@ -60,6 +60,19 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             let position: MessageHorizontalPosition = .left
             let isUnread = message.orderID == firstUnreadMessageOrderId
 
+            if firstInSection {
+                if let currentSectionData {
+                    newMessageBlocks.append(currentSectionData)
+                }
+                currentSectionData = MessageSectionData(
+                    header: sectionDateFormatter.localizedDateString(for: createDateDay),
+                    id: createDateDay.hashValue,
+                    items: []
+                )
+                sectionDateDay = createDateDay
+                isFirstMessageInSection = true
+            }
+
             let messageModel = MessageViewData(
                 spaceId: spaceId,
                 chatId: chatId,
@@ -104,19 +117,6 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             )
 
             let unreadItem: MessageSectionItem? = isUnread ? .unread(id: "\(message.id)-unread", messageId: message.id, messageOrderId: message.orderID) : nil
-
-            if firstInSection {
-                if let currentSectionData {
-                    newMessageBlocks.append(currentSectionData)
-                }
-                currentSectionData = MessageSectionData(
-                    header: sectionDateFormatter.localizedDateString(for: createDateDay),
-                    id: createDateDay.hashValue,
-                    items: []
-                )
-                sectionDateDay = createDateDay
-                isFirstMessageInSection = true
-            }
 
             if let unreadItem {
                 currentSectionData?.items.append(unreadItem)

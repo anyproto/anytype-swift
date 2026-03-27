@@ -1,6 +1,6 @@
 import Foundation
 
-final class MessageTimestampFormatter: Sendable {
+final class MessageTimestampFormatter {
 
     private let calendar = Calendar.current
 
