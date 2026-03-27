@@ -24,7 +24,13 @@ final class ChatCollectionViewCoordinator<
     private var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
     // From iOS 17.4 replace to collectionView.isScrollAnimating
     private var isProgrammaticAnimatedScroll = false
-    
+    private let showSectionHeaders: Bool
+
+    init(showSectionHeaders: Bool) {
+        self.showSectionHeaders = showSectionHeaders
+        super.init()
+    }
+
     var scrollToTop: (() async -> Void)?
     var scrollToBottom: (() async -> Void)?
     var decelerating = false
@@ -36,33 +42,40 @@ final class ChatCollectionViewCoordinator<
     var onTapCollectionBackground: (() -> Void)?
     
     func setupDataSource(collectionView: UICollectionView) {
-        let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
-        { [weak self] view, _, indexPath in
-            guard let header = self?.sections[safe: indexPath.section]?.header else { return }
-            view.contentConfiguration = UIHostingConfiguration {
-                self?.headerBuilder?(header)
+        let sectionRegistration: UICollectionView.SupplementaryRegistration<UICollectionViewCell>?
+
+        if showSectionHeaders {
+            sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
+            { [weak self] view, _, indexPath in
+                guard let header = self?.sections[safe: indexPath.section]?.header else { return }
+                view.contentConfiguration = UIHostingConfiguration {
+                    self?.headerBuilder?(header)
+                }
+                .margins(.all, 0)
+                view.layer.zPosition = 1
             }
-            .margins(.all, 0)
-            view.layer.zPosition = 1
+        } else {
+            sectionRegistration = nil
         }
-        
+
         let itemRegistration = UICollectionView.CellRegistration<ChatContainerCell<Item, DataView>, Item> { [weak self] cell, indexPath, item in
             cell.setItem(item, builder: self?.itemBuilder)
         }
-        
-    
+
         let dataSource = UICollectionViewDiffableDataSource<Section.ID, Item>(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell in
             let cell = collectionView.dequeueConfiguredReusableCell(using: itemRegistration, for: indexPath, item: item)
             cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
             return cell
         }
-        
-        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) -> UICollectionReusableView in
-            let cell = collectionView.dequeueConfiguredReusableSupplementary(using: sectionRegistration, for: indexPath)
-            cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
-            return cell
+
+        if let sectionRegistration {
+            dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) -> UICollectionReusableView in
+                let cell = collectionView.dequeueConfiguredReusableSupplementary(using: sectionRegistration, for: indexPath)
+                cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
+                return cell
+            }
         }
-        
+
         self.dataSource = dataSource
     }
     
@@ -294,6 +307,7 @@ final class ChatCollectionViewCoordinator<
     }
     
     private func updateHeaders(collectionView: UICollectionView, animated: Bool = true) {
+        guard showSectionHeaders else { return }
         let headers = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
         let cells = collectionView.visibleCells
         let visibleBounds = collectionView.bounds.inset(by: collectionView.adjustedContentInset)
