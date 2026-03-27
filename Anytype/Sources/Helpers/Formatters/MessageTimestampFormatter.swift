@@ -4,6 +4,18 @@ final class MessageTimestampFormatter: Sendable {
 
     private let calendar = Calendar.current
 
+    private let timeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        return formatter
+    }()
+
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        return formatter
+    }()
+
     func string(for date: Date) -> String {
         let now = Date()
         let startOfToday = calendar.startOfDay(for: now)
@@ -13,20 +25,16 @@ final class MessageTimestampFormatter: Sendable {
 
         switch dayDiff {
         case 0:
-            let formatter = DateFormatter()
-            formatter.dateStyle = .none
-            formatter.timeStyle = .short
-            return formatter.string(from: date)
+            return timeFormatter.string(from: date)
         case 1:
             return Loc.yesterday
         default:
-            let formatter = DateFormatter()
             if calendar.isDate(date, equalTo: now, toGranularity: .year) {
-                formatter.setLocalizedDateFormatFromTemplate("MMM d")
+                dateFormatter.setLocalizedDateFormatFromTemplate("MMM d")
             } else {
-                formatter.setLocalizedDateFormatFromTemplate("MMM d, yyyy")
+                dateFormatter.setLocalizedDateFormatFromTemplate("MMM d, yyyy")
             }
-            return formatter.string(from: date)
+            return dateFormatter.string(from: date)
         }
     }
 }

@@ -10,7 +10,7 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let authorName: String
     let authorIcon: Icon
     let authorId: String?
-    let createDate: String
+    let timestampLabel: String
     let messageString: AttributedString
     let discussionBlocks: [DiscussionBlockItem]
     let replyModel: MessageReplyModel?
@@ -26,7 +26,6 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let canEdit: Bool
     let showMessageSyncIndicator: Bool
     let isMember: Bool
-    let isEdited: Bool
     let showTopDivider: Bool
 
     // Raw data for action logic

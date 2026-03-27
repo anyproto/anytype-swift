@@ -112,10 +112,7 @@ struct DiscussionMessageView: View {
     }
 
     private var timestampLabel: some View {
-        let text: String = data.isEdited
-            ? "\(data.createDate) (\(Loc.Message.edited))"
-            : data.createDate
-        return Text(text)
+        Text(data.timestampLabel)
             .anytypeStyle(.caption2Regular)
             .foregroundStyle(Color.Text.secondary)
             .lineLimit(1)

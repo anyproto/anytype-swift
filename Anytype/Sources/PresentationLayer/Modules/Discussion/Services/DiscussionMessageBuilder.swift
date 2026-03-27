@@ -66,7 +66,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 authorName: authorParticipant?.title ?? "",
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
                 authorId: authorParticipant?.id,
-                createDate: timestampFormatter.string(for: message.createdAtDate),
+                timestampLabel: makeTimestampLabel(message: message),
                 messageString: AttributedString(),
                 discussionBlocks: message.resolvedDiscussionBlocks(
                     spaceId: spaceId,
@@ -97,7 +97,6 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 canEdit: isYourMessage && canEdit,
                 showMessageSyncIndicator: isYourMessage,
                 isMember: authorParticipant?.globalName.isNotEmpty ?? false,
-                isEdited: message.modifiedAtDate != nil,
                 showTopDivider: !isFirstMessageInSection,
                 message: message,
                 attachmentsDetails: fullMessage.attachments,
@@ -132,6 +131,14 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         }
 
         return newMessageBlocks
+    }
+
+    private func makeTimestampLabel(message: ChatMessage) -> String {
+        let timestamp = timestampFormatter.string(for: message.createdAtDate)
+        if message.modifiedAtDate != nil {
+            return "\(timestamp) (\(Loc.Message.edited))"
+        }
+        return timestamp
     }
 
     private func dayDate(for date: Date) -> Date {
