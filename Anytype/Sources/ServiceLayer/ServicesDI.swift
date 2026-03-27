@@ -179,7 +179,11 @@ extension Container {
     var expandedService: Factory<any ExpandedServiceProtocol> {
         self { ExpandedService() }.shared
     }
-    
+
+    var stubWidgetDismissalStorage: Factory<any StubWidgetDismissalStorageProtocol> {
+        self { StubWidgetDismissalStorage() }.shared
+    }
+
 //    var objectTypeWidgetExpandedService: Factory<any ObjectTypeWidgetExpandedServiceProtocol> {
 //        self { ObjectTypeWidgetExpandedService() }.shared
 //    }
