@@ -16,7 +16,14 @@ struct DiscussionCoordinatorView: View {
     }
 
     private var content: some View {
-        DiscussionView(spaceId: model.spaceId, discussionId: model.discussionId, output: model, settingsOutput: model)
+        DiscussionView(
+            spaceId: model.spaceId,
+            objectId: model.objectId,
+            objectName: model.objectName,
+            discussionId: model.discussionId,
+            output: model,
+            settingsOutput: model
+        )
             .onAppear {
                 model.pageNavigation = pageNavigation
             }

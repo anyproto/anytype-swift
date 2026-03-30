@@ -5,7 +5,9 @@ import Services
 import AnytypeCore
 
 struct DiscussionCoordinatorData: Hashable, Codable {
-    let discussionId: String
+    let discussionId: String?
+    let objectId: String
+    let objectName: String
     let spaceId: String
 }
 
@@ -14,7 +16,11 @@ struct DiscussionCoordinatorData: Hashable, Codable {
 final class DiscussionCoordinatorViewModel: DiscussionModuleOutput, ObjectSettingsCoordinatorOutput {
 
     @ObservationIgnored
-    let discussionId: String
+    var discussionId: String?
+    @ObservationIgnored
+    let objectId: String
+    @ObservationIgnored
+    let objectName: String
     @ObservationIgnored
     let spaceId: String
 
@@ -49,6 +55,8 @@ final class DiscussionCoordinatorViewModel: DiscussionModuleOutput, ObjectSettin
 
     init(data: DiscussionCoordinatorData) {
         self.discussionId = data.discussionId
+        self.objectId = data.objectId
+        self.objectName = data.objectName
         self.spaceId = data.spaceId
     }
 

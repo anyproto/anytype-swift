@@ -40,6 +40,8 @@ final class HomeBottomNavigationPanelViewModel {
     @ObservationIgnored
     private var currentDiscussionId: String?
     @ObservationIgnored
+    private var currentObjectName: String = ""
+    @ObservationIgnored
     private var detailsSubscriptionTask: Task<Void, Never>?
 
     // MARK: - Public properties
@@ -69,11 +71,19 @@ final class HomeBottomNavigationPanelViewModel {
     }
 
     func onTapDiscuss() {
-        guard let discussionId = currentDiscussionId else {
-            anytypeAssertionFailure("Discuss button tapped but no discussionId available")
+        guard let editorData = currentData as? EditorScreenData,
+              let objectId = editorData.objectId else {
+            anytypeAssertionFailure("Discuss button tapped but no editor data available")
             return
         }
-        let screenData = ScreenData.discussion(DiscussionCoordinatorData(discussionId: discussionId, spaceId: info.accountSpaceId))
+        let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
+        let objectName = document.details?.name ?? ""
+        let screenData = ScreenData.discussion(DiscussionCoordinatorData(
+            discussionId: currentDiscussionId,
+            objectId: objectId,
+            objectName: objectName,
+            spaceId: info.accountSpaceId
+        ))
         output?.onCreateObjectSelected(screenData: screenData)
     }
 
@@ -161,6 +171,7 @@ final class HomeBottomNavigationPanelViewModel {
                 guard !Task.isCancelled else { return }
                 let discussionId = details.discussionId
                 self?.currentDiscussionId = discussionId.isNotEmpty ? discussionId : nil
+                self?.currentObjectName = details.name
                 self?.updateState()
             }
         }
