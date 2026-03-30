@@ -45,31 +45,32 @@ struct StubWidgetsView: View {
         onClose: @escaping () -> Void
     ) -> some View {
         HStack(spacing: 0) {
-            Spacer.fixedWidth(16)
-            Image(asset: icon)
-                .resizable()
-                .renderingMode(.template)
-                .frame(width: 20, height: 20)
-                .foregroundStyle(iconColor)
-            Spacer.fixedWidth(12)
-            AnytypeText(title, style: .bodySemibold)
-                .foregroundStyle(Color.Text.primary)
-                .lineLimit(1)
-            Spacer()
-            Button(action: onClose) {
+            Button(action: onTap) {
+                HStack(spacing: 0) {
+                    Spacer.fixedWidth(16)
+                    Image(asset: icon)
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 20, height: 20)
+                        .foregroundStyle(iconColor)
+                    Spacer.fixedWidth(12)
+                    AnytypeText(title, style: .bodySemibold)
+                        .foregroundStyle(Color.Text.primary)
+                        .lineLimit(1)
+                    Spacer(minLength: 8)
+                }
+                .fixTappableArea()
+            }
+            .buttonStyle(.plain)
             Button(action: onClose) {
                 Image(asset: .X24.close)
                     .foregroundStyle(Color.Control.secondary)
+                    .frame(width: 48, height: 48)
             }
-            .simultaneousGesture(TapGesture())
-                    .foregroundStyle(Color.Control.secondary)
-            }
-            Spacer.fixedWidth(16)
+            .buttonStyle(.plain)
         }
         .frame(height: 48)
         .background(Color.Background.primary)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .fixTappableArea()
-        .onTapGesture { onTap() }
     }
 }
