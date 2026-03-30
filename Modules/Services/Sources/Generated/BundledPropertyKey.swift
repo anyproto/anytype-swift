@@ -523,6 +523,9 @@ public enum BundledPropertyKey: String, Sendable {
     /// Fulltext search score
     case score = "_score"
 
+    /// Fulltext search final score (BM25 + recency + name boost)
+    case finalScore = "_final_score"
+
     /// Version of file context migration completed for this space
     case migrationObjectContext = "migrationObjectContext"
 

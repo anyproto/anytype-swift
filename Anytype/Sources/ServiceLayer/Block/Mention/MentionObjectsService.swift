@@ -12,10 +12,10 @@ final class MentionObjectsService: MentionObjectsServiceProtocol, Sendable {
     private let spaceViewsStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
 
     func searchMentions(spaceId: String, text: String, excludedObjectIds: [String], limitLayout: [DetailsLayout]) async throws -> [MentionObject] {
-        let sort = SearchHelper.sort(
-            relation: .lastOpenedDate,
-            type: .desc
-        )
+        let sorts: [DataviewSort] = .builder {
+            SearchHelper.sort(relation: .finalScore, type: .desc)
+            SearchHelper.sort(relation: .lastOpenedDate, type: .desc)
+        }
 
         let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
         let filters: [DataviewFilter] = .builder {
@@ -23,7 +23,7 @@ final class MentionObjectsService: MentionObjectsServiceProtocol, Sendable {
             SearchHelper.excludedIdsFilter(excludedObjectIds)
         }
 
-        let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
+        let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: sorts, fullText: text)
 
         return details.map { MentionObject(details: $0) }
     }

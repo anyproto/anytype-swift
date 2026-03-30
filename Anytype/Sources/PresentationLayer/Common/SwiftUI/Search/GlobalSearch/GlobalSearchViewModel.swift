@@ -194,10 +194,8 @@ final class GlobalSearchViewModel {
             if state.searchText.isEmpty {
                 state.sort.asDataviewSort()
             } else {
-                SearchHelper.sort(
-                    relation: BundledPropertyKey.lastOpenedDate,
-                    type: .desc
-                )
+                SearchHelper.sort(relation: .finalScore, type: .desc)
+                SearchHelper.sort(relation: BundledPropertyKey.lastOpenedDate, type: .desc)
             }
         }
     }
