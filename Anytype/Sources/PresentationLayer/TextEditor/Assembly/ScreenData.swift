@@ -41,7 +41,9 @@ extension ScreenData {
             return alertScreenData.objectId
         case .bookmark(let data):
             return data.editorScreenData.objectId
-        case .preview, .spaceInfo, .chat, .widget, .spaceChat, .discussion:
+        case .discussion(let data):
+            return data.objectId
+        case .preview, .spaceInfo, .chat, .widget, .spaceChat:
             return nil
         }
     }

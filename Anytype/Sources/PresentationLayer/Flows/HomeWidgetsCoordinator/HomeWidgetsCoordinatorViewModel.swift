@@ -83,12 +83,6 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
 // MARK: - HomeBottomNavigationPanelModuleOutput
 
 extension HomeWidgetsCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
-    func onSearchSelected() {
-        showGlobalSearchData = GlobalSearchModuleData(spaceId: spaceInfo.accountSpaceId) { [weak self] screenData in
-            self?.pageNavigation?.open(screenData)
-        }
-    }
-
     func onCreateObjectSelected(screenData: ScreenData) {
         pageNavigation?.open(screenData)
     }

@@ -591,17 +591,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
 }
 
 extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
-    func onSearchSelected() {
-        guard let spaceInfo else { return }
-
-        showGlobalSearchData = GlobalSearchModuleData(
-            spaceId: spaceInfo.accountSpaceId,
-            onSelect: { [weak self] screenData in
-                self?.showScreenSync(data: screenData)
-            }
-        )
-    }
-
     func onCreateObjectSelected(screenData: ScreenData) {
         UISelectionFeedbackGenerator().selectionChanged()
         showScreenSync(data: screenData)
