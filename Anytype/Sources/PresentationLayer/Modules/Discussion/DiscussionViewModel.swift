@@ -18,7 +18,9 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     // MARK: - DI
 
     let spaceId: String
-    let chatId: String
+    let objectId: String
+    let objectName: String
+    private(set) var chatId: String?
     @ObservationIgnored
     private weak var output: (any DiscussionModuleOutput)?
 
@@ -64,10 +66,10 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var deepLinkParser: any DeepLinkParserProtocol
 
     private let participantSubscription: any ParticipantsSubscriptionProtocol
-    private let chatStorage: any DiscussionMessagesStorageProtocol
+    private var chatStorage: (any DiscussionMessagesStorageProtocol)?
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
-    private let discussionMessageBuilder: any DiscussionMessageBuilderProtocol
-    private let chatObject: any BaseDocumentProtocol
+    private var discussionMessageBuilder: (any DiscussionMessageBuilderProtocol)?
+    private var chatObject: (any BaseDocumentProtocol)?
     private let initialMessageId: String?
 
     // MARK: - State
@@ -97,7 +99,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     var actionModel: ChatActionPanelModel = .hidden
 
     // Attachment Handler
-    let attachmentHandler: any ChatAttachmentHandlerProtocol
+    var attachmentHandler: (any ChatAttachmentHandlerProtocol)?
 
     // Attachment Handler Published State
     var linkedObjects: [ChatLinkedObject] = []
@@ -130,6 +132,8 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     @ObservationIgnored
     private var showScreenLogged = false
     @ObservationIgnored
+    var commentsCount: Int { messages.count }
+    @ObservationIgnored
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     @ObservationIgnored
     var spaceUxType: SpaceUxType { participantSpaceView?.spaceView.uxType ?? .data }
@@ -142,31 +146,42 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     var showSendLimitAlert = false
     var toastBarData: ToastBarData?
 
-    init(spaceId: String, chatId: String, messageId: String? = nil, output: (any DiscussionModuleOutput)?) {
+    init(spaceId: String, objectId: String, objectName: String, chatId: String?, messageId: String? = nil, output: (any DiscussionModuleOutput)?) {
         self.spaceId = spaceId
+        self.objectId = objectId
+        self.objectName = objectName
         self.chatId = chatId
         self.initialMessageId = messageId
         self.output = output
-        self.chatStorage = Container.shared.discussionMessageStorage((spaceId, chatId))
-        self.discussionMessageBuilder = DiscussionMessageBuilder(spaceId: spaceId, chatId: chatId)
+        if let chatId {
+            self.chatStorage = Container.shared.discussionMessageStorage((spaceId, chatId))
+            self.discussionMessageBuilder = DiscussionMessageBuilder(spaceId: spaceId, chatId: chatId)
+            self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
+            self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId, chatId: chatId)
+        } else {
+            self.chatStorage = nil
+            self.discussionMessageBuilder = nil
+            self.chatObject = nil
+            self.attachmentHandler = nil
+        }
         self.participantSubscription = Container.shared.participantSubscription(spaceId)
-        self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
-        self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId, chatId: chatId)
     }
 
     func onAppear() {
-        notificationsCenterService.removeDeliveredNotifications(chatId: chatId)
+        if let chatId {
+            notificationsCenterService.removeDeliveredNotifications(chatId: chatId)
+        }
     }
 
     func onTapAddObjectToMessage() {
-        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .pagesLists, chatId: chatId)
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .pagesLists, chatId: chatId ?? "")
         let data = ObjectSearchWithMetaModuleData(
             spaceId: spaceId,
             excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
             onSelect: { [weak self] details in
                 guard let self else { return }
                 do {
-                    try attachmentHandler.addUploadedObject(MessageAttachmentDetails(details: details))
+                    try attachmentHandler?.addUploadedObject(MessageAttachmentDetails(details: details))
                 } catch {
                     handleAttachmentError(error)
                 }
@@ -176,12 +191,12 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func onTapAddMediaToMessage() {
-        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .photo, chatId: chatId)
-        let currentPhotosItems = attachmentHandler.getPhotosItems()
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .photo, chatId: chatId ?? "")
+        let currentPhotosItems = attachmentHandler?.getPhotosItems() ?? []
         let data = ChatPhotosPickerData(selectedItems: currentPhotosItems) { [weak self] result in
             guard let self else { return }
             do {
-                try attachmentHandler.setPhotosItems(result)
+                try attachmentHandler?.setPhotosItems(result)
             } catch {
                 handleAttachmentError(error)
             }
@@ -190,11 +205,11 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func onTapAddFilesToMessage() {
-        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .file, chatId: chatId)
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .file, chatId: chatId ?? "")
         let data = FilesPickerData(handler: { [weak self] result in
             guard let self else { return }
             do {
-                try attachmentHandler.handleFilePicker(result: result)
+                try attachmentHandler?.handleFilePicker(result: result)
             } catch {
                 handleAttachmentError(error)
             }
@@ -203,11 +218,11 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func onTapCamera() {
-        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .camera, chatId: chatId)
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .camera, chatId: chatId ?? "")
         let data = SimpleCameraData(onMediaTaken: { [weak self] media in
             guard let self else { return }
             do {
-                try attachmentHandler.handleCameraMedia(media)
+                try attachmentHandler?.handleCameraMedia(media)
             } catch {
                 handleAttachmentError(error)
             }
@@ -246,13 +261,17 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func subscribeOnMessages() async throws {
+        guard let chatStorage else {
+            dataLoaded = true
+            return
+        }
         try await chatStorage.startSubscriptionIfNeeded()
         for await updates in chatStorage.updateStream {
 
             let chatState = await chatStorage.chatState
             let messages = await chatStorage.fullMessages
 
-            if !showScreenLogged {
+            if !showScreenLogged, let chatId {
                 AnytypeAnalytics.instance().logScreenChat(
                     chatId: chatId,
                     unreadMessageCount: chatState?.messages.counter,
@@ -308,6 +327,11 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         }
         mentionSearchState = .finish
         if let editMessage {
+            guard let chatId else {
+                anytypeAssertionFailure("Edit message without chatId")
+                sendMessageTaskInProgress = false
+                return
+            }
             try await chatActionService.updateMessage(
                 chatId: chatId,
                 spaceId: spaceId,
@@ -319,6 +343,11 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             )
             clearInput()
         } else if discussionMessageLimits.canSendMessage() {
+            guard let chatId else {
+                anytypeAssertionFailure("Send message without chatId")
+                sendMessageTaskInProgress = false
+                return
+            }
             let messageId = try await chatActionService.createMessage(
                 chatId: chatId,
                 spaceId: spaceId,
@@ -344,16 +373,16 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func onTapRemoveLinkedObject(linkedObject: ChatLinkedObject) {
         withAnimation {
-            attachmentHandler.removeLinkedObject(linkedObject)
+            attachmentHandler?.removeLinkedObject(linkedObject)
         }
     }
 
     func scrollToTop() async {
-        try? await chatStorage.loadNextPage()
+        try? await chatStorage?.loadNextPage()
     }
 
     func scrollToBottom() async {
-        try? await chatStorage.loadPrevPage()
+        try? await chatStorage?.loadPrevPage()
     }
 
     func updateMentionState() async throws {
@@ -385,6 +414,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func didSelectObject(linkedObject: ChatLinkedObject) {
         Task {
+            guard let chatStorage else { return }
             let ids = linkedObjects.compactMap { $0.uploadedObject?.id }
             let attachments = await chatStorage.attachments(ids: ids)
 
@@ -427,13 +457,13 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func onLinkAdded(link: URL) {
-        attachmentHandler.handleLinkAdded(link: link)
+        attachmentHandler?.handleLinkAdded(link: link)
     }
 
     func onPasteAttachmentsFromBuffer(items: [NSItemProvider]) {
         Task {
             do {
-                try await attachmentHandler.handlePasteAttachmentsFromBuffer(items: items)
+                try await attachmentHandler?.handlePasteAttachmentsFromBuffer(items: items)
             } catch {
                 handleAttachmentError(error)
             }
@@ -452,13 +482,14 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func updatePickerItems() async {
         do {
-            try await attachmentHandler.updatePickerItems()
+            try await attachmentHandler?.updatePickerItems()
         } catch {
             handleAttachmentError(error)
         }
     }
 
     func deleteMessage(message: MessageViewData) async throws {
+        guard let chatId else { return }
         try await chatService.deleteMessage(chatObjectId: chatId, messageId: message.message.id)
     }
 
@@ -466,7 +497,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         Task {
             bottomVisibleOrderId = to.messageOrderId
             forceHiddenActionPanel = false
-            await chatStorage.updateVisibleRange(startMessageId: from.messageId, endMessageId: to.messageId)
+            await chatStorage?.updateVisibleRange(startMessageId: from.messageId, endMessageId: to.messageId)
         }
     }
 
@@ -497,12 +528,13 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func onTapCreateObject(type: ObjectType) {
-        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .object, chatId: chatId, objectType: type)
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .object, chatId: chatId ?? "", objectType: type)
         output?.didSelectCreateObject(type: type)
     }
 
     func onTapScrollToBottom() {
-        AnytypeAnalytics.instance().logClickScrollToBottom(chatId: chatId)
+        guard let chatStorage else { return }
+        AnytypeAnalytics.instance().logClickScrollToBottom(chatId: chatId ?? "")
         if let bottomVisibleOrderId, let chatState, let firstUnreadMessageOrderId,
             firstUnreadMessageOrderId > bottomVisibleOrderId,
             bottomVisibleOrderId < chatState.messages.oldestOrderID {
@@ -520,8 +552,8 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func onTapMention() {
-        guard let chatState else { return }
-        AnytypeAnalytics.instance().logClickScrollToMention(chatId: chatId)
+        guard let chatState, let chatStorage else { return }
+        AnytypeAnalytics.instance().logClickScrollToMention(chatId: chatId ?? "")
         Task {
             let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
             collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
@@ -579,7 +611,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func didSelectReplyMessage(message: MessageViewData) {
-        guard let reply = message.reply else { return }
+        guard let reply = message.reply, let chatStorage else { return }
         AnytypeAnalytics.instance().logClickScrollToReply(chatId: message.chatId)
         Task {
             try await chatStorage.loadPagesTo(messageId: reply.id)
@@ -598,9 +630,11 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         clearInput()
         editMessage = messageToEdit.message
         message = await chatInputConverter.convert(content: messageToEdit.message.combinedMessageContent(), spaceId: spaceId).value
-        let attachments = await chatStorage.attachments(message: messageToEdit.message)
-        let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }
-        attachmentHandler.setLinkedObjects(messageAttachments.map { .uploadedObject($0) })
+        if let chatStorage {
+            let attachments = await chatStorage.attachments(message: messageToEdit.message)
+            let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }
+            attachmentHandler?.setLinkedObjects(messageAttachments.map { .uploadedObject($0) })
+        }
     }
 
     func didSelectAuthor(authorId: String) {
@@ -608,6 +642,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func didSelectUnread(message: MessageViewData) async throws {
+        guard let chatId else { return }
         try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .messages)
         try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .mentions)
     }
@@ -618,6 +653,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func didSelectCopyLink(message: MessageViewData) {
+        guard let chatId else { return }
         AnytypeAnalytics.instance().logClickMessageMenuCopyLink()
         let link = deepLinkParser.createUrl(
             deepLink: .chatMessage(chatObjectId: chatId, spaceId: spaceId, messageId: message.message.id),
@@ -631,6 +667,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func addAttachment(_ attachment: ChatLinkObject, clearInput needsClearInput: Bool) {
         Task {
+            guard let attachmentHandler else { return }
             let results = try await searchService.searchObjects(spaceId: attachment.spaceId, objectIds: [attachment.objectId])
             guard let first = results.first else { return }
             if needsClearInput {
@@ -659,14 +696,20 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     private func subscribeOnPermissions() async {
         let permissionsSequence = accountParticipantsStorage.canEditSequence(spaceId: spaceId)
-        let deletedOrArchivedSequence = chatObject.detailsPublisher
-            .map { !$0.isArchivedOrDeleted }
-            .removeDuplicates()
-            .values
+        if let chatObject {
+            let deletedOrArchivedSequence = chatObject.detailsPublisher
+                .map { !$0.isArchivedOrDeleted }
+                .removeDuplicates()
+                .values
 
-        for await (canEditMessages, canEditChat) in combineLatest(permissionsSequence, deletedOrArchivedSequence) {
-            canEdit = canEditMessages && canEditChat
-            await updateMessages()
+            for await (canEditMessages, canEditChat) in combineLatest(permissionsSequence, deletedOrArchivedSequence) {
+                canEdit = canEditMessages && canEditChat
+                await updateMessages()
+            }
+        } else {
+            for await canEditMessages in permissionsSequence {
+                canEdit = canEditMessages
+            }
         }
     }
 
@@ -690,18 +733,21 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     private func subscribeOnLinkedObjects() async {
+        guard let attachmentHandler else { return }
         for await linkedObjects in attachmentHandler.linkedObjectsPublisher.values {
             self.linkedObjects = linkedObjects
         }
     }
 
     private func subscribeOnAttachmentsDownloading() async {
+        guard let attachmentHandler else { return }
         for await attachmentsDownloading in attachmentHandler.attachmentsDownloadingPublisher.values {
             self.attachmentsDownloading = attachmentsDownloading
         }
     }
 
     private func subscribeOnPhotosItemsTask() async {
+        guard let attachmentHandler else { return }
         for await photosItemsTask in attachmentHandler.photosItemsTaskPublisher.values {
             self.photosItemsTask = photosItemsTask
         }
@@ -717,6 +763,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     private func updateMessages() async {
+        guard let discussionMessageBuilder else { return }
         let newMessageBlocks = await discussionMessageBuilder.makeMessage(
             messages: messages,
             participants: participants,
@@ -729,13 +776,13 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     private func clearInput() {
         message = NSAttributedString()
-        attachmentHandler.clearState()
+        attachmentHandler?.clearState()
         replyToMessage = nil
         editMessage = nil
     }
 
     private func donateShareSuggestion() async {
-        guard let chatDetails = chatObject.details else { return }
+        guard let chatDetails = chatObject?.details else { return }
         await shareSuggestionService.donateInteraction(chatDetails: chatDetails, spaceId: spaceId)
     }
 
