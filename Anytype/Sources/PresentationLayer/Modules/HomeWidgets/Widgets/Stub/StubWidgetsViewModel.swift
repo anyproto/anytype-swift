@@ -92,15 +92,10 @@ final class StubWidgetsViewModel {
             return
         }
 
-        let inviteMembersDismissed = onboardingStorage.isInviteMembersDismissed(spaceId: spaceId)
-        guard !inviteMembersDismissed else {
-            showInviteMembers = false
-            return
-        }
-
         for await participants in participantsSubscription.withoutRemovingParticipantsPublisher.values {
             let hasMembers = participants.count > 1
-            showInviteMembers = FeatureFlags.createChannelFlow && !hasMembers
+            let inviteMembersDismissed = onboardingStorage.isInviteMembersDismissed(spaceId: spaceId)
+            showInviteMembers = FeatureFlags.createChannelFlow && !hasMembers && !inviteMembersDismissed
         }
     }
 }
