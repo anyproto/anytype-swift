@@ -815,11 +815,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             return chatId
         }
 
-        let result = try await ClientCommands.objectAddDiscussion(.with {
-            $0.objectID = objectId
-        }).invoke()
-
-        let newChatId = result.discussionID
+        let newChatId = try await chatService.addDiscussion(objectId: objectId)
 
         // Initialize deferred dependencies
         self.chatId = newChatId

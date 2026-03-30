@@ -40,10 +40,6 @@ final class HomeBottomNavigationPanelViewModel {
     @ObservationIgnored
     private var currentDiscussionId: String?
     @ObservationIgnored
-    private var currentObjectName: String = ""
-    @ObservationIgnored
-    private var canEdit: Bool = false
-    @ObservationIgnored
     private var detailsSubscriptionTask: Task<Void, Never>?
 
     // MARK: - Public properties
@@ -173,7 +169,6 @@ final class HomeBottomNavigationPanelViewModel {
                 guard !Task.isCancelled else { return }
                 let discussionId = details.discussionId
                 self?.currentDiscussionId = discussionId.isNotEmpty ? discussionId : nil
-                self?.currentObjectName = details.name
                 self?.updateState()
             }
         }
@@ -218,11 +213,10 @@ final class HomeBottomNavigationPanelViewModel {
     
     private func updateState() {
         guard let participantSpaceView else { return }
-        canEdit = participantSpaceView.permissions.canEdit
-        canCreateObject = canEdit
+        canCreateObject = participantSpaceView.permissions.canEdit
         let isObjectScreen = (currentData as? EditorScreenData)?.objectId != nil
         let hasDiscussion = currentDiscussionId != nil
-        showDiscussButton = FeatureFlags.discussionButton && isObjectScreen && (canEdit || hasDiscussion)
+        showDiscussButton = FeatureFlags.discussionButton && isObjectScreen && (canCreateObject || hasDiscussion)
     }
 
     private func handleCreateObject() {

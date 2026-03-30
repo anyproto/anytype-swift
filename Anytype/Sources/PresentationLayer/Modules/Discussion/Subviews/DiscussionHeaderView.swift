@@ -33,11 +33,8 @@ struct DiscussionHeaderView: View {
     }
 
     private var commentsString: String {
-        if commentsCount == 0 {
-            return "0 comments"
-        } else {
-            return "\(commentsCount) comments"
-        }
+        // TODO: IOS-5959 Add plural localization via .xcstrings
+        "\(commentsCount) comments"
     }
 
     @ViewBuilder
