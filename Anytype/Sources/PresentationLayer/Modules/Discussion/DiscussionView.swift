@@ -24,15 +24,11 @@ struct DiscussionView: View {
         }
         .overlay(alignment: .top) {
             DiscussionHeaderView(
+                objectName: model.objectName,
+                commentsCount: model.commentsCount,
+                chatId: model.chatId,
                 spaceId: model.spaceId,
-                chatId: model.chatId ?? model.objectId,
-                settingsOutput: settingsOutput,
-                onTapOpenWidgets: {
-                    model.onTapWidgets()
-                },
-                onTapOpenSpaceSettings: {
-                    model.onTapSpaceSettings()
-                }
+                settingsOutput: settingsOutput
             )
         }
         .onAppear {
