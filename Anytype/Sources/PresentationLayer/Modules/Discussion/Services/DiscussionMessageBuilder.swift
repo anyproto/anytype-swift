@@ -19,7 +19,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
     private let spaceId: String
     private let chatId: String
 
-    private let dateFormatter = HistoryDateFormatter()
+    private let timestampFormatter = MessageTimestampFormatter()
 
     init(spaceId: String, chatId: String) {
         self.spaceId = spaceId
@@ -40,19 +40,13 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         let canEdit = (participant?.canEdit ?? false) && !isChatDeletedOrArchived
         let yourProfileIdentity = participant?.identity
 
-        var currentSectionData: MessageSectionData?
-        var newMessageBlocks: [MessageSectionData] = []
-
-        var sectionDateDay: Date?
+        var items: [MessageSectionItem] = []
 
         for messageIndex in 0..<messages.count {
 
             let fullMessage = messages[messageIndex]
             let message = fullMessage.message
 
-            let createDateDay = dayDate(for: message.createdAtDate)
-
-            let firstInSection = sectionDateDay.map { $0.timeIntervalSince1970 < createDateDay.timeIntervalSince1970 } ?? true
             let isYourMessage = message.creator == yourProfileIdentity
             let authorParticipant = participants.first { $0.identity == message.creator }
             let position: MessageHorizontalPosition = .left
@@ -64,7 +58,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 authorName: authorParticipant?.title ?? "",
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
                 authorId: authorParticipant?.id,
-                createDate: message.createdAtDate.formatted(date: .abbreviated, time: .omitted),
+                timestampLabel: makeTimestampLabel(message: message),
                 messageString: AttributedString(),
                 discussionBlocks: message.resolvedDiscussionBlocks(
                     spaceId: spaceId,
@@ -94,6 +88,8 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 canDelete: isYourMessage && canEdit,
                 canEdit: isYourMessage && canEdit,
                 showMessageSyncIndicator: isYourMessage,
+                isMember: authorParticipant?.globalName.isNotEmpty ?? false,
+                showTopDivider: messageIndex > 0,
                 message: message,
                 attachmentsDetails: fullMessage.attachments,
                 reply: fullMessage.reply
@@ -101,36 +97,25 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
 
             let unreadItem: MessageSectionItem? = isUnread ? .unread(id: "\(message.id)-unread", messageId: message.id, messageOrderId: message.orderID) : nil
 
-            if firstInSection {
-                if let currentSectionData {
-                    newMessageBlocks.append(currentSectionData)
-                }
-                currentSectionData = MessageSectionData(
-                    header: dateFormatter.localizedDateString(for: createDateDay),
-                    id: createDateDay.hashValue,
-                    items: []
-                )
-                sectionDateDay = createDateDay
-            }
-
             if let unreadItem {
-                currentSectionData?.items.append(unreadItem)
+                items.append(unreadItem)
             }
-            currentSectionData?.items.append(.message(messageModel))
-
+            items.append(.message(messageModel))
         }
 
-        if let currentSectionData {
-            newMessageBlocks.append(currentSectionData)
-        }
+        guard items.isNotEmpty else { return [] }
 
-        return newMessageBlocks
+        // Discussions don't use section headers (date pill) — each comment shows its own timestamp.
+        // Single section with empty header and static id since there's no day-based grouping.
+        return [MessageSectionData(header: "", id: 0, items: items)]
     }
 
-    private func dayDate(for date: Date) -> Date {
-        let calendar = Calendar.current
-        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
-        return calendar.date(from: dateComponents) ?? date
+    private func makeTimestampLabel(message: ChatMessage) -> String {
+        let timestamp = timestampFormatter.string(for: message.createdAtDate)
+        if message.modifiedAtDate != nil {
+            return "\(timestamp) (\(Loc.Message.edited))"
+        }
+        return timestamp
     }
 
     private func mapReactions(
