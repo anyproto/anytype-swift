@@ -46,22 +46,18 @@ struct StubWidgetsView: View {
     ) -> some View {
         HStack(spacing: 0) {
             Spacer.fixedWidth(16)
-            Button(action: onTap) {
-                HStack(spacing: 12) {
-                    Image(asset: icon)
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 20, height: 20)
-                        .foregroundStyle(iconColor)
-                    AnytypeText(title, style: .bodySemibold)
-                        .foregroundStyle(Color.Text.primary)
-                        .lineLimit(1)
-                }
-            }
+            Image(asset: icon)
+                .resizable()
+                .renderingMode(.template)
+                .frame(width: 20, height: 20)
+                .foregroundStyle(iconColor)
+            Spacer.fixedWidth(12)
+            AnytypeText(title, style: .bodySemibold)
+                .foregroundStyle(Color.Text.primary)
+                .lineLimit(1)
             Spacer()
             Button(action: onClose) {
-                Image(asset: .X18.clear)
-                    .renderingMode(.template)
+                Image(asset: .X24.close)
                     .foregroundStyle(Color.Control.secondary)
             }
             Spacer.fixedWidth(16)
@@ -69,5 +65,7 @@ struct StubWidgetsView: View {
         .frame(height: 48)
         .background(Color.Background.primary)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .fixTappableArea()
+        .onTapGesture { onTap() }
     }
 }

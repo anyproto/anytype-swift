@@ -1,7 +1,7 @@
 import Foundation
 import AnytypeCore
 
-protocol StubWidgetDismissalStorageProtocol: Sendable {
+protocol ChannelOnboardingStorageProtocol: Sendable {
     func isHomepagePickerDismissed(spaceId: String) -> Bool
     func setHomepagePickerDismissed(spaceId: String)
 
@@ -13,7 +13,7 @@ protocol StubWidgetDismissalStorageProtocol: Sendable {
     func setInviteMembersDismissed(spaceId: String)
 }
 
-final class StubWidgetDismissalStorage: StubWidgetDismissalStorageProtocol, Sendable {
+final class ChannelOnboardingStorage: ChannelOnboardingStorageProtocol, Sendable {
 
     private let storage = UserDefaultStorage(
         key: "stubWidgetDismissals",

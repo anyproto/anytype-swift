@@ -22,8 +22,8 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
 
     @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
-    @Injected(\.stubWidgetDismissalStorage) @ObservationIgnored
-    private var dismissalStorage: any StubWidgetDismissalStorageProtocol
+    @Injected(\.channelOnboardingStorage) @ObservationIgnored
+    private var onboardingStorage: any ChannelOnboardingStorageProtocol
 
     init(info: AccountInfo) {
         self.spaceInfo = info
@@ -33,7 +33,7 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         guard FeatureFlags.createChannelFlow else { return }
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceInfo.accountSpaceId)
         let homepageNotSet = spaceView?.homepage == .empty
-        let pickerAlreadyDismissed = dismissalStorage.isHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
+        let pickerAlreadyDismissed = onboardingStorage.isHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
         if homepageNotSet, !pickerAlreadyDismissed, !showHomepagePicker {
             showHomepagePicker = true
         }
@@ -43,7 +43,7 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         showHomepagePicker = false
 
         if case .later = result {
-            dismissalStorage.setHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
+            onboardingStorage.setHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
             return
         }
 

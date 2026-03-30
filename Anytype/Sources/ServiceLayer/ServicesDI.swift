@@ -180,8 +180,8 @@ extension Container {
         self { ExpandedService() }.shared
     }
 
-    var stubWidgetDismissalStorage: Factory<any StubWidgetDismissalStorageProtocol> {
-        self { StubWidgetDismissalStorage() }.shared
+    var channelOnboardingStorage: Factory<any ChannelOnboardingStorageProtocol> {
+        self { ChannelOnboardingStorage() }.shared
     }
 
 //    var objectTypeWidgetExpandedService: Factory<any ObjectTypeWidgetExpandedServiceProtocol> {

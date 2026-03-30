@@ -13,9 +13,10 @@ final class StubWidgetsViewModel {
     @ObservationIgnored
     private weak var output: (any HomeWidgetsModuleOutput)?
 
-    private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
-    @Injected(\.stubWidgetDismissalStorage) @ObservationIgnored
-    private var dismissalStorage: any StubWidgetDismissalStorageProtocol
+    @Injected(\.spaceViewsStorage) @ObservationIgnored
+    private var workspaceStorage: any SpaceViewsStorageProtocol
+    @Injected(\.channelOnboardingStorage) @ObservationIgnored
+    private var onboardingStorage: any ChannelOnboardingStorageProtocol
     @ObservationIgnored
     private let participantsSubscription: any ParticipantsSubscriptionProtocol
 
@@ -29,6 +30,7 @@ final class StubWidgetsViewModel {
     init(spaceId: String, output: (any HomeWidgetsModuleOutput)?) {
         self.spaceId = spaceId
         self.output = output
+        // ParameterFactory requires spaceId — can't use @Injected
         self.participantsSubscription = Container.shared.participantSubscription(spaceId)
     }
 
@@ -47,7 +49,7 @@ final class StubWidgetsViewModel {
     }
 
     func onCreateHomeClose() {
-        dismissalStorage.setCreateHomeDismissed(spaceId: spaceId)
+        onboardingStorage.setCreateHomeDismissed(spaceId: spaceId)
         showCreateHome = false
     }
 
@@ -56,7 +58,7 @@ final class StubWidgetsViewModel {
     }
 
     func onInviteMembersClose() {
-        dismissalStorage.setInviteMembersDismissed(spaceId: spaceId)
+        onboardingStorage.setInviteMembersDismissed(spaceId: spaceId)
         showInviteMembers = false
     }
 
@@ -68,13 +70,13 @@ final class StubWidgetsViewModel {
         // the widget will reappear on the next space visit.
         let initialSpaceView = workspaceStorage.spaceView(spaceId: spaceId)
         if initialSpaceView?.homepage != .empty {
-            dismissalStorage.resetCreateHomeDismissed(spaceId: spaceId)
+            onboardingStorage.resetCreateHomeDismissed(spaceId: spaceId)
         }
 
         for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values {
             let homepageEmpty = spaceView.homepage == .empty
-            let pickerDismissed = dismissalStorage.isHomepagePickerDismissed(spaceId: spaceId)
-            let createHomeDismissed = dismissalStorage.isCreateHomeDismissed(spaceId: spaceId)
+            let pickerDismissed = onboardingStorage.isHomepagePickerDismissed(spaceId: spaceId)
+            let createHomeDismissed = onboardingStorage.isCreateHomeDismissed(spaceId: spaceId)
 
             showCreateHome = FeatureFlags.createChannelFlow
                 && homepageEmpty
@@ -90,7 +92,7 @@ final class StubWidgetsViewModel {
             return
         }
 
-        let inviteMembersDismissed = dismissalStorage.isInviteMembersDismissed(spaceId: spaceId)
+        let inviteMembersDismissed = onboardingStorage.isInviteMembersDismissed(spaceId: spaceId)
         guard !inviteMembersDismissed else {
             showInviteMembers = false
             return
