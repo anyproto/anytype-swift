@@ -291,7 +291,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         let homepage = spaceView?.homepage ?? .empty
 
         switch homepage {
-        case .empty, .widgets:
+        case .empty, .widgets, .graph:
             return HomeWidgetData(spaceId: spaceId)
         case .object(let objectId):
             let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
