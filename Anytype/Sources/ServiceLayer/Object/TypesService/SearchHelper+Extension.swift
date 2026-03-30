@@ -2,6 +2,7 @@ import Services
 
 extension SearchHelper {
 
+    @available(*, deprecated, message: "Use spaceType overload instead")
     static func defaultObjectTypeSort(spaceUxType: SpaceUxType?) -> [DataviewSort] {
         let nameSort = SearchHelper.sort(relation: .name, type: .asc)
 
@@ -34,9 +35,47 @@ extension SearchHelper {
                 ObjectTypeUniqueKey.video.value,
                 ObjectTypeUniqueKey.audio.value
             ])
-        
+
         let orderIdSort = SearchHelper.sort(relation: .orderId, type: .asc, emptyPlacement: .end)
-        
+
+        return [orderIdSort, customSort, nameSort]
+    }
+
+    static func defaultObjectTypeSort(spaceType: SpaceType?) -> [DataviewSort] {
+        let nameSort = SearchHelper.sort(relation: .name, type: .asc)
+
+        let isOneToOne = spaceType == .oneToOne
+        let customSort = isOneToOne
+            ? SearchHelper.customSort(relationKey: BundledPropertyKey.uniqueKey.rawValue, values: [
+                ObjectTypeUniqueKey.image.value,
+                ObjectTypeUniqueKey.bookmark.value,
+                ObjectTypeUniqueKey.file.value,
+                ObjectTypeUniqueKey.page.value,
+                ObjectTypeUniqueKey.note.value,
+                ObjectTypeUniqueKey.task.value,
+                ObjectTypeUniqueKey.collection.value,
+                ObjectTypeUniqueKey.set.value,
+                ObjectTypeUniqueKey.project.value,
+                ObjectTypeUniqueKey.video.value,
+                ObjectTypeUniqueKey.audio.value
+            ])
+            : SearchHelper.customSort(relationKey: BundledPropertyKey.uniqueKey.rawValue, values: [
+                ObjectTypeUniqueKey.page.value,
+                ObjectTypeUniqueKey.note.value,
+                ObjectTypeUniqueKey.task.value,
+                ObjectTypeUniqueKey.chatDerived.value,
+                ObjectTypeUniqueKey.collection.value,
+                ObjectTypeUniqueKey.set.value,
+                ObjectTypeUniqueKey.bookmark.value,
+                ObjectTypeUniqueKey.project.value,
+                ObjectTypeUniqueKey.image.value,
+                ObjectTypeUniqueKey.file.value,
+                ObjectTypeUniqueKey.video.value,
+                ObjectTypeUniqueKey.audio.value
+            ])
+
+        let orderIdSort = SearchHelper.sort(relation: .orderId, type: .asc, emptyPlacement: .end)
+
         return [orderIdSort, customSort, nameSort]
     }
 }

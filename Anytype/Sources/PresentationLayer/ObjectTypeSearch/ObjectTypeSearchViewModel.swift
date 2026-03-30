@@ -80,8 +80,14 @@ final class ObjectTypeSearchViewModel {
         searchTask?.cancel()
         
         searchTask = Task {
-            let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
-            let effectiveShowChat = settings.showChat && (spaceUxType?.supportsMultiChats ?? true)
+            let effectiveShowChat: Bool
+            if FeatureFlags.createChannelFlow {
+                let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
+                effectiveShowChat = settings.showChat && spaceType != .oneToOne
+            } else {
+                let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
+                effectiveShowChat = settings.showChat && (spaceUxType?.supportsMultiChats ?? true)
+            }
 
             let pinnedTypes = settings.showPins ? try await typesService.searchPinnedTypes(text: text, spaceId: spaceId) : []
             let listTypes = settings.showLists ? try await typesService.searchListTypes(

@@ -227,9 +227,22 @@ final class SetObjectWidgetInternalViewModel {
         
         guard setDocument.canStartSubscription() else { return }
 
-        let spaceUxType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.uxType
-        let subscriptionData = setSubscriptionDataBuilder.set(
-            SetSubscriptionData(
+        let setSubData: SetSubscriptionData
+        if FeatureFlags.createChannelFlow {
+            let spaceType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.spaceType
+            setSubData = SetSubscriptionData(
+                identifier: subscriptionId,
+                document: setDocument,
+                groupFilter: nil,
+                currentPage: 0,
+                numberOfRowsPerPage: widgetInfo.fixedLimit,
+                collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
+                objectOrderIds: setDocument.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId),
+                spaceType: spaceType
+            )
+        } else {
+            let spaceUxType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.uxType
+            setSubData = SetSubscriptionData(
                 identifier: subscriptionId,
                 document: setDocument,
                 groupFilter: nil,
@@ -239,7 +252,8 @@ final class SetObjectWidgetInternalViewModel {
                 objectOrderIds: setDocument.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId),
                 spaceUxType: spaceUxType
             )
-        )
+        }
+        let subscriptionData = setSubscriptionDataBuilder.set(setSubData)
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
             await self?.updateRowDetails(data: data)
