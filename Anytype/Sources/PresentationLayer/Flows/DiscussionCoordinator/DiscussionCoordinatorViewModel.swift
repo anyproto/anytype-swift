@@ -65,6 +65,7 @@ final class DiscussionCoordinatorViewModel: DiscussionModuleOutput, ObjectSettin
     }
 
     func didSelectAddReaction(messageId: String) {
+        guard let discussionId else { return }
         showEmojiData = MessageReactionPickerData(chatObjectId: discussionId, messageId: messageId)
     }
 
