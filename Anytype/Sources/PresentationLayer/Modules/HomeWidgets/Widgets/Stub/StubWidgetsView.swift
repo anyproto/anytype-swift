@@ -57,7 +57,11 @@ struct StubWidgetsView: View {
                 .lineLimit(1)
             Spacer()
             Button(action: onClose) {
+            Button(action: onClose) {
                 Image(asset: .X24.close)
+                    .foregroundStyle(Color.Control.secondary)
+            }
+            .simultaneousGesture(TapGesture())
                     .foregroundStyle(Color.Control.secondary)
             }
             Spacer.fixedWidth(16)
