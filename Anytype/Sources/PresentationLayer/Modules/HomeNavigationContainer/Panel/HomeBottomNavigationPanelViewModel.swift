@@ -67,6 +67,10 @@ final class HomeBottomNavigationPanelViewModel {
     func onTapNewObject() {
         handleCreateObject()
     }
+
+    func onTapSearch() {
+        output?.onSearchSelected()
+    }
     
     func onTapDiscuss() {
         guard let editorData = currentData as? EditorScreenData,
@@ -216,8 +220,9 @@ final class HomeBottomNavigationPanelViewModel {
         guard let participantSpaceView else { return }
         canEdit = participantSpaceView.permissions.canEdit
         canCreateObject = canEdit
+        let isObjectScreen = (currentData as? EditorScreenData)?.objectId != nil
         let hasDiscussion = currentDiscussionId != nil
-        showDiscussButton = FeatureFlags.discussionButton && (canEdit || hasDiscussion)
+        showDiscussButton = FeatureFlags.discussionButton && isObjectScreen && (canEdit || hasDiscussion)
     }
 
     private func handleCreateObject() {

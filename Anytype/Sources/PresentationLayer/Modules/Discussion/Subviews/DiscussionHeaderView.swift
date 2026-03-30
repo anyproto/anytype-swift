@@ -28,6 +28,7 @@ struct DiscussionHeaderView: View {
                 .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .frame(height: NavigationHeaderConstants.height)
     }
 
