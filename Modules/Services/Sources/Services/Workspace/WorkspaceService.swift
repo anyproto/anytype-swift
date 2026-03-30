@@ -26,6 +26,7 @@ public protocol WorkspaceServiceProtocol: Sendable {
     func requestDecline(spaceId: String, identity: String) async throws
     func participantPermissionsChange(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
     func participantRemove(spaceId: String, identity: String) async throws
+    func participantsAdd(spaceId: String, identities: [String]) async throws
     func leaveApprove(spaceId: String, identity: String) async throws
     func pushNotificationSetSpaceMode(spaceId: String, mode: SpacePushNotificationsMode) async throws
     func pushNotificationResetIds(spaceId: String, chatIds: [String]) async throws
@@ -226,7 +227,13 @@ final class WorkspaceService: WorkspaceServiceProtocol {
             $0.identities = [identity]
         }).invoke()
     }
-    
+
+    public func participantsAdd(spaceId: String, identities: [String]) async throws {
+        // TODO: IOS-5902 — replace with ClientCommands.spaceParticipantsAddList
+        // once middleware Lib.xcframework is updated
+        throw anytypeAssertionFailureWithError("participantsAdd not yet wired to middleware")
+    }
+
     public func leaveApprove(spaceId: String, identity: String) async throws {
         try await ClientCommands.spaceLeaveApprove(.with {
             $0.spaceID = spaceId
