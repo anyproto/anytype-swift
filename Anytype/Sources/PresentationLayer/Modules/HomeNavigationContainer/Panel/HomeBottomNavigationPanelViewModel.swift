@@ -42,6 +42,8 @@ final class HomeBottomNavigationPanelViewModel {
     @ObservationIgnored
     private var currentObjectName: String = ""
     @ObservationIgnored
+    private var canEdit: Bool = false
+    @ObservationIgnored
     private var detailsSubscriptionTask: Task<Void, Never>?
 
     // MARK: - Public properties
@@ -66,10 +68,6 @@ final class HomeBottomNavigationPanelViewModel {
         handleCreateObject()
     }
     
-    func onTapSearch() {
-        output?.onSearchSelected()
-    }
-
     func onTapDiscuss() {
         guard let editorData = currentData as? EditorScreenData,
               let objectId = editorData.objectId else {
@@ -216,8 +214,10 @@ final class HomeBottomNavigationPanelViewModel {
     
     private func updateState() {
         guard let participantSpaceView else { return }
-        canCreateObject = participantSpaceView.permissions.canEdit
-        showDiscussButton = FeatureFlags.discussionButton && currentDiscussionId != nil
+        canEdit = participantSpaceView.permissions.canEdit
+        canCreateObject = canEdit
+        let hasDiscussion = currentDiscussionId != nil
+        showDiscussButton = FeatureFlags.discussionButton && (canEdit || hasDiscussion)
     }
 
     private func handleCreateObject() {

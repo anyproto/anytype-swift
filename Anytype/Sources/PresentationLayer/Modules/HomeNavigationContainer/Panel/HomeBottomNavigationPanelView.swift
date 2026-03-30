@@ -36,14 +36,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         VStack(spacing: 0) {
             GlassEffectContainerIOS26(spacing: 20) {
                 HStack {
-                    searchButton
-                        .glassEffectIDIOS26("search", in: glassNamespace)
-                    Spacer()
                     if model.showDiscussButton {
-                        discussButton
-                            .glassEffectIDIOS26("discuss", in: glassNamespace)
-                        Spacer()
+                        discussIsland
+                            .glassEffectIDIOS26("discussIsland", in: glassNamespace)
                     }
+                    Spacer()
                     createButton
                         .glassEffectIDIOS26("create", in: glassNamespace)
                 }
@@ -77,25 +74,15 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         }
     }
 
-    private var discussButton: some View {
+    private var discussIsland: some View {
         Button {
             model.onTapDiscuss()
         } label: {
-            Image(asset: .X32.Island.discuss)
-                .renderingMode(.template)
-                .foregroundStyle(Color.Control.primary)
-        }
-        .frame(width: 48, height: 48)
-        .glassEffectInteractiveIOS26(in: Circle())
-    }
-
-    private var searchButton: some View {
-        Button {
-            model.onTapSearch()
-        } label: {
-            Image(asset: .X32.Island.search)
-                .renderingMode(.template)
-                .foregroundStyle(Color.Control.primary)
+            HStack(spacing: 4) {
+                Image(asset: .X32.Island.discuss)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.Control.primary)
+            }
         }
         .frame(width: 48, height: 48)
         .glassEffectInteractiveIOS26(in: Circle())
