@@ -19,11 +19,19 @@ final class ChatAttachmentState {
     private var photosItems: [PhotosPickerItem] = []
     
     let spaceId: String
-    let chatId: String
+    private(set) var chatId: String?
 
-    nonisolated init(spaceId: String, chatId: String) {
+    nonisolated init(spaceId: String, chatId: String?) {
         self.spaceId = spaceId
         self.chatId = chatId
+    }
+
+    func updateChatId(_ chatId: String) {
+        self.chatId = chatId
+        // Trigger preload for items that were added without chatId
+        for linkedObject in linkedObjects where linkedObject.fileData != nil && linkedObject.preloadFileId == nil {
+            startPreload(linkedObject: linkedObject)
+        }
     }
     
     var linkedObjectsPublisher: AnyPublisher<[ChatLinkedObject], Never> {
@@ -130,10 +138,10 @@ final class ChatAttachmentState {
         linkedObjectsSubject.send(current)
     }
 
-    private func startPreload(linkedObject: ChatLinkedObject) {
-        guard let data = linkedObject.fileData else { return }
+    func startPreload(linkedObject: ChatLinkedObject) {
+        guard let data = linkedObject.fileData, let chatId else { return }
 
-        let task = Task { [weak self, fileActionsService, spaceId, chatId] in
+        let task = Task { [weak self, fileActionsService, spaceId] in
             if let preloadFileId = try? await fileActionsService.preloadFileObject(spaceId: spaceId, data: data, origin: .none, createdInContext: chatId, createdInContextRef: "") {
                 self?.updatePreloadFileId(for: linkedObject.id, preloadFileId: preloadFileId)
             }

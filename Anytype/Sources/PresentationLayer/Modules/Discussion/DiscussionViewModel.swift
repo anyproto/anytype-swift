@@ -99,7 +99,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     var actionModel: ChatActionPanelModel = .hidden
 
     // Attachment Handler
-    var attachmentHandler: (any ChatAttachmentHandlerProtocol)?
+    let attachmentHandler: any ChatAttachmentHandlerProtocol
 
     // Attachment Handler Published State
     var linkedObjects: [ChatLinkedObject] = []
@@ -152,16 +152,15 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         self.chatId = chatId
         self.initialMessageId = messageId
         self.output = output
+        self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId, chatId: chatId)
         if let chatId {
             self.chatStorage = Container.shared.discussionMessageStorage((spaceId, chatId))
             self.discussionMessageBuilder = DiscussionMessageBuilder(spaceId: spaceId, chatId: chatId)
             self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
-            self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId, chatId: chatId)
         } else {
             self.chatStorage = nil
             self.discussionMessageBuilder = nil
             self.chatObject = nil
-            self.attachmentHandler = nil
         }
         self.participantSubscription = Container.shared.participantSubscription(spaceId)
     }
@@ -180,7 +179,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             onSelect: { [weak self] details in
                 guard let self else { return }
                 do {
-                    try attachmentHandler?.addUploadedObject(MessageAttachmentDetails(details: details))
+                    try attachmentHandler.addUploadedObject(MessageAttachmentDetails(details: details))
                 } catch {
                     handleAttachmentError(error)
                 }
@@ -191,11 +190,11 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func onTapAddMediaToMessage() {
         AnytypeAnalytics.instance().logClickScreenChatAttach(type: .photo, chatId: chatId ?? "")
-        let currentPhotosItems = attachmentHandler?.getPhotosItems() ?? []
+        let currentPhotosItems = attachmentHandler.getPhotosItems() ?? []
         let data = ChatPhotosPickerData(selectedItems: currentPhotosItems) { [weak self] result in
             guard let self else { return }
             do {
-                try attachmentHandler?.setPhotosItems(result)
+                try attachmentHandler.setPhotosItems(result)
             } catch {
                 handleAttachmentError(error)
             }
@@ -208,7 +207,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         let data = FilesPickerData(handler: { [weak self] result in
             guard let self else { return }
             do {
-                try attachmentHandler?.handleFilePicker(result: result)
+                try attachmentHandler.handleFilePicker(result: result)
             } catch {
                 handleAttachmentError(error)
             }
@@ -221,7 +220,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         let data = SimpleCameraData(onMediaTaken: { [weak self] media in
             guard let self else { return }
             do {
-                try attachmentHandler?.handleCameraMedia(media)
+                try attachmentHandler.handleCameraMedia(media)
             } catch {
                 handleAttachmentError(error)
             }
@@ -373,7 +372,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func onTapRemoveLinkedObject(linkedObject: ChatLinkedObject) {
         withAnimation {
-            attachmentHandler?.removeLinkedObject(linkedObject)
+            attachmentHandler.removeLinkedObject(linkedObject)
         }
     }
 
@@ -457,13 +456,13 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func onLinkAdded(link: URL) {
-        attachmentHandler?.handleLinkAdded(link: link)
+        attachmentHandler.handleLinkAdded(link: link)
     }
 
     func onPasteAttachmentsFromBuffer(items: [NSItemProvider]) {
         Task {
             do {
-                try await attachmentHandler?.handlePasteAttachmentsFromBuffer(items: items)
+                try await attachmentHandler.handlePasteAttachmentsFromBuffer(items: items)
             } catch {
                 handleAttachmentError(error)
             }
@@ -482,7 +481,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func updatePickerItems() async {
         do {
-            try await attachmentHandler?.updatePickerItems()
+            try await attachmentHandler.updatePickerItems()
         } catch {
             handleAttachmentError(error)
         }
@@ -633,7 +632,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         if let chatStorage {
             let attachments = await chatStorage.attachments(message: messageToEdit.message)
             let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }
-            attachmentHandler?.setLinkedObjects(messageAttachments.map { .uploadedObject($0) })
+            attachmentHandler.setLinkedObjects(messageAttachments.map { .uploadedObject($0) })
         }
     }
 
@@ -667,7 +666,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func addAttachment(_ attachment: ChatLinkObject, clearInput needsClearInput: Bool) {
         Task {
-            guard let attachmentHandler else { return }
             let results = try await searchService.searchObjects(spaceId: attachment.spaceId, objectIds: [attachment.objectId])
             guard let first = results.first else { return }
             if needsClearInput {
@@ -733,21 +731,18 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     private func subscribeOnLinkedObjects() async {
-        guard let attachmentHandler else { return }
         for await linkedObjects in attachmentHandler.linkedObjectsPublisher.values {
             self.linkedObjects = linkedObjects
         }
     }
 
     private func subscribeOnAttachmentsDownloading() async {
-        guard let attachmentHandler else { return }
         for await attachmentsDownloading in attachmentHandler.attachmentsDownloadingPublisher.values {
             self.attachmentsDownloading = attachmentsDownloading
         }
     }
 
     private func subscribeOnPhotosItemsTask() async {
-        guard let attachmentHandler else { return }
         for await photosItemsTask in attachmentHandler.photosItemsTaskPublisher.values {
             self.photosItemsTask = photosItemsTask
         }
@@ -776,7 +771,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     private func clearInput() {
         message = NSAttributedString()
-        attachmentHandler?.clearState()
+        attachmentHandler.clearState()
         replyToMessage = nil
         editMessage = nil
     }
@@ -822,7 +817,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         self.chatStorage = Container.shared.discussionMessageStorage((spaceId, newChatId))
         self.discussionMessageBuilder = DiscussionMessageBuilder(spaceId: spaceId, chatId: newChatId)
         self.chatObject = openDocumentProvider.document(objectId: newChatId, spaceId: spaceId)
-        self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId, chatId: newChatId)
+        self.attachmentHandler.updateChatId(newChatId)
 
         // Start deferred subscriptions
         startDeferredSubscriptions()
@@ -836,15 +831,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         }
         Task { [weak self] in
             await self?.subscribeOnMessageBackground()
-        }
-        Task { [weak self] in
-            await self?.subscribeOnLinkedObjects()
-        }
-        Task { [weak self] in
-            await self?.subscribeOnAttachmentsDownloading()
-        }
-        Task { [weak self] in
-            await self?.subscribeOnPhotosItemsTask()
         }
     }
 
