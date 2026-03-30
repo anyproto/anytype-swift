@@ -26,7 +26,7 @@ final class HomepageSettingsPickerViewModel {
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
         let homepage = spaceView?.homepage ?? .empty
         switch homepage {
-        case .empty, .widgets:
+        case .empty, .widgets, .graph:
             self.currentObjectId = nil
         case .object(let objectId):
             self.currentObjectId = objectId

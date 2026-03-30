@@ -308,7 +308,7 @@ final class SpaceSettingsViewModel {
 
     private func loadHomePageState(homepage: SpaceHomepage) async {
         switch homepage {
-        case .empty, .widgets:
+        case .empty, .widgets, .graph:
             homePageState = .empty
         case .object(let objectId):
             let spaceId = workspaceInfo.accountSpaceId
