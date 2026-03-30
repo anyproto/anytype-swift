@@ -9485,7 +9485,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "该内联查询没有源"
+            "value" : "该行内查询没有源"
           }
         },
         "zh-Hant" : {
@@ -22416,7 +22416,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Idea"
+            "value" : "Fikir"
           }
         },
         "uk" : {
@@ -22571,7 +22571,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tasks"
+            "value" : "Görevler"
           }
         },
         "uk" : {
@@ -22726,7 +22726,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select what you and channel members see when they open the channel. You can always change it in settings."
+            "value" : "Sen ve kanal üyelerinin kanalı açtıklarında görecekleri içeriği seç. Bunu istediğin zaman ayarlardan değiştirebilirsin."
           }
         },
         "uk" : {
@@ -22881,7 +22881,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Home"
+            "value" : "Ana Sayfa Oluştur"
           }
         },
         "uk" : {
@@ -56083,7 +56083,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "滚动过该应用并点击“更多”"
+            "value" : "滑动应用图标列表，点击“更多”。"
           }
         },
         "zh-Hant" : {
@@ -56238,7 +56238,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "单击编辑来查找“Anytype”，然后点击"
+            "value" : "点击“编辑”，找到“Anytype”并点击"
           }
         },
         "zh-Hant" : {
@@ -82660,7 +82660,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal"
+            "value" : "Pribadi"
           }
         },
         "it" : {
@@ -82726,7 +82726,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal"
+            "value" : "Kişisel"
           }
         },
         "uk" : {
@@ -82815,7 +82815,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Group"
+            "value" : "Grup"
           }
         },
         "it" : {
@@ -82881,7 +82881,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Group"
+            "value" : "Grup"
           }
         },
         "uk" : {
@@ -82970,7 +82970,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There are no channels yet"
+            "value" : "Belum ada kanal"
           }
         },
         "it" : {
@@ -83036,7 +83036,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There are no channels yet"
+            "value" : "Henüz kanal yok"
           }
         },
         "uk" : {
@@ -83125,7 +83125,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Channel"
+            "value" : "Buat Kanal"
           }
         },
         "it" : {
@@ -83191,7 +83191,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Channel"
+            "value" : "Kanal Oluştur"
           }
         },
         "uk" : {
