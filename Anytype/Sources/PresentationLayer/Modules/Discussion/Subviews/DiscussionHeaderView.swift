@@ -33,8 +33,7 @@ struct DiscussionHeaderView: View {
     }
 
     private var commentsString: String {
-        // TODO: IOS-5959 Add plural localization via .xcstrings
-        "\(commentsCount) comments"
+        Loc.Discussion.Header.comments(commentsCount)
     }
 
     @ViewBuilder

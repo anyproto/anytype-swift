@@ -7170,6 +7170,17 @@
         }
       }
     },
+    "Discussion.Header.Comments" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld comments"
+          }
+        }
+      }
+    },
     "Collaboration" : {
       "extractionState" : "manual",
       "localizations" : {
