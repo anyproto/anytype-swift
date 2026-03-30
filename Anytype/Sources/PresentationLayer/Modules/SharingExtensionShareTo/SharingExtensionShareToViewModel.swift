@@ -46,7 +46,7 @@ final class SharingExtensionShareToViewModel {
     var sendToChatSelected: Bool { selectedObjectId == spaceView?.chatId }
     private var isMultiChatSpace: Bool {
         if FeatureFlags.createChannelFlow {
-            return spaceView?.spaceType != .oneToOne
+            return spaceView?.spaceType.map { $0 != .oneToOne } ?? false
         }
         return spaceView?.uxType.supportsMultiChats ?? false
     }
