@@ -17,7 +17,7 @@ final class StubWidgetsViewModel {
     @Injected(\.stubWidgetDismissalStorage) @ObservationIgnored
     private var dismissalStorage: any StubWidgetDismissalStorageProtocol
     @ObservationIgnored
-    private let participantsSubscription: ParticipantsSubscription
+    private let participantsSubscription: any ParticipantsSubscriptionProtocol
 
     // MARK: - State
 
@@ -29,7 +29,7 @@ final class StubWidgetsViewModel {
     init(spaceId: String, output: (any HomeWidgetsModuleOutput)?) {
         self.spaceId = spaceId
         self.output = output
-        self.participantsSubscription = ParticipantsSubscription(spaceId: spaceId)
+        self.participantsSubscription = Container.shared.participantSubscription(spaceId)
     }
 
     // MARK: - Subscriptions
@@ -63,17 +63,16 @@ final class StubWidgetsViewModel {
     // MARK: - Private
 
     private func startSpaceViewTask() async {
+        // If homepage is set, reset the "Create Home" dismissal once on entry.
+        // This way, if homepage is later cleared (e.g. object deleted by middleware),
+        // the widget will reappear on the next space visit.
+        let initialSpaceView = workspaceStorage.spaceView(spaceId: spaceId)
+        if initialSpaceView?.homepage != .empty {
+            dismissalStorage.resetCreateHomeDismissed(spaceId: spaceId)
+        }
+
         for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values {
             let homepageEmpty = spaceView.homepage == .empty
-
-            // When homepage becomes non-empty (set from any client, including desktop),
-            // reset the "Create Home" dismissal. This ensures the widget can reappear
-            // if homepage is later reset to empty (e.g. the homepage object was deleted
-            // and middleware cleared the value).
-            if !homepageEmpty {
-                dismissalStorage.resetCreateHomeDismissed(spaceId: spaceId)
-            }
-
             let pickerDismissed = dismissalStorage.isHomepagePickerDismissed(spaceId: spaceId)
             let createHomeDismissed = dismissalStorage.isCreateHomeDismissed(spaceId: spaceId)
 
