@@ -343,25 +343,25 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             )
             clearInput()
         } else if discussionMessageLimits.canSendMessage() {
-            guard let chatId else {
-                anytypeAssertionFailure("Send message without chatId")
-                sendMessageTaskInProgress = false
-                return
+            do {
+                let resolvedChatId = try await createDiscussionIfNeeded()
+                let messageId = try await chatActionService.createMessage(
+                    chatId: resolvedChatId,
+                    spaceId: spaceId,
+                    message: message.sendable(),
+                    linkedObjects: linkedObjects,
+                    replyToMessageId: replyToMessage?.id,
+                    useBlocksFormat: true
+                )
+                let type: SentMessageType = linkedObjects.isNotEmpty ? (message.string.isNotEmpty ? .mixed : .attachment) : .text
+                AnytypeAnalytics.instance().logSentMessage(type: type, chatId: resolvedChatId)
+                collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
+                discussionMessageLimits.markSentMessage()
+                clearInput()
+                await donateShareSuggestion()
+            } catch {
+                toastBarData = ToastBarData(error.localizedDescription, type: .failure)
             }
-            let messageId = try await chatActionService.createMessage(
-                chatId: chatId,
-                spaceId: spaceId,
-                message: message.sendable(),
-                linkedObjects: linkedObjects,
-                replyToMessageId: replyToMessage?.id,
-                useBlocksFormat: true
-            )
-            let type: SentMessageType = linkedObjects.isNotEmpty ? (message.string.isNotEmpty ? .mixed : .attachment) : .text
-            AnytypeAnalytics.instance().logSentMessage(type: type, chatId: chatId)
-            collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
-            discussionMessageLimits.markSentMessage()
-            clearInput()
-            await donateShareSuggestion()
         } else {
             keyboardDismiss?()
             showSendLimitAlert = true
@@ -808,6 +808,48 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private func handlePushNotificationsAlert() async {
         guard await pushNotificationsAlertHandler.shouldShowAlert() else { return }
         output?.onPushNotificationsAlertSelected()
+    }
+
+    private func createDiscussionIfNeeded() async throws -> String {
+        if let chatId {
+            return chatId
+        }
+
+        let result = try await ClientCommands.objectAddDiscussion(.with {
+            $0.objectID = objectId
+        }).invoke()
+
+        let newChatId = result.discussionID
+
+        // Initialize deferred dependencies
+        self.chatId = newChatId
+        self.chatStorage = Container.shared.discussionMessageStorage((spaceId, newChatId))
+        self.discussionMessageBuilder = DiscussionMessageBuilder(spaceId: spaceId, chatId: newChatId)
+        self.chatObject = openDocumentProvider.document(objectId: newChatId, spaceId: spaceId)
+        self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId, chatId: newChatId)
+
+        // Start deferred subscriptions
+        startDeferredSubscriptions()
+
+        return newChatId
+    }
+
+    private func startDeferredSubscriptions() {
+        Task { [weak self] in
+            try? await self?.subscribeOnMessages()
+        }
+        Task { [weak self] in
+            await self?.subscribeOnMessageBackground()
+        }
+        Task { [weak self] in
+            await self?.subscribeOnLinkedObjects()
+        }
+        Task { [weak self] in
+            await self?.subscribeOnAttachmentsDownloading()
+        }
+        Task { [weak self] in
+            await self?.subscribeOnPhotosItemsTask()
+        }
     }
 
     private func updateActions() {
