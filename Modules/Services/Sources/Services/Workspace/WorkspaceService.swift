@@ -231,7 +231,7 @@ final class WorkspaceService: WorkspaceServiceProtocol {
     public func participantsAdd(spaceId: String, identities: [String]) async throws {
         // TODO: IOS-5902 — replace with ClientCommands.spaceParticipantsAddList
         // once middleware Lib.xcframework is updated
-        anytypeAssertionFailure("participantsAdd not yet wired to middleware")
+        throw anytypeAssertionFailureWithError("participantsAdd not yet wired to middleware")
     }
 
     public func leaveApprove(spaceId: String, identity: String) async throws {
