@@ -22,21 +22,30 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
 
     @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
+    @Injected(\.channelOnboardingStorage) @ObservationIgnored
+    private var onboardingStorage: any ChannelOnboardingStorageProtocol
 
     init(info: AccountInfo) {
         self.spaceInfo = info
     }
 
     func onAppear() {
+        guard FeatureFlags.createChannelFlow else { return }
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceInfo.accountSpaceId)
         let homepageNotSet = spaceView?.homepage == .empty
-        if homepageNotSet, !showHomepagePicker {
+        let pickerAlreadyDismissed = onboardingStorage.isHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
+        if homepageNotSet, !pickerAlreadyDismissed, !showHomepagePicker {
             showHomepagePicker = true
         }
     }
 
     func onHomepagePickerFinished(result: HomepagePickerResult) {
         showHomepagePicker = false
+
+        if case .later = result {
+            onboardingStorage.setHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
+            return
+        }
 
         guard case .homepageSet(let value) = result, case .object(let details) = value else { return }
         pageNavigation?.open(details.screenData())
@@ -50,6 +59,10 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
 
     func onCreateObjectType() {
         createTypeData = CreateObjectTypeData(spaceId: spaceInfo.accountSpaceId, name: "", route: .screenWidget)
+    }
+
+    func onShowHomepagePicker() {
+        showHomepagePicker = true
     }
 
     func onObjectSelected(screenData: ScreenData) {

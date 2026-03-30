@@ -179,7 +179,11 @@ extension Container {
     var expandedService: Factory<any ExpandedServiceProtocol> {
         self { ExpandedService() }.shared
     }
-    
+
+    var channelOnboardingStorage: Factory<any ChannelOnboardingStorageProtocol> {
+        self { ChannelOnboardingStorage() }.shared
+    }
+
 //    var objectTypeWidgetExpandedService: Factory<any ObjectTypeWidgetExpandedServiceProtocol> {
 //        self { ObjectTypeWidgetExpandedService() }.shared
 //    }
