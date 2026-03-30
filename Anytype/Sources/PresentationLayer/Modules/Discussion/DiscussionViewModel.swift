@@ -131,8 +131,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var forceHiddenActionPanel: Bool = true
     @ObservationIgnored
     private var showScreenLogged = false
-    @ObservationIgnored
-    var commentsCount: Int { messages.count }
+    var commentsCount: Int = 0
     @ObservationIgnored
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     @ObservationIgnored
@@ -285,6 +284,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
                 let prevChatIsEmpty = self.messages.isEmpty
 
                 self.messages = messages
+                self.commentsCount = messages.count
                 if prevChatIsEmpty {
                     firstUnreadMessageOrderId = chatState?.messages.oldestOrderID
                 }
