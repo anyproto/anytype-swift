@@ -35,7 +35,7 @@ extension ListRowConfiguration {
     }
     
     static func == (lhs: ListRowConfiguration, rhs: ListRowConfiguration) -> Bool {
-        lhs.id == lhs.id && lhs.contentHash == rhs.contentHash
+        lhs.id == rhs.id && lhs.contentHash == rhs.contentHash
     }
     
 }

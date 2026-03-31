@@ -14,8 +14,11 @@ final class SpaceHubViewModel {
     var searchText: String = ""
     var filteredSpaces: [SpaceCardModel] = []
     var animationsEnabled = false
-    
+
     var wallpapers: [String: SpaceWallpaperType] = [:]
+
+    @ObservationIgnored
+    private var allSpaceCardModels: [SpaceCardModel] = []
 
     var notificationsNotDetermined = false
     var spaceMuteData: SpaceMuteData?
@@ -149,6 +152,9 @@ final class SpaceHubViewModel {
     }
     
     func searchTextUpdated() {
+        if searchText.isEmpty {
+            filteredSpaces = allSpaceCardModels
+        }
         Task {
             await updateFilteredSpaces()
         }
@@ -241,9 +247,10 @@ final class SpaceHubViewModel {
     private func updateFilteredSpaces() async {
         guard let spaces else {
             filteredSpaces = []
+            allSpaceCardModels = []
             return
         }
-        
+
         let spacesToFilter: [ParticipantSpaceViewDataWithPreview]
         if searchText.isEmpty {
             spacesToFilter = spaces
@@ -252,7 +259,13 @@ final class SpaceHubViewModel {
                 space.spaceView.name.localizedCaseInsensitiveContains(searchText)
             }
         }
-        
-        self.filteredSpaces = await spaceCardModelBuilder.build(from: spacesToFilter, wallpapers: wallpapers)
+
+        let models = await spaceCardModelBuilder.build(from: spacesToFilter, wallpapers: wallpapers)
+
+        if searchText.isEmpty {
+            allSpaceCardModels = models
+        }
+
+        self.filteredSpaces = models
     }
 }

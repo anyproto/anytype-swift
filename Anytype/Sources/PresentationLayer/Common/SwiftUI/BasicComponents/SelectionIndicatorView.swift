@@ -31,7 +31,7 @@ struct SelectionIndicatorView: View {
 
 extension SelectionIndicatorView {
     
-    enum Model {
+    enum Model: Hashable {
         case notSelected
         case selected(index: Int)
     }

@@ -66,7 +66,7 @@ struct NewSpaceCardLastMessageView: View {
             }
 
             HStack(spacing: 2) {
-                if let creatorTitle = model.creatorTitle {
+                if showsMessageAuthor, let creatorTitle = model.creatorTitle {
                     AnytypeText("\(creatorTitle):", style: .chatPreviewRegular)
                         .foregroundStyle(previewTextColor)
                         .lineLimit(1)

@@ -6,6 +6,12 @@ extension DataviewFilter {
         // Conditions that don't require values (.none, .empty, .notEmpty) are always valid
         guard condition.hasValues else { return true }
 
+        // Date filters with relative quick options (today, yesterday, etc.) don't require
+        // an explicit value — middleware resolves the date from quickOption at query time
+        if format == .date && quickOption != .exactDate {
+            return true
+        }
+
         // No value set at all
         guard hasValue else { return false }
 
@@ -25,6 +31,20 @@ extension DataviewFilter {
 }
 
 extension Array where Element == DataviewFilter {
+    func enrichingFormats(with relationsDetails: [PropertyDetails]) -> [DataviewFilter] {
+        map { filter in
+            var enriched = filter
+            if !filter.relationKey.isEmpty,
+               let details = relationsDetails.first(where: { $0.key == filter.relationKey }) {
+                enriched.format = details.format.asMiddleware
+            }
+            if filter.operator != .no {
+                enriched.nestedFilters = filter.nestedFilters.enrichingFormats(with: relationsDetails)
+            }
+            return enriched
+        }
+    }
+
     func removingUnsupportedFilters() -> [DataviewFilter] {
         compactMap { filter in
             // Advanced filter: recursively clean nested filters

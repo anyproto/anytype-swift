@@ -20,6 +20,8 @@ final class SetSortsListViewModel {
     private var dataviewService: any DataviewServiceProtocol
 
     @ObservationIgnored
+    private var deletingSortIds = Set<String>()
+    @ObservationIgnored
     private weak var output: (any SetSortsListCoordinatorOutput)?
     
     init(
@@ -58,13 +60,20 @@ extension SetSortsListViewModel {
     // MARK: - Actions
     
     func delete(_ indexSet: IndexSet) {
-        indexSet.forEach { [weak self] deleteIndex in
-            guard let self else { return }
-            let sorts = setDocument.sorts(for: viewId)
-            guard deleteIndex < sorts.count else { return }
+        let sorts = setDocument.sorts(for: viewId)
+
+        for deleteIndex in indexSet {
+            guard deleteIndex < sorts.count else { continue }
+            deletingSortIds.insert(sorts[deleteIndex].sort.id)
+        }
+        rows.remove(atOffsets: indexSet)
+
+        for deleteIndex in indexSet {
+            guard deleteIndex < sorts.count else { continue }
             let sort = sorts[deleteIndex]
             Task { [weak self] in
                 guard let self else { return }
+                defer { deletingSortIds.remove(sort.sort.id) }
                 try await dataviewService.removeSorts(
                     objectId: setDocument.objectId,
                     blockId: setDocument.blockId,
@@ -118,7 +127,8 @@ extension SetSortsListViewModel {
     }
     
     private func updateRows(with sorts: [SetSort]) {
-        rows = sorts.enumerated().map { index, sort in
+        let activeSorts = sorts.filter { !deletingSortIds.contains($0.sort.id) }
+        rows = activeSorts.enumerated().map { index, sort in
             SetSortRowConfiguration(
                 id: "\(sort.relationDetails.id)_\(index)",
                 title: sort.relationDetails.name,
