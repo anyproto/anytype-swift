@@ -90,17 +90,19 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     }
 
     private var discussIsland: some View {
-        Button {
-            model.onTapDiscuss()
-        } label: {
-            HStack(spacing: 4) {
+        HStack(spacing: 20) {
+            Button {
+                model.onTapDiscuss()
+            } label: {
                 Image(asset: .X32.Island.discuss)
                     .renderingMode(.template)
                     .foregroundStyle(Color.Control.primary)
             }
+            .frame(width: 32, height: 32)
         }
-        .frame(width: 48, height: 48)
-        .glassEffectInteractiveIOS26(in: Circle())
+        .padding(.horizontal, 12)
+        .frame(height: 48)
+        .glassEffectInteractiveIOS26(in: Capsule())
     }
 
     @ViewBuilder
