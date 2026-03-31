@@ -57,6 +57,15 @@ extension SpacePushNotificationsMode {
         }
     }
 
+    var reactionCounterStyle: BadgeStyle {
+        switch self {
+        case .all:
+            return .highlighted
+        case .mentions, .nothing, .UNRECOGNIZED:
+            return .muted
+        }
+    }
+
     var analyticsValue: String {
         switch self {
         case .all: return "All"

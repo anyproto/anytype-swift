@@ -17,7 +17,7 @@ extension MessagePreviewModel {
     }
 
     var reactionStyle: BadgeStyle {
-        notificationMode.mentionCounterStyle
+        notificationMode.reactionCounterStyle
     }
 
     var messagePreviewText: String {
