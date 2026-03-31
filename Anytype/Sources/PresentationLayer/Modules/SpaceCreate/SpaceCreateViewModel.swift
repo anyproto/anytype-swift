@@ -109,6 +109,10 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
             do {
                 _ = try await workspaceService.makeSharable(spaceId: spaceId)
                 _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
+                let identities = data.selectedContacts.map(\.identity)
+                if identities.isNotEmpty {
+                    try await workspaceService.participantsAdd(spaceId: spaceId, identities: identities)
+                }
             } catch {}
         }
 
