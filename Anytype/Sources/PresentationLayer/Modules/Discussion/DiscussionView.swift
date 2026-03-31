@@ -200,7 +200,6 @@ struct DiscussionView: View {
         } onTapCollectionBackground: {
             model.onTapDismissKeyboard()
         }
-        .messageYourBackgroundColor(model.messageYourBackgroundColor)
         .messageFlashId($model.messageHiglightId)
     }
 

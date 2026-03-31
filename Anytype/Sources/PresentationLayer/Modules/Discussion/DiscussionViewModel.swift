@@ -46,8 +46,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var searchService: any SearchServiceProtocol
     @Injected(\.objectTypeProvider) @ObservationIgnored
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.iconColorService) @ObservationIgnored
-    private var iconColorService: any IconColorServiceProtocol
     @Injected(\.bookmarkService) @ObservationIgnored
     private var bookmarkService: any BookmarkServiceProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
@@ -112,7 +110,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     var mesageBlocks: [MessageSectionData] = []
     var mentionObjectsModels: [MentionObjectModel] = []
     var collectionViewScrollProxy = ChatCollectionScrollProxy()
-    var messageYourBackgroundColor: Color = .Background.Chat.bubbleYour
     var messageHiglightId: String = ""
 
     @ObservationIgnored
@@ -253,13 +250,12 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         async let permissionsSub: () = subscribeOnPermissions()
         async let participantsSub: () = subscribeOnParticipants()
         async let typesSub: () = subscribeOnTypes()
-        async let messageBackgroundSub: () = subscribeOnMessageBackground()
         async let spaceViewSub: () = subscribeOnSpaceView()
         async let linkedObjectsSub: () = subscribeOnLinkedObjects()
         async let attachmentsDownloadingSub: () = subscribeOnAttachmentsDownloading()
         async let photosItemsTaskSub: () = subscribeOnPhotosItemsTask()
 
-        _ = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub, linkedObjectsSub, attachmentsDownloadingSub, photosItemsTaskSub)
+        _ = await (permissionsSub, participantsSub, typesSub, spaceViewSub, linkedObjectsSub, attachmentsDownloadingSub, photosItemsTaskSub)
     }
 
     func subscribeOnMessages() async throws {
@@ -726,12 +722,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         }
     }
 
-    private func subscribeOnMessageBackground() async {
-        for await color in iconColorService.color(spaceId: spaceId) {
-            messageYourBackgroundColor = color
-        }
-    }
-
     private func subscribeOnSpaceView() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             self.participantSpaceView = participantSpaceView
@@ -836,9 +826,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private func startDeferredSubscriptions() {
         Task { [weak self] in
             try? await self?.subscribeOnMessages()
-        }
-        Task { [weak self] in
-            await self?.subscribeOnMessageBackground()
         }
     }
 
