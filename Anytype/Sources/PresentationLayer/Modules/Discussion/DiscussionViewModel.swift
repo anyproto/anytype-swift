@@ -809,6 +809,9 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         self.discussionMessageBuilder = DiscussionMessageBuilder(spaceId: spaceId, chatId: newChatId)
         self.chatObject = openDocumentProvider.document(objectId: newChatId, spaceId: spaceId)
 
+        // Notify coordinator so it can update its discussionId (e.g. for reaction picker)
+        output?.didCreateDiscussion(discussionId: newChatId)
+
         // Start deferred subscriptions
         startDeferredSubscriptions()
 

@@ -16,4 +16,5 @@ protocol DiscussionModuleOutput: AnyObject {
     func onShowQrCodeSelected(url: URL)
     func onPushNotificationsAlertSelected()
     func didSelectCreateObject(type: ObjectType)
+    func didCreateDiscussion(discussionId: String)
 }

@@ -64,6 +64,10 @@ final class DiscussionCoordinatorViewModel: DiscussionModuleOutput, ObjectSettin
         objectToMessageSearchData = data
     }
 
+    func didCreateDiscussion(discussionId: String) {
+        self.discussionId = discussionId
+    }
+
     func didSelectAddReaction(messageId: String) {
         guard let discussionId else { return }
         showEmojiData = MessageReactionPickerData(chatObjectId: discussionId, messageId: messageId)

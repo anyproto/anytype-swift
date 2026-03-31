@@ -80,7 +80,7 @@ final class HomeBottomNavigationPanelViewModel {
             discussionId: currentDiscussionId,
             objectId: objectId,
             objectName: objectName,
-            spaceId: info.accountSpaceId
+            spaceId: editorData.spaceId
         ))
         output?.onCreateObjectSelected(screenData: screenData)
     }
