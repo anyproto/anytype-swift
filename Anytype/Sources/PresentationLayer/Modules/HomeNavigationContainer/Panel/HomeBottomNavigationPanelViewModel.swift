@@ -175,8 +175,14 @@ final class HomeBottomNavigationPanelViewModel {
     
     private func typesSubscription() async {
         for await types in objectTypeProvider.objectTypesPublisher(spaceId: info.accountSpaceId).values {
-            let spaceUxType = spaceViewsStorage.spaceView(spaceId: info.accountSpaceId)?.uxType
-            let supportedLayouts = DetailsLayout.supportedForCreation(spaceUxType: spaceUxType)
+            let supportedLayouts: [DetailsLayout]
+            if FeatureFlags.createChannelFlow {
+                let spaceType = spaceViewsStorage.spaceView(spaceId: info.accountSpaceId)?.spaceType
+                supportedLayouts = DetailsLayout.supportedForCreation(spaceType: spaceType)
+            } else {
+                let spaceUxType = spaceViewsStorage.spaceView(spaceId: info.accountSpaceId)?.uxType
+                supportedLayouts = DetailsLayout.supportedForCreation(spaceUxType: spaceUxType)
+            }
             let types = types.filter { type in
                 supportedLayouts.contains { $0 == type.recommendedLayout }
                 && !type.isTemplateType

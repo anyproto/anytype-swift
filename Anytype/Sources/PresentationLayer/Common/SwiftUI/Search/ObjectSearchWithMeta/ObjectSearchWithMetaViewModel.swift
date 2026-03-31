@@ -118,8 +118,14 @@ final class ObjectSearchWithMetaViewModel {
     }
 
     private func supportedLayouts() -> [DetailsLayout] {
-        let spaceUxType = spaceViewsStorage.spaceView(spaceId: moduleData.spaceId)?.uxType
-        return ObjectTypeSection.pages.supportedLayouts(spaceUxType: spaceUxType) +
-               ObjectTypeSection.lists.supportedLayouts(spaceUxType: spaceUxType)
+        if FeatureFlags.createChannelFlow {
+            let spaceType = spaceViewsStorage.spaceView(spaceId: moduleData.spaceId)?.spaceType
+            return ObjectTypeSection.pages.supportedLayouts(spaceType: spaceType) +
+                   ObjectTypeSection.lists.supportedLayouts(spaceType: spaceType)
+        } else {
+            let spaceUxType = spaceViewsStorage.spaceView(spaceId: moduleData.spaceId)?.uxType
+            return ObjectTypeSection.pages.supportedLayouts(spaceUxType: spaceUxType) +
+                   ObjectTypeSection.lists.supportedLayouts(spaceUxType: spaceUxType)
+        }
     }
 }

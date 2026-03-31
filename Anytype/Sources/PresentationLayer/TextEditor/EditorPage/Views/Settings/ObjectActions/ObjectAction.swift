@@ -16,6 +16,7 @@ enum ObjectAction: Hashable, Identifiable {
     case editInfo
 
     // When adding to case
+    @available(*, deprecated, message: "Use spaceType overload instead")
     static func buildActions(
         details: ObjectDetails,
         isLocked: Bool,
@@ -37,33 +38,99 @@ enum ObjectAction: Hashable, Identifiable {
             if canCreateWidget {
                 ObjectAction.pin(isPinned: isPinnedToWidgets)
             }
-            
+
             if permissions.canDuplicate {
                 ObjectAction.duplicate
             }
-            
+
             if permissions.canUndoRedo {
                 ObjectAction.undoRedo
             }
-            
+
             if permissions.canMakeAsTemplate {
                 ObjectAction.makeAsTemplate
             }
-            
+
             if permissions.canTemplateSetAsDefault, let targetObjectType = details.targetObjectTypeValue {
                 let isDefault = targetObjectType.defaultTemplateId == details.id
                 ObjectAction.templateToggleDefaultState(isDefault: isDefault)
             }
-            
+
             if permissions.canLinkItself {
                 ObjectAction.linkItself
             }
-            
+
             if permissions.canShare {
                 ObjectAction.copyLink
             }
 
             if details.resolvedLayoutValue.isChat && spaceUxType?.supportsMultiChats == true && !details.isArchived {
+                if permissions.canEditDetails {
+                    ObjectAction.editInfo
+                }
+                if isSpaceOwner {
+                    ObjectAction.inviteMembers
+                }
+            }
+
+            if permissions.canLock {
+                ObjectAction.locked(isLocked: isLocked)
+            }
+
+            if permissions.canDelete {
+                ObjectAction.delete
+            }
+        }
+    }
+
+    static func buildActions(
+        details: ObjectDetails,
+        isLocked: Bool,
+        isPinnedToWidgets: Bool,
+        permissions: ObjectPermissions,
+        spaceType: SpaceType?,
+        isSpaceOwner: Bool
+    ) -> [Self] {
+        let canCreateWidget = details.isVisibleLayout(spaceType: spaceType)
+            && !details.isTemplate
+            && details.resolvedLayoutValue != .participant
+            && permissions.canApplyUneditableActions
+
+        return .builder {
+            if permissions.canArchive {
+                ObjectAction.archive(isArchived: details.isArchived)
+            }
+
+            if canCreateWidget {
+                ObjectAction.pin(isPinned: isPinnedToWidgets)
+            }
+
+            if permissions.canDuplicate {
+                ObjectAction.duplicate
+            }
+
+            if permissions.canUndoRedo {
+                ObjectAction.undoRedo
+            }
+
+            if permissions.canMakeAsTemplate {
+                ObjectAction.makeAsTemplate
+            }
+
+            if permissions.canTemplateSetAsDefault, let targetObjectType = details.targetObjectTypeValue {
+                let isDefault = targetObjectType.defaultTemplateId == details.id
+                ObjectAction.templateToggleDefaultState(isDefault: isDefault)
+            }
+
+            if permissions.canLinkItself {
+                ObjectAction.linkItself
+            }
+
+            if permissions.canShare {
+                ObjectAction.copyLink
+            }
+
+            if details.resolvedLayoutValue.isChat && spaceType != .oneToOne && !details.isArchived {
                 if permissions.canEditDetails {
                     ObjectAction.editInfo
                 }
