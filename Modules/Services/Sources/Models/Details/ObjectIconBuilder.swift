@@ -58,7 +58,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         case .discussion:
             return basicIcon(iconImage: relations.iconImage, iconEmoji: relations.iconEmoji, circular: true) // TBD;
         case .todo, .note, .file, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList,
-                .audio, .video, .pdf, .date, .tag, .chatDeprecated, .notification, .missingObject, .devices:
+                .audio, .video, .pdf, .date, .tag, .chatDeprecated, .notification, .missingObject, .devices, .discussion:
             return nil
         }
     }

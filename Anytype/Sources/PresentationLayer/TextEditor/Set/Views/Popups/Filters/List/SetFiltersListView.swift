@@ -46,18 +46,17 @@ struct SetFiltersListView: View {
     }
     
     private var content: some View {
-        Group {
-            if viewModel.rows.isNotEmpty {
-                filtersList
-            } else {
-                emptyState
+        filtersList
+            .overlay {
+                if viewModel.rows.isEmpty {
+                    emptyState
+                }
             }
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                addButton
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    addButton
+                }
             }
-        }
     }
     
     private var emptyState: some View {
@@ -93,8 +92,10 @@ struct SetFiltersListView: View {
         .buttonStyle(BorderlessButtonStyle())
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                EditButton()
-                    .foregroundStyle(Color.Control.secondary)
+                if viewModel.rows.isNotEmpty {
+                    EditButton()
+                        .foregroundStyle(Color.Control.secondary)
+                }
             }
         }
         .background(Color.Background.secondary)

@@ -10,12 +10,14 @@ struct SpaceHubList: View {
     @State private var draggedInitialIndex: Int?
 
     var body: some View {
-        if model.filteredSpaces.isEmpty && model.searchText.isEmpty {
-            emptyStateView
-        } else if model.filteredSpaces.isNotEmpty {
+        if model.filteredSpaces.isNotEmpty {
             scrollView
-        } else {
+        } else if model.searchText.isNotEmpty {
             SpaceHubSearchEmptySpaceView()
+        } else if model.spaces?.isEmpty ?? true {
+            emptyStateView
+        } else {
+            scrollView
         }
     }
     
