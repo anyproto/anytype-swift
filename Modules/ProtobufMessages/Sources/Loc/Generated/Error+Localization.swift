@@ -1163,6 +1163,8 @@ extension Anytype_Rpc.Block.Paste.Response.Error: LocalizedError {
                 return ""
             case .badInput:
                 return LocHelper.tr(table: "LocalizableError", key: "Block.Paste.badInput")
+            case .allSlotsEmpty:
+                return LocHelper.tr(table: "LocalizableError", key: "Block.Paste.allSlotsEmpty")
             case .UNRECOGNIZED:
                 return ""
         }

@@ -120,9 +120,8 @@ extension Anytype_Rpc.Block {
             public typealias RawValue = Int
             case null // = 0
             case unknownError // = 1
-
-            /// ...
             case badInput // = 2
+            case allSlotsEmpty // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -134,6 +133,7 @@ extension Anytype_Rpc.Block {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 3: self = .allSlotsEmpty
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -143,6 +143,7 @@ extension Anytype_Rpc.Block {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .allSlotsEmpty: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -152,6 +153,7 @@ extension Anytype_Rpc.Block {
               .null,
               .unknownError,
               .badInput,
+              .allSlotsEmpty,
             ]
 
           }
@@ -397,7 +399,7 @@ extension Anytype_Rpc.Block.Paste.Response.Error: SwiftProtobuf.Message, SwiftPr
 }
 
 extension Anytype_Rpc.Block.Paste.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{1}ALL_SLOTS_EMPTY\0")
 }
 
 // If the compiler emits an error on this type, it is because this file
