@@ -23,7 +23,7 @@ protocol ChatAttachmentHandlerProtocol: ObservableObject {
     func handleCameraMedia(_ media: ImagePickerMediaType) throws
     func handlePasteAttachmentsFromBuffer(items: [NSItemProvider]) async throws
     func updatePickerItems() async throws
-    func handleLinkAdded(link: URL)
+    func handleLinkAdded(link: URL, completion: (@MainActor () -> Void)?)
     func setLinkedObjects(_ objects: [ChatLinkedObject])
 }
 
@@ -250,7 +250,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     
     // MARK: - Link Preview
     
-    func handleLinkAdded(link: URL) {
+    func handleLinkAdded(link: URL, completion: (@MainActor () -> Void)? = nil) {
         guard link.containsHttpProtocol else { return }
         let contains = state.linkedObjects.contains { $0.localBookmark?.url == link.absoluteString }
         guard !contains else { return }
@@ -269,6 +269,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
                 self.state.setLinkedObjects(currentObjects)
             }
             self?.state.removeLinkPreviewTask(for: link)
+            completion?()
         }
         state.addLinkPreviewTask(for: link, task: task.cancellable())
     }

@@ -461,8 +461,9 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func onLinkAdded(link: URL) {
-        attachmentHandler.handleLinkAdded(link: link)
-        AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: chatId ?? "")
+        attachmentHandler.handleLinkAdded(link: link) {
+            AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: self.chatId ?? "")
+        }
     }
 
     func onPasteAttachmentsFromBuffer(items: [NSItemProvider]) {
