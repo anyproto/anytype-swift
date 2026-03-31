@@ -31,6 +31,8 @@ final class SetFiltersListViewModel {
     private let subscriptionDetailsStorage: ObjectDetailsStorage
 
     @ObservationIgnored
+    private var deletingFilterIds = Set<String>()
+    @ObservationIgnored
     private weak var output: (any SetFiltersListCoordinatorOutput)?
     
     init(
@@ -62,14 +64,21 @@ extension SetFiltersListViewModel {
     }
     
     func delete(_ indexSet: IndexSet) {
-        indexSet.forEach { [weak self] deleteIndex in
-            guard let self else { return }
-            let filters = setDocument.filters(for: viewId)
-            guard deleteIndex < filters.count else { return }
+        let filters = setDocument.filters(for: viewId)
+
+        for deleteIndex in indexSet {
+            guard deleteIndex < filters.count else { continue }
+            deletingFilterIds.insert(filters[deleteIndex].filter.id)
+        }
+        rows.remove(atOffsets: indexSet)
+
+        for deleteIndex in indexSet {
+            guard deleteIndex < filters.count else { continue }
             let filter = filters[deleteIndex]
-            guard !filter.isAdvanced else { return }
+            guard !filter.isAdvanced else { continue }
             Task { [weak self] in
                 guard let self else { return }
+                defer { deletingFilterIds.remove(filter.filter.id) }
                 try await dataviewService.removeFilters(
                     objectId: setDocument.objectId,
                     blockId: setDocument.blockId,
@@ -92,7 +101,8 @@ extension SetFiltersListViewModel {
     }
 
     private func updateRows(with filters: [SetFilter]) {
-        rows = filters.enumerated().map { index, filter in
+        let activeFilters = filters.filter { !deletingFilterIds.contains($0.filter.id) }
+        rows = activeFilters.enumerated().map { index, filter in
             let isAdvanced = filter.isAdvanced
             return SetFilterRowConfiguration(
                 id: "\(filter.relationDetails.id)_\(index)",

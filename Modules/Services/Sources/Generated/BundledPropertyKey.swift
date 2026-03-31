@@ -399,6 +399,9 @@ public enum BundledPropertyKey: String, Sendable {
     /// Chat id
     case chatId = "chatId"
 
+    /// Discussion id
+    case discussionId = "discussionId"
+
     /// Objects that are mentioned in blocks of this object
     case mentions = "mentions"
 
@@ -433,7 +436,7 @@ public enum BundledPropertyKey: String, Sendable {
     /// Lexicographic id for object ordering
     case orderId = "orderId"
 
-    /// OneToOne (second) participant identity
+    /// OneToOne other participant identity
     case oneToOneIdentity = "oneToOneIdentity"
 
     /// OneToOne Inbox invite sent status

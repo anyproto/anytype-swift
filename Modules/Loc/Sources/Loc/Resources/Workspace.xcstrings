@@ -7,7 +7,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Attach"
+            "value" : "إرفاق"
           }
         },
         "be" : {
@@ -162,7 +162,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Failed to create file. Try again."
+            "value" : "فشل إنشاء الملف. حاول مرة أخرى."
           }
         },
         "be" : {
@@ -317,7 +317,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Invalid file. Try again"
+            "value" : "الملف غير صالح. حاول مرة أخرى"
           }
         },
         "be" : {
@@ -975,7 +975,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Channel Settings"
+            "value" : "إعدادات القناة"
           }
         },
         "be" : {
@@ -1113,7 +1113,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Channel Settings"
+            "value" : "频道设置"
           }
         },
         "zh-Hant" : {
@@ -1130,7 +1130,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat Name"
+            "value" : "اسم المحادثة"
           }
         },
         "be" : {
@@ -1268,7 +1268,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat Name"
+            "value" : "聊天名称"
           }
         },
         "zh-Hant" : {
@@ -1285,7 +1285,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you leave it, all your changes will be lost."
+            "value" : "إذا غادرت، ستفقد جميع التغييرات الخاصة بك."
           }
         },
         "be" : {
@@ -1440,7 +1440,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yes, close"
+            "value" : "نعم، إغلاق"
           }
         },
         "be" : {
@@ -1595,7 +1595,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to close this screen?"
+            "value" : "هل أنت متأكد أنك تريد إغلاق هذه الشاشة؟"
           }
         },
         "be" : {
@@ -1750,7 +1750,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+            "value" : "سيتم نقل هذه المحادثة وجميع مرفقاتها إلى سلة المهملات. لن يتمكن أحد من إرسال رسائل جديدة. يمكنك استعادتها من السلة قبل أن يتم إزالتها بشكل دائم."
           }
         },
         "be" : {
@@ -1888,7 +1888,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This chat and all its attachments will be moved to Bin. No one will be able to send new messages. You can restore it from Bin until it's permanently cleared."
+            "value" : "此聊天及其所有附件将被移至回收站。届时将无法发送新消息。在被永久清理前，您可以随时从回收站中将其恢复。"
           }
         },
         "zh-Hant" : {
@@ -1905,7 +1905,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Move chat to Bin?"
+            "value" : "نقل المحادثة إلى سلة المهملات؟"
           }
         },
         "be" : {
@@ -2043,7 +2043,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Move chat to Bin?"
+            "value" : "将聊天移至回收站？"
           }
         },
         "zh-Hant" : {
@@ -2370,7 +2370,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Edit Message"
+            "value" : "تعديل الرسالة"
           }
         },
         "be" : {
@@ -2525,7 +2525,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "إضافة أعضاء"
           }
         },
         "be" : {
@@ -2782,7 +2782,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Invite members"
+            "value" : "Convidar membros"
           }
         },
         "pt-PT" : {
@@ -2835,7 +2835,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Messages, docs & files available offline"
+            "value" : "الرسائل، والمستندات والملفات المتاحة دون اتصال"
           }
         },
         "be" : {
@@ -2990,7 +2990,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Fully private and encrypted"
+            "value" : "خاص ومشفّر بالكامل"
           }
         },
         "be" : {
@@ -3145,7 +3145,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yours forever"
+            "value" : "لك للأبد"
           }
         },
         "be" : {
@@ -3455,7 +3455,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Update App"
+            "value" : "تحديث التطبيق"
           }
         },
         "be" : {
@@ -3610,7 +3610,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This version doesn’t support sending files or images. Update the app to share media in chats."
+            "value" : "هذا الإصدار لا يدعم إرسال الملفات أو الصور. قم بتحديث التطبيق لمشاركة الوسائط في المحادثات."
           }
         },
         "be" : {
@@ -3765,7 +3765,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Incompatible Version"
+            "value" : "إصدار غير متوافق"
           }
         },
         "be" : {
@@ -3920,7 +3920,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We couldn’t connect right now. This may be due to no internet or a temporary sync issue. We’ll keep trying in the background."
+            "value" : "لا يمكننا الاتصال الآن. قد يكون ذلك بسبب عدم وجود إنترنت أو مشكلة مزامنة مؤقتة. سنستمر بالمحاولة في الخلفية."
           }
         },
         "be" : {
@@ -4177,7 +4177,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Got it"
+            "value" : "Entendi"
           }
         },
         "pt-PT" : {
@@ -4230,7 +4230,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Network Error"
+            "value" : "خطأ في الشبكة"
           }
         },
         "be" : {
@@ -4385,7 +4385,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New Messages"
+            "value" : "رسائل جديدة"
           }
         },
         "be" : {
@@ -4540,7 +4540,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "(You)"
+            "value" : "(أنت)"
           }
         },
         "be" : {
@@ -5626,7 +5626,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Looks like you're sending messages at lightning speed. Give it a sec before your next one."
+            "value" : "يبدو أنك ترسل رسائل بسرعة البرق. انتظر ثانية قبل أن ترسل رسالتك التالية."
           }
         },
         "be" : {
@@ -5781,7 +5781,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hold up! Turbo typing detected!"
+            "value" : "انتظر! تم اكتشاف الكتابة على استعجال!"
           }
         },
         "be" : {
@@ -5936,7 +5936,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Anytype now supports real-time chat in Shared Channels — so your thoughts and dialogues can grow together."
+            "value" : "Anytype الآن يدعم الدردشة الفعلية في القنوات المشتركة، بحيث يمكن أن تنمو أفكارك وحواراتك معًا."
           }
         },
         "be" : {
@@ -6091,7 +6091,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Ideas need conversations"
+            "value" : "الأفكار بحاجة إلى محادثات"
           }
         },
         "be" : {
@@ -6229,7 +6229,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Ideas need conversations"
+            "value" : "想法需要对话"
           }
         },
         "zh-Hant" : {
@@ -6246,7 +6246,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Spaces and Chats now show live previews and updates — one place to follow everything that matters."
+            "value" : "المساحات والمحادثات تعرض الآن معاينات وتحديثات حية، مكان واحد لمتابعة كل ما يهم."
           }
         },
         "be" : {
@@ -6384,7 +6384,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Spaces and Chats now show live previews and updates — one place to follow everything that matters."
+            "value" : "“空间”与“聊天”现已支持实时预览及动态更新——助您在一处掌握所有关键信息。"
           }
         },
         "zh-Hant" : {
@@ -6401,7 +6401,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your Vault just leveled up"
+            "value" : "تم رفع مستوى مخزنك للتو"
           }
         },
         "be" : {
@@ -6539,7 +6539,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your Vault just leveled up"
+            "value" : "您的保险库刚刚升级了"
           }
         },
         "zh-Hant" : {
@@ -6556,7 +6556,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share ideas, drop docs, edit together — everything flows in real time."
+            "value" : "مشاركة الأفكار، إرسال المستندات، والتحرير معًا، كل شيء يتدفق في الوقت الفعلي."
           }
         },
         "be" : {
@@ -6694,7 +6694,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share ideas, drop docs, edit together — everything flows in real time."
+            "value" : "分享灵感、上传文档、协同编辑——所有内容实时同步，畅行无阻。"
           }
         },
         "zh-Hant" : {
@@ -6711,7 +6711,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chats that do more"
+            "value" : "المحادثات التي تفعل المزيد"
           }
         },
         "be" : {
@@ -6849,7 +6849,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chats that do more"
+            "value" : "不止于聊天的“聊天”"
           }
         },
         "zh-Hant" : {
@@ -6866,7 +6866,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your pages, lists, and files — structured, surfaced, and always within reach."
+            "value" : "صفحاتك، قوائمك، وملفاتك، منظمة، ظاهرة، ودائمًا في متناول اليد."
           }
         },
         "be" : {
@@ -7004,7 +7004,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your pages, lists, and files — structured, surfaced, and always within reach."
+            "value" : "您的页面、列表与文件——结构井然、清晰可见，且触手可及。"
           }
         },
         "zh-Hant" : {
@@ -7021,7 +7021,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Everything in Its Right Place"
+            "value" : "كل شيء في مكانه الصحيح"
           }
         },
         "be" : {
@@ -7159,7 +7159,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Everything in Its Right Place"
+            "value" : "万物各就其位"
           }
         },
         "zh-Hant" : {
@@ -7278,7 +7278,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Collaboration"
+            "value" : "Colaboração"
           }
         },
         "pt-PT" : {
@@ -7797,7 +7797,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Upload audio"
+            "value" : "تحميل صوت"
           }
         },
         "be" : {
@@ -7952,7 +7952,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add a web bookmark"
+            "value" : "إضافة إشارة مرجعية لموقع ويب"
           }
         },
         "be" : {
@@ -8107,7 +8107,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Loading, please wait..."
+            "value" : "جارٍ التحميل، يرجى الانتظار..."
           }
         },
         "be" : {
@@ -8417,7 +8417,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Uploading..."
+            "value" : "جارٍ الرفع..."
           }
         },
         "be" : {
@@ -9347,7 +9347,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This inline query doesn’t have a source"
+            "value" : "هذا الاستعلام المضمن ليس لديه مصدر"
           }
         },
         "be" : {
@@ -10123,7 +10123,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Chat"
+            "value" : "محادثة جديدة"
           }
         },
         "be" : {
@@ -10278,7 +10278,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Edit Info"
+            "value" : "تحرير المعلومات"
           }
         },
         "be" : {
@@ -10416,7 +10416,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Edit Info"
+            "value" : "编辑信息"
           }
         },
         "zh-Hant" : {
@@ -11054,7 +11054,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Scroll to select a place"
+            "value" : "مرر لتحديد مكان"
           }
         },
         "be" : {
@@ -11365,7 +11365,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Block moved to"
+            "value" : "تم نقل الكتلة إلى"
           }
         },
         "be" : {
@@ -11676,7 +11676,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Editing is available on Desktop"
+            "value" : "التحرير متاح على تطبيق سطح المكتب"
           }
         },
         "be" : {
@@ -11814,7 +11814,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Editing is available on Desktop"
+            "value" : "请前往桌面端进行编辑"
           }
         },
         "zh-Hant" : {
@@ -11831,7 +11831,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Advanced filter"
+            "value" : "تصفيات متقدمة"
           }
         },
         "be" : {
@@ -11969,7 +11969,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Advanced filter"
+            "value" : "高级筛选"
           }
         },
         "zh-Hant" : {
@@ -12141,7 +12141,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is not"
+            "value" : "ليس"
           }
         },
         "be" : {
@@ -12296,7 +12296,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is after"
+            "value" : "بعد"
           }
         },
         "be" : {
@@ -12451,7 +12451,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is before"
+            "value" : "قبل "
           }
         },
         "be" : {
@@ -12761,7 +12761,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is within"
+            "value" : "ضمن"
           }
         },
         "be" : {
@@ -12916,7 +12916,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is on or after"
+            "value" : "ضمن أو بعد"
           }
         },
         "be" : {
@@ -13071,7 +13071,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is on or before"
+            "value" : "ضمن أو قبل"
           }
         },
         "be" : {
@@ -13226,7 +13226,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is empty"
+            "value" : "فارغ"
           }
         },
         "be" : {
@@ -13536,7 +13536,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is not empty"
+            "value" : "ليس فارغًا"
           }
         },
         "be" : {
@@ -13691,7 +13691,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is equal to"
+            "value" : "مساوي لـ"
           }
         },
         "be" : {
@@ -13846,7 +13846,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is greater than"
+            "value" : "أكبر من"
           }
         },
         "be" : {
@@ -14001,7 +14001,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is greater than or equal to"
+            "value" : "أكبر من أو يساوي"
           }
         },
         "be" : {
@@ -14156,7 +14156,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is less than"
+            "value" : "أصغر من "
           }
         },
         "be" : {
@@ -14311,7 +14311,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is less than or equal to"
+            "value" : "أصغر من أو يساوي "
           }
         },
         "be" : {
@@ -14466,7 +14466,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is not equal to"
+            "value" : "لا يساوي"
           }
         },
         "be" : {
@@ -14621,7 +14621,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Has all of"
+            "value" : "يحتوي على كل من"
           }
         },
         "be" : {
@@ -14776,7 +14776,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Has any of"
+            "value" : "يحتوي على أي من"
           }
         },
         "be" : {
@@ -14931,7 +14931,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Has none of"
+            "value" : "لا يحتوي على أي من"
           }
         },
         "be" : {
@@ -15242,7 +15242,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Contains"
+            "value" : "يحتوي على"
           }
         },
         "be" : {
@@ -15397,7 +15397,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Is not"
+            "value" : "ليس"
           }
         },
         "be" : {
@@ -15552,7 +15552,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Doesn't contain"
+            "value" : "لا يحتوي"
           }
         },
         "be" : {
@@ -15707,7 +15707,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Current month"
+            "value" : "الشهر الحالي"
           }
         },
         "be" : {
@@ -15862,7 +15862,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Current week"
+            "value" : "الأسبوع الحالي"
           }
         },
         "be" : {
@@ -16017,7 +16017,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Current year"
+            "value" : "العام الحالي"
           }
         },
         "be" : {
@@ -16155,7 +16155,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Current year"
+            "value" : "本年度"
           }
         },
         "zh-Hant" : {
@@ -16172,7 +16172,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Exact date"
+            "value" : "التاريخ المحدد"
           }
         },
         "be" : {
@@ -16327,7 +16327,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Last month"
+            "value" : "الشهر الماضي"
           }
         },
         "be" : {
@@ -16482,7 +16482,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Last week"
+            "value" : "الأسبوع الماضي"
           }
         },
         "be" : {
@@ -16637,7 +16637,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Last year"
+            "value" : "العام الماضي"
           }
         },
         "be" : {
@@ -16775,7 +16775,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Last year"
+            "value" : "过去一年内"
           }
         },
         "zh-Hant" : {
@@ -16792,7 +16792,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Next month"
+            "value" : "الشهر القادم"
           }
         },
         "be" : {
@@ -16947,7 +16947,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Next week"
+            "value" : "الأسبوع القادم"
           }
         },
         "be" : {
@@ -17102,7 +17102,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Next year"
+            "value" : "العام القادم"
           }
         },
         "be" : {
@@ -17240,7 +17240,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Next year"
+            "value" : "下一年"
           }
         },
         "zh-Hant" : {
@@ -17257,7 +17257,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Number of days ago"
+            "value" : "عدد الأيام الماضية"
           }
         },
         "be" : {
@@ -17915,7 +17915,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Number of days from now"
+            "value" : "عدد الأيام من الآن"
           }
         },
         "be" : {
@@ -19038,7 +19038,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Checked"
+            "value" : "محدد"
           }
         },
         "be" : {
@@ -19193,7 +19193,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unchecked"
+            "value" : "غير محدد"
           }
         },
         "be" : {
@@ -19504,7 +19504,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Filters"
+            "value" : "تصفية"
           }
         },
         "be" : {
@@ -20900,7 +20900,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Sorts"
+            "value" : "فرز"
           }
         },
         "be" : {
@@ -21521,7 +21521,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Local"
+            "value" : "محلية"
           }
         },
         "be" : {
@@ -22451,7 +22451,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space"
+            "value" : "الانضمام إلى المساحة"
           }
         },
         "be" : {
@@ -22589,7 +22589,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space"
+            "value" : "加入空间"
           }
         },
         "zh-Hant" : {
@@ -22606,7 +22606,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space Button"
+            "value" : "زر الانضمام إلى المساحة"
           }
         },
         "be" : {
@@ -22744,7 +22744,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space Button"
+            "value" : "加入空间按钮"
           }
         },
         "zh-Hant" : {
@@ -23084,7 +23084,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Joining Anytype network means contributing to its story"
+            "value" : "Připojit se k síti Anytype znamená stát se součástí jejího příběhu"
           }
         },
         "de" : {
@@ -23537,7 +23537,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network."
+            "value" : "يتمتع الأعضاء بسعة تخزين احتياطي وحدود مزامنة أعلى، ودعوات لعدة ضيوف للتعاون في المساحات المشتركة، وهوية فريدة على شبكة Anytype."
           }
         },
         "be" : {
@@ -24002,7 +24002,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Build the Vision Together"
+            "value" : "بناء الرؤية معًا"
           }
         },
         "be" : {
@@ -24622,7 +24622,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here."
+            "value" : "مرحبًا فريق Anytype! أود تمديد عضويتي الحالية للحصول على المزيد (يرجى اختيار خيار):\n- مساحة تخزين عن بعد إضافية\n- المزيد من محرري المساحة\n- مساحات مشتركة إضافية\nتحديدًا،\nيرجى تقديم تفاصيل محددة لاحتياجاتك هنا."
           }
         },
         "be" : {
@@ -25242,7 +25242,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Local, non-unique name"
+            "value" : "اسم محلي، غير فريد"
           }
         },
         "be" : {
@@ -26713,7 +26713,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unlimited Viewers for shared spaces"
+            "value" : "عدد غير محدود من المشاهدين للمساحات المشتركة"
           }
         },
         "be" : {
@@ -27371,7 +27371,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Already purchased tier?"
+            "value" : "هل تم شراء المستوى بالفعل؟"
           }
         },
         "be" : {
@@ -27526,7 +27526,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Membership plan details"
+            "value" : "تفاصيل خطة العضوية"
           }
         },
         "be" : {
@@ -27991,7 +27991,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Restore purchases"
+            "value" : "استعادة المشتريات"
           }
         },
         "be" : {
@@ -28456,7 +28456,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You can manage tier on Android platform"
+            "value" : "يمكنك إدارة المستوى على منصة Android"
           }
         },
         "be" : {
@@ -28611,7 +28611,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You can manage tier on another AppleId account"
+            "value" : "يمكنك إدارة المستوى على حساب AppleId آخر"
           }
         },
         "be" : {
@@ -29231,7 +29231,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is up for grabs"
+            "value" : "هذا الاسم متاح"
           }
         },
         "be" : {
@@ -29386,7 +29386,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Wait a second..."
+            "value" : "انتظر ثانية..."
           }
         },
         "be" : {
@@ -30316,7 +30316,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Big cheers for your support!"
+            "value" : "تهاني كبيرة لدعمك!"
           }
         },
         "be" : {
@@ -30626,7 +30626,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This tier is not available in the app. We know it's not ideal."
+            "value" : "هذا المستوى غير متوفر في التطبيق. نحن نعلم أنه ليس مثاليًا."
           }
         },
         "be" : {
@@ -30764,7 +30764,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This tier is not available in the app. We know it's not ideal."
+            "value" : "此等级暂不支持在应用内订阅。我们知道这不够方便。"
           }
         },
         "zh-Hant" : {
@@ -30936,7 +30936,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Upgrade to add more members"
+            "value" : "ترقية لإضافة المزيد من الأعضاء"
           }
         },
         "be" : {
@@ -32214,7 +32214,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Internal problem with billing format, we are working on this. Try again later or contact support."
+            "value" : "مشكلة داخلية في تنسيق الفوترة، نحن نعمل على ذلك. حاول مرة أخرى لاحقًا أو تواصل مع الدعم."
           }
         },
         "be" : {
@@ -32369,7 +32369,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Not found tier data, restart app and try again"
+            "value" : "لم يتم العثور على بيانات المستوى، أعد تشغيل التطبيق وحاول مرة أخرى"
           }
         },
         "be" : {
@@ -32680,7 +32680,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy Plain Text"
+            "value" : "نسخ النص العادي"
           }
         },
         "be" : {
@@ -32990,7 +32990,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mark Unread"
+            "value" : "اعتبارها غير مقروءة"
           }
         },
         "be" : {
@@ -33145,7 +33145,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Untitled Chat"
+            "value" : "محادثة بلا عنوان"
           }
         },
         "be" : {
@@ -33610,7 +33610,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Broadcast"
+            "value" : "إذاعة"
           }
         },
         "be" : {
@@ -33765,7 +33765,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New Property"
+            "value" : "خاصية جديدة"
           }
         },
         "be" : {
@@ -34075,7 +34075,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Notifications"
+            "value" : "الإشعارات"
           }
         },
         "be" : {
@@ -34213,7 +34213,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Notifications"
+            "value" : "通知"
           }
         },
         "zh-Hant" : {
@@ -34852,7 +34852,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Blank canvas with no title"
+            "value" : "لوحة فارغة بلا عنوان"
           }
         },
         "be" : {
@@ -35007,7 +35007,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My Types"
+            "value" : "أنواعي"
           }
         },
         "be" : {
@@ -35162,7 +35162,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Search for Type"
+            "value" : "البحث عن نوع"
           }
         },
         "be" : {
@@ -35317,7 +35317,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Search or install a new type"
+            "value" : "البحث عن نوع جديد أو تثبيته"
           }
         },
         "be" : {
@@ -36713,7 +36713,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Failed to load your domain. Please try again."
+            "value" : "فشل تحميل النطاق الخاص بك. الرجاء المحاولة مرة أخرى."
           }
         },
         "be" : {
@@ -36851,7 +36851,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Failed to load your domain. Please try again."
+            "value" : "无法加载您的域名。请重试。"
           }
         },
         "zh-Hant" : {
@@ -36868,7 +36868,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Failed to load object data. Please try again."
+            "value" : "فشل تحميل بيانات الكائن. الرجاء المحاولة مرة أخرى."
           }
         },
         "be" : {
@@ -37006,7 +37006,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Failed to load object data. Please try again."
+            "value" : "加载对象数据失败。请重试。"
           }
         },
         "zh-Hant" : {
@@ -37023,7 +37023,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "insert-page-name-here"
+            "value" : "أدخل-اسم-الصفحة-هنا"
           }
         },
         "be" : {
@@ -37161,7 +37161,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "insert-page-name-here"
+            "value" : "插入页面名称到这里"
           }
         },
         "zh-Hant" : {
@@ -37178,7 +37178,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This object is live on the web."
+            "value" : "هذا الكائن متاح على الويب."
           }
         },
         "be" : {
@@ -37316,7 +37316,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This object is live on the web."
+            "value" : "此对象已在 Web 上发布。"
           }
         },
         "zh-Hant" : {
@@ -37333,7 +37333,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "View site ↗︎"
+            "value" : "عرض الموقع ↗︎"
           }
         },
         "be" : {
@@ -37471,7 +37471,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "View site ↗︎"
+            "value" : "查看站点 :up-right_arrow:"
           }
         },
         "zh-Hant" : {
@@ -37488,7 +37488,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Successfully published"
+            "value" : "تم النشر بنجاح"
           }
         },
         "be" : {
@@ -37626,7 +37626,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Successfully published"
+            "value" : "发布成功"
           }
         },
         "zh-Hant" : {
@@ -37643,7 +37643,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Successfully unpublished"
+            "value" : "تم إلغاء النشر بنجاح"
           }
         },
         "be" : {
@@ -37781,7 +37781,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Successfully unpublished"
+            "value" : "取消发布成功"
           }
         },
         "zh-Hant" : {
@@ -37798,7 +37798,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Successfully updated"
+            "value" : "تم التحديث بنجاح"
           }
         },
         "be" : {
@@ -37936,7 +37936,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Successfully updated"
+            "value" : "已成功更新"
           }
         },
         "zh-Hant" : {
@@ -37953,7 +37953,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like you didn’t allow notifications. That means you won’t see new messages, mentions, or invites. Go to settings to turn them on."
+            "value" : "يبدو أنك لم تسمح بالإشعارات. هذا يعني أنك لن ترى إشعارات الرسائل جديدة، والإشارات، والدعوات. اذهب إلى الإعدادات لتشغيلها."
           }
         },
         "be" : {
@@ -38091,7 +38091,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like you didn’t allow notifications. That means you won’t see new messages, mentions, or invites. Go to settings to turn them on."
+            "value" : "您似乎不允许发出通知。这意味着您将不会看到新的消息、提及或邀请。请前往设置打开它们。"
           }
         },
         "zh-Hant" : {
@@ -38108,7 +38108,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Skip for now"
+            "value" : "التخطي الآن"
           }
         },
         "be" : {
@@ -38246,7 +38246,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Skip for now"
+            "value" : "暂时跳过"
           }
         },
         "zh-Hant" : {
@@ -38263,7 +38263,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Notifications are still turned off"
+            "value" : "الإشعارات لا تزال معطلة"
           }
         },
         "be" : {
@@ -38401,7 +38401,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Notifications are still turned off"
+            "value" : "通知仍然关闭"
           }
         },
         "zh-Hant" : {
@@ -38418,7 +38418,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Attachment"
+            "value" : "المرفق"
           }
         },
         "be" : {
@@ -38556,7 +38556,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Attachment"
+            "value" : "附件"
           }
         },
         "zh-Hant" : {
@@ -38573,7 +38573,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Get notified instantly when someone messages or mentions you in your spaces."
+            "value" : "احصل على إشعار على الفور عندما يراسلك أو يذكرك شخص ما في مساحاتك."
           }
         },
         "be" : {
@@ -38711,7 +38711,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Get notified instantly when someone messages or mentions you in your spaces."
+            "value" : "当有人在您的空间中发消息或提到您时，立即收到通知。"
           }
         },
         "zh-Hant" : {
@@ -38728,7 +38728,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New Message"
+            "value" : "رسالة جديدة"
           }
         },
         "be" : {
@@ -38866,7 +38866,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New Message"
+            "value" : "新建消息"
           }
         },
         "zh-Hant" : {
@@ -38883,7 +38883,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Enable notifications"
+            "value" : "تفعيل الإشعارات"
           }
         },
         "be" : {
@@ -39021,7 +39021,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Enable notifications"
+            "value" : "启用通知"
           }
         },
         "zh-Hant" : {
@@ -39193,7 +39193,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Turn on push notifications"
+            "value" : "قم بتشغيل الإشعارات"
           }
         },
         "be" : {
@@ -39331,7 +39331,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Turn on push notifications"
+            "value" : "开启推送通知"
           }
         },
         "zh-Hant" : {
@@ -39348,7 +39348,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Receive notifications about new messages by enabling them in your device settings."
+            "value" : "تلقى إشعارات حول الرسائل الجديدة عن طريق تمكينها في إعدادات جهازك."
           }
         },
         "be" : {
@@ -39486,7 +39486,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Receive notifications about new messages by enabling them in your device settings."
+            "value" : "若要接收新消息通知，请在设备设置中开启相应权限。"
           }
         },
         "zh-Hant" : {
@@ -39503,7 +39503,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Notifications are disabled"
+            "value" : "تم تعطيل الإشعارات"
           }
         },
         "be" : {
@@ -39641,7 +39641,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Notifications are disabled"
+            "value" : "已禁用通知"
           }
         },
         "zh-Hant" : {
@@ -39658,7 +39658,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Message Notifications"
+            "value" : "إشعارات الرسائل"
           }
         },
         "be" : {
@@ -39796,7 +39796,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Message Notifications"
+            "value" : "消息通知"
           }
         },
         "zh-Hant" : {
@@ -39813,7 +39813,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join via QR Code"
+            "value" : "الانضمام عبر رمز QR"
           }
         },
         "be" : {
@@ -39951,7 +39951,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join via QR Code"
+            "value" : "通过二维码加入"
           }
         },
         "zh-Hant" : {
@@ -39968,7 +39968,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Scanning error"
+            "value" : "خطأ في المسح الضوئي"
           }
         },
         "be" : {
@@ -40106,7 +40106,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Scanning error"
+            "value" : "扫描错误"
           }
         },
         "zh-Hant" : {
@@ -40123,7 +40123,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The scanned QR code contains URL in invalid format"
+            "value" : "رمز QR الممسوح يحتوي على رابط بتنسيق غير صالح"
           }
         },
         "be" : {
@@ -40261,7 +40261,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The scanned QR code contains URL in invalid format"
+            "value" : "扫描二维码包含无效格式的 URL"
           }
         },
         "zh-Hant" : {
@@ -40278,7 +40278,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Invalid QR Code"
+            "value" : "رمز QR غير صالح"
           }
         },
         "be" : {
@@ -40416,7 +40416,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Invalid QR Code"
+            "value" : "无效二维码"
           }
         },
         "zh-Hant" : {
@@ -40433,7 +40433,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The scanned QR code doesn't contain a valid URL"
+            "value" : "رمز QR الممسوح لا يحتوي على رابط صالح"
           }
         },
         "be" : {
@@ -40571,7 +40571,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The scanned QR code doesn't contain a valid URL"
+            "value" : "扫描二维码不包含有效的 URL"
           }
         },
         "zh-Hant" : {
@@ -40743,7 +40743,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The scanned QR code contains different action"
+            "value" : "رمز QR الممسوح يحتوي على إجراء مختلف"
           }
         },
         "be" : {
@@ -40881,7 +40881,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The scanned QR code contains different action"
+            "value" : "扫描二维码包含不同的操作"
           }
         },
         "zh-Hant" : {
@@ -41208,7 +41208,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The option will be permanently removed from your space."
+            "value" : "سيتم إزالة الخيار نهائيًا من مساحتك."
           }
         },
         "be" : {
@@ -42603,7 +42603,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "File & Media"
+            "value" : "الملف والوسائط"
           }
         },
         "be" : {
@@ -42913,7 +42913,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Relation object"
+            "value" : "الكائنات المرتبطة"
           }
         },
         "be" : {
@@ -43378,7 +43378,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Multi-select"
+            "value" : "اختيار متعدد"
           }
         },
         "be" : {
@@ -45239,7 +45239,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The object will be moved to Bin."
+            "value" : "سيتم نقل الكائن إلى سلة المهملات."
           }
         },
         "be" : {
@@ -45394,7 +45394,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Object type:"
+            "value" : "نوع الكائن:"
           }
         },
         "be" : {
@@ -45549,7 +45549,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Object types:"
+            "value" : "أنواع الكائن:"
           }
         },
         "be" : {
@@ -46325,7 +46325,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Drag'n'Drop"
+            "value" : "السحب والإسقاط"
           }
         },
         "be" : {
@@ -47410,7 +47410,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "empty"
+            "value" : "فارغ"
           }
         },
         "be" : {
@@ -47565,7 +47565,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Call phone numbler"
+            "value" : "الاتصال برقم الهاتف"
           }
         },
         "be" : {
@@ -47720,7 +47720,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copied"
+            "value" : "تم النسخ"
           }
         },
         "be" : {
@@ -48496,7 +48496,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Reloading content"
+            "value" : "إعادة تحميل المحتوى"
           }
         },
         "be" : {
@@ -48806,7 +48806,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Go to Space"
+            "value" : "الانتقال إلى المساحة"
           }
         },
         "be" : {
@@ -49582,7 +49582,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oops - something went wrong. Please try again"
+            "value" : "عذرًا، حدث خطأ ما. يرجى إعادة المحاولة."
           }
         },
         "be" : {
@@ -49893,7 +49893,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property:"
+            "value" : "الخاصية:"
           }
         },
         "be" : {
@@ -50048,7 +50048,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Properties:"
+            "value" : "الخصائص:"
           }
         },
         "be" : {
@@ -50203,7 +50203,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Type:"
+            "value" : "النوع:"
           }
         },
         "be" : {
@@ -50980,7 +50980,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add search query to aggregate objects with equal types and properties in a live mode"
+            "value" : "أضف استعلام بحث لتجميع الكائنات ذات الأنواع والخصائص المتساوية في وضع مباشر"
           }
         },
         "be" : {
@@ -51291,7 +51291,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Show more objects"
+            "value" : "عرض المزيد من الكائنات"
           }
         },
         "be" : {
@@ -51446,7 +51446,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Column color"
+            "value" : "لون العمود"
           }
         },
         "be" : {
@@ -51601,7 +51601,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hide column"
+            "value" : "إخفاء العمود"
           }
         },
         "be" : {
@@ -51912,7 +51912,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Uncategorized"
+            "value" : "غير مصنف"
           }
         },
         "be" : {
@@ -52687,7 +52687,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Color columns"
+            "value" : "أعمدة ملونة"
           }
         },
         "be" : {
@@ -52842,7 +52842,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Group by"
+            "value" : "تجميع حسب"
           }
         },
         "be" : {
@@ -53308,7 +53308,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No filters"
+            "value" : "بلا تصفية"
           }
         },
         "be" : {
@@ -53463,7 +53463,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No properties"
+            "value" : "بلا خصائص"
           }
         },
         "be" : {
@@ -53618,7 +53618,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No sorts"
+            "value" : "بلا فرز"
           }
         },
         "be" : {
@@ -53929,7 +53929,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "View is unsupported on mobile"
+            "value" : "العرض غير مدعوم على الجوال"
           }
         },
         "be" : {
@@ -54239,7 +54239,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add a comment..."
+            "value" : "أضف تعليقًا..."
           }
         },
         "be" : {
@@ -54377,7 +54377,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add a comment..."
+            "value" : "添加评论..."
           }
         },
         "zh-Hant" : {
@@ -54550,7 +54550,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select destination"
+            "value" : "حدد الوجهة"
           }
         },
         "be" : {
@@ -54688,7 +54688,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select destination"
+            "value" : "选择目的地"
           }
         },
         "zh-Hant" : {
@@ -54705,7 +54705,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Send to chat"
+            "value" : "إرسال إلى  محادثة"
           }
         },
         "be" : {
@@ -54843,7 +54843,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Send to chat"
+            "value" : "发送到聊天"
           }
         },
         "zh-Hant" : {
@@ -54860,7 +54860,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Show share menu"
+            "value" : "عرض قائمة المشاركة"
           }
         },
         "be" : {
@@ -55015,7 +55015,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tap the iOS sharing button"
+            "value" : "انقر على زر مشاركة iOS"
           }
         },
         "be" : {
@@ -55170,7 +55170,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Scroll past the app and tap More"
+            "value" : "مرر فوق التطبيق وانقر على المزيد"
           }
         },
         "be" : {
@@ -55325,7 +55325,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tap Edit to find “Anytype” and tap"
+            "value" : "انقر على التعديل للعثور على \"Anytype\" ثم انقر"
           }
         },
         "be" : {
@@ -55481,7 +55481,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share Extension"
+            "value" : "مشاركة الملحق"
           }
         },
         "be" : {
@@ -55636,7 +55636,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select Space"
+            "value" : "اختر المساحة"
           }
         },
         "be" : {
@@ -55774,7 +55774,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select Space"
+            "value" : "选择空间"
           }
         },
         "zh-Hant" : {
@@ -56412,7 +56412,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Upgrade your membership to invite more members."
+            "value" : "قم بترقية عضويتك لدعوة المزيد من الأعضاء."
           }
         },
         "be" : {
@@ -56550,7 +56550,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Upgrade your membership to invite more members."
+            "value" : "升级您的会员资格以邀请更多成员。"
           }
         },
         "zh-Hant" : {
@@ -56722,7 +56722,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Upgrade for more or remove spaces."
+            "value" : "الترقية للمزيد أو إزالة المساحات."
           }
         },
         "be" : {
@@ -56860,7 +56860,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Upgrade for more or remove spaces."
+            "value" : "升级以获取更多额度，或移除部分空间。"
           }
         },
         "zh-Hant" : {
@@ -57032,7 +57032,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "People with link can edit and write in chat"
+            "value" : "الأشخاص الذين لديهم الرابط يمكنهم التعديل والكتابة في المحادثة"
           }
         },
         "be" : {
@@ -57170,7 +57170,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "People with link can edit and write in chat"
+            "value" : "拥有链接的人可以编辑和参与聊天"
           }
         },
         "zh-Hant" : {
@@ -57187,7 +57187,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Editor access"
+            "value" : "وصول المحرر"
           }
         },
         "be" : {
@@ -57325,7 +57325,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Editor access"
+            "value" : "编辑者权限"
           }
         },
         "zh-Hant" : {
@@ -57342,7 +57342,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Only already invited members have access"
+            "value" : "فقط الأعضاء المدعوين بالفعل لديهم حق الوصول"
           }
         },
         "be" : {
@@ -57480,7 +57480,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Only already invited members have access"
+            "value" : "只有被邀请的成员可以访问"
           }
         },
         "zh-Hant" : {
@@ -57497,7 +57497,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Link disabled"
+            "value" : "تم تعطيل الرابط"
           }
         },
         "be" : {
@@ -57635,7 +57635,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Link disabled"
+            "value" : "链接已禁用"
           }
         },
         "zh-Hant" : {
@@ -57652,7 +57652,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Owner must approve each join request"
+            "value" : "يجب أن يوافق المالك على كل طلب انضمام"
           }
         },
         "be" : {
@@ -57790,7 +57790,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Owner must approve each join request"
+            "value" : "所有者必须批准每个加入请求"
           }
         },
         "zh-Hant" : {
@@ -57807,7 +57807,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Request access"
+            "value" : "طلب الوصول"
           }
         },
         "be" : {
@@ -57945,7 +57945,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Request access"
+            "value" : "请求访问"
           }
         },
         "zh-Hant" : {
@@ -57962,7 +57962,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "People with link can view and read chat"
+            "value" : "الأشخاص الذين لديهم الرابط يمكنهم عرض وقراءة المحادثة"
           }
         },
         "be" : {
@@ -58100,7 +58100,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "People with link can view and read chat"
+            "value" : "拥有链接的人可以查看和阅读聊天"
           }
         },
         "zh-Hant" : {
@@ -58117,7 +58117,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Viewer access"
+            "value" : "وصول المشاهد"
           }
         },
         "be" : {
@@ -58255,7 +58255,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Viewer access"
+            "value" : "查看者权限"
           }
         },
         "zh-Hant" : {
@@ -58775,7 +58775,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Notify me about"
+            "value" : "إشعاري عن"
           }
         },
         "be" : {
@@ -58913,7 +58913,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Notify me about"
+            "value" : "通知范围"
           }
         },
         "zh-Hant" : {
@@ -58930,7 +58930,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat specific notifications"
+            "value" : "إشعارات خاصة بالمحادثة"
           }
         },
         "be" : {
@@ -59068,7 +59068,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat specific notifications"
+            "value" : "特定聊天通知"
           }
         },
         "zh-Hant" : {
@@ -59395,7 +59395,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mentions only"
+            "value" : "فقط عندما يتم الإشارة إليّ"
           }
         },
         "be" : {
@@ -59533,7 +59533,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mentions only"
+            "value" : "仅限提及"
           }
         },
         "zh-Hant" : {
@@ -59705,7 +59705,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Loading"
+            "value" : "جارٍ التحميل"
           }
         },
         "be" : {
@@ -59860,7 +59860,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Missing"
+            "value" : "مفقودة"
           }
         },
         "be" : {
@@ -60170,7 +60170,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Remote Deleted"
+            "value" : "تم حذفها عن بعد"
           }
         },
         "be" : {
@@ -60325,7 +60325,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Waiting Deletion"
+            "value" : "بانتظار الحذف"
           }
         },
         "be" : {
@@ -60945,7 +60945,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Removing"
+            "value" : "جارٍ الإزالة"
           }
         },
         "be" : {
@@ -61257,7 +61257,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create a chat"
+            "value" : "إنشاء محادثة جديدة"
           }
         },
         "be" : {
@@ -61567,7 +61567,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create a stream"
+            "value" : "إنشاء تدفق"
           }
         },
         "be" : {
@@ -61722,7 +61722,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you switch link type, your existing link will be deactivated."
+            "value" : "إذا قمت بتبديل نوع الرابط، سيتم إلغاء تنشيط الرابط الموجود لديك."
           }
         },
         "be" : {
@@ -61860,7 +61860,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you switch link type, your existing link will be deactivated."
+            "value" : "如果您切换链接类型，您现有的链接将被停用。"
           }
         },
         "zh-Hant" : {
@@ -61877,7 +61877,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The current link will stop working"
+            "value" : "الرابط الحالي سيتوقف عن العمل"
           }
         },
         "be" : {
@@ -62015,7 +62015,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The current link will stop working"
+            "value" : "当前链接将停止工作"
           }
         },
         "zh-Hant" : {
@@ -62033,7 +62033,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Cancel Join Request"
+            "value" : "إلغاء طلب الانضمام"
           }
         },
         "be" : {
@@ -62188,7 +62188,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You will have to send request access again"
+            "value" : "سيتعين عليك إرسال طلب الوصول مرة أخرى"
           }
         },
         "be" : {
@@ -62343,7 +62343,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The request was canceled."
+            "value" : "تم إلغاء الطلب."
           }
         },
         "be" : {
@@ -62498,7 +62498,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Do Not Cancel"
+            "value" : "لا تلغي"
           }
         },
         "be" : {
@@ -62653,7 +62653,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Entry Space"
+            "value" : "مساحة الإدخال"
           }
         },
         "be" : {
@@ -62808,7 +62808,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private Space"
+            "value" : "مساحة خاصة"
           }
         },
         "be" : {
@@ -62964,7 +62964,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Shared Space"
+            "value" : "مساحة مشتركة"
           }
         },
         "be" : {
@@ -63429,7 +63429,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
+            "value" : "محادثة جماعية مع بيانات مشتركة. الأفضل للمجموعات الصغيرة أو محادثة واحدة مستمرة."
           }
         },
         "be" : {
@@ -63567,7 +63567,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
+            "value" : "分组聊天共享数据。最适合于小群组或单个正在进行的对话。"
           }
         },
         "zh-Hant" : {
@@ -63894,7 +63894,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Direct channel"
+            "value" : "قناة مباشرة"
           }
         },
         "be" : {
@@ -64032,7 +64032,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Direct channel"
+            "value" : "私聊频道"
           }
         },
         "zh-Hant" : {
@@ -64049,7 +64049,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
+            "value" : "مركز لإدارة البيانات المتقدمة. محادثات متعددة حسب الموضوع قادمة قريبًا. مثالي لفرق أكبر."
           }
         },
         "be" : {
@@ -64187,7 +64187,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
+            "value" : "高级数据管理集群。即将来临的多个主题聊天。适合较大的团队。"
           }
         },
         "zh-Hant" : {
@@ -64359,7 +64359,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private Channel"
+            "value" : "قناة خاصة"
           }
         },
         "be" : {
@@ -64497,7 +64497,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private Channel"
+            "value" : "私有频道"
           }
         },
         "zh-Hant" : {
@@ -64669,7 +64669,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "For broadcasting your vibe"
+            "value" : "لإذاعة أجوائك"
           }
         },
         "be" : {
@@ -64824,7 +64824,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Stream"
+            "value" : "تدفق"
           }
         },
         "be" : {
@@ -64979,7 +64979,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This space will be deleted irrevocably. You can't undo this action."
+            "value" : "سيتم حذف هذه المساحة نهائيًا. لا يمكنك التراجع عن هذا الإجراء."
           }
         },
         "be" : {
@@ -65444,7 +65444,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Space information"
+            "value" : "معلومات المساحة"
           }
         },
         "be" : {
@@ -65909,7 +65909,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Leave"
+            "value" : "مغادرة"
           }
         },
         "be" : {
@@ -66685,7 +66685,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Home page"
+            "value" : "الصفحة الرئيسية"
           }
         },
         "be" : {
@@ -66823,7 +66823,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Home page"
+            "value" : "主页"
           }
         },
         "zh-Hant" : {
@@ -66840,7 +66840,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widgets"
+            "value" : "التطبيقات المصغرة"
           }
         },
         "be" : {
@@ -66978,7 +66978,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widgets"
+            "value" : "小部件"
           }
         },
         "zh-Hant" : {
@@ -66995,7 +66995,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Access rights have been changed."
+            "value" : "تم تغيير حقوق الوصول."
           }
         },
         "be" : {
@@ -68080,7 +68080,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy invite link"
+            "value" : "نسخ رابط الدعوة"
           }
         },
         "be" : {
@@ -68235,7 +68235,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New members won’t be able to join the space. You can generate a new link anytime"
+            "value" : "لن يتمكن الأعضاء الجدد من الانضمام إلى المساحة. يمكنك إنشاء رابط جديد في أي وقت"
           }
         },
         "be" : {
@@ -69165,7 +69165,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share this invite link so that others can join your space"
+            "value" : "شارك رابط الدعوة هذا حتى يتمكن الآخرون من الانضمام إلى مساحتك"
           }
         },
         "be" : {
@@ -69303,7 +69303,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share this invite link so that others can join your space"
+            "value" : "分享这个邀请链接，以便其他人可以加入您的空间"
           }
         },
         "zh-Hant" : {
@@ -69320,7 +69320,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Once they click your link and request access, you can set their access rights."
+            "value" : "بمجرد أن ينقروا على رابطك ويطلبوا الوصول، يمكنك تحديد صلاحيات وصولهم."
           }
         },
         "be" : {
@@ -69458,7 +69458,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Once they click your link and request access, you can set their access rights."
+            "value" : "一旦他们点击您的链接并请求访问权限，您可以设置他们的访问权限。"
           }
         },
         "zh-Hant" : {
@@ -70437,7 +70437,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share this link so that others can join your Stream."
+            "value" : "شارك هذا الرابط حتى يتمكن الآخرون من الانضمام إلى تدفقك."
           }
         },
         "be" : {
@@ -70902,7 +70902,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Leave a private comment for a space owner"
+            "value" : "اترك تعليق خاص لمالك المساحة"
           }
         },
         "be" : {
@@ -71212,7 +71212,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The link you are using does not seem to work. Please ask the owner to share a new one with you."
+            "value" : "الرابط الذي تستخدمه لا يعمل على ما يبدو. يرجى الطلب من المالك أن يشارك معك رابطًا جديدًا."
           }
         },
         "be" : {
@@ -71367,7 +71367,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "To join as an editor, ask the owner to add more editor seats or send you a new link with view-only access."
+            "value" : "للانضمام كمحرر، اطلب من المالك إضافة المزيد من مقاعد المحررين أو أن يرسل لك رابطًا جديدًا مع الوصول للمشاهدة فقط."
           }
         },
         "be" : {
@@ -71505,7 +71505,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "To join as an editor, ask the owner to add more editor seats or send you a new link with view-only access."
+            "value" : "要加入为编辑者，请所有者添加更多的编辑者席位或向您发送一个新链接，只允许查看。"
           }
         },
         "zh-Hant" : {
@@ -71522,7 +71522,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This space has reached its limit"
+            "value" : "وصلت هذه المساحة إلى حدها الأقصى"
           }
         },
         "be" : {
@@ -71660,7 +71660,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This space has reached its limit"
+            "value" : "此空间已达到上限"
           }
         },
         "zh-Hant" : {
@@ -71832,7 +71832,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No access to this space"
+            "value" : "لا يوجد وصول إلى هذه المساحة"
           }
         },
         "be" : {
@@ -71987,7 +71987,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space"
+            "value" : "الانضمام إلى المساحة"
           }
         },
         "be" : {
@@ -72125,7 +72125,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space"
+            "value" : "加入空间"
           }
         },
         "zh-Hant" : {
@@ -72452,7 +72452,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Ask the owner to share it with you."
+            "value" : "اطلب من المالك مشاركته معك."
           }
         },
         "be" : {
@@ -72607,7 +72607,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The space you try to access has been deleted"
+            "value" : "تم حذف المساحة التي تحاول الوصول إليها"
           }
         },
         "be" : {
@@ -72917,7 +72917,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You will receive a notification when the space owner will approve your request."
+            "value" : "سوف تتلقى إشعارًا عندما يوافق مالك المساحة على طلبك."
           }
         },
         "be" : {
@@ -73537,7 +73537,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make Private"
+            "value" : "جعلها خاصة"
           }
         },
         "be" : {
@@ -73675,7 +73675,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make Private"
+            "value" : "设为私有"
           }
         },
         "zh-Hant" : {
@@ -73847,7 +73847,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Making this space private will disable the current invite link, so it can no longer be used to join. You'll remain the only member. When you re-enable sharing, a new link will be generated."
+            "value" : "جعل هذه المساحة خاصة سيعطل رابط الدعوة الحالي، بحيث لا يمكن استخدامه للانضمام. ستبقى العضو الوحيد. عند إعادة تمكين المشاركة، سيتم إنشاء رابط جديد."
           }
         },
         "be" : {
@@ -73985,7 +73985,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Making this space private will disable the current invite link, so it can no longer be used to join. You'll remain the only member. When you re-enable sharing, a new link will be generated."
+            "value" : "将此空间设为私有将禁用当前的邀请链接，该链接将无法再用于加入。您将成为空间内唯一的成员。当您重新开启共享时，系统将生成一个新的链接。"
           }
         },
         "zh-Hant" : {
@@ -74002,7 +74002,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make this space private?"
+            "value" : "جعل هذه المساحة خاصة؟"
           }
         },
         "be" : {
@@ -74140,7 +74140,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make this space private?"
+            "value" : "将此空间设置为私有吗？"
           }
         },
         "zh-Hant" : {
@@ -74157,7 +74157,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You can make the space private after removing all members"
+            "value" : "يمكنك جعل المساحة خاصة بعد إزالة جميع الأعضاء"
           }
         },
         "be" : {
@@ -74295,7 +74295,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You can make the space private after removing all members"
+            "value" : "移除所有成员后您可以将空间设为私有"
           }
         },
         "zh-Hant" : {
@@ -74467,7 +74467,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Manage Spaces"
+            "value" : "إدارة المساحات"
           }
         },
         "be" : {
@@ -75242,7 +75242,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Viewer"
+            "value" : "المشاهد"
           }
         },
         "be" : {
@@ -75397,7 +75397,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Editor"
+            "value" : "المحرر"
           }
         },
         "be" : {
@@ -75707,7 +75707,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "QR code for joining a Space"
+            "value" : "رمز QR للانضمام إلى المساحة"
           }
         },
         "be" : {
@@ -76675,7 +76675,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share link"
+            "value" : "مشاركة الرابط"
           }
         },
         "be" : {
@@ -76985,7 +76985,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members will no longer sync to this space and the share link will be deactivated."
+            "value" : "لن يقوم الأعضاء بالمزامنة مع هذه المساحة بعد الآن وسيتم إلغاء تنشيط رابط المشاركة."
           }
         },
         "be" : {
@@ -77295,7 +77295,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The space is no longer shared"
+            "value" : "لم تعد المساحة مشتركة"
           }
         },
         "be" : {
@@ -77450,7 +77450,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tap the Space widget to access settings"
+            "value" : "انقر على تطبيق المساحة المصغر للوصول إلى الإعدادات"
           }
         },
         "be" : {
@@ -77605,7 +77605,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Open Share section"
+            "value" : "افتح قسم المشاركة"
           }
         },
         "be" : {
@@ -77760,7 +77760,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Generate an invite link and share it"
+            "value" : "أنشئ رابط دعوة وشاركه"
           }
         },
         "be" : {
@@ -78226,7 +78226,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add as editor"
+            "value" : "إضافة كمحرر"
           }
         },
         "be" : {
@@ -78691,7 +78691,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add as viewer"
+            "value" : "إضافة كمشاهد"
           }
         },
         "be" : {
@@ -79001,7 +79001,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Invite people and start sharing your vibe"
+            "value" : "ادعوا الناس وابدأ بمشاركة أجوائك"
           }
         },
         "be" : {
@@ -79156,7 +79156,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This stream is empty"
+            "value" : "هذا التدفق فارغ"
           }
         },
         "be" : {
@@ -80086,7 +80086,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Use template"
+            "value" : "استخدام القالب"
           }
         },
         "be" : {
@@ -80241,7 +80241,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Choose template"
+            "value" : "اختر قالب"
           }
         },
         "be" : {
@@ -80901,7 +80901,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Choose template"
+            "value" : "اختر قالب"
           }
         },
         "be" : {

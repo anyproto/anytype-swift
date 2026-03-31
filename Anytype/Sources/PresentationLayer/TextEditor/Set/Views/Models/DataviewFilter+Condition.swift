@@ -31,12 +31,27 @@ extension DataviewFilter {
 }
 
 extension Array where Element == DataviewFilter {
+    func enrichingFormats(with relationsDetails: [PropertyDetails]) -> [DataviewFilter] {
+        map { filter in
+            var enriched = filter
+            if !filter.relationKey.isEmpty,
+               let details = relationsDetails.first(where: { $0.key == filter.relationKey }) {
+                enriched.format = details.format.asMiddleware
+            }
+            if filter.operator != .no {
+                enriched.nestedFilters = filter.nestedFilters.enrichingFormats(with: relationsDetails)
+            }
+            return enriched
+        }
+    }
+
     func removingUnsupportedFilters() -> [DataviewFilter] {
         compactMap { filter in
-            // Advanced filters (AND/OR) are created on desktop and passed through as-is.
-            // Middleware handles them correctly; iOS displays them read-only.
+            // Advanced filter: recursively clean nested filters
             if filter.operator != .no {
-                return filter
+                var cleaned = filter
+                cleaned.nestedFilters = filter.nestedFilters.removingUnsupportedFilters()
+                return cleaned.nestedFilters.isEmpty ? nil : cleaned
             }
             return filter.isSupportedForSubscription ? filter : nil
         }
