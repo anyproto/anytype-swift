@@ -152,7 +152,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         self.chatId = chatId
         self.initialMessageId = messageId
         self.output = output
-        self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId, chatId: chatId)
+        self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId)
         if let chatId {
             self.chatStorage = Container.shared.discussionMessageStorage((spaceId, chatId))
             self.discussionMessageBuilder = DiscussionMessageBuilder(spaceId: spaceId, chatId: chatId)
@@ -180,6 +180,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
                 guard let self else { return }
                 do {
                     try attachmentHandler.addUploadedObject(MessageAttachmentDetails(details: details))
+                    AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: self.chatId ?? "")
                 } catch {
                     handleAttachmentError(error)
                 }
@@ -195,6 +196,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             guard let self else { return }
             do {
                 try attachmentHandler.setPhotosItems(result)
+                AnytypeAnalytics.instance().logAttachItemChat(type: .photo, chatId: self.chatId ?? "")
             } catch {
                 handleAttachmentError(error)
             }
@@ -208,6 +210,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             guard let self else { return }
             do {
                 try attachmentHandler.handleFilePicker(result: result)
+                AnytypeAnalytics.instance().logAttachItemChat(type: .file, chatId: self.chatId ?? "")
             } catch {
                 handleAttachmentError(error)
             }
@@ -221,6 +224,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             guard let self else { return }
             do {
                 try attachmentHandler.handleCameraMedia(media)
+                AnytypeAnalytics.instance().logAttachItemChat(type: .camera, chatId: self.chatId ?? "")
             } catch {
                 handleAttachmentError(error)
             }
@@ -373,6 +377,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     func onTapRemoveLinkedObject(linkedObject: ChatLinkedObject) {
         withAnimation {
             attachmentHandler.removeLinkedObject(linkedObject)
+            AnytypeAnalytics.instance().logDetachItemChat(chatId: chatId ?? "")
         }
     }
 
@@ -457,12 +462,14 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func onLinkAdded(link: URL) {
         attachmentHandler.handleLinkAdded(link: link)
+        AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: chatId ?? "")
     }
 
     func onPasteAttachmentsFromBuffer(items: [NSItemProvider]) {
         Task {
             do {
                 try await attachmentHandler.handlePasteAttachmentsFromBuffer(items: items)
+                AnytypeAnalytics.instance().logAttachItemChat(type: .file, chatId: chatId ?? "")
             } catch {
                 handleAttachmentError(error)
             }
@@ -674,6 +681,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             if attachmentHandler.canAddOneAttachment() {
                 do {
                     try attachmentHandler.addUploadedObject(MessageAttachmentDetails(details: first))
+                    AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: chatId ?? "")
                     try await Task.sleep(seconds: 1.0)
                     inputFocused = true
                 } catch {
@@ -817,7 +825,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         self.chatStorage = Container.shared.discussionMessageStorage((spaceId, newChatId))
         self.discussionMessageBuilder = DiscussionMessageBuilder(spaceId: spaceId, chatId: newChatId)
         self.chatObject = openDocumentProvider.document(objectId: newChatId, spaceId: spaceId)
-        self.attachmentHandler.updateChatId(newChatId)
 
         // Start deferred subscriptions
         startDeferredSubscriptions()

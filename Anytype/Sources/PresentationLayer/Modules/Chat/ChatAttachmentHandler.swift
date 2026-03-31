@@ -25,7 +25,6 @@ protocol ChatAttachmentHandlerProtocol: ObservableObject {
     func updatePickerItems() async throws
     func handleLinkAdded(link: URL)
     func setLinkedObjects(_ objects: [ChatLinkedObject])
-    func updateChatId(_ chatId: String)
 }
 
 private struct ProcessedPhotosItems {
@@ -74,7 +73,6 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     // MARK: - Dependencies
 
     private let spaceId: String
-    private var chatId: String?
 
     @Injected(\.chatAttachmentValidator)
     private var validator: ChatAttachmentValidator
@@ -91,15 +89,9 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
 
     // MARK: - Init
 
-    init(spaceId: String, chatId: String?) {
+    init(spaceId: String) {
         self.spaceId = spaceId
-        self.chatId = chatId
-        self.state = ChatAttachmentState(spaceId: spaceId, chatId: chatId)
-    }
-
-    func updateChatId(_ chatId: String) {
-        self.chatId = chatId
-        state.updateChatId(chatId)
+        self.state = ChatAttachmentState(spaceId: spaceId)
     }
     
     // MARK: - Public Methods
@@ -111,13 +103,11 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         }
         let linkedObject = try uploadedProcessor.process(details, spaceId: spaceId)
         state.addLinkedObject(linkedObject)
-        AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: chatId ?? "")
     }
 
     func removeLinkedObject(_ linkedObject: ChatLinkedObject) {
         state.removeLinkedObject(with: linkedObject.id)
         state.removePhotosItems { $0.hashValue == linkedObject.id }
-        AnytypeAnalytics.instance().logDetachItemChat(chatId: chatId ?? "")
     }
     
     func clearState() {
@@ -154,7 +144,6 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
                 let linkedObject = try fileProcessor.process(file, spaceId: spaceId)
                 state.addLinkedObject(linkedObject)
             }
-            AnytypeAnalytics.instance().logAttachItemChat(type: .file, chatId: chatId ?? "")
         case .failure:
             throw AttachmentError.invalidFile
         }
@@ -167,7 +156,6 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         }
         let linkedObject = try cameraProcessor.process(media, spaceId: spaceId)
         state.addLinkedObject(linkedObject)
-        AnytypeAnalytics.instance().logAttachItemChat(type: .camera, chatId: chatId ?? "")
     }
 
     func handlePasteAttachmentsFromBuffer(items: [NSItemProvider]) async throws {
@@ -179,7 +167,6 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
 
             let linkedObject = try await pasteProcessor.process(item, spaceId: spaceId)
             state.addLinkedObject(linkedObject)
-            AnytypeAnalytics.instance().logAttachItemChat(type: .file, chatId: chatId ?? "")
         }
     }
     
@@ -196,7 +183,6 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         if !newItems.isEmpty {
             await addPhotosInLoadingState(newItems)
             await processPhotosData(newItems)
-            AnytypeAnalytics.instance().logAttachItemChat(type: .photo, chatId: chatId ?? "")
         }
         
         if limitExceeded {
@@ -269,7 +255,6 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         let contains = state.linkedObjects.contains { $0.localBookmark?.url == link.absoluteString }
         guard !contains else { return }
         state.addLinkedObject(.localBookmark(ChatLocalBookmark.placeholder(url: link)))
-        let chatId = self.chatId
         let task = Task { [weak self] in
             do {
                 guard let self = self else { return }
@@ -284,7 +269,6 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
                 self.state.setLinkedObjects(currentObjects)
             }
             self?.state.removeLinkPreviewTask(for: link)
-            AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: chatId ?? "")
         }
         state.addLinkPreviewTask(for: link, task: task.cancellable())
     }
