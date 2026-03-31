@@ -94,8 +94,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             Button {
                 model.onTapDiscuss()
             } label: {
-                Image(asset: .X32.Island.discuss)
-                    .renderingMode(.template)
+                Image(systemName: "message")
                     .foregroundStyle(Color.Control.primary)
             }
             .frame(width: 32, height: 32)
