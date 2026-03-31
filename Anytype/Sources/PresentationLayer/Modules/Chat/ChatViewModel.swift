@@ -155,7 +155,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         self.participantSubscription = Container.shared.participantSubscription(spaceId)
         // Open object. Middleware will know that we are using the object and will be make a refresh after open from background
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
-        self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId, chatId: chatId)
+        self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId)
     }
     
     func onAppear() {
@@ -171,6 +171,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 guard let self else { return }
                 do {
                     try attachmentHandler.addUploadedObject(MessageAttachmentDetails(details: details))
+                    AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: self.chatId)
                 } catch {
                     handleAttachmentError(error)
                 }
@@ -186,6 +187,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             guard let self else { return }
             do {
                 try attachmentHandler.setPhotosItems(result)
+                AnytypeAnalytics.instance().logAttachItemChat(type: .photo, chatId: self.chatId)
             } catch {
                 handleAttachmentError(error)
             }
@@ -199,6 +201,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             guard let self else { return }
             do {
                 try attachmentHandler.handleFilePicker(result: result)
+                AnytypeAnalytics.instance().logAttachItemChat(type: .file, chatId: self.chatId)
             } catch {
                 handleAttachmentError(error)
             }
@@ -212,6 +215,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             guard let self else { return }
             do {
                 try attachmentHandler.handleCameraMedia(media)
+                AnytypeAnalytics.instance().logAttachItemChat(type: .camera, chatId: self.chatId)
             } catch {
                 handleAttachmentError(error)
             }
@@ -350,6 +354,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         withAnimation {
             attachmentHandler.removeLinkedObject(linkedObject)
         }
+        AnytypeAnalytics.instance().logDetachItemChat(chatId: chatId)
     }
     
     func scrollToTop() async {
@@ -431,13 +436,17 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     func onLinkAdded(link: URL) {
-        attachmentHandler.handleLinkAdded(link: link)
+        attachmentHandler.handleLinkAdded(link: link) { [weak self] in
+            guard let self else { return }
+            AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: chatId)
+        }
     }
-    
+
     func onPasteAttachmentsFromBuffer(items: [NSItemProvider]) {
         Task {
             do {
                 try await attachmentHandler.handlePasteAttachmentsFromBuffer(items: items)
+                AnytypeAnalytics.instance().logAttachItemChat(type: .file, chatId: chatId)
             } catch {
                 handleAttachmentError(error)
             }
@@ -664,6 +673,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             if attachmentHandler.canAddOneAttachment() {
                 do {
                     try attachmentHandler.addUploadedObject(MessageAttachmentDetails(details: first))
+                    AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: chatId)
                     // Waiting pop transaction and open keyboard.
                     try await Task.sleep(seconds: 1.0)
                     inputFocused = true

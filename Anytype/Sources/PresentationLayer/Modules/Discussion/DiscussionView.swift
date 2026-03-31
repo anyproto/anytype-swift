@@ -11,8 +11,8 @@ struct DiscussionView: View {
 
     private let settingsOutput: (any ObjectSettingsCoordinatorOutput)?
 
-    init(spaceId: String, discussionId: String, output: (any DiscussionModuleOutput)?, settingsOutput: (any ObjectSettingsCoordinatorOutput)?) {
-        self._model = State(wrappedValue: DiscussionViewModel(spaceId: spaceId, chatId: discussionId, output: output))
+    init(spaceId: String, objectId: String, objectName: String, discussionId: String?, output: (any DiscussionModuleOutput)?, settingsOutput: (any ObjectSettingsCoordinatorOutput)?) {
+        self._model = State(wrappedValue: DiscussionViewModel(spaceId: spaceId, objectId: objectId, objectName: objectName, chatId: discussionId, output: output))
         self.settingsOutput = settingsOutput
     }
 
@@ -24,15 +24,11 @@ struct DiscussionView: View {
         }
         .overlay(alignment: .top) {
             DiscussionHeaderView(
-                spaceId: model.spaceId,
+                objectName: model.objectName,
+                commentsCount: model.commentsCount,
                 chatId: model.chatId,
-                settingsOutput: settingsOutput,
-                onTapOpenWidgets: {
-                    model.onTapWidgets()
-                },
-                onTapOpenSpaceSettings: {
-                    model.onTapSpaceSettings()
-                }
+                spaceId: model.spaceId,
+                settingsOutput: settingsOutput
             )
         }
         .onAppear {
@@ -204,7 +200,6 @@ struct DiscussionView: View {
         } onTapCollectionBackground: {
             model.onTapDismissKeyboard()
         }
-        .messageYourBackgroundColor(model.messageYourBackgroundColor)
         .messageFlashId($model.messageHiglightId)
     }
 

@@ -1580,6 +1580,13 @@ public enum Loc {
       public static let upload = Loc.tr("Workspace", "Content.Video.Upload", fallback: "Upload a video")
     }
   }
+  public enum Discussion {
+    public enum Header {
+      public static func comments(_ p1: Int) -> String {
+        return Loc.tr("Workspace", "Discussion.Header.Comments", p1, fallback: "%#@comments@")
+      }
+    }
+  }
   public enum EditSet {
     public enum Popup {
       public enum Filter {
