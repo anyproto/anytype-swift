@@ -36,14 +36,14 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         VStack(spacing: 0) {
             GlassEffectContainerIOS26(spacing: 20) {
                 HStack {
-                    searchButton
-                        .glassEffectIDIOS26("search", in: glassNamespace)
-                    Spacer()
                     if model.showDiscussButton {
-                        discussButton
-                            .glassEffectIDIOS26("discuss", in: glassNamespace)
-                        Spacer()
+                        discussIsland
+                            .glassEffectIDIOS26("discussIsland", in: glassNamespace)
+                    } else {
+                        searchButton
+                            .glassEffectIDIOS26("search", in: glassNamespace)
                     }
+                    Spacer()
                     createButton
                         .glassEffectIDIOS26("create", in: glassNamespace)
                 }
@@ -77,18 +77,6 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         }
     }
 
-    private var discussButton: some View {
-        Button {
-            model.onTapDiscuss()
-        } label: {
-            Image(asset: .X32.Island.discuss)
-                .renderingMode(.template)
-                .foregroundStyle(Color.Control.primary)
-        }
-        .frame(width: 48, height: 48)
-        .glassEffectInteractiveIOS26(in: Circle())
-    }
-
     private var searchButton: some View {
         Button {
             model.onTapSearch()
@@ -99,6 +87,21 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         }
         .frame(width: 48, height: 48)
         .glassEffectInteractiveIOS26(in: Circle())
+    }
+
+    private var discussIsland: some View {
+        HStack(spacing: 20) {
+            Button {
+                model.onTapDiscuss()
+            } label: {
+                Image(systemName: "message")
+                    .foregroundStyle(Color.Control.primary)
+            }
+            .frame(width: 32, height: 32)
+        }
+        .padding(.horizontal, 12)
+        .frame(height: 48)
+        .glassEffectInteractiveIOS26(in: Capsule())
     }
 
     @ViewBuilder

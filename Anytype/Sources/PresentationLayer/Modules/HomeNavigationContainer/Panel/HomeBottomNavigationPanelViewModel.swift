@@ -63,17 +63,25 @@ final class HomeBottomNavigationPanelViewModel {
     func onTapNewObject() {
         handleCreateObject()
     }
-    
+
     func onTapSearch() {
         output?.onSearchSelected()
     }
-
+    
     func onTapDiscuss() {
-        guard let discussionId = currentDiscussionId else {
-            anytypeAssertionFailure("Discuss button tapped but no discussionId available")
+        guard let editorData = currentData as? EditorScreenData,
+              let objectId = editorData.objectId else {
+            anytypeAssertionFailure("Discuss button tapped but no editor data available")
             return
         }
-        let screenData = ScreenData.discussion(DiscussionCoordinatorData(discussionId: discussionId, spaceId: info.accountSpaceId))
+        let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
+        let objectName = document.details?.name ?? ""
+        let screenData = ScreenData.discussion(DiscussionCoordinatorData(
+            discussionId: currentDiscussionId,
+            objectId: objectId,
+            objectName: objectName,
+            spaceId: editorData.spaceId
+        ))
         output?.onCreateObjectSelected(screenData: screenData)
     }
 
@@ -212,7 +220,9 @@ final class HomeBottomNavigationPanelViewModel {
     private func updateState() {
         guard let participantSpaceView else { return }
         canCreateObject = participantSpaceView.permissions.canEdit
-        showDiscussButton = FeatureFlags.discussionButton && currentDiscussionId != nil
+        let isObjectScreen = (currentData as? EditorScreenData)?.objectId != nil
+        let hasDiscussion = currentDiscussionId != nil
+        showDiscussButton = FeatureFlags.discussionButton && isObjectScreen && (canCreateObject || hasDiscussion)
     }
 
     private func handleCreateObject() {

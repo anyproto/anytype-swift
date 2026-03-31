@@ -53,7 +53,12 @@ extension ScreenData {
                 self = .chat(ChatCoordinatorData(chatId: details.chatId, spaceId: details.spaceId))
             }
         case .discussion:
-            self = .discussion(DiscussionCoordinatorData(discussionId: details.id, spaceId: details.spaceId))
+            self = .discussion(DiscussionCoordinatorData(
+                discussionId: details.id,
+                objectId: details.id,
+                objectName: details.name,
+                spaceId: details.spaceId
+            ))
         }
     }
 }

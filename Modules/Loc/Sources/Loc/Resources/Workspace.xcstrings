@@ -7845,6 +7845,38 @@
         }
       }
     },
+    "Discussion.Header.Comments": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%#@comments@"
+          },
+          "substitutions": {
+            "comments": {
+              "formatSpecifier": "lld",
+              "variations": {
+                "plural": {
+                  "one": {
+                    "stringUnit": {
+                      "state": "translated",
+                      "value": "%arg comment"
+                    }
+                  },
+                  "other": {
+                    "stringUnit": {
+                      "state": "translated",
+                      "value": "%arg comments"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Collaboration": {
       "extractionState": "manual",
       "localizations": {
