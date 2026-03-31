@@ -109,6 +109,7 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
             do {
                 _ = try await workspaceService.makeSharable(spaceId: spaceId)
                 _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
+                // TODO: IOS-5911 Move participantsAdd to a separate do/catch with error handling
                 let identities = data.selectedContacts.map(\.identity)
                 if identities.isNotEmpty {
                     try await workspaceService.participantsAdd(spaceId: spaceId, identities: identities)
