@@ -229,13 +229,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         output?.onShowCameraSelected(data: data)
     }
 
-    func onTapWidgets() {
-        output?.onWidgetsSelected()
-    }
-
-    func onTapSpaceSettings() {
-        output?.onSpaceSettingsSelected()
-    }
 
     func onTapInviteLink() {
         output?.onInviteLinkSelected()

@@ -109,15 +109,6 @@ final class DiscussionCoordinatorViewModel: DiscussionModuleOutput, ObjectSettin
         filesPickerData?.handler(result)
     }
 
-    func onWidgetsSelected() {
-        let widgetData = HomeWidgetData(spaceId: spaceId)
-        pageNavigation?.open(.alert(.widgets(widgetData)))
-    }
-
-    func onSpaceSettingsSelected() {
-        pageNavigation?.open(.spaceInfo(.settings(spaceId: spaceId)))
-    }
-
     func onInviteLinkSelected() {
         spaceShareData = SpaceShareData(spaceId: spaceId, route: .chat)
     }
