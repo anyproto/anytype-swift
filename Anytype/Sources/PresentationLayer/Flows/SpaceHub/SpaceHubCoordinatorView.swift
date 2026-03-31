@@ -68,6 +68,14 @@ struct SpaceHubCoordinatorView: View {
             .sheet(isPresented: $model.showGroupChannelCreate) {
                 GroupChannelCreateCoordinatorView()
             }
+            .anytypeSheet(isPresented: $model.showSharedChannelLimit) {
+                SharedChannelLimitView(
+                    sharedSpacesLimit: model.sharedChannelLimit,
+                    onUpgrade: { model.onSharedChannelLimitUpgrade() },
+                    onManageChannels: { model.onSharedChannelLimitManageChannels() }
+                )
+            }
+            .membershipUpgrade(reason: $model.membershipUpgradeReason)
             .sheet(item: $model.chatCreateData) { data in
                 ChatCreateView(data: data)
                     .pageNavigation(model.pageNavigation)

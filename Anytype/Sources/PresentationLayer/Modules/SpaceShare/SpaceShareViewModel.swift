@@ -27,7 +27,12 @@ final class SpaceShareViewModel {
     @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspacesStorage: any SpaceViewsStorageProtocol
-
+    @ObservationIgnored
+    @Injected(\.pendingShareStorage)
+    private var pendingShareStorage: any PendingShareStorageProtocol
+    @ObservationIgnored
+    @Injected(\.pendingShareRetryService)
+    private var pendingShareRetryService: any PendingShareRetryServiceProtocol
     @ObservationIgnored
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
 
@@ -66,6 +71,7 @@ final class SpaceShareViewModel {
     var limitBannerData: SpaceLimitBannerLimitType?
     var membershipUpgradeReason: MembershipUpgradeReason?
     var participantInfo: ObjectInfo?
+    var showOfflineBanner = false
 
     init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
         self.data = data
@@ -76,6 +82,7 @@ final class SpaceShareViewModel {
     func startParticipantsTask() async {
         for await items in participantsSubscription.withoutRemovingParticipantsPublisher.values {
             participants = items.sorted { $0.sortingWeight > $1.sortingWeight }
+            cleanupMatchedPendingIdentities()
             updateView()
         }
     }
@@ -83,6 +90,12 @@ final class SpaceShareViewModel {
     func startSpaceViewTask() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             self.participantSpaceView = participantSpaceView
+
+            if participantSpaceView.spaceView.isActive, pendingShareStorage.pendingState(for: spaceId) != nil {
+                await pendingShareRetryService.retryIfNeeded(spaceId: spaceId)
+                linkViewModel.updateLink()
+            }
+
             updateView()
         }
     }
@@ -158,8 +171,51 @@ final class SpaceShareViewModel {
                 contextActions: participantContextActions(participant)
             )
         }
+
+        appendPendingMembers()
     }
-    
+
+    private func appendPendingMembers() {
+        guard let pending = pendingShareStorage.pendingState(for: spaceId) else {
+            showOfflineBanner = false
+            return
+        }
+        let existingIdentities = Set(participants.map(\.identity))
+        let pendingRows = pending.identities
+            .filter { !existingIdentities.contains($0.identity) }
+            .map { pendingIdentity in
+                SpaceShareParticipantViewModel(
+                    id: "pending-\(pendingIdentity.identity)",
+                    icon: pendingIdentity.icon.map { Icon.object($0) },
+                    name: pendingIdentity.name,
+                    globalName: pendingIdentity.globalName,
+                    status: .pending(message: Loc.pending),
+                    action: nil,
+                    contextActions: []
+                )
+            }
+        rows.append(contentsOf: pendingRows)
+        let hasPendingState = pending.needsMakeShareable || pending.needsGenerateInvite || pendingRows.isNotEmpty
+        showOfflineBanner = hasPendingState
+    }
+
+    private func cleanupMatchedPendingIdentities() {
+        guard let pending = pendingShareStorage.pendingState(for: spaceId) else { return }
+        let activeIdentities = Set(participants.map(\.identity))
+        let remainingIdentities = pending.identities.filter { !activeIdentities.contains($0.identity) }
+
+        if remainingIdentities.isEmpty && !pending.needsMakeShareable && !pending.needsGenerateInvite {
+            pendingShareStorage.removePendingState(for: spaceId)
+        } else if remainingIdentities.count != pending.identities.count {
+            pendingShareStorage.savePendingState(PendingShareState(
+                spaceId: pending.spaceId,
+                identities: remainingIdentities,
+                needsMakeShareable: pending.needsMakeShareable,
+                needsGenerateInvite: pending.needsGenerateInvite
+            ))
+        }
+    }
+
     private func updateUpgradeViewState() {
         guard let participantSpaceView, let participant = participantSpaceView.participant else { return }
         guard participant.isOwner else { return }

@@ -24,6 +24,12 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     @Injected(\.channelOnboardingStorage) @ObservationIgnored
     private var onboardingStorage: any ChannelOnboardingStorageProtocol
+    @Injected(\.pendingShareRetryService) @ObservationIgnored
+    private var pendingShareRetryService: any PendingShareRetryServiceProtocol
+    @Injected(\.participantSpacesStorage) @ObservationIgnored
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @Injected(\.pendingShareStorage) @ObservationIgnored
+    private var pendingShareStorage: any PendingShareStorageProtocol
 
     init(info: AccountInfo) {
         self.spaceInfo = info
@@ -36,6 +42,20 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         let pickerAlreadyDismissed = onboardingStorage.isHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
         if homepageNotSet, !pickerAlreadyDismissed, !showHomepagePicker {
             showHomepagePicker = true
+        }
+    }
+
+    func startPendingShareRetryTask() async {
+        let spaceId = spaceInfo.accountSpaceId
+        guard pendingShareStorage.pendingState(for: spaceId) != nil else { return }
+
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
+            guard pendingShareStorage.pendingState(for: spaceId) != nil else { return }
+
+            if participantSpaceView.spaceView.isActive {
+                await pendingShareRetryService.retryIfNeeded(spaceId: spaceId)
+                if pendingShareStorage.pendingState(for: spaceId) == nil { return }
+            }
         }
     }
 

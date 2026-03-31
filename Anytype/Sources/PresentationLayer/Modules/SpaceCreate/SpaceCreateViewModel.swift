@@ -22,12 +22,18 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
     private var workspaceService: any WorkspaceServiceProtocol
     @ObservationIgnored @Injected(\.fileActionsService)
     private var fileActionsService: any FileActionsServiceProtocol
+    @ObservationIgnored @Injected(\.pendingShareStorage)
+    private var pendingShareStorage: any PendingShareStorageProtocol
+    @ObservationIgnored @Injected(\.networkStatusProvider)
+    private var networkStatusProvider: any NetworkStatusProviderProtocol
 
     // MARK: - State
 
     var spaceName = ""
     var spaceIcon: Icon
     var dismiss: Bool = false
+    var toastBarData: ToastBarData?
+    var isConnected: Bool = true
 
     @ObservationIgnored
     var fileData: FileData?
@@ -65,6 +71,13 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenSettingsSpaceCreate()
+        isConnected = networkStatusProvider.isConnected
+    }
+
+    func startNetworkObservation() async {
+        for await connected in networkStatusProvider.isConnectedPublisher.values {
+            isConnected = connected
+        }
     }
     
     func updateNameIconIfNeeded(_ name: String) {
@@ -106,18 +119,68 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
         let spaceId = createResponse.spaceID
 
         if channelType == .group {
-            do {
-                _ = try await workspaceService.makeSharable(spaceId: spaceId)
-                _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
-                // TODO: IOS-5911 Move participantsAdd to a separate do/catch with error handling
-                let identities = data.selectedContacts.map(\.identity)
-                if identities.isNotEmpty {
-                    try await workspaceService.participantsAdd(spaceId: spaceId, identities: identities)
-                }
-            } catch {}
+            let contacts = data.selectedContacts
+            let pendingIdentities = contacts.map {
+                PendingIdentity(identity: $0.identity, name: $0.name, globalName: $0.globalName, icon: $0.icon)
+            }
+
+            // Save pending state upfront — chain runs fire-and-forget
+            pendingShareStorage.savePendingState(PendingShareState(
+                spaceId: spaceId,
+                identities: pendingIdentities,
+                needsMakeShareable: true,
+                needsGenerateInvite: true
+            ))
+
+            // Run share chain in background — don't block navigation
+            Task { [workspaceService, pendingShareStorage] in
+                await Self.runShareChainBestEffort(
+                    spaceId: spaceId,
+                    contacts: contacts,
+                    pendingIdentities: pendingIdentities,
+                    workspaceService: workspaceService,
+                    pendingShareStorage: pendingShareStorage
+                )
+            }
         }
 
         return spaceId
+    }
+
+    private static func runShareChainBestEffort(
+        spaceId: String,
+        contacts: [Contact],
+        pendingIdentities: [PendingIdentity],
+        workspaceService: any WorkspaceServiceProtocol,
+        pendingShareStorage: any PendingShareStorageProtocol
+    ) async {
+        do {
+            try await workspaceService.makeSharable(spaceId: spaceId)
+        } catch {
+            return
+        }
+
+        pendingShareStorage.updatePendingState(for: spaceId) { $0.needsMakeShareable = false }
+
+        do {
+            _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
+        } catch {
+            return
+        }
+
+        pendingShareStorage.updatePendingState(for: spaceId) { $0.needsGenerateInvite = false }
+
+        let identityIds = contacts.map(\.identity)
+        if identityIds.isNotEmpty {
+            do {
+                try await workspaceService.participantsAdd(spaceId: spaceId, identities: identityIds)
+            } catch {
+                return
+            }
+        }
+
+        // All steps succeeded — remove pending state
+        pendingShareStorage.removePendingState(for: spaceId)
     }
 
     private func createLegacySpace() async throws -> String {

@@ -229,8 +229,11 @@ final class WorkspaceService: WorkspaceServiceProtocol {
     }
 
     public func participantsAdd(spaceId: String, identities: [String]) async throws {
-        // TODO: IOS-5908 — Wire to ClientCommands.spaceParticipantsAddList when GO-6946 is merged
-        anytypeAssertionFailure("participantsAdd not yet available in middleware")
+        try await ClientCommands.spaceParticipantsAddList(.with {
+            $0.spaceID = spaceId
+            $0.identities = identities
+            $0.permissions = .writer
+        }).invoke()
     }
 
     public func leaveApprove(spaceId: String, identity: String) async throws {

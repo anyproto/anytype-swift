@@ -94,6 +94,9 @@ struct SpaceShareView: View {
 
             ScrollView {
                 VStack(spacing: 0) {
+                    if model.showOfflineBanner {
+                        OfflineMembersBannerView()
+                    }
                     if let bannerData = model.limitBannerData {
                         SpaceLimitBannerView(
                             limitType: bannerData,
