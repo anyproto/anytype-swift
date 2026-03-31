@@ -21,7 +21,7 @@ struct DiscussionHeaderView: View {
 
     private var titleView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText(objectName, style: .caption1Regular)
+            AnytypeText(objectName.withPlaceholder, style: .caption1Regular)
                 .foregroundStyle(Color.Text.secondary)
                 .lineLimit(1)
             AnytypeText(commentsString, style: .uxTitle2Semibold)
