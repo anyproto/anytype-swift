@@ -51,7 +51,9 @@ struct SetSubscriptionData: Hashable {
         self.sorts = sorts
         
         // Filters
-        var filters = view.filters.removingUnsupportedFilters()
+        var filters = view.filters
+            .enrichingFormats(with: document.dataViewRelationsDetails)
+            .removingUnsupportedFilters()
         if let groupFilter {
             filters.append(groupFilter)
         }

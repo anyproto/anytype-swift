@@ -80,9 +80,10 @@ private extension Array where Element == Property.Tag.Option {
     func asRowConfigurations(with selectedTagIds: [String]) -> [ListRowConfiguration] {
         let style = PropertyStyle.regular(allowMultiLine: false)
         return map { tag in
-            ListRowConfiguration(
+            let selectionIndicator = SelectionIndicatorViewModelBuilder.buildModel(id: tag.id, selectedIds: selectedTagIds)
+            return ListRowConfiguration(
                 id: tag.id,
-                contentHash: tag.hashValue
+                contentHash: tag.hashValue ^ selectionIndicator.hashValue
             ) {
                 TagSearchRowView(
                     config: TagView.Config(
@@ -92,7 +93,7 @@ private extension Array where Element == Property.Tag.Option {
                         textFont: style.font,
                         guidlines: style.tagViewGuidlines
                     ),
-                    selectionIndicatorViewModel: SelectionIndicatorViewModelBuilder.buildModel(id: tag.id, selectedIds: selectedTagIds)
+                    selectionIndicatorViewModel: selectionIndicator
                 ).eraseToAnyView()
             }
         }
