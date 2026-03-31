@@ -188,7 +188,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func onTapAddMediaToMessage() {
         AnytypeAnalytics.instance().logClickScreenChatAttach(type: .photo, chatId: chatId ?? "")
-        let currentPhotosItems = attachmentHandler.getPhotosItems() ?? []
+        let currentPhotosItems = attachmentHandler.getPhotosItems()
         let data = ChatPhotosPickerData(selectedItems: currentPhotosItems) { [weak self] result in
             guard let self else { return }
             do {
@@ -228,7 +228,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         })
         output?.onShowCameraSelected(data: data)
     }
-
 
     func onTapInviteLink() {
         output?.onInviteLinkSelected()
