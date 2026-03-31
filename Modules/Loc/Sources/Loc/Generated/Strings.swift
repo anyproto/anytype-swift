@@ -1583,7 +1583,7 @@ public enum Loc {
   public enum Discussion {
     public enum Header {
       public static func comments(_ p1: Int) -> String {
-        return Loc.tr("Workspace", "Discussion.Header.Comments", p1, fallback: "%lld comments")
+        return Loc.tr("Workspace", "Discussion.Header.Comments", p1, fallback: "%#@comments@")
       }
     }
   }

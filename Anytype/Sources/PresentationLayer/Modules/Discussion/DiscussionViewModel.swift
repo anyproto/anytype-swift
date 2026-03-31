@@ -449,8 +449,8 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func onLinkAdded(link: URL) {
-        attachmentHandler.handleLinkAdded(link: link) {
-            AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: self.chatId ?? "")
+        attachmentHandler.handleLinkAdded(link: link) { [weak self] in
+            AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: self?.chatId ?? "")
         }
     }
 

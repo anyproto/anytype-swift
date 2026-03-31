@@ -7176,7 +7176,28 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld comments"
+            "value" : "%#@comments@"
+          },
+          "substitutions" : {
+            "comments" : {
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg comment"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg comments"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
