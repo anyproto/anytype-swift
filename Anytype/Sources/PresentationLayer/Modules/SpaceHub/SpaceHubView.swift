@@ -58,9 +58,9 @@ struct SpaceHubView: View {
                 .toolbar { toolbarItems }
                 .if(!isEmptyState) { view in
                     view.searchable(text: $model.searchText)
-                        .onChange(of: model.searchText) {
-                            model.searchTextUpdated()
-                        }
+                }
+                .onChange(of: model.searchText) {
+                    model.searchTextUpdated()
                 }
         }.tint(Color.Text.secondary)
     }
