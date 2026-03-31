@@ -352,6 +352,7 @@ public enum Loc {
   public static let emailSuccessfullyValidated = Loc.tr("UI", "Email successfully validated", fallback: "Email successfully validated")
   public static let emoji = Loc.tr("UI", "Emoji", fallback: "Emoji")
   public static let empty = Loc.tr("UI", "Empty", fallback: "Empty")
+  public static let emptyName = Loc.tr("UI", "Empty Name", fallback: "Empty Name")
   public static let enabled = Loc.tr("UI", "Enabled", fallback: "Enabled")
   public static let enter = Loc.tr("UI", "Enter", fallback: "Enter")
   public static let enterEmail = Loc.tr("UI", "Enter email", fallback: "Enter email")
@@ -544,6 +545,7 @@ public enum Loc {
   public static let pink = Loc.tr("UI", "Pink", fallback: "Pink")
   public static let pinkBackground = Loc.tr("UI", "Pink background", fallback: "Pink background")
   public static let pinned = Loc.tr("UI", "Pinned", fallback: "Pinned")
+  public static let preFillName = Loc.tr("UI", "Pre-Fill Name", fallback: "Pre-Fill Name")
   public static let preferences = Loc.tr("UI", "Preferences", fallback: "Preferences")
   public static let preview = Loc.tr("UI", "Preview", fallback: "Preview")
   public static let previewLayout = Loc.tr("UI", "Preview layout", fallback: "Preview layout")
@@ -951,6 +953,18 @@ public enum Loc {
     public static let limitError = Loc.tr("UI", "FileStorage.LimitError", fallback: "You exceeded file limit upload")
     public static let offloadTitle = Loc.tr("UI", "FileStorage.OffloadTitle", fallback: "Offload files")
     public static let title = Loc.tr("UI", "FileStorage.Title", fallback: "File storage")
+    public enum AutoDownload {
+      public static let gb1 = Loc.tr("UI", "FileStorage.AutoDownload.Gb1", fallback: "1 GB")
+      public static let mb100 = Loc.tr("UI", "FileStorage.AutoDownload.Mb100", fallback: "100 MB")
+      public static let mb20 = Loc.tr("UI", "FileStorage.AutoDownload.Mb20", fallback: "20 MB")
+      public static let mb250 = Loc.tr("UI", "FileStorage.AutoDownload.Mb250", fallback: "250 MB")
+      public static let off = Loc.tr("UI", "FileStorage.AutoDownload.Off", fallback: "Off")
+      public static let sectionTitle = Loc.tr("UI", "FileStorage.AutoDownload.SectionTitle", fallback: "Offline access")
+      public static let subtitle = Loc.tr("UI", "FileStorage.AutoDownload.Subtitle", fallback: "Auto sync files up to a selected size")
+      public static let title = Loc.tr("UI", "FileStorage.AutoDownload.Title", fallback: "Offline Downloads")
+      public static let unlimited = Loc.tr("UI", "FileStorage.AutoDownload.Unlimited", fallback: "Unlimited")
+      public static let useCellularData = Loc.tr("UI", "FileStorage.AutoDownload.UseCellularData", fallback: "Use Cellular Data")
+    }
     public enum LimitLegend {
       public static func current(_ p1: Any, _ p2: Any) -> String {
         return Loc.tr("UI", "FileStorage.LimitLegend.Current", String(describing: p1), String(describing: p2), fallback: "%@ | %@")
@@ -1300,6 +1314,15 @@ public enum Loc {
     public enum Toggle {
       public static let title = Loc.tr("UI", "TextStyle.Toggle.Title", fallback: "Toggle")
     }
+    public enum ToggleHeading {
+      public static let title = Loc.tr("UI", "TextStyle.ToggleHeading.Title", fallback: "Toggled heading")
+    }
+    public enum ToggleSubheading {
+      public static let title = Loc.tr("UI", "TextStyle.ToggleSubheading.Title", fallback: "Toggle subheading")
+    }
+    public enum ToggleTitle {
+      public static let title = Loc.tr("UI", "TextStyle.ToggleTitle.Title", fallback: "Toggled title")
+    }
     public enum Underline {
       public static let title = Loc.tr("UI", "TextStyle.Underline.Title", fallback: "Underline")
     }
@@ -1404,6 +1427,7 @@ public enum Loc {
   public static let invite = Loc.tr("Workspace", "Invite", fallback: "Invite")
   public static let joinSpace = Loc.tr("Workspace", "Join Space", fallback: "Join Space")
   public static let joinSpaceButton = Loc.tr("Workspace", "Join Space Button", fallback: "Join Space Button")
+  public static let later = Loc.tr("Workspace", "Later", fallback: "Later")
   public static let members = Loc.tr("Workspace", "Members", fallback: "Members")
   public static let membership = Loc.tr("Workspace", "Membership", fallback: "Membership")
   public static let newProperty = Loc.tr("Workspace", "NewProperty", fallback: "New Property")
@@ -1415,6 +1439,16 @@ public enum Loc {
   public static let propertiesFormats = Loc.tr("Workspace", "Properties formats", fallback: "Properties formats")
   public static let shared = Loc.tr("Workspace", "Shared", fallback: "Shared")
   public static let task = Loc.tr("Workspace", "Task", fallback: "Task")
+  public enum Channel {
+    public enum Create {
+      public static let group = Loc.tr("Workspace", "Channel.Create.Group", fallback: "Group")
+      public static let personal = Loc.tr("Workspace", "Channel.Create.Personal", fallback: "Personal")
+      public enum EmptyState {
+        public static let button = Loc.tr("Workspace", "Channel.Create.EmptyState.button", fallback: "Create Channel")
+        public static let title = Loc.tr("Workspace", "Channel.Create.EmptyState.title", fallback: "There are no channels yet")
+      }
+    }
+  }
   public enum Chat {
     public static let channelSettings = Loc.tr("Workspace", "Chat.ChannelSettings", fallback: "Channel Settings")
     public static let editMessage = Loc.tr("Workspace", "Chat.EditMessage", fallback: "Edit Message")
@@ -1717,6 +1751,14 @@ public enum Loc {
     public static let removeFromObject = Loc.tr("Workspace", "Fields.removeFromObject", fallback: "Remove from the object")
     public static func updated(_ p1: Any) -> String {
       return Loc.tr("Workspace", "Fields.Updated", String(describing: p1), fallback: "Property ‘%@’ has been updated")
+    }
+  }
+  public enum HomepagePicker {
+    public static let description = Loc.tr("Workspace", "HomepagePicker.description", fallback: "Select what you and channel members see when they open the channel. You can always change it in settings.")
+    public static let title = Loc.tr("Workspace", "HomepagePicker.title", fallback: "Create Home")
+    public enum Thumbnail {
+      public static let idea = Loc.tr("Workspace", "HomepagePicker.Thumbnail.idea", fallback: "Idea")
+      public static let tasks = Loc.tr("Workspace", "HomepagePicker.Thumbnail.tasks", fallback: "Tasks")
     }
   }
   public enum Membership {
@@ -2240,7 +2282,9 @@ public enum Loc {
         public enum State {
           public static let all = Loc.tr("Workspace", "Space.Notifications.Settings.State.All", fallback: "All messages")
           public static let disabled = Loc.tr("Workspace", "Space.Notifications.Settings.State.Disabled", fallback: "Disable all")
+          public static let enable = Loc.tr("Workspace", "Space.Notifications.Settings.State.Enable", fallback: "Enable")
           public static let mentions = Loc.tr("Workspace", "Space.Notifications.Settings.State.Mentions", fallback: "Mentions only")
+          public static let muteAndHide = Loc.tr("Workspace", "Space.Notifications.Settings.State.MuteAndHide", fallback: "Mute and hide")
         }
       }
     }

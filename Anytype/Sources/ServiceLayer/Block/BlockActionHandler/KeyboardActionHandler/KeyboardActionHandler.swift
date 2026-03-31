@@ -170,8 +170,9 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         action: CustomTextView.KeyboardAction,
         newString: SafeNSAttributedString
     ) async throws {
-        let needChildForToggle = text.contentType == .toggle && toggleStorage.isToggled(blockId: info.id)
-        let needChildForList = text.contentType != .toggle && text.contentType.isList && info.childrenIds.isNotEmpty
+        let isToggleType = text.contentType == .toggle || text.contentType.isToggleHeader
+        let needChildForToggle = isToggleType && toggleStorage.isToggled(blockId: info.id)
+        let needChildForList = !isToggleType && text.contentType.isList && info.childrenIds.isNotEmpty
         
         if needChildForToggle {
             if info.childrenIds.isEmpty {
@@ -220,8 +221,8 @@ private extension KeyboardActionHandler {
             return .text
         }
         
-        if style == .toggle {
-            return toggleStorage.isToggled(blockId: blockId) ? .text : .toggle
+        if style == .toggle || style.isToggleHeader {
+            return toggleStorage.isToggled(blockId: blockId) ? .text : style
         }
         
         return style

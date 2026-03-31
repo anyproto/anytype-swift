@@ -92,13 +92,18 @@ private struct WidgetsHeaderMenuContent: View {
         }
     }
 
+    @ViewBuilder
     private var notificationsMenu: some View {
-        NotificationModeMenu(
-            currentMode: model.currentNotificationMode,
-            onModeChange: { mode in
-                await model.onNotificationModeChanged(mode)
+        if model.isDataSpace {
+            NotificationModeMenu(
+                currentMode: model.currentNotificationMode,
+                onModeChange: { await model.onNotificationModeChanged($0) }
+            )
+        } else {
+            MuteToggleMenuButton(isMuted: model.isMuted) {
+                await model.toggleMute()
             }
-        )
+        }
     }
 
     private var inviteMembersButton: some View {

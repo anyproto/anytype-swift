@@ -528,4 +528,10 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Controls whether a template's name should be applied to newly created objects
     case templateNamePrefillType = "templateNamePrefillType"
+
+    /// Space type derived from space header, see spacedomain.SpaceType
+    case spaceType = "spaceType"
+
+    /// Homepage of regular spaces. Could handle either object id or special constant
+    case homepage = "homepage"
 }

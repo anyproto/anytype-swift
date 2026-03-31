@@ -41,6 +41,10 @@ final class TreeWidgetViewModel: ObservableObject {
     @Published private(set) var availableMore: Bool = false
     var dragId: String? { widgetBlockId }
     var allowCreateObject: Bool { internalModel.allowCreateObject }
+    var contentState: WidgetContentState {
+        guard let rows else { return .loading }
+        return rows.isEmpty ? .empty : .hasData
+    }
     
     init(
         widgetBlockId: String,
@@ -212,7 +216,7 @@ private extension ObjectDetails {
             return links.isEmpty || !canBeExpanded ? .icon(asset: .X18.objectWithoutIcon) : .arrow(expanded: isExpanded)
         case .list:
             return .icon(asset: .X18.list)
-        case .date, .type, .participant, .mediaFile, .chat:
+        case .date, .type, .participant, .mediaFile, .chat, .discussion:
             return .icon(asset: .X18.objectWithoutIcon)
         }
     }

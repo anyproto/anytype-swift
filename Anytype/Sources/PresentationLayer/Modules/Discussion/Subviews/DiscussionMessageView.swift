@@ -1,0 +1,277 @@
+import Foundation
+import SwiftUI
+import AnytypeCore
+
+struct DiscussionMessageView: View {
+
+    private enum Constants {
+        static let attachmentsPadding: CGFloat = 4
+        static let messageHorizontalPadding: CGFloat = 16
+        static let coordinateSpace = "DiscussionMessageViewCoordinateSpace"
+        static let emoji = ["👍", "️️❤️", "😂"]
+    }
+
+    private let data: MessageViewData
+    private weak var output: (any MessageModuleOutput)?
+
+    @State private var contentCenterOffsetY: CGFloat = 0
+
+    init(
+        data: MessageViewData,
+        output: (any MessageModuleOutput)? = nil
+    ) {
+        self.data = data
+        self.output = output
+    }
+
+    var body: some View {
+        MessageReplyActionView(
+            isEnabled: data.canReply,
+            contentHorizontalPadding: Constants.messageHorizontalPadding,
+            centerOffsetY: $contentCenterOffsetY,
+            content: {
+                content
+            },
+            action: {
+                output?.didSelectReplyTo(message: data)
+            }
+        )
+        .id(data.id)
+    }
+
+    private var content: some View {
+        messageBody
+            .fixTappableArea()
+            .coordinateSpace(name: Constants.coordinateSpace)
+            .messageFlashBackground(id: data.id)
+            .background(Color.Background.primary)
+            .contentShape(.contextMenuPreview, Rectangle())
+            .contextMenu {
+                contextMenu
+            } preview: {
+                messageBody
+                    .background(Color.Background.primary)
+            }
+            .readFrame(space: .named(Constants.coordinateSpace)) {
+                contentCenterOffsetY = $0.midY
+            }
+    }
+
+    private var messageBody: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            if data.showTopDivider {
+                Divider()
+                    .foregroundStyle(Color.Shape.tertiary)
+            }
+            VStack(alignment: .leading, spacing: 0) {
+                header
+                    .padding(.bottom, 8)
+                reply
+                messageContent
+                reactions
+            }
+            .padding(.horizontal, Constants.messageHorizontalPadding)
+            .padding(.vertical, 12)
+        }
+    }
+
+    private var header: some View {
+        HStack(spacing: 0) {
+            Button {
+                if let authorId = data.authorId {
+                    output?.didSelectAuthor(authorId: authorId)
+                }
+            } label: {
+                HStack(spacing: 0) {
+                    IconView(icon: data.authorIcon)
+                        .frame(width: 28, height: 28)
+
+                    Spacer().frame(width: 6)
+
+                    Text(data.authorName.isNotEmpty ? data.authorName : " ")
+                        .anytypeStyle(.caption1Medium)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .foregroundStyle(Color.Text.primary)
+
+                    if data.isMember {
+                        Spacer().frame(width: 4)
+                        Image(asset: .X18.membershipBadge)
+                    }
+                }
+            }
+            .buttonStyle(.plain)
+            .layoutPriority(-1)
+
+            Spacer().frame(width: 8)
+
+            timestampLabel
+                .fixedSize()
+        }
+        .frame(height: 32)
+    }
+
+    private var timestampLabel: some View {
+        Text(data.timestampLabel)
+            .anytypeStyle(.caption2Regular)
+            .foregroundStyle(Color.Text.secondary)
+            .lineLimit(1)
+    }
+
+    @ViewBuilder
+    private var reply: some View {
+        if let reply = data.replyModel {
+            Button {
+                output?.didSelectReplyMessage(message: data)
+            } label: {
+                MessageReplyView(model: reply)
+            }
+            .buttonStyle(.plain)
+            .padding(.bottom, 4)
+        }
+    }
+
+    @ViewBuilder
+    private var messageContent: some View {
+        linkedObjectsForTop
+
+        ForEach(data.discussionBlocks) { block in
+            DiscussionBlockItemView(block: block) { attachmentId in
+                if let objectDetails = data.attachmentsDetails.first(where: { $0.id == attachmentId }) {
+                    let details = MessageAttachmentDetails(details: objectDetails)
+                    output?.didSelectAttachment(data: data, details: details)
+                }
+            }
+        }
+
+        linkedObjectsForBottom
+    }
+
+    @ViewBuilder
+    private var linkedObjectsForTop: some View {
+        if let objects = data.linkedObjects {
+            switch objects {
+            case .list:
+                EmptyView()
+            case .grid(let items):
+                MessageGridAttachmentsContainer(objects: items, spacing: 4) {
+                    output?.didSelectAttachment(data: data, details: $0)
+                }
+                .padding(.vertical, Constants.attachmentsPadding)
+            case .bookmark(let item):
+                MessageObjectBigBookmarkView(details: item, position: data.position) {
+                    output?.didSelectAttachment(data: data, details: $0)
+                }
+                .padding(.vertical, Constants.attachmentsPadding)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var linkedObjectsForBottom: some View {
+        if let objects = data.linkedObjects {
+            switch objects {
+            case .list(let items):
+                MessageListAttachmentsViewContainer(objects: items, position: data.position) {
+                    output?.didSelectAttachment(data: data, details: $0)
+                }
+                .padding(.vertical, Constants.attachmentsPadding)
+            case .grid, .bookmark:
+                EmptyView()
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var reactions: some View {
+        if data.reactions.isNotEmpty {
+            MessageReactionList(
+                rows: data.reactions,
+                canAddReaction: data.canAddReaction,
+                canToggleReaction: data.canAddReaction,
+                position: data.position,
+                onTapRow: { reaction in
+                    try await output?.didTapOnReaction(data: data, emoji: reaction.emoji)
+                },
+                onLongTapRow: { reaction in
+                    output?.didLongTapOnReaction(data: data, reaction: reaction)
+                },
+                onTapAdd: {
+                    output?.didSelectAddReaction(messageId: data.message.id)
+                }
+            )
+            .padding(.top, 4)
+        }
+    }
+
+    @ViewBuilder
+    private var contextMenu: some View {
+        if data.canAddReaction {
+            ControlGroup {
+                ForEach(Constants.emoji, id:\.self) { emoji in
+                    AsyncButton {
+                        try await output?.didTapOnReaction(data: data, emoji: emoji)
+                    } label: {
+                        Text(emoji)
+                    }
+                }
+                Button {
+                    output?.didSelectAddReaction(messageId: data.message.id)
+                } label: {
+                    Image(asset: .Reactions.selectEmoji)
+                }
+            }
+            .controlGroupStyle(.compactMenu)
+        }
+
+        Divider()
+
+        #if DEBUG || RELEASE_NIGHTLY
+        if data.canEdit {
+            AsyncButton {
+                try await output?.didSelectUnread(message: data)
+            } label: {
+                Label(Loc.Message.Action.unread, systemImage: "envelope.badge")
+            }
+        }
+        #endif
+
+        if data.canReply {
+            Button {
+                output?.didSelectReplyTo(message: data)
+            } label: {
+                Label(Loc.Message.Action.reply, systemImage: "arrowshape.turn.up.left")
+            }
+        }
+
+        if data.discussionBlocks.hasContent {
+            Button {
+                output?.didSelectCopyPlainText(message: data)
+            } label: {
+                Label(Loc.Message.Action.copyPlainText, systemImage: "doc.on.doc")
+            }
+        }
+
+        Button {
+            output?.didSelectCopyLink(message: data)
+        } label: {
+            Label(Loc.copyLink, systemImage: "link")
+        }
+
+        if data.canEdit {
+            AsyncButton {
+                await output?.didSelectEditMessage(message: data)
+            } label: {
+                Label(Loc.edit, systemImage: "pencil")
+            }
+        }
+
+        if data.canDelete {
+            Button(role: .destructive) {
+                output?.didSelectDeleteMessage(message: data)
+            } label: {
+                Label(Loc.delete, systemImage: "trash")
+            }
+        }
+    }
+}

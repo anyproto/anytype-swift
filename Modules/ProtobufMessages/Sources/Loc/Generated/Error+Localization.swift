@@ -1163,6 +1163,8 @@ extension Anytype_Rpc.Block.Paste.Response.Error: LocalizedError {
                 return ""
             case .badInput:
                 return LocHelper.tr(table: "LocalizableError", key: "Block.Paste.badInput")
+            case .allSlotsEmpty:
+                return LocHelper.tr(table: "LocalizableError", key: "Block.Paste.allSlotsEmpty")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -6532,29 +6534,6 @@ extension Anytype_Rpc.Object.Undo.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error: LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if !localizeError.isEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return LocHelper.tr(table: "LocalizableError", key: "Object.WorkspaceSetDashboard.badInput")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
 extension Anytype_Rpc.ObjectCollection.Add.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -8369,6 +8348,29 @@ extension Anytype_Rpc.Workspace.Select.Response.Error: LocalizedError {
                 return ""
             case .badInput:
                 return LocHelper.tr(table: "LocalizableError", key: "Workspace.Select.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Workspace.SetHomepage.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Workspace.SetHomepage.badInput")
             case .UNRECOGNIZED:
                 return ""
         }

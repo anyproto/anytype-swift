@@ -14,12 +14,24 @@ public extension FeatureFlags {
         value(for: .homePage)
     }
 
+    static var discussionButton: Bool {
+        value(for: .discussionButton)
+    }
+
     static var qrCodeCircularText: Bool {
         value(for: .qrCodeCircularText)
     }
 
+    static var createChannelFlow: Bool {
+        value(for: .createChannelFlow)
+    }
+
     static var channelTypeSwitcher: Bool {
         value(for: .channelTypeSwitcher)
+    }
+
+    static var muteAndHide: Bool {
+        value(for: .muteAndHide)
     }
 
     static var setKanbanView: Bool {
@@ -106,8 +118,11 @@ public extension FeatureFlags {
     static let features: [FeatureDescription] = [
         .showUploadStatusIndicator,
         .homePage,
+        .discussionButton,
         .qrCodeCircularText,
+        .createChannelFlow,
         .channelTypeSwitcher,
+        .muteAndHide,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

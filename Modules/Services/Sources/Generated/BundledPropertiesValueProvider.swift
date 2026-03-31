@@ -193,6 +193,8 @@ public protocol BundledPropertiesValueProvider {
     var score: Int? { get }
     var migrationObjectContext: Int? { get }
     var templateNamePrefillType: Int? { get }
+    var spaceType: Int? { get }
+    var homepage: String { get }
 } 
 
 public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
@@ -903,5 +905,13 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Controls whether a template's name should be applied to newly created objects
     var templateNamePrefillType: Int? {
         return value(for: BundledPropertyKey.templateNamePrefillType.rawValue)
+    }
+    /// Space type derived from space header, see spacedomain.SpaceType
+    var spaceType: Int? {
+        return value(for: BundledPropertyKey.spaceType.rawValue)
+    }
+    /// Homepage of regular spaces. Could handle either object id or special constant
+    var homepage: String {
+        return value(for: BundledPropertyKey.homepage.rawValue)
     }
 }

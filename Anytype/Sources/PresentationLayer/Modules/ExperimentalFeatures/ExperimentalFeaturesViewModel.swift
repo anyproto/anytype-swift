@@ -10,11 +10,11 @@ final class ExperimentalFeaturesViewModel {
     private var experimentalFeaturesStorage: any ExperimentalFeaturesStorageProtocol
 
     var newObjectCreationMenu: Bool = false
-    
+
     init() {
         newObjectCreationMenu = experimentalFeaturesStorage.newObjectCreationMenu
     }
-    
+
     func onUpdateNewObjectCreationMenu() {
         experimentalFeaturesStorage.newObjectCreationMenu = newObjectCreationMenu
     }

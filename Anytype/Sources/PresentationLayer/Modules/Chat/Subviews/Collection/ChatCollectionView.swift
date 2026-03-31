@@ -17,6 +17,7 @@ struct ChatCollectionView<
     let bottomPanel: BottomPanel
     let emptyView: EmptyView
     let showEmptyState: Bool
+    let showSectionHeaders: Bool
     let itemBuilder: (Item) -> ItemView
     let headerBuilder: (Section.Header) -> HeaderView
     @ViewBuilder
@@ -28,24 +29,26 @@ struct ChatCollectionView<
     let onTapCollectionBackground: () -> Void
     
     func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel, EmptyView, ActionView> {
+        let showSectionHeaders = showSectionHeaders
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
             configuration.showsSeparators = false
-            
+
             let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
             section.interGroupSpacing = 0
             section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             section.decorationItems = [] // Delete section background
-            
-            let header = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50)),
-                elementKind: UICollectionView.elementKindSectionHeader,
-                alignment: .top
-            )
-            header.pinToVisibleBounds = true
-            
-            section.boundarySupplementaryItems = [header]
-            
+
+            if showSectionHeaders {
+                let header = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50)),
+                    elementKind: UICollectionView.elementKindSectionHeader,
+                    alignment: .top
+                )
+                header.pinToVisibleBounds = true
+                section.boundarySupplementaryItems = [header]
+            }
+
             return section
         }
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -97,6 +100,6 @@ struct ChatCollectionView<
     }
     
     func makeCoordinator() -> ChatCollectionViewCoordinator<Section, Item, ItemView, HeaderView> {
-        ChatCollectionViewCoordinator<Section, Item, ItemView, HeaderView>()
+        ChatCollectionViewCoordinator<Section, Item, ItemView, HeaderView>(showSectionHeaders: showSectionHeaders)
     }
 }

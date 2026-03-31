@@ -24,6 +24,7 @@ final class SpaceHubViewModel {
     var spaceMuteData: SpaceMuteData?
     var profileIcon: Icon?
     var spaceToDelete: StringIdentifiable?
+    var spaceToLeave: StringIdentifiable?
     
     @ObservationIgnored
     private weak var output: (any SpaceHubModuleOutput)?
@@ -44,7 +45,7 @@ final class SpaceHubViewModel {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.spaceCardModelBuilder) @ObservationIgnored
     private var spaceCardModelBuilder: any SpaceCardModelBuilderProtocol
-    
+
     init(output: (any SpaceHubModuleOutput)?) {
         self.output = output
     }
@@ -55,6 +56,18 @@ final class SpaceHubViewModel {
     
     func onTapCreateSpace() {
         output?.onSelectCreateObject()
+    }
+
+    func onTapCreatePersonalChannel() {
+        output?.onSelectCreatePersonalChannel()
+    }
+
+    func onTapCreateGroupChannel() {
+        output?.onSelectCreateGroupChannel()
+    }
+
+    func onTapJoinViaQrCode() {
+        output?.onSelectQrCodeJoin()
     }
     
     func onAppear() {
@@ -74,10 +87,17 @@ final class SpaceHubViewModel {
     
     func muteSpace(spaceViewId: String) {
         guard let spaceView = spaces?.first(where: { $0.spaceView.id == spaceViewId })?.spaceView else { return }
-        let isUnmutedAll = spaceView.pushNotificationMode.isUnmutedAll
         spaceMuteData = SpaceMuteData(
             spaceId: spaceView.targetSpaceId,
-            mode: isUnmutedAll ? .mentions : .all
+            mode: spaceView.pushNotificationMode.toggled(isOneToOne: spaceView.uxType.isOneToOne)
+        )
+    }
+
+    func setSpaceNotificationMode(spaceViewId: String, mode: SpacePushNotificationsMode) {
+        guard let spaceView = spaces?.first(where: { $0.spaceView.id == spaceViewId })?.spaceView else { return }
+        spaceMuteData = SpaceMuteData(
+            spaceId: spaceView.targetSpaceId,
+            mode: mode
         )
     }
     
@@ -103,6 +123,10 @@ final class SpaceHubViewModel {
     
     func onDeleteSpace(spaceId: String) {
         spaceToDelete = spaceId.identifiable
+    }
+
+    func onLeaveSpace(spaceId: String) {
+        spaceToLeave = spaceId.identifiable
     }
     
     func startSubscriptions() async {

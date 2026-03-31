@@ -13,7 +13,7 @@ extension ObjectMenuSectionType {
         switch setting {
         case .icon, .cover, .relations:
             return .horizontal
-        case .description:
+        case .description, .prefillName:
             return .descriptionSection
         case .resolveConflict, .webPublishing, .notifications:
             return .mainSettings

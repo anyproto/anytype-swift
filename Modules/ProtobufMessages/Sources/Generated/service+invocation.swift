@@ -224,6 +224,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func workspaceSetHomepage(
+        _ request: Anytype_Rpc.Workspace.SetHomepage.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Workspace.SetHomepage.Request, Anytype_Rpc.Workspace.SetHomepage.Response> {
+        return Invocation(messageName: "WorkspaceSetHomepage", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceWorkspaceSetHomepage(requestData) ?? Data()
+            return try Anytype_Rpc.Workspace.SetHomepage.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func workspaceExport(
         _ request: Anytype_Rpc.Workspace.Export.Request = .init()
     ) -> Invocation<Anytype_Rpc.Workspace.Export.Request, Anytype_Rpc.Workspace.Export.Response> {
@@ -871,16 +881,6 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSetSource(requestData) ?? Data()
             return try Anytype_Rpc.Object.SetSource.Response(serializedBytes: responseData)
-        }
-    }
-
-    public static func objectWorkspaceSetDashboard(
-        _ request: Anytype_Rpc.Object.WorkspaceSetDashboard.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Object.WorkspaceSetDashboard.Request, Anytype_Rpc.Object.WorkspaceSetDashboard.Response> {
-        return Invocation(messageName: "ObjectWorkspaceSetDashboard", request: request) { request in
-            let requestData = try request.serializedData()
-            let responseData = Lib.ServiceObjectWorkspaceSetDashboard(requestData) ?? Data()
-            return try Anytype_Rpc.Object.WorkspaceSetDashboard.Response(serializedBytes: responseData)
         }
     }
 

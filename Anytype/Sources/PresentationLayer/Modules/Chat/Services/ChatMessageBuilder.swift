@@ -83,8 +83,9 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 authorName: authorParticipant?.title ?? "",
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
                 authorId: authorParticipant?.id,
-                createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
+                timestampLabel: message.createdAtDate.formatted(date: .omitted, time: .shortened),
                 messageString: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position),
+                discussionBlocks: [],
                 replyModel: mapReply(
                     fullMessage: fullMessage,
                     participants: participants,
@@ -107,6 +108,8 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 canDelete: isYourMessage && canEdit,
                 canEdit: isYourMessage && canEdit,
                 showMessageSyncIndicator: isYourMessage,
+                isMember: false,
+                showTopDivider: false,
                 message: message,
                 attachmentsDetails: fullMessage.attachments,
                 reply: fullMessage.reply

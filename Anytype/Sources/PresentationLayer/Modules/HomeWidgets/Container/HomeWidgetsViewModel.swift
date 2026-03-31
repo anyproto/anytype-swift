@@ -214,11 +214,21 @@ final class HomeWidgetsViewModel {
 
         let previewsSequence = await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
         let chatsSequence = await chatDetailsStorage.allChatsSequence
+        let spaceViewSequence = workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values
 
-        for await (previews, chatDetails) in combineLatest(previewsSequence, chatsSequence) {
+        for await (previews, chatDetails, currentSpaceView) in combineLatest(previewsSequence, chatsSequence, spaceViewSequence) {
             let newUnreadChats = previews
                 .filter { preview in
-                    guard preview.spaceId == spaceId && preview.unreadCounter > 0 else { return false }
+                    guard preview.spaceId == spaceId else { return false }
+
+                    if FeatureFlags.muteAndHide {
+                        let mode = currentSpaceView.effectiveNotificationMode(for: preview.chatId)
+                        if mode == .nothing {
+                            guard preview.mentionCounter > 0 || preview.hasUnreadReactions else { return false }
+                        }
+                    }
+
+                    guard preview.hasCounters else { return false }
                     guard let chatDetail = chatDetails.first(where: { $0.id == preview.chatId }) else { return false }
                     return !chatDetail.isArchivedOrDeleted
                 }

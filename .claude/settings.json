@@ -5,6 +5,21 @@
 
       "Bash(git checkout:*)",
       "Bash(git worktree:*)",
+      "Bash(git fetch:*)",
+      "Bash(git log:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git stash show:*)",
+      "Bash(git diff:*)",
+      "Bash(git status:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git stash:*)",
+      "Bash(git merge:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(git remote:*)",
 
       "Bash(find:*)",
       "Bash(grep:*)",
@@ -12,35 +27,37 @@
       "Bash(sed:*)",
       "Bash(cat:*)",
       "Bash(ls:*)",
+      "Bash(od:*)",
+      "Bash(awk:*)",
 
-      "Bash(make setup-middle:*)",
-      "Bash(make generate-middle:*)",
       "Bash(make:*)",
       "Bash(xcodebuild:*)",
       "Bash(open:*)",
       "Bash(true)",
 
       "Bash(gh pr view:*)",
-      "Bash(gh issue view:*)",
       "Bash(gh pr list:*)",
       "Bash(gh pr diff:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr comment:*)",
+      "Bash(gh pr review:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh api:*)",
+
+      "Bash(mv:*)",
+      "Bash(mkdir:*)",
+      "Bash(bash Scripts/:*)",
 
       "Bash(linctl:*)",
 
-      "SlashCommand(/codeReview)",
+      "Skill(codeReview)",
+      "Skill(cpp)",
+      "Skill(update-config)",
 
-      "Bash(gh pr list:*)",
-      "Bash(gh pr diff:*)",
-      "Bash(git fetch:*)",
-      "Bash(git log:*)",
-      "Bash(git rev-parse:*)",
-      "Bash(while read commit)",
-      "Bash(do git show --name-only --format=\"\" $commit)",
-      "Bash(echo \"Commit: $commit\")",
-      "Bash(done)",
-      "Bash(od:*)",
-      "Bash(awk:*)",
-      "Bash(git stash show:*)",
+      "mcp__linear-server__get_issue",
+      "mcp__linear-server__get_project",
+      "mcp__linear-server__save_comment",
+
       "mcp__figma-remote-mcp__get_screenshot",
       "mcp__figma-remote-mcp__get_design_context",
       "mcp__figma-remote-mcp__get_metadata",
@@ -49,7 +66,19 @@
       "mcp__figma-remote-mcp__create_design_system_rules",
       "mcp__figma-remote-mcp__whoami"
     ],
-    "deny": []
+    "deny": [
+      "Bash(git reset:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push --force-with-lease:*)",
+      "Bash(git clean:*)",
+      "Bash(git checkout .:*)",
+      "Bash(git checkout -- .:*)",
+      "Bash(git restore .:*)",
+      "Bash(git branch -D:*)",
+      "Bash(git stash drop:*)",
+      "Bash(git stash clear:*)"
+    ]
   },
   "attribution": {
     "commit": "",
@@ -65,6 +94,19 @@
           {
             "type": "command",
             "command": ".claude/hooks/branch-protection-pre-edit.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/dangerous-git-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/bash-safety-guard.sh"
           }
         ]
       }
@@ -95,17 +137,6 @@
           {
             "type": "command",
             "command": ".claude/hooks/swiftformat-post-edit.sh"
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "matcher": "permission_prompt",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".claude/hooks/notification-alert.sh"
           }
         ]
       }

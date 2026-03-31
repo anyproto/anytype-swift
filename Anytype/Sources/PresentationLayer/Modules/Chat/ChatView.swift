@@ -11,8 +11,8 @@ struct ChatView: View {
 
     private let settingsOutput: (any ObjectSettingsCoordinatorOutput)?
 
-    init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?, settingsOutput: (any ObjectSettingsCoordinatorOutput)?) {
-        self._model = State(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, output: output))
+    init(spaceId: String, chatId: String, messageId: String? = nil, useBlocksFormat: Bool = false, output: (any ChatModuleOutput)?, settingsOutput: (any ObjectSettingsCoordinatorOutput)?) {
+        self._model = State(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, messageId: messageId, useBlocksFormat: useBlocksFormat, output: output))
         self.settingsOutput = settingsOutput
     }
     
@@ -139,7 +139,6 @@ struct ChatView: View {
                 }
             }
         }
-        .padding(.horizontal, 8)
         .padding(.bottom, 8)
         .chatActionStateTopProvider(state: $actionState)
         .task(id: model.mentionSearchState) {
@@ -174,6 +173,8 @@ struct ChatView: View {
             model.onTapScrollToBottom()
         } onTapMention: {
             model.onTapMention()
+        } onTapReaction: {
+            model.onTapReaction()
         }
     }
     
@@ -184,7 +185,8 @@ struct ChatView: View {
             scrollProxy: model.collectionViewScrollProxy,
             bottomPanel: bottomPanel,
             emptyView: emptyView,
-            showEmptyState: model.showEmptyState
+            showEmptyState: model.showEmptyState,
+            showSectionHeaders: true
         ) {
             cell(data: $0)
         } headerBuilder: {

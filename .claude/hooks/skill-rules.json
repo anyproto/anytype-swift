@@ -779,10 +779,85 @@
         ]
       }
     },
-    "simulator-verify": {
+    "self-review": {
       "type": "workflow",
       "priority": "medium",
-      "description": "Verify implementations by building, running, and screenshotting iOS simulator. Deep links and touch via idb.",
+      "description": "Agent self-reviews its own diff against TASTE_INVARIANTS.md before presenting to user. Catches mechanical violations early.",
+      "promptTriggers": {
+        "keywords": [
+          "self-review",
+          "taste check",
+          "taste invariants",
+          "check my changes",
+          "verify changes",
+          "review my code",
+          "quality check",
+          "before submit",
+          "pre-submit"
+        ],
+        "intentPatterns": [
+          "(check|verify|review).*?(my|own|these).*?(changes|code|diff)",
+          "(self|auto).*?review",
+          "(taste|invariant).*?(check|verify)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/TASTE_INVARIANTS.md"
+        ],
+        "contentPatterns": []
+      }
+    },
+    "swiftui-expert-skill": {
+      "type": "domain",
+      "priority": "medium",
+      "description": "Comprehensive SwiftUI expert reference (AvdLee). State management, animations, charts, accessibility, scroll patterns, latest APIs",
+      "promptTriggers": {
+        "keywords": [
+          "swiftui expert",
+          "animation",
+          "transition",
+          "chart",
+          "Swift Charts",
+          "accessibility",
+          "VoiceOver",
+          "ScaledMetric",
+          "scroll",
+          "ScrollViewReader",
+          "sheet pattern",
+          "navigation pattern",
+          "image optimization",
+          "AsyncImage",
+          "latest api",
+          "deprecated api",
+          "api migration"
+        ],
+        "intentPatterns": [
+          "(animate|transition).*?(view|element|state)",
+          "(create|build|add).*?(chart|graph)",
+          "(accessibility|a11y).*?(swiftui|view|pattern)",
+          "(scroll|paging).*?(behavior|pattern|position)",
+          "(deprecated|migrate|replace).*?(api|modifier|view)",
+          "(optimize|cache|downsample).*?(image)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": ["**/*.swift"],
+        "contentPatterns": [
+          "withAnimation",
+          "\\.transition\\(",
+          "Chart\\s*\\{",
+          "ScrollViewReader",
+          "\\.scrollPosition",
+          "AsyncImage",
+          "\\.accessibilityLabel"
+        ]
+      }
+    },
+    "ios-simulator-skill": {
+      "type": "workflow",
+      "priority": "medium",
+      "description": "21 production-ready scripts for iOS app testing, building, and automation. Semantic UI navigation, accessibility testing, simulator lifecycle management.",
       "promptTriggers": {
         "keywords": [
           "verify",
@@ -797,13 +872,94 @@
           "tap",
           "deep link",
           "simctl",
-          "check screen"
+          "check screen",
+          "accessibility audit",
+          "visual diff",
+          "screen mapper",
+          "push notification",
+          "privacy manager"
         ],
         "intentPatterns": [
           "(verify|check|test).*?(build|ui|screen|implementation)",
           "(take|capture).*?(screenshot)",
           "(run|launch|boot).*?(simulator|app)",
-          "(navigate|open|go to).*?(screen|view|page)"
+          "(navigate|open|go to).*?(screen|view|page)",
+          "(audit|check).*?(accessibility|a11y)",
+          "(compare|diff).*?(screenshot|visual|screen)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [],
+        "contentPatterns": []
+      }
+    },
+    "decompose": {
+      "type": "workflow",
+      "priority": "high",
+      "description": "Decompose a large Linear task into independent subtasks with PLAN.md and Linear sub-issues. Analyzes issue, project, middleware, comments, PRs, and codebase.",
+      "relatedSkills": ["linear-developer", "confidence-check"],
+      "promptTriggers": {
+        "keywords": [
+          "decompose",
+          "decomposition",
+          "break down",
+          "break down task",
+          "split task",
+          "subtasks",
+          "sub-tasks",
+          "plan feature",
+          "feature plan",
+          "task breakdown",
+          "work breakdown",
+          "create subtasks",
+          "create sub-issues",
+          "split into tasks",
+          "independent tasks",
+          "parallel tasks"
+        ],
+        "intentPatterns": [
+          "(decompose|break down|split|divide).*?(task|issue|feature|ticket|story)",
+          "(create|make|plan).*?(subtask|sub-task|sub-issue|breakdown|decomposition)",
+          "(analyze|review).*?(task|issue|feature).*?(plan|split|break)",
+          "(large|big|complex).*?(task|feature|issue).*?(plan|split|break|decompose)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/PLAN_IOS_*.md"
+        ],
+        "contentPatterns": [
+          "## Decomposition & Progress",
+          "Layer 0: Foundation"
+        ]
+      }
+    },
+    "apple-docs-developer": {
+      "type": "reference",
+      "priority": "medium",
+      "description": "Smart router to Apple Developer documentation via sosumi CLI. Fetch API docs, check availability, explore WWDC sessions",
+      "relatedSkills": ["ios-dev-guidelines", "swiftui-expert-skill", "swift-concurrency-developer"],
+      "promptTriggers": {
+        "keywords": [
+          "apple docs",
+          "apple documentation",
+          "developer docs",
+          "sosumi",
+          "api reference",
+          "check api",
+          "look up api",
+          "wwdc",
+          "availability",
+          "deprecated",
+          "what api",
+          "how does.*work in swift",
+          "method signature"
+        ],
+        "intentPatterns": [
+          "(look up|fetch|check|find|search).*?(api|doc|documentation|reference|signature)",
+          "(what|how|which).*?(api|method|property|modifier|protocol).*?(available|work|use)",
+          "(check|verify).*?(availability|deprecated|minimum.*ios)",
+          "(explore|browse|read).*?(apple|wwdc|developer)"
         ]
       },
       "fileTriggers": {

@@ -42,7 +42,7 @@ extension DetailsLayout {
             return ""
         }
     }
-    
+
     var description: String {
         switch self {
         case .basic:
@@ -62,5 +62,5 @@ extension DetailsLayout {
             return ""
         }
     }
-    
+
 }

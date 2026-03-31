@@ -41,9 +41,12 @@ struct SpaceHubList: View {
     }
     
     private var emptyStateView: some View {
-        SpaceHubEmptyStateView {
-            model.onTapCreateSpace()
-        }
+        SpaceHubEmptyStateView(
+            onTapCreateSpace: { model.onTapCreateSpace() },
+            onTapCreatePersonalChannel: { model.onTapCreatePersonalChannel() },
+            onTapCreateGroupChannel: { model.onTapCreateGroupChannel() },
+            onTapJoinViaQrCode: { model.onTapJoinViaQrCode() }
+        )
     }
     
     @ViewBuilder
@@ -60,6 +63,9 @@ struct SpaceHubList: View {
             onTapMute: {
                 model.muteSpace(spaceViewId: cardModel.spaceViewId)
             },
+            onTapNotificationMode: { mode in
+                model.setSpaceNotificationMode(spaceViewId: cardModel.spaceViewId, mode: mode)
+            },
             onTapPin: {
                 try await model.pin(spaceViewId: cardModel.spaceViewId)
             },
@@ -71,6 +77,9 @@ struct SpaceHubList: View {
             },
             onTapDelete: {
                 model.onDeleteSpace(spaceId: cardModel.targetSpaceId)
+            },
+            onTapLeave: {
+                model.onLeaveSpace(spaceId: cardModel.targetSpaceId)
             }
         )
         .padding(.horizontal, 16)

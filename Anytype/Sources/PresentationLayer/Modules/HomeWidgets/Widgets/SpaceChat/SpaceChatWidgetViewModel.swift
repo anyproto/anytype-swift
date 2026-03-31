@@ -14,6 +14,7 @@ final class SpaceChatWidgetViewModel {
     private let data: SpaceChatWidgetData
 
     var hasMentions: Bool = false
+    var hasUnreadReactions: Bool = false
     var messageCount: Int = 0
     var muted = false
 
@@ -42,6 +43,7 @@ final class SpaceChatWidgetViewModel {
         for await counters in sequence {
             messageCount = counters.unreadCounter
             hasMentions = counters.mentionCounter > 0
+            hasUnreadReactions = counters.hasUnreadReactions
         }
     }
 }

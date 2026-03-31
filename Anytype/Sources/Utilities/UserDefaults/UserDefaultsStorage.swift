@@ -12,6 +12,8 @@ protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
     var rowsPerPageInSet: Int { get set }
     var rowsPerPageInGroupedSet: Int { get set }
     var userInterfaceStyle: UIUserInterfaceStyle { get set }
+    var autoDownloadSizeLimitRawValue: Int { get set }
+    var autoDownloadUseCellular: Bool { get set }
 
     func wallpaperPublisher(spaceId: String) -> AnyPublisher<SpaceWallpaperType, Never>
     func wallpapersPublisher() -> AnyPublisher<[String: SpaceWallpaperType], Never>
@@ -51,6 +53,13 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
     @UserDefault("serverConfig", defaultValue: .anytype)
     private var serverConfig: NetworkServerConfig
     
+    // MARK: - Auto Download
+    @UserDefault("UserData.AutoDownloadSizeLimitRawValue", defaultValue: -1)
+    var autoDownloadSizeLimitRawValue: Int
+
+    @UserDefault("UserData.AutoDownloadUseCellular", defaultValue: false)
+    var autoDownloadUseCellular: Bool
+
     // MARK: - UserInterfaceStyle
     @UserDefault("UserData.UserInterfaceStyle", defaultValue: UIUserInterfaceStyle.unspecified.rawValue)
     private var _userInterfaceStyleRawValue: Int
@@ -119,6 +128,8 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
     func cleanStateAfterLogout() {
         showUnstableMiddlewareError = true
         _homeObjects = [:]
+        autoDownloadSizeLimitRawValue = -1
+        autoDownloadUseCellular = false
     }
     
 }
