@@ -27,7 +27,7 @@ final class NetworkStatusProvider: NetworkStatusProviderProtocol {
                 self?.subject.send(path.status == .satisfied)
             }
         }
-        monitor.start(queue: .main)
+        monitor.start(queue: DispatchQueue(label: "network-monitor"))
     }
 
     deinit {
