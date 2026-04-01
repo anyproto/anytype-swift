@@ -1,5 +1,6 @@
 import Foundation
 import AnytypeCore
+import Combine
 
 protocol ChannelOnboardingStorageProtocol: Sendable {
     func isHomepagePickerDismissed(spaceId: String) -> Bool
@@ -11,6 +12,8 @@ protocol ChannelOnboardingStorageProtocol: Sendable {
 
     func isInviteMembersDismissed(spaceId: String) -> Bool
     func setInviteMembersDismissed(spaceId: String)
+
+    var didChangePublisher: AnyPublisher<Void, Never> { get }
 }
 
 final class ChannelOnboardingStorage: ChannelOnboardingStorageProtocol, Sendable {
@@ -20,6 +23,12 @@ final class ChannelOnboardingStorage: ChannelOnboardingStorageProtocol, Sendable
         defaultValue: [String: Bool]()
     )
 
+    private let didChangeSubject = PassthroughSubject<Void, Never>()
+
+    var didChangePublisher: AnyPublisher<Void, Never> {
+        didChangeSubject.eraseToAnyPublisher()
+    }
+
     // MARK: - Homepage Picker
 
     func isHomepagePickerDismissed(spaceId: String) -> Bool {
@@ -28,6 +37,7 @@ final class ChannelOnboardingStorage: ChannelOnboardingStorageProtocol, Sendable
 
     func setHomepagePickerDismissed(spaceId: String) {
         storage.value[key(.homepagePickerDismissed, spaceId: spaceId)] = true
+        didChangeSubject.send()
     }
 
     // MARK: - Create Home Widget
@@ -38,6 +48,7 @@ final class ChannelOnboardingStorage: ChannelOnboardingStorageProtocol, Sendable
 
     func setCreateHomeDismissed(spaceId: String) {
         storage.value[key(.createHomeDismissed, spaceId: spaceId)] = true
+        didChangeSubject.send()
     }
 
     /// Reset dismissal when homepage becomes non-empty.
@@ -45,6 +56,7 @@ final class ChannelOnboardingStorage: ChannelOnboardingStorageProtocol, Sendable
     /// (e.g. the homepage object was deleted and middleware cleared the value).
     func resetCreateHomeDismissed(spaceId: String) {
         storage.value[key(.createHomeDismissed, spaceId: spaceId)] = nil
+        didChangeSubject.send()
     }
 
     // MARK: - Invite Members Widget
@@ -55,6 +67,7 @@ final class ChannelOnboardingStorage: ChannelOnboardingStorageProtocol, Sendable
 
     func setInviteMembersDismissed(spaceId: String) {
         storage.value[key(.inviteMembersDismissed, spaceId: spaceId)] = true
+        didChangeSubject.send()
     }
 
     // MARK: - Private

@@ -39,7 +39,8 @@ final class StubWidgetsViewModel {
     func startSubscriptions() async {
         async let spaceViewTask: () = startSpaceViewTask()
         async let participantsTask: () = startParticipantsTask()
-        _ = await (spaceViewTask, participantsTask)
+        async let onboardingTask: () = startOnboardingStorageTask()
+        _ = await (spaceViewTask, participantsTask, onboardingTask)
     }
 
     // MARK: - Actions
@@ -73,16 +74,27 @@ final class StubWidgetsViewModel {
             onboardingStorage.resetCreateHomeDismissed(spaceId: spaceId)
         }
 
-        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values {
-            let homepageEmpty = spaceView.homepage == .empty
-            let pickerDismissed = onboardingStorage.isHomepagePickerDismissed(spaceId: spaceId)
-            let createHomeDismissed = onboardingStorage.isCreateHomeDismissed(spaceId: spaceId)
-
-            showCreateHome = FeatureFlags.createChannelFlow
-                && homepageEmpty
-                && pickerDismissed
-                && !createHomeDismissed
+        for await _ in workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values {
+            recalculateShowCreateHome()
         }
+    }
+
+    private func startOnboardingStorageTask() async {
+        for await _ in onboardingStorage.didChangePublisher.values {
+            recalculateShowCreateHome()
+        }
+    }
+
+    private func recalculateShowCreateHome() {
+        let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
+        let homepageEmpty = spaceView?.homepage == .empty
+        let pickerDismissed = onboardingStorage.isHomepagePickerDismissed(spaceId: spaceId)
+        let createHomeDismissed = onboardingStorage.isCreateHomeDismissed(spaceId: spaceId)
+
+        showCreateHome = FeatureFlags.createChannelFlow
+            && homepageEmpty
+            && pickerDismissed
+            && !createHomeDismissed
     }
 
     private func startParticipantsTask() async {
