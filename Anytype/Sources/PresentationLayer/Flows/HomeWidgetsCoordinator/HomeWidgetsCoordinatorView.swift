@@ -56,6 +56,9 @@ private struct HomeWidgetsCoordinatorInternalView: View {
                 model.pageNavigation = pageNavigation
                 model.onAppear()
             }
+            .task {
+                await model.startPendingShareRetryTask()
+            }
             .sheet(item: $model.showChangeTypeData) {
                 WidgetTypeChangeView(data: $0)
             }

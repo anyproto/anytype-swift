@@ -275,6 +275,18 @@ extension Container {
     var membershipStatusStorage: Factory<any MembershipStatusStorageProtocol> {
         self { MembershipStatusStorage() }.singleton
     }
+
+    var pendingShareStorage: Factory<any PendingShareStorageProtocol> {
+        self { PendingShareStorage() }.singleton
+    }
+
+    var networkStatusProvider: Factory<any NetworkStatusProviderProtocol> {
+        self { NetworkStatusProvider() }.singleton
+    }
+
+    var pendingShareService: Factory<any PendingShareServiceProtocol> {
+        self { PendingShareService() }.singleton
+    }
     
     var membershipMetadataProvider: Factory<any MembershipMetadataProviderProtocol> {
         self { MembershipMetadataProvider() }.shared

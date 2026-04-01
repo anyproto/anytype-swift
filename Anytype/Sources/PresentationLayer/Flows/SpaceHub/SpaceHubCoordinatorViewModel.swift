@@ -12,6 +12,9 @@ struct SpaceHubNavigationItem: Hashable { }
 @Observable
 final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var showSpaceManager = false
+    var showSharedChannelLimit = false
+    var sharedChannelLimit: Int = 0
+    var membershipUpgradeReason: MembershipUpgradeReason?
     var showObjectIsNotAvailableAlert = false
     var profileData: ObjectInfo?
     var spaceProfileData: AccountInfo?
@@ -212,7 +215,23 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
 
 
     func onSelectCreateGroupChannel() {
-        showGroupChannelCreate = true
+        let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo
+        if let spaceSharingInfo, !spaceSharingInfo.limitsAllowSharing {
+            sharedChannelLimit = spaceSharingInfo.sharedSpacesLimit
+            showSharedChannelLimit = true
+        } else {
+            showGroupChannelCreate = true
+        }
+    }
+
+    func onSharedChannelLimitUpgrade() {
+        showSharedChannelLimit = false
+        membershipUpgradeReason = .numberOfSharedSpaces
+    }
+
+    func onSharedChannelLimitManageChannels() {
+        showSharedChannelLimit = false
+        showSpaceManager = true
     }
 
     func onSelectQrCodeJoin() {

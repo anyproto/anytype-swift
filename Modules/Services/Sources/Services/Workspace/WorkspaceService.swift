@@ -26,7 +26,7 @@ public protocol WorkspaceServiceProtocol: Sendable {
     func requestDecline(spaceId: String, identity: String) async throws
     func participantPermissionsChange(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
     func participantRemove(spaceId: String, identity: String) async throws
-    func participantsAdd(spaceId: String, identities: [String]) async throws
+    func participantsAdd(spaceId: String, identities: [String], permissions: ParticipantPermissions) async throws
     func leaveApprove(spaceId: String, identity: String) async throws
     func pushNotificationSetSpaceMode(spaceId: String, mode: SpacePushNotificationsMode) async throws
     func pushNotificationResetIds(spaceId: String, chatIds: [String]) async throws
@@ -228,9 +228,13 @@ final class WorkspaceService: WorkspaceServiceProtocol {
         }).invoke()
     }
 
-    public func participantsAdd(spaceId: String, identities: [String]) async throws {
-        // TODO: IOS-5908 — Wire to ClientCommands.spaceParticipantsAddList when GO-6946 is merged
-        anytypeAssertionFailure("participantsAdd not yet available in middleware")
+    public func participantsAdd(spaceId: String, identities: [String], permissions: ParticipantPermissions) async throws {
+        // TODO: Uncomment when GO-6946 is merged to middleware develop
+//        try await ClientCommands.spaceParticipantsAddList(.with {
+//            $0.spaceID = spaceId
+//            $0.identities = identities
+//            $0.permissions = permissions
+//        }).invoke()
     }
 
     public func leaveApprove(spaceId: String, identity: String) async throws {

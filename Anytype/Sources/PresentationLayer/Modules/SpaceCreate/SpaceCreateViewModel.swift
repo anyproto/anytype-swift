@@ -22,12 +22,17 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
     private var workspaceService: any WorkspaceServiceProtocol
     @ObservationIgnored @Injected(\.fileActionsService)
     private var fileActionsService: any FileActionsServiceProtocol
+    @ObservationIgnored @Injected(\.pendingShareService)
+    private var pendingShareService: any PendingShareServiceProtocol
+    @ObservationIgnored @Injected(\.networkStatusProvider)
+    private var networkStatusProvider: any NetworkStatusProviderProtocol
 
     // MARK: - State
 
     var spaceName = ""
     var spaceIcon: Icon
     var dismiss: Bool = false
+    var isConnected: Bool = true
 
     @ObservationIgnored
     var fileData: FileData?
@@ -42,6 +47,7 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
         self.spaceIconOption = IconColorStorage.randomOption()
         let isCircular = data.channelType == nil && data.spaceUxType.isChat
         self.spaceIcon = .object(.space(.name(name: "", iconOption: spaceIconOption, circular: isCircular)))
+        self.isConnected = networkStatusProvider.isConnected
     }
     
     func onTapCreate() async throws {
@@ -65,6 +71,13 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenSettingsSpaceCreate()
+        isConnected = networkStatusProvider.isConnected
+    }
+
+    func startNetworkObservation() async {
+        for await connected in networkStatusProvider.isConnectedPublisher.values {
+            isConnected = connected
+        }
     }
     
     func updateNameIconIfNeeded(_ name: String) {
@@ -106,15 +119,10 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
         let spaceId = createResponse.spaceID
 
         if channelType == .group {
-            do {
-                _ = try await workspaceService.makeSharable(spaceId: spaceId)
-                _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
-                // TODO: IOS-5911 Move participantsAdd to a separate do/catch with error handling
-                let identities = data.selectedContacts.map(\.identity)
-                if identities.isNotEmpty {
-                    try await workspaceService.participantsAdd(spaceId: spaceId, identities: identities)
-                }
-            } catch {}
+            let pendingIdentities = data.selectedContacts.map {
+                PendingIdentity(identity: $0.identity, name: $0.name, globalName: $0.globalName, icon: $0.icon)
+            }
+            await pendingShareService.savePendingAndRunChain(spaceId: spaceId, identities: pendingIdentities)
         }
 
         return spaceId

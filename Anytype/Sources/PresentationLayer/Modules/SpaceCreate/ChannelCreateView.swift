@@ -16,6 +16,11 @@ struct ChannelCreateView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
+                if !model.isConnected, model.data.selectedContacts.isNotEmpty {
+                    OfflineMembersBannerView()
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 8)
+                }
                 VStack(spacing: 0) {
                     iconSection
 
@@ -59,6 +64,9 @@ struct ChannelCreateView: View {
                 .buttonBorderShape(.capsule)
                 .disabled(isCreating || model.spaceName.isEmpty || model.spaceName.count > ThresholdCounterUsecase.spaceName.threshold)
             }
+        }
+        .task {
+            await model.startNetworkObservation()
         }
         .onAppear {
             model.onAppear()

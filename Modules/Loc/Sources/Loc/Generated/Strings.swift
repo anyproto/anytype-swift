@@ -1440,6 +1440,16 @@ public enum Loc {
         }
       }
     }
+    public enum Offline {
+      public static let membersBanner = Loc.tr("Workspace", "Channel.Offline.MembersBanner", fallback: "Members will be invited when you're back online")
+    }
+    public enum SharedLimit {
+      public static let manageChannels = Loc.tr("Workspace", "Channel.SharedLimit.ManageChannels", fallback: "Manage Channels")
+      public static func subtitle(_ p1: Int) -> String {
+        return Loc.tr("Workspace", "Channel.SharedLimit.Subtitle", p1, fallback: "Your plan allows %lld shared channels. Upgrade your membership to create more.")
+      }
+      public static let title = Loc.tr("Workspace", "Channel.SharedLimit.Title", fallback: "Shared channel limit reached")
+    }
   }
   public enum Chat {
     public static let channelSettings = Loc.tr("Workspace", "Chat.ChannelSettings", fallback: "Channel Settings")

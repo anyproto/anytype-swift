@@ -676,6 +676,50 @@
         }
       }
     },
+    "Channel.Offline.MembersBanner": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Members will be invited when you're back online"
+          }
+        }
+      }
+    },
+    "Channel.SharedLimit.ManageChannels": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manage Channels"
+          }
+        }
+      }
+    },
+    "Channel.SharedLimit.Subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        }
+      }
+    },
+    "Channel.SharedLimit.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shared channel limit reached"
+          }
+        }
+      }
+    },
     "Chat.AttachedObject.Attach": {
       "extractionState": "manual",
       "localizations": {
