@@ -1432,8 +1432,10 @@ public enum Loc {
   }
   public enum Chat {
     public static let channelSettings = Loc.tr("Workspace", "Chat.ChannelSettings", fallback: "Channel Settings")
+    public static let deleteChannel = Loc.tr("Workspace", "Chat.DeleteChannel", fallback: "Delete channel")
     public static let editMessage = Loc.tr("Workspace", "Chat.EditMessage", fallback: "Edit Message")
     public static let inviteMembers = Loc.tr("Workspace", "Chat.InviteMembers", fallback: "Invite members")
+    public static let leaveChannel = Loc.tr("Workspace", "Chat.LeaveChannel", fallback: "Leave channel")
     public static let newMessages = Loc.tr("Workspace", "Chat.NewMessages", fallback: "New Messages")
     public static func replyTo(_ p1: Any) -> String {
       return Loc.tr("Workspace", "Chat.ReplyTo", String(describing: p1), fallback: "Reply to %@")

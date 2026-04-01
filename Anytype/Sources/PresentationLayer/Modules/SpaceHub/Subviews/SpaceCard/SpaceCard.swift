@@ -106,7 +106,7 @@ struct SpaceCard: View {
         Button {
             onTapSettings()
         } label: {
-            Text(Loc.SpaceSettings.title)
+            Text(Loc.Chat.channelSettings)
             Spacer()
             Image(systemName: "gearshape")
         }
@@ -116,7 +116,7 @@ struct SpaceCard: View {
         Button(role: .destructive) {
             onTapDelete()
         } label: {
-            Text(Loc.SpaceSettings.deleteButton)
+            Text(Loc.Chat.deleteChannel)
                 .tint(.red)
             Spacer()
             Image(systemName: "trash")
@@ -128,7 +128,7 @@ struct SpaceCard: View {
         Button(role: .destructive) {
             onTapLeave()
         } label: {
-            Text(Loc.SpaceSettings.leaveButton)
+            Text(Loc.Chat.leaveChannel)
                 .tint(.red)
             Spacer()
             Image(systemName: "trash")

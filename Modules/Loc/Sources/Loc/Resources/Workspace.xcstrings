@@ -1744,6 +1744,28 @@
         }
       }
     },
+    "Chat.DeleteChannel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete channel"
+          }
+        }
+      }
+    },
+    "Chat.LeaveChannel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave channel"
+          }
+        }
+      }
+    },
     "Chat.Create.namePlaceholder" : {
       "extractionState" : "manual",
       "localizations" : {

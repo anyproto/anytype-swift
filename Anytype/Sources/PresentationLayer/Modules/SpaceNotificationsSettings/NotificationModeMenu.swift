@@ -26,7 +26,7 @@ struct NotificationModeMenu: View {
             Label {
                 Text(Loc.notifications)
             } icon: {
-                Image(systemName: "bell.fill")
+                Image(systemName: "bell")
             }
         }
     }
