@@ -12,7 +12,7 @@ struct SpaceCreateView: View {
     init(data: SpaceCreateData, output: (any SpaceCreateModuleOutput)?) {
         _model = State(initialValue: SpaceCreateViewModel(data: data, output: output))
     }
-
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -53,7 +53,7 @@ struct SpaceCreateView: View {
             model.updateNameIconIfNeeded($1)
         }
     }
-
+    
     private var iconSection: some View {
         Button {
             model.onIconTapped()
