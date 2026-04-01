@@ -80,7 +80,7 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onChannelSettingsTap()
         } label: {
-            Label(Loc.Chat.channelSettings, systemImage: "gear")
+            Label(Loc.Chat.channelSettings, systemImage: "gearshape")
         }
     }
 
