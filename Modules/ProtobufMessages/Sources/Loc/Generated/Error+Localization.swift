@@ -7756,43 +7756,6 @@ extension Anytype_Rpc.Space.ParticipantRemove.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.ParticipantsAddList.Response.Error: LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if !localizeError.isEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return LocHelper.tr(table: "LocalizableError", key: "Space.ParticipantsAddList.badInput")
-            case .sendInviteFailed:
-                return LocHelper.tr(table: "LocalizableError", key: "Space.ParticipantsAddList.sendInviteFailed")
-            case .noSuchSpace:
-                return LocHelper.tr(table: "LocalizableError", key: "Space.ParticipantsAddList.noSuchSpace")
-            case .spaceIsDeleted:
-                return LocHelper.tr(table: "LocalizableError", key: "Space.ParticipantsAddList.spaceIsDeleted")
-            case .requestFailed:
-                return LocHelper.tr(table: "LocalizableError", key: "Space.ParticipantsAddList.requestFailed")
-            case .limitReached:
-                return LocHelper.tr(table: "LocalizableError", key: "Space.ParticipantsAddList.limitReached")
-            case .notShareable:
-                return LocHelper.tr(table: "LocalizableError", key: "Space.ParticipantsAddList.notShareable")
-            case .incorrectPermissions:
-                return LocHelper.tr(table: "LocalizableError", key: "Space.ParticipantsAddList.incorrectPermissions")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
 extension Anytype_Rpc.Space.RequestApprove.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

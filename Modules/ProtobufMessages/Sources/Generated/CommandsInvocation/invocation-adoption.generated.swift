@@ -1545,11 +1545,6 @@ extension Anytype_Rpc.Space.ParticipantRemove.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
-extension Anytype_Rpc.Space.ParticipantsAddList.Response: ResultWithError {}
-extension Anytype_Rpc.Space.ParticipantsAddList.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
 extension Anytype_Rpc.Space.RequestApprove.Response: ResultWithError {}
 extension Anytype_Rpc.Space.RequestApprove.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
