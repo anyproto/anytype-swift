@@ -13,6 +13,8 @@ final class PendingShareService: PendingShareServiceProtocol, @unchecked Sendabl
     private var storage: any PendingShareStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
     private var runningSpaceIds = Set<String>()
 
@@ -64,11 +66,26 @@ final class PendingShareService: PendingShareServiceProtocol, @unchecked Sendabl
         }
 
         if state.identities.isNotEmpty {
-            do {
-                let identityIds = state.identities.map(\.identity)
-                try await workspaceService.participantsAdd(spaceId: spaceId, identities: identityIds)
-            } catch {
-                return
+            let identityIds = state.identities.map(\.identity)
+            let writersLimit = spaceViewsStorage.spaceView(spaceId: spaceId)?.writersLimit ?? identityIds.count
+
+            let writerIds = Array(identityIds.prefix(writersLimit))
+            let readerIds = Array(identityIds.dropFirst(writersLimit))
+
+            if writerIds.isNotEmpty {
+                do {
+                    try await workspaceService.participantsAdd(spaceId: spaceId, identities: writerIds, permissions: .writer)
+                } catch {
+                    return
+                }
+            }
+
+            if readerIds.isNotEmpty {
+                do {
+                    try await workspaceService.participantsAdd(spaceId: spaceId, identities: readerIds, permissions: .reader)
+                } catch {
+                    return
+                }
             }
         }
 
