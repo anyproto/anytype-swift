@@ -158,8 +158,7 @@ final class SpaceJoinViewModel {
             self.inviteView = inviteView
 
             if let spaceView = workspaceStorage.allSpaceViews.first(where: { $0.targetSpaceId == inviteView.spaceId }) {
-                switch spaceView.accountStatus {
-                case .spaceActive:
+                if spaceView.isActive {
                     // IOS-5522: Auto-open space for existing members
                     do {
                         try await activeSpaceManager.setActiveSpace(spaceId: inviteView.spaceId)
@@ -170,16 +169,14 @@ final class SpaceJoinViewModel {
                         state = .data
                         return
                     }
-                case .unknown:
-                    dataState = .alreadyJoined
-                    state = .data
-                    return
-                case .spaceJoining:
+                } else if spaceView.isJoining {
                     dataState = .requestSent
                     state = .data
                     return
-                default:
-                    break
+                } else {
+                    dataState = .alreadyJoined
+                    state = .data
+                    return
                 }
             }
 
