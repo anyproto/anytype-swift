@@ -117,5 +117,8 @@ struct SpaceShareView: View {
             }
         }
         .background(Color.Background.primary)
+        .task {
+            await model.startNetworkObservation()
+        }
     }
 }

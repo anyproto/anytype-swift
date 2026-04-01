@@ -34,6 +34,9 @@ final class SpaceShareViewModel {
     @Injected(\.pendingShareService)
     private var pendingShareService: any PendingShareServiceProtocol
     @ObservationIgnored
+    @Injected(\.networkStatusProvider)
+    private var networkStatusProvider: any NetworkStatusProviderProtocol
+    @ObservationIgnored
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
 
     @ObservationIgnored
@@ -84,6 +87,14 @@ final class SpaceShareViewModel {
         for await items in participantsSubscription.withoutRemovingParticipantsPublisher.values {
             participants = items.sorted { $0.sortingWeight > $1.sortingWeight }
             cleanupMatchedPendingIdentities()
+            updateView()
+        }
+    }
+
+    func startNetworkObservation() async {
+        guard pendingShareStorage.pendingState(for: spaceId) != nil else { return }
+        for await _ in networkStatusProvider.isConnectedPublisher.values {
+            guard pendingShareStorage.pendingState(for: spaceId) != nil else { return }
             updateView()
         }
     }
@@ -199,7 +210,7 @@ final class SpaceShareViewModel {
             }
         rows.append(contentsOf: pendingRows)
         let hasPendingState = pending.needsMakeShareable || pending.needsGenerateInvite || pendingRows.isNotEmpty
-        showOfflineBanner = hasPendingState
+        showOfflineBanner = hasPendingState && !networkStatusProvider.isConnected
     }
 
     private func cleanupMatchedPendingIdentities() {
