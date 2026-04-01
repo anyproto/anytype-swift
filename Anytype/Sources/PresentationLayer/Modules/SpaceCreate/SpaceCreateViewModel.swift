@@ -122,7 +122,7 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
             let pendingIdentities = data.selectedContacts.map {
                 PendingIdentity(identity: $0.identity, name: $0.name, globalName: $0.globalName, icon: $0.icon)
             }
-            pendingShareService.savePendingAndRunChain(spaceId: spaceId, identities: pendingIdentities)
+            await pendingShareService.savePendingAndRunChain(spaceId: spaceId, identities: pendingIdentities)
         }
 
         return spaceId

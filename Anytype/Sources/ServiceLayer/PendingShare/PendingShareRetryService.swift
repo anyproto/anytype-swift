@@ -3,11 +3,11 @@ import Factory
 import Services
 
 protocol PendingShareServiceProtocol: AnyObject, Sendable {
-    func savePendingAndRunChain(spaceId: String, identities: [PendingIdentity])
+    func savePendingAndRunChain(spaceId: String, identities: [PendingIdentity]) async
     func retryIfNeeded(spaceId: String) async
 }
 
-final class PendingShareService: PendingShareServiceProtocol, @unchecked Sendable {
+actor PendingShareService: PendingShareServiceProtocol {
 
     @Injected(\.pendingShareStorage)
     private var storage: any PendingShareStorageProtocol
@@ -26,9 +26,7 @@ final class PendingShareService: PendingShareServiceProtocol, @unchecked Sendabl
             needsGenerateInvite: true
         ))
 
-        Task {
-            await runChain(spaceId: spaceId)
-        }
+        Task { await runChain(spaceId: spaceId) }
     }
 
     func retryIfNeeded(spaceId: String) async {
