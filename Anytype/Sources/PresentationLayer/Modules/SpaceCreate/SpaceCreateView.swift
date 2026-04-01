@@ -49,6 +49,7 @@ struct SpaceCreateView: View {
             dismiss()
         }
         .background(Color.Background.primary)
+        .snackbar(toastBarData: $model.toastBarData)
         .onChange(of: model.spaceName) {
             model.updateNameIconIfNeeded($1)
         }

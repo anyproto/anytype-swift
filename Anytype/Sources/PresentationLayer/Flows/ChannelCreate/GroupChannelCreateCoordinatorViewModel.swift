@@ -43,6 +43,6 @@ final class GroupChannelCreateCoordinatorViewModel {
         let contacts = selectMembersData?.contacts
             .filter { selectedIdentities.contains($0.identity) }
             .sorted { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending } ?? []
-        spaceCreateData = SpaceCreateData(spaceUxType: .data, selectedContacts: contacts, selectedMembers: members, channelType: .group)
+        spaceCreateData = SpaceCreateData(spaceUxType: .data, selectedContacts: contacts, channelType: .group)
     }
 }

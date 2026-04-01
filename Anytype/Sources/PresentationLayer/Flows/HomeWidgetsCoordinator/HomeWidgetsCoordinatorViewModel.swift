@@ -24,8 +24,8 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     @Injected(\.channelOnboardingStorage) @ObservationIgnored
     private var onboardingStorage: any ChannelOnboardingStorageProtocol
-    @Injected(\.pendingShareService) @ObservationIgnored
-    private var pendingShareService: any PendingShareServiceProtocol
+    @Injected(\.pendingShareRetryService) @ObservationIgnored
+    private var pendingShareRetryService: any PendingShareRetryServiceProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.pendingShareStorage) @ObservationIgnored
@@ -53,7 +53,7 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
             guard pendingShareStorage.pendingState(for: spaceId) != nil else { return }
 
             if participantSpaceView.spaceView.isActive {
-                await pendingShareService.retryIfNeeded(spaceId: spaceId)
+                await pendingShareRetryService.retryIfNeeded(spaceId: spaceId)
                 if pendingShareStorage.pendingState(for: spaceId) == nil { return }
             }
         }

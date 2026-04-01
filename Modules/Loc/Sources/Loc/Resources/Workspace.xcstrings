@@ -687,6 +687,17 @@
         }
       }
     },
+    "Channel.Offline.MembersToast": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Members will be added once you're back online"
+          }
+        }
+      }
+    },
     "Channel.SharedLimit.ManageChannels": {
       "extractionState": "manual",
       "localizations": {
