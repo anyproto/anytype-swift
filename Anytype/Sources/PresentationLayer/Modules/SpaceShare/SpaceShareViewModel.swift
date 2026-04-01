@@ -31,8 +31,8 @@ final class SpaceShareViewModel {
     @Injected(\.pendingShareStorage)
     private var pendingShareStorage: any PendingShareStorageProtocol
     @ObservationIgnored
-    @Injected(\.pendingShareRetryService)
-    private var pendingShareRetryService: any PendingShareRetryServiceProtocol
+    @Injected(\.pendingShareService)
+    private var pendingShareService: any PendingShareServiceProtocol
     @ObservationIgnored
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
 
@@ -93,10 +93,10 @@ final class SpaceShareViewModel {
             self.participantSpaceView = participantSpaceView
 
             if participantSpaceView.spaceView.isActive, pendingShareStorage.pendingState(for: spaceId) != nil {
-                await pendingShareRetryService.retryIfNeeded(spaceId: spaceId)
-                linkViewModel.updateLink()
+                await pendingShareService.retryIfNeeded(spaceId: spaceId)
             }
 
+            linkViewModel.updateLink()
             updateView()
         }
     }

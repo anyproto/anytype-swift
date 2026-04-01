@@ -17,6 +17,5 @@ struct OfflineMembersBannerView: View {
         .padding(.horizontal, 16)
         .background(Color.Control.accent25)
         .clipShape(.rect(cornerRadius: 22))
-        .padding(.horizontal, 16)
     }
 }

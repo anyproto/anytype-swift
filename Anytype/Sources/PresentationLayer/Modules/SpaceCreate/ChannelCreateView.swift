@@ -18,6 +18,7 @@ struct ChannelCreateView: View {
             VStack(spacing: 0) {
                 if !model.isConnected, model.data.selectedContacts.isNotEmpty {
                     OfflineMembersBannerView()
+                        .padding(.horizontal, 16)
                         .padding(.bottom, 8)
                 }
                 VStack(spacing: 0) {

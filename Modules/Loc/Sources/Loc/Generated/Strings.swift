@@ -1442,7 +1442,6 @@ public enum Loc {
     }
     public enum Offline {
       public static let membersBanner = Loc.tr("Workspace", "Channel.Offline.MembersBanner", fallback: "Members will be invited when you're back online")
-      public static let membersToast = Loc.tr("Workspace", "Channel.Offline.MembersToast", fallback: "Members will be added once you're back online")
     }
     public enum SharedLimit {
       public static let manageChannels = Loc.tr("Workspace", "Channel.SharedLimit.ManageChannels", fallback: "Manage Channels")

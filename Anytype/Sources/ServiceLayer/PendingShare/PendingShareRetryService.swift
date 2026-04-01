@@ -2,21 +2,46 @@ import Foundation
 import Factory
 import Services
 
-protocol PendingShareRetryServiceProtocol: AnyObject, Sendable {
+protocol PendingShareServiceProtocol: AnyObject, Sendable {
+    func savePendingAndRunChain(spaceId: String, identities: [PendingIdentity])
     func retryIfNeeded(spaceId: String) async
 }
 
-final class PendingShareRetryService: PendingShareRetryServiceProtocol, @unchecked Sendable {
+final class PendingShareService: PendingShareServiceProtocol, @unchecked Sendable {
 
     @Injected(\.pendingShareStorage)
     private var storage: any PendingShareStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
 
-    func retryIfNeeded(spaceId: String) async {
-        guard let pending = storage.pendingState(for: spaceId) else { return }
+    private var runningSpaceIds = Set<String>()
 
-        var state = pending
+    func savePendingAndRunChain(spaceId: String, identities: [PendingIdentity]) {
+        storage.savePendingState(PendingShareState(
+            spaceId: spaceId,
+            identities: identities,
+            needsMakeShareable: true,
+            needsGenerateInvite: true
+        ))
+
+        Task {
+            await runChain(spaceId: spaceId)
+        }
+    }
+
+    func retryIfNeeded(spaceId: String) async {
+        guard storage.pendingState(for: spaceId) != nil else { return }
+        await runChain(spaceId: spaceId)
+    }
+
+    // MARK: - Private
+
+    private func runChain(spaceId: String) async {
+        guard !runningSpaceIds.contains(spaceId) else { return }
+        runningSpaceIds.insert(spaceId)
+        defer { runningSpaceIds.remove(spaceId) }
+
+        guard var state = storage.pendingState(for: spaceId) else { return }
 
         if state.needsMakeShareable {
             do {
