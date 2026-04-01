@@ -48,6 +48,7 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
         self.spaceIconOption = IconColorStorage.randomOption()
         let isCircular = data.channelType == nil && data.spaceUxType.isChat
         self.spaceIcon = .object(.space(.name(name: "", iconOption: spaceIconOption, circular: isCircular)))
+        self.isConnected = networkStatusProvider.isConnected
     }
     
     func onTapCreate() async throws {
