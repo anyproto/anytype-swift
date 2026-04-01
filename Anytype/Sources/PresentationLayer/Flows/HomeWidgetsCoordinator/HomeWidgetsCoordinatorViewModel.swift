@@ -57,7 +57,6 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
                 if pendingShareStorage.pendingState(for: spaceId) == nil { return }
             }
         }
-        debugPrint("==DEBUG homeWidgets: loop ended")
     }
 
     func onHomepagePickerFinished(result: HomepagePickerResult) {
