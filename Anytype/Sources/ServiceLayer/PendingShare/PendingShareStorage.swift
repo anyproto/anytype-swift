@@ -5,7 +5,6 @@ protocol PendingShareStorageProtocol: AnyObject, Sendable {
     func pendingState(for spaceId: String) -> PendingShareState?
     func savePendingState(_ state: PendingShareState)
     func removePendingState(for spaceId: String)
-    func updatePendingState(for spaceId: String, update: (inout PendingShareState) -> Void)
 }
 
 final class PendingShareStorage: PendingShareStorageProtocol, @unchecked Sendable {
@@ -37,16 +36,6 @@ final class PendingShareStorage: PendingShareStorageProtocol, @unchecked Sendabl
         var all = loadAll()
         all.removeAll { $0.spaceId == spaceId }
         saveAll(all)
-    }
-
-    func updatePendingState(for spaceId: String, update: (inout PendingShareState) -> Void) {
-        lock.lock()
-        defer { lock.unlock() }
-        var all = loadAll()
-        if let index = all.firstIndex(where: { $0.spaceId == spaceId }) {
-            update(&all[index])
-            saveAll(all)
-        }
     }
 
     // MARK: - Private
