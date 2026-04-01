@@ -13,4 +13,5 @@ struct PendingIdentity: Codable, Equatable {
     let name: String
     let globalName: String
     let icon: ObjectIcon?
+    let role: ParticipantPermissions
 }

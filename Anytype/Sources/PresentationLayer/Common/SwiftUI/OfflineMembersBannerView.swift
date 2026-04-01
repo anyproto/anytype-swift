@@ -13,10 +13,9 @@ struct OfflineMembersBannerView: View {
                 .foregroundColor(.Text.primary)
                 .lineLimit(2)
         }
-        .frame(maxWidth: .infinity, minHeight: 44)
         .padding(.horizontal, 16)
+        .frame(maxWidth: .infinity, minHeight: 44)
         .background(Color.Control.accent25)
         .clipShape(.rect(cornerRadius: 22))
-        .padding(.horizontal, 16)
     }
 }

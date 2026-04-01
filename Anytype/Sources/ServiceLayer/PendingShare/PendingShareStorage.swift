@@ -1,27 +1,24 @@
 import Foundation
 import Factory
 
-protocol PendingShareStorageProtocol: AnyObject, Sendable {
+@MainActor
+protocol PendingShareStorageProtocol: AnyObject {
     func pendingState(for spaceId: String) -> PendingShareState?
     func savePendingState(_ state: PendingShareState)
     func removePendingState(for spaceId: String)
     func updatePendingState(for spaceId: String, update: (inout PendingShareState) -> Void)
 }
 
-final class PendingShareStorage: PendingShareStorageProtocol, @unchecked Sendable {
+@MainActor
+final class PendingShareStorage: PendingShareStorageProtocol {
 
-    private let lock = NSLock()
     private let key = "PendingShareStates"
 
     func pendingState(for spaceId: String) -> PendingShareState? {
-        lock.lock()
-        defer { lock.unlock() }
-        return loadAll().first { $0.spaceId == spaceId }
+        loadAll().first { $0.spaceId == spaceId }
     }
 
     func savePendingState(_ state: PendingShareState) {
-        lock.lock()
-        defer { lock.unlock() }
         var all = loadAll()
         if let index = all.firstIndex(where: { $0.spaceId == state.spaceId }) {
             all[index] = state
@@ -32,16 +29,12 @@ final class PendingShareStorage: PendingShareStorageProtocol, @unchecked Sendabl
     }
 
     func removePendingState(for spaceId: String) {
-        lock.lock()
-        defer { lock.unlock() }
         var all = loadAll()
         all.removeAll { $0.spaceId == spaceId }
         saveAll(all)
     }
 
     func updatePendingState(for spaceId: String, update: (inout PendingShareState) -> Void) {
-        lock.lock()
-        defer { lock.unlock() }
         var all = loadAll()
         if let index = all.firstIndex(where: { $0.spaceId == spaceId }) {
             update(&all[index])

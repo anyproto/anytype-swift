@@ -10,11 +10,13 @@ enum ChannelType: Equatable, Hashable {
 struct SpaceCreateData: Equatable, Identifiable, Hashable {
     let spaceUxType: SpaceUxType
     let selectedContacts: [Contact]
+    let selectedMembers: [SelectedMember]
     let channelType: ChannelType?
 
-    init(spaceUxType: SpaceUxType, selectedContacts: [Contact] = [], channelType: ChannelType? = nil) {
+    init(spaceUxType: SpaceUxType, selectedContacts: [Contact] = [], selectedMembers: [SelectedMember] = [], channelType: ChannelType? = nil) {
         self.spaceUxType = spaceUxType
         self.selectedContacts = selectedContacts
+        self.selectedMembers = selectedMembers
         self.channelType = channelType
     }
 

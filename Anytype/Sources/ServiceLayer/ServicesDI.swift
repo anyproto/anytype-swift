@@ -284,8 +284,8 @@ extension Container {
         self { NetworkStatusProvider() }.singleton
     }
 
-    var pendingShareRetryService: Factory<any PendingShareRetryServiceProtocol> {
-        self { PendingShareRetryService() }.shared
+    var pendingShareService: Factory<any PendingShareServiceProtocol> {
+        self { PendingShareService() }.shared
     }
     
     var membershipMetadataProvider: Factory<any MembershipMetadataProviderProtocol> {

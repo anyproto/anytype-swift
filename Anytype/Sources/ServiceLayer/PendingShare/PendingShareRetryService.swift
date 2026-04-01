@@ -2,21 +2,42 @@ import Foundation
 import Factory
 import Services
 
-protocol PendingShareRetryServiceProtocol: AnyObject, Sendable {
+@MainActor
+protocol PendingShareServiceProtocol: AnyObject {
+    func savePendingAndRunChain(spaceId: String, identities: [PendingIdentity])
     func retryIfNeeded(spaceId: String) async
 }
 
-final class PendingShareRetryService: PendingShareRetryServiceProtocol, @unchecked Sendable {
+@MainActor
+final class PendingShareService: PendingShareServiceProtocol {
 
     @Injected(\.pendingShareStorage)
     private var storage: any PendingShareStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
 
-    func retryIfNeeded(spaceId: String) async {
-        guard let pending = storage.pendingState(for: spaceId) else { return }
+    func savePendingAndRunChain(spaceId: String, identities: [PendingIdentity]) {
+        storage.savePendingState(PendingShareState(
+            spaceId: spaceId,
+            identities: identities,
+            needsMakeShareable: true,
+            needsGenerateInvite: true
+        ))
 
-        var state = pending
+        Task {
+            await runChain(spaceId: spaceId)
+        }
+    }
+
+    func retryIfNeeded(spaceId: String) async {
+        guard storage.pendingState(for: spaceId) != nil else { return }
+        await runChain(spaceId: spaceId)
+    }
+
+    // MARK: - Private
+
+    private func runChain(spaceId: String) async {
+        guard var state = storage.pendingState(for: spaceId) else { return }
 
         if state.needsMakeShareable {
             do {
@@ -39,11 +60,23 @@ final class PendingShareRetryService: PendingShareRetryServiceProtocol, @uncheck
         }
 
         if state.identities.isNotEmpty {
-            do {
-                let identityIds = state.identities.map(\.identity)
-                try await workspaceService.participantsAdd(spaceId: spaceId, identities: identityIds)
-            } catch {
-                return
+            let writers = state.identities.filter { $0.role == .writer }.map(\.identity)
+            let readers = state.identities.filter { $0.role == .reader }.map(\.identity)
+
+            if writers.isNotEmpty {
+                do {
+                    try await workspaceService.participantsAdd(spaceId: spaceId, identities: writers, permissions: .writer)
+                } catch {
+                    return
+                }
+            }
+
+            if readers.isNotEmpty {
+                do {
+                    try await workspaceService.participantsAdd(spaceId: spaceId, identities: readers, permissions: .reader)
+                } catch {
+                    return
+                }
             }
         }
 
