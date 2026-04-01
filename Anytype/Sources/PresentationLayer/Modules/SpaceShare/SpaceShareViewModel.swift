@@ -77,6 +77,7 @@ final class SpaceShareViewModel {
         self.data = data
         self.output = output
         self.linkViewModel = NewInviteLinkViewModel(data: data, output: output)
+        appendPendingMembers()
     }
     
     func startParticipantsTask() async {
@@ -137,7 +138,9 @@ final class SpaceShareViewModel {
     
     private func updateView() {
         let workspaceInfo = workspacesStorage.spaceInfo(spaceId: spaceId)
-        guard let participantSpaceView, let workspaceInfo else { return }
+        guard let participantSpaceView, let workspaceInfo else {
+            return
+        }
         
         let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo
 
