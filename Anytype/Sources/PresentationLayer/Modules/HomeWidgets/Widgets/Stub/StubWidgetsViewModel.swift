@@ -24,6 +24,8 @@ final class StubWidgetsViewModel {
 
     var showCreateHome = false
     var showInviteMembers = false
+    private var isSharedSpace = false
+    private var hasMultipleParticipants = false
 
     // MARK: - Init
 
@@ -82,6 +84,7 @@ final class StubWidgetsViewModel {
     private func startOnboardingStorageTask() async {
         for await _ in onboardingStorage.didChangePublisher.values {
             recalculateShowCreateHome()
+            recalculateShowInviteMembers()
         }
     }
 
@@ -99,15 +102,23 @@ final class StubWidgetsViewModel {
 
     private func startParticipantsTask() async {
         let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
-        guard spaceView?.isShared ?? false else {
+        isSharedSpace = spaceView?.isShared ?? false
+        guard isSharedSpace else {
             showInviteMembers = false
             return
         }
 
         for await participants in participantsSubscription.withoutRemovingParticipantsPublisher.values {
-            let hasMembers = participants.count > 1
-            let inviteMembersDismissed = onboardingStorage.isInviteMembersDismissed(spaceId: spaceId)
-            showInviteMembers = FeatureFlags.createChannelFlow && !hasMembers && !inviteMembersDismissed
+            hasMultipleParticipants = participants.count > 1
+            recalculateShowInviteMembers()
         }
+    }
+
+    private func recalculateShowInviteMembers() {
+        let inviteMembersDismissed = onboardingStorage.isInviteMembersDismissed(spaceId: spaceId)
+        showInviteMembers = FeatureFlags.createChannelFlow
+            && isSharedSpace
+            && !hasMultipleParticipants
+            && !inviteMembersDismissed
     }
 }
