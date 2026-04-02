@@ -10,6 +10,8 @@ final class HomepageSettingsPickerViewModel {
     private var searchService: any SearchServiceProtocol
     @ObservationIgnored @Injected(\.homepagePickerService)
     private var homepagePickerService: any HomepagePickerServiceProtocol
+    @ObservationIgnored @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
     var searchText = ""
     var objects: [ObjectDetails] = []
@@ -23,8 +25,7 @@ final class HomepageSettingsPickerViewModel {
 
     init(spaceId: String) {
         self.spaceId = spaceId
-        let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
-        let homepage = spaceView?.homepage ?? .empty
+        let homepage = spaceViewsStorage.spaceView(spaceId: spaceId)?.homepage ?? .empty
         switch homepage {
         case .empty, .widgets, .graph:
             self.currentObjectId = nil
@@ -36,8 +37,7 @@ final class HomepageSettingsPickerViewModel {
     func search() async {
         do {
             try await Task.sleep(for: .milliseconds(300))
-            let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
-            let layouts: [DetailsLayout] = DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceView?.spaceType)
+            let layouts: [DetailsLayout] = DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType)
             objects = try await searchService.searchObjectsWithLayouts(
                 text: searchText,
                 layouts: layouts,
