@@ -1,4 +1,5 @@
 import Foundation
+import ProtobufMessages
 
 public struct FileDetails: Sendable {
     
@@ -30,7 +31,15 @@ public struct FileDetails: Sendable {
         let fileName = name.isEmpty ? id : name
         return FileDetails.formattedFileName(fileName, fileExt: fileExt)
     }
-    
+
+    public var blockLinkType: Anytype_Model_ChatMessage.MessageBlockLink.LinkType {
+        switch fileContentType {
+        case .image: return .image
+        case .file, .audio, .video: return .file
+        case .none: return .object
+        }
+    }
+
     static func formattedFileName(_ name: String, fileExt: String) -> String {
         let formattedFileExt = ".\(fileExt)"
         let fileSuffix = fileExt.isNotEmpty && !name.hasSuffix(formattedFileExt) ? formattedFileExt : ""
