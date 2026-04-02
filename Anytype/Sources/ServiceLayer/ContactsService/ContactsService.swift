@@ -29,7 +29,7 @@ actor ContactsService: ContactsServiceProtocol {
 
     private func fetchContacts() async -> [Contact] {
         let oneToOneSpaces = spaceViewsStorage.allSpaceViews.filter {
-            $0.uxType == .oneToOne && $0.isActive
+            $0.isOneToOne && $0.isActive
         }
         guard oneToOneSpaces.isNotEmpty else {
             prefetchTask = nil

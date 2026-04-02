@@ -140,7 +140,9 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             needSetup = false
         }
 
-        Task { await contactsService.prefetch() }
+        if FeatureFlags.createChannelFlow {
+            Task { await contactsService.prefetch() }
+        }
         await startSubscriptions()
     }
     
