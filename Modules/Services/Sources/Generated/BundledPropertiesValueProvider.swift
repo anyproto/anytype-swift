@@ -191,6 +191,7 @@ public protocol BundledPropertiesValueProvider {
     var analyticsChatId: String { get }
     var analyticsSpaceId: String { get }
     var score: Int? { get }
+    var finalScore: Int? { get }
     var migrationObjectContext: Int? { get }
     var templateNamePrefillType: Int? { get }
     var spaceType: Int? { get }
@@ -897,6 +898,10 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Fulltext search score
     var score: Int? {
         return value(for: BundledPropertyKey.score.rawValue)
+    }
+    /// Fulltext search final score (BM25 + recency + name boost)
+    var finalScore: Int? {
+        return value(for: BundledPropertyKey.finalScore.rawValue)
     }
     /// Version of file context migration completed for this space
     var migrationObjectContext: Int? {

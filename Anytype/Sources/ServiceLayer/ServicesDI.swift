@@ -285,7 +285,7 @@ extension Container {
     }
 
     var pendingShareService: Factory<any PendingShareServiceProtocol> {
-        self { PendingShareService() }.shared
+        self { PendingShareService() }.singleton
     }
     
     var membershipMetadataProvider: Factory<any MembershipMetadataProviderProtocol> {

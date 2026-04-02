@@ -63,6 +63,8 @@ actor PendingShareService: PendingShareServiceProtocol {
             }
         }
 
+        // Middleware participantsAddList is idempotent — re-sending already-added participants is a no-op.
+        // On retry, writers who were added before a partial failure will be safely skipped.
         if state.identities.isNotEmpty {
             let identityIds = state.identities.map(\.identity)
             let writersLimit = spaceViewsStorage.spaceView(spaceId: spaceId)?.writersLimit ?? identityIds.count
