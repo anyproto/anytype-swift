@@ -48,11 +48,8 @@ struct ChannelCreateView: View {
                     guard !isCreating else { return }
                     isCreating = true
                     Task {
-                        do {
-                            try await model.onTapCreate()
-                        } catch {
-                            isCreating = false
-                        }
+                        defer { isCreating = false }
+                        try? await model.onTapCreate()
                     }
                 } label: {
                     if isCreating {

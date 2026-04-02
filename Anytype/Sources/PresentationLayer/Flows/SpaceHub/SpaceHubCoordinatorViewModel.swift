@@ -215,8 +215,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         spaceCreateData = SpaceCreateData(spaceUxType: .data, channelType: .personal)
     }
 
-
-
     func onSelectCreateGroupChannel() {
         let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo
         if let spaceSharingInfo, !spaceSharingInfo.limitsAllowSharing {

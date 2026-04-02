@@ -8,9 +8,9 @@ struct OfflineMembersBannerView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 20, height: 20)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             AnytypeText(Loc.Channel.Offline.membersBanner, style: .caption1Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(2)
         }
         .frame(maxWidth: .infinity, minHeight: 44)

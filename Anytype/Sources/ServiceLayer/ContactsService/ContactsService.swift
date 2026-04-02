@@ -28,15 +28,19 @@ actor ContactsService: ContactsServiceProtocol {
     // MARK: - Private
 
     private func fetchContacts() async -> [Contact] {
-        defer { prefetchTask = nil }
-
         let oneToOneSpaces = spaceViewsStorage.allSpaceViews.filter {
             $0.uxType == .oneToOne && $0.isActive
         }
-        guard oneToOneSpaces.isNotEmpty else { return [] }
+        guard oneToOneSpaces.isNotEmpty else {
+            prefetchTask = nil
+            return []
+        }
 
         let identities = oneToOneSpaces.compactMap(\.oneToOneIdentity).filter(\.isNotEmpty)
-        guard identities.isNotEmpty else { return [] }
+        guard identities.isNotEmpty else {
+            prefetchTask = nil
+            return []
+        }
 
         let subId = "ContactsService-\(UUID().uuidString)"
         let subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subId)
@@ -56,7 +60,10 @@ actor ContactsService: ContactsServiceProtocol {
             )
         )
 
-        defer { Task { try? await subscriptionStorage.stopSubscription() } }
+        defer {
+            prefetchTask = nil
+            Task { try? await subscriptionStorage.stopSubscription() }
+        }
 
         do {
             try await subscriptionStorage.startOrUpdateSubscription(data: searchData)

@@ -98,13 +98,12 @@ final class StubWidgetsViewModel {
     }
 
     private func startParticipantsTask() async {
-        let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
-        guard spaceView?.isShared ?? false else {
-            showInviteMembers = false
-            return
-        }
-
         for await participants in participantsSubscription.withoutRemovingParticipantsPublisher.values {
+            let isShared = workspaceStorage.spaceView(spaceId: spaceId)?.isShared ?? false
+            guard isShared else {
+                showInviteMembers = false
+                continue
+            }
             let hasMembers = participants.count > 1
             let inviteMembersDismissed = onboardingStorage.isInviteMembersDismissed(spaceId: spaceId)
             showInviteMembers = FeatureFlags.createChannelFlow && !hasMembers && !inviteMembersDismissed

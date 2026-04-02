@@ -55,13 +55,15 @@ struct HomepageCreatePickerView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 24) {
                 ForEach(model.options) { option in
-                    HomepagePickerThumbnailCard(
-                        option: option,
-                        isSelected: model.selectedOption == option
-                    )
-                    .onTapGesture {
+                    Button {
                         model.selectedOption = option
+                    } label: {
+                        HomepagePickerThumbnailCard(
+                            option: option,
+                            isSelected: model.selectedOption == option
+                        )
                     }
+                    .buttonStyle(.plain)
                 }
             }
             .padding(.horizontal, 24)
