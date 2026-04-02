@@ -469,9 +469,153 @@
     "Channel.Create.NewChannel" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "New channel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New channel"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "New channel"
           }
         }
@@ -635,9 +779,153 @@
     "Channel.Create.SelectMembers.editorsCount" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Editors"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "%lld/%lld Editors"
           }
         }
@@ -646,10 +934,154 @@
     "Channel.Create.SelectMembers.next" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "التالي"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Далей"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Next"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Weiter"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Next"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Siguiente"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Next"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Seuraava"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Suivant"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Lanjut"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Avanti"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "次へ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "다음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Neste"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Volgende"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "ପରବର୍ତ୍ତୀ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Dalej"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Avançar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Seguinte"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Далее"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sonraki"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Далі"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tiếp"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "下一步"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "繼續"
           }
         }
       }
@@ -657,9 +1089,153 @@
     "Channel.Create.SelectMembers.title" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Select members"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Seleccionar miembros"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pilih anggota"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Üyeleri seç"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select members"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Select members"
           }
         }
@@ -668,9 +1244,153 @@
     "Channel.Create.SelectMembers.viewersCount" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld/%lld Viewers"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "%lld/%lld Viewers"
           }
         }
@@ -679,9 +1399,153 @@
     "Channel.Offline.MembersBanner" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Members will be invited when you're back online"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Members will be invited when you're back online"
           }
         }
@@ -690,9 +1554,153 @@
     "Channel.SharedLimit.ManageChannels" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Manage Channels"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Gestionar canales"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Kelola Kanal"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Kanalları Yönet"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage Channels"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Manage Channels"
           }
         }
@@ -701,9 +1709,153 @@
     "Channel.SharedLimit.Subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
           }
         }
@@ -712,9 +1864,153 @@
     "Channel.SharedLimit.Title" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Shared channel limit reached"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Shared channel limit reached"
           }
         }
@@ -65957,9 +67253,153 @@
     "SpaceSettings.HomePage.ChooseHome" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Choose Home"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose Home"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Choose Home"
           }
         }
@@ -66049,7 +67489,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Home page"
+            "value" : "Hjem"
           }
         },
         "nl" : {
