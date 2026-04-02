@@ -11,6 +11,7 @@ struct GroupChannelCreateCoordinatorView: View {
                     SpaceCreateCoordinatorView(data: data, embedInNavigationStack: false)
                 }
         }
+        .tint(Color.Text.secondary)
     }
 
     @ViewBuilder
