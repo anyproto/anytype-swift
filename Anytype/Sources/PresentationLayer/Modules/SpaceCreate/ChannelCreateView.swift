@@ -41,6 +41,7 @@ struct ChannelCreateView: View {
         }
         .navigationTitle(Loc.Channel.Create.newChannel)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarNavigationBarOpaqueBackgroundLegacy()
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
@@ -56,12 +57,15 @@ struct ChannelCreateView: View {
                 } label: {
                     if isCreating {
                         ProgressView()
+                            .tint(.white)
                     } else {
                         Text(Loc.create)
                     }
                 }
                 .buttonStyle(.borderedProminent)
                 .buttonBorderShape(.capsule)
+                .tint(Color.Control.accent100)
+                .foregroundStyle(.white)
                 .disabled(isCreating || model.spaceName.isEmpty || model.spaceName.count > ThresholdCounterUsecase.spaceName.threshold)
             }
         }

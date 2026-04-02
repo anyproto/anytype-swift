@@ -18,6 +18,7 @@ struct SpaceCreateCoordinatorView: View {
                     NavigationStack {
                         ChannelCreateView(data: model.data, output: model)
                     }
+                    .tint(Color.Text.secondary)
                 } else {
                     ChannelCreateView(data: model.data, output: model)
                 }

@@ -24,6 +24,7 @@ struct SelectMembersView: View {
         }
         .searchable(text: $model.searchText)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarNavigationBarOpaqueBackgroundLegacy()
         .toolbar {
             ToolbarItem(placement: .principal) {
                 VStack(spacing: 0) {
