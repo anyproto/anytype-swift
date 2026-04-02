@@ -43,6 +43,13 @@ struct SpacesManagerView: View {
             .sheet(isPresented: $model.showGroupChannelCreate) {
                 GroupChannelCreateCoordinatorView()
             }
+            .anytypeSheet(isPresented: $model.showSharedChannelLimit) {
+                SharedChannelLimitView(
+                    sharedSpacesLimit: model.sharedChannelLimit,
+                    onUpgrade: { model.onSharedChannelLimitDismiss() },
+                    onManageChannels: { model.onSharedChannelLimitDismiss() }
+                )
+            }
     }
     
     @ViewBuilder
