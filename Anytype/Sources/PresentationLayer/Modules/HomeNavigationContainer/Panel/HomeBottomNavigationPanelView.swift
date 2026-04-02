@@ -44,8 +44,10 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                             .glassEffectIDIOS26("search", in: glassNamespace)
                     }
                     Spacer()
-                    createButton
-                        .glassEffectIDIOS26("create", in: glassNamespace)
+                    if model.canCreateObject {
+                        createButton
+                            .glassEffectIDIOS26("create", in: glassNamespace)
+                    }
                 }
             }
             .padding(.horizontal, 24)
@@ -164,7 +166,6 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             .frame(width: 48, height: 48)
             .glassEffectInteractiveIOS26(in: Circle())
             .menuOrder(.fixed)
-            .disabled(!model.canCreateObject)
         } else {
             Button {
                 model.onTapNewObject()
@@ -175,7 +176,6 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             }
             .frame(width: 48, height: 48)
             .glassEffectInteractiveIOS26(in: Circle())
-            .disabled(!model.canCreateObject)
         }
     }
 }
