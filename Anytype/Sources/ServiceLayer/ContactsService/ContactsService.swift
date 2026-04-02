@@ -3,49 +3,86 @@ import Services
 
 protocol ContactsServiceProtocol: Sendable {
     func loadContacts() async -> [Contact]
+    func prefetch() async
 }
 
-final class ContactsService: ContactsServiceProtocol {
+actor ContactsService: ContactsServiceProtocol {
 
     private let spaceViewsStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
-    private let participantSubscriptionProvider: any ParticipantsSubscriptionProviderProtocol = Container.shared.participantSubscriptionProvider()
+    private let subscriptionStorageProvider: any SubscriptionStorageProviderProtocol = Container.shared.subscriptionStorageProvider()
+
+    private var prefetchTask: Task<[Contact], Never>?
+
+    func prefetch() {
+        guard prefetchTask == nil else { return }
+        prefetchTask = Task { await fetchContacts() }
+    }
 
     func loadContacts() async -> [Contact] {
+        if let task = prefetchTask {
+            return await task.value
+        }
+        return await fetchContacts()
+    }
+
+    // MARK: - Private
+
+    private func fetchContacts() async -> [Contact] {
+        defer { prefetchTask = nil }
+
         let oneToOneSpaces = spaceViewsStorage.allSpaceViews.filter {
             $0.uxType == .oneToOne && $0.isActive
         }
+        guard oneToOneSpaces.isNotEmpty else { return [] }
 
-        let contacts = await withTaskGroup(of: Contact?.self, returning: [Contact].self) { group in
-            for spaceView in oneToOneSpaces {
-                group.addTask { [participantSubscriptionProvider] in
-                    let subscription = participantSubscriptionProvider.subscription(spaceId: spaceView.targetSpaceId)
+        let identities = oneToOneSpaces.compactMap(\.oneToOneIdentity).filter(\.isNotEmpty)
+        guard identities.isNotEmpty else { return [] }
 
-                    for await participants in subscription.participantsPublisher.values {
-                        guard participants.isNotEmpty else { continue }
+        let subId = "ContactsService-\(UUID().uuidString)"
+        let subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subId)
 
-                        if let participant = participants.first(where: { $0.identity == spaceView.oneToOneIdentity }) {
-                            return Contact(
-                                identity: participant.identity,
-                                name: participant.title,
-                                globalName: participant.displayGlobalName,
-                                icon: participant.icon
-                            )
-                        }
-                        break
-                    }
-                    return nil
-                }
-            }
-
-            var results: [Contact] = []
-            for await contact in group {
-                if let contact {
-                    results.append(contact)
-                }
-            }
-            return results
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.layoutFilter([.participant])
+            SearchHelper.participantStatusFilter(.active)
+            SearchHelper.identities(identities)
         }
 
-        return contacts.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+        let searchData: SubscriptionData = .crossSpaceSearch(
+            SubscriptionData.CrossSpaceSearch(
+                identifier: subId,
+                filters: filters,
+                keys: Participant.subscriptionKeys.map(\.rawValue),
+                noDepSubscription: true
+            )
+        )
+
+        defer { Task { try? await subscriptionStorage.stopSubscription() } }
+
+        do {
+            try await subscriptionStorage.startOrUpdateSubscription(data: searchData)
+
+            let identitySet = Set(identities)
+            var contacts: [Contact] = []
+            var seen = Set<String>()
+
+            for await state in subscriptionStorage.statePublisher.values {
+                let participants = state.items.compactMap { try? Participant(details: $0) }
+                for participant in participants {
+                    guard identitySet.contains(participant.identity), !seen.contains(participant.identity) else { continue }
+                    seen.insert(participant.identity)
+                    contacts.append(Contact(
+                        identity: participant.identity,
+                        name: participant.title,
+                        globalName: participant.displayGlobalName,
+                        icon: participant.icon
+                    ))
+                }
+                break
+            }
+
+            return contacts.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+        } catch {
+            return []
+        }
     }
 }
