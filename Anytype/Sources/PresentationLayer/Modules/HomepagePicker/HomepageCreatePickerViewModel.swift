@@ -24,6 +24,7 @@ final class HomepageCreatePickerViewModel {
     }
 
     func onCreate() async throws {
+        AnytypeAnalytics.instance().logCreateHomePage(type: selectedOption.analyticsType)
         let homepageValue = try await homepagePickerService.createHomepage(
             spaceId: spaceId,
             option: selectedOption

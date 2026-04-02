@@ -25,5 +25,8 @@ struct SharedChannelLimitView: View {
                 onManageChannels()
             }
         }
+        .onAppear {
+            AnytypeAnalytics.instance().logScreenHitShareSpaceLimit()
+        }
     }
 }
