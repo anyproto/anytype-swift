@@ -24,13 +24,17 @@ final class GroupChannelCreateCoordinatorViewModel {
 
     private func loadContacts() async {
         let contacts = await contactsService.loadContacts()
-        let writersLimit = spaceViewsStorage.allSpaceViews
-            .first { $0.isActive && $0.isShared }?.writersLimit
+        let sharedSpaceView = spaceViewsStorage.allSpaceViews
+            .first { $0.isActive && $0.isShared }
 
         if contacts.isEmpty {
             spaceCreateData = SpaceCreateData(spaceUxType: .data, channelType: .group)
         } else {
-            selectMembersData = SelectMembersData(contacts: contacts, writersLimit: writersLimit)
+            selectMembersData = SelectMembersData(
+                contacts: contacts,
+                writersLimit: sharedSpaceView?.writersLimit,
+                readersLimit: sharedSpaceView?.readersLimit
+            )
         }
     }
 

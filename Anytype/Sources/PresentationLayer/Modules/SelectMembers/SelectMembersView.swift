@@ -4,8 +4,8 @@ struct SelectMembersView: View {
 
     @State private var model: SelectMembersViewModel
 
-    init(contacts: [Contact], writersLimit: Int?, onNext: @escaping ([SelectedMember]) -> Void) {
-        _model = State(initialValue: SelectMembersViewModel(contacts: contacts, writersLimit: writersLimit, onNext: onNext))
+    init(contacts: [Contact], writersLimit: Int?, readersLimit: Int?, onNext: @escaping ([SelectedMember]) -> Void) {
+        _model = State(initialValue: SelectMembersViewModel(contacts: contacts, writersLimit: writersLimit, readersLimit: readersLimit, onNext: onNext))
     }
 
     var body: some View {

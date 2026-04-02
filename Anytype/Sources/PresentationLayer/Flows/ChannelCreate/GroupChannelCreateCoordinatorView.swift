@@ -17,7 +17,7 @@ struct GroupChannelCreateCoordinatorView: View {
     @ViewBuilder
     private var contentView: some View {
         if let data = model.selectMembersData {
-            SelectMembersView(contacts: data.contacts, writersLimit: data.writersLimit) { selectedMembers in
+            SelectMembersView(contacts: data.contacts, writersLimit: data.writersLimit, readersLimit: data.readersLimit) { selectedMembers in
                 model.onSelectMembersNext(selectedMembers)
             }
         } else {

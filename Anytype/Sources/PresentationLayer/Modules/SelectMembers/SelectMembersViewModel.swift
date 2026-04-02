@@ -13,11 +13,12 @@ final class SelectMembersViewModel {
     var selectedIdentities: [String] = [] // ordered array, not Set
 
     private let writersLimit: Int?
-    private let viewersLimit: Int = 1000
+    private let readersLimit: Int?
 
-    init(contacts: [Contact], writersLimit: Int?, onNext: @escaping ([SelectedMember]) -> Void) {
+    init(contacts: [Contact], writersLimit: Int?, readersLimit: Int?, onNext: @escaping ([SelectedMember]) -> Void) {
         self.contacts = contacts
         self.writersLimit = writersLimit
+        self.readersLimit = readersLimit
         self.onNext = onNext
     }
 
@@ -49,7 +50,7 @@ final class SelectMembersViewModel {
         guard let writersLimit else { return "" }
         return Loc.Channel.Create.SelectMembers.editorsCount(editorsCount, writersLimit) +
         ", " +
-        Loc.Channel.Create.SelectMembers.viewersCount(viewersCount, viewersLimit)
+        Loc.Channel.Create.SelectMembers.viewersCount(viewersCount, readersLimit ?? 0)
     }
 
     // MARK: - Actions
