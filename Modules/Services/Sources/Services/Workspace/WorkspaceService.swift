@@ -229,12 +229,11 @@ final class WorkspaceService: WorkspaceServiceProtocol {
     }
 
     public func participantsAdd(spaceId: String, identities: [String], permissions: ParticipantPermissions) async throws {
-        // TODO: Uncomment when GO-6946 is merged to middleware develop
-//        try await ClientCommands.spaceParticipantsAddList(.with {
-//            $0.spaceID = spaceId
-//            $0.identities = identities
-//            $0.permissions = permissions
-//        }).invoke()
+        try await ClientCommands.spaceParticipantsAddList(.with {
+            $0.spaceID = spaceId
+            $0.identities = identities
+            $0.permissions = permissions
+        }).invoke()
     }
 
     public func leaveApprove(spaceId: String, identity: String) async throws {
