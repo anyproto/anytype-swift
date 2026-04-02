@@ -22,8 +22,6 @@ final class SpacesManagerViewModel {
     var exportSpaceUrl: URL?
     var showSpaceTypeForCreate = false
     var showGroupChannelCreate = false
-    var showSharedChannelLimit = false
-    var sharedChannelLimit: Int = 0
     var shouldScanQrCode = false
     
     func onAppear() {
@@ -82,17 +80,7 @@ final class SpacesManagerViewModel {
     }
 
     func onTapCreateGroupChannel() {
-        let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo
-        if let spaceSharingInfo, !spaceSharingInfo.limitsAllowSharing {
-            sharedChannelLimit = spaceSharingInfo.sharedSpacesLimit
-            showSharedChannelLimit = true
-        } else {
-            showGroupChannelCreate = true
-        }
-    }
-
-    func onSharedChannelLimitDismiss() {
-        showSharedChannelLimit = false
+        showGroupChannelCreate = true
     }
 }
 
