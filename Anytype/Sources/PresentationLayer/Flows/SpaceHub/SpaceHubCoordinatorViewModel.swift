@@ -304,7 +304,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
 
         // 1-1 spaces always open on chat
-        let isOneToOne = spaceUxType == .oneToOne || spaceView?.uxType == .oneToOne
+        let isOneToOne = spaceUxType == .oneToOne || spaceView?.isOneToOne == true
         if isOneToOne {
             return SpaceChatCoordinatorData(spaceId: spaceId)
         }
