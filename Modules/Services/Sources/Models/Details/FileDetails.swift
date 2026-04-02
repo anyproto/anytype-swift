@@ -51,7 +51,7 @@ public struct FileDetails: Sendable {
 extension DetailsLayout {
     var fileContentType: FileContentType {
         switch self {
-        case .file:
+        case .file, .pdf:
             return .file
         case .image:
             return .image
