@@ -17,6 +17,8 @@ final class StubWidgetsViewModel {
     private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.channelOnboardingStorage) @ObservationIgnored
     private var onboardingStorage: any ChannelOnboardingStorageProtocol
+    @Injected(\.pendingShareStorage) @ObservationIgnored
+    private var pendingShareStorage: any PendingShareStorageProtocol
     @ObservationIgnored
     private let participantsSubscription: any ParticipantsSubscriptionProtocol
 
@@ -37,10 +39,10 @@ final class StubWidgetsViewModel {
     // MARK: - Subscriptions
 
     func startSubscriptions() async {
-        async let spaceViewTask: () = startSpaceViewTask()
-        async let participantsTask: () = startParticipantsTask()
-        async let onboardingTask: () = startOnboardingStorageTask()
-        _ = await (spaceViewTask, participantsTask, onboardingTask)
+        async let createHome: () = subscribeToCreateHomeChanges()
+        async let inviteMembers: () = subscribeToInviteMembersChanges()
+        async let onboarding: () = subscribeToOnboardingChanges()
+        _ = await (createHome, inviteMembers, onboarding)
     }
 
     // MARK: - Actions
@@ -65,7 +67,7 @@ final class StubWidgetsViewModel {
 
     // MARK: - Private
 
-    private func startSpaceViewTask() async {
+    private func subscribeToCreateHomeChanges() async {
         // If homepage is set, reset the "Create Home" dismissal once on entry.
         // This way, if homepage is later cleared (e.g. object deleted by middleware),
         // the widget will reappear on the next space visit.
@@ -79,7 +81,7 @@ final class StubWidgetsViewModel {
         }
     }
 
-    private func startOnboardingStorageTask() async {
+    private func subscribeToOnboardingChanges() async {
         for await _ in onboardingStorage.didChangePublisher.values {
             recalculateShowCreateHome()
         }
@@ -97,16 +99,26 @@ final class StubWidgetsViewModel {
             && !createHomeDismissed
     }
 
-    private func startParticipantsTask() async {
-        for await participants in participantsSubscription.withoutRemovingParticipantsPublisher.values {
-            let isShared = workspaceStorage.spaceView(spaceId: spaceId)?.isShared ?? false
-            guard isShared else {
-                showInviteMembers = false
-                continue
-            }
-            let hasMembers = participants.count > 1
-            let inviteMembersDismissed = onboardingStorage.isInviteMembersDismissed(spaceId: spaceId)
-            showInviteMembers = FeatureFlags.createChannelFlow && !hasMembers && !inviteMembersDismissed
+    private func subscribeToInviteMembersChanges() async {
+        guard !onboardingStorage.isInviteMembersDismissed(spaceId: spaceId) else { return }
+
+        let isShared = workspaceStorage.spaceViewPublisher(spaceId: spaceId)
+            .map(\.isShared)
+            .removeDuplicates()
+
+        let hasMembers = participantsSubscription.withoutRemovingParticipantsPublisher
+            .map { $0.count > 1 }
+            .removeDuplicates()
+
+        for await (isShared, hasMembers) in isShared.combineLatest(hasMembers).values {
+            let hasPendingMembers = pendingShareStorage.pendingState(for: spaceId)?.identities.isNotEmpty ?? false
+            let dismissed = onboardingStorage.isInviteMembersDismissed(spaceId: spaceId)
+            showInviteMembers = FeatureFlags.createChannelFlow
+                && isShared
+                && !hasMembers
+                && !hasPendingMembers
+                && !dismissed
+            if dismissed { break }
         }
     }
 }
