@@ -73,8 +73,8 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenSettingsSpaceCreate(status: isConnected ? .online : .offline)
         isConnected = networkStatusProvider.isConnected
+        AnytypeAnalytics.instance().logScreenSettingsSpaceCreate(status: isConnected ? .online : .offline)
     }
 
     func startNetworkObservation() async {
