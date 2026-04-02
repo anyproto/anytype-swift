@@ -120,7 +120,7 @@ struct ChatHeaderView: View {
                         Label {
                             Text(Loc.Chat.channelSettings)
                         } icon: {
-                            Image(asset: .X24.spaceSettings)
+                            Image(systemName: "gearshape")
                         }
                     }
 

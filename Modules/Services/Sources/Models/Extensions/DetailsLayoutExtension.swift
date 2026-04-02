@@ -1,3 +1,5 @@
+import ProtobufMessages
+
 public extension DetailsLayout {
     
     static let editorLayouts: [DetailsLayout] = [ .note, .basic, .profile, .todo ]
@@ -119,6 +121,15 @@ public extension DetailsLayout {
 
     var isObjectType: Bool { self == .objectType }
     var isChat: Bool { Self.chatLayouts.contains(self) }
+
+    var blockLinkType: Anytype_Model_ChatMessage.MessageBlockLink.LinkType {
+        switch self {
+        case .image: return .image
+        case .file, .pdf, .audio, .video: return .file
+        case .bookmark: return .bookmark
+        default: return .object
+        }
+    }
 }
 
 // MARK: - Instance functions

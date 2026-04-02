@@ -80,7 +80,7 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onChannelSettingsTap()
         } label: {
-            Label(Loc.Chat.channelSettings, systemImage: "gear")
+            Label(Loc.Chat.channelSettings, systemImage: "gearshape")
         }
     }
 
@@ -88,7 +88,7 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onMembersTap()
         } label: {
-            Label(Loc.members, systemImage: "person.2.fill")
+            Label(Loc.members, systemImage: "person.2")
         }
     }
 
@@ -110,7 +110,7 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onInviteMembersTap()
         } label: {
-            Label(Loc.Chat.inviteMembers, systemImage: "person.fill.badge.plus")
+            Label(Loc.Chat.inviteMembers, systemImage: "person.badge.plus")
         }
     }
 
@@ -126,7 +126,7 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onCopyInviteLinkTap()
         } label: {
-            Label(Loc.copyInviteLink, systemImage: "document.on.document.fill")
+            Label(Loc.copyInviteLink, systemImage: "document.on.document")
         }
     }
 }

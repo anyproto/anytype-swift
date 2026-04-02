@@ -83,7 +83,7 @@ enum SpacePreviewCountersBuilder {
             }
             if preview.hasUnreadReactions {
                 hasUnreadReactions = true
-                if effectiveMode == .all || effectiveMode == .mentions {
+                if effectiveMode == .all {
                     hasHighlightedReaction = true
                 }
             }
@@ -121,7 +121,7 @@ enum SpacePreviewCountersBuilder {
         case .all:
             return (unread: .highlighted, mention: .highlighted, reaction: .highlighted)
         case .mentions:
-            return (unread: .muted, mention: .highlighted, reaction: .highlighted)
+            return (unread: .muted, mention: .highlighted, reaction: .muted)
         case .nothing, .UNRECOGNIZED:
             return (unread: .muted, mention: .muted, reaction: .muted)
         }
