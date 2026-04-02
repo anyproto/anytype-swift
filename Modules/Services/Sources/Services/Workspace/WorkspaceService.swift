@@ -26,10 +26,12 @@ public protocol WorkspaceServiceProtocol: Sendable {
     func requestDecline(spaceId: String, identity: String) async throws
     func participantPermissionsChange(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
     func participantRemove(spaceId: String, identity: String) async throws
+    func participantsAdd(spaceId: String, identities: [String], permissions: ParticipantPermissions) async throws
     func leaveApprove(spaceId: String, identity: String) async throws
     func pushNotificationSetSpaceMode(spaceId: String, mode: SpacePushNotificationsMode) async throws
     func pushNotificationResetIds(spaceId: String, chatIds: [String]) async throws
     func pushNotificationSetChatMode(spaceId: String, chatIds: [String], mode: SpacePushNotificationsMode) async throws
+    func setHomepage(spaceId: String, homepage: String) async throws
 }
 
 public extension WorkspaceServiceProtocol {
@@ -225,7 +227,15 @@ final class WorkspaceService: WorkspaceServiceProtocol {
             $0.identities = [identity]
         }).invoke()
     }
-    
+
+    public func participantsAdd(spaceId: String, identities: [String], permissions: ParticipantPermissions) async throws {
+        try await ClientCommands.spaceParticipantsAddList(.with {
+            $0.spaceID = spaceId
+            $0.identities = identities
+            $0.permissions = permissions
+        }).invoke()
+    }
+
     public func leaveApprove(spaceId: String, identity: String) async throws {
         try await ClientCommands.spaceLeaveApprove(.with {
             $0.spaceID = spaceId
@@ -252,6 +262,13 @@ final class WorkspaceService: WorkspaceServiceProtocol {
             $0.spaceID = spaceId
             $0.chatIds = chatIds
             $0.mode = mode
+        }).invoke()
+    }
+
+    public func setHomepage(spaceId: String, homepage: String) async throws {
+        try await ClientCommands.workspaceSetHomepage(.with {
+            $0.spaceID = spaceId
+            $0.homepage = homepage
         }).invoke()
     }
 }

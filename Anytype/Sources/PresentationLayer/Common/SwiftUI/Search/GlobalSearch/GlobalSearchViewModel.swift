@@ -41,6 +41,8 @@ final class GlobalSearchViewModel {
     @ObservationIgnored
     private var spaceUxType: SpaceUxType?
     @ObservationIgnored
+    private var spaceType: SpaceType?
+    @ObservationIgnored
     private var searchResult = [SearchResultWithMeta]()
     @ObservationIgnored
     private var sectionChanged = false
@@ -113,7 +115,9 @@ final class GlobalSearchViewModel {
     }
     
     private func loadSpaceUxType() {
-        spaceUxType = spaceViewsStorage.spaceView(spaceId: moduleData.spaceId)?.uxType
+        let spaceView = spaceViewsStorage.spaceView(spaceId: moduleData.spaceId)
+        spaceUxType = spaceView?.uxType
+        spaceType = spaceView?.spaceType
     }
     
     private func updateSections() {
@@ -181,10 +185,18 @@ final class GlobalSearchViewModel {
     
     private func buildLayouts() -> [DetailsLayout] {
         return .builder {
-            if state.searchText.isEmpty {
-                state.section.supportedLayouts(spaceUxType: spaceUxType).filter { $0 != .participant }
+            if FeatureFlags.createChannelFlow {
+                if state.searchText.isEmpty {
+                    state.section.supportedLayouts(spaceType: spaceType).filter { $0 != .participant }
+                } else {
+                    state.section.supportedLayouts(spaceType: spaceType)
+                }
             } else {
-                state.section.supportedLayouts(spaceUxType: spaceUxType)
+                if state.searchText.isEmpty {
+                    state.section.supportedLayouts(spaceUxType: spaceUxType).filter { $0 != .participant }
+                } else {
+                    state.section.supportedLayouts(spaceUxType: spaceUxType)
+                }
             }
         }
     }

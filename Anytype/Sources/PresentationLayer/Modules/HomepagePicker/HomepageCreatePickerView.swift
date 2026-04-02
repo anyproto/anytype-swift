@@ -1,14 +1,14 @@
 import SwiftUI
 import DesignKit
 
-struct HomepagePickerView: View {
+struct HomepageCreatePickerView: View {
 
-    @State private var model: HomepagePickerViewModel
+    @State private var model: HomepageCreatePickerViewModel
     @State private var contentHeight: CGFloat = 516
     @Environment(\.dismiss) private var dismiss
 
     init(spaceId: String, onFinish: @escaping (HomepagePickerResult) async throws -> Void) {
-        _model = State(initialValue: HomepagePickerViewModel(spaceId: spaceId, onFinish: onFinish))
+        _model = State(initialValue: HomepageCreatePickerViewModel(spaceId: spaceId, onFinish: onFinish))
     }
 
     var body: some View {
@@ -55,13 +55,15 @@ struct HomepagePickerView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 24) {
                 ForEach(model.options) { option in
-                    HomepagePickerThumbnailCard(
-                        option: option,
-                        isSelected: model.selectedOption == option
-                    )
-                    .onTapGesture {
+                    Button {
                         model.selectedOption = option
+                    } label: {
+                        HomepagePickerThumbnailCard(
+                            option: option,
+                            isSelected: model.selectedOption == option
+                        )
                     }
+                    .buttonStyle(.plain)
                 }
             }
             .padding(.horizontal, 24)
@@ -85,7 +87,7 @@ struct HomepagePickerView: View {
 }
 
 #Preview {
-    HomepagePickerView(spaceId: "") { result in
+    HomepageCreatePickerView(spaceId: "") { result in
         print("Result: \(result)")
     }
 }

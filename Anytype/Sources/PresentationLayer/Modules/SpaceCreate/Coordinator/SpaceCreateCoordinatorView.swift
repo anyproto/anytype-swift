@@ -1,31 +1,33 @@
 import SwiftUI
+import AnytypeCore
 
 struct SpaceCreateCoordinatorView: View {
 
     @State private var model: SpaceCreateCoordinatorViewModel
+    private let embedInNavigationStack: Bool
 
-    init(data: SpaceCreateData) {
+    init(data: SpaceCreateData, embedInNavigationStack: Bool = true) {
         _model = State(initialValue: SpaceCreateCoordinatorViewModel(data: data))
+        self.embedInNavigationStack = embedInNavigationStack
     }
-    
+
     var body: some View {
-        SpaceCreateView(
-            data: model.data,
-            output: model
-        )
+        Group {
+            if FeatureFlags.createChannelFlow {
+                if embedInNavigationStack {
+                    NavigationStack {
+                        ChannelCreateView(data: model.data, output: model)
+                    }
+                    .tint(Color.Text.secondary)
+                } else {
+                    ChannelCreateView(data: model.data, output: model)
+                }
+            } else {
+                SpaceCreateView(data: model.data, output: model)
+            }
+        }
         .sheet(item: $model.localObjectIconPickerData) {
             LocalObjectIconPickerView(data: $0)
-        }
-        .sheet(item: $model.homePagePickerData) { data in
-            HomePagePickerView(spaceId: data.spaceId) {
-                try await model.onHomePagePickerFinished()
-            }.interactiveDismissDisabled(true)
-        }
-        .sheet(item: $model.newHomepagePickerData) { data in
-            HomepagePickerView(spaceId: data.spaceId) { result in
-                try await model.onHomepagePickerFinished(result: result)
-            }
-            .interactiveDismissDisabled(true)
         }
     }
 }

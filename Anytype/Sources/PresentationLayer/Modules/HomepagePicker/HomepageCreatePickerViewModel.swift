@@ -3,7 +3,7 @@ import Services
 
 @MainActor
 @Observable
-final class HomepagePickerViewModel {
+final class HomepageCreatePickerViewModel {
 
     @ObservationIgnored @Injected(\.homepagePickerService)
     private var homepagePickerService: any HomepagePickerServiceProtocol
@@ -24,6 +24,7 @@ final class HomepagePickerViewModel {
     }
 
     func onCreate() async throws {
+        AnytypeAnalytics.instance().logCreateHomePage(type: selectedOption.analyticsType)
         let homepageValue = try await homepagePickerService.createHomepage(
             spaceId: spaceId,
             option: selectedOption

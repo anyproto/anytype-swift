@@ -3,14 +3,14 @@ import Services
 import UIKit
 import AnytypeCore
 
-enum HomePageState {
-    case `default`(String)
+enum HomepageSettingsState {
+    case empty
     case object(icon: Icon?, name: String)
 
     var buttonDecoration: RoundedButtonDecoration {
         switch self {
-        case .default(let title):
-            return .caption(title)
+        case .empty:
+            return .chevron
         case .object(let icon, let name):
             return .object(icon: icon, name: name)
         }
@@ -87,7 +87,7 @@ final class SpaceSettingsViewModel {
     var membershipUpgradeReason: MembershipUpgradeReason?
     var storageInfo = RemoteStorageSegmentInfo()
     var defaultObjectType: ObjectType?
-    var homePageState: HomePageState = .default("")
+    var homePageState: HomepageSettingsState = .empty
     var showIconPickerSpaceId: StringIdentifiable?
     var editingData: SettingsInfoEditingViewData?
     var pushNotificationsSettingsMode: SpacePushNotificationsMode = .all
@@ -289,8 +289,8 @@ final class SpaceSettingsViewModel {
     }
 
     private func startHomeObjectTask() async {
-        for await _ in userDefaults.homeObjectIdPublisher(spaceId: workspaceInfo.accountSpaceId).values {
-            await loadHomePageState()
+        for await spaceView in spaceViewsStorage.spaceViewPublisher(spaceId: workspaceInfo.accountSpaceId).values {
+            await loadHomePageState(homepage: spaceView.homepage)
         }
     }
 
@@ -306,26 +306,18 @@ final class SpaceSettingsViewModel {
         }
     }
 
-    private func loadHomePageState() async {
-        let spaceId = workspaceInfo.accountSpaceId
-        guard let objectId = userDefaults.homeObjectId(spaceId: spaceId) else {
-            homePageState = .default(defaultHomePageTitle(spaceId: spaceId))
-            return
-        }
-
-        let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
-        if let details, !details.isArchivedOrDeleted {
-            homePageState = .object(icon: details.objectIconImage, name: details.name)
-        } else {
-            homePageState = .default(defaultHomePageTitle(spaceId: spaceId))
-        }
-    }
-
-    private func defaultHomePageTitle(spaceId: String) -> String {
-        if let spaceView = spaceViewsStorage.spaceView(spaceId: spaceId), spaceView.initialScreenIsChat {
-            return Loc.chat
-        } else {
-            return Loc.SpaceSettings.HomePage.widgets
+    private func loadHomePageState(homepage: SpaceHomepage) async {
+        switch homepage {
+        case .empty, .widgets, .graph:
+            homePageState = .empty
+        case .object(let objectId):
+            let spaceId = workspaceInfo.accountSpaceId
+            let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
+            if let details, !details.isArchivedOrDeleted {
+                homePageState = .object(icon: details.objectIconImage, name: details.name)
+            } else {
+                homePageState = .empty
+            }
         }
     }
     

@@ -5,18 +5,22 @@ import AnytypeCore
 
 final class HomepagePickerService: HomepagePickerServiceProtocol {
 
-    private static let widgetsHomepageId = "widgets"
-
     private let objectActionsService: any ObjectActionsServiceProtocol
+    private let workspaceService: any WorkspaceServiceProtocol
 
     init() {
         self.objectActionsService = Container.shared.objectActionsService()
+        self.workspaceService = Container.shared.workspaceService()
+    }
+
+    func setHomepage(spaceId: String, homepage: SpaceHomepage) async throws {
+        try await workspaceService.setHomepage(spaceId: spaceId, homepage: homepage.rawValue)
     }
 
     func createHomepage(spaceId: String, option: HomepagePickerOption) async throws -> HomepageValue {
         switch option {
         case .widgets:
-            try await setHomepage(spaceId: spaceId, homepageId: Self.widgetsHomepageId)
+            try await setHomepage(spaceId: spaceId, homepage: .widgets)
             return .widgets
         case .object(let type):
             let details = try await objectActionsService.createObject(
@@ -31,16 +35,9 @@ final class HomepagePickerService: HomepagePickerServiceProtocol {
                 createdInContext: "",
                 createdInContextRef: ""
             )
-            try await setHomepage(spaceId: spaceId, homepageId: details.id)
-            return .object(id: details.id)
+            try await setHomepage(spaceId: spaceId, homepage: .object(objectId: details.id))
+            return .object(details: details)
         }
-    }
-
-    // MARK: - Stub
-
-    /// TODO: Replace with Rpc.Workspace.SetHomepage when middleware #2 is ready
-    private func setHomepage(spaceId: String, homepageId: String) async throws {
-        anytypeAssertionFailure("SetHomepage stub called: spaceId=\(spaceId), homepageId=\(homepageId)")
     }
 }
 

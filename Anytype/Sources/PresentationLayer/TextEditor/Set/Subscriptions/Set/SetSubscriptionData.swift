@@ -1,3 +1,4 @@
+import AnytypeCore
 import Foundation
 import Services
 
@@ -12,7 +13,8 @@ struct SetSubscriptionData: Hashable {
     let numberOfRowsPerPage: Int
     let collectionId: String?
     let spaceId: String
-    
+
+    @available(*, deprecated, message: "Use spaceType overload instead")
     init(
         identifier: String,
         document: some SetDocumentProtocol,
@@ -23,11 +25,57 @@ struct SetSubscriptionData: Hashable {
         objectOrderIds: [String],
         spaceUxType: SpaceUxType?
     ) {
+        let layoutFilter = SearchHelper.layoutFilter(DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType))
+        self.init(
+            identifier: identifier,
+            document: document,
+            groupFilter: groupFilter,
+            currentPage: currentPage,
+            numberOfRowsPerPage: numberOfRowsPerPage,
+            collectionId: collectionId,
+            objectOrderIds: objectOrderIds,
+            layoutFilter: layoutFilter
+        )
+    }
+
+    init(
+        identifier: String,
+        document: some SetDocumentProtocol,
+        groupFilter: DataviewFilter?,
+        currentPage: Int,
+        numberOfRowsPerPage: Int,
+        collectionId: String?,
+        objectOrderIds: [String],
+        spaceType: SpaceType?
+    ) {
+        let layoutFilter = SearchHelper.layoutFilter(DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceType))
+        self.init(
+            identifier: identifier,
+            document: document,
+            groupFilter: groupFilter,
+            currentPage: currentPage,
+            numberOfRowsPerPage: numberOfRowsPerPage,
+            collectionId: collectionId,
+            objectOrderIds: objectOrderIds,
+            layoutFilter: layoutFilter
+        )
+    }
+
+    private init(
+        identifier: String,
+        document: some SetDocumentProtocol,
+        groupFilter: DataviewFilter?,
+        currentPage: Int,
+        numberOfRowsPerPage: Int,
+        collectionId: String?,
+        objectOrderIds: [String],
+        layoutFilter: DataviewFilter
+    ) {
         self.identifier = identifier
         self.source = document.details?.filteredSetOf
-        
+
         let view = document.activeView
-        
+
         // Sorts
         var sorts = view.sorts
         if objectOrderIds.isNotEmpty {
@@ -49,7 +97,7 @@ struct SetSubscriptionData: Hashable {
             ))
         }
         self.sorts = sorts
-        
+
         // Filters
         var filters = view.filters
             .enrichingFormats(with: document.dataViewRelationsDetails)
@@ -57,7 +105,7 @@ struct SetSubscriptionData: Hashable {
         if let groupFilter {
             filters.append(groupFilter)
         }
-        filters.append(SearchHelper.layoutFilter(DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType)))
+        filters.append(layoutFilter)
         filters.append(contentsOf: SearchHelper.notHiddenFilters())
         filters.append(SearchHelper.filterOutParticipantType())
         self.filters = filters

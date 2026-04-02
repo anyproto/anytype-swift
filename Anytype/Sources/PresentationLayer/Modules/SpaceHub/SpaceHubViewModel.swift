@@ -59,14 +59,17 @@ final class SpaceHubViewModel {
     }
 
     func onTapCreatePersonalChannel() {
+        AnytypeAnalytics.instance().logClickVaultCreateMenuSpace()
         output?.onSelectCreatePersonalChannel()
     }
 
     func onTapCreateGroupChannel() {
+        AnytypeAnalytics.instance().logClickVaultCreateMenuChat()
         output?.onSelectCreateGroupChannel()
     }
 
     func onTapJoinViaQrCode() {
+        AnytypeAnalytics.instance().logClickVaultCreateMenuJoin()
         output?.onSelectQrCodeJoin()
     }
     

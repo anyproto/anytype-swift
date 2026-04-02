@@ -18,12 +18,59 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     var showGlobalSearchData: GlobalSearchModuleData?
     var spaceShareData: SpaceShareData?
     var qrCodeInviteData: URLIdentifiable?
+    var showHomepagePicker = false
 
     @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
+    @Injected(\.channelOnboardingStorage) @ObservationIgnored
+    private var onboardingStorage: any ChannelOnboardingStorageProtocol
+    @Injected(\.pendingShareService) @ObservationIgnored
+    private var pendingShareService: any PendingShareServiceProtocol
+    @Injected(\.participantSpacesStorage) @ObservationIgnored
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @Injected(\.pendingShareStorage) @ObservationIgnored
+    private var pendingShareStorage: any PendingShareStorageProtocol
+    @Injected(\.spaceViewsStorage) @ObservationIgnored
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
     init(info: AccountInfo) {
         self.spaceInfo = info
+    }
+
+    func onAppear() {
+        guard FeatureFlags.createChannelFlow else { return }
+        let spaceView = spaceViewsStorage.spaceView(spaceId: spaceInfo.accountSpaceId)
+        let homepageNotSet = spaceView?.homepage == .empty
+        let pickerAlreadyDismissed = onboardingStorage.isHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
+        if homepageNotSet, !pickerAlreadyDismissed, !showHomepagePicker {
+            showHomepagePicker = true
+        }
+    }
+
+    func startPendingShareRetryTask() async {
+        let spaceId = spaceInfo.accountSpaceId
+        guard pendingShareStorage.pendingState(for: spaceId) != nil else { return }
+
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
+            guard pendingShareStorage.pendingState(for: spaceId) != nil else { return }
+
+            if participantSpaceView.spaceView.isActive {
+                await pendingShareService.retryIfNeeded(spaceId: spaceId)
+                if pendingShareStorage.pendingState(for: spaceId) == nil { return }
+            }
+        }
+    }
+
+    func onHomepagePickerFinished(result: HomepagePickerResult) {
+        showHomepagePicker = false
+
+        if case .later = result {
+            onboardingStorage.setHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
+            return
+        }
+
+        guard case .homepageSet(let value) = result, case .object(let details) = value else { return }
+        pageNavigation?.open(details.screenData())
     }
 
     // MARK: - HomeWidgetsModuleOutput
@@ -34,6 +81,10 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
 
     func onCreateObjectType() {
         createTypeData = CreateObjectTypeData(spaceId: spaceInfo.accountSpaceId, name: "", route: .screenWidget)
+    }
+
+    func onShowHomepagePicker() {
+        showHomepagePicker = true
     }
 
     func onObjectSelected(screenData: ScreenData) {

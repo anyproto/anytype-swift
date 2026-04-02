@@ -65,6 +65,16 @@ extension View {
     }
 
     @ViewBuilder
+    public func toolbarNavigationBarOpaqueBackgroundLegacy() -> some View {
+        if #available(iOS 26.0, *) {
+            self
+        } else {
+            self
+                .toolbarBackground(Color.Background.primary, for: .navigationBar)
+        }
+    }
+
+    @ViewBuilder
     public func matchedTransitionSourceIOS26<ID: Hashable>(id: ID, in namespace: Namespace.ID?) -> some View {
         if let namespace, #available(iOS 26.0, *), FeatureFlags.matchedTransitionSource {
             self.matchedTransitionSource(id: id, in: namespace)

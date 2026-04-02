@@ -1423,11 +1423,32 @@ public enum Loc {
   public enum Channel {
     public enum Create {
       public static let group = Loc.tr("Workspace", "Channel.Create.Group", fallback: "Group")
+      public static let newChannel = Loc.tr("Workspace", "Channel.Create.NewChannel", fallback: "New channel")
       public static let personal = Loc.tr("Workspace", "Channel.Create.Personal", fallback: "Personal")
       public enum EmptyState {
         public static let button = Loc.tr("Workspace", "Channel.Create.EmptyState.button", fallback: "Create Channel")
         public static let title = Loc.tr("Workspace", "Channel.Create.EmptyState.title", fallback: "There are no channels yet")
       }
+      public enum SelectMembers {
+        public static func editorsCount(_ p1: Int, _ p2: Int) -> String {
+          return Loc.tr("Workspace", "Channel.Create.SelectMembers.editorsCount", p1, p2, fallback: "%lld/%lld Editors")
+        }
+        public static let next = Loc.tr("Workspace", "Channel.Create.SelectMembers.next", fallback: "Next")
+        public static let title = Loc.tr("Workspace", "Channel.Create.SelectMembers.title", fallback: "Select members")
+        public static func viewersCount(_ p1: Int, _ p2: Int) -> String {
+          return Loc.tr("Workspace", "Channel.Create.SelectMembers.viewersCount", p1, p2, fallback: "%lld/%lld Viewers")
+        }
+      }
+    }
+    public enum Offline {
+      public static let membersBanner = Loc.tr("Workspace", "Channel.Offline.MembersBanner", fallback: "Members will be invited when you're back online")
+    }
+    public enum SharedLimit {
+      public static let manageChannels = Loc.tr("Workspace", "Channel.SharedLimit.ManageChannels", fallback: "Manage Channels")
+      public static func subtitle(_ p1: Int) -> String {
+        return Loc.tr("Workspace", "Channel.SharedLimit.Subtitle", p1, fallback: "Your plan allows %lld shared channels. Upgrade your membership to create more.")
+      }
+      public static let title = Loc.tr("Workspace", "Channel.SharedLimit.Title", fallback: "Shared channel limit reached")
     }
   }
   public enum Chat {
@@ -2346,7 +2367,8 @@ public enum Loc {
       }
     }
     public enum HomePage {
-      public static let title = Loc.tr("Workspace", "SpaceSettings.HomePage.Title", fallback: "Home page")
+      public static let chooseHome = Loc.tr("Workspace", "SpaceSettings.HomePage.ChooseHome", fallback: "Choose Home")
+      public static let title = Loc.tr("Workspace", "SpaceSettings.HomePage.Title", fallback: "Home")
       public static let widgets = Loc.tr("Workspace", "SpaceSettings.HomePage.Widgets", fallback: "Widgets")
     }
     public enum LeaveAlert {

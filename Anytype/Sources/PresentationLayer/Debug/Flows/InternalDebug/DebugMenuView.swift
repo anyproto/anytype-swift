@@ -77,7 +77,7 @@ struct DebugMenuView: View {
         .sheet(isPresented: $showObjectIcons) { ObjectIconExample() }
         .sheet(isPresented: $showMembershipDebug) { MembershipDebugView() }
         .sheet(isPresented: $showHomepagePicker) {
-            HomepagePickerView(spaceId: "") { result in
+            HomepageCreatePickerView(spaceId: "") { result in
                 print("HomepagePicker result: \(result)")
             }
             .interactiveDismissDisabled(true)

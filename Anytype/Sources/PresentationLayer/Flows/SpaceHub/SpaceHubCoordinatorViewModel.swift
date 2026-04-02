@@ -12,6 +12,9 @@ struct SpaceHubNavigationItem: Hashable { }
 @Observable
 final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var showSpaceManager = false
+    var showSharedChannelLimit = false
+    var sharedChannelLimit: Int = 0
+    var membershipUpgradeReason: MembershipUpgradeReason?
     var showObjectIsNotAvailableAlert = false
     var profileData: ObjectInfo?
     var spaceProfileData: AccountInfo?
@@ -30,6 +33,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var bookmarkCreateData: BookmarkCreateScreenData?
     var overlayWidgetsData: HomeWidgetData?
     var showSpaceTypeForCreate = false
+    var showGroupChannelCreate = false
     var shouldScanQrCode = false
     var showAppSettings = false
     
@@ -91,8 +95,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.spaceViewsStorage) @ObservationIgnored
     private var workspaceStorage: any SpaceViewsStorageProtocol
-    @Injected(\.userDefaultsStorage) @ObservationIgnored
-    private var userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.objectTypeProvider) @ObservationIgnored
     private var typeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectActionsService) @ObservationIgnored
@@ -111,7 +113,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.searchService) @ObservationIgnored
     private var searchService: any SearchServiceProtocol
-
+    @Injected(\.contactsService) @ObservationIgnored
+    private var contactsService: any ContactsServiceProtocol
     @ObservationIgnored
     private var needSetup = true
     
@@ -137,6 +140,9 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             needSetup = false
         }
 
+        if FeatureFlags.createChannelFlow {
+            Task { await contactsService.prefetch() }
+        }
         await startSubscriptions()
     }
     
@@ -208,11 +214,27 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
 
     func onSelectCreatePersonalChannel() {
-        spaceCreateData = SpaceCreateData(spaceUxType: .data)
+        spaceCreateData = SpaceCreateData(spaceUxType: .data, channelType: .personal)
     }
 
     func onSelectCreateGroupChannel() {
-        // Placeholder — will be implemented in IOS-5906
+        let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo
+        if let spaceSharingInfo, !spaceSharingInfo.limitsAllowSharing {
+            sharedChannelLimit = spaceSharingInfo.sharedSpacesLimit
+            showSharedChannelLimit = true
+        } else {
+            showGroupChannelCreate = true
+        }
+    }
+
+    func onSharedChannelLimitUpgrade() {
+        showSharedChannelLimit = false
+        membershipUpgradeReason = .numberOfSharedSpaces
+    }
+
+    func onSharedChannelLimitManageChannels() {
+        showSharedChannelLimit = false
+        showSpaceManager = true
     }
 
     func onSelectQrCodeJoin() {
@@ -279,20 +301,35 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     private func homeObjectScreenData(spaceId: String, spaceUxType: SpaceUxType? = nil) async -> AnyHashable {
-        if let objectId = userDefaults.homeObjectId(spaceId: spaceId) {
-            let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
-            if let details, !details.isArchivedOrDeleted, let editorData = details.screenData().editorScreenData {
-                return editorData
-            }
+        let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
+
+        // 1-1 spaces always open on chat
+        let isOneToOne = spaceUxType == .oneToOne || spaceView?.isOneToOne == true
+        if isOneToOne {
+            return SpaceChatCoordinatorData(spaceId: spaceId)
         }
 
-        let isChat = spaceUxType?.initialScreenIsChat
-            ?? workspaceStorage.spaceView(spaceId: spaceId)?.initialScreenIsChat
-            ?? false
+        // Read homepage from middleware-synced SpaceView
+        let homepage = spaceView?.homepage ?? .empty
 
-        if isChat {
-            return SpaceChatCoordinatorData(spaceId: spaceId)
-        } else {
+        switch homepage {
+        case .empty, .widgets, .graph:
+            return HomeWidgetData(spaceId: spaceId)
+        case .object(let objectId):
+            let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
+            if let details, !details.isArchivedOrDeleted {
+                switch details.screenData() {
+                case .editor(let editorData):
+                    return editorData
+                case .chat(let chatData):
+                    return chatData
+                case .discussion(let discussionData):
+                    return discussionData
+                default:
+                    break
+                }
+            }
+            // Fallback: object not found or deleted → widgets
             return HomeWidgetData(spaceId: spaceId)
         }
     }
@@ -302,18 +339,17 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
 
         setActiveSpace(spaceId: spaceId)
         let homeObject = await homeObjectScreenData(spaceId: spaceId, spaceUxType: spaceUxType)
-        
+
         let path: [AnyHashable] = .builder {
             SpaceHubNavigationItem()
             homeObject
         }
-        
+
         let currentPath = HomePath(initialPath: path)
         if navigationPath != currentPath {
             await dismissAllPresented?()
             navigationPath = currentPath
         }
-        
     }
     
     // main show screen logic

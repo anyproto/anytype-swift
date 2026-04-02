@@ -466,6 +466,17 @@
         }
       }
     },
+    "Channel.Create.NewChannel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New channel"
+          }
+        }
+      }
+    },
     "Channel.Create.Personal" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -617,6 +628,94 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Personal"
+          }
+        }
+      }
+    },
+    "Channel.Create.SelectMembers.editorsCount" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld/%lld Editors"
+          }
+        }
+      }
+    },
+    "Channel.Create.SelectMembers.next" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        }
+      }
+    },
+    "Channel.Create.SelectMembers.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select members"
+          }
+        }
+      }
+    },
+    "Channel.Create.SelectMembers.viewersCount" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld/%lld Viewers"
+          }
+        }
+      }
+    },
+    "Channel.Offline.MembersBanner" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Members will be invited when you're back online"
+          }
+        }
+      }
+    },
+    "Channel.SharedLimit.ManageChannels" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage Channels"
+          }
+        }
+      }
+    },
+    "Channel.SharedLimit.Subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+          }
+        }
+      }
+    },
+    "Channel.SharedLimit.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shared channel limit reached"
           }
         }
       }
@@ -65855,6 +65954,17 @@
         }
       }
     },
+    "SpaceSettings.HomePage.ChooseHome" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Home"
+          }
+        }
+      }
+    },
     "SpaceSettings.HomePage.Title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -65885,7 +65995,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Home page"
+            "value" : "Home"
           }
         },
         "es" : {

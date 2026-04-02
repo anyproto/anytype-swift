@@ -1,6 +1,7 @@
 import Foundation
+import Services
 
 enum HomepageValue {
     case widgets
-    case object(id: String)
+    case object(details: ObjectDetails)
 }
