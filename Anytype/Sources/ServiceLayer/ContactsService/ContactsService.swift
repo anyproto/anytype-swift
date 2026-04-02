@@ -56,6 +56,8 @@ actor ContactsService: ContactsServiceProtocol {
             )
         )
 
+        defer { Task { try? await subscriptionStorage.stopSubscription() } }
+
         do {
             try await subscriptionStorage.startOrUpdateSubscription(data: searchData)
 
@@ -78,10 +80,8 @@ actor ContactsService: ContactsServiceProtocol {
                 break
             }
 
-            try? await subscriptionStorage.stopSubscription()
             return contacts.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
         } catch {
-            try? await subscriptionStorage.stopSubscription()
             return []
         }
     }
