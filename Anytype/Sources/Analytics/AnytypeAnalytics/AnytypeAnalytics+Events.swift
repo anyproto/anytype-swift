@@ -965,8 +965,10 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logScreenSettingsSpaceCreate() {
-        logEvent("ScreenSettingsSpaceCreate")
+    func logScreenSettingsSpaceCreate(status: ScreenSettingsSpaceCreateStatus) {
+        logEvent("ScreenSettingsSpaceCreate", withEventProperties: [
+            AnalyticsEventsPropertiesKey.status: status.rawValue
+        ])
     }
     
     func logCreateSpace(spaceId: String, spaceUxType: SpaceUxType, route: CreateSpaceRoute) {
@@ -1829,5 +1831,37 @@ extension AnytypeAnalytics {
 
     func logClickNavigationScreenHome() {
         logEvent("ClickNavigationScreenHome")
+    }
+
+    func logClickVaultCreateMenuJoin() {
+        logEvent("ClickVaultCreateMenuJoin")
+    }
+
+    func logChangeSpaceDashboard() {
+        logEvent("ChangeSpaceDashboard")
+    }
+
+    func logMemberSearchInput() {
+        logEvent("MemberSearchInput")
+    }
+
+    func logScreenAddMember() {
+        logEvent("ScreenAddMember")
+    }
+
+    func logAddMember(count: Int) {
+        logEvent("AddMember", withEventProperties: [
+            AnalyticsEventsPropertiesKey.count: count
+        ])
+    }
+
+    func logCreateHomePage(type: CreateHomePageType) {
+        logEvent("CreateHomePage", withEventProperties: [
+            AnalyticsEventsPropertiesKey.type: type.rawValue
+        ])
+    }
+
+    func logScreenHitShareSpaceLimit() {
+        logEvent("ScreenHitShareSpaceLimit")
     }
 }

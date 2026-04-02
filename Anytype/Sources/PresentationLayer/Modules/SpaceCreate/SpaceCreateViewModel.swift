@@ -66,12 +66,15 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
 
         UINotificationFeedbackGenerator().notificationOccurred(.success)
         AnytypeAnalytics.instance().logCreateSpace(spaceId: spaceId, spaceUxType: data.spaceUxType, route: .navigation)
+        if let channelType = data.channelType, channelType == .group {
+            AnytypeAnalytics.instance().logAddMember(count: data.selectedContacts.count)
+        }
         try await output?.onSpaceCreated(spaceId: spaceId)
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenSettingsSpaceCreate()
         isConnected = networkStatusProvider.isConnected
+        AnytypeAnalytics.instance().logScreenSettingsSpaceCreate(status: isConnected ? .online : .offline)
     }
 
     func startNetworkObservation() async {

@@ -23,6 +23,12 @@ struct SelectMembersView: View {
             }
         }
         .searchable(text: $model.searchText)
+        .onAppear {
+            AnytypeAnalytics.instance().logScreenAddMember()
+        }
+        .onChange(of: model.searchText) {
+            AnytypeAnalytics.instance().logMemberSearchInput()
+        }
         .navigationBarTitleDisplayMode(.inline)
         .toolbarNavigationBarOpaqueBackgroundLegacy()
         .toolbar {

@@ -522,3 +522,15 @@ enum ScreenChatImageStatus: String {
     case success = "Success"
     case failure = "Failure"
 }
+
+enum ScreenSettingsSpaceCreateStatus: String {
+    case online = "Online"
+    case offline = "Offline"
+}
+
+enum CreateHomePageType: String {
+    case chat = "Chat"
+    case page = "Page"
+    case collection = "Collection"
+    case empty = "Empty"
+}

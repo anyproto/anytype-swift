@@ -54,11 +54,13 @@ final class HomepageSettingsPickerViewModel {
 
     func onEmptySelected() async throws {
         try await homepagePickerService.setHomepage(spaceId: spaceId, homepage: .widgets)
+        AnytypeAnalytics.instance().logChangeSpaceDashboard()
         dismiss = true
     }
 
     func onObjectSelected(_ details: ObjectDetails) async throws {
         try await homepagePickerService.setHomepage(spaceId: spaceId, homepage: .object(objectId: details.id))
+        AnytypeAnalytics.instance().logChangeSpaceDashboard()
         dismiss = true
     }
 }

@@ -23,6 +23,20 @@ enum HomepagePickerOption: Identifiable, Equatable {
     }
 }
 
+extension HomepagePickerOption {
+    var analyticsType: CreateHomePageType {
+        switch self {
+        case .widgets: return .empty
+        case .object(let type):
+            switch type {
+            case .chat: return .chat
+            case .page: return .page
+            case .collection: return .collection
+            }
+        }
+    }
+}
+
 enum ObjectHomepageType: String, CaseIterable {
     case chat
     case page
