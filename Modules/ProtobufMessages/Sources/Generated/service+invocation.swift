@@ -584,6 +584,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func spaceParticipantsAddList(
+        _ request: Anytype_Rpc.Space.ParticipantsAddList.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.ParticipantsAddList.Request, Anytype_Rpc.Space.ParticipantsAddList.Response> {
+        return Invocation(messageName: "SpaceParticipantsAddList", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceParticipantsAddList(requestData) ?? Data()
+            return try Anytype_Rpc.Space.ParticipantsAddList.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func publishingCreate(
         _ request: Anytype_Rpc.Publishing.Create.Request = .init()
     ) -> Invocation<Anytype_Rpc.Publishing.Create.Request, Anytype_Rpc.Publishing.Create.Response> {
