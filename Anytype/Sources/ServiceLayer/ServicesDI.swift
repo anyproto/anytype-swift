@@ -21,7 +21,7 @@ extension Container {
     }
 
     var contactsService: Factory<any ContactsServiceProtocol> {
-        self { ContactsService() }
+        self { ContactsService() }.singleton
     }
 
     var chatDetailsStorage: Factory<any ChatDetailsStorageProtocol> {

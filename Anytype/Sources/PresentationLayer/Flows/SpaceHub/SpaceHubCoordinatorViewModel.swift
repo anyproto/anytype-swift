@@ -113,6 +113,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.searchService) @ObservationIgnored
     private var searchService: any SearchServiceProtocol
+    @Injected(\.contactsService) @ObservationIgnored
+    private var contactsService: any ContactsServiceProtocol
     @ObservationIgnored
     private var needSetup = true
     
@@ -138,6 +140,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             needSetup = false
         }
 
+        Task { await contactsService.prefetch() }
         await startSubscriptions()
     }
     
