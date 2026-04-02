@@ -12,6 +12,9 @@ struct GroupChannelCreateCoordinatorView: View {
                 }
         }
         .tint(Color.Text.secondary)
+        .task {
+            await model.loadContacts()
+        }
     }
 
     @ViewBuilder

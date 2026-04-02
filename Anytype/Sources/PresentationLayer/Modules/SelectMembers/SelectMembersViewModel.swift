@@ -7,7 +7,7 @@ import Loc
 final class SelectMembersViewModel {
 
     let contacts: [Contact]
-    let onNext: ([SelectedMember]) -> Void
+    private let onNext: ([SelectedMember]) -> Void
 
     var searchText: String = ""
     var selectedIdentities: [String] = [] // ordered array, not Set

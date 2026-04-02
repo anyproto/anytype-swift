@@ -16,13 +16,9 @@ final class GroupChannelCreateCoordinatorViewModel {
     var selectMembersData: SelectMembersData?
     var spaceCreateData: SpaceCreateData?
 
-    init() {
-        Task { await loadContacts() }
-    }
+    // MARK: - Lifecycle
 
-    // MARK: - Private
-
-    private func loadContacts() async {
+    func loadContacts() async {
         let contacts = await contactsService.loadContacts()
         let sharedSpaceView = spaceViewsStorage.allSpaceViews
             .first { $0.isActive && $0.isShared }

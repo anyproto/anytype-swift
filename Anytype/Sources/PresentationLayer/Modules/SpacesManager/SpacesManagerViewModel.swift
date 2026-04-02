@@ -76,7 +76,7 @@ final class SpacesManagerViewModel {
     }
 
     func onTapCreatePersonalChannel() {
-        spaceCreateData = SpaceCreateData(spaceUxType: .data)
+        spaceCreateData = SpaceCreateData(spaceUxType: .data, channelType: .personal)
     }
 
     func onTapCreateGroupChannel() {

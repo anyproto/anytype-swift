@@ -30,6 +30,8 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.pendingShareStorage) @ObservationIgnored
     private var pendingShareStorage: any PendingShareStorageProtocol
+    @Injected(\.spaceViewsStorage) @ObservationIgnored
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
     init(info: AccountInfo) {
         self.spaceInfo = info
@@ -37,7 +39,7 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
 
     func onAppear() {
         guard FeatureFlags.createChannelFlow else { return }
-        let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceInfo.accountSpaceId)
+        let spaceView = spaceViewsStorage.spaceView(spaceId: spaceInfo.accountSpaceId)
         let homepageNotSet = spaceView?.homepage == .empty
         let pickerAlreadyDismissed = onboardingStorage.isHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
         if homepageNotSet, !pickerAlreadyDismissed, !showHomepagePicker {
