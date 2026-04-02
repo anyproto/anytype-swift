@@ -7,6 +7,7 @@ struct ChannelCreateView: View {
 
     @State private var model: SpaceCreateViewModel
     @State private var isCreating = false
+    @State private var toast: ToastBarData?
     @Environment(\.dismiss) private var dismiss
 
     init(data: SpaceCreateData, output: (any SpaceCreateModuleOutput)?) {
@@ -49,7 +50,12 @@ struct ChannelCreateView: View {
                     isCreating = true
                     Task {
                         defer { isCreating = false }
-                        try? await model.onTapCreate()
+                        do {
+                            try await model.onTapCreate()
+                        } catch {
+                            UINotificationFeedbackGenerator().notificationOccurred(.error)
+                            toast = ToastBarData(error.localizedDescription, type: .failure)
+                        }
                     }
                 } label: {
                     if isCreating {
@@ -79,6 +85,7 @@ struct ChannelCreateView: View {
         .onChange(of: model.spaceName) {
             model.updateNameIconIfNeeded($1)
         }
+        .snackbar(toastBarData: $toast)
     }
 
     @ViewBuilder
