@@ -15,7 +15,6 @@ final class GroupChannelCreateCoordinatorViewModel {
 
     var selectMembersData: SelectMembersData?
     var spaceCreateData: SpaceCreateData?
-    var selectedMembers: [SelectedMember] = []
 
     init() {
         Task { await loadContacts() }
@@ -38,7 +37,6 @@ final class GroupChannelCreateCoordinatorViewModel {
     // MARK: - SelectMembers output
 
     func onSelectMembersNext(_ members: [SelectedMember]) {
-        selectedMembers = members
         let selectedIdentities = Set(members.map(\.identity))
         let contacts = selectMembersData?.contacts
             .filter { selectedIdentities.contains($0.identity) }
