@@ -160,9 +160,8 @@ final class GlobalSearchViewModel {
             return
         }
         state = restoredState
-        if restoredState.searchText.isNotEmpty {
-            AnytypeAnalytics.instance().logScreenSearch(type: .saved)
-        }
+        let type: ScreenSearchType = restoredState == GlobalSearchState() ? .empty : .saved
+        AnytypeAnalytics.instance().logScreenSearch(type: type)
     }
     
     private func storeState() {
