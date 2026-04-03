@@ -1817,7 +1817,7 @@ extension AnytypeAnalytics {
         ].compactMapValues { $0 })
     }
     
-    func logScreenChatImage(time: Int, status: ScreenChatImageStatus, size: Int?) {
+    func logScreenChatImage(time: Int, status: ScreenChatImageStatus, size: Int?, uploadTime: Int? = nil, totalTime: Int? = nil) {
         logEvent("ScreenChatImage", withEventProperties: .builder {
             [
                 AnalyticsEventsPropertiesKey.time: time,
@@ -1825,6 +1825,12 @@ extension AnytypeAnalytics {
             ]
             if let size {
                 [AnalyticsEventsPropertiesKey.size: size]
+            }
+            if let uploadTime {
+                [AnalyticsEventsPropertiesKey.uploadTime: uploadTime]
+            }
+            if let totalTime {
+                [AnalyticsEventsPropertiesKey.totalTime: totalTime]
             }
         })
     }

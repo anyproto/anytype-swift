@@ -56,6 +56,8 @@ enum AnalyticsEventsPropertiesKey {
     static let size = "size"
     static let time = "time"
     static let status = "status"
+    static let uploadTime = "uploadTime"
+    static let totalTime = "totalTime"
 }
 
 enum AnalyticsEventsTypeValues {
