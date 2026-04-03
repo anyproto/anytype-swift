@@ -48,7 +48,11 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
     private var pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
-    
+    @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+
     func saveObjects(
         spaceId: String,
         content: SharedContent,
@@ -57,19 +61,34 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         comment: String
     ) async throws {
         await objectTypeProvider.prepareData(spaceId: spaceId)
-        
+
+        // For 1-1 spaces, the workspace must be opened with chat support before sending messages.
+        // SpaceView.chatId may be empty until the workspace is opened (see SpaceChatCoordinatorView).
+        let resolvedChatId = try await resolveOneToOneChatId(spaceId: spaceId, chatId: chatId)
+
         // Create objects for media & bookmarks
-        let contentItems = try await createObjectsFromSharedContent(spaceId: spaceId, content: content, chatId: chatId)
-        
+        let contentItems = try await createObjectsFromSharedContent(spaceId: spaceId, content: content, chatId: resolvedChatId)
+
         try await linkToObjectFlow(spaceId: spaceId, content: content, savedContent: contentItems, linkToObjects: linkToObjects)
-        
-        if let chatId {
-            try await createMessageToChatFlow(spaceId: spaceId, content: content, savedContent: contentItems, chatId: chatId, comment: comment)
+
+        if let resolvedChatId {
+            try await createMessageToChatFlow(spaceId: spaceId, content: content, savedContent: contentItems, chatId: resolvedChatId, comment: comment)
         }
     }
     
     // MARK: - Private
-    
+
+    private func resolveOneToOneChatId(spaceId: String, chatId: String?) async throws -> String? {
+        guard chatId != nil else { return nil }
+
+        let isOneToOne = spaceViewsStorage.spaceView(spaceId: spaceId)?.isOneToOne ?? false
+        guard isOneToOne else { return chatId }
+
+        let info = try await workspaceService.workspaceOpen(spaceId: spaceId, withChat: true)
+        let resolvedId = info.spaceChatId
+        return resolvedId.isEmpty ? nil : resolvedId
+    }
+
     private func linkToObjectFlow(
         spaceId: String,
         content: SharedContent,
