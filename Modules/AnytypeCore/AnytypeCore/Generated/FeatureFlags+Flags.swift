@@ -30,6 +30,10 @@ public extension FeatureFlags {
         value(for: .channelTypeSwitcher)
     }
 
+    static var fixAvatarTapFreeze: Bool {
+        value(for: .fixAvatarTapFreeze)
+    }
+
     static var muteAndHide: Bool {
         value(for: .muteAndHide)
     }
@@ -122,6 +126,7 @@ public extension FeatureFlags {
         .qrCodeCircularText,
         .createChannelFlow,
         .channelTypeSwitcher,
+        .fixAvatarTapFreeze,
         .muteAndHide,
         .setKanbanView,
         .fullInlineSetImpl,

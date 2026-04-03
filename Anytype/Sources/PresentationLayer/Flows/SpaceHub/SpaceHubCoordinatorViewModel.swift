@@ -413,6 +413,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     
     // Checks is object supported for opening
     private func checkIsDataSupportedForOpening(_ data: ScreenData) async throws -> Bool {
+        if FeatureFlags.fixAvatarTapFreeze, case .alert(.spaceMember) = data { return true }
         guard let objectId = data.objectId else { return true }
         
         let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)

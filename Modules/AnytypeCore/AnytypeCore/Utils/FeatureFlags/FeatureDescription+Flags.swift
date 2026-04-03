@@ -44,6 +44,12 @@ public extension FeatureDescription {
         defaultValue: false
     )
 
+    static let fixAvatarTapFreeze = FeatureDescription(
+        title: "Fix avatar tap freeze in chat - IOS-5998",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: true
+    )
+
     static let muteAndHide = FeatureDescription(
         title: "Mute and hide notification setting - IOS-5809",
         category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
