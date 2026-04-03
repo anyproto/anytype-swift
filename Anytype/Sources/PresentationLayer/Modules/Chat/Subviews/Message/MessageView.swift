@@ -187,7 +187,7 @@ struct MessageView: View {
             MessageReactionList(
                 rows: data.reactions,
                 canAddReaction: data.canAddReaction,
-                canToggleReaction: data.canAddReaction,
+                canToggleReaction: data.canReply,
                 position: data.position,
                 onTapRow: { reaction in
                     try await output?.didTapOnReaction(data: data, emoji: reaction.emoji)
