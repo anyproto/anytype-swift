@@ -45,12 +45,9 @@ struct DiscussionMessageView: View {
             .coordinateSpace(name: Constants.coordinateSpace)
             .messageFlashBackground(id: data.id)
             .background(Color.Background.primary)
-            .contentShape(.contextMenuPreview, Rectangle())
+            .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contextMenu {
                 contextMenu
-            } preview: {
-                messageBody
-                    .background(Color.Background.primary)
             }
             .readFrame(space: .named(Constants.coordinateSpace)) {
                 contentCenterOffsetY = $0.midY
@@ -256,14 +253,6 @@ struct DiscussionMessageView: View {
             output?.didSelectCopyLink(message: data)
         } label: {
             Label(Loc.copyLink, systemImage: "link")
-        }
-
-        if data.canEdit {
-            AsyncButton {
-                await output?.didSelectEditMessage(message: data)
-            } label: {
-                Label(Loc.edit, systemImage: "pencil")
-            }
         }
 
         if data.canDelete {
