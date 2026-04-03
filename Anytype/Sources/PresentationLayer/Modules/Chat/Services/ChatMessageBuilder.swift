@@ -101,6 +101,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                     position: position
                 ),
                 canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
+                canToggleReaction: canEdit,
                 canReply: canEdit,
                 nextSpacing: (lastInSection || nextIsUnread) ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
                 authorIconMode: (isYourMessage || !showsMessageAuthor) ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
