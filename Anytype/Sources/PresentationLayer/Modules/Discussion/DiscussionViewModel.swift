@@ -546,16 +546,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         }
     }
 
-    func onTapMention() {
-        guard let chatState, let chatStorage else { return }
-        AnytypeAnalytics.instance().logClickScrollToMention(chatId: chatId ?? "")
-        Task {
-            let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
-            collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
-            messageHiglightId = message.id
-        }
-    }
-
     func onTapDismissKeyboard() {
         inputFocused = false
     }
@@ -829,8 +819,8 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             actionModel = ChatActionPanelModel(
                 showScrollToBottom: chatState.messages.counter > 0 || bigDistanceToBottom,
                 srollToBottomCounter: Int(chatState.messages.counter),
-                showMentions: chatState.mentions.counter > 0,
-                mentionsCounter: Int(chatState.mentions.counter),
+                showMentions: false,
+                mentionsCounter: 0,
                 showReactions: false
             )
         } else {
