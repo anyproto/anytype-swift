@@ -76,6 +76,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         case let .modeTitle(text):
             titleLabel.setText(text, style: .uxTitle1Semibold)
             titleLabel.isUserInteractionEnabled = false
+            stackView.isUserInteractionEnabled = false
             iconImageView.isHidden = true
             arrowImageView.isHidden = true
             stackViewLeadingConstraint?.constant = 6
