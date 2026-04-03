@@ -81,6 +81,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                     position: position
                 ),
                 canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
+                canToggleReaction: canEdit,
                 canReply: canEdit,
                 nextSpacing: .disable,
                 authorIconMode: .show,
