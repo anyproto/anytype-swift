@@ -168,7 +168,11 @@ struct DiscussionView: View {
         // Discussions only use scroll-to-bottom; mention/reaction buttons are Chat-only
         ChatActionPanelView(model: model.actionModel) {
             model.onTapScrollToBottom()
-        } onTapMention: { } onTapReaction: { }
+        } onTapMention: {
+            anytypeAssertionFailure("Mentions scroll is not supported in discussions")
+        } onTapReaction: {
+            anytypeAssertionFailure("Reactions scroll is not supported in discussions")
+        }
     }
 
     @ViewBuilder
