@@ -2,6 +2,8 @@
   "permissions": {
     "allow": [
       "Read(*)",
+      "Grep(*)",
+      "WebSearch(*)",
 
       "Bash(git checkout:*)",
       "Bash(git worktree:*)",
