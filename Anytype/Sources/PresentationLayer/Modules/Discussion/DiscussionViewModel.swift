@@ -597,13 +597,9 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func didSelectReplyMessage(message: MessageViewData) {
-        guard let reply = message.reply, let chatStorage else { return }
+        guard let reply = message.reply else { return }
         AnytypeAnalytics.instance().logClickScrollToReply(chatId: message.chatId)
-        Task {
-            try await chatStorage.loadPagesTo(messageId: reply.id)
-            collectionViewScrollProxy.scrollTo(itemId: reply.id)
-            messageHiglightId = reply.id
-        }
+        scrollToMessage(messageId: reply.id)
     }
 
     func didSelectDeleteMessage(message: MessageViewData) {
@@ -652,9 +648,9 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     // MARK: - ChatActionProviderHandler
 
     func scrollToMessage(messageId: String) {
-        guard chatStorage != nil else { return }
+        guard let chatStorage else { return }
         Task {
-            try await chatStorage?.loadPagesTo(messageId: messageId)
+            try? await chatStorage.loadPagesTo(messageId: messageId)
             collectionViewScrollProxy.scrollTo(itemId: messageId)
             messageHiglightId = messageId
         }

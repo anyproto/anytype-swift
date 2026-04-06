@@ -409,8 +409,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
                 }
             // Channel/stream spaces: home screen is ChatCoordinatorData (chatId known at build time).
             // Match by chatId because multiple chats can exist in one space.
-            // Channel/stream spaces: home screen is ChatCoordinatorData (chatId known at build time).
-            // Match by chatId because multiple chats can exist in one space.
             } else if let existingChat = currentPath.path.lazy.compactMap({ $0.base as? ChatCoordinatorData }).first(where: { $0.chatId == data.chatId }) {
                 currentPath.popTo(existingChat)
                 if let messageId = data.messageId {

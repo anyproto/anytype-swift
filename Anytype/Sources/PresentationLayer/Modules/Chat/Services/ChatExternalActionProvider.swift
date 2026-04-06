@@ -11,7 +11,7 @@ struct ChatActionProvider {
 
     private var handlers = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
 
-    mutating func register(chatId: String, handler: any ChatActionProviderHandler) {
+    func register(chatId: String, handler: any ChatActionProviderHandler) {
         handlers.setObject(handler as AnyObject, forKey: chatId as NSString)
     }
 

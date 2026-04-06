@@ -615,11 +615,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     func didSelectReplyMessage(message: MessageViewData) {
         guard let reply = message.reply else { return }
         AnytypeAnalytics.instance().logClickScrollToReply(chatId: message.chatId)
-        Task {
-            try await chatStorage.loadPagesTo(messageId: reply.id)
-            collectionViewScrollProxy.scrollTo(itemId: reply.id)
-            messageHiglightId = reply.id
-        }
+        scrollToMessage(messageId: reply.id)
     }
     
     func didSelectDeleteMessage(message: MessageViewData) {
@@ -665,7 +661,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
 
     func scrollToMessage(messageId: String) {
         Task {
-            try await chatStorage.loadPagesTo(messageId: messageId)
+            try? await chatStorage.loadPagesTo(messageId: messageId)
             collectionViewScrollProxy.scrollTo(itemId: messageId)
             messageHiglightId = messageId
         }
