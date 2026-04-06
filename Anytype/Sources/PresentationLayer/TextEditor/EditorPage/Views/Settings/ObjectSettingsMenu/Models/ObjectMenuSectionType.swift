@@ -27,7 +27,7 @@ extension ObjectMenuSectionType {
         case .editInfo:
             return .horizontal
         case .pin:
-            return isChat ? .horizontal : .mainSettings
+            return .mainSettings
         case .undoRedo, .copyLink, .inviteMembers:
             return .mainSettings
         case .linkItself, .locked, .makeAsTemplate:

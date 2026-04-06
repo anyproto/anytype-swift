@@ -347,8 +347,8 @@ final class SpaceSettingsViewModel {
         allowLeave = participantSpaceView.canLeave
         allowRemoteStorage = participantSpaceView.isOwner
         canAddWriters = spaceView.canAddWriters(participants: participants)
-        isOneToOne = spaceView.uxType.isOneToOne
-        showNotificationsSection = spaceView.uxType.supportsMultiChats
+        isOneToOne = spaceView.isOneToOne
+        showNotificationsSection = !spaceView.isOneToOne
 
         uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat && FeatureFlags.channelTypeSwitcher ? SpaceUxTypeSettingsData(uxType: spaceView.uxType) : nil
 
@@ -408,7 +408,7 @@ final class SpaceSettingsViewModel {
     private func updateInviteIfNeeded() async throws {
         guard let participantSpaceView else { return }
         guard shareSection.isSharingAvailable else { return }
-        guard !participantSpaceView.spaceView.uxType.isOneToOne else { return }
+        guard !participantSpaceView.spaceView.isOneToOne else { return }
         
         if participantSpaceView.spaceView.uxType.isStream {
             let invite = try? await workspaceService.getGuestInvite(spaceId: workspaceInfo.accountSpaceId)

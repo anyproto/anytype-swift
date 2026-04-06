@@ -50,11 +50,11 @@ final class WidgetsHeaderViewModel {
     }
 
     var isOneToOneSpace: Bool {
-        spaceView?.uxType.isOneToOne == true
+        spaceView?.isOneToOne == true
     }
 
     var isDataSpace: Bool {
-        spaceView?.uxType.isData == true
+        !(spaceView?.isOneToOne ?? true)
     }
 
     var hasInviteLink: Bool {
@@ -107,7 +107,7 @@ final class WidgetsHeaderViewModel {
             inviteLink = nil
             return
         }
-        guard let spaceView, !spaceView.uxType.isOneToOne else {
+        guard let spaceView, !spaceView.isOneToOne else {
             inviteLink = nil
             return
         }

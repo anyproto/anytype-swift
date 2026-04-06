@@ -92,7 +92,7 @@ final class SpaceHubViewModel {
         guard let spaceView = spaces?.first(where: { $0.spaceView.id == spaceViewId })?.spaceView else { return }
         spaceMuteData = SpaceMuteData(
             spaceId: spaceView.targetSpaceId,
-            mode: spaceView.pushNotificationMode.toggled(isOneToOne: spaceView.uxType.isOneToOne)
+            mode: spaceView.pushNotificationMode.toggled(isOneToOne: spaceView.isOneToOne)
         )
     }
 

@@ -113,9 +113,9 @@ final class ChatHeaderViewModel {
     private func subscribeOnSpaceView() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             let spaceView = participantSpaceView.spaceView
-            spaceSupportsMultiChats = spaceView.uxType.supportsMultiChats
+            spaceSupportsMultiChats = !spaceView.isOneToOne
             isMultiChatSpace = spaceSupportsMultiChats
-            isOneToOne = spaceView.uxType.isOneToOne
+            isOneToOne = spaceView.isOneToOne
             oneToOneIdentity = spaceView.oneToOneIdentity
             spaceTitle = spaceView.title
             spaceIcon = spaceView.objectIconImage

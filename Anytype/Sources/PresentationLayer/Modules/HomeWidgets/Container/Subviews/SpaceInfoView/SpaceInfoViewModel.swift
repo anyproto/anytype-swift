@@ -58,7 +58,7 @@ final class SpaceInfoViewModel {
             spaceName = space.title
             spaceIcon = space.objectIconImage
             sharedSpace = space.isShared
-            isOneToOne = space.uxType.isOneToOne
+            isOneToOne = space.isOneToOne
             oneToOneIdentity = space.oneToOneIdentity
             updateOneToOneParticipant()
         }
