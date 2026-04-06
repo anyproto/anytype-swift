@@ -209,14 +209,14 @@ final class HomeWidgetsViewModel {
     private func startSpaceViewTask() async {
         for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values {
             chatWidgetData = spaceView.canShowChatWidget ? SpaceChatWidgetData(spaceId: spaceId, output: output) : nil
-            supportsMultiChats = spaceView.uxType.supportsMultiChats
+            supportsMultiChats = !spaceView.isOneToOne
         }
     }
 
     private func startUnreadChatsTask() async {
         let spaceId = spaceId
         let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
-        guard spaceView?.uxType.supportsMultiChats ?? false else { return }
+        guard !(spaceView?.isOneToOne ?? true) else { return }
 
         let previewsSequence = await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
         let chatsSequence = await chatDetailsStorage.allChatsSequence

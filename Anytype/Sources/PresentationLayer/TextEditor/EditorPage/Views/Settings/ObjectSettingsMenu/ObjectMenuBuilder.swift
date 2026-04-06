@@ -1,9 +1,9 @@
 import Foundation
 
 struct ObjectMenuBuilder {
-    static func buildMenu(settings: [ObjectSetting], actions: [ObjectAction], isChat: Bool) -> ObjectMenuConfiguration {
+    static func buildMenu(settings: [ObjectSetting], actions: [ObjectAction]) -> ObjectMenuConfiguration {
         let allItems = settings.map { (ObjectMenuSectionType.section(for: $0), ObjectMenuItem.setting($0)) } +
-                       actions.map { (ObjectMenuSectionType.section(for: $0, isChat: isChat), ObjectMenuItem.action($0)) }
+                       actions.map { (ObjectMenuSectionType.section(for: $0), ObjectMenuItem.action($0)) }
         let grouped = Dictionary(grouping: allItems, by: { $0.0 })
 
         var sections: [ObjectMenuSection] = []

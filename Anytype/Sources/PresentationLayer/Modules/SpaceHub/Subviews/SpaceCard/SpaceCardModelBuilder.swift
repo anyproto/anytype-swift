@@ -64,7 +64,7 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
         }
 
         let multichatCompactPreview: String?
-        if spaceView.uxType.supportsMultiChats {
+        if !spaceView.isOneToOne {
             multichatCompactPreview = await buildMultichatCompactPreview(unreadPreviews: spaceData.unreadPreviews)
         } else {
             multichatCompactPreview = nil
@@ -82,8 +82,8 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             canBeDeleted: spaceData.space.canBeDeleted,
             canLeave: spaceData.space.canLeave,
             uxTypeName: spaceView.uxType.name,
-            supportsMultiChats: spaceView.uxType.supportsMultiChats,
-            isOneToOne: spaceView.uxType.isOneToOne,
+            supportsMultiChats: !spaceView.isOneToOne,
+            isOneToOne: spaceView.isOneToOne,
             currentNotificationMode: spaceView.pushNotificationMode,
             showsMessageAuthor: spaceView.uxType.showsMessageAuthor,
             lastMessage: lastMessage,

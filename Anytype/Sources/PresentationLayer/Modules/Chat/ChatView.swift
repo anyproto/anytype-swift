@@ -154,7 +154,8 @@ struct ChatView: View {
     
     private var emptyView: some View {
         ConversationEmptyStateView(
-            spaceUxType: model.spaceUxType,
+            isStream: model.spaceUxType.isStream,
+            isOneToOne: model.isOneToOneSpace,
             participantPermissions: model.participantPermissions,
             addMembersAction: {
                 model.onTapInviteLink()

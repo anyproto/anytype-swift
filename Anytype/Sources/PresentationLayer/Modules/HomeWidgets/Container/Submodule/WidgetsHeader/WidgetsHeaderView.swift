@@ -94,7 +94,7 @@ private struct WidgetsHeaderMenuContent: View {
 
     @ViewBuilder
     private var notificationsMenu: some View {
-        if model.isDataSpace {
+        if model.supportsNotificationModeMenu {
             NotificationModeMenu(
                 currentMode: model.currentNotificationMode,
                 onModeChange: { await model.onNotificationModeChanged($0) }

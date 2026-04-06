@@ -110,7 +110,7 @@ extension DecryptedPushContent {
     }
 
     var supportsMultiChats: Bool {
-        spaceUxType == SpaceUxTypeValue.data
+        !isOneToOne
     }
 }
 

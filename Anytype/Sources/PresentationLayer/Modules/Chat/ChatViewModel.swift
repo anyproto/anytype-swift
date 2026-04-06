@@ -134,6 +134,8 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     @ObservationIgnored
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     @ObservationIgnored
+    var isOneToOneSpace: Bool { participantSpaceView?.spaceView.isOneToOne ?? false }
+    @ObservationIgnored
     var spaceUxType: SpaceUxType { participantSpaceView?.spaceView.uxType ?? .data }
     @ObservationIgnored
     var participantPermissions: ParticipantPermissions? { participantSpaceView?.participant?.permission }
@@ -366,7 +368,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     func updateMentionState() async throws {
-        guard spaceUxType.supportsMentions else {
+        guard !isOneToOneSpace else {
             mentionObjectsModels = []
             return
         }

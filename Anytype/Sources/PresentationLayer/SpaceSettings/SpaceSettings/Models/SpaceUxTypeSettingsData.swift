@@ -9,9 +9,9 @@ struct SpaceUxTypeSettingsData {
 extension SpaceUxTypeSettingsData {
     init(uxType: SpaceUxType) {
         switch uxType {
-        case .chat, .oneToOne:
+        case .oneToOne:
             icon = .X24.chat
-        case .data, .stream, .none, .UNRECOGNIZED:
+        case .chat, .data, .stream, .none, .UNRECOGNIZED:
             icon = .X24.space
         }
         typaName = uxType.name

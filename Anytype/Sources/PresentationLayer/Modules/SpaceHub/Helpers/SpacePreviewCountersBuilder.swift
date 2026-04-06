@@ -51,26 +51,28 @@ enum SpacePreviewCountersBuilder {
         var hasHighlightedMention = false
         var hasHighlightedReaction = false
 
+        let supportsMentions = !spaceView.isOneToOne
+
         for preview in previews {
             let effectiveMode = spaceView.effectiveNotificationMode(for: preview.chatId)
 
-            if FeatureFlags.muteAndHide && spaceView.uxType.supportsMultiChats {
+            if FeatureFlags.muteAndHide && !spaceView.isOneToOne {
                 switch effectiveMode {
                 case .all, .mentions, .UNRECOGNIZED:
                     totalUnread += preview.unreadCounter
                     // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
-                    if spaceView.uxType.supportsMentions {
+                    if supportsMentions {
                         totalMentions += preview.mentionCounter
                     }
                 case .nothing:
-                    if spaceView.uxType.supportsMentions {
+                    if supportsMentions {
                         totalMentions += preview.mentionCounter
                     }
                 }
             } else {
                 totalUnread += preview.unreadCounter
                 // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
-                if spaceView.uxType.supportsMentions {
+                if supportsMentions {
                     totalMentions += preview.mentionCounter
                 }
             }
