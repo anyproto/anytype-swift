@@ -1585,8 +1585,23 @@ extension Anytype_Rpc.Template.CreateFromObject.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Template.DeletePlaceholders.Response: ResultWithError {}
+extension Anytype_Rpc.Template.DeletePlaceholders.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Template.ExportAll.Response: ResultWithError {}
 extension Anytype_Rpc.Template.ExportAll.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Template.GetPlaceholders.Response: ResultWithError {}
+extension Anytype_Rpc.Template.GetPlaceholders.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Template.SetPlaceholders.Response: ResultWithError {}
+extension Anytype_Rpc.Template.SetPlaceholders.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

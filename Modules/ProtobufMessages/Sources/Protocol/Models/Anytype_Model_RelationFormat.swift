@@ -56,6 +56,9 @@ public enum Anytype_Model_RelationFormat: SwiftProtobuf.Enum, Swift.CaseIterable
 
   /// base64-encoded relation pb model
   case relations // = 101
+
+  /// relation that handle map of values
+  case map // = 102
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -78,6 +81,7 @@ public enum Anytype_Model_RelationFormat: SwiftProtobuf.Enum, Swift.CaseIterable
     case 11: self = .tag
     case 100: self = .object
     case 101: self = .relations
+    case 102: self = .map
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -98,6 +102,7 @@ public enum Anytype_Model_RelationFormat: SwiftProtobuf.Enum, Swift.CaseIterable
     case .tag: return 11
     case .object: return 100
     case .relations: return 101
+    case .map: return 102
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -118,12 +123,13 @@ public enum Anytype_Model_RelationFormat: SwiftProtobuf.Enum, Swift.CaseIterable
     .emoji,
     .object,
     .relations,
+    .map,
   ]
 
 }
 
 extension Anytype_Model_RelationFormat: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0longtext\0\u{1}shorttext\0\u{1}number\0\u{1}status\0\u{1}date\0\u{1}file\0\u{1}checkbox\0\u{1}url\0\u{1}email\0\u{1}phone\0\u{1}emoji\0\u{1}tag\0\u{2}Y\u{1}object\0\u{1}relations\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0longtext\0\u{1}shorttext\0\u{1}number\0\u{1}status\0\u{1}date\0\u{1}file\0\u{1}checkbox\0\u{1}url\0\u{1}email\0\u{1}phone\0\u{1}emoji\0\u{1}tag\0\u{2}Y\u{1}object\0\u{1}relations\0\u{1}map\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

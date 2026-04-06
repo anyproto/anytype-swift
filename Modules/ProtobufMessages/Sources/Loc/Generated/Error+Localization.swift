@@ -7988,6 +7988,29 @@ extension Anytype_Rpc.Template.CreateFromObject.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Template.DeletePlaceholders.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Template.DeletePlaceholders.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Template.ExportAll.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -8005,6 +8028,52 @@ extension Anytype_Rpc.Template.ExportAll.Response.Error: LocalizedError {
                 return ""
             case .badInput:
                 return LocHelper.tr(table: "LocalizableError", key: "Template.ExportAll.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Template.GetPlaceholders.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Template.GetPlaceholders.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Template.SetPlaceholders.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Template.SetPlaceholders.badInput")
             case .UNRECOGNIZED:
                 return ""
         }
