@@ -39,7 +39,6 @@ final class DiscussionCoordinatorViewModel: DiscussionModuleOutput, ObjectSettin
     var cameraData: SimpleCameraData?
     var newLinkedObject: EditorScreenData?
     var spaceShareData: SpaceShareData?
-    var qrCodeInviteLink: URL?
     var dismiss = false
 
     @ObservationIgnored
@@ -111,14 +110,6 @@ final class DiscussionCoordinatorViewModel: DiscussionModuleOutput, ObjectSettin
 
     func fileImporterFinished(result: Result<[URL], any Error>) {
         filesPickerData?.handler(result)
-    }
-
-    func onInviteLinkSelected() {
-        spaceShareData = SpaceShareData(spaceId: spaceId, route: .chat)
-    }
-
-    func onShowQrCodeSelected(url: URL) {
-        qrCodeInviteLink = url
     }
 
     func onPushNotificationsAlertSelected() {

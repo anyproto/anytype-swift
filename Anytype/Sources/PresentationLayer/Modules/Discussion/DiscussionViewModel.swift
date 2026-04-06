@@ -54,10 +54,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
     @Injected(\.notificationsCenterService) @ObservationIgnored
     private var notificationsCenterService: any NotificationsCenterServiceProtocol
-    @Injected(\.workspaceService) @ObservationIgnored
-    private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.universalLinkParser) @ObservationIgnored
-    private var universalLinkParser: any UniversalLinkParserProtocol
     @Injected(\.shareSuggestionService) @ObservationIgnored
     private var shareSuggestionService: any ShareSuggestionServiceProtocol
     @Injected(\.deepLinkParser) @ObservationIgnored
@@ -76,7 +72,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     var dataLoaded = false
     var canEdit = false
-    var qrCodeInviteUrl: URL?
     @ObservationIgnored
     var keyboardDismiss: KeyboardDismiss?
 
@@ -229,15 +224,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             }
         })
         output?.onShowCameraSelected(data: data)
-    }
-
-    func onTapInviteLink() {
-        output?.onInviteLinkSelected()
-    }
-
-    func onTapShowQrCode() {
-        guard let url = qrCodeInviteUrl else { return }
-        output?.onShowQrCodeSelected(url: url)
     }
 
     func startSubscriptions() async {
@@ -737,21 +723,11 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         }
     }
 
-    func updateInviteState() async {
-        do {
-            let invite = try await workspaceService.getCurrentInvite(spaceId: spaceId)
-            qrCodeInviteUrl = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-        } catch {
-            qrCodeInviteUrl = nil
-        }
-    }
-
     private func updateMessages() async {
         guard let discussionMessageBuilder else { return }
         let newMessageBlocks = await discussionMessageBuilder.makeMessage(
             messages: messages,
             participants: participants,
-            firstUnreadMessageOrderId: firstUnreadMessageOrderId,
             limits: discussionMessageLimits
         )
         guard newMessageBlocks != mesageBlocks else { return }

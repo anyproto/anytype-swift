@@ -12,8 +12,6 @@ protocol DiscussionModuleOutput: AnyObject {
     func onFilePickerSelected(data: FilesPickerData)
     func onShowCameraSelected(data: SimpleCameraData)
     func onUrlSelected(url: URL)
-    func onInviteLinkSelected()
-    func onShowQrCodeSelected(url: URL)
     func onPushNotificationsAlertSelected()
     func didSelectCreateObject(type: ObjectType)
     func didCreateDiscussion(discussionId: String)

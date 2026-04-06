@@ -5,7 +5,6 @@ protocol DiscussionMessageBuilderProtocol: AnyObject, Sendable {
     func makeMessage(
         messages: [FullChatMessage],
         participants: [Participant],
-        firstUnreadMessageOrderId: String?,
         limits: any ChatMessageLimitsProtocol
     ) async -> [MessageSectionData]
 }
@@ -29,7 +28,6 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
     func makeMessage(
         messages: [FullChatMessage],
         participants: [Participant],
-        firstUnreadMessageOrderId: String?,
         limits: any ChatMessageLimitsProtocol
     ) async -> [MessageSectionData] {
 
@@ -50,7 +48,6 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             let isYourMessage = message.creator == yourProfileIdentity
             let authorParticipant = participants.first { $0.identity == message.creator }
             let position: MessageHorizontalPosition = .left
-            let isUnread = message.orderID == firstUnreadMessageOrderId
 
             let messageModel = MessageViewData(
                 spaceId: spaceId,
@@ -96,11 +93,6 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 reply: fullMessage.reply
             )
 
-            let unreadItem: MessageSectionItem? = isUnread ? .unread(id: "\(message.id)-unread", messageId: message.id, messageOrderId: message.orderID) : nil
-
-            if let unreadItem {
-                items.append(unreadItem)
-            }
             items.append(.message(messageModel))
         }
 
