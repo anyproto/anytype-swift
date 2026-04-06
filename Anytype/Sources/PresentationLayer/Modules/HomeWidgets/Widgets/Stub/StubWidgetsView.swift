@@ -9,6 +9,10 @@ struct StubWidgetsView: View {
         self._model = State(initialValue: StubWidgetsViewModel(spaceId: spaceId, output: output))
     }
 
+    private var hasStubs: Bool {
+        model.showCreateHome || model.showInviteMembers
+    }
+
     var body: some View {
         VStack(spacing: 12) {
             if model.showCreateHome {
@@ -30,6 +34,7 @@ struct StubWidgetsView: View {
                 )
             }
         }
+        .padding(.bottom, hasStubs ? 12 : 0)
         .animation(.default, value: model.showCreateHome)
         .animation(.default, value: model.showInviteMembers)
         .task {
