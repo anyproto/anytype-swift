@@ -400,12 +400,14 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             // 1-1 spaces: home screen is SpaceChatCoordinatorData (chatId resolved at view time).
             if let existingData = currentPath.path.lazy.compactMap({ $0.base as? SpaceChatCoordinatorData }).first(where: { $0.spaceId == data.spaceId }) {
                 currentPath.popTo(existingData)
-                if data.messageId != nil {
-                    currentPath.replaceLast(SpaceChatCoordinatorData(spaceId: data.spaceId, messageId: data.messageId))
-                    // SpaceChatCoordinatorData.== compares only spaceId (required for
-                    // openOnce dedup), so the guard below won't detect messageId change.
-                    navigationPath = currentPath
-                    return
+                if let messageId = data.messageId {
+                    if isSwitchingSpace {
+                        // Space is being opened fresh — include messageId in path data
+                        currentPath.replaceLast(SpaceChatCoordinatorData(spaceId: data.spaceId, messageId: messageId))
+                    } else {
+                        // Chat already on screen — scroll via provider without recreating
+                        chatProvider.scrollToMessage(chatId: data.chatId, messageId: messageId)
+                    }
                 }
             // Channel/stream spaces: home screen is ChatCoordinatorData (chatId known at build time).
             // Match by chatId because multiple chats can exist in one space.
