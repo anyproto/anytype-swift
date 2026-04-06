@@ -53,7 +53,7 @@ final class WidgetsHeaderViewModel {
         spaceView?.isOneToOne == true
     }
 
-    var isDataSpace: Bool {
+    var supportsNotificationModeMenu: Bool {
         !(spaceView?.isOneToOne ?? true)
     }
 
