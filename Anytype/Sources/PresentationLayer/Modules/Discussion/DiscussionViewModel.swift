@@ -749,7 +749,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         let newMessageBlocks = await discussionMessageBuilder.makeMessage(
             messages: messages,
             participants: participants,
-            firstUnreadMessageOrderId: firstUnreadMessageOrderId,
             limits: discussionMessageLimits
         )
         guard newMessageBlocks != mesageBlocks else { return }

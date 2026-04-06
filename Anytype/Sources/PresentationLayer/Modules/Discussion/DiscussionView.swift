@@ -210,7 +210,7 @@ struct DiscussionView: View {
         case .message(let data):
             DiscussionMessageView(data: data, output: model)
         case .unread:
-            ChatMessageUnreadView()
+            EmptyView()
         }
     }
 }
