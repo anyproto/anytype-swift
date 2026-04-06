@@ -149,19 +149,7 @@ struct DiscussionView: View {
     }
 
     private var emptyView: some View {
-        ConversationEmptyStateView(
-            spaceUxType: model.spaceUxType,
-            participantPermissions: model.participantPermissions,
-            addMembersAction: {
-                model.onTapInviteLink()
-            },
-            qrCodeAction: model.qrCodeInviteUrl != nil ? {
-                model.onTapShowQrCode()
-            } : nil
-        )
-        .task {
-            await model.updateInviteState()
-        }
+        Spacer()
     }
 
     private var actionView: some View {
