@@ -87,8 +87,7 @@ final class ObjectSettingsMenuViewModel {
     private func rebuildMenu() {
         menuConfig = ObjectMenuBuilder.buildMenu(
             settings: viewModel.settings,
-            actions: viewModel.objectActions,
-            isChat: viewModel.isChat
+            actions: viewModel.objectActions
         )
     }
 
