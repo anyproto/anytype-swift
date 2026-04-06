@@ -334,8 +334,10 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         }
     }
 
-    private func showSpace(spaceId: String, spaceUxType: SpaceUxType? = nil) async {
-        guard currentSpaceId != spaceId else { return }
+    /// Builds the home path for a space without committing to navigationPath.
+    /// Returns nil if already in the target space.
+    private func prepareSpacePath(spaceId: String, spaceUxType: SpaceUxType? = nil) async -> HomePath? {
+        guard currentSpaceId != spaceId else { return nil }
 
         setActiveSpace(spaceId: spaceId)
         let homeObject = await homeObjectScreenData(spaceId: spaceId, spaceUxType: spaceUxType)
@@ -345,20 +347,31 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             homeObject
         }
 
-        let currentPath = HomePath(initialPath: path)
-        if navigationPath != currentPath {
+        return HomePath(initialPath: path)
+    }
+
+    private func showSpace(spaceId: String, spaceUxType: SpaceUxType? = nil) async {
+        guard let newPath = await prepareSpacePath(spaceId: spaceId, spaceUxType: spaceUxType) else { return }
+        if navigationPath != newPath {
             await dismissAllPresented?()
-            navigationPath = currentPath
+            navigationPath = newPath
         }
     }
-    
+
     // main show screen logic
     private func showScreen(data: ScreenData) async throws {
         guard try await checkIsDataSupportedForOpening(data) else { return }
 
-        await showSpace(spaceId: data.spaceId)
-
-        var currentPath = navigationPath
+        // Build space path without committing — showScreen will commit once with final state
+        var currentPath: HomePath
+        let isSwitchingSpace: Bool
+        if let spacePath = await prepareSpacePath(spaceId: data.spaceId) {
+            currentPath = spacePath
+            isSwitchingSpace = true
+        } else {
+            currentPath = navigationPath
+            isSwitchingSpace = false
+        }
 
         await dismissAllPresented?()
 
@@ -384,8 +397,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
                 spaceProfileData = spaceInfo
             }
         case .chat(let data):
-            // Chat-type spaces already have SpaceChatCoordinatorData as home screen.
-            // Match by spaceId to avoid pushing a duplicate chat screen.
+            // 1-1 spaces: home screen is SpaceChatCoordinatorData (chatId resolved at view time).
             if let existingData = currentPath.path.lazy.compactMap({ $0.base as? SpaceChatCoordinatorData }).first(where: { $0.spaceId == data.spaceId }) {
                 currentPath.popTo(existingData)
                 if data.messageId != nil {
@@ -395,11 +407,32 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
                     navigationPath = currentPath
                     return
                 }
+            // Channel/stream spaces: home screen is ChatCoordinatorData (chatId known at build time).
+            // Match by chatId because multiple chats can exist in one space.
+            // Channel/stream spaces: home screen is ChatCoordinatorData (chatId known at build time).
+            // Match by chatId because multiple chats can exist in one space.
+            } else if let existingChat = currentPath.path.lazy.compactMap({ $0.base as? ChatCoordinatorData }).first(where: { $0.chatId == data.chatId }) {
+                currentPath.popTo(existingChat)
+                if let messageId = data.messageId {
+                    if isSwitchingSpace {
+                        // Chat is being created fresh — include messageId in path data
+                        currentPath.replaceLast(data)
+                    } else {
+                        // Chat already on screen — scroll via provider without recreating
+                        chatProvider.scrollToMessage(chatId: data.chatId, messageId: messageId)
+                    }
+                }
             } else {
                 currentPath.openOnce(data)
             }
         case .spaceChat(let data):
-            currentPath.openOnce(data)
+            // Homepage refactor may place ChatCoordinatorData (not SpaceChatCoordinatorData)
+            // as home screen. Check for existing ChatCoordinatorData for the same space.
+            if let existingChat = currentPath.path.lazy.compactMap({ $0.base as? ChatCoordinatorData }).first(where: { $0.spaceId == data.spaceId }) {
+                currentPath.popTo(existingChat)
+            } else {
+                currentPath.openOnce(data)
+            }
         case .widget(let data):
             currentPath.openOnce(data)
         case .discussion(let data):
