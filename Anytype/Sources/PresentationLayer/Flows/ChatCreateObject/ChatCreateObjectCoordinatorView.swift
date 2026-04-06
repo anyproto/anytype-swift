@@ -10,8 +10,8 @@ struct ChatCreateObjectCoordinatorView: View {
 
     @State private var topInset: CGFloat = 0
 
-    init(data: EditorScreenData, onDismiss: @escaping (ChatCreateObjectDismissResult) -> Void = { _ in }) {
-        _model = State(initialValue: ChatCreateObjectCoordinatorViewModel(data: data, onDismiss: onDismiss))
+    init(data: EditorScreenData, chatId: String? = nil, onDismiss: @escaping (ChatCreateObjectDismissResult) -> Void = { _ in }) {
+        _model = State(initialValue: ChatCreateObjectCoordinatorViewModel(data: data, chatId: chatId, onDismiss: onDismiss))
     }
     
     var body: some View {

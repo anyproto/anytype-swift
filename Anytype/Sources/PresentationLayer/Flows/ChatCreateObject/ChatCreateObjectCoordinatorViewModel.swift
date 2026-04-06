@@ -39,8 +39,12 @@ final class ChatCreateObjectCoordinatorViewModel {
     @ObservationIgnored
     var dismiss: DismissAction?
     
-    init(data: EditorScreenData, onDismiss: @escaping (ChatCreateObjectDismissResult) -> Void) {
+    @ObservationIgnored
+    let chatId: String?
+
+    init(data: EditorScreenData, chatId: String? = nil, onDismiss: @escaping (ChatCreateObjectDismissResult) -> Void) {
         self.data = data
+        self.chatId = chatId
         if let objectId = data.objectId {
             self.document = openDocumentProvider.document(objectId: objectId, spaceId: data.spaceId)
         } else {
@@ -78,8 +82,8 @@ final class ChatCreateObjectCoordinatorViewModel {
     }
     
     func onTapAttach() {
-        guard let link = data.chatLink else { return }
-        chatActionProvider?.addAttachment(link, clearInput: false)
+        guard let link = data.chatLink, let chatId else { return }
+        chatActionProvider?.addAttachment(chatId: chatId, link, clearInput: false)
         dismiss(with: .attachedToChat)
     }
     
