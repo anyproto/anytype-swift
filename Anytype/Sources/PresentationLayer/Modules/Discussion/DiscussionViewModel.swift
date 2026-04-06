@@ -507,7 +507,8 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func configureProvider(_ provider: Binding<ChatActionProvider>) {
-        provider.wrappedValue.handler = self
+        guard let chatId else { return }
+        provider.wrappedValue.register(chatId: chatId, handler: self)
     }
 
     private func handleAttachmentError(_ error: any Error) {
@@ -649,6 +650,15 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     // MARK: - ChatActionProviderHandler
+
+    func scrollToMessage(messageId: String) {
+        guard chatStorage != nil else { return }
+        Task {
+            try await chatStorage?.loadPagesTo(messageId: messageId)
+            collectionViewScrollProxy.scrollTo(itemId: messageId)
+            messageHiglightId = messageId
+        }
+    }
 
     func addAttachment(_ attachment: ChatLinkObject, clearInput needsClearInput: Bool) {
         Task {

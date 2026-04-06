@@ -54,7 +54,7 @@ struct ChatCoordinatorView: View {
                 SimpleCameraView(data: $0)
             }
             .sheet(item: $model.newLinkedObject) {
-                ChatCreateObjectCoordinatorView(data: $0)
+                ChatCreateObjectCoordinatorView(data: $0, chatId: model.chatId)
             }
             .anytypeSheet(item: $model.pushNotificationsAlertData) {
                 PushNotificationsAlertView(data: $0)
