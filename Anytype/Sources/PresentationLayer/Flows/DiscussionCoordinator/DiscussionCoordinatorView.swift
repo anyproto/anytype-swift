@@ -72,9 +72,6 @@ struct DiscussionCoordinatorView: View {
             .sheet(item: $model.spaceShareData) { data in
                 SpaceShareCoordinatorView(data: data)
             }
-            .anytypeSheet(item: $model.qrCodeInviteLink) {
-                QrCodeView(title: Loc.joinSpace, data: $0.absoluteString, analyticsType: .inviteSpace, route: .chat)
-            }
             .onChange(of: model.photosItems) {
                 model.photosPickerFinished()
             }
