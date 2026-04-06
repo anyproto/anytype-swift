@@ -49,3 +49,15 @@ extension Emoji: ProtobufSupport {
         self = emoji
     }
 }
+
+extension Dictionary: ProtobufSupport where Key == String, Value == [RelationPlaceholder] {
+    public init?(_ value: Google_Protobuf_Value) {
+        guard case .structValue(let structValue) = value.kind else { return nil }
+        var result: [String: [RelationPlaceholder]] = [:]
+        for (key, fieldValue) in structValue.fields {
+            guard case .listValue(let list) = fieldValue.kind else { continue }
+            result[key] = list.values.compactMap { RelationPlaceholder($0) }
+        }
+        self = result
+    }
+}

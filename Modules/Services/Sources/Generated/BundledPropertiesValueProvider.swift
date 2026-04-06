@@ -196,6 +196,7 @@ public protocol BundledPropertiesValueProvider {
     var templateNamePrefillType: Int? { get }
     var spaceType: Int? { get }
     var homepage: String { get }
+    var templatePlaceholders: [String: [RelationPlaceholder]]? { get }
 } 
 
 public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
@@ -918,5 +919,9 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Homepage of regular spaces. Could handle either object id or special constant
     var homepage: String {
         return value(for: BundledPropertyKey.homepage.rawValue)
+    }
+    /// Dynamic placeholder mappings for template relation default values
+    var templatePlaceholders: [String: [RelationPlaceholder]]? {
+        return value(for: BundledPropertyKey.templatePlaceholders.rawValue)
     }
 }

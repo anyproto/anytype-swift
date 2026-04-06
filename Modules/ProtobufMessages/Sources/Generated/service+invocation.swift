@@ -1554,6 +1554,36 @@ public struct ClientCommands {
         }
     }
 
+    public static func templateSetPlaceholders(
+        _ request: Anytype_Rpc.Template.SetPlaceholders.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Template.SetPlaceholders.Request, Anytype_Rpc.Template.SetPlaceholders.Response> {
+        return Invocation(messageName: "TemplateSetPlaceholders", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceTemplateSetPlaceholders(requestData) ?? Data()
+            return try Anytype_Rpc.Template.SetPlaceholders.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func templateGetPlaceholders(
+        _ request: Anytype_Rpc.Template.GetPlaceholders.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Template.GetPlaceholders.Request, Anytype_Rpc.Template.GetPlaceholders.Response> {
+        return Invocation(messageName: "TemplateGetPlaceholders", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceTemplateGetPlaceholders(requestData) ?? Data()
+            return try Anytype_Rpc.Template.GetPlaceholders.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func templateDeletePlaceholders(
+        _ request: Anytype_Rpc.Template.DeletePlaceholders.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Template.DeletePlaceholders.Request, Anytype_Rpc.Template.DeletePlaceholders.Response> {
+        return Invocation(messageName: "TemplateDeletePlaceholders", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceTemplateDeletePlaceholders(requestData) ?? Data()
+            return try Anytype_Rpc.Template.DeletePlaceholders.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func linkPreview(
         _ request: Anytype_Rpc.LinkPreview.Request = .init()
     ) -> Invocation<Anytype_Rpc.LinkPreview.Request, Anytype_Rpc.LinkPreview.Response> {

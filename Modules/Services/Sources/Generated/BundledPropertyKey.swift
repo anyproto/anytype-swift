@@ -537,4 +537,7 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Homepage of regular spaces. Could handle either object id or special constant
     case homepage = "homepage"
+
+    /// Dynamic placeholder mappings for template relation default values
+    case templatePlaceholders = "templatePlaceholders"
 }
