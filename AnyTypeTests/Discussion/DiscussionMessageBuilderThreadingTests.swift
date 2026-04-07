@@ -263,16 +263,9 @@ struct DiscussionMessageBuilderThreadingTests {
         return FullChatMessage(
             message: chatMessage,
             attachments: [],
-            reply: replyToMessageID.isEmpty ? nil : makeChatReply(id: replyToMessageID),
+            reply: nil,
             replyAttachments: []
         )
-    }
-
-    private func makeChatReply(id: String) -> ChatMessage {
-        var reply = ChatMessage()
-        reply.id = id
-        reply.creator = "user1"
-        return reply
     }
 
     private func makeLimits() -> MockChatMessageLimits {
@@ -360,10 +353,10 @@ struct DiscussionMessageBuilderThreadingTests {
         #expect(items[3].message.id == "r2")
     }
 
-    // MARK: - replyModel nil for replies, reply preserved
+    // MARK: - replyModel and reply nil for all discussion messages
 
     @Test
-    func replyModel_nilForReplies_replyPreserved() async {
+    func replyModelAndReply_nilForAllMessages() async {
         let builder = DiscussionMessageBuilder(spaceId: "space1", chatId: "chat1")
 
         let root = makeMessage(id: "root1", orderID: "001")
@@ -377,11 +370,10 @@ struct DiscussionMessageBuilderThreadingTests {
 
         let items = extractMessageViewDataItems(from: sections)
         #expect(items.count == 2)
-        // Reply should have replyModel = nil (no inline bubble)
+        #expect(items[0].replyModel == nil)
+        #expect(items[0].reply == nil)
         #expect(items[1].replyModel == nil)
-        // But raw reply ChatMessage should be preserved for actions
-        #expect(items[1].reply != nil)
-        #expect(items[1].reply?.id == "root1")
+        #expect(items[1].reply == nil)
     }
 }
 
