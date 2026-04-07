@@ -63,11 +63,9 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
 
     func onHomepagePickerFinished(result: HomepagePickerResult) {
         showHomepagePicker = false
+        onboardingStorage.setHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
 
-        if case .later = result {
-            onboardingStorage.setHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
-            return
-        }
+        if case .later = result { return }
 
         guard case .homepageSet(let value) = result, case .object(let details) = value else { return }
         pageNavigation?.open(details.screenData())
