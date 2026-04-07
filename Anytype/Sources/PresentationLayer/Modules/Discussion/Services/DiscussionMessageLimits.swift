@@ -3,6 +3,11 @@ import Factory
 import Services
 import AnytypeCore
 
+enum DiscussionMessageGlobalLimits {
+    static let textLimit = 8000
+    static let textLimitWarning = 7950
+}
+
 final class DiscussionMessageLimits: ChatMessageLimitsProtocol, Sendable {
 
     private struct MessageLimitStorage {
@@ -22,7 +27,7 @@ final class DiscussionMessageLimits: ChatMessageLimitsProtocol, Sendable {
     private let currentDateProvider: any ChatMessageLimitsDateProviderProtocol = Container.shared.chatDateProvider()
 
     var textLimit: Int {
-        ChatMessageGlobalLimits.textLimit
+        DiscussionMessageGlobalLimits.textLimit
     }
 
     var attachmentsLimit: Int {
@@ -30,11 +35,11 @@ final class DiscussionMessageLimits: ChatMessageLimitsProtocol, Sendable {
     }
 
     func textIsLimited(text: NSAttributedString) -> Bool {
-        text.string.count > ChatMessageGlobalLimits.textLimit
+        text.string.count > DiscussionMessageGlobalLimits.textLimit
     }
 
     func textIsWarinig(text: NSAttributedString) -> Bool {
-        text.string.count >= ChatMessageGlobalLimits.textLimitWarning
+        text.string.count >= DiscussionMessageGlobalLimits.textLimitWarning
     }
 
     func canAddReaction(message: ChatMessage, yourProfileIdentity: String) -> Bool {
