@@ -117,11 +117,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 textBuilder: discussionTextBuilder,
                 attachmentDetails: Dictionary(fullMessage.attachments.map { ($0.id, $0) }, uniquingKeysWith: { _, last in last })
             ),
-            replyModel: isReply ? nil : mapReply(
-                fullMessage: fullMessage,
-                participants: participants,
-                yourProfileIdentity: yourProfileIdentity
-            ),
+            replyModel: nil,
             position: position,
             linkedObjects: mapAttachments(fullMessage: fullMessage),
             reactions: mapReactions(
@@ -181,40 +177,6 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 position: position
             )
         }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
-    }
-
-    private func mapReply(fullMessage: FullChatMessage, participants: [Participant], yourProfileIdentity: String?) -> MessageReplyModel? {
-        if let replyChat = fullMessage.reply {
-            let replyAuthor = participants.first { $0.identity == fullMessage.reply?.creator }
-            let replyAttachment = fullMessage.replyAttachments.first
-
-            let imagesCount = fullMessage.replyAttachments.count(where: \.resolvedLayoutValue.isImage)
-            let filesCout = fullMessage.replyAttachments.count(where: \.resolvedLayoutValue.isFile)
-
-            let description: String
-            let replyBlocks = replyChat.resolvedDiscussionBlocks(spaceId: spaceId, position: .left, textBuilder: discussionTextBuilder)
-            let replyPlainText = replyBlocks.plainText
-            if replyPlainText.isNotEmpty {
-                description = replyPlainText
-                    .replacingOccurrences(of: "\n+", with: "\n", options: .regularExpression)
-            } else if fullMessage.replyAttachments.count == 1 {
-                description = replyAttachment?.title ?? ""
-            } else if imagesCount == fullMessage.replyAttachments.count {
-                description = Loc.Chat.Reply.images(fullMessage.replyAttachments.count)
-            } else if filesCout == fullMessage.replyAttachments.count {
-                description = Loc.Chat.Reply.files(fullMessage.replyAttachments.count)
-            } else {
-                description = Loc.Chat.Reply.attachments(fullMessage.replyAttachments.count)
-            }
-
-            return MessageReplyModel(
-                author: replyAuthor?.title ?? "",
-                description: description,
-                attachmentIcon: replyAttachment?.objectIconImage,
-                isYour: replyAuthor?.identity == yourProfileIdentity
-            )
-        }
-        return nil
     }
 
     private func mapAttachments(fullMessage: FullChatMessage) -> MessageLinkedObjectsLayout? {

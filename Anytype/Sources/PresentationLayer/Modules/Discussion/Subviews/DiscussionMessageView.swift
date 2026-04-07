@@ -72,9 +72,6 @@ struct DiscussionMessageView: View {
         VStack(alignment: .leading, spacing: 0) {
             header
                 .padding(.bottom, 8)
-            if !data.isReply {
-                reply
-            }
             messageContent
             reactions
         }
@@ -121,19 +118,6 @@ struct DiscussionMessageView: View {
             .anytypeStyle(.caption2Regular)
             .foregroundStyle(Color.Text.secondary)
             .lineLimit(1)
-    }
-
-    @ViewBuilder
-    private var reply: some View {
-        if let reply = data.replyModel {
-            Button {
-                output?.didSelectReplyMessage(message: data)
-            } label: {
-                MessageReplyView(model: reply)
-            }
-            .buttonStyle(.plain)
-            .padding(.bottom, 4)
-        }
     }
 
     @ViewBuilder
