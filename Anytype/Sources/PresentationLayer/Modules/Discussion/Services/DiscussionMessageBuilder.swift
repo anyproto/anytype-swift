@@ -38,63 +38,40 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         let canEdit = (participant?.canEdit ?? false) && !isChatDeletedOrArchived
         let yourProfileIdentity = participant?.identity
 
+        // Thread grouping: reorder messages so replies appear directly after their root parent
+        let (roots, threadReplies) = groupMessagesIntoThreads(messages: messages)
+
         var items: [MessageSectionItem] = []
+        var isFirstRoot = true
 
-        for messageIndex in 0..<messages.count {
-
-            let fullMessage = messages[messageIndex]
-            let message = fullMessage.message
-
-            let isYourMessage = message.creator == yourProfileIdentity
-            let authorParticipant = participants.first { $0.identity == message.creator }
-            let position: MessageHorizontalPosition = .left
-
-            let messageModel = MessageViewData(
-                spaceId: spaceId,
-                chatId: chatId,
-                authorName: authorParticipant?.title ?? "",
-                authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
-                authorId: authorParticipant?.id,
-                timestampLabel: makeTimestampLabel(message: message),
-                messageString: AttributedString(),
-                discussionBlocks: message.resolvedDiscussionBlocks(
-                    spaceId: spaceId,
-                    position: position,
-                    textBuilder: discussionTextBuilder,
-                    attachmentDetails: Dictionary(fullMessage.attachments.map { ($0.id, $0) }, uniquingKeysWith: { _, last in last })
-                ),
-                replyModel: mapReply(
-                    fullMessage: fullMessage,
-                    participants: participants,
-                    yourProfileIdentity: yourProfileIdentity
-                )
-                ,
-                position: position,
-                linkedObjects: mapAttachments(fullMessage: fullMessage),
-                reactions: mapReactions(
-                    fullMessage: fullMessage,
-                    participants: participants,
-                    yourProfileIdentity: yourProfileIdentity,
-                    position: position
-                ),
-                canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
-                canToggleReaction: canEdit,
-                canReply: canEdit,
-                nextSpacing: .disable,
-                authorIconMode: .show,
-                showAuthorName: true,
-                canDelete: isYourMessage && canEdit,
-                canEdit: isYourMessage && canEdit,
-                showMessageSyncIndicator: isYourMessage,
-                isMember: authorParticipant?.globalName.isNotEmpty ?? false,
-                showTopDivider: messageIndex > 0,
+        for root in roots {
+            let rootModel = buildMessageViewData(
+                fullMessage: root,
+                participants: participants,
+                yourProfileIdentity: yourProfileIdentity,
+                canEdit: canEdit,
+                limits: limits,
                 isReply: false,
-                message: message,
-                attachmentsDetails: fullMessage.attachments,
-                reply: fullMessage.reply
+                showTopDivider: !isFirstRoot
             )
+            items.append(.message(rootModel))
+            isFirstRoot = false
 
-            items.append(.message(messageModel))
+            // Emit sorted replies directly after the root
+            if let replies = threadReplies[root.message.id] {
+                for reply in replies {
+                    let replyModel = buildMessageViewData(
+                        fullMessage: reply,
+                        participants: participants,
+                        yourProfileIdentity: yourProfileIdentity,
+                        canEdit: canEdit,
+                        limits: limits,
+                        isReply: true,
+                        showTopDivider: false
+                    )
+                    items.append(.message(replyModel))
+                }
+            }
         }
 
         guard items.isNotEmpty else { return [] }
@@ -102,6 +79,137 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         // Discussions don't use section headers (date pill) — each comment shows its own timestamp.
         // Single section with empty header and static id since there's no day-based grouping.
         return [MessageSectionData(header: "", id: 0, items: items)]
+    }
+
+    // MARK: - Thread Grouping
+
+    /// Walk the replyToMessageID chain to find the root parent message id.
+    /// Returns nil if the chain is broken (orphan) or cyclic.
+    private func findRootParentId(
+        messageId: String,
+        messageById: [String: FullChatMessage]
+    ) -> String? {
+        var currentId = messageId
+        var visited = Set<String>()
+
+        while true {
+            guard let current = messageById[currentId] else {
+                // Parent not in loaded set — orphan
+                return nil
+            }
+
+            let parentId = current.message.replyToMessageID
+            if parentId.isEmpty {
+                // Reached a root message
+                return currentId
+            }
+
+            if visited.contains(parentId) {
+                // Cycle detected
+                return nil
+            }
+            visited.insert(currentId)
+            currentId = parentId
+        }
+    }
+
+    /// Group messages into root messages and their thread replies.
+    /// - Builds a lookup by message.id
+    /// - For each message with replyToMessageID, chain-walks to find root
+    /// - Orphan replies (parent not loaded) and cyclic chains are filtered out
+    /// - Replies within each thread are sorted by orderID
+    private func groupMessagesIntoThreads(
+        messages: [FullChatMessage]
+    ) -> (roots: [FullChatMessage], threadReplies: [String: [FullChatMessage]]) {
+        let messageById = Dictionary(
+            messages.map { ($0.message.id, $0) },
+            uniquingKeysWith: { _, last in last }
+        )
+
+        var roots: [FullChatMessage] = []
+        var threadReplies: [String: [FullChatMessage]] = [:]
+
+        for fullMessage in messages {
+            let message = fullMessage.message
+            if message.replyToMessageID.isEmpty {
+                // This is a root message
+                roots.append(fullMessage)
+            } else {
+                // This is a reply — find its root parent
+                if let rootId = findRootParentId(messageId: message.replyToMessageID, messageById: messageById) {
+                    threadReplies[rootId, default: []].append(fullMessage)
+                }
+                // else: orphan or cyclic — filtered out
+            }
+        }
+
+        // Sort replies within each thread by orderID
+        for (rootId, replies) in threadReplies {
+            threadReplies[rootId] = replies.sorted { $0.message.orderID < $1.message.orderID }
+        }
+
+        return (roots, threadReplies)
+    }
+
+    // MARK: - Message Building
+
+    private func buildMessageViewData(
+        fullMessage: FullChatMessage,
+        participants: [Participant],
+        yourProfileIdentity: String?,
+        canEdit: Bool,
+        limits: any ChatMessageLimitsProtocol,
+        isReply: Bool,
+        showTopDivider: Bool
+    ) -> MessageViewData {
+        let message = fullMessage.message
+        let isYourMessage = message.creator == yourProfileIdentity
+        let authorParticipant = participants.first { $0.identity == message.creator }
+        let position: MessageHorizontalPosition = .left
+
+        return MessageViewData(
+            spaceId: spaceId,
+            chatId: chatId,
+            authorName: authorParticipant?.title ?? "",
+            authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
+            authorId: authorParticipant?.id,
+            timestampLabel: makeTimestampLabel(message: message),
+            messageString: AttributedString(),
+            discussionBlocks: message.resolvedDiscussionBlocks(
+                spaceId: spaceId,
+                position: position,
+                textBuilder: discussionTextBuilder,
+                attachmentDetails: Dictionary(fullMessage.attachments.map { ($0.id, $0) }, uniquingKeysWith: { _, last in last })
+            ),
+            replyModel: isReply ? nil : mapReply(
+                fullMessage: fullMessage,
+                participants: participants,
+                yourProfileIdentity: yourProfileIdentity
+            ),
+            position: position,
+            linkedObjects: mapAttachments(fullMessage: fullMessage),
+            reactions: mapReactions(
+                fullMessage: fullMessage,
+                participants: participants,
+                yourProfileIdentity: yourProfileIdentity,
+                position: position
+            ),
+            canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
+            canToggleReaction: canEdit,
+            canReply: canEdit,
+            nextSpacing: .disable,
+            authorIconMode: .show,
+            showAuthorName: true,
+            canDelete: isYourMessage && canEdit,
+            canEdit: isYourMessage && canEdit,
+            showMessageSyncIndicator: isYourMessage,
+            isMember: authorParticipant?.globalName.isNotEmpty ?? false,
+            showTopDivider: showTopDivider,
+            isReply: isReply,
+            message: message,
+            attachmentsDetails: fullMessage.attachments,
+            reply: fullMessage.reply
+        )
     }
 
     private func makeTimestampLabel(message: ChatMessage) -> String {
