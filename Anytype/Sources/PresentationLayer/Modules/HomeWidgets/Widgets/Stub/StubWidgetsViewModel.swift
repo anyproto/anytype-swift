@@ -19,6 +19,8 @@ final class StubWidgetsViewModel {
     private var onboardingStorage: any ChannelOnboardingStorageProtocol
     @Injected(\.pendingShareStorage) @ObservationIgnored
     private var pendingShareStorage: any PendingShareStorageProtocol
+    @Injected(\.participantSpacesStorage) @ObservationIgnored
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @ObservationIgnored
     private let participantsSubscription: any ParticipantsSubscriptionProtocol
 
@@ -88,12 +90,14 @@ final class StubWidgetsViewModel {
     }
 
     private func recalculateShowCreateHome() {
+        let canEdit = participantSpacesStorage.participantSpaceView(spaceId: spaceId)?.canEdit ?? false
         let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
         let homepageEmpty = spaceView?.homepage == .empty
         let pickerDismissed = onboardingStorage.isHomepagePickerDismissed(spaceId: spaceId)
         let createHomeDismissed = onboardingStorage.isCreateHomeDismissed(spaceId: spaceId)
 
         showCreateHome = FeatureFlags.createChannelFlow
+            && canEdit
             && homepageEmpty
             && pickerDismissed
             && !createHomeDismissed

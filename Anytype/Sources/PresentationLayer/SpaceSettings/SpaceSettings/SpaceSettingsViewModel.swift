@@ -82,6 +82,7 @@ final class SpaceSettingsViewModel {
     var allowDelete = false
     var allowLeave = false
     var allowRemoteStorage = false
+    var canEdit = false
     var uxTypeSettingsData: SpaceUxTypeSettingsData?
     var shareSection: SpaceSettingsShareSection = .personal
     var membershipUpgradeReason: MembershipUpgradeReason?
@@ -343,6 +344,7 @@ final class SpaceSettingsViewModel {
         let spaceView = participantSpaceView.spaceView
 
         spaceIcon = spaceView.objectIconImage
+        canEdit = participantSpaceView.canEdit
         allowDelete = participantSpaceView.canBeDeleted
         allowLeave = participantSpaceView.canLeave
         allowRemoteStorage = participantSpaceView.isOwner
