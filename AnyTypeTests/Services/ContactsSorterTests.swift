@@ -4,7 +4,7 @@ import Testing
 @Suite
 struct ContactsSorterTests {
 
-    // MARK: - Group 1: Members with shared spaces
+    // MARK: - Space count sorting
 
     @Test func sortBySpaceCountDescending() {
         let contacts = [
@@ -19,22 +19,35 @@ struct ContactsSorterTests {
         #expect(sorted.map(\.identity) == ["b", "c", "a"])
     }
 
-    @Test func sharedSpacesGroupSortsByNameNotGlobalName() {
-        // Within the shared-spaces group, globalName should NOT affect order
+    // MARK: - AnyName sorting
+
+    @Test func globalNameFirstWhenSpaceCountEqual() {
         let contacts = [
-            Contact(identity: "a", name: "Zoe", globalName: "zoe.any", icon: nil),
-            Contact(identity: "b", name: "Alice", globalName: "", icon: nil)
+            Contact(identity: "a", name: "Alice", globalName: "", icon: nil),
+            Contact(identity: "b", name: "Bob", globalName: "bob.any", icon: nil)
         ]
         let spaceCounts = ["a": 2, "b": 2]
 
         let sorted = ContactsSorter.sorted(contacts, spaceCounts: spaceCounts)
 
-        // Alice before Zoe by name, even though Zoe has globalName
         #expect(sorted[0].identity == "b")
-        #expect(sorted[1].identity == "a")
     }
 
-    @Test func sortByNameWhenSpaceCountEqual() {
+    @Test func bothHaveGlobalNameSortsByName() {
+        let contacts = [
+            Contact(identity: "a", name: "Zara", globalName: "zara.any", icon: nil),
+            Contact(identity: "b", name: "Anna", globalName: "anna.any", icon: nil)
+        ]
+        let spaceCounts = ["a": 1, "b": 1]
+
+        let sorted = ContactsSorter.sorted(contacts, spaceCounts: spaceCounts)
+
+        #expect(sorted[0].identity == "b") // Anna before Zara
+    }
+
+    // MARK: - Name sorting
+
+    @Test func sortByNameWhenSpaceCountAndGlobalNameEqual() {
         let contacts = [
             Contact(identity: "a", name: "Zoe", globalName: "", icon: nil),
             Contact(identity: "b", name: "Alice", globalName: "", icon: nil),
@@ -47,69 +60,41 @@ struct ContactsSorterTests {
         #expect(sorted.map(\.name) == ["Alice", "Bob", "Zoe"])
     }
 
-    // MARK: - Group 2 & 3: Members with no shared spaces
-
-    @Test func zeroSpacesGlobalNameBeforeNoGlobalName() {
+    @Test func nameSortIsCaseInsensitive() {
         let contacts = [
-            Contact(identity: "a", name: "Alice", globalName: "", icon: nil),
-            Contact(identity: "b", name: "Bob", globalName: "bob.any", icon: nil)
+            Contact(identity: "a", name: "bob", globalName: "", icon: nil),
+            Contact(identity: "b", name: "Alice", globalName: "", icon: nil)
         ]
-        let spaceCounts: [String: Int] = [:]
+        let spaceCounts = ["a": 1, "b": 1]
 
         let sorted = ContactsSorter.sorted(contacts, spaceCounts: spaceCounts)
 
-        #expect(sorted[0].identity == "b") // Bob has globalName
-        #expect(sorted[1].identity == "a")
+        #expect(sorted[0].identity == "b") // "Alice" before "bob"
     }
 
-    @Test func zeroSpacesBothHaveGlobalNameSortsByName() {
+    // MARK: - All criteria combined
+
+    @Test func allCriteriaCombined() {
         let contacts = [
-            Contact(identity: "a", name: "Zara", globalName: "zara.any", icon: nil),
-            Contact(identity: "b", name: "Anna", globalName: "anna.any", icon: nil)
+            Contact(identity: "a", name: "Alice", globalName: "", icon: nil),          // 1 space, no AnyName
+            Contact(identity: "b", name: "Bob", globalName: "bob.any", icon: nil),     // 3 spaces, AnyName
+            Contact(identity: "c", name: "Charlie", globalName: "", icon: nil),         // 3 spaces, no AnyName
+            Contact(identity: "d", name: "Diana", globalName: "diana.any", icon: nil), // 1 space, AnyName
+            Contact(identity: "e", name: "Eve", globalName: "eve.any", icon: nil)      // 1 space, AnyName
         ]
-        let spaceCounts: [String: Int] = [:]
+        let spaceCounts = ["a": 1, "b": 3, "c": 3, "d": 1, "e": 1]
 
         let sorted = ContactsSorter.sorted(contacts, spaceCounts: spaceCounts)
 
-        #expect(sorted[0].identity == "b") // Anna before Zara
-    }
-
-    @Test func zeroSpacesNoGlobalNameSortsByName() {
-        let contacts = [
-            Contact(identity: "a", name: "Zara", globalName: "", icon: nil),
-            Contact(identity: "b", name: "Anna", globalName: "", icon: nil)
-        ]
-        let spaceCounts: [String: Int] = [:]
-
-        let sorted = ContactsSorter.sorted(contacts, spaceCounts: spaceCounts)
-
-        #expect(sorted[0].identity == "b") // Anna before Zara
-    }
-
-    // MARK: - All three groups combined
-
-    @Test func allThreeGroupsCombined() {
-        let contacts = [
-            Contact(identity: "a", name: "Alice", globalName: "", icon: nil),          // 0 spaces, no global → group 3
-            Contact(identity: "b", name: "Bob", globalName: "bob.any", icon: nil),     // 2 spaces → group 1
-            Contact(identity: "c", name: "Charlie", globalName: "", icon: nil),         // 2 spaces → group 1
-            Contact(identity: "d", name: "Diana", globalName: "diana.any", icon: nil), // 0 spaces, global → group 2
-            Contact(identity: "e", name: "Eve", globalName: "eve.any", icon: nil),     // 1 space → group 1
-            Contact(identity: "f", name: "Frank", globalName: "", icon: nil)            // 0 spaces, no global → group 3
-        ]
-        let spaceCounts = ["b": 2, "c": 2, "e": 1]
-
-        let sorted = ContactsSorter.sorted(contacts, spaceCounts: spaceCounts)
-
-        // Group 1: shared spaces (sorted by count desc, then name)
-        #expect(sorted[0].identity == "b") // 2 spaces, Bob
-        #expect(sorted[1].identity == "c") // 2 spaces, Charlie
-        #expect(sorted[2].identity == "e") // 1 space, Eve
-        // Group 2: 0 spaces + has globalName (sorted by name)
-        #expect(sorted[3].identity == "d") // Diana
-        // Group 3: 0 spaces + no globalName (sorted by name)
-        #expect(sorted[4].identity == "a") // Alice
-        #expect(sorted[5].identity == "f") // Frank
+        // 3 spaces + AnyName: Bob
+        #expect(sorted[0].identity == "b")
+        // 3 spaces + no AnyName: Charlie
+        #expect(sorted[1].identity == "c")
+        // 1 space + AnyName: Diana, Eve (alphabetical)
+        #expect(sorted[2].identity == "d")
+        #expect(sorted[3].identity == "e")
+        // 1 space + no AnyName: Alice
+        #expect(sorted[4].identity == "a")
     }
 
     // MARK: - Edge cases
@@ -138,19 +123,7 @@ struct ContactsSorterTests {
 
         let sorted = ContactsSorter.sorted(contacts, spaceCounts: spaceCounts)
 
-        #expect(sorted[0].identity == "a") // 1 space
-        #expect(sorted[1].identity == "b") // 0 spaces
-    }
-
-    @Test func nameSortIsCaseInsensitive() {
-        let contacts = [
-            Contact(identity: "a", name: "bob", globalName: "", icon: nil),
-            Contact(identity: "b", name: "Alice", globalName: "", icon: nil)
-        ]
-        let spaceCounts = ["a": 1, "b": 1]
-
-        let sorted = ContactsSorter.sorted(contacts, spaceCounts: spaceCounts)
-
-        #expect(sorted[0].identity == "b") // "Alice" before "bob"
+        #expect(sorted[0].identity == "a")
+        #expect(sorted[1].identity == "b")
     }
 }
