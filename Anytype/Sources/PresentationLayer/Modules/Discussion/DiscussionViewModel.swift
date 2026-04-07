@@ -74,6 +74,8 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     var canEdit = false
     @ObservationIgnored
     var keyboardDismiss: KeyboardDismiss?
+    @ObservationIgnored
+    private var chatActionProviderBinding: Binding<ChatActionProvider>?
 
     // Input Message
 
@@ -495,6 +497,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func configureProvider(_ provider: Binding<ChatActionProvider>) {
+        self.chatActionProviderBinding = provider
         guard let chatId else { return }
         provider.wrappedValue.register(chatId: chatId, handler: self)
     }
@@ -585,9 +588,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func didSelectReplyMessage(message: MessageViewData) {
-        guard let reply = message.reply else { return }
-        AnytypeAnalytics.instance().logClickScrollToReply(chatId: message.chatId)
-        scrollToMessage(messageId: reply.id)
+        // Not used in discussions — reply preview bubble is not shown
     }
 
     func didSelectDeleteMessage(message: MessageViewData) {
@@ -785,6 +786,11 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
         // Notify coordinator so it can update its discussionId (e.g. for reaction picker)
         output?.didCreateDiscussion(discussionId: newChatId)
+
+        // Register with action provider now that chatId is available
+        if let chatActionProviderBinding {
+            chatActionProviderBinding.wrappedValue.register(chatId: newChatId, handler: self)
+        }
 
         // Start deferred subscriptions
         startDeferredSubscriptions()

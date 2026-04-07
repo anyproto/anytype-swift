@@ -20,6 +20,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
     private let chatId: String
 
     private let timestampFormatter = MessageTimestampFormatter()
+    private let threadGrouper = DiscussionThreadGrouper()
 
     init(spaceId: String, chatId: String) {
         self.spaceId = spaceId
@@ -38,64 +39,49 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         let isChatDeletedOrArchived = (chatObject.details?.isDeleted ?? false) || (chatObject.details?.isArchived ?? false)
         let canEdit = (participant?.canEdit ?? false) && !isChatDeletedOrArchived
         let yourProfileIdentity = participant?.identity
+        let participantByIdentity = Dictionary(
+            participants.map { ($0.identity, $0) },
+            uniquingKeysWith: { _, last in last }
+        )
+
+        // Thread grouping: reorder messages so replies appear directly after their root parent
+        let result = threadGrouper.groupMessagesIntoThreads(messages: messages)
+        let roots = result.roots
+        let threadReplies = result.threadReplies
 
         var items: [MessageSectionItem] = []
+        var isFirstRoot = true
 
-        for messageIndex in 0..<messages.count {
-
-            let fullMessage = messages[messageIndex]
-            let message = fullMessage.message
-
-            let isYourMessage = message.creator == yourProfileIdentity
-            let authorParticipant = participants.first { $0.identity == message.creator }
-            let position: MessageHorizontalPosition = .left
-
-            let messageModel = MessageViewData(
-                spaceId: spaceId,
-                chatId: chatId,
-                authorName: authorParticipant?.title ?? "",
-                authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
-                authorId: authorParticipant?.id,
-                timestampLabel: makeTimestampLabel(message: message),
-                messageString: AttributedString(),
-                discussionBlocks: message.resolvedDiscussionBlocks(
-                    spaceId: spaceId,
-                    position: position,
-                    textBuilder: discussionTextBuilder,
-                    embedContentDataBuilder: embedContentDataBuilder,
-                    attachmentDetails: Dictionary(fullMessage.attachments.map { ($0.id, $0) }, uniquingKeysWith: { _, last in last })
-                ),
-                replyModel: mapReply(
-                    fullMessage: fullMessage,
-                    participants: participants,
-                    yourProfileIdentity: yourProfileIdentity
-                )
-                ,
-                position: position,
-                linkedObjects: mapAttachments(fullMessage: fullMessage),
-                reactions: mapReactions(
-                    fullMessage: fullMessage,
-                    participants: participants,
-                    yourProfileIdentity: yourProfileIdentity,
-                    position: position
-                ),
-                canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
-                canToggleReaction: canEdit,
-                canReply: canEdit,
-                nextSpacing: .disable,
-                authorIconMode: .show,
-                showAuthorName: true,
-                canDelete: isYourMessage && canEdit,
-                canEdit: isYourMessage && canEdit,
-                showMessageSyncIndicator: isYourMessage,
-                isMember: authorParticipant?.globalName.isNotEmpty ?? false,
-                showTopDivider: messageIndex > 0,
-                message: message,
-                attachmentsDetails: fullMessage.attachments,
-                reply: fullMessage.reply
+        for root in roots {
+            let rootModel = buildMessageViewData(
+                fullMessage: root,
+                participantByIdentity: participantByIdentity,
+                yourProfileIdentity: yourProfileIdentity,
+                canEdit: canEdit,
+                limits: limits,
+                isReply: false,
+                isLastReply: false,
+                showTopDivider: !isFirstRoot
             )
+            items.append(.message(rootModel))
+            isFirstRoot = false
 
-            items.append(.message(messageModel))
+            // Emit sorted replies directly after the root
+            if let replies = threadReplies[root.message.id] {
+                for (index, reply) in replies.enumerated() {
+                    let replyModel = buildMessageViewData(
+                        fullMessage: reply,
+                        participantByIdentity: participantByIdentity,
+                        yourProfileIdentity: yourProfileIdentity,
+                        canEdit: canEdit,
+                        limits: limits,
+                        isReply: true,
+                        isLastReply: index == replies.count - 1,
+                        showTopDivider: false
+                    )
+                    items.append(.message(replyModel))
+                }
+            }
         }
 
         guard items.isNotEmpty else { return [] }
@@ -103,6 +89,66 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         // Discussions don't use section headers (date pill) — each comment shows its own timestamp.
         // Single section with empty header and static id since there's no day-based grouping.
         return [MessageSectionData(header: "", id: 0, items: items)]
+    }
+
+    // MARK: - Message Building
+
+    private func buildMessageViewData(
+        fullMessage: FullChatMessage,
+        participantByIdentity: [String: Participant],
+        yourProfileIdentity: String?,
+        canEdit: Bool,
+        limits: any ChatMessageLimitsProtocol,
+        isReply: Bool,
+        isLastReply: Bool,
+        showTopDivider: Bool
+    ) -> MessageViewData {
+        let message = fullMessage.message
+        let isYourMessage = message.creator == yourProfileIdentity
+        let authorParticipant = participantByIdentity[message.creator]
+        let position: MessageHorizontalPosition = .left
+
+        return MessageViewData(
+            spaceId: spaceId,
+            chatId: chatId,
+            authorName: authorParticipant?.title ?? "",
+            authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
+            authorId: authorParticipant?.id,
+            timestampLabel: makeTimestampLabel(message: message),
+            messageString: AttributedString(),
+            discussionBlocks: message.resolvedDiscussionBlocks(
+                spaceId: spaceId,
+                position: position,
+                textBuilder: discussionTextBuilder,
+                embedContentDataBuilder: embedContentDataBuilder,
+                attachmentDetails: Dictionary(fullMessage.attachments.map { ($0.id, $0) }, uniquingKeysWith: { _, last in last })
+            ),
+            replyModel: nil,
+            position: position,
+            linkedObjects: mapAttachments(fullMessage: fullMessage),
+            reactions: mapReactions(
+                fullMessage: fullMessage,
+                participantByIdentity: participantByIdentity,
+                yourProfileIdentity: yourProfileIdentity,
+                position: position
+            ),
+            canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
+            canToggleReaction: canEdit,
+            canReply: canEdit,
+            nextSpacing: .disable,
+            authorIconMode: .show,
+            showAuthorName: true,
+            canDelete: isYourMessage && canEdit,
+            canEdit: isYourMessage && canEdit,
+            showMessageSyncIndicator: isYourMessage,
+            isMember: authorParticipant?.globalName.isNotEmpty ?? false,
+            showTopDivider: showTopDivider,
+            isReply: isReply,
+            isLastReply: isLastReply,
+            message: message,
+            attachmentsDetails: fullMessage.attachments,
+            reply: nil
+        )
     }
 
     private func makeTimestampLabel(message: ChatMessage) -> String {
@@ -115,7 +161,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
 
     private func mapReactions(
         fullMessage: FullChatMessage,
-        participants: [Participant],
+        participantByIdentity: [String: Participant],
         yourProfileIdentity: String?,
         position: MessageHorizontalPosition
     ) -> [MessageReactionModel] {
@@ -124,7 +170,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             let content: MessageReactionModelContent
 
             if value.ids.count == 1, let firstId = value.ids.first {
-                let icon = participants.first(where: { $0.identity == firstId })?.icon.map({ Icon.object($0) })
+                let icon = participantByIdentity[firstId]?.icon.map({ Icon.object($0) })
                 content = .icon(icon ?? Icon.object(.profile(.placeholder)))
             } else {
                 content = .count(value.ids.count)
@@ -137,40 +183,6 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 position: position
             )
         }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
-    }
-
-    private func mapReply(fullMessage: FullChatMessage, participants: [Participant], yourProfileIdentity: String?) -> MessageReplyModel? {
-        if let replyChat = fullMessage.reply {
-            let replyAuthor = participants.first { $0.identity == fullMessage.reply?.creator }
-            let replyAttachment = fullMessage.replyAttachments.first
-
-            let imagesCount = fullMessage.replyAttachments.count(where: \.resolvedLayoutValue.isImage)
-            let filesCout = fullMessage.replyAttachments.count(where: \.resolvedLayoutValue.isFile)
-
-            let description: String
-            let replyBlocks = replyChat.resolvedDiscussionBlocks(spaceId: spaceId, position: .left, textBuilder: discussionTextBuilder, embedContentDataBuilder: embedContentDataBuilder)
-            let replyPlainText = replyBlocks.plainText
-            if replyPlainText.isNotEmpty {
-                description = replyPlainText
-                    .replacingOccurrences(of: "\n+", with: "\n", options: .regularExpression)
-            } else if fullMessage.replyAttachments.count == 1 {
-                description = replyAttachment?.title ?? ""
-            } else if imagesCount == fullMessage.replyAttachments.count {
-                description = Loc.Chat.Reply.images(fullMessage.replyAttachments.count)
-            } else if filesCout == fullMessage.replyAttachments.count {
-                description = Loc.Chat.Reply.files(fullMessage.replyAttachments.count)
-            } else {
-                description = Loc.Chat.Reply.attachments(fullMessage.replyAttachments.count)
-            }
-
-            return MessageReplyModel(
-                author: replyAuthor?.title ?? "",
-                description: description,
-                attachmentIcon: replyAttachment?.objectIconImage,
-                isYour: replyAuthor?.identity == yourProfileIdentity
-            )
-        }
-        return nil
     }
 
     private func mapAttachments(fullMessage: FullChatMessage) -> MessageLinkedObjectsLayout? {
