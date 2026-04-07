@@ -9,14 +9,27 @@ struct DiscussionThreadGrouper {
 
     /// Walk the replyToMessageID chain to find the root parent message id.
     /// Returns nil if the chain is broken (orphan) or cyclic.
+    /// Uses `rootCache` to memoize results — all intermediate nodes in a resolved
+    /// chain are cached so subsequent lookups are O(1).
     func findRootParentId(
         messageId: String,
-        messageById: [String: FullChatMessage]
+        messageById: [String: FullChatMessage],
+        rootCache: inout [String: String]
     ) -> String? {
+        if let cached = rootCache[messageId] {
+            return cached
+        }
+
         var currentId = messageId
         var visited = Set<String>()
+        var chain: [String] = []
 
         while true {
+            if let cached = rootCache[currentId] {
+                for id in chain { rootCache[id] = cached }
+                return cached
+            }
+
             guard let current = messageById[currentId] else {
                 // Parent not in loaded set — orphan
                 return nil
@@ -24,7 +37,8 @@ struct DiscussionThreadGrouper {
 
             let parentId = current.message.replyToMessageID
             if parentId.isEmpty {
-                // Reached a root message
+                // Reached a root message — cache for entire chain
+                for id in chain { rootCache[id] = currentId }
                 return currentId
             }
 
@@ -33,6 +47,7 @@ struct DiscussionThreadGrouper {
                 return nil
             }
             visited.insert(currentId)
+            chain.append(currentId)
             currentId = parentId
         }
     }
@@ -52,6 +67,7 @@ struct DiscussionThreadGrouper {
 
         var roots: [FullChatMessage] = []
         var threadReplies: [String: [FullChatMessage]] = [:]
+        var rootCache: [String: String] = [:]
 
         for fullMessage in messages {
             let message = fullMessage.message
@@ -60,7 +76,7 @@ struct DiscussionThreadGrouper {
                 roots.append(fullMessage)
             } else {
                 // This is a reply — find its root parent
-                if let rootId = findRootParentId(messageId: message.replyToMessageID, messageById: messageById) {
+                if let rootId = findRootParentId(messageId: message.replyToMessageID, messageById: messageById, rootCache: &rootCache) {
                     threadReplies[rootId, default: []].append(fullMessage)
                 }
                 // else: orphan or cyclic — filtered out

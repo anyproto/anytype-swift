@@ -38,6 +38,10 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         let isChatDeletedOrArchived = (chatObject.details?.isDeleted ?? false) || (chatObject.details?.isArchived ?? false)
         let canEdit = (participant?.canEdit ?? false) && !isChatDeletedOrArchived
         let yourProfileIdentity = participant?.identity
+        let participantByIdentity = Dictionary(
+            participants.map { ($0.identity, $0) },
+            uniquingKeysWith: { _, last in last }
+        )
 
         // Thread grouping: reorder messages so replies appear directly after their root parent
         let result = threadGrouper.groupMessagesIntoThreads(messages: messages)
@@ -50,7 +54,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         for root in roots {
             let rootModel = buildMessageViewData(
                 fullMessage: root,
-                participants: participants,
+                participantByIdentity: participantByIdentity,
                 yourProfileIdentity: yourProfileIdentity,
                 canEdit: canEdit,
                 limits: limits,
@@ -66,7 +70,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 for (index, reply) in replies.enumerated() {
                     let replyModel = buildMessageViewData(
                         fullMessage: reply,
-                        participants: participants,
+                        participantByIdentity: participantByIdentity,
                         yourProfileIdentity: yourProfileIdentity,
                         canEdit: canEdit,
                         limits: limits,
@@ -90,7 +94,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
 
     private func buildMessageViewData(
         fullMessage: FullChatMessage,
-        participants: [Participant],
+        participantByIdentity: [String: Participant],
         yourProfileIdentity: String?,
         canEdit: Bool,
         limits: any ChatMessageLimitsProtocol,
@@ -100,7 +104,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
     ) -> MessageViewData {
         let message = fullMessage.message
         let isYourMessage = message.creator == yourProfileIdentity
-        let authorParticipant = participants.first { $0.identity == message.creator }
+        let authorParticipant = participantByIdentity[message.creator]
         let position: MessageHorizontalPosition = .left
 
         return MessageViewData(
@@ -122,7 +126,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             linkedObjects: mapAttachments(fullMessage: fullMessage),
             reactions: mapReactions(
                 fullMessage: fullMessage,
-                participants: participants,
+                participantByIdentity: participantByIdentity,
                 yourProfileIdentity: yourProfileIdentity,
                 position: position
             ),
@@ -155,7 +159,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
 
     private func mapReactions(
         fullMessage: FullChatMessage,
-        participants: [Participant],
+        participantByIdentity: [String: Participant],
         yourProfileIdentity: String?,
         position: MessageHorizontalPosition
     ) -> [MessageReactionModel] {
@@ -164,7 +168,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             let content: MessageReactionModelContent
 
             if value.ids.count == 1, let firstId = value.ids.first {
-                let icon = participants.first(where: { $0.identity == firstId })?.icon.map({ Icon.object($0) })
+                let icon = participantByIdentity[firstId]?.icon.map({ Icon.object($0) })
                 content = .icon(icon ?? Icon.object(.profile(.placeholder)))
             } else {
                 content = .count(value.ids.count)
