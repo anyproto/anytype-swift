@@ -44,8 +44,7 @@ final class StubWidgetsViewModel {
         async let createHome: () = subscribeToCreateHomeChanges()
         async let inviteMembers: () = subscribeToInviteMembersChanges()
         async let onboarding: () = subscribeToOnboardingChanges()
-        async let permissions: () = subscribeToPermissionChanges()
-        _ = await (createHome, inviteMembers, onboarding, permissions)
+        _ = await (createHome, inviteMembers, onboarding)
     }
 
     // MARK: - Actions
@@ -79,19 +78,15 @@ final class StubWidgetsViewModel {
             onboardingStorage.resetCreateHomeDismissed(spaceId: spaceId)
         }
 
-        for await _ in workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values {
+        // participantSpaceViewPublisher covers both space view changes (homepage, name, etc.)
+        // and current user's permission changes (viewer/editor promotion/demotion)
+        for await _ in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             recalculateShowCreateHome()
         }
     }
 
     private func subscribeToOnboardingChanges() async {
         for await _ in onboardingStorage.didChangePublisher.values {
-            recalculateShowCreateHome()
-        }
-    }
-
-    private func subscribeToPermissionChanges() async {
-        for await _ in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             recalculateShowCreateHome()
         }
     }
