@@ -7,10 +7,10 @@ struct DiscussionMessageView: View {
     private enum Constants {
         static let attachmentsPadding: CGFloat = 4
         static let messageHorizontalPadding: CGFloat = 16
-        static let replyBarWidth: CGFloat = 2
-        static let replyBarLeadingPadding: CGFloat = 16
-        static let replyContentHorizontalPadding: CGFloat = 12
         static let messageVerticalPadding: CGFloat = 12
+        static let replyBarWidth: CGFloat = 4
+        static let replyBarLeadingPadding: CGFloat = 16
+        static let replyContentLeadingPadding: CGFloat = 8
         static let coordinateSpace = "DiscussionMessageViewCoordinateSpace"
         static let emoji = ["👍", "️️❤️", "😂"]
     }
@@ -67,11 +67,12 @@ struct DiscussionMessageView: View {
             if data.isReply {
                 HStack(alignment: .top, spacing: 0) {
                     Rectangle()
-                        .fill(Color.Shape.tertiary)
+                        .fill(Color.Shape.transparentSecondary)
                         .frame(width: Constants.replyBarWidth)
                         .padding(.leading, Constants.replyBarLeadingPadding)
                     messageInnerContent
-                        .padding(.horizontal, Constants.replyContentHorizontalPadding)
+                        .padding(.leading, Constants.replyContentLeadingPadding)
+                        .padding(.trailing, Constants.messageHorizontalPadding)
                         .padding(.vertical, Constants.messageVerticalPadding)
                 }
             } else {
