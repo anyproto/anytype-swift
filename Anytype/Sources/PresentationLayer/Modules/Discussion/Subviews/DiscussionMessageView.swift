@@ -59,6 +59,7 @@ struct DiscussionMessageView: View {
                         .padding(.leading, Constants.replyContentLeadingPadding)
                         .padding(.trailing, Constants.messageHorizontalPadding)
                         .padding(.vertical, Constants.messageVerticalPadding)
+                    Spacer()
                 }
             } else {
                 messageInnerContent
