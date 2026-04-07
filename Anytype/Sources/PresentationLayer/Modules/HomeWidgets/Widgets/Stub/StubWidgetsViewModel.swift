@@ -41,7 +41,7 @@ final class StubWidgetsViewModel {
     // MARK: - Subscriptions
 
     func startSubscriptions() async {
-        async let createHome: () = subscribeToCreateHomeChanges()
+        async let createHome: () = subscribeToSpaceAndPermissionChanges()
         async let inviteMembers: () = subscribeToInviteMembersChanges()
         async let onboarding: () = subscribeToOnboardingChanges()
         _ = await (createHome, inviteMembers, onboarding)
@@ -69,7 +69,7 @@ final class StubWidgetsViewModel {
 
     // MARK: - Private
 
-    private func subscribeToCreateHomeChanges() async {
+    private func subscribeToSpaceAndPermissionChanges() async {
         // If homepage is set, reset the "Create Home" dismissal once on entry.
         // This way, if homepage is later cleared (e.g. object deleted by middleware),
         // the widget will reappear on the next space visit.
