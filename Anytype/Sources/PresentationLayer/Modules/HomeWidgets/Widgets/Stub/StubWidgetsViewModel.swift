@@ -44,7 +44,8 @@ final class StubWidgetsViewModel {
         async let createHome: () = subscribeToCreateHomeChanges()
         async let inviteMembers: () = subscribeToInviteMembersChanges()
         async let onboarding: () = subscribeToOnboardingChanges()
-        _ = await (createHome, inviteMembers, onboarding)
+        async let permissions: () = subscribeToPermissionChanges()
+        _ = await (createHome, inviteMembers, onboarding, permissions)
     }
 
     // MARK: - Actions
@@ -85,6 +86,12 @@ final class StubWidgetsViewModel {
 
     private func subscribeToOnboardingChanges() async {
         for await _ in onboardingStorage.didChangePublisher.values {
+            recalculateShowCreateHome()
+        }
+    }
+
+    private func subscribeToPermissionChanges() async {
+        for await _ in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             recalculateShowCreateHome()
         }
     }
