@@ -19,6 +19,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
     private let chatId: String
 
     private let timestampFormatter = MessageTimestampFormatter()
+    private let threadGrouper = DiscussionThreadGrouper()
 
     init(spaceId: String, chatId: String) {
         self.spaceId = spaceId
@@ -39,7 +40,9 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         let yourProfileIdentity = participant?.identity
 
         // Thread grouping: reorder messages so replies appear directly after their root parent
-        let (roots, threadReplies) = groupMessagesIntoThreads(messages: messages)
+        let result = threadGrouper.groupMessagesIntoThreads(messages: messages)
+        let roots = result.roots
+        let threadReplies = result.threadReplies
 
         var items: [MessageSectionItem] = []
         var isFirstRoot = true
@@ -79,76 +82,6 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         // Discussions don't use section headers (date pill) — each comment shows its own timestamp.
         // Single section with empty header and static id since there's no day-based grouping.
         return [MessageSectionData(header: "", id: 0, items: items)]
-    }
-
-    // MARK: - Thread Grouping
-
-    /// Walk the replyToMessageID chain to find the root parent message id.
-    /// Returns nil if the chain is broken (orphan) or cyclic.
-    private func findRootParentId(
-        messageId: String,
-        messageById: [String: FullChatMessage]
-    ) -> String? {
-        var currentId = messageId
-        var visited = Set<String>()
-
-        while true {
-            guard let current = messageById[currentId] else {
-                // Parent not in loaded set — orphan
-                return nil
-            }
-
-            let parentId = current.message.replyToMessageID
-            if parentId.isEmpty {
-                // Reached a root message
-                return currentId
-            }
-
-            if visited.contains(parentId) {
-                // Cycle detected
-                return nil
-            }
-            visited.insert(currentId)
-            currentId = parentId
-        }
-    }
-
-    /// Group messages into root messages and their thread replies.
-    /// - Builds a lookup by message.id
-    /// - For each message with replyToMessageID, chain-walks to find root
-    /// - Orphan replies (parent not loaded) and cyclic chains are filtered out
-    /// - Replies within each thread are sorted by orderID
-    private func groupMessagesIntoThreads(
-        messages: [FullChatMessage]
-    ) -> (roots: [FullChatMessage], threadReplies: [String: [FullChatMessage]]) {
-        let messageById = Dictionary(
-            messages.map { ($0.message.id, $0) },
-            uniquingKeysWith: { _, last in last }
-        )
-
-        var roots: [FullChatMessage] = []
-        var threadReplies: [String: [FullChatMessage]] = [:]
-
-        for fullMessage in messages {
-            let message = fullMessage.message
-            if message.replyToMessageID.isEmpty {
-                // This is a root message
-                roots.append(fullMessage)
-            } else {
-                // This is a reply — find its root parent
-                if let rootId = findRootParentId(messageId: message.replyToMessageID, messageById: messageById) {
-                    threadReplies[rootId, default: []].append(fullMessage)
-                }
-                // else: orphan or cyclic — filtered out
-            }
-        }
-
-        // Sort replies within each thread by orderID
-        for (rootId, replies) in threadReplies {
-            threadReplies[rootId] = replies.sorted { $0.message.orderID < $1.message.orderID }
-        }
-
-        return (roots, threadReplies)
     }
 
     // MARK: - Message Building

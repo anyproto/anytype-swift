@@ -10,6 +10,7 @@ struct DiscussionMessageView: View {
         static let replyBarWidth: CGFloat = 2
         static let replyBarLeadingPadding: CGFloat = 16
         static let replyContentHorizontalPadding: CGFloat = 12
+        static let messageVerticalPadding: CGFloat = 12
         static let coordinateSpace = "DiscussionMessageViewCoordinateSpace"
         static let emoji = ["👍", "️️❤️", "😂"]
     }
@@ -69,27 +70,27 @@ struct DiscussionMessageView: View {
                         .fill(Color.Shape.tertiary)
                         .frame(width: Constants.replyBarWidth)
                         .padding(.leading, Constants.replyBarLeadingPadding)
-                    VStack(alignment: .leading, spacing: 0) {
-                        header
-                            .padding(.bottom, 8)
-                        reply
-                        messageContent
-                        reactions
-                    }
-                    .padding(.horizontal, Constants.replyContentHorizontalPadding)
-                    .padding(.vertical, 12)
+                    messageInnerContent
+                        .padding(.horizontal, Constants.replyContentHorizontalPadding)
+                        .padding(.vertical, Constants.messageVerticalPadding)
                 }
             } else {
-                VStack(alignment: .leading, spacing: 0) {
-                    header
-                        .padding(.bottom, 8)
-                    reply
-                    messageContent
-                    reactions
-                }
-                .padding(.horizontal, Constants.messageHorizontalPadding)
-                .padding(.vertical, 12)
+                messageInnerContent
+                    .padding(.horizontal, Constants.messageHorizontalPadding)
+                    .padding(.vertical, Constants.messageVerticalPadding)
             }
+        }
+    }
+
+    private var messageInnerContent: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            header
+                .padding(.bottom, 8)
+            if !data.isReply {
+                reply
+            }
+            messageContent
+            reactions
         }
     }
 
