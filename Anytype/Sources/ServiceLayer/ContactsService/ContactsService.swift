@@ -8,7 +8,7 @@ protocol ContactsServiceProtocol: Sendable {
 
 actor ContactsService: ContactsServiceProtocol {
 
-    private let spaceViewsStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
+    private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
     private let subscriptionStorageProvider: any SubscriptionStorageProviderProtocol = Container.shared.subscriptionStorageProvider()
 
     private var prefetchTask: Task<[Contact], Never>?
@@ -28,27 +28,13 @@ actor ContactsService: ContactsServiceProtocol {
     // MARK: - Private
 
     private func fetchContacts() async -> [Contact] {
-        let oneToOneSpaces = spaceViewsStorage.allSpaceViews.filter {
-            $0.isOneToOne && $0.isActive
-        }
-        guard oneToOneSpaces.isNotEmpty else {
-            prefetchTask = nil
-            return []
-        }
-
-        let identities = oneToOneSpaces.compactMap(\.oneToOneIdentity).filter(\.isNotEmpty)
-        guard identities.isNotEmpty else {
-            prefetchTask = nil
-            return []
-        }
-
         let subId = "ContactsService-\(UUID().uuidString)"
         let subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subId)
 
         let filters: [DataviewFilter] = .builder {
             SearchHelper.layoutFilter([.participant])
             SearchHelper.participantStatusFilter(.active)
-            SearchHelper.identities(identities)
+            SearchHelper.notIdentity(accountManager.account.id)
         }
 
         let searchData: SubscriptionData = .crossSpaceSearch(
@@ -68,14 +54,21 @@ actor ContactsService: ContactsServiceProtocol {
         do {
             try await subscriptionStorage.startOrUpdateSubscription(data: searchData)
 
-            let identitySet = Set(identities)
             var contacts: [Contact] = []
+            var spaceCounts: [String: Int] = [:]
             var seen = Set<String>()
 
             for await state in subscriptionStorage.statePublisher.values {
                 let participants = state.items.compactMap { try? Participant(details: $0) }
+
+                // Count spaces per identity
+                for participant in participants where participant.identity.isNotEmpty {
+                    spaceCounts[participant.identity, default: 0] += 1
+                }
+
+                // Deduplicate by identity
                 for participant in participants {
-                    guard identitySet.contains(participant.identity), !seen.contains(participant.identity) else { continue }
+                    guard participant.identity.isNotEmpty, !seen.contains(participant.identity) else { continue }
                     seen.insert(participant.identity)
                     contacts.append(Contact(
                         identity: participant.identity,
@@ -87,7 +80,7 @@ actor ContactsService: ContactsServiceProtocol {
                 break
             }
 
-            return contacts.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+            return ContactsSorter.sorted(contacts, spaceCounts: spaceCounts)
         } catch {
             return []
         }

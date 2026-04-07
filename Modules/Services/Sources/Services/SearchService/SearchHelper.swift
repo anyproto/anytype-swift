@@ -116,6 +116,14 @@ public class SearchHelper {
         return filter
     }
 
+    public static func notIdentity(_ identityId: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notEqual
+        filter.value = identityId.protobufValue
+        filter.relationKey = BundledPropertyKey.identity.rawValue
+        return filter
+    }
+
     // MARK: - Type Filters
 
     public static func typeFilter(_ typeIds: [String]) -> DataviewFilter {
