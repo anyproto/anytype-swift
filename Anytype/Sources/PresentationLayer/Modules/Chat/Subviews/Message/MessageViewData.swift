@@ -28,6 +28,7 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let showMessageSyncIndicator: Bool
     let isMember: Bool
     let showTopDivider: Bool
+    let isReply: Bool
 
     // Raw data for action logic
     let message: ChatMessage

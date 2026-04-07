@@ -88,6 +88,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 showMessageSyncIndicator: isYourMessage,
                 isMember: authorParticipant?.globalName.isNotEmpty ?? false,
                 showTopDivider: messageIndex > 0,
+                isReply: false,
                 message: message,
                 attachmentsDetails: fullMessage.attachments,
                 reply: fullMessage.reply
