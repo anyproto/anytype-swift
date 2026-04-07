@@ -141,7 +141,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             isLastReply: isLastReply,
             message: message,
             attachmentsDetails: fullMessage.attachments,
-            reply: fullMessage.reply
+            reply: nil
         )
     }
 

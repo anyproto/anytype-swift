@@ -588,9 +588,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func didSelectReplyMessage(message: MessageViewData) {
-        guard let reply = message.reply else { return }
-        AnytypeAnalytics.instance().logClickScrollToReply(chatId: message.chatId)
-        scrollToMessage(messageId: reply.id)
+        // Not used in discussions — reply preview bubble is not shown
     }
 
     func didSelectDeleteMessage(message: MessageViewData) {
