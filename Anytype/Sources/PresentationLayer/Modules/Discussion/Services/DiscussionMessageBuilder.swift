@@ -13,6 +13,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
 
     private let accountParticipantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
     private let discussionTextBuilder: any DiscussionTextBuilderProtocol = Container.shared.discussionTextBuilder()
+    private let embedContentDataBuilder: any EmbedContentDataBuilderProtocol = Container.shared.embedContentDataBuilder()
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
 
     private let spaceId: String
@@ -61,6 +62,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                     spaceId: spaceId,
                     position: position,
                     textBuilder: discussionTextBuilder,
+                    embedContentDataBuilder: embedContentDataBuilder,
                     attachmentDetails: Dictionary(fullMessage.attachments.map { ($0.id, $0) }, uniquingKeysWith: { _, last in last })
                 ),
                 replyModel: mapReply(
@@ -146,7 +148,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             let filesCout = fullMessage.replyAttachments.count(where: \.resolvedLayoutValue.isFile)
 
             let description: String
-            let replyBlocks = replyChat.resolvedDiscussionBlocks(spaceId: spaceId, position: .left, textBuilder: discussionTextBuilder)
+            let replyBlocks = replyChat.resolvedDiscussionBlocks(spaceId: spaceId, position: .left, textBuilder: discussionTextBuilder, embedContentDataBuilder: embedContentDataBuilder)
             let replyPlainText = replyBlocks.plainText
             if replyPlainText.isNotEmpty {
                 description = replyPlainText

@@ -8,6 +8,7 @@ extension ChatMessage {
         spaceId: String,
         position: MessageHorizontalPosition,
         textBuilder: any DiscussionTextBuilderProtocol,
+        embedContentDataBuilder: any EmbedContentDataBuilderProtocol,
         attachmentDetails: [String: ObjectDetails] = [:]
     ) -> [DiscussionBlockItem] {
         guard !blocks.isEmpty else {
@@ -28,6 +29,11 @@ extension ChatMessage {
         for (index, block) in blocks.enumerated() {
             switch block.content {
             case .text(let textBlock):
+                if textBlock.text == "---", textBlock.marks.isEmpty {
+                    result.append(.divider(id: index))
+                    continue
+                }
+
                 let content = textBuilder.makeAttributedString(
                     text: textBlock.text,
                     marks: textBlock.marks,
@@ -84,8 +90,12 @@ extension ChatMessage {
                 case .UNRECOGNIZED:
                     result.append(.unsupported(id: index, blockName: "link:unrecognized"))
                 }
-            case .embed:
-                result.append(.unsupported(id: index, blockName: "embed"))
+            case .embed(let embedBlock):
+                var block = BlockLatex()
+                block.text = embedBlock.text
+                block.processor = embedBlock.processor
+                let data = embedContentDataBuilder.build(from: block)
+                result.append(.embed(id: index, data: data))
             case nil:
                 result.append(.unsupported(id: index, blockName: "unknown"))
             }

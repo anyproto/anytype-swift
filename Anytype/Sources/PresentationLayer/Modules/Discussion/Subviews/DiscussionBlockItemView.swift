@@ -77,6 +77,13 @@ struct DiscussionBlockItemView: View {
             }
             .buttonStyle(.plain)
             .padding(.vertical, 2)
+        case .embed(_, let data):
+            DiscussionEmbedBlockView(data: data)
+                .padding(.vertical, 2)
+        case .divider:
+            Color.Shape.primary
+                .frame(height: 1)
+                .padding(.vertical, 10)
         case .unsupported(_, let blockName):
             DiscussionUnsupportedBlockView(blockName: blockName)
                 .padding(.vertical, 2)
