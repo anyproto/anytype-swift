@@ -7,6 +7,9 @@ struct DiscussionMessageView: View {
     private enum Constants {
         static let attachmentsPadding: CGFloat = 4
         static let messageHorizontalPadding: CGFloat = 16
+        static let replyBarWidth: CGFloat = 2
+        static let replyBarLeadingPadding: CGFloat = 16
+        static let replyContentHorizontalPadding: CGFloat = 12
         static let coordinateSpace = "DiscussionMessageViewCoordinateSpace"
         static let emoji = ["👍", "️️❤️", "😂"]
     }
@@ -60,15 +63,33 @@ struct DiscussionMessageView: View {
                 Divider()
                     .foregroundStyle(Color.Shape.tertiary)
             }
-            VStack(alignment: .leading, spacing: 0) {
-                header
-                    .padding(.bottom, 8)
-                reply
-                messageContent
-                reactions
+            if data.isReply {
+                HStack(alignment: .top, spacing: 0) {
+                    Rectangle()
+                        .fill(Color.Shape.tertiary)
+                        .frame(width: Constants.replyBarWidth)
+                        .padding(.leading, Constants.replyBarLeadingPadding)
+                    VStack(alignment: .leading, spacing: 0) {
+                        header
+                            .padding(.bottom, 8)
+                        reply
+                        messageContent
+                        reactions
+                    }
+                    .padding(.horizontal, Constants.replyContentHorizontalPadding)
+                    .padding(.vertical, 12)
+                }
+            } else {
+                VStack(alignment: .leading, spacing: 0) {
+                    header
+                        .padding(.bottom, 8)
+                    reply
+                    messageContent
+                    reactions
+                }
+                .padding(.horizontal, Constants.messageHorizontalPadding)
+                .padding(.vertical, 12)
             }
-            .padding(.horizontal, Constants.messageHorizontalPadding)
-            .padding(.vertical, 12)
         }
     }
 
