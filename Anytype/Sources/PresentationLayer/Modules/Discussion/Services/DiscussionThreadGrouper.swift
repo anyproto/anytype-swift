@@ -11,7 +11,7 @@ struct DiscussionThreadGrouper {
     /// Returns nil if the chain is broken (orphan) or cyclic.
     /// Uses `rootCache` to memoize results — all intermediate nodes in a resolved
     /// chain are cached so subsequent lookups are O(1).
-    func findRootParentId(
+    private func findRootParentId(
         messageId: String,
         messageById: [String: FullChatMessage],
         rootCache: inout [String: String]
