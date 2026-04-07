@@ -112,6 +112,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 isMember: false,
                 showTopDivider: false,
                 isReply: false,
+                isLastReply: false,
                 message: message,
                 attachmentsDetails: fullMessage.attachments,
                 reply: fullMessage.reply

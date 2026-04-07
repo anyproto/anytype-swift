@@ -55,6 +55,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 canEdit: canEdit,
                 limits: limits,
                 isReply: false,
+                isLastReply: false,
                 showTopDivider: !isFirstRoot
             )
             items.append(.message(rootModel))
@@ -62,7 +63,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
 
             // Emit sorted replies directly after the root
             if let replies = threadReplies[root.message.id] {
-                for reply in replies {
+                for (index, reply) in replies.enumerated() {
                     let replyModel = buildMessageViewData(
                         fullMessage: reply,
                         participants: participants,
@@ -70,6 +71,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                         canEdit: canEdit,
                         limits: limits,
                         isReply: true,
+                        isLastReply: index == replies.count - 1,
                         showTopDivider: false
                     )
                     items.append(.message(replyModel))
@@ -93,6 +95,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         canEdit: Bool,
         limits: any ChatMessageLimitsProtocol,
         isReply: Bool,
+        isLastReply: Bool,
         showTopDivider: Bool
     ) -> MessageViewData {
         let message = fullMessage.message
@@ -139,6 +142,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             isMember: authorParticipant?.globalName.isNotEmpty ?? false,
             showTopDivider: showTopDivider,
             isReply: isReply,
+            isLastReply: isLastReply,
             message: message,
             attachmentsDetails: fullMessage.attachments,
             reply: fullMessage.reply

@@ -29,6 +29,7 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let isMember: Bool
     let showTopDivider: Bool
     let isReply: Bool
+    let isLastReply: Bool
 
     // Raw data for action logic
     let message: ChatMessage

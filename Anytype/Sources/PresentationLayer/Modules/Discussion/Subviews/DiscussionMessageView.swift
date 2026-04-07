@@ -11,14 +11,12 @@ struct DiscussionMessageView: View {
         static let replyBarWidth: CGFloat = 4
         static let replyBarLeadingPadding: CGFloat = 16
         static let replyContentLeadingPadding: CGFloat = 8
-        static let coordinateSpace = "DiscussionMessageViewCoordinateSpace"
+        static let replyBarBottomPadding: CGFloat = 12
         static let emoji = ["👍", "️️❤️", "😂"]
     }
 
     private let data: MessageViewData
     private weak var output: (any MessageModuleOutput)?
-
-    @State private var contentCenterOffsetY: CGFloat = 0
 
     init(
         data: MessageViewData,
@@ -29,32 +27,18 @@ struct DiscussionMessageView: View {
     }
 
     var body: some View {
-        MessageReplyActionView(
-            isEnabled: data.canReply,
-            contentHorizontalPadding: Constants.messageHorizontalPadding,
-            centerOffsetY: $contentCenterOffsetY,
-            content: {
-                content
-            },
-            action: {
-                output?.didSelectReplyTo(message: data)
-            }
-        )
-        .id(data.id)
+        content
+            .id(data.id)
     }
 
     private var content: some View {
         messageBody
             .fixTappableArea()
-            .coordinateSpace(name: Constants.coordinateSpace)
             .messageFlashBackground(id: data.id)
             .background(Color.Background.primary)
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contextMenu {
                 contextMenu
-            }
-            .readFrame(space: .named(Constants.coordinateSpace)) {
-                contentCenterOffsetY = $0.midY
             }
     }
 
@@ -70,6 +54,7 @@ struct DiscussionMessageView: View {
                         .fill(Color.Shape.transparentSecondary)
                         .frame(width: Constants.replyBarWidth)
                         .padding(.leading, Constants.replyBarLeadingPadding)
+                        .padding(.bottom, data.isLastReply ? Constants.replyBarBottomPadding : 0)
                     messageInnerContent
                         .padding(.leading, Constants.replyContentLeadingPadding)
                         .padding(.trailing, Constants.messageHorizontalPadding)
