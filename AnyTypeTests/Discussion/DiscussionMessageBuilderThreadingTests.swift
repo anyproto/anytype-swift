@@ -222,6 +222,53 @@ struct DiscussionThreadGrouperTests {
         #expect(result.threadReplies["A"]?[1].message.id == "C")
         #expect(result.threadReplies["A"]?[2].message.id == "D")
     }
+
+    @Test
+    func forkedChain_multipleRepliesToSameIntermediate() {
+        // A (root), B replies to A, C replies to B, D replies to B
+        // Both C and D should resolve to root A
+        let msgA = makeMessage(id: "A", orderID: "001")
+        let msgB = makeMessage(id: "B", orderID: "002", replyToMessageID: "A")
+        let msgC = makeMessage(id: "C", orderID: "003", replyToMessageID: "B")
+        let msgD = makeMessage(id: "D", orderID: "004", replyToMessageID: "B")
+
+        let result = grouper.groupMessagesIntoThreads(messages: [msgA, msgB, msgC, msgD])
+
+        #expect(result.roots.count == 1)
+        #expect(result.roots[0].message.id == "A")
+        #expect(result.threadReplies["A"]?.count == 3)
+        #expect(result.threadReplies["A"]?[0].message.id == "B")
+        #expect(result.threadReplies["A"]?[1].message.id == "C")
+        #expect(result.threadReplies["A"]?[2].message.id == "D")
+    }
+
+    @Test
+    func threeNodeCycle_allFiltered() {
+        // A → B → C → A (3-node cycle, no roots)
+        let msgA = makeMessage(id: "A", orderID: "001", replyToMessageID: "C")
+        let msgB = makeMessage(id: "B", orderID: "002", replyToMessageID: "A")
+        let msgC = makeMessage(id: "C", orderID: "003", replyToMessageID: "B")
+
+        let result = grouper.groupMessagesIntoThreads(messages: [msgA, msgB, msgC])
+
+        #expect(result.roots.isEmpty)
+        #expect(result.threadReplies.isEmpty)
+    }
+
+    @Test
+    func transitiveOrphan_chainToMissingParent() {
+        // B replies to missing "X", C replies to B
+        // B is orphan (parent X not loaded), C is also orphan (chain leads to missing)
+        let root = makeMessage(id: "root1", orderID: "001")
+        let msgB = makeMessage(id: "B", orderID: "002", replyToMessageID: "X")
+        let msgC = makeMessage(id: "C", orderID: "003", replyToMessageID: "B")
+
+        let result = grouper.groupMessagesIntoThreads(messages: [root, msgB, msgC])
+
+        #expect(result.roots.count == 1)
+        #expect(result.roots[0].message.id == "root1")
+        #expect(result.threadReplies.isEmpty)
+    }
 }
 
 // MARK: - Integration Tests for MessageViewData Flags
@@ -351,6 +398,52 @@ struct DiscussionMessageBuilderThreadingTests {
         #expect(items[1].message.id == "r1")
         #expect(items[2].message.id == "root2")
         #expect(items[3].message.id == "r2")
+    }
+
+    // MARK: - isLastReply
+
+    @Test
+    func isLastReply_trueOnlyForLastReplyInThread() async {
+        let builder = DiscussionMessageBuilder(spaceId: "space1", chatId: "chat1")
+
+        let root = makeMessage(id: "root1", orderID: "001")
+        let reply1 = makeMessage(id: "r1", orderID: "002", replyToMessageID: "root1")
+        let reply2 = makeMessage(id: "r2", orderID: "003", replyToMessageID: "root1")
+        let reply3 = makeMessage(id: "r3", orderID: "004", replyToMessageID: "root1")
+
+        let sections = await builder.makeMessage(
+            messages: [root, reply1, reply2, reply3],
+            participants: [],
+            limits: makeLimits()
+        )
+
+        let items = extractMessageViewDataItems(from: sections)
+        #expect(items.count == 4)
+        // Root: isLastReply = false
+        #expect(items[0].isLastReply == false)
+        // First two replies: isLastReply = false
+        #expect(items[1].isLastReply == false)
+        #expect(items[2].isLastReply == false)
+        // Last reply: isLastReply = true
+        #expect(items[3].isLastReply == true)
+    }
+
+    // MARK: - Empty output when all messages are orphans
+
+    @Test
+    func allOrphans_returnsEmptySections() async {
+        let builder = DiscussionMessageBuilder(spaceId: "space1", chatId: "chat1")
+
+        let orphan1 = makeMessage(id: "o1", orderID: "001", replyToMessageID: "missing1")
+        let orphan2 = makeMessage(id: "o2", orderID: "002", replyToMessageID: "missing2")
+
+        let sections = await builder.makeMessage(
+            messages: [orphan1, orphan2],
+            participants: [],
+            limits: makeLimits()
+        )
+
+        #expect(sections.isEmpty)
     }
 
     // MARK: - replyModel and reply nil for all discussion messages
