@@ -7,14 +7,16 @@ struct DiscussionMessageView: View {
     private enum Constants {
         static let attachmentsPadding: CGFloat = 4
         static let messageHorizontalPadding: CGFloat = 16
-        static let coordinateSpace = "DiscussionMessageViewCoordinateSpace"
+        static let messageVerticalPadding: CGFloat = 12
+        static let replyBarWidth: CGFloat = 4
+        static let replyBarLeadingPadding: CGFloat = 16
+        static let replyContentLeadingPadding: CGFloat = 8
+        static let replyBarBottomPadding: CGFloat = 12
         static let emoji = ["👍", "️️❤️", "😂"]
     }
 
     private let data: MessageViewData
     private weak var output: (any MessageModuleOutput)?
-
-    @State private var contentCenterOffsetY: CGFloat = 0
 
     init(
         data: MessageViewData,
@@ -25,32 +27,18 @@ struct DiscussionMessageView: View {
     }
 
     var body: some View {
-        MessageReplyActionView(
-            isEnabled: data.canReply,
-            contentHorizontalPadding: Constants.messageHorizontalPadding,
-            centerOffsetY: $contentCenterOffsetY,
-            content: {
-                content
-            },
-            action: {
-                output?.didSelectReplyTo(message: data)
-            }
-        )
-        .id(data.id)
+        content
+            .id(data.id)
     }
 
     private var content: some View {
         messageBody
             .fixTappableArea()
-            .coordinateSpace(name: Constants.coordinateSpace)
             .messageFlashBackground(id: data.id)
             .background(Color.Background.primary)
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contextMenu {
                 contextMenu
-            }
-            .readFrame(space: .named(Constants.coordinateSpace)) {
-                contentCenterOffsetY = $0.midY
             }
     }
 
@@ -60,15 +48,33 @@ struct DiscussionMessageView: View {
                 Divider()
                     .foregroundStyle(Color.Shape.tertiary)
             }
-            VStack(alignment: .leading, spacing: 0) {
-                header
-                    .padding(.bottom, 8)
-                reply
-                messageContent
-                reactions
+            if data.isReply {
+                HStack(alignment: .top, spacing: 0) {
+                    Rectangle()
+                        .fill(Color.Shape.transparentSecondary)
+                        .frame(width: Constants.replyBarWidth)
+                        .padding(.leading, Constants.replyBarLeadingPadding)
+                        .padding(.bottom, data.isLastReply ? Constants.replyBarBottomPadding : 0)
+                    messageInnerContent
+                        .padding(.leading, Constants.replyContentLeadingPadding)
+                        .padding(.trailing, Constants.messageHorizontalPadding)
+                        .padding(.vertical, Constants.messageVerticalPadding)
+                    Spacer()
+                }
+            } else {
+                messageInnerContent
+                    .padding(.horizontal, Constants.messageHorizontalPadding)
+                    .padding(.vertical, Constants.messageVerticalPadding)
             }
-            .padding(.horizontal, Constants.messageHorizontalPadding)
-            .padding(.vertical, 12)
+        }
+    }
+
+    private var messageInnerContent: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            header
+                .padding(.bottom, 8)
+            messageContent
+            reactions
         }
     }
 
@@ -113,19 +119,6 @@ struct DiscussionMessageView: View {
             .anytypeStyle(.caption2Regular)
             .foregroundStyle(Color.Text.secondary)
             .lineLimit(1)
-    }
-
-    @ViewBuilder
-    private var reply: some View {
-        if let reply = data.replyModel {
-            Button {
-                output?.didSelectReplyMessage(message: data)
-            } label: {
-                MessageReplyView(model: reply)
-            }
-            .buttonStyle(.plain)
-            .padding(.bottom, 4)
-        }
     }
 
     @ViewBuilder
