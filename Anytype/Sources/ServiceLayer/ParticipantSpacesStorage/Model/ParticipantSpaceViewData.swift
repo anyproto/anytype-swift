@@ -47,4 +47,8 @@ extension ParticipantSpaceViewData {
     var canChangeUxType: Bool {
         permissions.canChangeUxType
     }
+
+    var canSetHomepage: Bool {
+        permissions.canSetHomepage
+    }
 }

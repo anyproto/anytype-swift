@@ -40,8 +40,8 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     func onAppear() {
         guard FeatureFlags.createChannelFlow else { return }
         let spaceId = spaceInfo.accountSpaceId
-        let canEdit = participantSpacesStorage.participantSpaceView(spaceId: spaceId)?.canEdit ?? false
-        guard canEdit else { return }
+        let canSetHomepage = participantSpacesStorage.participantSpaceView(spaceId: spaceId)?.canSetHomepage ?? false
+        guard canSetHomepage else { return }
         let spaceView = spaceViewsStorage.spaceView(spaceId: spaceId)
         let homepageNotSet = spaceView?.homepage == .empty
         let pickerAlreadyDismissed = onboardingStorage.isHomepagePickerDismissed(spaceId: spaceId)

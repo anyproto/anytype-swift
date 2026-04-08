@@ -317,7 +317,7 @@ struct SpaceSettingsView: View {
     private var preferences: some View {
         SectionHeaderView(title: Loc.preferences)
         SettingsSection {
-            if FeatureFlags.homePage, model.canEdit {
+            if FeatureFlags.homePage, model.canSetHomepage {
                 RoundedButton(
                     Loc.SpaceSettings.HomePage.title,
                     decoration: model.homePageState.buttonDecoration

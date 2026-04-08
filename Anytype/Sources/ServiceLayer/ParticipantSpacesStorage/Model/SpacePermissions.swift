@@ -13,6 +13,7 @@ struct SpacePermissions: Equatable, Hashable {
     let canEditPermissions: Bool
     let canApproveRequests: Bool
     let canChangeUxType: Bool
+    let canSetHomepage: Bool
 }
 
 extension SpacePermissions {
@@ -52,5 +53,6 @@ extension SpacePermissions {
         canEditPermissions = isOwner && !isLocalMode
         canApproveRequests = isOwner
         canChangeUxType = isOwner
+        canSetHomepage = isOwner || spaceView.isOneToOne
     }
 }

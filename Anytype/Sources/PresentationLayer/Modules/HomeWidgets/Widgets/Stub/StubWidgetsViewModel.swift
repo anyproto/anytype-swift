@@ -92,14 +92,14 @@ final class StubWidgetsViewModel {
     }
 
     private func recalculateShowCreateHome() {
-        let canEdit = participantSpacesStorage.participantSpaceView(spaceId: spaceId)?.canEdit ?? false
+        let canSetHomepage = participantSpacesStorage.participantSpaceView(spaceId: spaceId)?.canSetHomepage ?? false
         let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
         let homepageEmpty = spaceView?.homepage == .empty
         let pickerDismissed = onboardingStorage.isHomepagePickerDismissed(spaceId: spaceId)
         let createHomeDismissed = onboardingStorage.isCreateHomeDismissed(spaceId: spaceId)
 
         showCreateHome = FeatureFlags.createChannelFlow
-            && canEdit
+            && canSetHomepage
             && homepageEmpty
             && pickerDismissed
             && !createHomeDismissed
