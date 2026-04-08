@@ -142,17 +142,6 @@
           }
         ]
       }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "Evaluate if Claude should stop. Context: $ARGUMENTS\n\nCheck if:\n1. All requested tasks are complete\n2. No test failures mentioned\n3. No TODO items left\n4. User wasn't asking for more\n\nRespond with {\"ok\": true} or {\"ok\": false, \"reason\": \"...\"}",
-            "timeout": 30
-          }
-        ]
-      }
     ]
   }
 }
