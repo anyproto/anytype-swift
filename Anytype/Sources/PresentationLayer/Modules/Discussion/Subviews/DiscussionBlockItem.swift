@@ -14,6 +14,8 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
     case file(id: Int, details: MessageAttachmentDetails)
     case linkObject(id: Int, details: MessageAttachmentDetails)
     case bookmark(id: Int, details: ObjectDetails)
+    case embed(id: Int, data: EmbedContentData)
+    case divider(id: Int)
     case unsupported(id: Int, blockName: String)
 
     var id: Int {
@@ -30,6 +32,8 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
              .file(let id, _),
              .linkObject(let id, _),
              .bookmark(let id, _),
+             .embed(let id, _),
+             .divider(let id),
              .unsupported(let id, _):
             return id
         }
@@ -46,7 +50,7 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
              .toggle(_, let content):
             let text = NSAttributedString(content).string
             return text.isEmpty ? nil : text
-        case .image, .video, .file, .linkObject, .bookmark, .unsupported:
+        case .image, .video, .file, .linkObject, .bookmark, .embed, .divider, .unsupported:
             return nil
         }
     }
