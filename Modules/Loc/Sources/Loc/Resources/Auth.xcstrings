@@ -1736,7 +1736,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Reveal and copy"
+            "value" : "Show key"
           }
         },
         "es" : {
@@ -9770,7 +9770,7 @@
         }
       }
     },
-    "Keychain.Show and copy key" : {
+    "Keychain.Show key" : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
@@ -9800,7 +9800,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show and copy key"
+            "value" : "Show key"
           }
         },
         "es" : {
@@ -9921,6 +9921,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "顯示並複製密鑰"
+          }
+        }
+      }
+    },
+    "Keychain.Copy key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy key"
           }
         }
       }
