@@ -45,7 +45,7 @@ public enum Loc {
             public static let title = Loc.tr("Auth", "Auth.JoinFlow.Key.Button.Saved.Title", fallback: "Next")
           }
           public enum Show {
-            public static let title = Loc.tr("Auth", "Auth.JoinFlow.Key.Button.Show.Title", fallback: "Reveal and copy")
+            public static let title = Loc.tr("Auth", "Auth.JoinFlow.Key.Button.Show.Title", fallback: "Show key")
           }
         }
         public enum ReadMore {
@@ -129,10 +129,11 @@ public enum Loc {
     }
   }
   public enum Keychain {
+    public static let copyKey = Loc.tr("Auth", "Keychain.Copy key", fallback: "Copy key")
     public static let haveYouBackedUpYourKey = Loc.tr("Auth", "Keychain.Have you backed up your key?", fallback: "Have you backed up your key?")
     public static let key = Loc.tr("Auth", "Keychain.Key", fallback: "Key")
     public static let seedPhrasePlaceholder = Loc.tr("Auth", "Keychain.SeedPhrasePlaceholder", fallback: "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair")
-    public static let showAndCopyKey = Loc.tr("Auth", "Keychain.Show and copy key", fallback: "Show and copy key")
+    public static let showKey = Loc.tr("Auth", "Keychain.Show key", fallback: "Show key")
     public enum Error {
       public static let dataToStringConversionError = Loc.tr("Auth", "Keychain.Error.Data to String conversion error", fallback: "Data to String conversion error")
       public static let stringToDataConversionError = Loc.tr("Auth", "Keychain.Error.String to Data conversion error", fallback: "String to Data conversion error")

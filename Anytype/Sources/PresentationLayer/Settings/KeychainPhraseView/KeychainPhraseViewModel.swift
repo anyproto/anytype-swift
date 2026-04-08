@@ -32,6 +32,8 @@ final class KeychainPhraseViewModel {
         Task {
             if recoveryPhrase.isNil {
                 try await obtainRecoveryPhrase()
+            } else {
+                copyPhrase()
             }
         }
     }
@@ -42,8 +44,6 @@ final class KeychainPhraseViewModel {
         try await localAuthWithContinuation { [weak self] in
             guard let self else { return }
             try obtainSeed()
-            onSuccessfullRecovery()
-            showToast()
         }
     }
     
@@ -63,12 +63,10 @@ final class KeychainPhraseViewModel {
         recoveryPhrase = try seedService.obtainSeed()
     }
     
-    private func onSuccessfullRecovery() {
+    func copyPhrase() {
+        guard let recoveryPhrase else { return }
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = recoveryPhrase
-    }
-    
-    private func showToast() {
         toastBarData = ToastBarData(Loc.Keychain.Key.Copy.Toast.title)
         AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
     }
