@@ -13,7 +13,10 @@ struct DiscussionBlockItemView: View {
 
     var body: some View {
         switch block {
-        case .text(_, let content):
+        case .text(_, let content),
+             .title(_, let content),
+             .heading(_, let content),
+             .subheading(_, let content):
             Text(content)
                 .padding(.vertical, 2)
         case .quote(_, let content):

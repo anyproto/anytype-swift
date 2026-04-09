@@ -47,9 +47,14 @@ extension ChatMessage {
                 }
 
                 switch textBlock.style {
-                case .paragraph, .description_, .title,
-                     .header1, .header2, .header3, .header4:
+                case .paragraph, .description_:
                     result.append(.text(id: index, content: content))
+                case .header1, .title:
+                    result.append(.title(id: index, content: content))
+                case .header2:
+                    result.append(.heading(id: index, content: content))
+                case .header3, .header4:
+                    result.append(.subheading(id: index, content: content))
                 case .quote:
                     result.append(.quote(id: index, content: content))
                 case .callout:

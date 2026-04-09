@@ -3,6 +3,9 @@ import Services
 
 enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
     case text(id: Int, content: AttributedString)
+    case title(id: Int, content: AttributedString)
+    case heading(id: Int, content: AttributedString)
+    case subheading(id: Int, content: AttributedString)
     case quote(id: Int, content: AttributedString)
     case callout(id: Int, content: AttributedString)
     case checkbox(id: Int, content: AttributedString, checked: Bool)
@@ -21,6 +24,9 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
     var id: Int {
         switch self {
         case .text(let id, _),
+             .title(let id, _),
+             .heading(let id, _),
+             .subheading(let id, _),
              .quote(let id, _),
              .callout(let id, _),
              .checkbox(let id, _, _),
@@ -42,6 +48,9 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
     var plainText: String? {
         switch self {
         case .text(_, let content),
+             .title(_, let content),
+             .heading(_, let content),
+             .subheading(_, let content),
              .quote(_, let content),
              .callout(_, let content),
              .checkbox(_, let content, _),
@@ -52,6 +61,27 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
             return text.isEmpty ? nil : text
         case .image, .video, .file, .linkObject, .bookmark, .embed, .divider, .unsupported:
             return nil
+        }
+    }
+
+    var topSpacing: CGFloat {
+        switch self {
+        case .title: return 20
+        case .heading: return 16
+        case .subheading: return 12
+        case .quote: return 12
+        case .text, .callout, .checkbox, .bulleted, .numbered, .toggle,
+             .image, .video, .file, .linkObject, .bookmark, .embed, .divider, .unsupported:
+            return 8
+        }
+    }
+
+    var bottomSpacing: CGFloat {
+        switch self {
+        case .quote: return 12
+        case .text, .title, .heading, .subheading, .callout, .checkbox, .bulleted, .numbered, .toggle,
+             .image, .video, .file, .linkObject, .bookmark, .embed, .divider, .unsupported:
+            return 0
         }
     }
 }
