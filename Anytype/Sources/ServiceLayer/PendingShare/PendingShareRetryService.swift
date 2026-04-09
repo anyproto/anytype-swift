@@ -67,10 +67,12 @@ actor PendingShareService: PendingShareServiceProtocol {
         // On retry, writers who were added before a partial failure will be safely skipped.
         if state.identities.isNotEmpty {
             let identityIds = state.identities.map(\.identity)
-            let writersLimit = spaceViewsStorage.spaceView(spaceId: spaceId)?.writersLimit ?? identityIds.count
+            let availableWriterSlots = spaceViewsStorage.spaceView(spaceId: spaceId)?.availableWriterSlots
+                ?? spaceViewsStorage.allSpaceViews.first(where: { $0.isShared })?.availableWriterSlots
+                ?? 0
 
-            let writerIds = Array(identityIds.prefix(writersLimit))
-            let readerIds = Array(identityIds.dropFirst(writersLimit))
+            let writerIds = Array(identityIds.prefix(availableWriterSlots))
+            let readerIds = Array(identityIds.dropFirst(availableWriterSlots))
 
             if writerIds.isNotEmpty {
                 do {

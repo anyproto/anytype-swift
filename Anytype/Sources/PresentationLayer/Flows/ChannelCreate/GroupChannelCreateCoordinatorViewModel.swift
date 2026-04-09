@@ -28,7 +28,7 @@ final class GroupChannelCreateCoordinatorViewModel {
         } else {
             selectMembersData = SelectMembersData(
                 contacts: contacts,
-                writersLimit: sharedSpaceView?.writersLimit,
+                writersLimit: sharedSpaceView?.availableWriterSlots,
                 readersLimit: sharedSpaceView?.readersLimit
             )
         }
