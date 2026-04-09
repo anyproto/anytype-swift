@@ -110,13 +110,13 @@ Note: heading styles (`.header1`/`.title`, `.header2`, `.header3`/`.header4`) al
 - Create: `Anytype/Sources/PresentationLayer/Modules/Discussion/Subviews/BlockViews/DiscussionNumberedBlockView.swift`
 - Create: `Anytype/Sources/PresentationLayer/Modules/Discussion/Subviews/BlockViews/DiscussionDividerBlockView.swift`
 
-- [ ] Create `DiscussionQuoteBlockView` — 4px bar width, `Color.Shape.transparentSecondary`, rounded corners 4px, 12px spacing from bar to text
-- [ ] Create `DiscussionCheckboxBlockView` — use `Image(asset: .System.checkboxChecked/Unchecked)`, 20x20 frame, 6px spacing, display-only
-- [ ] Create `DiscussionBulletedBlockView` — bullet "•" in 20x20 frame, 6px spacing, `Color.Text.secondary`
-- [ ] Create `DiscussionNumberedBlockView` — number in 20x20 frame, 6px spacing, `Color.Text.primary` for number
-- [ ] Create `DiscussionDividerBlockView` — 1px `Color.Shape.primary`, 9.5px vertical padding inside the view
-- [ ] Refactor `DiscussionBlockItemView` — keep text/heading/toggle/callout inline, delegate quote/checkbox/bulleted/numbered/divider to extracted views, remove all `.padding(.vertical, 2)`
-- [ ] Handle new `.title`, `.heading`, `.subheading` cases in the switch (render as `Text(content)` inline)
+- [x] Create `DiscussionQuoteBlockView` — 4px bar width, `Color.Shape.transparentSecondary`, rounded corners 4px, 12px spacing from bar to text
+- [x] Create `DiscussionCheckboxBlockView` — use `Image(asset: .System.checkboxChecked/Unchecked)`, 20x20 frame, 6px spacing, display-only
+- [x] Create `DiscussionBulletedBlockView` — bullet "•" in 20x20 frame, 6px spacing, `Color.Text.secondary`
+- [x] Create `DiscussionNumberedBlockView` — number in 20x20 frame, 6px spacing, `Color.Text.primary` for number
+- [x] Create `DiscussionDividerBlockView` — 1px `Color.Shape.primary`, 9.5px vertical padding inside the view
+- [x] Refactor `DiscussionBlockItemView` — keep text/heading/toggle/callout inline, delegate quote/checkbox/bulleted/numbered/divider to extracted views, remove all `.padding(.vertical, 2)`
+- [x] Handle new `.title`, `.heading`, `.subheading` cases in the switch (render as `Text(content)` inline)
 
 ### Task 4: Apply spacing in message container
 
