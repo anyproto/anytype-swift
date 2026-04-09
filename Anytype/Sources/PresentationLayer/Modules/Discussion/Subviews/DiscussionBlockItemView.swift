@@ -19,6 +19,7 @@ struct DiscussionBlockItemView: View {
              .subheading(_, let content),
              .toggle(_, let content):
             Text(content)
+                .frame(maxWidth: .infinity, alignment: .leading)
         case .callout(_, let content):
             Text(content)
                 .padding(8)

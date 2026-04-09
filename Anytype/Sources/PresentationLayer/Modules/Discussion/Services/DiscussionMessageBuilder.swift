@@ -54,7 +54,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
 
         for root in roots {
             if !isFirstRoot {
-                items.append(.discussionDivider(id: "divider-\(root.message.id)"))
+                items.append(.discussionDivider(id: "divider-\(root.message.id)", orderID: root.message.orderID))
             }
 
             let rootModel = buildMessageViewData(

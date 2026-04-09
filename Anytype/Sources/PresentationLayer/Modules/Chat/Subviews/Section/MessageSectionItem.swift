@@ -3,7 +3,7 @@ import Foundation
 enum MessageSectionItem: Equatable, Hashable, Identifiable {
     case message(_ data: MessageViewData)
     case unread(id: String, messageId: String, messageOrderId: String)
-    case discussionDivider(id: String)
+    case discussionDivider(id: String, orderID: String)
 
     var id: String {
         switch self {
@@ -11,7 +11,7 @@ enum MessageSectionItem: Equatable, Hashable, Identifiable {
             data.id
         case .unread(let id, _, _):
             id
-        case .discussionDivider(let id):
+        case .discussionDivider(let id, _):
             id
         }
     }
@@ -24,7 +24,7 @@ extension MessageSectionItem {
             return data.message.id
         case .unread(_, let messageId, _):
             return messageId
-        case .discussionDivider(let id):
+        case .discussionDivider(let id, _):
             return id
         }
     }
@@ -35,8 +35,8 @@ extension MessageSectionItem {
             return data.message.orderID
         case .unread(_, _, let messageOrderId):
             return messageOrderId
-        case .discussionDivider(let id):
-            return id
+        case .discussionDivider(_, let orderID):
+            return orderID
         }
     }
 }

@@ -169,6 +169,54 @@ struct DiscussionBlockMappingTests {
             Issue.record("Expected .text, got \(result[0])")
         }
     }
+
+    // MARK: - Numbered counter
+
+    @Test
+    func numberedBlocks_counterIncrementsSequentially() {
+        let blocks = [
+            makeTextBlock(text: "First", style: .numbered),
+            makeTextBlock(text: "Second", style: .numbered),
+            makeTextBlock(text: "Third", style: .numbered),
+        ]
+        let msg = makeChatMessage(blocks: blocks)
+
+        let result = msg.resolvedDiscussionBlocks(
+            spaceId: "space1",
+            position: .left,
+            textBuilder: textBuilder,
+            embedContentDataBuilder: embedBuilder
+        )
+
+        #expect(result.count == 3)
+        if case .numbered(_, _, let n1) = result[0] { #expect(n1 == 1) }
+        if case .numbered(_, _, let n2) = result[1] { #expect(n2 == 2) }
+        if case .numbered(_, _, let n3) = result[2] { #expect(n3 == 3) }
+    }
+
+    @Test
+    func numberedBlocks_counterResetsAfterNonNumbered() {
+        let blocks = [
+            makeTextBlock(text: "First", style: .numbered),
+            makeTextBlock(text: "Second", style: .numbered),
+            makeTextBlock(text: "Break", style: .paragraph),
+            makeTextBlock(text: "Restart", style: .numbered),
+        ]
+        let msg = makeChatMessage(blocks: blocks)
+
+        let result = msg.resolvedDiscussionBlocks(
+            spaceId: "space1",
+            position: .left,
+            textBuilder: textBuilder,
+            embedContentDataBuilder: embedBuilder
+        )
+
+        #expect(result.count == 4)
+        if case .numbered(_, _, let n1) = result[0] { #expect(n1 == 1) }
+        if case .numbered(_, _, let n2) = result[1] { #expect(n2 == 2) }
+        if case .text = result[2] { /* pass */ } else { Issue.record("Expected .text") }
+        if case .numbered(_, _, let n3) = result[3] { #expect(n3 == 1) }
+    }
 }
 
 // MARK: - Stubs

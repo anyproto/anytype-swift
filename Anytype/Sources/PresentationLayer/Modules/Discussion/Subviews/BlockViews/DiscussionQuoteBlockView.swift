@@ -10,6 +10,8 @@ struct DiscussionQuoteBlockView: View {
                 .fill(Color.Shape.transparentSecondary)
                 .frame(width: 4)
             Text(content)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .frame(minHeight: 22)
     }
 }
