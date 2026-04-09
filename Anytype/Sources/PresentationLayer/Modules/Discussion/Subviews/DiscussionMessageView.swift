@@ -68,7 +68,9 @@ struct DiscussionMessageView: View {
     private var messageInnerContent: some View {
         VStack(alignment: .leading, spacing: 0) {
             header
+            Spacer.fixedHeight(8)
             messageContent
+            Spacer.fixedHeight(8)
             reactions
         }
     }
@@ -123,7 +125,7 @@ struct DiscussionMessageView: View {
         let blocks = data.discussionBlocks
         let paddings = DiscussionBlockSpacing.topPaddings(for: blocks)
 
-        ForEach(Array(zip(blocks.indices, blocks)), id: \.1.id) { index, block in
+        ForEach(Array(blocks.enumerated()), id: \.element.id) { index, block in
             DiscussionBlockItemView(block: block) { attachmentId in
                 if let objectDetails = data.attachmentsDetails.first(where: { $0.id == attachmentId }) {
                     let details = MessageAttachmentDetails(details: objectDetails)

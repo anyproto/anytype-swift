@@ -70,8 +70,8 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
         case .heading: return 16
         case .subheading: return 12
         case .quote: return 12
-        case .text, .callout, .checkbox, .bulleted, .numbered, .toggle,
-             .image, .video, .file, .linkObject, .bookmark, .embed, .divider, .unsupported:
+        case .checkbox, .bulleted, .numbered: return 12
+        case .text, .callout, .toggle, .image, .video, .file, .linkObject, .bookmark, .embed, .divider, .unsupported:
             return 8
         }
     }
@@ -99,7 +99,7 @@ extension [DiscussionBlockItem] {
 // MARK: - Spacing calculation
 
 enum DiscussionBlockSpacing {
-    static let firstBlockTopSpacing: CGFloat = 8
+    static let firstBlockTopSpacing: CGFloat = 0
 
     /// Computes the top padding for each block in a sequence.
     /// - First block (index 0) always gets `firstBlockTopSpacing` (8).

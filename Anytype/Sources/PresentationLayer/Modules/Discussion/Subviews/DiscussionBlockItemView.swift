@@ -16,10 +16,18 @@ struct DiscussionBlockItemView: View {
         case .text(_, let content),
              .title(_, let content),
              .heading(_, let content),
-             .subheading(_, let content),
-             .toggle(_, let content):
+             .subheading(_, let content):
             Text(content)
                 .frame(maxWidth: .infinity, alignment: .leading)
+        case .toggle(_, let content):
+            HStack(alignment: .top, spacing: 6) {
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(Color.Text.secondary)
+                    .font(.caption)
+                    .frame(width: 20, height: 20)
+                Text(content)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
         case .callout(_, let content):
             Text(content)
                 .padding(8)

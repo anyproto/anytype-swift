@@ -11,16 +11,13 @@ struct DiscussionThreadGrouper {
     /// Returns nil if the chain is broken (orphan) or cyclic.
     /// Uses `rootCache` to memoize results — all intermediate nodes in a resolved
     /// chain are cached so subsequent lookups are O(1).
-    /// Sentinel value cached for orphan/cycle chains to avoid re-traversal.
-    private static let orphanSentinel = ""
-
     private func findRootParentId(
         messageId: String,
         messageById: [String: FullChatMessage],
         rootCache: inout [String: String]
     ) -> String? {
         if let cached = rootCache[messageId] {
-            return cached == Self.orphanSentinel ? nil : cached
+            return cached
         }
 
         var currentId = messageId
@@ -30,26 +27,20 @@ struct DiscussionThreadGrouper {
         while true {
             if let cached = rootCache[currentId] {
                 for id in chain { rootCache[id] = cached }
-                return cached == Self.orphanSentinel ? nil : cached
+                return cached
             }
 
             guard let current = messageById[currentId] else {
-                // Parent not in loaded set — orphan; cache to avoid re-traversal
-                for id in chain { rootCache[id] = Self.orphanSentinel }
                 return nil
             }
 
             let parentId = current.message.replyToMessageID
             if parentId.isEmpty {
-                // Reached a root message — cache for entire chain
                 for id in chain { rootCache[id] = currentId }
                 return currentId
             }
 
             if visited.contains(parentId) {
-                // Cycle detected — cache to avoid re-traversal
-                for id in chain { rootCache[id] = Self.orphanSentinel }
-                visited.forEach { rootCache[$0] = Self.orphanSentinel }
                 return nil
             }
             visited.insert(currentId)

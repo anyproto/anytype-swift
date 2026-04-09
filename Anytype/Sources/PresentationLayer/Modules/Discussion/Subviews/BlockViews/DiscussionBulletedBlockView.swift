@@ -8,7 +8,7 @@ struct DiscussionBulletedBlockView: View {
         HStack(alignment: .top, spacing: 6) {
             Text("\u{2022}")
                 .anytypeStyle(.calloutRegular)
-                .foregroundStyle(Color.Text.secondary)
+                .foregroundStyle(Color.Control.primary)
                 .frame(width: 20, height: 20)
             Text(content)
                 .frame(maxWidth: .infinity, alignment: .leading)
