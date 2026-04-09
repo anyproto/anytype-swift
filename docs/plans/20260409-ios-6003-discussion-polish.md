@@ -172,15 +172,15 @@ Approach: Add an environment value for unselected reaction background color. Dis
 
 ### Task 7: Verify and clean up
 
-- [ ] Verify all heading styles match Figma: title 28/32, heading 22/26, subheading 17/24
-- [ ] Verify body text is 15px in discussions
-- [ ] Verify links have accent color and no underline
-- [ ] Verify blockquote has 4px bar with correct color and 12px spacing
-- [ ] Verify checkbox uses design system assets
-- [ ] Verify reactions use correct backgrounds
-- [ ] Verify message dividers render correctly between root comments
-- [ ] Verify spacing between blocks matches Figma specs
-- [ ] Clean up any unused imports or dead code
+- [x] Verify all heading styles match Figma: title 28/32, heading 22/26, subheading 17/24
+- [x] Verify body text is 15px in discussions
+- [x] Verify links have accent color and no underline
+- [x] Verify blockquote has 4px bar with correct color and 12px spacing
+- [x] Verify checkbox uses design system assets
+- [x] Verify reactions use correct backgrounds
+- [x] Verify message dividers render correctly between root comments
+- [x] Verify spacing between blocks matches Figma specs
+- [x] Clean up any unused imports or dead code
 
 ## Post-Completion
 
