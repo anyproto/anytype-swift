@@ -11,6 +11,8 @@ struct MessageReactionView: View {
     
     @Environment(\.messageYourBackgroundColor)
     private var messageYourBackgroundColor
+    @Environment(\.messageReactionUnselectedColor)
+    private var messageReactionUnselectedColor
     
     var body: some View {
         AsyncButton {
@@ -34,7 +36,7 @@ struct MessageReactionView: View {
             .dynamicTypeSize(.large)
             .frame(height: 28)
             .padding(.horizontal, 8)
-            .background(model.selected ? messageYourBackgroundColor : Color.Background.Chat.bubbleSomeones)
+            .background(model.selected ? messageYourBackgroundColor : messageReactionUnselectedColor)
             .clipShape(.rect(cornerRadius: 20))
         }
         .simultaneousGesture(

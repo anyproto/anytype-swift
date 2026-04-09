@@ -22,6 +22,7 @@ struct DiscussionView: View {
             mainView
                 .ignoresSafeArea()
         }
+        .messageReactionUnselectedColor(Color.Shape.transparentSecondary)
         .overlay(alignment: .top) {
             DiscussionHeaderView(
                 objectName: model.objectName,

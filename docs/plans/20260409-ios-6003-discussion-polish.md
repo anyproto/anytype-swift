@@ -138,11 +138,11 @@ Note: heading styles (`.header1`/`.title`, `.header2`, `.header3`/`.header4`) al
 
 Approach: Add an environment value for unselected reaction background color. Discussion parent sets it to `Color.Shape.transparentSecondary`. Chat keeps existing default.
 
-- [ ] Add `messageReactionUnselectedColor` environment key in `MessageColor.swift` (alongside existing `messageYourBackgroundColor`) with default `Color.Background.Chat.bubbleSomeones`
-- [ ] Add convenience View extension method following same pattern as `messageYourBackgroundColor(_:)`
-- [ ] In `MessageReactionView`, read the environment value and use it for unselected background
-- [ ] In Discussion parent view, set `.messageReactionUnselectedColor(Color.Shape.transparentSecondary)`
-- [ ] Verify chat reaction styling is unaffected (uses default)
+- [x] Add `messageReactionUnselectedColor` environment key in `MessageColor.swift` (alongside existing `messageYourBackgroundColor`) with default `Color.Background.Chat.bubbleSomeones`
+- [x] Add convenience View extension method following same pattern as `messageYourBackgroundColor(_:)`
+- [x] In `MessageReactionView`, read the environment value and use it for unselected background
+- [x] In Discussion parent view, set `.messageReactionUnselectedColor(Color.Shape.transparentSecondary)`
+- [x] Verify chat reaction styling is unaffected (uses default) (skipped - manual verification, not automatable)
 
 ### Task 6: Decouple message divider from MessageViewData
 
