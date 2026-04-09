@@ -27,7 +27,6 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let canEdit: Bool
     let showMessageSyncIndicator: Bool
     let isMember: Bool
-    let showTopDivider: Bool
     let isReply: Bool
     let isLastReply: Bool
 

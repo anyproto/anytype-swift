@@ -156,19 +156,19 @@ Approach: Add an environment value for unselected reaction background color. Dis
 - Modify: `Anytype/Sources/PresentationLayer/Modules/Chat/Services/ChatMessageBuilder.swift` (remove showTopDivider param)
 - Modify: `AnyTypeTests/Discussion/DiscussionMessageBuilderThreadingTests.swift`
 
-- [ ] Add `.discussionDivider(id: String)` case to `MessageSectionItem` enum
-- [ ] Update `MessageSectionItem.id` for new case (return the id string)
-- [ ] Update `messageId` and `messageOrderId` — return the id string for `.discussionDivider` (divider is not a message, but these properties are used for scroll positioning; returning its own id is safe)
-- [ ] Add no-op handler in `ChatView.swift` cell builder: `case .discussionDivider: EmptyView()`
-- [ ] In `DiscussionMessageBuilder`, insert `.discussionDivider` items between root messages instead of setting `showTopDivider: true`
-- [ ] Remove `showTopDivider` from `MessageViewData` — Chat always passes `false`, safe to remove
-- [ ] Remove `showTopDivider` parameter from `buildMessageViewData` in both `DiscussionMessageBuilder` and `ChatMessageBuilder`
-- [ ] Remove divider rendering from `DiscussionMessageView.messageBody`
-- [ ] Create `DiscussionMessageDividerView` — full-width, 1px `Color.Shape.secondary`, 12px vertical padding (12+1+12 = 25px total)
-- [ ] Add divider cell rendering in `DiscussionView` for `.discussionDivider` case using `DiscussionMessageDividerView`
-- [ ] Update `extractMessageViewDataItems` test helper to also handle `.discussionDivider` (or create a new helper that preserves both `.message` and `.discussionDivider` items for interleaving verification)
-- [ ] Update `DiscussionMessageBuilderThreadingTests` to verify divider items are inserted between root messages
-- [ ] Write test verifying no divider before first root message
+- [x] Add `.discussionDivider(id: String)` case to `MessageSectionItem` enum
+- [x] Update `MessageSectionItem.id` for new case (return the id string)
+- [x] Update `messageId` and `messageOrderId` — return the id string for `.discussionDivider` (divider is not a message, but these properties are used for scroll positioning; returning its own id is safe)
+- [x] Add no-op handler in `ChatView.swift` cell builder: `case .discussionDivider: EmptyView()`
+- [x] In `DiscussionMessageBuilder`, insert `.discussionDivider` items between root messages instead of setting `showTopDivider: true`
+- [x] Remove `showTopDivider` from `MessageViewData` — Chat always passes `false`, safe to remove
+- [x] Remove `showTopDivider` parameter from `buildMessageViewData` in both `DiscussionMessageBuilder` and `ChatMessageBuilder`
+- [x] Remove divider rendering from `DiscussionMessageView.messageBody`
+- [x] Create `DiscussionMessageDividerView` — full-width, 1px `Color.Shape.secondary`, 12px vertical padding (12+1+12 = 25px total)
+- [x] Add divider cell rendering in `DiscussionView` for `.discussionDivider` case using `DiscussionMessageDividerView`
+- [x] Update `extractMessageViewDataItems` test helper to also handle `.discussionDivider` (or create a new helper that preserves both `.message` and `.discussionDivider` items for interleaving verification)
+- [x] Update `DiscussionMessageBuilderThreadingTests` to verify divider items are inserted between root messages
+- [x] Write test verifying no divider before first root message
 
 ### Task 7: Verify and clean up
 

@@ -44,10 +44,6 @@ struct DiscussionMessageView: View {
 
     private var messageBody: some View {
         VStack(alignment: .leading, spacing: 0) {
-            if data.showTopDivider {
-                Divider()
-                    .foregroundStyle(Color.Shape.tertiary)
-            }
             if data.isReply {
                 HStack(alignment: .top, spacing: 0) {
                     Rectangle()

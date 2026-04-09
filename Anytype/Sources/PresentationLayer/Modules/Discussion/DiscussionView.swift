@@ -200,6 +200,8 @@ struct DiscussionView: View {
             DiscussionMessageView(data: data, output: model)
         case .unread:
             EmptyView()
+        case .discussionDivider:
+            DiscussionMessageDividerView()
         }
     }
 }

@@ -328,6 +328,12 @@ struct DiscussionMessageBuilderThreadingTests {
         }
     }
 
+    private func extractAllSectionItems(
+        from sections: [MessageSectionData]
+    ) -> [MessageSectionItem] {
+        sections.flatMap(\.items)
+    }
+
     // MARK: - isReply Flag
 
     @Test
@@ -349,10 +355,10 @@ struct DiscussionMessageBuilderThreadingTests {
         #expect(items[1].isReply == true)
     }
 
-    // MARK: - showTopDivider
+    // MARK: - Discussion Dividers
 
     @Test
-    func showTopDivider_falseForReplies_trueForNonFirstRoots() async {
+    func discussionDivider_insertedBetweenRoots_notBeforeFirst() async {
         let builder = DiscussionMessageBuilder(spaceId: "space1", chatId: "chat1")
 
         let root1 = makeMessage(id: "root1", orderID: "001")
@@ -365,14 +371,54 @@ struct DiscussionMessageBuilderThreadingTests {
             limits: makeLimits()
         )
 
-        let items = extractMessageViewDataItems(from: sections)
-        #expect(items.count == 3)
-        // First root: showTopDivider = false
-        #expect(items[0].showTopDivider == false)
-        // Reply: showTopDivider = false
-        #expect(items[1].showTopDivider == false)
-        // Second root: showTopDivider = true
-        #expect(items[2].showTopDivider == true)
+        let allItems = extractAllSectionItems(from: sections)
+        // Expected: message(root1), message(r1), divider, message(root2)
+        #expect(allItems.count == 4)
+        #expect(allItems[0].isMessage(id: "root1"))
+        #expect(allItems[1].isMessage(id: "r1"))
+        #expect(allItems[2].isDivider)
+        #expect(allItems[3].isMessage(id: "root2"))
+    }
+
+    @Test
+    func discussionDivider_noDividerBeforeFirstRoot() async {
+        let builder = DiscussionMessageBuilder(spaceId: "space1", chatId: "chat1")
+
+        let root1 = makeMessage(id: "root1", orderID: "001")
+
+        let sections = await builder.makeMessage(
+            messages: [root1],
+            participants: [],
+            limits: makeLimits()
+        )
+
+        let allItems = extractAllSectionItems(from: sections)
+        #expect(allItems.count == 1)
+        #expect(allItems[0].isMessage(id: "root1"))
+    }
+
+    @Test
+    func discussionDivider_multipleRoots_dividerBetweenEach() async {
+        let builder = DiscussionMessageBuilder(spaceId: "space1", chatId: "chat1")
+
+        let root1 = makeMessage(id: "root1", orderID: "001")
+        let root2 = makeMessage(id: "root2", orderID: "002")
+        let root3 = makeMessage(id: "root3", orderID: "003")
+
+        let sections = await builder.makeMessage(
+            messages: [root1, root2, root3],
+            participants: [],
+            limits: makeLimits()
+        )
+
+        let allItems = extractAllSectionItems(from: sections)
+        // Expected: message(root1), divider, message(root2), divider, message(root3)
+        #expect(allItems.count == 5)
+        #expect(allItems[0].isMessage(id: "root1"))
+        #expect(allItems[1].isDivider)
+        #expect(allItems[2].isMessage(id: "root2"))
+        #expect(allItems[3].isDivider)
+        #expect(allItems[4].isMessage(id: "root3"))
     }
 
     // MARK: - Full flat list ordering with multiple threads
@@ -467,6 +513,22 @@ struct DiscussionMessageBuilderThreadingTests {
         #expect(items[0].reply == nil)
         #expect(items[1].replyModel == nil)
         #expect(items[1].reply == nil)
+    }
+}
+
+// MARK: - MessageSectionItem Test Helpers
+
+extension MessageSectionItem {
+    fileprivate func isMessage(id expectedId: String) -> Bool {
+        if case .message(let data) = self {
+            return data.message.id == expectedId
+        }
+        return false
+    }
+
+    fileprivate var isDivider: Bool {
+        if case .discussionDivider = self { return true }
+        return false
     }
 }
 
