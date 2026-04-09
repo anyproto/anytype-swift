@@ -95,3 +95,22 @@ extension [DiscussionBlockItem] {
         contains { $0.plainText != nil }
     }
 }
+
+// MARK: - Spacing calculation
+
+enum DiscussionBlockSpacing {
+    static let firstBlockTopSpacing: CGFloat = 8
+
+    /// Computes the top padding for each block in a sequence.
+    /// - First block (index 0) always gets `firstBlockTopSpacing` (8).
+    /// - Subsequent blocks get `max(block.topSpacing, previousBlock.bottomSpacing)`.
+    static func topPaddings(for blocks: [DiscussionBlockItem]) -> [CGFloat] {
+        blocks.enumerated().map { index, block in
+            if index == 0 {
+                return firstBlockTopSpacing
+            }
+            let previous = blocks[index - 1]
+            return max(block.topSpacing, previous.bottomSpacing)
+        }
+    }
+}

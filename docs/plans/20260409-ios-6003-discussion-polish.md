@@ -123,11 +123,11 @@ Note: heading styles (`.header1`/`.title`, `.header2`, `.header3`/`.header4`) al
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Modules/Discussion/Subviews/DiscussionMessageView.swift`
 
-- [ ] Replace `ForEach(data.discussionBlocks)` with indexed iteration that tracks previous block
-- [ ] Apply `padding(.top, ...)` using `max(block.topSpacing, previousBlock?.bottomSpacing ?? 0)` for each block
-- [ ] First block always gets `topSpacing` 8 value
-- [ ] Remove any existing vertical padding from the ForEach area
-- [ ] Write tests for spacing calculation logic: verify `max(topSpacing, prevBottomSpacing)` produces correct values for sequences like text→quote→text, text→title→bullet
+- [x] Replace `ForEach(data.discussionBlocks)` with indexed iteration that tracks previous block
+- [x] Apply `padding(.top, ...)` using `max(block.topSpacing, previousBlock?.bottomSpacing ?? 0)` for each block
+- [x] First block always gets `topSpacing` 8 value
+- [x] Remove any existing vertical padding from the ForEach area
+- [x] Write tests for spacing calculation logic: verify `max(topSpacing, prevBottomSpacing)` produces correct values for sequences like text→quote→text, text→title→bullet
 
 ### Task 5: Fix reaction unselected background for discussions
 
