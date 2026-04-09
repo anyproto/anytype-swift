@@ -31,16 +31,19 @@ struct DiscussionThreadGrouper {
             }
 
             guard let current = messageById[currentId] else {
+                // Parent not in loaded set — orphan
                 return nil
             }
 
             let parentId = current.message.replyToMessageID
             if parentId.isEmpty {
+                // Reached a root message — cache for entire chain
                 for id in chain { rootCache[id] = currentId }
                 return currentId
             }
 
             if visited.contains(parentId) {
+                // Cycle detected
                 return nil
             }
             visited.insert(currentId)
