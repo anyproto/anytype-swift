@@ -138,6 +138,12 @@ extension SpaceView {
         chatId.isNotEmpty
     }
     
+    /// Available writer slots for new members, accounting for the owner occupying one seat.
+    /// Returns nil when the tier limit is unknown.
+    var availableWriterSlots: Int? {
+        writersLimit.map { max(0, $0 - 1) }
+    }
+
     func canAddWriters(participants: [Participant]) -> Bool {
         guard let writersLimit else { return true }
         return writersLimit > activeWriters(participants: participants)
