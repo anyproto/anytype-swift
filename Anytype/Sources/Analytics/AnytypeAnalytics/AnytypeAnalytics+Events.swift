@@ -1623,6 +1623,36 @@ extension AnytypeAnalytics {
         )
     }
 
+    func logStartDiscussion(hasMention: Bool, hasAttachments: Bool) {
+        logEvent(
+            "StartDiscussion",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.hasMention: hasMention,
+                AnalyticsEventsPropertiesKey.hasAttachments: hasAttachments
+            ]
+        )
+    }
+
+    func logPostDiscussion(hasMention: Bool, hasAttachments: Bool) {
+        logEvent(
+            "PostDiscussion",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.hasMention: hasMention,
+                AnalyticsEventsPropertiesKey.hasAttachments: hasAttachments
+            ]
+        )
+    }
+
+    func logReplyDiscussion(hasMention: Bool, hasAttachments: Bool) {
+        logEvent(
+            "ReplyDiscussion",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.hasMention: hasMention,
+                AnalyticsEventsPropertiesKey.hasAttachments: hasAttachments
+            ]
+        )
+    }
+
     func logOpenChatByPush() {
         logEvent("OpenChatByPush")
     }
