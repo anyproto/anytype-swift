@@ -325,6 +325,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             clearInput()
         } else if discussionMessageLimits.canSendMessage() {
             do {
+                let isFirstComment = chatId == nil
                 let resolvedChatId = try await createDiscussionIfNeeded()
                 let messageId = try await chatActionService.createMessage(
                     chatId: resolvedChatId,
@@ -334,8 +335,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
                     replyToMessageId: replyToMessage?.id,
                     useBlocksFormat: true
                 )
-                let type: SentMessageType = linkedObjects.isNotEmpty ? (message.string.isNotEmpty ? .mixed : .attachment) : .text
-                AnytypeAnalytics.instance().logSentMessage(type: type, chatId: resolvedChatId)
+                logDiscussionAnalytics(isFirstComment: isFirstComment)
                 collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
                 discussionMessageLimits.markSentMessage()
                 clearInput()
@@ -350,6 +350,25 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         loadingTask.cancel()
         sendButtonIsLoading = false
         sendMessageTaskInProgress = false
+    }
+
+    private func logDiscussionAnalytics(isFirstComment: Bool) {
+        var hasMention = false
+        message.enumerateAttribute(.chatMention, in: NSRange(location: 0, length: message.length)) { value, _, stop in
+            if value != nil {
+                hasMention = true
+                stop.pointee = true
+            }
+        }
+        let hasAttachments = linkedObjects.isNotEmpty
+        if replyToMessage != nil {
+            AnytypeAnalytics.instance().logReplyDiscussion(hasMention: hasMention, hasAttachments: hasAttachments)
+        } else {
+            if isFirstComment {
+                AnytypeAnalytics.instance().logStartDiscussion(hasMention: hasMention, hasAttachments: hasAttachments)
+            }
+            AnytypeAnalytics.instance().logPostDiscussion(hasMention: hasMention, hasAttachments: hasAttachments)
+        }
     }
 
     func onTapRemoveLinkedObject(linkedObject: ChatLinkedObject) {
