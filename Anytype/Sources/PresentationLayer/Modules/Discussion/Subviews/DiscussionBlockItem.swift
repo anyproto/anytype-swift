@@ -3,6 +3,9 @@ import Services
 
 enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
     case text(id: Int, content: AttributedString)
+    case title(id: Int, content: AttributedString)
+    case heading(id: Int, content: AttributedString)
+    case subheading(id: Int, content: AttributedString)
     case quote(id: Int, content: AttributedString)
     case callout(id: Int, content: AttributedString)
     case checkbox(id: Int, content: AttributedString, checked: Bool)
@@ -21,6 +24,9 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
     var id: Int {
         switch self {
         case .text(let id, _),
+             .title(let id, _),
+             .heading(let id, _),
+             .subheading(let id, _),
              .quote(let id, _),
              .callout(let id, _),
              .checkbox(let id, _, _),
@@ -42,6 +48,9 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
     var plainText: String? {
         switch self {
         case .text(_, let content),
+             .title(_, let content),
+             .heading(_, let content),
+             .subheading(_, let content),
              .quote(_, let content),
              .callout(_, let content),
              .checkbox(_, let content, _),
@@ -54,6 +63,27 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
             return nil
         }
     }
+
+    var topSpacing: CGFloat {
+        switch self {
+        case .title: return 20
+        case .heading: return 16
+        case .subheading: return 12
+        case .quote: return 12
+        case .checkbox, .bulleted, .numbered: return 12
+        case .text, .callout, .toggle, .image, .video, .file, .linkObject, .bookmark, .embed, .divider, .unsupported:
+            return 8
+        }
+    }
+
+    var bottomSpacing: CGFloat {
+        switch self {
+        case .quote: return 12
+        case .text, .title, .heading, .subheading, .callout, .checkbox, .bulleted, .numbered, .toggle,
+             .image, .video, .file, .linkObject, .bookmark, .embed, .divider, .unsupported:
+            return 0
+        }
+    }
 }
 
 extension [DiscussionBlockItem] {
@@ -63,5 +93,33 @@ extension [DiscussionBlockItem] {
 
     var hasContent: Bool {
         contains { $0.plainText != nil }
+    }
+}
+
+// MARK: - Block with padding
+
+struct DiscussionBlockWithPadding: Equatable, Hashable, Identifiable {
+    let block: DiscussionBlockItem
+    let topPadding: CGFloat
+
+    var id: Int { block.id }
+
+    static func buildFrom(blocks: [DiscussionBlockItem]) -> [DiscussionBlockWithPadding] {
+        blocks.enumerated().map { index, block in
+            let padding: CGFloat = index == 0
+                ? 0
+                : max(block.topSpacing, blocks[index - 1].bottomSpacing)
+            return DiscussionBlockWithPadding(block: block, topPadding: padding)
+        }
+    }
+}
+
+extension [DiscussionBlockWithPadding] {
+    var plainText: String {
+        map(\.block).plainText
+    }
+
+    var hasContent: Bool {
+        map(\.block).hasContent
     }
 }

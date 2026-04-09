@@ -44,10 +44,6 @@ struct DiscussionMessageView: View {
 
     private var messageBody: some View {
         VStack(alignment: .leading, spacing: 0) {
-            if data.showTopDivider {
-                Divider()
-                    .foregroundStyle(Color.Shape.tertiary)
-            }
             if data.isReply {
                 HStack(alignment: .top, spacing: 0) {
                     Rectangle()
@@ -72,8 +68,9 @@ struct DiscussionMessageView: View {
     private var messageInnerContent: some View {
         VStack(alignment: .leading, spacing: 0) {
             header
-                .padding(.bottom, 8)
+            Spacer.fixedHeight(8)
             messageContent
+            Spacer.fixedHeight(8)
             reactions
         }
     }
@@ -125,14 +122,16 @@ struct DiscussionMessageView: View {
     private var messageContent: some View {
         linkedObjectsForTop
 
-        ForEach(data.discussionBlocks) { block in
-            DiscussionBlockItemView(block: block) { attachmentId in
+        ForEach(data.discussionBlocks) { item in
+            DiscussionBlockItemView(block: item.block) { attachmentId in
                 if let objectDetails = data.attachmentsDetails.first(where: { $0.id == attachmentId }) {
                     let details = MessageAttachmentDetails(details: objectDetails)
                     output?.didSelectAttachment(data: data, details: details)
                 }
             }
+            .padding(.top, item.topPadding)
         }
+        .tint(Color.Control.accent100)
 
         linkedObjectsForBottom
     }

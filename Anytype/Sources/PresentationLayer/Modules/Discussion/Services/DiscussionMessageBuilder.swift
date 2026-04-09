@@ -53,6 +53,10 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         var isFirstRoot = true
 
         for root in roots {
+            if !isFirstRoot {
+                items.append(.discussionDivider(id: "divider-\(root.message.id)"))
+            }
+
             let rootModel = buildMessageViewData(
                 fullMessage: root,
                 participantByIdentity: participantByIdentity,
@@ -60,8 +64,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                 canEdit: canEdit,
                 limits: limits,
                 isReply: false,
-                isLastReply: false,
-                showTopDivider: !isFirstRoot
+                isLastReply: false
             )
             items.append(.message(rootModel))
             isFirstRoot = false
@@ -76,8 +79,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                         canEdit: canEdit,
                         limits: limits,
                         isReply: true,
-                        isLastReply: index == replies.count - 1,
-                        showTopDivider: false
+                        isLastReply: index == replies.count - 1
                     )
                     items.append(.message(replyModel))
                 }
@@ -100,8 +102,7 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
         canEdit: Bool,
         limits: any ChatMessageLimitsProtocol,
         isReply: Bool,
-        isLastReply: Bool,
-        showTopDivider: Bool
+        isLastReply: Bool
     ) -> MessageViewData {
         let message = fullMessage.message
         let isYourMessage = message.creator == yourProfileIdentity
@@ -116,12 +117,14 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             authorId: authorParticipant?.id,
             timestampLabel: makeTimestampLabel(message: message),
             messageString: AttributedString(),
-            discussionBlocks: message.resolvedDiscussionBlocks(
-                spaceId: spaceId,
-                position: position,
-                textBuilder: discussionTextBuilder,
-                embedContentDataBuilder: embedContentDataBuilder,
-                attachmentDetails: Dictionary(fullMessage.attachments.map { ($0.id, $0) }, uniquingKeysWith: { _, last in last })
+            discussionBlocks: DiscussionBlockWithPadding.buildFrom(
+                blocks: message.resolvedDiscussionBlocks(
+                    spaceId: spaceId,
+                    position: position,
+                    textBuilder: discussionTextBuilder,
+                    embedContentDataBuilder: embedContentDataBuilder,
+                    attachmentDetails: Dictionary(fullMessage.attachments.map { ($0.id, $0) }, uniquingKeysWith: { _, last in last })
+                )
             ),
             replyModel: nil,
             position: position,
@@ -142,7 +145,6 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             canEdit: isYourMessage && canEdit,
             showMessageSyncIndicator: isYourMessage,
             isMember: authorParticipant?.globalName.isNotEmpty ?? false,
-            showTopDivider: showTopDivider,
             isReply: isReply,
             isLastReply: isLastReply,
             message: message,

@@ -110,7 +110,6 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 canEdit: isYourMessage && canEdit,
                 showMessageSyncIndicator: isYourMessage,
                 isMember: false,
-                showTopDivider: false,
                 isReply: false,
                 isLastReply: false,
                 message: message,

@@ -22,6 +22,8 @@ struct DiscussionView: View {
             mainView
                 .ignoresSafeArea()
         }
+        .messageReactionSelectedColor(Color.Control.accent100)
+        .messageReactionUnselectedColor(Color.Shape.transparentSecondary)
         .overlay(alignment: .top) {
             DiscussionHeaderView(
                 objectName: model.objectName,
@@ -199,6 +201,8 @@ struct DiscussionView: View {
             DiscussionMessageView(data: data, output: model)
         case .unread:
             EmptyView()
+        case .discussionDivider:
+            DiscussionMessageDividerView()
         }
     }
 }

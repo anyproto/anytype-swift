@@ -12,7 +12,7 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let authorId: String?
     let timestampLabel: String
     let messageString: AttributedString
-    let discussionBlocks: [DiscussionBlockItem]
+    let discussionBlocks: [DiscussionBlockWithPadding]
     let replyModel: MessageReplyModel?
     let position: MessageHorizontalPosition
     let linkedObjects: MessageLinkedObjectsLayout?
@@ -27,7 +27,6 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let canEdit: Bool
     let showMessageSyncIndicator: Bool
     let isMember: Bool
-    let showTopDivider: Bool
     let isReply: Bool
     let isLastReply: Bool
 

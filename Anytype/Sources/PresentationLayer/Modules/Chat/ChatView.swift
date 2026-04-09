@@ -216,6 +216,8 @@ struct ChatView: View {
             MessageView(data: data, output: model)
         case .unread:
             ChatMessageUnreadView()
+        case .discussionDivider:
+            EmptyView()
         }
     }
 }
