@@ -44,21 +44,21 @@ struct DiscussionBlockItemSpacingTests {
     }
 
     @Test
-    func topSpacing_checkbox_is8() {
+    func topSpacing_checkbox_is12() {
         let item = DiscussionBlockItem.checkbox(id: 0, content: AttributedString("Check"), checked: false)
-        #expect(item.topSpacing == 8)
+        #expect(item.topSpacing == 12)
     }
 
     @Test
-    func topSpacing_bulleted_is8() {
+    func topSpacing_bulleted_is12() {
         let item = DiscussionBlockItem.bulleted(id: 0, content: AttributedString("Bullet"))
-        #expect(item.topSpacing == 8)
+        #expect(item.topSpacing == 12)
     }
 
     @Test
-    func topSpacing_numbered_is8() {
+    func topSpacing_numbered_is12() {
         let item = DiscussionBlockItem.numbered(id: 0, content: AttributedString("Num"), number: 1)
-        #expect(item.topSpacing == 8)
+        #expect(item.topSpacing == 12)
     }
 
     @Test
