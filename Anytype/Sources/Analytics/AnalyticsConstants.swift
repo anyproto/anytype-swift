@@ -52,6 +52,7 @@ enum AnalyticsEventsPropertiesKey {
     static let relationKey = "relationKey"
     static let unreadMessageCount = "unreadMessageCount"
     static let hasMention = "hasMention"
+    static let hasAttachments = "hasAttachments"
     static let chatId = "chatId"
     static let size = "size"
     static let time = "time"
