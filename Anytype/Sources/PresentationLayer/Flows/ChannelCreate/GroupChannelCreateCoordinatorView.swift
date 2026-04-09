@@ -23,6 +23,11 @@ struct GroupChannelCreateCoordinatorView: View {
             SelectMembersView(contacts: data.contacts, writersLimit: data.writersLimit, readersLimit: data.readersLimit) { selectedMembers in
                 model.onSelectMembersNext(selectedMembers)
             }
+        } else if model.contactsEmpty {
+            SpaceCreateCoordinatorView(
+                data: model.spaceCreateDataWithEmptyContacts,
+                embedInNavigationStack: false
+            )
         } else {
             ProgressView()
         }
