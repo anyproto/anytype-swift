@@ -15,17 +15,21 @@ final class GroupChannelCreateCoordinatorViewModel {
 
     var selectMembersData: SelectMembersData?
     var spaceCreateData: SpaceCreateData?
+    var spaceCreateDataWithEmptyContacts: SpaceCreateData {
+        makeSpaceCreateData(contacts: [])
+    }
+    var contactsEmpty = false
 
     // MARK: - Lifecycle
 
     func loadContacts() async {
         let contacts = await contactsService.loadContacts()
-        let sharedSpaceView = spaceViewsStorage.allSpaceViews
-            .first { $0.isActive && $0.isShared }
 
         if contacts.isEmpty {
-            spaceCreateData = SpaceCreateData(spaceUxType: .data, channelType: .group)
+            contactsEmpty = true
         } else {
+            let sharedSpaceView = spaceViewsStorage.allSpaceViews
+                .first { $0.isActive && $0.isShared }
             selectMembersData = SelectMembersData(
                 contacts: contacts,
                 writersLimit: sharedSpaceView?.availableWriterSlots,
@@ -41,6 +45,10 @@ final class GroupChannelCreateCoordinatorViewModel {
         let contacts = selectMembersData?.contacts
             .filter { selectedIdentities.contains($0.identity) }
             .sorted { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending } ?? []
-        spaceCreateData = SpaceCreateData(spaceUxType: .data, selectedContacts: contacts, channelType: .group)
+        spaceCreateData = makeSpaceCreateData(contacts: contacts)
+    }
+    
+    private func makeSpaceCreateData(contacts: [Contact]) -> SpaceCreateData {
+        return SpaceCreateData(spaceUxType: .data, selectedContacts: contacts, channelType: .group)
     }
 }
