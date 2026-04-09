@@ -122,17 +122,14 @@ struct DiscussionMessageView: View {
     private var messageContent: some View {
         linkedObjectsForTop
 
-        let blocks = data.discussionBlocks
-        let paddings = DiscussionBlockSpacing.topPaddings(for: blocks)
-
-        ForEach(Array(blocks.enumerated()), id: \.element.id) { index, block in
-            DiscussionBlockItemView(block: block) { attachmentId in
+        ForEach(data.discussionBlocks) { item in
+            DiscussionBlockItemView(block: item.block) { attachmentId in
                 if let objectDetails = data.attachmentsDetails.first(where: { $0.id == attachmentId }) {
                     let details = MessageAttachmentDetails(details: objectDetails)
                     output?.didSelectAttachment(data: data, details: details)
                 }
             }
-            .padding(.top, paddings[index])
+            .padding(.top, item.topPadding)
         }
         .tint(Color.Control.accent100)
 

@@ -96,21 +96,30 @@ extension [DiscussionBlockItem] {
     }
 }
 
-// MARK: - Spacing calculation
+// MARK: - Block with padding
 
-enum DiscussionBlockSpacing {
-    static let firstBlockTopSpacing: CGFloat = 0
+struct DiscussionBlockWithPadding: Equatable, Hashable, Identifiable {
+    let block: DiscussionBlockItem
+    let topPadding: CGFloat
 
-    /// Computes the top padding for each block in a sequence.
-    /// - First block (index 0) always gets `firstBlockTopSpacing` (8).
-    /// - Subsequent blocks get `max(block.topSpacing, previousBlock.bottomSpacing)`.
-    static func topPaddings(for blocks: [DiscussionBlockItem]) -> [CGFloat] {
+    var id: Int { block.id }
+
+    static func buildFrom(blocks: [DiscussionBlockItem]) -> [DiscussionBlockWithPadding] {
         blocks.enumerated().map { index, block in
-            if index == 0 {
-                return firstBlockTopSpacing
-            }
-            let previous = blocks[index - 1]
-            return max(block.topSpacing, previous.bottomSpacing)
+            let padding: CGFloat = index == 0
+                ? 0
+                : max(block.topSpacing, blocks[index - 1].bottomSpacing)
+            return DiscussionBlockWithPadding(block: block, topPadding: padding)
         }
+    }
+}
+
+extension [DiscussionBlockWithPadding] {
+    var plainText: String {
+        map(\.block).plainText
+    }
+
+    var hasContent: Bool {
+        map(\.block).hasContent
     }
 }

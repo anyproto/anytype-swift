@@ -117,12 +117,14 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
             authorId: authorParticipant?.id,
             timestampLabel: makeTimestampLabel(message: message),
             messageString: AttributedString(),
-            discussionBlocks: message.resolvedDiscussionBlocks(
-                spaceId: spaceId,
-                position: position,
-                textBuilder: discussionTextBuilder,
-                embedContentDataBuilder: embedContentDataBuilder,
-                attachmentDetails: Dictionary(fullMessage.attachments.map { ($0.id, $0) }, uniquingKeysWith: { _, last in last })
+            discussionBlocks: DiscussionBlockWithPadding.buildFrom(
+                blocks: message.resolvedDiscussionBlocks(
+                    spaceId: spaceId,
+                    position: position,
+                    textBuilder: discussionTextBuilder,
+                    embedContentDataBuilder: embedContentDataBuilder,
+                    attachmentDetails: Dictionary(fullMessage.attachments.map { ($0.id, $0) }, uniquingKeysWith: { _, last in last })
+                )
             ),
             replyModel: nil,
             position: position,
