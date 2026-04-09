@@ -93,12 +93,12 @@ Move from `MessageViewData.showTopDivider` boolean to top-level `MessageSectionI
 
 Note: heading styles (`.header1`/`.title`, `.header2`, `.header3`/`.header4`) already return correct fonts (`.title`, `.heading`, `.subheading`) — no changes needed for those.
 
-- [ ] Change `anytypeFont(for:)` to return `.calloutRegular` instead of `.chatText` for paragraph/description/toggle/numbered/marked/checkbox/quote/callout styles
-- [ ] Remove underline from `.link` marks — only set `message[range].link`, set `foregroundColor` to accent color
-- [ ] Remove underline from `.object` marks — only set `message[range].link`, set `foregroundColor` to accent color
-- [ ] Remove underline from `.mention` marks — only set `message[range].link`, set `foregroundColor` to accent color
-- [ ] Verify link color renders correctly — SwiftUI may override `foregroundColor` on `.link` ranges; if so, apply `.tint(Color.Control.accent)` on the parent Text view instead
-- [ ] Write tests verifying `anytypeFont(for:)` returns `.calloutRegular` for body styles and heading fonts for heading styles
+- [x] Change `anytypeFont(for:)` to return `.calloutRegular` instead of `.chatText` for paragraph/description/toggle/numbered/marked/checkbox/quote/callout styles
+- [x] Remove underline from `.link` marks — only set `message[range].link`, set `foregroundColor` to accent color
+- [x] Remove underline from `.object` marks — only set `message[range].link`, set `foregroundColor` to accent color
+- [x] Remove underline from `.mention` marks — only set `message[range].link`, set `foregroundColor` to accent color
+- [x] Verify link color renders correctly — SwiftUI may override `foregroundColor` on `.link` ranges; if so, apply `.tint(Color.Control.accent)` on the parent Text view instead
+- [x] Write tests verifying `anytypeFont(for:)` returns `.calloutRegular` for body styles and heading fonts for heading styles
 
 ### Task 3: Refactor block views, fix styling
 

@@ -133,6 +133,7 @@ struct DiscussionMessageView: View {
                 }
             }
         }
+        .tint(Color.Control.accent100)
 
         linkedObjectsForBottom
     }

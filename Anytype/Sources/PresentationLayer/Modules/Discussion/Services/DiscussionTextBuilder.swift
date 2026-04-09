@@ -57,24 +57,24 @@ struct DiscussionTextBuilder: DiscussionTextBuilderProtocol, Sendable {
             case .underscored:
                 message[range].uiKit.underlineStyle = .single
             case .link:
-                message[range].uiKit.underlineStyle = .single
                 if let link = URL(string: mark.param) {
                     message[range].link = link
                 }
+                message[range].foregroundColor = UIColor.Control.accent100.suColor
             case .object:
-                message[range].uiKit.underlineStyle = .single
                 if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
                     message[range].link = linkToObject
                 }
+                message[range].foregroundColor = UIColor.Control.accent100.suColor
             case .textColor:
                 message[range].foregroundColor = MiddlewareColor(rawValue: mark.param).map { Color.Dark.color(from: $0) }
             case .backgroundColor:
                 message[range].backgroundColor = MiddlewareColor(rawValue: mark.param).map { Color.Light.color(from: $0) }
             case .mention:
-                message[range].uiKit.underlineStyle = .single
                 if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
                     message[range].link = linkToObject
                 }
+                message[range].foregroundColor = UIColor.Control.accent100.suColor
             case .emoji:
                 message.replaceSubrange(range, with: AttributedString(mark.param))
             case .UNRECOGNIZED(let int):
@@ -86,7 +86,7 @@ struct DiscussionTextBuilder: DiscussionTextBuilderProtocol, Sendable {
         return message.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    private func anytypeFont(for style: Anytype_Model_Block.Content.Text.Style) -> AnytypeFont {
+    func anytypeFont(for style: Anytype_Model_Block.Content.Text.Style) -> AnytypeFont {
         switch style {
         case .header1, .title:
             return .title
@@ -95,9 +95,9 @@ struct DiscussionTextBuilder: DiscussionTextBuilderProtocol, Sendable {
         case .header3, .header4:
             return .subheading
         case .description_, .paragraph, .toggle, .numbered, .marked, .checkbox, .quote, .callout:
-            return .chatText
+            return .calloutRegular
         default:
-            return .chatText
+            return .calloutRegular
         }
     }
 
