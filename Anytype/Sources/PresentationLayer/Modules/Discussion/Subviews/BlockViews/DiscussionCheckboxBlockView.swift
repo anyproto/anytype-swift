@@ -16,6 +16,7 @@ struct DiscussionCheckboxBlockView: View {
             }
             .frame(width: 20, height: 20)
             Text(content)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }
