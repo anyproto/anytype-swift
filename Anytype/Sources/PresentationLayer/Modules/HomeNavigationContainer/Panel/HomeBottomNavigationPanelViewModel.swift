@@ -38,8 +38,6 @@ final class HomeBottomNavigationPanelViewModel {
     @ObservationIgnored
     private var participantSpaceView: ParticipantSpaceViewData?
     @ObservationIgnored
-    private var currentDiscussionId: String?
-    @ObservationIgnored
     private var detailsSubscriptionTask: Task<Void, Never>?
 
     // MARK: - Public properties
@@ -76,8 +74,9 @@ final class HomeBottomNavigationPanelViewModel {
         }
         let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
         let objectName = document.details?.name ?? ""
+        let discussionId = document.details?.discussionId
         let screenData = ScreenData.discussion(DiscussionCoordinatorData(
-            discussionId: currentDiscussionId,
+            discussionId: discussionId?.isEmpty == false ? discussionId : nil,
             objectId: objectId,
             objectName: objectName,
             spaceId: editorData.spaceId
@@ -95,11 +94,8 @@ final class HomeBottomNavigationPanelViewModel {
     
     func updateVisibleScreen(data: AnyHashable) {
         currentData = data
-        detailsSubscriptionTask?.cancel()
-        detailsSubscriptionTask = nil
-        currentDiscussionId = nil
         updateState()
-        subscribeToDiscussionId(from: data)
+        subscribeToDetailsChanges(from: data)
     }
 
     func onTapCreateObject(type: ObjectType) {
@@ -160,15 +156,15 @@ final class HomeBottomNavigationPanelViewModel {
     
     // MARK: - Private
 
-    private func subscribeToDiscussionId(from data: AnyHashable) {
+    private func subscribeToDetailsChanges(from data: AnyHashable) {
+        detailsSubscriptionTask?.cancel()
+        detailsSubscriptionTask = nil
         guard let editorData = data as? EditorScreenData,
               let objectId = editorData.objectId else { return }
         let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
         detailsSubscriptionTask = Task { [weak self] in
-            for await details in document.detailsPublisher.values {
+            for await _ in document.detailsPublisher.values {
                 guard !Task.isCancelled else { return }
-                let discussionId = details.discussionId
-                self?.currentDiscussionId = discussionId.isNotEmpty ? discussionId : nil
                 self?.updateState()
             }
         }
@@ -225,9 +221,14 @@ final class HomeBottomNavigationPanelViewModel {
         if currentData is DiscussionCoordinatorData { return }
 
         canCreateObject = participantSpaceView.permissions.canEdit
-        let isObjectScreen = (currentData as? EditorScreenData)?.objectId != nil
-        let hasDiscussion = currentDiscussionId != nil
-        showDiscussButton = FeatureFlags.discussionButton && isObjectScreen && (canCreateObject || hasDiscussion)
+        guard let editorData = currentData as? EditorScreenData,
+              let objectId = editorData.objectId else {
+            showDiscussButton = false
+            return
+        }
+        let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
+        let hasDiscussion = document.details?.discussionId.isNotEmpty == true
+        showDiscussButton = FeatureFlags.discussionButton && (canCreateObject || hasDiscussion)
     }
 
     private func handleCreateObject() {
