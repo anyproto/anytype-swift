@@ -12,3 +12,6 @@ runs:
       with:
         tools: imagemagick libgit2
       continue-on-error: true
+    - name: Verify tools installed
+      shell: bash
+      run: command -v magick && brew list libgit2 || (echo "Required tools missing" && exit 1)
