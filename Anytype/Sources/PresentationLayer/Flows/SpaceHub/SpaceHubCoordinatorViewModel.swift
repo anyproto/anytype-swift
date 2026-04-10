@@ -571,10 +571,79 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         let document = documentsProvider.document(objectId: chatObjectId, spaceId: spaceId, mode: .preview)
         do {
             try await document.open()
-            guard let details = document.details, details.editorViewType == .chat else { return }
-            let chatId = details.resolvedLayoutValue == .chatDerived ? details.id : details.chatId
-            let data = ChatCoordinatorData(chatId: chatId, spaceId: spaceId, messageId: messageId)
-            try? await showScreen(data: .chat(data))
+            guard let details = document.details else {
+                showObjectIsNotAvailableAlert = true
+                return
+            }
+
+            if details.editorViewType == .chat {
+                let chatId = details.resolvedLayoutValue == .chatDerived ? details.id : details.chatId
+                let data = ChatCoordinatorData(chatId: chatId, spaceId: spaceId, messageId: messageId)
+                try? await showScreen(data: .chat(data))
+            } else if details.editorViewType == .discussion || details.discussionId.isNotEmpty {
+                // Standalone discussion objects use their own id; objects with a discussion property use discussionId
+                let discussionId = details.editorViewType == .discussion ? details.id : details.discussionId
+                var currentPath: HomePath
+                let isSwitchingSpace: Bool
+                if let spacePath = await prepareSpacePath(spaceId: spaceId) {
+                    currentPath = spacePath
+                    isSwitchingSpace = true
+                } else {
+                    currentPath = navigationPath
+                    isSwitchingSpace = false
+                }
+
+                // Check if discussion is already in the navigation path (same pattern as .chat in showScreen)
+                if let existingDiscussion = currentPath.path.lazy.compactMap({ $0.base as? DiscussionCoordinatorData }).first(where: { $0.discussionId == discussionId }) {
+                    await dismissAllPresented?()
+                    currentPath.popTo(existingDiscussion)
+                    if isSwitchingSpace {
+                        currentPath.replaceLast(DiscussionCoordinatorData(
+                            discussionId: discussionId,
+                            objectId: details.id,
+                            objectName: details.name,
+                            spaceId: spaceId,
+                            messageId: messageId
+                        ))
+                    } else {
+                        chatProvider.scrollToMessage(chatId: discussionId, messageId: messageId)
+                    }
+                } else {
+                    await dismissAllPresented?()
+
+                    // Standalone discussion objects (layout == .discussion) don't need an editor screen
+                    if details.editorViewType == .discussion {
+                        let discussionData = DiscussionCoordinatorData(
+                            discussionId: discussionId,
+                            objectId: details.id,
+                            objectName: details.name,
+                            spaceId: spaceId,
+                            messageId: messageId
+                        )
+                        currentPath.push(discussionData)
+                    } else {
+                        guard let editorScreenData = ScreenData(details: details).editorScreenData else {
+                            showObjectIsNotAvailableAlert = true
+                            navigationPath = currentPath
+                            return
+                        }
+                        currentPath.openOnce(editorScreenData)
+
+                        let discussionData = DiscussionCoordinatorData(
+                            discussionId: discussionId,
+                            objectId: details.id,
+                            objectName: details.name,
+                            spaceId: spaceId,
+                            messageId: messageId
+                        )
+                        currentPath.push(discussionData)
+                    }
+                }
+
+                navigationPath = currentPath
+            } else {
+                showObjectIsNotAvailableAlert = true
+            }
         } catch {
             showObjectIsNotAvailableAlert = true
         }

@@ -11,8 +11,8 @@ struct DiscussionView: View {
 
     private let settingsOutput: (any ObjectSettingsCoordinatorOutput)?
 
-    init(spaceId: String, objectId: String, objectName: String, discussionId: String?, output: (any DiscussionModuleOutput)?, settingsOutput: (any ObjectSettingsCoordinatorOutput)?) {
-        self._model = State(wrappedValue: DiscussionViewModel(spaceId: spaceId, objectId: objectId, objectName: objectName, chatId: discussionId, output: output))
+    init(spaceId: String, objectId: String, objectName: String, discussionId: String?, messageId: String? = nil, output: (any DiscussionModuleOutput)?, settingsOutput: (any ObjectSettingsCoordinatorOutput)?) {
+        self._model = State(wrappedValue: DiscussionViewModel(spaceId: spaceId, objectId: objectId, objectName: objectName, chatId: discussionId, messageId: messageId, output: output))
         self.settingsOutput = settingsOutput
     }
 

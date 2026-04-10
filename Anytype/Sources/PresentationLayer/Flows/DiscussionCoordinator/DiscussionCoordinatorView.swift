@@ -21,6 +21,7 @@ struct DiscussionCoordinatorView: View {
             objectId: model.objectId,
             objectName: model.objectName,
             discussionId: model.discussionId,
+            messageId: model.messageId,
             output: model,
             settingsOutput: model
         )
