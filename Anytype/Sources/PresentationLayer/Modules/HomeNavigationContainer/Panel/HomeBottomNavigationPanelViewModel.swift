@@ -37,6 +37,8 @@ final class HomeBottomNavigationPanelViewModel {
     private var currentData: AnyHashable?
     @ObservationIgnored
     private var participantSpaceView: ParticipantSpaceViewData?
+    @ObservationIgnored
+    private var detailsSubscriptionTask: Task<Void, Never>?
 
     // MARK: - Public properties
 
@@ -93,6 +95,7 @@ final class HomeBottomNavigationPanelViewModel {
     func updateVisibleScreen(data: AnyHashable) {
         currentData = data
         updateState()
+        subscribeToDetailsChanges(from: data)
     }
 
     func onTapCreateObject(type: ObjectType) {
@@ -152,6 +155,20 @@ final class HomeBottomNavigationPanelViewModel {
     }
     
     // MARK: - Private
+
+    private func subscribeToDetailsChanges(from data: AnyHashable) {
+        detailsSubscriptionTask?.cancel()
+        detailsSubscriptionTask = nil
+        guard let editorData = data as? EditorScreenData,
+              let objectId = editorData.objectId else { return }
+        let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
+        detailsSubscriptionTask = Task { [weak self] in
+            for await _ in document.detailsPublisher.values {
+                guard !Task.isCancelled else { return }
+                self?.updateState()
+            }
+        }
+    }
 
     private func participantSubscription() async {
         for await data in participantSpacesStorage.participantSpaceViewPublisher(spaceId: info.accountSpaceId).values {
