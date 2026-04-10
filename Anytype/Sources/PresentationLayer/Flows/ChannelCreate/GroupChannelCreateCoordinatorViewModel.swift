@@ -10,8 +10,8 @@ final class GroupChannelCreateCoordinatorViewModel {
     @Injected(\.contactsService)
     private var contactsService: any ContactsServiceProtocol
     @ObservationIgnored
-    @Injected(\.spaceViewsStorage)
-    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
 
     var selectMembersData: SelectMembersData?
     var spaceCreateData: SpaceCreateData?
@@ -28,8 +28,9 @@ final class GroupChannelCreateCoordinatorViewModel {
         if contacts.isEmpty {
             contactsEmpty = true
         } else {
-            let sharedSpaceView = spaceViewsStorage.allSpaceViews
-                .first { $0.isActive && $0.isShared }
+            let sharedSpaceView = participantSpacesStorage.allParticipantSpaces
+                .first { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }?
+                .spaceView
             selectMembersData = SelectMembersData(
                 contacts: contacts,
                 writersLimit: sharedSpaceView?.availableWriterSlots,

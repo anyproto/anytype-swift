@@ -13,8 +13,8 @@ actor PendingShareService: PendingShareServiceProtocol {
     private var storage: any PendingShareStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.spaceViewsStorage)
-    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
 
     private var runningSpaceIds = Set<String>()
 
@@ -67,8 +67,10 @@ actor PendingShareService: PendingShareServiceProtocol {
         // On retry, writers who were added before a partial failure will be safely skipped.
         if state.identities.isNotEmpty {
             let identityIds = state.identities.map(\.identity)
-            let availableWriterSlots = spaceViewsStorage.spaceView(spaceId: spaceId)?.availableWriterSlots
-                ?? spaceViewsStorage.allSpaceViews.first(where: { $0.isShared })?.availableWriterSlots
+            let availableWriterSlots = participantSpacesStorage.participantSpaceView(spaceId: spaceId)?.spaceView.availableWriterSlots
+                ?? participantSpacesStorage.allParticipantSpaces
+                    .first { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }?
+                    .spaceView.availableWriterSlots
                 ?? 0
 
             let writerIds = Array(identityIds.prefix(availableWriterSlots))
