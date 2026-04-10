@@ -37,7 +37,6 @@ final class DiscussionCoordinatorViewModel: DiscussionModuleOutput {
 
     var objectToMessageSearchData: ObjectSearchWithMetaModuleData?
     var showEmojiData: MessageReactionPickerData?
-    var showSyncStatusInfo = false
     var linkToObjectData: LinkToObjectSearchModuleData?
     var showFilesPicker = false
     var showPhotosPicker = false

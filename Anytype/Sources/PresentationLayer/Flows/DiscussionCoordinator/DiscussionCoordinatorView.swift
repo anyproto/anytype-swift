@@ -4,7 +4,6 @@ struct DiscussionCoordinatorView: View {
 
     @State private var model: DiscussionCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
-    @Environment(\.chatActionProvider) private var chatActionProvider
 
     init(data: DiscussionCoordinatorData) {
         self._model = State(wrappedValue: DiscussionCoordinatorViewModel(data: data))
@@ -31,9 +30,6 @@ struct DiscussionCoordinatorView: View {
             }
             .sheet(item: $model.showEmojiData) {
                 MessageReactionPickerView(data: $0)
-            }
-            .anytypeSheet(isPresented: $model.showSyncStatusInfo) {
-                SyncStatusInfoView(spaceId: model.spaceId)
             }
             .sheet(item: $model.linkToObjectData) {
                 LinkToObjectSearchView(data: $0, showEditorScreen: { _ in })
