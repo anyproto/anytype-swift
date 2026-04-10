@@ -219,6 +219,11 @@ final class HomeBottomNavigationPanelViewModel {
     
     private func updateState() {
         guard let participantSpaceView else { return }
+
+        // Skip state update when navigating to discussion — panel will be hidden anyway,
+        // and updating would flicker the discuss button to search during push animation
+        if currentData is DiscussionCoordinatorData { return }
+
         canCreateObject = participantSpaceView.permissions.canEdit
         let isObjectScreen = (currentData as? EditorScreenData)?.objectId != nil
         let hasDiscussion = currentDiscussionId != nil
