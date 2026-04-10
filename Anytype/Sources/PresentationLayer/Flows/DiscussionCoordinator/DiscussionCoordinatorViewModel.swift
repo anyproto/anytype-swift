@@ -9,6 +9,15 @@ struct DiscussionCoordinatorData: Hashable, Codable {
     let objectId: String
     let objectName: String
     let spaceId: String
+    let messageId: String?
+
+    init(discussionId: String?, objectId: String, objectName: String, spaceId: String, messageId: String? = nil) {
+        self.discussionId = discussionId
+        self.objectId = objectId
+        self.objectName = objectName
+        self.spaceId = spaceId
+        self.messageId = messageId
+    }
 }
 
 @MainActor
@@ -23,6 +32,8 @@ final class DiscussionCoordinatorViewModel: DiscussionModuleOutput, ObjectSettin
     let objectName: String
     @ObservationIgnored
     let spaceId: String
+    @ObservationIgnored
+    let messageId: String?
 
     var objectToMessageSearchData: ObjectSearchWithMetaModuleData?
     var showEmojiData: MessageReactionPickerData?
@@ -57,6 +68,7 @@ final class DiscussionCoordinatorViewModel: DiscussionModuleOutput, ObjectSettin
         self.objectId = data.objectId
         self.objectName = data.objectName
         self.spaceId = data.spaceId
+        self.messageId = data.messageId
     }
 
     func onLinkObjectSelected(data: ObjectSearchWithMetaModuleData) {
