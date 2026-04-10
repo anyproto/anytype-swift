@@ -13,7 +13,7 @@ public extension FeatureDescription {
     static let homePage = FeatureDescription(
         title: "Home Page",
         category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
-        defaultValue: false
+        defaultValue: true
     )
 
     static let discussionButton = FeatureDescription(
