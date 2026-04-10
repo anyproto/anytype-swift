@@ -92,18 +92,14 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     }
 
     private var discussIsland: some View {
-        HStack(spacing: 20) {
-            Button {
-                model.onTapDiscuss()
-            } label: {
-                Image(systemName: "message")
-                    .foregroundStyle(Color.Control.primary)
-            }
-            .frame(width: 32, height: 32)
+        Button {
+            model.onTapDiscuss()
+        } label: {
+            Image(systemName: "message")
+                .foregroundStyle(Color.Control.primary)
         }
-        .padding(.horizontal, 12)
-        .frame(height: 48)
-        .glassEffectInteractiveIOS26(in: Capsule())
+        .frame(width: 48, height: 48)
+        .glassEffectInteractiveIOS26(in: Circle())
     }
 
     @ViewBuilder

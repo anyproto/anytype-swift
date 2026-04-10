@@ -131,7 +131,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
         let newMessages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: first.orderID, limit: Constants.pageSize)
         guard newMessages.isNotEmpty else { return }
         await addNewMessages(messages: newMessages)
-        messages.cleaLast(maxCache: Constants.maxCacheSize)
+        messages.cleanLast(maxCache: Constants.maxCacheSize)
         updateFullMessages()
     }
 

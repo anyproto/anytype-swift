@@ -19,8 +19,7 @@ public extension FeatureDescription {
     static let discussionButton = FeatureDescription(
         title: "Discussion button in bottom navigation - IOS-5913",
         category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true
     )
 
     static let qrCodeCircularText = FeatureDescription(
