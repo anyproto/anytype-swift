@@ -9,11 +9,8 @@ struct DiscussionView: View {
     @Environment(\.keyboardDismiss) private var keyboardDismiss
     @Environment(\.chatActionProvider) private var chatActionProvider
 
-    private let settingsOutput: (any ObjectSettingsCoordinatorOutput)?
-
-    init(spaceId: String, objectId: String, objectName: String, discussionId: String?, messageId: String? = nil, output: (any DiscussionModuleOutput)?, settingsOutput: (any ObjectSettingsCoordinatorOutput)?) {
+    init(spaceId: String, objectId: String, objectName: String, discussionId: String?, messageId: String? = nil, output: (any DiscussionModuleOutput)?) {
         self._model = State(wrappedValue: DiscussionViewModel(spaceId: spaceId, objectId: objectId, objectName: objectName, chatId: discussionId, messageId: messageId, output: output))
-        self.settingsOutput = settingsOutput
     }
 
     var body: some View {
@@ -29,8 +26,9 @@ struct DiscussionView: View {
                 objectName: model.objectName,
                 commentsCount: model.commentsCount,
                 chatId: model.chatId,
-                spaceId: model.spaceId,
-                settingsOutput: settingsOutput
+                onTapCopyLink: {
+                    Task { await model.copyObjectLink() }
+                }
             )
         }
         .onAppear {

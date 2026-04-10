@@ -5,7 +5,6 @@ struct DiscussionCoordinatorView: View {
     @State private var model: DiscussionCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.chatActionProvider) private var chatActionProvider
-    @Environment(\.dismiss) private var dismiss
 
     init(data: DiscussionCoordinatorData) {
         self._model = State(wrappedValue: DiscussionCoordinatorViewModel(data: data))
@@ -22,14 +21,10 @@ struct DiscussionCoordinatorView: View {
             objectName: model.objectName,
             discussionId: model.discussionId,
             messageId: model.messageId,
-            output: model,
-            settingsOutput: model
+            output: model
         )
             .onAppear {
                 model.pageNavigation = pageNavigation
-            }
-            .onChange(of: model.dismiss) {
-                dismiss()
             }
             .sheet(item: $model.objectToMessageSearchData) {
                 ObjectSearchWithMetaCoordinatorView(data: $0)
@@ -39,9 +34,6 @@ struct DiscussionCoordinatorView: View {
             }
             .anytypeSheet(isPresented: $model.showSyncStatusInfo) {
                 SyncStatusInfoView(spaceId: model.spaceId)
-            }
-            .sheet(item: $model.objectIconPickerData) {
-                ObjectIconPicker(data: $0)
             }
             .sheet(item: $model.linkToObjectData) {
                 LinkToObjectSearchView(data: $0, showEditorScreen: { _ in })
@@ -69,9 +61,6 @@ struct DiscussionCoordinatorView: View {
             }
             .anytypeSheet(isPresented: $model.showDisabledPushNotificationsAlert){
                 DisabledPushNotificationsAlertView()
-            }
-            .sheet(item: $model.spaceShareData) { data in
-                SpaceShareCoordinatorView(data: data)
             }
             .onChange(of: model.photosItems) {
                 model.photosPickerFinished()
