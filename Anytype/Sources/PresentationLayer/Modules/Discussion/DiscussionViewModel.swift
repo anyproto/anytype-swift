@@ -796,6 +796,14 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         }
 
         let newChatId = try await chatService.addDiscussion(objectId: objectId)
+        // Update parent object's local details so the bottom panel can find the discussionId
+        // on re-open within the same session (middleware doesn't send this update via events)
+        let parentDoc = openDocumentProvider.document(objectId: objectId, spaceId: spaceId)
+        let updatedDetails = ObjectDetails(
+            id: objectId,
+            values: [BundledPropertyKey.discussionId.rawValue: newChatId.protobufValue]
+        )
+        parentDoc.detailsStorage.amend(details: updatedDetails)
 
         // Initialize deferred dependencies
         self.chatId = newChatId

@@ -76,8 +76,12 @@ final class HomeBottomNavigationPanelViewModel {
         }
         let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
         let objectName = document.details?.name ?? ""
+        let discussionId = currentDiscussionId ?? {
+            let id = document.details?.discussionId
+            return id?.isEmpty == false ? id : nil
+        }()
         let screenData = ScreenData.discussion(DiscussionCoordinatorData(
-            discussionId: currentDiscussionId,
+            discussionId: discussionId,
             objectId: objectId,
             objectName: objectName,
             spaceId: editorData.spaceId
