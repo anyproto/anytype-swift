@@ -58,6 +58,10 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var shareSuggestionService: any ShareSuggestionServiceProtocol
     @Injected(\.deepLinkParser) @ObservationIgnored
     private var deepLinkParser: any DeepLinkParserProtocol
+    @Injected(\.universalLinkParser) @ObservationIgnored
+    private var universalLinkParser: any UniversalLinkParserProtocol
+    @Injected(\.workspaceService) @ObservationIgnored
+    private var workspaceService: any WorkspaceServiceProtocol
 
     private let participantSubscription: any ParticipantsSubscriptionProtocol
     private var chatStorage: (any DiscussionMessagesStorageProtocol)?
@@ -648,6 +652,13 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             deepLink: .chatMessage(chatObjectId: objectId, spaceId: spaceId, messageId: message.message.id),
             scheme: .main
         )
+        UIPasteboard.general.string = link?.absoluteString
+        toastBarData = ToastBarData(Loc.copied)
+    }
+
+    func copyObjectLink() async {
+        let invite = try? await workspaceService.getCurrentInvite(spaceId: spaceId)
+        let link = universalLinkParser.createUrl(link: .object(objectId: objectId, spaceId: spaceId, cid: invite?.cid, key: invite?.fileKey))
         UIPasteboard.general.string = link?.absoluteString
         toastBarData = ToastBarData(Loc.copied)
     }

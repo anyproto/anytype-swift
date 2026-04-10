@@ -1,13 +1,11 @@
 import SwiftUI
-import Services
 
 struct DiscussionHeaderView: View {
 
     let objectName: String
     let commentsCount: Int
     let chatId: String?
-    let spaceId: String
-    let settingsOutput: (any ObjectSettingsCoordinatorOutput)?
+    let onTapCopyLink: () -> Void
 
     var body: some View {
         NavigationHeader(
@@ -38,12 +36,14 @@ struct DiscussionHeaderView: View {
 
     @ViewBuilder
     private var moreButton: some View {
-        if let chatId {
-            ObjectSettingsMenuContainer(
-                objectId: chatId,
-                spaceId: spaceId,
-                output: settingsOutput
-            ) {
+        if chatId != nil {
+            Menu {
+                Button {
+                    onTapCopyLink()
+                } label: {
+                    Label(Loc.copyLink, systemImage: "link")
+                }
+            } label: {
                 Image(asset: .X24.more)
                     .foregroundStyle(Color.Control.primary)
                     .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
