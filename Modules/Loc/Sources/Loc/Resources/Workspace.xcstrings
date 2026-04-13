@@ -502,7 +502,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New channel"
+            "value" : "Nuevo canal"
           }
         },
         "fa" : {
@@ -526,7 +526,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New channel"
+            "value" : "Kanal baru"
           }
         },
         "it" : {
@@ -592,7 +592,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New channel"
+            "value" : "Yeni kanal"
           }
         },
         "uk" : {
@@ -610,7 +610,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New channel"
+            "value" : "新建频道"
           }
         },
         "zh-Hant" : {
@@ -1230,7 +1230,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select members"
+            "value" : "选择成员"
           }
         },
         "zh-Hant" : {
@@ -1432,7 +1432,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members will be invited when you're back online"
+            "value" : "Se enviarán las invitaciones cuando vuelvas a conectarte"
           }
         },
         "fa" : {
@@ -1456,7 +1456,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members will be invited when you're back online"
+            "value" : "Anggota akan diundang ketika kamu daring"
           }
         },
         "it" : {
@@ -1522,7 +1522,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members will be invited when you're back online"
+            "value" : "Tekrar çevrimiçi olduğunda üyeler davet edilecek"
           }
         },
         "uk" : {
@@ -1540,7 +1540,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Members will be invited when you're back online"
+            "value" : "恢复在线后将自动发出成员邀请"
           }
         },
         "zh-Hant" : {
@@ -1695,7 +1695,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Manage Channels"
+            "value" : "管理频道"
           }
         },
         "zh-Hant" : {
@@ -1897,7 +1897,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Shared channel limit reached"
+            "value" : "Has llegado al límite de canales compartidos"
           }
         },
         "fa" : {
@@ -1921,7 +1921,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Shared channel limit reached"
+            "value" : "Batas kanal terbagi tercapai"
           }
         },
         "it" : {
@@ -1987,7 +1987,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Shared channel limit reached"
+            "value" : "Paylaşılan kanal sınırına ulaşıldı"
           }
         },
         "uk" : {
@@ -2005,7 +2005,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Shared channel limit reached"
+            "value" : "已达到共享频道上限"
           }
         },
         "zh-Hant" : {
@@ -3175,7 +3175,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete channel"
+            "value" : "Eliminar canal"
           }
         },
         "fa" : {
@@ -3199,7 +3199,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete channel"
+            "value" : "Hapus kanal"
           }
         },
         "it" : {
@@ -3283,7 +3283,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete channel"
+            "value" : "删除频道"
           }
         },
         "zh-Hant" : {
@@ -3330,7 +3330,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Leave channel"
+            "value" : "Abandonar canal"
           }
         },
         "fa" : {
@@ -3354,7 +3354,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Leave channel"
+            "value" : "Keluar dari kanal"
           }
         },
         "it" : {
@@ -3438,7 +3438,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Leave channel"
+            "value" : "退出频道"
           }
         },
         "zh-Hant" : {
@@ -67286,7 +67286,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Choose Home"
+            "value" : "Elegir Inicio"
           }
         },
         "fa" : {
@@ -67376,7 +67376,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Choose Home"
+            "value" : "Anasayfa Seç"
           }
         },
         "uk" : {
@@ -67394,7 +67394,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Choose Home"
+            "value" : "选择首页"
           }
         },
         "zh-Hant" : {
