@@ -812,7 +812,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%lld/%lld Editors"
+            "value" : "%lld/%lld editores"
           }
         },
         "fa" : {
@@ -836,7 +836,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%lld/%lld Editors"
+            "value" : "%lld/%lld Penyunting"
           }
         },
         "it" : {
@@ -902,7 +902,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%lld/%lld Editors"
+            "value" : "%lld/%lld Düzenleyici"
           }
         },
         "uk" : {
@@ -920,7 +920,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%lld/%lld Editors"
+            "value" : "%lld/%lld 位编辑者"
           }
         },
         "zh-Hant" : {
@@ -1277,7 +1277,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%lld/%lld Viewers"
+            "value" : "%lld/%lld visitantes"
           }
         },
         "fa" : {
@@ -1301,7 +1301,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%lld/%lld Viewers"
+            "value" : "%lld/%lld Pelihat"
           }
         },
         "it" : {
@@ -1367,7 +1367,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%lld/%lld Viewers"
+            "value" : "%lld/%lld Görüntüleyici"
           }
         },
         "uk" : {
@@ -1385,7 +1385,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%lld/%lld Viewers"
+            "value" : "%lld/%lld 位查看者"
           }
         },
         "zh-Hant" : {
@@ -1742,7 +1742,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+            "value" : "Tu plan admite %lld canales compartidos. Mejora tu suscripción para crear más."
           }
         },
         "fa" : {
@@ -1832,7 +1832,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+            "value" : "Planın %lld paylaşımlı kanala izin veriyor. Daha fazlasını oluşturmak için üyeliğini yükselt."
           }
         },
         "uk" : {
@@ -1850,7 +1850,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your plan allows %lld shared channels. Upgrade your membership to create more."
+            "value" : "您的计划允许创建 %lld 个共享频道。升级会员以解锁更多。"
           }
         },
         "zh-Hant" : {
@@ -10192,7 +10192,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg comments"
+                      "value" : "%a 个合并评论"
                     }
                   }
                 }
