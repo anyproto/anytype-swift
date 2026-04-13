@@ -6,7 +6,7 @@ public extension FeatureDescription {
 
     static let showUploadStatusIndicator = FeatureDescription(
         title: "Show visual indicator for uploading files - IOS-5054",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "?"),
         defaultValue: false
     )
     
@@ -24,22 +24,21 @@ public extension FeatureDescription {
 
     static let qrCodeCircularText = FeatureDescription(
         title: "QR Code Circular Text - IOS-5580",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "?"),
         defaultValue: false,
         debugValue: true
     )
-    
+
     static let createChannelFlow = FeatureDescription(
         title: "Create Channel Flow - IOS-5856",
         category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true
     )
 
     // should be disabled
     static let channelTypeSwitcher = FeatureDescription(
         title: "Channel type switcher - IOS-5378",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "?"),
         defaultValue: false
     )
 
