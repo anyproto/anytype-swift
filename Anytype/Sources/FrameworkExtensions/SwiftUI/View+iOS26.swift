@@ -22,13 +22,15 @@ extension View {
     }
     
     @ViewBuilder
-    public func buttonStyleGlassIOS26() -> some View {
+    public func buttonStyleCircleGlassIOS26() -> some View {
         if #available(iOS 26.0, *) {
             self.buttonStyle(.glass)
+                .buttonBorderShape(.circle)
         } else {
             self
                 .background(Color.Background.navigationPanel)
                 .background(.ultraThinMaterial)
+                .clipShape(Circle())
         }
     }
     
