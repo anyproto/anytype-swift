@@ -25343,6 +25343,17 @@
         }
       }
     },
+    "HomepagePicker.changeHome" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Home"
+          }
+        }
+      }
+    },
     "HomepagePicker.Thumbnail.idea" : {
       "extractionState" : "manual",
       "localizations" : {
