@@ -179,9 +179,9 @@ New/changed keys in `Workspace.xcstrings` (exact strings to be taken from Figma 
 **Files:**
 - Modify: `Anytype/Sources/ServiceLayer/SpaceStorage/Models/SpaceHomepage.swift`
 
-- [ ] add `displayValue` computed property mapping `.empty → .widgets`, identity otherwise
-- [ ] search for tests of `SpaceHomepage` (`rg "SpaceHomepage" --type swift -l`) — if a test file exists, add one case for `.empty.displayValue == .widgets` and one for `.object(_).displayValue == self`
-- [ ] if no existing test file, skip (don't introduce a new test target)
+- [x] add `displayValue` computed property mapping `.empty → .widgets`, identity otherwise
+- [x] search for tests of `SpaceHomepage` (`rg "SpaceHomepage" --type swift -l`) — no test file exists (only 5 production files reference `SpaceHomepage`); skipped per plan
+- [x] if no existing test file, skip (don't introduce a new test target)
 
 ### Task 3: Generalise `SpaceChatWidget` into the Home widget
 
