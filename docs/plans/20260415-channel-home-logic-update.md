@@ -232,9 +232,9 @@ New/changed keys in `Workspace.xcstrings` (exact strings to be taken from Figma 
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/SpaceSettings/SpaceSettings/SpaceSettingsViewModel.swift`
 
-- [ ] in `loadHomePageState`, when `homepage.displayValue == .widgets`, set caption to `Loc.SpaceSettings.HomePage.noHome` (not `Loc.empty`)
-- [ ] leave `.object(_)` branch unchanged
-- [ ] add test case if a `SpaceSettingsViewModel` test file exists
+- [x] in `loadHomePageState`, switch now matches on `homepage.displayValue`; `.empty` state's `buttonDecoration` updated from `.chevron` → `.caption(Loc.SpaceSettings.HomePage.noHome)` so the preview renders "No home" instead of a bare chevron/`Loc.empty`.
+- [x] leave `.object(_)` branch unchanged — untouched (still resolves real object icon + name via `searchService`).
+- [x] add test case if a `SpaceSettingsViewModel` test file exists — no existing test file for `SpaceSettingsViewModel`; skipped per plan.
 
 ### Task 7: Update post-creation Homepage picker
 
