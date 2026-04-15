@@ -10066,7 +10066,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to delete %#@object@?"
+            "value" : "Yakin ingin menghapus %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -10456,7 +10456,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to delete %#@object@?"
+            "value" : "您确定要删除  %#@object@ 吗？"
           },
           "substitutions" : {
             "object" : {
@@ -11457,13 +11457,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Audio"
+                  "value" : "audio"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Audios"
+                  "value" : "%lld audios"
                 }
               }
             }
@@ -28098,7 +28098,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This vault will be deleted %#@days@"
+            "value" : "此保险库将于 %#@days@ 天后删除"
           },
           "substitutions" : {
             "days" : {
@@ -31320,7 +31320,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@device@ connected"
+            "value" : "%#@device@ 已连接"
           },
           "substitutions" : {
             "device" : {
@@ -44645,7 +44645,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@ uploading"
+            "value" : "%#@file@ 正在上传"
           },
           "substitutions" : {
             "file" : {
@@ -52391,7 +52391,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@ syncing..."
+            "value" : "%#@item@ 正在同步…"
           },
           "substitutions" : {
             "item" : {
@@ -64862,7 +64862,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ selected"
+            "value" : "%#@object@ 已选择"
           },
           "substitutions" : {
             "object" : {
@@ -70472,7 +70472,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@day@"
+            "value" : "每 %#@day@"
           },
           "substitutions" : {
             "day" : {
@@ -71200,7 +71200,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@month@"
+            "value" : "每 %#@month@"
           },
           "substitutions" : {
             "month" : {
@@ -71928,7 +71928,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@week@"
+            "value" : "每 %#@week@"
           },
           "substitutions" : {
             "week" : {
@@ -72656,7 +72656,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@year@"
+            "value" : "每 %#@year@"
           },
           "substitutions" : {
             "year" : {
