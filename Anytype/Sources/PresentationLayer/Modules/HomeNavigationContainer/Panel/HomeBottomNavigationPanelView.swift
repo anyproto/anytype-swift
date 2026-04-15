@@ -88,7 +88,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 .foregroundStyle(Color.Control.primary)
         }
         .frame(width: 48, height: 48)
-        .buttonStyleCircleGlassIOS26()
+        .glassEffectInteractiveIOS26(in: Circle())
     }
 
     private var discussIsland: some View {
@@ -96,11 +96,10 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             model.onTapDiscuss()
         } label: {
             Image(systemName: "message")
-                .frame(width: 32, height: 32)
                 .foregroundStyle(Color.Control.primary)
         }
         .frame(width: 48, height: 48)
-        .buttonStyleCircleGlassIOS26()
+        .glassEffectInteractiveIOS26(in: Circle())
     }
 
     @ViewBuilder
