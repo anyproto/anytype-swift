@@ -19,6 +19,7 @@ final class HomepageSettingsPickerViewModel {
     var isSearchCompleted = false
 
     let currentObjectId: String?
+    let isNoHomeSelected: Bool
 
     @ObservationIgnored
     private let spaceId: String
@@ -26,11 +27,13 @@ final class HomepageSettingsPickerViewModel {
     init(spaceId: String) {
         self.spaceId = spaceId
         let homepage = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)?.homepage ?? .empty
-        switch homepage {
+        switch homepage.displayValue {
         case .empty, .widgets, .graph:
             self.currentObjectId = nil
+            self.isNoHomeSelected = true
         case .object(let objectId):
             self.currentObjectId = objectId
+            self.isNoHomeSelected = false
         }
     }
 
@@ -53,7 +56,7 @@ final class HomepageSettingsPickerViewModel {
         }
     }
 
-    func onEmptySelected() async throws {
+    func onNoHomeSelected() async throws {
         try await homepagePickerService.setHomepage(spaceId: spaceId, homepage: .widgets)
         AnytypeAnalytics.instance().logChangeSpaceDashboard()
         dismiss = true
