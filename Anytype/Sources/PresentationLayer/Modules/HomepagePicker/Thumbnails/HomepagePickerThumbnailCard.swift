@@ -31,15 +31,15 @@ struct HomepagePickerThumbnailCard: View {
     private var thumbnailContent: some View {
         switch option {
         case .widgets:
-            WidgetsThumbnail(isSelected: false)
+            WidgetsThumbnail()
         case .object(let type):
             switch type {
             case .chat:
-                ChatThumbnail(isSelected: false)
+                ChatThumbnail()
             case .page:
-                PageThumbnail(isSelected: false)
+                PageThumbnail()
             case .collection:
-                CollectionThumbnail(isSelected: false)
+                CollectionThumbnail()
             }
         }
     }

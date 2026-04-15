@@ -26,8 +26,12 @@ final class HomeWidgetsViewModel {
     private var objectActionService: any ObjectActionsServiceProtocol
     private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
+    @Injected(\.documentsProvider) @ObservationIgnored
+    private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.participantsStorage) @ObservationIgnored
     private var accountParticipantStorage: any ParticipantsStorageProtocol
+    @Injected(\.participantSpacesStorage) @ObservationIgnored
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.homeWidgetsRecentStateManager) @ObservationIgnored
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
     @Injected(\.objectTypeProvider) @ObservationIgnored
@@ -55,7 +59,7 @@ final class HomeWidgetsViewModel {
     var pinnedSectionIsExpanded: Bool = false
     var objectTypeSectionIsExpanded: Bool = false
     var canCreateObjectType: Bool = false
-    var homeWidgetData: HomeWidgetViewData?
+    var homeWidgetData: HomepageWidgetViewData?
     var unreadSectionIsExpanded: Bool = false
     var unreadChats: [UnreadChatWidgetData] = []
     private var supportsMultiChats: Bool = false
@@ -206,14 +210,63 @@ final class HomeWidgetsViewModel {
         }
     }
 
+    private struct ObservedHomepage: Equatable {
+        let objectId: String
+        let canSetHomepage: Bool
+    }
+
     private func startSpaceViewTask() async {
-        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values {
+        var homepageTask: Task<Void, Never>?
+        var lastObserved: ObservedHomepage?
+        defer { homepageTask?.cancel() }
+
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
+            let spaceView = participantSpaceView.spaceView
+            supportsMultiChats = !spaceView.isOneToOne
+
             // Home widget renders whichever object is set as homepage (Chat / Page / Collection).
             // Treat `.empty` as `.widgets` via `displayValue` — empty homepage must never render the widget.
-            if case let .object(objectId) = spaceView.homepage.displayValue {
-                homeWidgetData = HomeWidgetViewData(
+            guard case let .object(objectId) = spaceView.homepage.displayValue else {
+                if lastObserved != nil {
+                    homepageTask?.cancel()
+                    homepageTask = nil
+                    homeWidgetData = nil
+                    lastObserved = nil
+                }
+                continue
+            }
+
+            // Only rebuild the observer when the observed tuple actually changes. Unrelated
+            // SpaceView emissions (rename, member added, etc.) must not cancel the task or
+            // clear homeWidgetData — doing so causes flicker/disappearance of the widget.
+            let next = ObservedHomepage(objectId: objectId, canSetHomepage: participantSpaceView.canSetHomepage)
+            guard lastObserved != next else { continue }
+
+            // Subscribe to the homepage object's details so the widget hides upstream when the
+            // object is archived, deleted, or fails to open. When details change (e.g. ownership
+            // via canSetHomepage), re-emitting HomepageWidgetViewData propagates to the child.
+            homepageTask?.cancel()
+            // Clear stale data synchronously so a slow/failed `document.open()` for the new object
+            // doesn't leave the previous homepage's widget visible and tappable.
+            homeWidgetData = nil
+            lastObserved = next
+            homepageTask = Task { [weak self] in
+                await self?.observeHomepageObject(objectId: next.objectId, canSetHomepage: next.canSetHomepage)
+            }
+        }
+    }
+
+    private func observeHomepageObject(objectId: String, canSetHomepage: Bool) async {
+        let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
+        try? await document.open()
+        for await _ in document.syncPublisher.values {
+            guard !Task.isCancelled else { return }
+            let details = document.details
+            if let details, !details.isArchivedOrDeleted {
+                homeWidgetData = HomepageWidgetViewData(
                     spaceId: spaceId,
                     objectId: objectId,
+                    canSetHomepage: canSetHomepage,
                     output: output,
                     onChangeHome: { [weak self] in
                         self?.output?.onChangeHome()
@@ -222,7 +275,6 @@ final class HomeWidgetsViewModel {
             } else {
                 homeWidgetData = nil
             }
-            supportsMultiChats = !spaceView.isOneToOne
         }
     }
 

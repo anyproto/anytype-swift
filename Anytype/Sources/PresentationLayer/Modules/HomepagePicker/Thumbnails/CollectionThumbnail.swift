@@ -2,11 +2,10 @@ import SwiftUI
 import Loc
 
 struct CollectionThumbnail: View {
-    let isSelected: Bool
 
-    private var textColor: Color { isSelected ? Color.Control.accent100 : Color.Control.secondary }
-    private var lineColor: Color { isSelected ? Color.Control.accent50 : Color.Control.tertiary }
-    private var accentDot: Color { isSelected ? Color.Control.accent100 : Color.Control.tertiary }
+    private var textColor: Color { Color.Control.secondary }
+    private var lineColor: Color { Color.Control.tertiary }
+    private var accentDot: Color { Color.Control.tertiary }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -57,6 +56,5 @@ struct CollectionThumbnail: View {
 }
 
 #Preview {
-    CollectionThumbnail(isSelected: false).frame(height: 172)
-    CollectionThumbnail(isSelected: true).frame(height: 172)
+    CollectionThumbnail().frame(height: 172)
 }

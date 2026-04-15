@@ -6,7 +6,7 @@ struct HomeWidgetView: View {
 
     @State private var model: HomeWidgetViewModel
 
-    init(data: HomeWidgetViewData) {
+    init(data: HomepageWidgetViewData) {
         _model = State(initialValue: HomeWidgetViewModel(data: data))
     }
 
@@ -46,11 +46,13 @@ struct HomeWidgetView: View {
             },
             content: { EmptyView() }
         )
-        .contextMenu {
-            Button {
-                model.onChangeHomeTap()
-            } label: {
-                Label(Loc.HomepagePicker.changeHome, systemImage: "house")
+        .if(model.canSetHomepage) {
+            $0.contextMenu {
+                Button {
+                    model.onChangeHomeTap()
+                } label: {
+                    Label(Loc.HomepagePicker.changeHome, systemImage: "house")
+                }
             }
         }
         .task {

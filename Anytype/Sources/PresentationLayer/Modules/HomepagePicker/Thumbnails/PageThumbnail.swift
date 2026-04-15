@@ -2,21 +2,12 @@ import SwiftUI
 import Loc
 
 struct PageThumbnail: View {
-    let isSelected: Bool
 
-    private var lineColor: Color { isSelected ? Color.Control.accent50 : Color.Control.tertiary }
-    private var headerBackground: Color { Color.Control.accent25 }
-    private var textColor: Color { isSelected ? Color.Control.accent100 : Color.Text.secondary }
+    private var lineColor: Color { Color.Control.tertiary }
+    private var textColor: Color { Color.Text.secondary }
 
     var body: some View {
-        // Header area with emoji (background only when selected)
         ZStack(alignment: .topLeading) {
-            if isSelected {
-                Rectangle()
-                    .fill(headerBackground)
-                    .frame(height: 40)
-            }
-            
             VStack(alignment: .leading, spacing: 0) {
                 Text("📄")
                     .font(.system(size: 20))
@@ -38,7 +29,7 @@ struct PageThumbnail: View {
             .padding(.bottom, 16)
         }
         .clipped()
-        
+
     }
 
     private func textBlock(lines: [CGFloat], topPadding: CGFloat) -> some View {
@@ -54,6 +45,5 @@ struct PageThumbnail: View {
 }
 
 #Preview {
-    PageThumbnail(isSelected: false).frame(height: 172)
-    PageThumbnail(isSelected: true).frame(height: 172)
+    PageThumbnail().frame(height: 172)
 }
