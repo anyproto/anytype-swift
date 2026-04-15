@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 import AnytypeCore
 
-struct SpaceChatWidgetView: View {
+struct HomeWidgetView: View {
 
-    @State private var model: SpaceChatWidgetViewModel
+    @State private var model: HomeWidgetViewModel
 
-    init(data: SpaceChatWidgetData) {
-        _model = State(initialValue: SpaceChatWidgetViewModel(data: data))
+    init(data: HomeWidgetViewData) {
+        _model = State(initialValue: HomeWidgetViewModel(data: data))
     }
 
     var body: some View {
@@ -18,8 +18,8 @@ struct SpaceChatWidgetView: View {
             allowContent: false,
             header: {
                 LinkWidgetDefaultHeader(
-                    title: Loc.chat,
-                    icon: .asset(.X24.chat),
+                    title: model.title,
+                    icon: model.icon,
                     rightAccessory: {
                         HStack(spacing: 4) {
                             if model.hasUnreadReactions {
@@ -31,6 +31,12 @@ struct SpaceChatWidgetView: View {
                             if model.messageCount > 0 {
                                 CounterView(count: model.messageCount, style: model.muted ? .muted : .highlighted)
                             }
+                            Image(asset: .CustomIcons.home)
+                                .resizable()
+                                .renderingMode(.template)
+                                .frame(width: 20, height: 20)
+                                .foregroundStyle(Color.Control.secondary)
+                                .padding(.trailing, 12)
                         }
                     },
                     onTap: {
@@ -40,6 +46,13 @@ struct SpaceChatWidgetView: View {
             },
             content: { EmptyView() }
         )
+        .contextMenu {
+            Button {
+                model.onChangeHomeTap()
+            } label: {
+                Label(Loc.HomepagePicker.changeHome, systemImage: "house")
+            }
+        }
         .task {
             await model.startSubscriptions()
         }

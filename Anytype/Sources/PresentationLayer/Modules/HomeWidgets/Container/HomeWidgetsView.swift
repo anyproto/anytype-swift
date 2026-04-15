@@ -94,8 +94,8 @@ private struct HomeWidgetsInternalView: View {
 
     @ViewBuilder
     private var topWidgets: some View {
-        if let data = model.chatWidgetData {
-            SpaceChatWidgetView(data: data)
+        if context == .overlay, let data = model.homeWidgetData {
+            HomeWidgetView(data: data)
         } else if model.shouldShowUnreadSection {
             HomeWidgetsGroupView(title: Loc.unread) {
                 model.onTapUnreadHeader()

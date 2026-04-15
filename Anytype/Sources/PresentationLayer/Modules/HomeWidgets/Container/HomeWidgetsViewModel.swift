@@ -55,7 +55,8 @@ final class HomeWidgetsViewModel {
     var pinnedSectionIsExpanded: Bool = false
     var objectTypeSectionIsExpanded: Bool = false
     var canCreateObjectType: Bool = false
-    var chatWidgetData: SpaceChatWidgetData?
+    var homeWidgetData: HomeWidgetViewData?
+    var onChangeHome: (() -> Void)?
     var unreadSectionIsExpanded: Bool = false
     var unreadChats: [UnreadChatWidgetData] = []
     private var supportsMultiChats: Bool = false
@@ -208,7 +209,20 @@ final class HomeWidgetsViewModel {
 
     private func startSpaceViewTask() async {
         for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values {
-            chatWidgetData = spaceView.canShowChatWidget ? SpaceChatWidgetData(spaceId: spaceId, output: output) : nil
+            // Home widget renders whichever object is set as homepage (Chat / Page / Collection).
+            // Treat `.empty` as `.widgets` via `displayValue` — empty homepage must never render the widget.
+            if case let .object(objectId) = spaceView.homepage.displayValue {
+                homeWidgetData = HomeWidgetViewData(
+                    spaceId: spaceId,
+                    objectId: objectId,
+                    output: output,
+                    onChangeHome: { [weak self] in
+                        self?.onChangeHome?()
+                    }
+                )
+            } else {
+                homeWidgetData = nil
+            }
             supportsMultiChats = !spaceView.isOneToOne
         }
     }

@@ -190,16 +190,16 @@ New/changed keys in `Workspace.xcstrings` (exact strings to be taken from Figma 
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/SpaceChat/SpaceChatWidgetView.swift`
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/SpaceChat/SpaceChatWidgetData.swift`
 
-- [ ] read current implementation to confirm the chat object ID + chat icon are hard-coded
-- [ ] change the view model to accept/resolve any homepage object ID (Chat/Page/Collection); subscribe to that object's details for **real name and real icon**, replacing the hard-coded chat icon
-- [ ] update visibility to `spaceView.homepage.displayValue == .object(_)` (any object), still gated to `screenContext == .overlay`
-- [ ] add trailing home glyph (design-system home icon — confirm asset name via `design-system-developer` / `Assets` module) per Figma `13073-14855`
-- [ ] verify tap navigation works for Page and Collection objects, not just chat — if not, route via the same object-open API used by `LinkWidgetViewContainer`
-- [ ] add `.contextMenu` (system context menu) with a **single** "Change Home" item per Figma `13071-15807`, exposing an `onChangeHome` callback
-- [ ] keep widget non-reorderable/non-removable (no drag, no remove action)
-- [ ] rename `SpaceChatWidget*` → `HomeWidget*` across all 5 files (decision resolved during review): `SpaceChatWidgetView.swift`, `SpaceChatWidgetViewModel.swift`, `SpaceChatWidgetData.swift`, and call sites in `HomeWidgetsView.swift` + `HomeWidgetsViewModel.swift`
-- [ ] preserve `LinkWidgetViewContainer(dragId: nil, allowContent: false, ...)` — these keep the widget non-reorderable and non-expandable. Do not add `WidgetCommonActionsMenuView` to the new context menu; only the single "Change Home" item
-- [ ] no unit tests unless a neighbor widget has them — then mirror
+- [x] read current implementation to confirm the chat object ID + chat icon are hard-coded — confirmed: view header was `title: Loc.chat, icon: .asset(.X24.chat)` with chat-specific navigation.
+- [x] change the view model to accept/resolve any homepage object ID (Chat/Page/Collection); subscribe to that object's details for **real name and real icon**, replacing the hard-coded chat icon — `HomeWidgetViewData.objectId` drives `documentsProvider.document(...).syncPublisher` which populates `title = details.pluralTitle` and `icon = details.objectIconImage`.
+- [x] update visibility to `spaceView.homepage.displayValue == .object(_)` (any object), still gated to `screenContext == .overlay` — `startSpaceViewTask` maps `spaceView.homepage.displayValue` to `HomeWidgetViewData` only for `.object(_)`; `HomeWidgetsView.topWidgets` gates on `context == .overlay`.
+- [x] add trailing home glyph (design-system home icon — confirm asset name via `design-system-developer` / `Assets` module) per Figma `13073-14855` — `Image(asset: .CustomIcons.home)` in `rightAccessory`, tinted `Color.Control.secondary`.
+- [x] verify tap navigation works for Page and Collection objects, not just chat — `onHeaderTap` routes chat homepages via `.spaceChat(...)` and every other object via `details.screenData()` (the same API `LinkWidgetViewModel` uses).
+- [x] add `.contextMenu` (system context menu) with a **single** "Change Home" item per Figma `13071-15807`, exposing an `onChangeHome` callback — single `Button` with `Loc.HomepagePicker.changeHome` ("Change Home"); `HomeWidgetViewData.onChangeHome` closure wired via `HomeWidgetsViewModel.onChangeHome` for Task 4 to fill.
+- [x] keep widget non-reorderable/non-removable (no drag, no remove action) — no drag modifiers, no `WidgetCommonActionsMenuView`, `dragId: nil` preserved.
+- [x] rename `SpaceChatWidget*` → `HomeWidget*` across all 5 files — `git mv` performed for all three widget files (SpaceChat folder → HomeWidget folder); call sites in `HomeWidgetsView.swift` + `HomeWidgetsViewModel.swift` updated (`chatWidgetData` → `homeWidgetData`). The payload struct is named `HomeWidgetViewData` to avoid colliding with the existing `HomeWidgetData` coordinator navigation struct. `rg "SpaceChatWidget" --type swift` → zero hits.
+- [x] preserve `LinkWidgetViewContainer(dragId: nil, allowContent: false, ...)` — unchanged; no `WidgetCommonActionsMenuView` added.
+- [x] no unit tests unless a neighbor widget has them — skipped (no existing `SpaceChatWidget*Tests` file).
 
 ### Task 4: Wire Change Home routing into the overlay coordinator
 
