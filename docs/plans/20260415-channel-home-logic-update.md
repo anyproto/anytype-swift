@@ -209,10 +209,10 @@ New/changed keys in `Workspace.xcstrings` (exact strings to be taken from Figma 
 - Modify: `Anytype/Sources/PresentationLayer/Flows/HomeWidgetsCoordinator/HomeWidgetsCoordinatorView.swift`
 - Modify: `Anytype/Sources/PresentationLayer/Flows/HomeWidgetsCoordinator/HomeWidgetsCoordinatorViewModel.swift`
 
-- [ ] update visibility check wherever the existing chat widget is gated (was: homepage == Chat; becomes: homepage is any object) — do not render Home widget in `.navigation` context
-- [ ] add `showHomeChangePicker: Bool` state on `HomeWidgetsCoordinatorViewModel`; wire the widget's `onChangeHome` callback to set it true
-- [ ] present `HomepageSettingsPickerView` via `.sheet` driven by `showHomeChangePicker`
-- [ ] keep the existing `showHomepagePicker` sheet intact for now (it is deleted in Task 9) so earlier tasks compile
+- [x] update visibility check wherever the existing chat widget is gated (was: homepage == Chat; becomes: homepage is any object) — do not render Home widget in `.navigation` context — already correct from Task 3 (`HomeWidgetsView.topWidgets` gates on `context == .overlay` + `homepage.displayValue == .object(_)`). No changes needed.
+- [x] add `showHomeChangePicker: Bool` state on `HomeWidgetsCoordinatorViewModel`; wire the widget's `onChangeHome` callback to set it true — added `showHomeChangePicker` state + `onChangeHome()` method on coordinator VM. Added `onChangeHome()` to `HomeWidgetsModuleOutput` protocol; `HomeWidgetsViewModel` now routes `HomeWidgetViewData.onChangeHome` through `output?.onChangeHome()` and the unused `onChangeHome` var was removed.
+- [x] present `HomepageSettingsPickerView` via `.sheet` driven by `showHomeChangePicker` — added `.sheet(isPresented: $model.showHomeChangePicker)` in `HomeWidgetsCoordinatorView`.
+- [x] keep the existing `showHomepagePicker` sheet intact for now (it is deleted in Task 9) so earlier tasks compile — left untouched.
 
 ### Task 5: Update Settings picker ("Channel home" screen + "No home" row)
 
