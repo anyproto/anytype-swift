@@ -1,10 +1,9 @@
 import SwiftUI
 
 struct WidgetsThumbnail: View {
-    let isSelected: Bool
 
-    private var lineColor: Color { isSelected ? Color.Control.accent50 : Color.Control.tertiary }
-    private var cardBackground: Color { isSelected ? Color.Control.accent25 : Color.Shape.transparentTertiary }
+    private var lineColor: Color { Color.Control.tertiary }
+    private var cardBackground: Color { Color.Shape.transparentTertiary }
 
     var body: some View {
         VStack(spacing: 6) {
@@ -38,6 +37,5 @@ struct WidgetsThumbnail: View {
 }
 
 #Preview {
-    WidgetsThumbnail(isSelected: false).frame(height: 172)
-    WidgetsThumbnail(isSelected: true).frame(height: 172)
+    WidgetsThumbnail().frame(height: 172)
 }

@@ -1,11 +1,10 @@
 import SwiftUI
 
 struct ChatThumbnail: View {
-    let isSelected: Bool
 
-    private var lineColor: Color { isSelected ? Color.Control.accent50 : Color.Control.tertiary }
-    private var backgroundColor: Color { isSelected ? Color.Control.accent25 : Color.Shape.secondary }
-    private var avatarColor: Color { isSelected ? Color.Control.accent50 : Color.Control.tertiary }
+    private var lineColor: Color { Color.Control.tertiary }
+    private var backgroundColor: Color { Color.Shape.secondary }
+    private var avatarColor: Color { Color.Control.tertiary }
 
     var body: some View {
         ZStack {
@@ -61,6 +60,5 @@ struct ChatThumbnail: View {
 }
 
 #Preview {
-    ChatThumbnail(isSelected: false).frame(height: 172)
-    ChatThumbnail(isSelected: true).frame(height: 172)
+    ChatThumbnail().frame(height: 172)
 }

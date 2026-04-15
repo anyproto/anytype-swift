@@ -13,7 +13,7 @@ final class HomeWidgetViewModel {
     @ObservationIgnored @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
 
-    private let data: HomeWidgetViewData
+    private let data: HomepageWidgetViewData
 
     var title: String = ""
     var icon: Icon?
@@ -22,12 +22,14 @@ final class HomeWidgetViewModel {
     var messageCount: Int = 0
     var muted = false
 
+    var canSetHomepage: Bool { data.canSetHomepage }
+
     @ObservationIgnored
     private var details: ObjectDetails?
     @ObservationIgnored
     private var isChatObject: Bool = false
 
-    init(data: HomeWidgetViewData) {
+    init(data: HomepageWidgetViewData) {
         self.data = data
     }
 
@@ -57,6 +59,8 @@ final class HomeWidgetViewModel {
     // MARK: - Private
 
     private func startDetailsSubscription() async {
+        // Validity (existence / archived / deleted) is enforced upstream by
+        // HomeWidgetsViewModel before HomepageWidgetViewData is emitted, so we only render here.
         let document = documentsProvider.document(objectId: data.objectId, spaceId: data.spaceId, mode: .preview)
         try? await document.open()
         for await _ in document.syncPublisher.values {
