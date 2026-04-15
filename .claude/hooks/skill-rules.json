@@ -447,7 +447,7 @@
           "glassEffectInteractiveIOS26",
           "glassEffectIDIOS26",
           "glassEffectIOS26",
-          "buttonStyleGlassIOS26",
+          "buttonStyleCircleGlassIOS26",
           "\\.glassEffect\\(",
           "GlassEffectContainer"
         ]
