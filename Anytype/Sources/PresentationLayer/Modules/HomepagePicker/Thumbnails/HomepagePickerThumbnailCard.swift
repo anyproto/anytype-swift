@@ -1,4 +1,5 @@
 import SwiftUI
+import DesignKit
 
 struct HomepagePickerThumbnailCard: View {
     let option: HomepagePickerOption
@@ -11,16 +12,17 @@ struct HomepagePickerThumbnailCard: View {
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                 .overlay(
                     RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .strokeBorder(
-                            isSelected ? Color.Control.accent50 : Color.Control.tertiary,
-                            lineWidth: isSelected ? 1.5 : 1
-                        )
+                        .strokeBorder(Color.Control.tertiary, lineWidth: 1)
                 )
 
-            AnytypeText(option.title, style: .caption1Medium)
-                .foregroundStyle(isSelected ? Color.Control.accent100 : Color.Control.secondary)
-                .lineLimit(1)
-                .truncationMode(.tail)
+            HStack(spacing: 6) {
+                AnytypeCircleCheckbox(checked: isSelected)
+
+                AnytypeText(option.title, style: .caption1Medium)
+                    .foregroundStyle(Color.Control.secondary)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+            }
         }
         .frame(width: 88)
     }
@@ -29,15 +31,15 @@ struct HomepagePickerThumbnailCard: View {
     private var thumbnailContent: some View {
         switch option {
         case .widgets:
-            WidgetsThumbnail(isSelected: isSelected)
+            WidgetsThumbnail(isSelected: false)
         case .object(let type):
             switch type {
             case .chat:
-                ChatThumbnail(isSelected: isSelected)
+                ChatThumbnail(isSelected: false)
             case .page:
-                PageThumbnail(isSelected: isSelected)
+                PageThumbnail(isSelected: false)
             case .collection:
-                CollectionThumbnail(isSelected: isSelected)
+                CollectionThumbnail(isSelected: false)
             }
         }
     }

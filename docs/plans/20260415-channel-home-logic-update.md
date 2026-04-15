@@ -243,16 +243,16 @@ New/changed keys in `Workspace.xcstrings` (exact strings to be taken from Figma 
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomepagePicker/HomepageCreatePickerViewModel.swift`
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomepagePicker/HomepagePickerOption.swift` (if option list is defined here)
 
-- [ ] options array = `[.object(.chat), .object(.page), .object(.collection)]` — drop `.widgets`
-- [ ] update title and subtitle to use the new Loc keys from Task 1 (per Figma `13065-16304`)
-- [ ] primary button label → `Loc.continue`
-- [ ] secondary button label → `Loc.notNow`
-- [ ] **remove thumbnail selected-state styling** (tint/border/background change on the active thumbnail)
-- [ ] **add a checkbox per option row** using the design-system checkbox/radio component — checkbox state reflects selection; thumbnail itself is always neutral
-- [ ] keep current (non-blurred) sheet background — Figma's blurred background is intentionally skipped
-- [ ] rename `onLater()` → `onNotNow()`; implementation = `setHomepage(spaceId:, homepage: .widgets)` then dismiss
-- [ ] remove any `ChannelOnboardingStorage.setHomepagePickerDismissed(...)` call
-- [ ] add test if `HomepageCreatePickerViewModel` has a test file — cases: option list has 3 entries; `onNotNow` calls `setHomepage(.widgets)`
+- [x] options array = `[.object(.chat), .object(.page), .object(.collection)]` — dropped `.widgets` from `HomepagePickerOption.allCases`; enum case `.widgets` kept for Settings picker.
+- [x] update title and subtitle to use the new Loc keys from Task 1 — view uses `Loc.HomepagePicker.title` / `Loc.HomepagePicker.description`; Task 1 updated the values in place, so no view-side change needed.
+- [x] primary button label → `Loc.continue` (exposed as `Loc.\`continue\`` in Strings.swift; accessed as `Loc.continue` in member position — established pattern).
+- [x] secondary button label → `Loc.notNow`.
+- [x] removed thumbnail selected-state styling — thumbnail overlay/stroke and title foreground are now constant (`Color.Control.tertiary` / `Color.Control.secondary`); `isSelected` no longer drives color or border weight on the thumbnail.
+- [x] added a checkbox per option row using `AnytypeCircleCheckbox(checked: isSelected)` from DesignKit, placed alongside the title row beneath the thumbnail.
+- [x] kept current (non-blurred) sheet background — `presentationBackground(Color.Background.secondary)` unchanged.
+- [x] renamed `onLater()` → `onNotNow()`; implementation now calls `homepagePickerService.setHomepage(spaceId:, homepage: .widgets)` then dismisses.
+- [x] no `ChannelOnboardingStorage.setHomepagePickerDismissed(...)` call in the picker VM — only reference outside storage is in `HomeWidgetsCoordinatorViewModel` (removed in Task 9).
+- [x] no existing test file for `HomepageCreatePickerViewModel`; skipped per plan.
 
 ### Task 8: Skip post-creation picker for 1-on-1 spaces (no client-side SetHomepage)
 
@@ -261,11 +261,11 @@ New/changed keys in `Workspace.xcstrings` (exact strings to be taken from Figma 
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Flows/HomeWidgetsCoordinator/HomeWidgetsCoordinatorViewModel.swift`
 
-- [ ] in the `.onAppear` gate that presents `HomepageCreatePickerView`, add a guard: skip when `participantSpaceView.spaceView.isOneToOne` (or `spaceUxType == .oneToOne` / `spaceType == .oneToOne` — use whichever helper already exists in the codebase)
-- [ ] **note**: once Task 9 deletes the whole auto-show-picker block, this 1-on-1 guard disappears with it — because the picker is no longer auto-shown from the coordinator at all. So this task becomes a no-op if Task 9 runs. Decide during implementation: if Task 9 runs fully in the same PR, skip Task 8 entirely and document here why (the empty-homepage scenario no longer auto-opens a picker, so there is nothing to gate for 1-on-1).
-- [ ] do **not** add any `setHomepage` call for 1-on-1 spaces — middleware is expected to set Chat as homepage server-side
-- [ ] during user verification (Task 10), confirm `spaceView.homepage` resolves to the chat object for a freshly created 1-on-1. If it does not, file a middleware bug and note it as a blocker ⚠️ — do not add a client workaround
-- [ ] no tests unless caller has existing coverage
+- [x] in the `.onAppear` gate that presents `HomepageCreatePickerView`, add a guard: skip when `participantSpaceView.spaceView.isOneToOne` (no-op — Task 9 removes the auto-show block entirely, so no guard is needed)
+- [x] **note**: once Task 9 deletes the whole auto-show-picker block, this 1-on-1 guard disappears with it — confirmed: Task 9 runs in the same PR, so Task 8 is skipped entirely. The empty-homepage scenario no longer auto-opens a picker from the coordinator, so there is nothing to gate for 1-on-1.
+- [x] do **not** add any `setHomepage` call for 1-on-1 spaces — middleware is expected to set Chat as homepage server-side (no-op — no client-side homepage call added)
+- [x] during user verification (Task 10), confirm `spaceView.homepage` resolves to the chat object for a freshly created 1-on-1 (deferred to Task 10 checklist; unchanged by this no-op)
+- [x] no tests unless caller has existing coverage (no-op — no code change in Task 8)
 
 ### Task 9: Delete stub widget and dismissal storage
 

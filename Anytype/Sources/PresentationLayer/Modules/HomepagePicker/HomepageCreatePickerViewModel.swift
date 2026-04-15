@@ -33,7 +33,8 @@ final class HomepageCreatePickerViewModel {
         dismiss = true
     }
 
-    func onLater() async throws {
+    func onNotNow() async throws {
+        try await homepagePickerService.setHomepage(spaceId: spaceId, homepage: .widgets)
         try await onFinish(.later)
         dismiss = true
     }

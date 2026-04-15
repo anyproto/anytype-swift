@@ -19,7 +19,7 @@ enum HomepagePickerOption: Identifiable, Equatable {
     }
 
     static var allCases: [HomepagePickerOption] {
-        [.object(.chat), .widgets, .object(.page), .object(.collection)]
+        [.object(.chat), .object(.page), .object(.collection)]
     }
 }
 
