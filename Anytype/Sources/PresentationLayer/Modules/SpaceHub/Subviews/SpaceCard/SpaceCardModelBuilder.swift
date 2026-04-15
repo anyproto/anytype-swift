@@ -85,7 +85,7 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             supportsMultiChats: !spaceView.isOneToOne,
             isOneToOne: spaceView.isOneToOne,
             currentNotificationMode: spaceView.pushNotificationMode,
-            showsMessageAuthor: spaceView.uxType.showsMessageAuthor,
+            showsMessageAuthor: spaceView.showsMessageAuthor,
             lastMessage: lastMessage,
             unreadCounter: spaceData.totalUnreadCounter,
             mentionCounter: spaceData.totalMentionCounter,
