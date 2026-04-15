@@ -220,16 +220,12 @@ New/changed keys in `Workspace.xcstrings` (exact strings to be taken from Figma 
 - Modify: `Anytype/Sources/PresentationLayer/SpaceSettings/HomePage/HomepageSettingsPickerView.swift`
 - Modify: `Anytype/Sources/PresentationLayer/SpaceSettings/HomePage/HomepageSettingsPickerViewModel.swift`
 
-- [ ] change screen title to `Loc.SpaceSettings.HomePage.channelHome` ("Channel home")
-- [ ] add "No home" row at the top using the **same row component** as the object rows (not a bespoke row)
-  - leading: design-system home icon
-  - title: `Loc.SpaceSettings.HomePage.noHome`
-  - caption: `Loc.SpaceSettings.HomePage.noHomeSubtitle`
-  - tick when current homepage resolves to widgets/empty
-- [ ] place a divider between the No home row and the object list, using the **same divider component** already used between object rows on this screen
-- [ ] tapping "No home" calls `setHomepage(.widgets)` and dismisses
-- [ ] remove the previous `Loc.empty` row that toggled to widgets
-- [ ] add unit test if `HomepageSettingsPickerViewModel` already has a test file — case: selecting No home issues `setHomepage(.widgets)`
+- [x] change screen title to `Loc.SpaceSettings.HomePage.channelHome` ("Channel home") — `TitleView(title:)` now uses `Loc.SpaceSettings.HomePage.channelHome`.
+- [x] add "No home" row at the top using the **same row component** as the object rows (not a bespoke row) — `noHomeRow` mirrors `objectRow` layout (HStack 12-spacing, 24×24 leading icon, VStack title + caption, Spacer, trailing tick, `.padding(.vertical, 14)`). Leading icon: `Image(asset: .CustomIcons.home)`. Title: `Loc.SpaceSettings.HomePage.noHome`. Caption: `Loc.SpaceSettings.HomePage.noHomeSubtitle`. Tick driven by `model.isNoHomeSelected`, which is computed from `homepage.displayValue` (`.empty`/`.widgets`/`.graph` → true).
+- [x] place a divider between the No home row and the object list, using the **same divider component** already used between object rows on this screen — `AnytypeDivider()` inserted between `noHomeRow` and the `ForEach` (object rows currently stack without dividers, so only one divider is needed under the No home row).
+- [x] tapping "No home" calls `setHomepage(.widgets)` and dismisses — renamed `onEmptySelected` → `onNoHomeSelected`; body unchanged (still calls `homepagePickerService.setHomepage(spaceId:, homepage: .widgets)` + `dismiss = true`).
+- [x] remove the previous `Loc.empty` row that toggled to widgets — deleted `emptyOption`. `rg "Loc\.empty|onEmptySelected|chooseHome|emptyOption"` inside `SpaceSettings/HomePage/` → zero hits.
+- [x] add unit test if `HomepageSettingsPickerViewModel` already has a test file — no existing test file for this view model; skipped per plan.
 
 ### Task 6: Update Space Settings preview text
 

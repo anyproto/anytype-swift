@@ -13,7 +13,7 @@ struct HomepageSettingsPickerView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.SpaceSettings.HomePage.chooseHome)
+            TitleView(title: Loc.SpaceSettings.HomePage.channelHome)
 
             SearchBar(text: $model.searchText, focused: false, placeholder: Loc.search)
 
@@ -34,7 +34,8 @@ struct HomepageSettingsPickerView: View {
             ScrollView {
                 LazyVStack(spacing: 0) {
                     if model.searchText.isEmpty {
-                        emptyOption
+                        noHomeRow
+                        AnytypeDivider()
                     }
 
                     ForEach(model.objects) { object in
@@ -49,26 +50,33 @@ struct HomepageSettingsPickerView: View {
         }
     }
 
-    private var emptyOption: some View {
+    private var noHomeRow: some View {
         AsyncButton {
-            try await model.onEmptySelected()
+            try await model.onNoHomeSelected()
         } label: {
             HStack(spacing: 12) {
-                Image(systemName: "minus.circle")
+                Image(asset: .CustomIcons.home)
                     .foregroundStyle(Color.Control.primary)
                     .frame(width: 24, height: 24)
 
-                AnytypeText(Loc.empty, style: .uxBodyRegular)
-                    .foregroundStyle(Color.Text.primary)
+                VStack(alignment: .leading, spacing: 2) {
+                    AnytypeText(Loc.SpaceSettings.HomePage.noHome, style: .uxBodyRegular)
+                        .foregroundStyle(Color.Text.primary)
+                        .lineLimit(1)
+
+                    AnytypeText(Loc.SpaceSettings.HomePage.noHomeSubtitle, style: .relation2Regular)
+                        .foregroundStyle(Color.Text.secondary)
+                        .lineLimit(1)
+                }
 
                 Spacer()
 
-                if model.currentObjectId == nil {
+                if model.isNoHomeSelected {
                     Image(asset: .X24.tick)
                         .foregroundStyle(Color.Control.secondary)
                 }
             }
-            .frame(height: 72)
+            .padding(.vertical, 14)
         }
     }
 
