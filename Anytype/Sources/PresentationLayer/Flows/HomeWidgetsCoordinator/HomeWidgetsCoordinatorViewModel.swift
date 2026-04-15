@@ -19,6 +19,7 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     var spaceShareData: SpaceShareData?
     var qrCodeInviteData: URLIdentifiable?
     var showHomepagePicker = false
+    var showHomeChangePicker = false
 
     @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
@@ -86,6 +87,10 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
 
     func onShowHomepagePicker() {
         showHomepagePicker = true
+    }
+
+    func onChangeHome() {
+        showHomeChangePicker = true
     }
 
     func onObjectSelected(screenData: ScreenData) {

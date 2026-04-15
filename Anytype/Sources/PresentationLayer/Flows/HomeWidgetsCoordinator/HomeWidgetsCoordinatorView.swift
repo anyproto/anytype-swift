@@ -83,5 +83,8 @@ private struct HomeWidgetsCoordinatorInternalView: View {
                 }
                 .interactiveDismissDisabled(true)
             }
+            .sheet(isPresented: $model.showHomeChangePicker) {
+                HomepageSettingsPickerView(spaceId: model.spaceInfo.accountSpaceId)
+            }
     }
 }

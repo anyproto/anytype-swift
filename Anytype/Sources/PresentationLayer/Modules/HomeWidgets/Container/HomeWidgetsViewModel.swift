@@ -56,7 +56,6 @@ final class HomeWidgetsViewModel {
     var objectTypeSectionIsExpanded: Bool = false
     var canCreateObjectType: Bool = false
     var homeWidgetData: HomeWidgetViewData?
-    var onChangeHome: (() -> Void)?
     var unreadSectionIsExpanded: Bool = false
     var unreadChats: [UnreadChatWidgetData] = []
     private var supportsMultiChats: Bool = false
@@ -217,7 +216,7 @@ final class HomeWidgetsViewModel {
                     objectId: objectId,
                     output: output,
                     onChangeHome: { [weak self] in
-                        self?.onChangeHome?()
+                        self?.output?.onChangeHome()
                     }
                 )
             } else {
