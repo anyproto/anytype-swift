@@ -5,6 +5,20 @@
 - **PR NUMBER**: Pull request number (injected by workflow)
 - **COMMIT SHA**: Commit SHA being reviewed (injected by workflow)
 
+## 🚨 EXHAUSTIVENESS REQUIREMENT (READ FIRST)
+
+This review is the ONLY review pass that matters for this commit. You MUST find every issue in a single run — do not defer findings to "next review," do not stop after the first issue, do not post a partial review and exit.
+
+**Mandatory analysis order:**
+
+1. Fetch the COMPLETE diff in one call: `gh pr diff ${PR_NUMBER} --repo ${REPO}`. Do not slice, do not truncate, do not skim. If the diff is large, read it fully before making any tool calls to post comments.
+2. Walk every changed file end-to-end. For each file, build an internal findings list covering at minimum: logic errors, race conditions, nil/force-unwrap hazards, missing guards, off-by-one and boundary bugs, memory/retain cycles, incorrect async/actor isolation, broken edge cases, security issues, incorrect Loc usage, missing feature flags, design-system violations (Color/Image/Loc), typos in user-facing strings, dead code, and `CLAUDE.md` / `TASTE_INVARIANTS.md` violations.
+3. Only after the findings list is complete across ALL changed files, post the review.
+4. Post ALL inline comments in a SINGLE `gh api POST /pulls/${PR_NUMBER}/reviews` call with every comment in one `comments[]` array (see "Batching" below). Do NOT post comments one at a time. Do NOT split the review across multiple API calls.
+5. Never emit "I'll look at the rest later" / "further issues may exist" / "due to time constraints." If you are running short on tool turns, cut low-severity nits first, then format/style notes — but never drop a high-severity bug.
+
+**If the same reviewer (you) missed a finding and it only surfaces on the next push, that is a failure of this run.** Plan turn budget accordingly: analysis first, one batched post at the end.
+
 ## 🚨 CRITICAL OUTPUT RULES
 
 **If NO issues found:**
@@ -35,53 +49,45 @@ https://github.com/actions/runner-images/tree/main/images/macos
 
 ## Review Comment Strategy
 
-### 1. Small, Localized Issues (Preferred)
-For issues affecting a single chunk of code:
-- Use GitHub's suggestion mechanism to propose the fix inline
-- Include the fixed code in a suggestion block
-- Add brief explanation above the suggestion
+### REQUIRED: Batch all inline comments into ONE API call
 
-**Format**:
-```suggestion
+Every finding with a specific file/line MUST be posted as an inline comment in a single `POST /pulls/${PR_NUMBER}/reviews` call that contains ALL comments in one `comments[]` array. One review, one call, all findings.
+
+Do NOT post inline comments one by one. Do NOT call `POST /reviews` multiple times for the same run. Multiple calls waste turns and cause partial reviews when the turn budget runs out.
+
+**Batched format (this is the default — use it unless a finding genuinely has no file/line):**
+
+```bash
+gh api repos/${REPO}/pulls/${PR_NUMBER}/reviews \
+  --method POST \
+  --field body="Short overall summary, or empty if inline comments speak for themselves" \
+  --field event="COMMENT" \
+  --field comments[][path]="path/to/FileA.swift" \
+  --field comments[][line]=42 \
+  --field comments[][body]="**Bug**: Explanation. \`\`\`suggestion
 fixed code here
+\`\`\`" \
+  --field comments[][path]="path/to/FileA.swift" \
+  --field comments[][line]=97 \
+  --field comments[][body]="**Race condition**: explanation." \
+  --field comments[][path]="path/to/FileB.swift" \
+  --field comments[][line]=15 \
+  --field comments[][body]="**Loc violation**: hardcoded string — use \`Loc.X.y\`."
 ```
 
-**Example**:
+Repeat the `--field comments[][path]` / `--field comments[][line]` / `--field comments[][body]` trio for every finding. GitHub groups them into one review.
+
+**Inline suggestion blocks** (preferred for small, localized fixes) use the same ` ```suggestion ` mechanism inside a comment's body — still inside the batched call.
+
+### Use a single top-level comment ONLY when there are no line-specific findings
+
+If every finding is cross-cutting (architecture, multi-file design problems, something without a natural line anchor):
+
 ```bash
-gh api repos/${REPO}/pulls/${PR_NUMBER}/reviews \
-  --method POST \
-  --field body="" \
-  --field event="COMMENT" \
-  --field comments[][path]="fastlane/FastlaneComment" \
-  --field comments[][line]=45 \
-  --field comments[][body]="**Code Quality**: This single-line command is fragile. Consider breaking into multiple lines:
-\`\`\`suggestion
-sh(\"export PKG_CONFIG_PATH=/opt/homebrew/lib/pkgconfig:/usr/local/lib/pkgconfig:\$PKG_CONFIG_PATH\")
-sh(\"source venv/bin/activate && pip3 install -r requirements.txt && python3 release-utils/main.py\")
-\`\`\`"
+gh pr comment ${PR_NUMBER} --repo ${REPO} --body "YOUR_REVIEW_TEXT_HERE"
 ```
 
-### 2. Broader Issues (Multiple Locations)
-For issues spanning multiple files or no immediate fix:
-
-**Format**:
-```bash
-gh api repos/${REPO}/pulls/${PR_NUMBER}/reviews \
-  --method POST \
-  --field body="Your summary here (can be empty if you have inline comments)" \
-  --field event="COMMENT" \
-  --field comments[][path]="Anytype/Sources/PresentationLayer/SpaceSettings/SpaceSettings/SpaceSettingsViewModel.swift" \
-  --field comments[][line]=274 \
-  --field comments[][body]="**Potential Race Condition**: canAddWriters is computed using participants array (line 274), but participants is updated asynchronously in startJoiningTask() which runs in parallel with startParticipantTask()."
-```
-
-You can add multiple `--field comments[][...]` entries in a single command for multiple inline comments.
-
-### 3. Final Summary Comment
-Always post a summary at the end:
-```bash
-gh pr comment ${PR_NUMBER} --body "Review complete - see inline comments for details"
-```
+Do NOT post BOTH a batched review AND a separate `gh pr comment` summary for the same run — that produces duplicate noise. The `body` field of the `POST /reviews` call already serves as the summary.
 
 ## CRITICAL: Post Your Review
 
@@ -89,8 +95,8 @@ gh pr comment ${PR_NUMBER} --body "Review complete - see inline comments for det
 
 After completing your review analysis:
 
-1. **For reviews with inline comments**: Post inline comments first using the strategies above, then post a final summary
-2. **For reviews without inline comments**: Post your full review text as a single PR comment
+1. **For reviews with inline comments**: Post ONE batched `POST /pulls/${PR_NUMBER}/reviews` call containing every inline comment in one `comments[]` array. Do not post a separate summary comment — use the `body` field of that same call.
+2. **For reviews without inline comments**: Post your full review text as a single `gh pr comment` call.
 
 **Command**:
 ```bash
