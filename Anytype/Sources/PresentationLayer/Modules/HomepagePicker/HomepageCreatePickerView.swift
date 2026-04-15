@@ -73,12 +73,12 @@ struct HomepageCreatePickerView: View {
     private var buttons: some View {
         AsyncStandardButtonGroup {
             VStack(spacing: 8) {
-                AsyncStandardButton(Loc.create, style: .primaryLarge) {
+                AsyncStandardButton(Loc.continue, style: .primaryLarge) {
                     try await model.onCreate()
                 }
 
-                AsyncStandardButton(Loc.later, style: .secondaryLarge) {
-                    try await model.onLater()
+                AsyncStandardButton(Loc.notNow, style: .secondaryLarge) {
+                    try await model.onNotNow()
                 }
             }
             .padding(.horizontal, 16)
