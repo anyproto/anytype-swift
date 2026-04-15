@@ -38,9 +38,9 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         limits: any ChatMessageLimitsProtocol
     ) async -> [MessageSectionData] {
 
-        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
-        let showsMessageAuthor = spaceUxType?.showsMessageAuthor ?? true
-        let positionsYourMessageOnRight = spaceUxType?.positionsYourMessageOnRight ?? true
+        let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
+        let showsMessageAuthor = spaceView?.showsMessageAuthor ?? true
+        let positionsYourMessageOnRight = spaceView?.uxType.positionsYourMessageOnRight ?? true
         let participant = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
         let chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
         let isChatDeletedOrArchived = (chatObject.details?.isDeleted ?? false) || (chatObject.details?.isArchived ?? false)

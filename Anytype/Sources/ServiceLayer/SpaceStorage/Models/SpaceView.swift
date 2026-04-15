@@ -119,6 +119,10 @@ extension SpaceView {
         spaceType == .oneToOne
     }
 
+    var showsMessageAuthor: Bool {
+        !isOneToOne && uxType.showsMessageAuthor
+    }
+
     @available(*, deprecated, message: "Use homepage to determine initial screen")
     var initialScreenIsChat: Bool {
         uxType.initialScreenIsChat
