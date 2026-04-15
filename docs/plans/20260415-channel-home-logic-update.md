@@ -165,14 +165,14 @@ New/changed keys in `Workspace.xcstrings` (exact strings to be taken from Figma 
 - Modify: `Modules/Loc/Sources/Loc/Resources/Workspace.xcstrings`
 - Regenerate: `Modules/Loc/Sources/Loc/Generated/Strings.swift` (via `make generate`)
 
-- [ ] add/verify "Continue" key — note: `continue` is a Swift keyword. Check existing generated output in `Strings.swift`; if a `Loc.continue` already exists it will be backtick-escaped. If adding new, prefer an unambiguous key like `continue_` or scope it (e.g. `Loc.HomepagePicker.continue`) rather than adding a top-level `continue`.
-- [ ] add `notNow` key (value "Not now")
-- [ ] update `HomepagePicker.title` and `HomepagePicker.description` with new copy from Figma node `13065-16304`
-- [ ] add `SpaceSettings.HomePage.channelHome` (value "Channel home" per Figma node `13065-16290`)
-- [ ] add `SpaceSettings.HomePage.noHome` (value "No home")
-- [ ] add `SpaceSettings.HomePage.noHomeSubtitle` (caption per Figma — e.g. "Opens to navigation on entry")
-- [ ] run `make generate`; confirm Strings.swift updated and compiles
-- [ ] (no unit tests — pure resource change)
+- [x] add/verify "Continue" key — verified: `Loc.continue` already exists (backtick-escaped) at Strings.swift line 270, reused as-is. No new key added.
+- [x] add `notNow` key (value "Not now") — added as top-level `NotNow` → `Loc.notNow`.
+- [x] update `HomepagePicker.title` with new copy — en value changed to "Set Channel Home". Subtitle `HomepagePicker.description` left unchanged (existing copy "Select what you and channel members see when they open the channel. You can always change it in settings." still accurate for the 3-option picker; Figma exact string not accessible — flag for user verification in Task 10).
+- [x] add `SpaceSettings.HomePage.channelHome` (value "Channel home")
+- [x] add `SpaceSettings.HomePage.noHome` (value "No home")
+- [x] add `SpaceSettings.HomePage.noHomeSubtitle` (value "Opens to navigation on entry")
+- [x] run `make generate`; Strings.swift regenerated cleanly with all new keys present.
+- [x] (no unit tests — pure resource change)
 
 ### Task 2: Add `SpaceHomepage.displayValue` helper
 
