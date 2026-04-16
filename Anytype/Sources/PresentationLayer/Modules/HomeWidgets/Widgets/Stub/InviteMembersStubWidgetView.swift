@@ -33,21 +33,23 @@ struct InviteMembersStubWidgetView: View {
                         .frame(width: 20, height: 20)
                         .foregroundStyle(Color.Pure.red)
                     Spacer.fixedWidth(12)
-                    AnytypeText(Loc.Chat.inviteMembers, style: .previewTitle2Medium)
+                    AnytypeText(Loc.Chat.inviteMembers, style: .bodySemibold)
                         .foregroundStyle(Color.Text.primary)
                         .lineLimit(1)
-                    Spacer()
+                    Spacer(minLength: 8)
                 }
-                .frame(height: 52)
+                .fixTappableArea()
             }
-
+            .buttonStyle(.plain)
             Button(action: { model.onInviteMembersClose() }) {
                 Image(asset: .X24.close)
                     .foregroundStyle(Color.Control.secondary)
-                    .padding(.horizontal, 14)
+                    .frame(width: 48, height: 48)
             }
+            .buttonStyle(.plain)
         }
-        .background(Color.Background.widget)
+        .frame(height: 48)
+        .background(Color.Background.primary)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
     }
 }
