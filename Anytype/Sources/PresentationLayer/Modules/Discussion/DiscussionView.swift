@@ -78,7 +78,7 @@ struct DiscussionView: View {
                 }
                 ToolbarItem(placement: .title) {
                     VStack(alignment: .leading, spacing: 0) {
-                        AnytypeText(model.objectName.withPlaceholder, style: .caption1Regular)
+                        AnytypeText(model.objectName.withPlaceholder, style: .caption1Medium)
                             .foregroundStyle(Color.Text.secondary)
                             .lineLimit(1)
                         AnytypeText(Loc.Discussion.Header.comments(model.commentsCount), style: .uxTitle2Semibold)
