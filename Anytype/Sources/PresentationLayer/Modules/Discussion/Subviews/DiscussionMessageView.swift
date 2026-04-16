@@ -70,7 +70,6 @@ struct DiscussionMessageView: View {
             header
             Spacer.fixedHeight(8)
             messageContent
-            Spacer.fixedHeight(8)
             reactions
         }
     }
@@ -84,7 +83,7 @@ struct DiscussionMessageView: View {
             } label: {
                 HStack(spacing: 0) {
                     IconView(icon: data.authorIcon)
-                        .frame(width: 28, height: 28)
+                        .frame(width: 20, height: 20)
 
                     Spacer().frame(width: 6)
 
@@ -108,12 +107,12 @@ struct DiscussionMessageView: View {
             timestampLabel
                 .fixedSize()
         }
-        .frame(height: 32)
+        .frame(height: 20)
     }
 
     private var timestampLabel: some View {
         Text(data.timestampLabel)
-            .anytypeStyle(.caption2Regular)
+            .anytypeStyle(.caption1Regular)
             .foregroundStyle(Color.Text.secondary)
             .lineLimit(1)
     }
@@ -189,7 +188,7 @@ struct DiscussionMessageView: View {
                     output?.didSelectAddReaction(messageId: data.message.id)
                 }
             )
-            .padding(.top, 4)
+            .padding(.top, 8)
         }
     }
 
