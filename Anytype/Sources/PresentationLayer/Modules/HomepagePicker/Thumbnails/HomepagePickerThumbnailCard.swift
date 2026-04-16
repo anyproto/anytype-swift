@@ -21,7 +21,6 @@ struct HomepagePickerThumbnailCard: View {
                 .truncationMode(.tail)
 
             AnytypeCircleCheckbox(checked: isSelected)
-                .frame(width: 20, height: 20)
         }
         .frame(width: 88)
     }

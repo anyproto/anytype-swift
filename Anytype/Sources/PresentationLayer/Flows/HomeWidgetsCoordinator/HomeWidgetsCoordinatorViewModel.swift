@@ -82,7 +82,10 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         showHomeChangePicker = true
     }
 
+    var dismissOverlay: (() -> Void)?
+
     func onHomeObjectSelected(screenData: ScreenData) {
+        dismissOverlay?()
         pageNavigation?.popToFirstInSpace()
     }
 

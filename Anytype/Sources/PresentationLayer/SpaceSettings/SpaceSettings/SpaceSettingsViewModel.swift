@@ -316,7 +316,7 @@ final class SpaceSettingsViewModel {
             let spaceId = workspaceInfo.accountSpaceId
             let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
             if let details, !details.isArchivedOrDeleted {
-                homePageState = .object(icon: details.objectIconImage, name: details.name)
+                homePageState = .object(icon: details.objectIconImage, name: details.name.withPlaceholder)
             } else {
                 homePageState = .empty
             }

@@ -42,6 +42,7 @@ private struct HomeWidgetsCoordinatorInternalView: View {
 
     @State private var model: HomeWidgetsCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
+    @Environment(\.dismiss) private var dismiss
 
     let context: WidgetScreenContext
 
@@ -54,6 +55,7 @@ private struct HomeWidgetsCoordinatorInternalView: View {
         HomeWidgetsView(info: model.spaceInfo, context: context, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
+                model.dismissOverlay = { dismiss() }
             }
             .task {
                 await model.startPendingShareRetryTask()
