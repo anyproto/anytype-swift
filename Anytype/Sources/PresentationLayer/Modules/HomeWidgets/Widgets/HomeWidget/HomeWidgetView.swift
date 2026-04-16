@@ -35,8 +35,9 @@ struct HomeWidgetView: View {
                             Image(asset: .CustomIcons.home)
                                 .resizable()
                                 .renderingMode(.template)
-                                .frame(width: 18, height: 18)
+                                .frame(width: 14, height: 14)
                                 .foregroundStyle(Color.Control.secondary)
+                                .frame(width: 18, height: 18)
                         }
                     },
                     onTap: {
