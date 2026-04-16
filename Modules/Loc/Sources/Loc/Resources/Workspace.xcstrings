@@ -25343,6 +25343,17 @@
         }
       }
     },
+    "HomepagePicker.changeHome" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Home"
+          }
+        }
+      }
+    },
     "HomepagePicker.Thumbnail.idea" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -25683,7 +25694,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Select what you and channel members see when they open the channel. You can always change it in settings."
+            "value" : "Members will land here directly instead of browsing navigation"
           }
         },
         "es" : {
@@ -25838,7 +25849,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create Home"
+            "value" : "Add a Channel Home?"
           }
         },
         "es" : {
@@ -37893,6 +37904,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "筆記"
+          }
+        }
+      }
+    },
+    "NotNow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not now"
           }
         }
       }
@@ -67250,6 +67272,17 @@
         }
       }
     },
+    "SpaceSettings.HomePage.ChannelHome" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Channel home"
+          }
+        }
+      }
+    },
     "SpaceSettings.HomePage.ChooseHome" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -67401,6 +67434,28 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Choose Home"
+          }
+        }
+      }
+    },
+    "SpaceSettings.HomePage.NoHome" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No home"
+          }
+        }
+      }
+    },
+    "SpaceSettings.HomePage.NoHomeSubtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens to navigation on entry"
           }
         }
       }
