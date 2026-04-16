@@ -71,7 +71,6 @@ struct DiscussionMessageView: View {
             Spacer.fixedHeight(8)
             messageContent
             reactions
-
         }
     }
 
