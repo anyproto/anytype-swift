@@ -10,9 +10,6 @@ final class HomeWidgetViewModel {
     private var workspaceStorage: any SpaceViewsStorageProtocol
     @ObservationIgnored @Injected(\.chatMessagesPreviewsStorage)
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
-    @ObservationIgnored @Injected(\.documentsProvider)
-    private var documentsProvider: any DocumentsProviderProtocol
-
     private let data: HomepageWidgetViewData
 
     var title: String = ""
@@ -59,10 +56,7 @@ final class HomeWidgetViewModel {
     // MARK: - Private
 
     private func startDetailsSubscription() async {
-        // Validity (existence / archived / deleted) is enforced upstream by
-        // HomeWidgetsViewModel before HomepageWidgetViewData is emitted, so we only render here.
-        let document = documentsProvider.document(objectId: data.objectId, spaceId: data.spaceId, mode: .preview)
-        try? await document.open()
+        let document = data.document
         for await _ in document.syncPublisher.values {
             guard let details = document.details else { continue }
             self.details = details

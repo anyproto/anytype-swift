@@ -267,6 +267,7 @@ final class HomeWidgetsViewModel {
                     spaceId: spaceId,
                     objectId: objectId,
                     canSetHomepage: canSetHomepage,
+                    document: document,
                     output: output,
                     onChangeHome: { [weak self] in
                         self?.output?.onChangeHome()
