@@ -20,6 +20,7 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     var qrCodeInviteData: URLIdentifiable?
     var showHomeChangePicker = false
     var showHomepagePicker = false
+    var shouldDismissOverlay = false
 
     @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
@@ -81,8 +82,6 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     func onChangeHome() {
         showHomeChangePicker = true
     }
-
-    var shouldDismissOverlay = false
 
     func onHomeObjectSelected(screenData: ScreenData) {
         shouldDismissOverlay = true
