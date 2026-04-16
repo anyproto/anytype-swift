@@ -80,6 +80,7 @@ private struct HomeWidgetsInternalView: View {
         ScrollView {
             VStack(spacing: 0) {
                 SpaceInfoView(spaceId: model.spaceId)
+                InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
                 topWidgets
                 blockWidgets
                 objectTypeWidgets
