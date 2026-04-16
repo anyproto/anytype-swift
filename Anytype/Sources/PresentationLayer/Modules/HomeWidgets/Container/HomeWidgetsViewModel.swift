@@ -276,7 +276,7 @@ final class HomeWidgetsViewModel {
                         self?.output?.onHomeObjectSelected(screenData: screenData)
                     }
                 )
-            } else if !isAvailable {
+            } else {
                 homeWidgetData = nil
             }
         }
