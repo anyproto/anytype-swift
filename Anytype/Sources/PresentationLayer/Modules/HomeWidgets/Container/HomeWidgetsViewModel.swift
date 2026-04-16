@@ -262,8 +262,7 @@ final class HomeWidgetsViewModel {
         for await _ in document.syncPublisher.values {
             guard !Task.isCancelled else { return }
             let details = document.details
-            let isAvailable = details != nil && !details!.isArchivedOrDeleted
-            if isAvailable && homeWidgetData == nil {
+            if let details, !details.isArchivedOrDeleted {
                 homeWidgetData = HomepageWidgetViewData(
                     spaceId: spaceId,
                     objectId: objectId,
