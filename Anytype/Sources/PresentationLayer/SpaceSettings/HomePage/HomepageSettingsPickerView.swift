@@ -58,7 +58,7 @@ struct HomepageSettingsPickerView: View {
                 Image(asset: .CustomIcons.removeCircle)
                     .resizable()
                     .renderingMode(.template)
-                    .foregroundStyle(Color.Control.primary)
+                    .foregroundStyle(Color.Control.secondary)
                     .frame(width: 22, height: 22)
                     .frame(width: 48, height: 48)
 

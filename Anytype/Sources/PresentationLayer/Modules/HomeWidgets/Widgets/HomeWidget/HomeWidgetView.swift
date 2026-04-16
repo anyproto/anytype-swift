@@ -32,11 +32,11 @@ struct HomeWidgetView: View {
                             if model.messageCount > 0 {
                                 CounterView(count: model.messageCount, style: model.muted ? .muted : .highlighted)
                             }
-                            Image(asset: .X18.pin)
+                            Image(asset: .CustomIcons.home)
+                                .resizable()
                                 .renderingMode(.template)
+                                .frame(width: 18, height: 18)
                                 .foregroundStyle(Color.Control.secondary)
-                                .padding(.leading, 12)
-                                .padding(.trailing, 16)
                         }
                     },
                     onTap: {
