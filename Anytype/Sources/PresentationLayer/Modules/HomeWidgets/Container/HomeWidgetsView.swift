@@ -96,8 +96,6 @@ private struct HomeWidgetsInternalView: View {
     private var topWidgets: some View {
         if context == .overlay, let data = model.homeWidgetData {
             HomeWidgetView(data: data)
-                // Include canSetHomepage so the child (and its context menu) rebuilds
-                // when ownership changes, not just when the homepage objectId changes.
                 .id("\(data.objectId)-\(data.canSetHomepage)")
         } else if model.shouldShowUnreadSection {
             HomeWidgetsGroupView(title: Loc.unread) {

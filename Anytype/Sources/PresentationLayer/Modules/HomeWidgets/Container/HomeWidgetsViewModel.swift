@@ -262,7 +262,8 @@ final class HomeWidgetsViewModel {
         for await _ in document.syncPublisher.values {
             guard !Task.isCancelled else { return }
             let details = document.details
-            if let details, !details.isArchivedOrDeleted {
+            let isAvailable = details != nil && !details!.isArchivedOrDeleted
+            if isAvailable && homeWidgetData == nil {
                 homeWidgetData = HomepageWidgetViewData(
                     spaceId: spaceId,
                     objectId: objectId,
@@ -275,7 +276,7 @@ final class HomeWidgetsViewModel {
                         self?.output?.onHomeObjectSelected(screenData: screenData)
                     }
                 )
-            } else {
+            } else if !isAvailable {
                 homeWidgetData = nil
             }
         }

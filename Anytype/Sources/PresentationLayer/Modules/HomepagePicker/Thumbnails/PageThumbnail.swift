@@ -3,8 +3,8 @@ import Loc
 
 struct PageThumbnail: View {
 
-    private var lineColor: Color { Color.Control.tertiary }
-    private var textColor: Color { Color.Text.secondary }
+    private let lineColor: Color = .Control.tertiary
+    private let textColor: Color = .Text.secondary
 
     var body: some View {
         ZStack(alignment: .topLeading) {
