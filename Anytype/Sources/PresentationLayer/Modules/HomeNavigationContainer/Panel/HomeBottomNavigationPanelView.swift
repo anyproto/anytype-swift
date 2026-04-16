@@ -21,6 +21,8 @@ private struct HomeBottomNavigationPanelViewInternal: View {
 
     let homePath: HomePath
     @State private var model: HomeBottomNavigationPanelViewModel
+    @State private var showTypeSearch = false
+    @Environment(\.pageNavigation) private var pageNavigation
 
     init(homePath: HomePath, info: AccountInfo, output: (any HomeBottomNavigationPanelModuleOutput)?) {
         self.homePath = homePath
@@ -163,15 +165,24 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             .glassEffectInteractiveIOS26(in: Circle())
             .menuOrder(.fixed)
         } else {
-            Button {
-                model.onTapNewObject()
-            } label: {
-                Image(asset: .X32.Island.create)
-                    .renderingMode(.template)
-                    .foregroundStyle(Color.Control.primary)
-            }
-            .frame(width: 48, height: 48)
-            .glassEffectInteractiveIOS26(in: Circle())
+            Image(asset: .X32.Island.create)
+                .renderingMode(.template)
+                .foregroundStyle(Color.Control.primary)
+                .frame(width: 48, height: 48)
+                .contentShape(Circle())
+                .glassEffectInteractiveIOS26(in: Circle())
+                .onTapGesture {
+                    model.onTapNewObject()
+                }
+                .onLongPressGesture(minimumDuration: 0.3) {
+                    showTypeSearch = true
+                }
+                .sheet(isPresented: $showTypeSearch) {
+                    TypeSearchForNewObjectCoordinatorView(spaceId: model.spaceId) { details in
+                        model.onLongPressNewObject(details: details)
+                    }
+                    .pageNavigation(pageNavigation)
+                }
         }
     }
 }
