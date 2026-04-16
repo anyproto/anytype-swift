@@ -3,9 +3,9 @@ import Loc
 
 struct CollectionThumbnail: View {
 
-    private var textColor: Color { Color.Control.secondary }
-    private var lineColor: Color { Color.Control.tertiary }
-    private var accentDot: Color { Color.Control.accent50 }
+    private let textColor: Color = .Control.secondary
+    private let lineColor: Color = .Control.tertiary
+    private let accentDot: Color = .Control.accent50
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {

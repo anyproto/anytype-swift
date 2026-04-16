@@ -55,7 +55,11 @@ private struct HomeWidgetsCoordinatorInternalView: View {
         HomeWidgetsView(info: model.spaceInfo, context: context, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
-                model.dismissOverlay = { dismiss() }
+            }
+            .onChange(of: model.shouldDismissOverlay) {
+                if model.shouldDismissOverlay {
+                    dismiss()
+                }
             }
             .task {
                 await model.startPendingShareRetryTask()

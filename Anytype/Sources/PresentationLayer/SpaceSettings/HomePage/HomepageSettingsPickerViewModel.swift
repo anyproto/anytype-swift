@@ -19,7 +19,7 @@ final class HomepageSettingsPickerViewModel {
     var isSearchCompleted = false
 
     let currentObjectId: String?
-    let isNoHomeSelected: Bool
+    var isNoHomeSelected: Bool { currentObjectId == nil }
 
     var showNoHomeRow: Bool {
         let noHomeTitle = Loc.SpaceSettings.HomePage.noHome.lowercased()
@@ -35,10 +35,8 @@ final class HomepageSettingsPickerViewModel {
         switch homepage.displayValue {
         case .empty, .widgets, .graph:
             self.currentObjectId = nil
-            self.isNoHomeSelected = true
         case .object(let objectId):
             self.currentObjectId = objectId
-            self.isNoHomeSelected = false
         }
     }
 
