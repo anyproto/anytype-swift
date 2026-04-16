@@ -118,10 +118,10 @@ Notes:
 **Files:**
 - Modify: `Anytype/Sources/ServiceLayer/Object/TypesService/TypesPinStorage.swift`
 
-- [ ] replace lines 27-33 with the `compactMap` + `try?` version above
-- [ ] only call `setPins(_:spaceId:)` when `defaultPins.isNotEmpty`
-- [ ] verify file still compiles
-- [ ] no tests added (per user)
+- [x] replace lines 27-33 with the `compactMap` + `try?` version above
+- [x] only call `setPins(_:spaceId:)` when `defaultPins.isNotEmpty`
+- [x] verify file still compiles
+- [x] no tests added (per user)
 
 Edge case noted: `appendPin` / `removePin` both call `getPins` internally. If the user pins a type while the cache has none of page/note/task, the default seed never lands for that space (the user-pinned set persists instead). Acceptable — user explicitly took an action.
 
@@ -132,15 +132,15 @@ Edge case noted: `appendPin` / `removePin` both call `getPins` internally. If th
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeNavigationContainer/Panel/HomeBottomNavigationPanelViewModel.swift`
 
 View model:
-- [ ] add `var spaceId: String { info.accountSpaceId }`
-- [ ] add `func onLongPressNewObject(details: ObjectDetails)` that calls `output?.onCreateObjectSelected(screenData: details.editorScreenData())`
+- [x] add `var spaceId: String { info.accountSpaceId }`
+- [x] add `func onLongPressNewObject(details: ObjectDetails)` — implemented using `details.screenData()` (the actual ObjectDetails API) rather than `editorScreenData()`
 
 View (`HomeBottomNavigationPanelViewInternal`):
-- [ ] add `@State private var showTypeSearch: Bool = false`
-- [ ] add `@Environment(\.pageNavigation) private var pageNavigation`
-- [ ] on the legacy `Button` (line 166), add `.simultaneousGesture(LongPressGesture(minimumDuration: 0.5).onEnded { _ in showTypeSearch = true })` (NOT `.onLongPressGesture` — it interferes with `Button` tap)
-- [ ] attach `.sheet(isPresented: $showTypeSearch) { TypeSearchForNewObjectCoordinatorView(spaceId: model.spaceId) { details in model.onLongPressNewObject(details: details) }.pageNavigation(pageNavigation) }` on the same Button
-- [ ] verify sheet only attaches in the `else` branch (legacy button only) — structurally enforced
+- [x] add `@State private var showTypeSearch: Bool = false`
+- [x] add `@Environment(\.pageNavigation) private var pageNavigation`
+- [x] on the legacy `Button` (line 166), add `.simultaneousGesture(LongPressGesture(minimumDuration: 0.5).onEnded { _ in showTypeSearch = true })` (NOT `.onLongPressGesture` — it interferes with `Button` tap)
+- [x] attach `.sheet(isPresented: $showTypeSearch) { TypeSearchForNewObjectCoordinatorView(spaceId: model.spaceId) { details in model.onLongPressNewObject(details: details) }.pageNavigation(pageNavigation) }` on the same Button
+- [x] verify sheet only attaches in the `else` branch (legacy button only) — structurally enforced
 
 ### Task 3: Verify acceptance criteria
 
