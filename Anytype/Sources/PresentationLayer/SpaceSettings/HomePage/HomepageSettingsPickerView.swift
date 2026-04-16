@@ -33,7 +33,7 @@ struct HomepageSettingsPickerView: View {
         if model.isSearchCompleted {
             ScrollView {
                 LazyVStack(spacing: 0) {
-                    if model.searchText.isEmpty {
+                    if model.showNoHomeRow {
                         noHomeRow
                         AnytypeDivider()
                     }
@@ -55,9 +55,12 @@ struct HomepageSettingsPickerView: View {
             try await model.onNoHomeSelected()
         } label: {
             HStack(spacing: 12) {
-                Image(asset: .CustomIcons.home)
+                Image(asset: .CustomIcons.removeCircle)
+                    .resizable()
+                    .renderingMode(.template)
                     .foregroundStyle(Color.Control.primary)
-                    .frame(width: 24, height: 24)
+                    .frame(width: 22, height: 22)
+                    .frame(width: 48, height: 48)
 
                 VStack(alignment: .leading, spacing: 2) {
                     AnytypeText(Loc.SpaceSettings.HomePage.noHome, style: .uxBodyRegular)
@@ -86,7 +89,7 @@ struct HomepageSettingsPickerView: View {
         } label: {
             HStack(spacing: 12) {
                 IconView(icon: details.objectIconImage)
-                    .frame(width: 24, height: 24)
+                    .frame(width: 48, height: 48)
 
                 VStack(alignment: .leading, spacing: 2) {
                     AnytypeText(details.name.withPlaceholder, style: .uxBodyRegular)

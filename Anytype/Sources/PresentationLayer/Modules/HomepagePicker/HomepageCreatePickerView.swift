@@ -30,7 +30,7 @@ struct HomepageCreatePickerView: View {
     private var content: some View {
           VStack(spacing: 31) {
               titleSection
-              optionsScroll
+              optionsSection
               buttons
           }
           .padding(.top, 31)
@@ -38,35 +38,32 @@ struct HomepageCreatePickerView: View {
       }
 
     private var titleSection: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 9) {
             AnytypeText(Loc.HomepagePicker.title, style: .heading)
                 .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
 
-            AnytypeText(Loc.HomepagePicker.description, style: .uxTitle2Regular)
+            AnytypeText(Loc.HomepagePicker.description, style: .previewTitle2Regular)
                 .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
-                .padding(.horizontal, 32)
+                .padding(.horizontal, 16)
         }
     }
 
-    private var optionsScroll: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 24) {
-                ForEach(model.options) { option in
-                    Button {
-                        model.selectedOption = option
-                    } label: {
-                        HomepagePickerThumbnailCard(
-                            option: option,
-                            isSelected: model.selectedOption == option
-                        )
-                    }
-                    .buttonStyle(.plain)
+    private var optionsSection: some View {
+        HStack(spacing: 24) {
+            ForEach(model.options) { option in
+                Button {
+                    model.selectedOption = option
+                } label: {
+                    HomepagePickerThumbnailCard(
+                        option: option,
+                        isSelected: model.selectedOption == option
+                    )
                 }
+                .buttonStyle(.plain)
             }
-            .padding(.horizontal, 24)
         }
     }
 
