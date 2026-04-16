@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ChatThumbnail: View {
 
-    private var lineColor: Color { Color.Control.tertiary }
+    private var lineColor: Color { Color.Control.accent50 }
     private var backgroundColor: Color { Color.Shape.secondary }
     private var avatarColor: Color { Color.Control.tertiary }
 
