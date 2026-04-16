@@ -16,7 +16,6 @@ struct HomeWidgetsView: View {
 
 private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
-    @State private var inviteMembersModel: InviteMembersStubWidgetViewModel
     @State var widgetsDndState = DragState()
 
     let context: WidgetScreenContext
@@ -24,7 +23,6 @@ private struct HomeWidgetsInternalView: View {
 
     init(info: AccountInfo, context: WidgetScreenContext, output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?) {
         self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
-        self._inviteMembersModel = State(wrappedValue: InviteMembersStubWidgetViewModel(spaceId: info.accountSpaceId, output: output))
         self.context = context
         self.panelOutput = output
     }
@@ -46,9 +44,6 @@ private struct HomeWidgetsInternalView: View {
         }
         .task {
             await model.startSubscriptions()
-        }
-        .task {
-            await inviteMembersModel.startSubscription()
         }
         .onAppear {
             model.onAppear()
@@ -85,7 +80,7 @@ private struct HomeWidgetsInternalView: View {
         ScrollView {
             VStack(spacing: 0) {
                 SpaceInfoView(spaceId: model.spaceId)
-                InviteMembersStubWidgetView(model: inviteMembersModel)
+                InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
                 topWidgets
                 blockWidgets
                 objectTypeWidgets

@@ -3,13 +3,22 @@ import Assets
 
 struct InviteMembersStubWidgetView: View {
 
-    var model: InviteMembersStubWidgetViewModel
+    @State private var model: InviteMembersStubWidgetViewModel
+
+    init(spaceId: String, output: (any HomeWidgetsModuleOutput)?) {
+        self._model = State(initialValue: InviteMembersStubWidgetViewModel(spaceId: spaceId, output: output))
+    }
 
     var body: some View {
-        if model.showInviteMembers {
-            inviteMembersRow
-                .padding(.bottom, 12)
-                .animation(.default, value: model.showInviteMembers)
+        VStack(spacing: 0) {
+            if model.showInviteMembers {
+                inviteMembersRow
+            }
+        }
+        .padding(.bottom, model.showInviteMembers ? 12 : 0)
+        .animation(.default, value: model.showInviteMembers)
+        .task {
+            await model.startSubscription()
         }
     }
 
