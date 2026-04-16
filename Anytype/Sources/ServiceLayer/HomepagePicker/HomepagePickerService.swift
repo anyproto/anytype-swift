@@ -19,9 +19,6 @@ final class HomepagePickerService: HomepagePickerServiceProtocol {
 
     func createHomepage(spaceId: String, option: HomepagePickerOption) async throws -> HomepageValue {
         switch option {
-        case .widgets:
-            try await setHomepage(spaceId: spaceId, homepage: .widgets)
-            return .widgets
         case .object(let type):
             let details = try await objectActionsService.createObject(
                 name: "",

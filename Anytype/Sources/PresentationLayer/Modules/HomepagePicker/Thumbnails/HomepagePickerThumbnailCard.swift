@@ -29,8 +29,6 @@ struct HomepagePickerThumbnailCard: View {
     @ViewBuilder
     private var thumbnailContent: some View {
         switch option {
-        case .widgets:
-            WidgetsThumbnail()
         case .object(let type):
             switch type {
             case .chat:
