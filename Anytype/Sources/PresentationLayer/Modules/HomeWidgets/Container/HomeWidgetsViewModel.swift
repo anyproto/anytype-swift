@@ -270,6 +270,9 @@ final class HomeWidgetsViewModel {
                     output: output,
                     onChangeHome: { [weak self] in
                         self?.output?.onChangeHome()
+                    },
+                    onHomeTap: { [weak self] screenData in
+                        self?.output?.onHomeObjectSelected(screenData: screenData)
                     }
                 )
             } else {

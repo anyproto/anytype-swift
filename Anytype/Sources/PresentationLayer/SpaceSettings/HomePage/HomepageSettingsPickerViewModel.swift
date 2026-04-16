@@ -21,6 +21,11 @@ final class HomepageSettingsPickerViewModel {
     let currentObjectId: String?
     let isNoHomeSelected: Bool
 
+    var showNoHomeRow: Bool {
+        let noHomeTitle = Loc.SpaceSettings.HomePage.noHome.lowercased()
+        return searchText.isEmpty || noHomeTitle.contains(searchText.lowercased())
+    }
+
     @ObservationIgnored
     private let spaceId: String
 

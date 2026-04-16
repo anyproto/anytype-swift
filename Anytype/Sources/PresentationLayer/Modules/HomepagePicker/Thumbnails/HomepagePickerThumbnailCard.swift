@@ -15,14 +15,13 @@ struct HomepagePickerThumbnailCard: View {
                         .strokeBorder(Color.Control.tertiary, lineWidth: 1)
                 )
 
-            HStack(spacing: 6) {
-                AnytypeCircleCheckbox(checked: isSelected)
+            AnytypeText(option.title, style: .caption1Medium)
+                .foregroundStyle(Color.Text.primary)
+                .lineLimit(1)
+                .truncationMode(.tail)
 
-                AnytypeText(option.title, style: .caption1Medium)
-                    .foregroundStyle(Color.Control.secondary)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-            }
+            AnytypeCircleCheckbox(checked: isSelected)
+                .frame(width: 20, height: 20)
         }
         .frame(width: 88)
     }

@@ -7,4 +7,5 @@ struct HomepageWidgetViewData {
     let canSetHomepage: Bool
     let output: (any CommonWidgetModuleOutput)?
     let onChangeHome: () -> Void
+    let onHomeTap: (ScreenData) -> Void
 }

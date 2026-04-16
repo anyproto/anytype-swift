@@ -42,7 +42,7 @@ final class HomeWidgetViewModel {
                 source: .object(type: details.analyticsType),
                 createType: .manual
             )
-            data.output?.onObjectSelected(screenData: details.screenData())
+            data.onHomeTap(details.screenData())
         }
     }
 

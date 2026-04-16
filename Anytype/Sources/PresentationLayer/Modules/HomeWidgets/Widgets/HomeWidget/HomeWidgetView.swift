@@ -16,6 +16,7 @@ struct HomeWidgetView: View {
             dragId: nil,
             homeState: .constant(.readwrite),
             allowContent: false,
+            allowContextMenuItems: model.canSetHomepage,
             header: {
                 LinkWidgetDefaultHeader(
                     title: model.title,
@@ -31,12 +32,11 @@ struct HomeWidgetView: View {
                             if model.messageCount > 0 {
                                 CounterView(count: model.messageCount, style: model.muted ? .muted : .highlighted)
                             }
-                            Image(asset: .CustomIcons.home)
-                                .resizable()
+                            Image(asset: .X18.pin)
                                 .renderingMode(.template)
-                                .frame(width: 20, height: 20)
                                 .foregroundStyle(Color.Control.secondary)
-                                .padding(.trailing, 12)
+                                .padding(.leading, 12)
+                                .padding(.trailing, 16)
                         }
                     },
                     onTap: {
@@ -44,17 +44,15 @@ struct HomeWidgetView: View {
                     }
                 )
             },
-            content: { EmptyView() }
-        )
-        .if(model.canSetHomepage) {
-            $0.contextMenu {
+            menu: {
                 Button {
                     model.onChangeHomeTap()
                 } label: {
                     Label(Loc.HomepagePicker.changeHome, systemImage: "house")
                 }
-            }
-        }
+            },
+            content: { EmptyView() }
+        )
         .task {
             await model.startSubscriptions()
         }

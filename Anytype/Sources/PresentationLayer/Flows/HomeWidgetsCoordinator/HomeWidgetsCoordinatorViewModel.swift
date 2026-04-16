@@ -82,6 +82,10 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         showHomeChangePicker = true
     }
 
+    func onHomeObjectSelected(screenData: ScreenData) {
+        pageNavigation?.popToFirstInSpace()
+    }
+
     func onObjectSelected(screenData: ScreenData) {
         pageNavigation?.open(screenData)
     }
