@@ -55,9 +55,8 @@ struct HomepageSettingsPickerView: View {
             try await model.onNoHomeSelected()
         } label: {
             HStack(spacing: 12) {
-                Image(asset: .CustomIcons.removeCircle)
+                Image(systemName: "minus.circle")
                     .resizable()
-                    .renderingMode(.template)
                     .foregroundStyle(Color.Control.secondary)
                     .frame(width: 22, height: 22)
                     .frame(width: 48, height: 48)

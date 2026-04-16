@@ -23,6 +23,7 @@ struct HomepagePickerThumbnailCard: View {
             AnytypeCircleCheckbox(checked: isSelected)
         }
         .frame(width: 88)
+        .contentShape(Rectangle())
     }
 
     @ViewBuilder
