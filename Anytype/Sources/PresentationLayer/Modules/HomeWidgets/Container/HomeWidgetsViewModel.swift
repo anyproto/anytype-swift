@@ -67,6 +67,7 @@ final class HomeWidgetsViewModel {
     var homeWidgetData: HomepageWidgetViewData?
     var unreadSectionIsExpanded: Bool = false
     var unreadChats: [UnreadChatWidgetData] = []
+    var isPersonalWidgetsLoaded: Bool = false
     private var supportsMultiChats: Bool = false
 
     var spaceId: String { info.accountSpaceId }
@@ -101,12 +102,13 @@ final class HomeWidgetsViewModel {
 
     func startSubscriptions() async {
         async let widgetObjectSub: () = startWidgetObjectTask()
+        async let personalWidgetsSub: () = startPersonalWidgetsObjectTask()
         async let participantTask: () = startParticipantTask()
         async let objectTypesTask: () = startObjectTypesTask()
         async let spaceViewTask: () = startSpaceViewTask()
         async let unreadChatsTask: () = startUnreadChatsTask()
 
-        _ = await (widgetObjectSub, participantTask, objectTypesTask, spaceViewTask, unreadChatsTask)
+        _ = await (widgetObjectSub, personalWidgetsSub, participantTask, objectTypesTask, spaceViewTask, unreadChatsTask)
     }
 
     func onAppear() {
@@ -171,16 +173,36 @@ final class HomeWidgetsViewModel {
     private func startWidgetObjectTask() async {
         for await _ in widgetObject.syncPublisher.values {
             widgetsDataLoaded = true
-            
+
             let blocks = widgetObject.children.filter(\.isWidget)
             recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
-            
+
             let newWidgetBlocks = blocks
                 .compactMap { widgetObject.widgetInfo(block: $0) }
-            
+
             guard widgetBlocks != newWidgetBlocks else { continue }
-            
+
             widgetBlocks = newWidgetBlocks
+        }
+    }
+
+    private func startPersonalWidgetsObjectTask() async {
+        // Only subscribe when the personal widgets document was opened in init (flag on).
+        // Flag-off keeps the document nil so behaviour stays byte-identical to legacy.
+        guard let personalWidgetsObject else { return }
+
+        for await _ in personalWidgetsObject.syncPublisher.values {
+            if !isPersonalWidgetsLoaded {
+                isPersonalWidgetsLoaded = true
+                #if DEBUG
+                // TODO: remove temporary log after verification (IOS-5864 Task 2b).
+                // Confirms `documentService.document(...)` auto-opens the personal widgets
+                // document without an explicit `await personalWidgetsObject.open()` — if
+                // this never fires in simulator with flag on + MW GO-6962 built locally,
+                // we add an explicit open() call per the plan's Task 2b note.
+                print("[IOS-5864] personalWidgetsObject first emission (objectId=\(personalWidgetsObject.objectId))")
+                #endif
+            }
         }
     }
     

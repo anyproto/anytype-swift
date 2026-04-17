@@ -467,11 +467,11 @@ static let personalFavorites = FeatureDescription(
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Container/HomeWidgetsViewModel.swift`
 
-- [ ] add `isPersonalWidgetsLoaded: Bool = false` state
-- [ ] add `startPersonalWidgetsObjectTask()` async: early-return if `personalWidgetsObject == nil`; iterate `syncPublisher.values`; set `isPersonalWidgetsLoaded = true` on first emission
-- [ ] wire the task into `startSubscriptions()` in parallel with existing subscriptions
-- [ ] add a temporary debug log on first emission to manually verify `document(...)` auto-opens — remove after verification
-- [ ] verify compile; run in simulator with flag on to confirm first emission arrives (only when MW GO-6962 is available locally)
+- [x] add `isPersonalWidgetsLoaded: Bool = false` state
+- [x] add `startPersonalWidgetsObjectTask()` async: early-return if `personalWidgetsObject == nil`; iterate `syncPublisher.values`; set `isPersonalWidgetsLoaded = true` on first emission
+- [x] wire the task into `startSubscriptions()` in parallel with existing subscriptions
+- [x] add a temporary debug log on first emission to manually verify `document(...)` auto-opens — remove after verification
+- [x] verify compile — `xcodebuild … build-for-testing` → `** TEST BUILD SUCCEEDED **`; simulator verification deferred to Task 15 (requires local MW GO-6962)
 
 ### Task 3: `PersonalFavoritesService` + DI
 
