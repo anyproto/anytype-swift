@@ -15,29 +15,21 @@ final class PersonalFavoritesService: PersonalFavoritesServiceProtocol {
     private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
 
     func toggle(objectId: String, accountInfo: AccountInfo) async throws {
+        // WidgetPosition mapping: desktop uses MW `InnerFirst` to prepend. iOS
+        // `WidgetPosition` exposes `.end`, `.above`, `.below` only. The shared
+        // `toggleWidgetBlock` helper reproduces "prepend to top" via `.above(first)`
+        // with `.end` fallback for an empty document.
         let document = documentService.document(
             objectId: accountInfo.personalWidgetsId,
             spaceId: accountInfo.accountSpaceId
         )
-        if let widgetBlockId = document.widgetBlockIdFor(targetObjectId: objectId) {
-            try await blockWidgetService.removeWidgetBlock(
-                contextId: accountInfo.personalWidgetsId,
-                widgetBlockId: widgetBlockId
-            )
-        } else {
-            // WidgetPosition mapping: desktop uses MW `InnerFirst` to prepend. iOS
-            // `WidgetPosition` exposes `.end`, `.above`, `.below` only. Reproduce
-            // "prepend to top" via `.above(first)` with `.end` fallback for an
-            // empty document — same pattern ObjectSettingsViewModel uses for channel pins.
-            let firstChildId = document.children.first?.id
-            let position: WidgetPosition = firstChildId.map { .above(widgetId: $0) } ?? .end
-            try await blockWidgetService.createWidgetBlock(
-                contextId: accountInfo.personalWidgetsId,
-                sourceId: objectId,
-                layout: .link,
-                limit: 0,
-                position: position
-            )
-        }
+        try await blockWidgetService.toggleWidgetBlock(
+            contextId: accountInfo.personalWidgetsId,
+            targetObjectId: objectId,
+            existingWidgetBlockId: document.widgetBlockIdFor(targetObjectId: objectId),
+            firstChildBlockId: document.children.first?.id,
+            layout: .link,
+            limit: 0
+        )
     }
 }

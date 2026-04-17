@@ -21,7 +21,7 @@ struct WidgetContainerView<Content: View>: View {
     init(
         widgetBlockId: String,
         widgetObject: some BaseDocumentProtocol,
-        spaceInfo: AccountInfo? = nil,
+        spaceInfo: AccountInfo,
         homeState: Binding<HomeWidgetsState>,
         name: String,
         icon: Icon? = nil,
@@ -118,10 +118,7 @@ struct WidgetContainerView<Content: View>: View {
             // Feature-gated inside the view model — flag-off or missing targetObjectId
             // early-returns so no document is observed and legacy behaviour is
             // byte-identical.
-            async let favoriteSub: () = model.startFavoriteSubscription()
-            async let channelPinSub: () = model.startChannelPinSubscription()
-            async let permissionSub: () = model.startPermissionSubscription()
-            _ = await (favoriteSub, channelPinSub, permissionSub)
+            await model.startSubscriptions()
         }
     }
 

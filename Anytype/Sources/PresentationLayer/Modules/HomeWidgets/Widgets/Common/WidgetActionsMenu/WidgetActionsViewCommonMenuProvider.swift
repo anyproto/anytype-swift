@@ -93,28 +93,23 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
         // TODO: IOS-5864 No dedicated pin/unpin analytics event exists today.
         // Mirror with `ObjectSettingsViewModel.changePinState` when product confirms
         // the event shape.
-        // Mirrors `ObjectSettingsViewModel.changePinState`: add or remove a widget
-        // block against the channel widgets document. The call site supplies whichever
-        // document is the "channel" in that context (for LinkWidget long-press, that's
-        // `WidgetSubmoduleData.widgetObject`; for My Favorites rows, the caller hands
-        // in the channel widgets doc explicitly).
+        // Toggle a widget block against the channel widgets document. The call site
+        // supplies whichever document is the "channel" in that context (for LinkWidget
+        // long-press, that's `WidgetSubmoduleData.widgetObject`; for My Favorites rows,
+        // the caller hands in the channel widgets doc explicitly).
         let service = blockWidgetService
+        let contextId = widgetObject.objectId
+        let existingWidgetBlockId = widgetObject.widgetBlockIdFor(targetObjectId: targetObjectId)
+        let firstChildBlockId = widgetObject.children.first?.id
         Task {
-            if let widgetBlockId = widgetObject.widgetBlockIdFor(targetObjectId: targetObjectId) {
-                try? await service.removeWidgetBlock(
-                    contextId: widgetObject.objectId,
-                    widgetBlockId: widgetBlockId
-                )
-            } else {
-                let first = widgetObject.children.first
-                try? await service.createWidgetBlock(
-                    contextId: widgetObject.objectId,
-                    sourceId: targetObjectId,
-                    layout: .link,
-                    limit: 0,
-                    position: first.map { .above(widgetId: $0.id) } ?? .end
-                )
-            }
+            try? await service.toggleWidgetBlock(
+                contextId: contextId,
+                targetObjectId: targetObjectId,
+                existingWidgetBlockId: existingWidgetBlockId,
+                firstChildBlockId: firstChildBlockId,
+                layout: .link,
+                limit: 0
+            )
         }
         UISelectionFeedbackGenerator().selectionChanged()
     }

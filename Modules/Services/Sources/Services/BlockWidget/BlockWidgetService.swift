@@ -9,6 +9,36 @@ public protocol BlockWidgetServiceProtocol: Sendable {
     func setViewId(contextId: String, widgetBlockId: String, viewId: String) async throws
 }
 
+public extension BlockWidgetServiceProtocol {
+    /// Toggle a widget-block entry inside `contextId` for the given `targetObjectId`.
+    /// If an existing widget block references the target, it is removed; otherwise a
+    /// new widget block is inserted via `.above(firstChildId)` with `.end` fallback.
+    /// Shared between channel-pin (IOS-5864 `WidgetActionsViewCommonMenuProvider`) and
+    /// personal-favorite (`PersonalFavoritesService`) toggle flows — they differ only
+    /// in `contextId`, `layout`, and `limit`.
+    func toggleWidgetBlock(
+        contextId: String,
+        targetObjectId: String,
+        existingWidgetBlockId: String?,
+        firstChildBlockId: String?,
+        layout: BlockWidget.Layout,
+        limit: Int
+    ) async throws {
+        if let existingWidgetBlockId {
+            try await removeWidgetBlock(contextId: contextId, widgetBlockId: existingWidgetBlockId)
+        } else {
+            let position: WidgetPosition = firstChildBlockId.map { .above(widgetId: $0) } ?? .end
+            try await createWidgetBlock(
+                contextId: contextId,
+                sourceId: targetObjectId,
+                layout: layout,
+                limit: limit,
+                position: position
+            )
+        }
+    }
+}
+
 final class BlockWidgetService: BlockWidgetServiceProtocol {
         
     // MARK: - BlockWidgetServiceProtocol

@@ -35,10 +35,6 @@ final class MyFavoritesViewModel {
         /// RPCs in Tasks 10 and 11.
         let id: String
         let details: ObjectDetails
-
-        static func == (lhs: Row, rhs: Row) -> Bool {
-            lhs.id == rhs.id && lhs.details == rhs.details
-        }
     }
 
     // MARK: - State

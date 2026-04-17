@@ -42,7 +42,8 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.pin(isPinned: isPinnedToWidgets)
             }
 
-            if canCreateWidget && FeatureFlags.personalFavorites && !details.isTemplate {
+            // `canCreateWidget` already excludes templates, so no extra check needed.
+            if canCreateWidget && FeatureFlags.personalFavorites {
                 ObjectAction.favorite(isFavorited: isFavorited)
             }
 
@@ -114,7 +115,8 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.pin(isPinned: isPinnedToWidgets)
             }
 
-            if canCreateWidget && FeatureFlags.personalFavorites && !details.isTemplate {
+            // `canCreateWidget` already excludes templates, so no extra check needed.
+            if canCreateWidget && FeatureFlags.personalFavorites {
                 ObjectAction.favorite(isFavorited: isFavorited)
             }
 

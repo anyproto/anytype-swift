@@ -111,6 +111,14 @@ final class ObjectSettingsViewModel {
     // MARK: - Actions State
 
     var objectActions: [ObjectAction] = []
+    // Mirrors `ParticipantSpaceViewData.canManageChannelPins` — today synonymous with
+    // `isOwner`, but modelled as its own predicate so a future Admin role widens in
+    // one spot. Used by `.pin` gating in `buildActions`. Kept separate from
+    // `isSpaceOwner` so the two concepts do not collapse.
+    private var canManageChannelPinsValue: Bool = false
+    // Real ownership check — drives `.inviteMembers` gating. Reads
+    // `participantSpaceView.isOwner` directly so it stays decoupled from channel-pin
+    // management semantics above.
     private var isSpaceOwner: Bool = false
     private var chatNotificationMode: SpacePushNotificationsMode?
     var toastData: ToastBarData?
@@ -137,9 +145,9 @@ final class ObjectSettingsViewModel {
         async let documentSub: () = startDocumentSubscription()
         async let widgetSub: () = startWidgetObjectSubscription()
         async let personalWidgetSub: () = startPersonalWidgetsObjectSubscription()
-        async let ownerSub: () = startOwnerStatusSubscription()
+        async let participantSub: () = startParticipantSpaceViewSubscription()
         async let spaceViewSub: () = startSpaceViewSubscription()
-        _ = await (documentSub, widgetSub, personalWidgetSub, ownerSub, spaceViewSub)
+        _ = await (documentSub, widgetSub, personalWidgetSub, participantSub, spaceViewSub)
     }
 
     private func startDocumentSubscription() async {
@@ -163,9 +171,10 @@ final class ObjectSettingsViewModel {
         }
     }
 
-    private func startOwnerStatusSubscription() async {
+    private func startParticipantSpaceViewSubscription() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
-            isSpaceOwner = participantSpaceView.canManageChannelPins
+            canManageChannelPinsValue = participantSpaceView.canManageChannelPins
+            isSpaceOwner = participantSpaceView.isOwner
             updateActions()
         }
     }
@@ -233,15 +242,17 @@ final class ObjectSettingsViewModel {
     }
 
     // Channel pins are Owner-only on iOS today. The middleware has no Admin role
-    // (verified 2026-04-17 in plan Context). When/if MW adds Admin, widen this
-    // single predicate — all call sites pass through it.
+    // (verified 2026-04-17 in plan Context). When/if MW adds Admin, widen the
+    // stored `canManageChannelPinsValue` predicate via
+    // `ParticipantSpaceViewData.canManageChannelPins` — all call sites pass
+    // through this single computed.
+    //
+    // When the feature flag is off, fall back to the legacy behaviour where
+    // every canCreateWidget-eligible object can be pinned by anyone who passes
+    // permission checks. The split (Owner-only channel pin + everyone Favorite)
+    // only activates when the flag is on.
     private var canManageChannelPins: Bool {
-        // When the feature flag is off, fall back to the legacy behaviour where
-        // every canCreateWidget-eligible object can be pinned by anyone who passes
-        // permission checks. The split (Owner-only channel pin + everyone Favorite)
-        // only activates when the flag is on.
-        guard FeatureFlags.personalFavorites else { return true }
-        return isSpaceOwner
+        FeatureFlags.personalFavorites ? canManageChannelPinsValue : true
     }
     
     func onTapIconPicker() {

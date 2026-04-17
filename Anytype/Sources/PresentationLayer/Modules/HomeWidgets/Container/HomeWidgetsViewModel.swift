@@ -62,7 +62,6 @@ final class HomeWidgetsViewModel {
     var canCreateObjectType: Bool = false
     /// Owner-only predicate for the Pin/Unpin-from-channel menu items. Kept as a
     /// single property so a future Admin role (no plan today) widens it in one spot.
-    /// Task 13 will plumb this to additional call sites if needed.
     var canManageChannelPins: Bool = false
     var homeWidgetData: HomepageWidgetViewData?
     var unreadSectionIsExpanded: Bool = false

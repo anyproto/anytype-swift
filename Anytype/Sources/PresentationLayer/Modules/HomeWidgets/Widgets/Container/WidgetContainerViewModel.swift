@@ -13,9 +13,9 @@ final class WidgetContainerViewModel {
     let widgetBlockId: String
     let widgetObject: any BaseDocumentProtocol
     /// Per-space account info — needed by the new `.favorite` menu items to
-    /// derive `personalWidgetsId`. `nil` for legacy call sites (e.g. Home widget)
-    /// that pre-date the personal favorites feature.
-    let spaceInfo: AccountInfo?
+    /// derive `personalWidgetsId`. All current call sites forward
+    /// `WidgetSubmoduleData.spaceInfo` here.
+    let spaceInfo: AccountInfo
     /// Target object id referenced by this widget block. Populated for `.object`
     /// sources (channel pins / personal favorites) and `nil` for library widgets
     /// (Pinned / Recent / etc.). Needed by the new `.favorite` / `.channelPin`
@@ -72,7 +72,7 @@ final class WidgetContainerViewModel {
     init(
         widgetBlockId: String,
         widgetObject: some BaseDocumentProtocol,
-        spaceInfo: AccountInfo?,
+        spaceInfo: AccountInfo,
         expectedMenuItems: [WidgetMenuItem],
         defaultExpanded: Bool = true,
         output: (any CommonWidgetModuleOutput)?
@@ -101,7 +101,7 @@ final class WidgetContainerViewModel {
         // Resolve the personal widgets doc once so `startFavoriteSubscription()` can
         // observe it. Flag-gated to keep byte-identical behaviour when the feature
         // is off — no document is opened and no subscription fires.
-        if FeatureFlags.personalFavorites, let spaceInfo, targetObjectId != nil {
+        if FeatureFlags.personalFavorites, targetObjectId != nil {
             self.personalWidgetsObject = documentService.document(
                 objectId: spaceInfo.personalWidgetsId,
                 spaceId: spaceInfo.accountSpaceId
@@ -111,10 +111,20 @@ final class WidgetContainerViewModel {
 
     // MARK: - Subscriptions
 
+    /// Fan-out entry point called from the view's `.task` — launches the three
+    /// flag-gated subscriptions concurrently. Keeping the fan-out here (rather than
+    /// inside the view) matches the codebase convention of VM-owned subscriptions.
+    func startSubscriptions() async {
+        async let favoriteSub: () = startFavoriteSubscription()
+        async let channelPinSub: () = startChannelPinSubscription()
+        async let permissionSub: () = startPermissionSubscription()
+        _ = await (favoriteSub, channelPinSub, permissionSub)
+    }
+
     /// Keeps `isFavorited` in sync with the personal widgets virtual document so the
     /// long-press menu label / icon flip the moment a favorite is added or removed
     /// elsewhere (another menu, another device via CRDT, etc.).
-    func startFavoriteSubscription() async {
+    private func startFavoriteSubscription() async {
         guard let personalWidgetsObject, let targetObjectId else { return }
         for await _ in personalWidgetsObject.syncPublisher.values {
             let next = personalWidgetsObject.isInMyFavorites(objectId: targetObjectId)
@@ -125,7 +135,7 @@ final class WidgetContainerViewModel {
 
     /// Keeps `isPinnedToChannel` in sync with the shared channel widgets document so
     /// an Unpin tap never races a concurrent cross-device remove.
-    func startChannelPinSubscription() async {
+    private func startChannelPinSubscription() async {
         guard let targetObjectId else { return }
         for await _ in widgetObject.syncPublisher.values {
             let next = widgetObject.isPinnedToChannel(objectId: targetObjectId)
@@ -137,8 +147,8 @@ final class WidgetContainerViewModel {
     /// Keeps `canManageChannelPins` in sync with the current participant's role so
     /// Tree/List/Set widgets surface the same Pin-to-Channel menu item as LinkWidget.
     /// Guarded by flag + targetObjectId to keep the subscription dormant otherwise.
-    func startPermissionSubscription() async {
-        guard FeatureFlags.personalFavorites, let spaceInfo, targetObjectId != nil else { return }
+    private func startPermissionSubscription() async {
+        guard FeatureFlags.personalFavorites, targetObjectId != nil else { return }
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceInfo.accountSpaceId).values {
             let next = participantSpaceView.canManageChannelPins
             guard canManageChannelPins != next else { continue }
