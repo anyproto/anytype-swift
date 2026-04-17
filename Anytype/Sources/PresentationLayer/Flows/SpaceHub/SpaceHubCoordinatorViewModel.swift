@@ -202,7 +202,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         for await info in activeSpaceManager.workspaceInfoStream {
             innerTask?.cancel()
             let spaceId = info?.accountSpaceId ?? ""
-            guard !spaceId.isEmpty else {
+            guard !spaceId.isEmpty,
+                  pendingShareStorage.pendingState(for: spaceId) != nil else {
                 innerTask = nil
                 continue
             }
@@ -211,9 +212,10 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
                 for await participantSpaceView in participantSpacesStorage
                     .participantSpaceViewPublisher(spaceId: spaceId).values {
                     guard !Task.isCancelled else { return }
-                    guard pendingShareStorage.pendingState(for: spaceId) != nil else { continue }
+                    guard pendingShareStorage.pendingState(for: spaceId) != nil else { return }
                     if participantSpaceView.spaceView.isActive {
                         await pendingShareService.retryIfNeeded(spaceId: spaceId)
+                        if pendingShareStorage.pendingState(for: spaceId) == nil { return }
                     }
                 }
             }
