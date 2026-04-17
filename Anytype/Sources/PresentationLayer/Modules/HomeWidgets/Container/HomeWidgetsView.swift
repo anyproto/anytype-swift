@@ -110,11 +110,8 @@ private struct HomeWidgetsInternalView: View {
 
     @ViewBuilder
     private var blockWidgets: some View {
-        if model.widgetBlocks.isNotEmpty {
-            HomeWidgetsGroupView(title: Loc.pinned) {
-                model.onTapPinnedHeader()
-            }
-            if model.pinnedSectionIsExpanded {
+        if FeatureFlags.personalFavorites {
+            if model.widgetBlocks.isNotEmpty {
                 VStack(spacing: 12) {
                     WidgetSwipeTipView()
                     ForEach(model.widgetBlocks) { widgetInfo in
@@ -132,8 +129,33 @@ private struct HomeWidgetsInternalView: View {
                 } dropFinish: { from, to in
                     model.widgetsDropFinish(from: from, to: to)
                 }
+            }
+        } else {
+            if model.widgetBlocks.isNotEmpty {
+                HomeWidgetsGroupView(title: Loc.pinned) {
+                    model.onTapPinnedHeader()
+                }
+                if model.pinnedSectionIsExpanded {
+                    VStack(spacing: 12) {
+                        WidgetSwipeTipView()
+                        ForEach(model.widgetBlocks) { widgetInfo in
+                            HomeWidgetSubmoduleView(
+                                widgetInfo: widgetInfo,
+                                widgetObject: model.widgetObject,
+                                workspaceInfo: model.info,
+                                homeState: $model.homeState,
+                                output: model.output
+                            )
+                        }
+                    }
+                    .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
+                        model.widgetsDropUpdate(from: from, to: to)
+                    } dropFinish: { from, to in
+                        model.widgetsDropFinish(from: from, to: to)
+                    }
+                }
+            }
         }
-    }
     }
     
     @ViewBuilder

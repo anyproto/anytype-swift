@@ -531,9 +531,9 @@ static let personalFavorites = FeatureDescription(
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Container/HomeWidgetsView.swift`
 
-- [ ] in `blockWidgets` view builder: flag on → render `VStack(spacing: 12) { WidgetSwipeTipView(); ForEach(...) { HomeWidgetSubmoduleView(...) } }` directly without `HomeWidgetsGroupView(title: Loc.pinned)` — preserve `anytypeVerticalDrop`
-- [ ] flag off → keep current structure with header
-- [ ] verify compile; simulator smoke-check flag on (no header) vs flag off (header present)
+- [x] in `blockWidgets` view builder: flag on → render `VStack(spacing: 12) { WidgetSwipeTipView(); ForEach(...) { HomeWidgetSubmoduleView(...) } }` directly without `HomeWidgetsGroupView(title: Loc.pinned)` — preserve `anytypeVerticalDrop`
+- [x] flag off → keep current structure with header
+- [x] verify compile; simulator smoke-check flag on (no header) vs flag off (header present) — `xcodebuild … build-for-testing` → `** TEST BUILD SUCCEEDED **`; simulator smoke-check deferred to Task 15 (requires local MW GO-6962)
 
 ### Task 8: Reorder widget layout inside `topWidgets`
 
