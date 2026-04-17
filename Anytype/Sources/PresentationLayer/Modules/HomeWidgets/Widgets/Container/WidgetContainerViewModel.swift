@@ -38,6 +38,9 @@ final class WidgetContainerViewModel {
     @Injected(\.widgetActionsViewCommonMenuProvider)
     private var widgetActionsViewCommonMenuProvider: any WidgetActionsViewCommonMenuProviderProtocol
     @ObservationIgnored
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @ObservationIgnored
     private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     @ObservationIgnored
     private var personalWidgetsObject: (any BaseDocumentProtocol)?
@@ -54,6 +57,14 @@ final class WidgetContainerViewModel {
     /// widgets document. Drives the Favorite / Unfavorite label + icon in the
     /// long-press menu. Updated reactively from `personalWidgetsObject.syncPublisher`.
     var isFavorited: Bool = false
+    /// Tracks whether `targetObjectId` is currently present in the shared channel
+    /// widgets document. Drives the Pin-to-Channel / Unpin-from-Channel label + icon
+    /// in the long-press menu. Reactive so a concurrent cross-device remove doesn't
+    /// cause a stale "Unpin" tap to re-pin.
+    var isPinnedToChannel: Bool = false
+    /// Gate for rendering the Pin-to-Channel / Unpin-from-Channel menu item.
+    /// Read off the current participant's role via `ParticipantSpaceViewData.canManageChannelPins`.
+    var canManageChannelPins: Bool = false
 
     @ObservationIgnored
     private var isAutoExpanding = false
@@ -109,6 +120,29 @@ final class WidgetContainerViewModel {
             let next = personalWidgetsObject.isInMyFavorites(objectId: targetObjectId)
             guard isFavorited != next else { continue }
             isFavorited = next
+        }
+    }
+
+    /// Keeps `isPinnedToChannel` in sync with the shared channel widgets document so
+    /// an Unpin tap never races a concurrent cross-device remove.
+    func startChannelPinSubscription() async {
+        guard let targetObjectId else { return }
+        for await _ in widgetObject.syncPublisher.values {
+            let next = widgetObject.isPinnedToChannel(objectId: targetObjectId)
+            guard isPinnedToChannel != next else { continue }
+            isPinnedToChannel = next
+        }
+    }
+
+    /// Keeps `canManageChannelPins` in sync with the current participant's role so
+    /// Tree/List/Set widgets surface the same Pin-to-Channel menu item as LinkWidget.
+    /// Guarded by flag + targetObjectId to keep the subscription dormant otherwise.
+    func startPermissionSubscription() async {
+        guard FeatureFlags.personalFavorites, let spaceInfo, targetObjectId != nil else { return }
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceInfo.accountSpaceId).values {
+            let next = participantSpaceView.canManageChannelPins
+            guard canManageChannelPins != next else { continue }
+            canManageChannelPins = next
         }
     }
     

@@ -48,6 +48,7 @@ private struct ListWidgetInternalView: View {
         WidgetContainerView(
             widgetBlockId: data.widgetBlockId,
             widgetObject: data.widgetObject,
+            spaceInfo: data.spaceInfo,
             homeState: data.homeState,
             name: model.name,
             icon: model.icon,

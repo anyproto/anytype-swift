@@ -165,7 +165,7 @@ final class ObjectSettingsViewModel {
 
     private func startOwnerStatusSubscription() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
-            isSpaceOwner = participantSpaceView.participant?.permission == .owner
+            isSpaceOwner = participantSpaceView.canManageChannelPins
             updateActions()
         }
     }
@@ -376,7 +376,7 @@ final class ObjectSettingsViewModel {
         let accountInfo = accountManager.account.info
         let wasFavorited = personalWidgetsObject?.isInMyFavorites(objectId: details.id) ?? false
         try await personalFavoritesService.toggle(objectId: details.id, accountInfo: accountInfo)
-        toastData = ToastBarData(wasFavorited ? Loc.unfavorite : Loc.favorite)
+        toastData = ToastBarData(wasFavorited ? Loc.unfavorited : Loc.favorited)
         dismiss.toggle()
     }
 

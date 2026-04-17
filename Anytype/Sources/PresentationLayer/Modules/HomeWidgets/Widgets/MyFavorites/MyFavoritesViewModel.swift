@@ -12,8 +12,16 @@ final class MyFavoritesViewModel {
     let accountInfo: AccountInfo
     @ObservationIgnored
     let personalWidgetsObject: any BaseDocumentProtocol
+    /// Shared channel widgets document — used to compute the per-row
+    /// `isPinnedToChannel` flag shown in the long-press menu.
     @ObservationIgnored
-    weak var output: (any MyFavoritesModuleOutput)?
+    let channelWidgetsObject: any BaseDocumentProtocol
+    /// Row-tap routing. Plain closure (not a module-output protocol) because
+    /// `HomeWidgetsView` already has a `CommonWidgetModuleOutput` it can forward
+    /// to — adding another protocol indirection just to hand back the same
+    /// `ScreenData` would be noise. See IOS-5864 Task 5.
+    @ObservationIgnored
+    let onObjectSelected: (ObjectDetails) -> Void
 
     @ObservationIgnored
     @Injected(\.objectActionsService)
@@ -36,24 +44,33 @@ final class MyFavoritesViewModel {
     // MARK: - State
 
     var rows: [Row] = []
-    var isLoaded: Bool = false
+    /// Per-object `isPinnedToChannel` flags, keyed by `ObjectDetails.id`.
+    /// Computed reactively from `channelWidgetsObject.syncPublisher` so each row can
+    /// render a plain `Bool` without its own subscription (single source of truth).
+    var pinnedToChannelByObjectId: [String: Bool] = [:]
 
     init(
         accountInfo: AccountInfo,
         personalWidgetsObject: any BaseDocumentProtocol,
-        output: (any MyFavoritesModuleOutput)?
+        channelWidgetsObject: any BaseDocumentProtocol,
+        onObjectSelected: @escaping (ObjectDetails) -> Void
     ) {
         self.accountInfo = accountInfo
         self.personalWidgetsObject = personalWidgetsObject
-        self.output = output
+        self.channelWidgetsObject = channelWidgetsObject
+        self.onObjectSelected = onObjectSelected
     }
 
     // MARK: - Subscriptions
 
     func startSubscriptions() async {
-        for await _ in personalWidgetsObject.syncPublisher.values {
-            isLoaded = true
+        async let personalSub: () = startPersonalWidgetsSubscription()
+        async let channelSub: () = startChannelPinsSubscription()
+        _ = await (personalSub, channelSub)
+    }
 
+    private func startPersonalWidgetsSubscription() async {
+        for await _ in personalWidgetsObject.syncPublisher.values {
             let widgets = personalWidgetsObject.children.filter(\.isWidget)
             let newRows: [Row] = widgets.compactMap { block in
                 guard let info = personalWidgetsObject.widgetInfo(block: block),
@@ -69,15 +86,32 @@ final class MyFavoritesViewModel {
         }
     }
 
+    /// Rebuilds `pinnedToChannelByObjectId` on every channel widgets document
+    /// emission. Single subscription instead of one per row.
+    private func startChannelPinsSubscription() async {
+        for await _ in channelWidgetsObject.syncPublisher.values {
+            var next: [String: Bool] = [:]
+            let widgets = channelWidgetsObject.children.filter(\.isWidget)
+            for block in widgets {
+                guard let info = channelWidgetsObject.widgetInfo(block: block),
+                      case let .object(details) = info.source else { continue }
+                next[details.id] = true
+            }
+            guard pinnedToChannelByObjectId != next else { continue }
+            pinnedToChannelByObjectId = next
+        }
+    }
+
     // MARK: - Actions
 
     func onTapRow(details: ObjectDetails) {
-        output?.onObjectSelected(details: details)
+        onObjectSelected(details)
     }
 
     // MARK: - Drag-and-drop
 
     func dropUpdate(from: DropDataElement<Row>, to: DropDataElement<Row>) {
+        guard from.data.id != to.data.id else { return }
         // Optimistic local reorder so the gesture feels immediate. The authoritative
         // tree arrives via `syncPublisher` once the move RPC completes.
         rows.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)

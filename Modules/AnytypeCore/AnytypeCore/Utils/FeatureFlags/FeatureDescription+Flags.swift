@@ -57,7 +57,8 @@ public extension FeatureDescription {
     static let personalFavorites = FeatureDescription(
         title: "Personal Favorites - IOS-5864 (requires MW GO-6962)",
         category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
-        defaultValue: true
+        defaultValue: false,
+        debugValue: true
     )
 
     // MARK: - Experemental

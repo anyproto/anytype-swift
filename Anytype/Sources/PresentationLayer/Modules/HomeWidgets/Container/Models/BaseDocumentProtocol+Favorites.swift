@@ -10,12 +10,6 @@ import Services
 //    (`info.widgetsId`), representing the shared channel pins list.
 // The distinct names document intent at the call site and prevent accidental
 // cross-wiring of the two mechanisms.
-//
-// Test note: no unit test added. The underlying `widgetBlockIdFor` is exercised
-// indirectly via the widgets screen manual verification (Task 15). A fake
-// `BaseDocumentProtocol` exists in `AnyTypeTests/Markdown/Mocks/MockBaseDocument.swift`,
-// but seeding widget-tree `children` + `infoContainer` link blocks for such a
-// trivial wrapper would be more scaffolding than the helper warrants.
 extension BaseDocumentProtocol {
 
     func isInMyFavorites(objectId: String) -> Bool {

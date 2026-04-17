@@ -20,11 +20,6 @@ final class HomeWidgetsViewModel {
 
     let info: AccountInfo
     let widgetObject: any BaseDocumentProtocol
-    // Personal (per-user) favorites live on a separate virtual widget document keyed by
-    // `info.personalWidgetsId` (see `AccountInfo+PersonalWidgets`). Opened only when
-    // `FeatureFlags.personalFavorites` is on so flag-off behaviour is byte-identical.
-    // Wiring subscription to this document is handled in Task 2b.
-    let personalWidgetsObject: (any BaseDocumentProtocol)?
 
     @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
@@ -72,7 +67,6 @@ final class HomeWidgetsViewModel {
     var homeWidgetData: HomepageWidgetViewData?
     var unreadSectionIsExpanded: Bool = false
     var unreadChats: [UnreadChatWidgetData] = []
-    var isPersonalWidgetsLoaded: Bool = false
     var myFavoritesSectionIsExpanded: Bool = false
     var myFavoritesViewModel: MyFavoritesViewModel?
     private var supportsMultiChats: Bool = false
@@ -93,20 +87,22 @@ final class HomeWidgetsViewModel {
     ) {
         self.info = info
         self.output = output
-        self.widgetObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
+        let widgetObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
+        self.widgetObject = widgetObject
         if FeatureFlags.personalFavorites {
             let personalWidgetsObject = documentService.document(
                 objectId: info.personalWidgetsId,
                 spaceId: info.accountSpaceId
             )
-            self.personalWidgetsObject = personalWidgetsObject
             self.myFavoritesViewModel = MyFavoritesViewModel(
                 accountInfo: info,
                 personalWidgetsObject: personalWidgetsObject,
-                output: nil
+                channelWidgetsObject: widgetObject,
+                onObjectSelected: { [weak output] details in
+                    output?.onObjectSelected(screenData: details.screenData())
+                }
             )
         } else {
-            self.personalWidgetsObject = nil
             self.myFavoritesViewModel = nil
         }
         self.pinnedSectionIsExpanded = expandedService.isExpanded(id: Constants.pinnedSectionId, defaultValue: true)
@@ -117,14 +113,13 @@ final class HomeWidgetsViewModel {
 
     func startSubscriptions() async {
         async let widgetObjectSub: () = startWidgetObjectTask()
-        async let personalWidgetsSub: () = startPersonalWidgetsObjectTask()
         async let myFavoritesSub: () = startMyFavoritesTask()
         async let participantTask: () = startParticipantTask()
         async let objectTypesTask: () = startObjectTypesTask()
         async let spaceViewTask: () = startSpaceViewTask()
         async let unreadChatsTask: () = startUnreadChatsTask()
 
-        _ = await (widgetObjectSub, personalWidgetsSub, myFavoritesSub, participantTask, objectTypesTask, spaceViewTask, unreadChatsTask)
+        _ = await (widgetObjectSub, myFavoritesSub, participantTask, objectTypesTask, spaceViewTask, unreadChatsTask)
     }
 
     func onAppear() {
@@ -216,26 +211,6 @@ final class HomeWidgetsViewModel {
         await myFavoritesViewModel.startSubscriptions()
     }
 
-    private func startPersonalWidgetsObjectTask() async {
-        // Only subscribe when the personal widgets document was opened in init (flag on).
-        // Flag-off keeps the document nil so behaviour stays byte-identical to legacy.
-        guard let personalWidgetsObject else { return }
-
-        for await _ in personalWidgetsObject.syncPublisher.values {
-            if !isPersonalWidgetsLoaded {
-                isPersonalWidgetsLoaded = true
-                #if DEBUG
-                // TODO: remove temporary log after verification (IOS-5864 Task 2b).
-                // Confirms `documentService.document(...)` auto-opens the personal widgets
-                // document without an explicit `await personalWidgetsObject.open()` — if
-                // this never fires in simulator with flag on + MW GO-6962 built locally,
-                // we add an explicit open() call per the plan's Task 2b note.
-                print("[IOS-5864] personalWidgetsObject first emission (objectId=\(personalWidgetsObject.objectId))")
-                #endif
-            }
-        }
-    }
-    
     private func startParticipantTask() async {
         async let editSub: () = startCanEditSubscription()
         async let ownerSub: () = startOwnerSubscription()
@@ -249,12 +224,12 @@ final class HomeWidgetsViewModel {
         }
     }
 
-    // Drives `canManageChannelPins` off the current participant's role. Owner-only
-    // today (plan Context — middleware has no Admin role). Single-predicate gate
-    // so a future Admin role widens here in one spot without touching call sites.
+    // Drives `canManageChannelPins` off the current participant's role. The
+    // predicate lives on `ParticipantSpaceViewData` so all three widget-screen
+    // call sites share one definition.
     private func startOwnerSubscription() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: info.accountSpaceId).values {
-            let next = participantSpaceView.isOwner
+            let next = participantSpaceView.canManageChannelPins
             guard canManageChannelPins != next else { continue }
             canManageChannelPins = next
         }

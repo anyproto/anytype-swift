@@ -89,7 +89,6 @@ private struct HomeWidgetsInternalView: View {
                 } else {
                     topWidgets
                     blockWidgets
-                    myFavoritesWidget
                 }
                 objectTypeWidgets
                 AnytypeNavigationSpacer(minHeight: context.showEmbeddedBottomPanel ? 72 : 0)
@@ -201,6 +200,7 @@ private struct HomeWidgetsInternalView: View {
                     // shared channel widgets document and toggles against it.
                     channelWidgetsObject: model.widgetObject,
                     canManageChannelPins: model.canManageChannelPins,
+                    pinnedToChannelByObjectId: myFavoritesViewModel.pinnedToChannelByObjectId,
                     onTapRow: { details in
                         myFavoritesViewModel.onTapRow(details: details)
                     },

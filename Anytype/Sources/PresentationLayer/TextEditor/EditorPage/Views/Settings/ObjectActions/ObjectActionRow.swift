@@ -84,13 +84,13 @@ extension ObjectAction {
             return .X32.undoRedo
         case let .archive(isArchived):
             return isArchived ? .X32.restore : .X32.delete
-        case let .pin(isPinned):
-            // Reuses the star asset pair pending design-system follow-up for dedicated pin/pin.slash X32 icons.
-            return isPinned ? .X32.Favorite.unfavorite : .X32.Favorite.favorite
-        case let .favorite(isFavorited):
-            // Star / filled-star. Uses the existing X32.Favorite asset pair; X24 variants
-            // and dedicated pin/pin.slash assets are a design-system follow-up (plan Addendum A).
-            return isFavorited ? .X32.Favorite.unfavorite : .X32.Favorite.favorite
+        case .pin, .favorite:
+            // Neutral fallback — `.pin` and `.favorite` are rendered via `menuIcon`
+            // (SF Symbols) in `ObjectSettingsMenuView`, which is the only runtime
+            // surface. The rail asset only appears in the SwiftUI preview below.
+            // Dedicated X32.pin / X32.pin.slash / X32.star assets are a
+            // design-system follow-up (plan Addendum A).
+            return .X32.Favorite.favorite
         case let .locked(isLocked):
             return isLocked ? .X32.Lock.unlock : .X32.Lock.lock
         case .duplicate:

@@ -5,7 +5,7 @@
 Split channel pinning on the iOS widgets screen into two independent mechanisms so personal bookmarks no longer pollute the shared widgets list:
 
 - **Channel Pins** (shared, Owner only on iOS — see Admin note in Context): the existing block-widget mechanism on the channel's `widgetsId` document. Visible to all members. Rendered as plain rows directly under the Home widget — the current "Pinned" section header is removed.
-- **My Favorites** (personal, every role including Viewer): a NEW per-user virtual widget object at `_personalWidgets_<spaceId>`. Rendered as a new Unread-style compact section between the Unread section and the Objects section. Collapsible. Manual drag-and-drop order. Hidden when empty.
+- **My Favorites** (personal, every role including Viewer): a NEW per-user virtual widget object at `_personalWidgets_<spaceId>`. Rendered as a new Unread-style compact section (Unread is overlay-only; in `.navigation` context My Favorites sits directly after Channel Pins, before Objects). Collapsible. Manual drag-and-drop order. Hidden when empty.
 
 Two new action sets are added to the object "⋯" settings menu and to widget long-press context menus:
 - **Favorite / Unfavorite** (star / star.fill icon) — available to every role
@@ -66,7 +66,7 @@ Related: IOS-5751 (Release 18 parent), DSGN-1796 (design), GO-6962 (middleware),
 **Feature flags + Loc + DI**
 - `Modules/AnytypeCore/Sources/AnytypeCore/FeatureFlags/FeatureDescription+Flags.swift`
 - `Modules/Loc/Sources/Loc/Resources/*.xcstrings`
-- `Modules/Services/Sources/ServicesDI.swift` — DI module for service registration
+- `Anytype/Sources/ServiceLayer/ServicesDI.swift` — app-target DI file for service registration
 
 **Tests (what exists today)**
 - `AnyTypeTests/` — narrow helper tests (e.g. `HomePathTests`, `ChatMessageLimitsTests`). **No ViewModel-level mock harness for the widgets area.**
@@ -175,14 +175,12 @@ public extension AccountInfo {
 ### `PersonalFavoritesService`
 
 ```swift
-public protocol PersonalFavoritesServiceProtocol: Sendable {
+protocol PersonalFavoritesServiceProtocol: AnyObject, Sendable {
     func toggle(objectId: String, accountInfo: AccountInfo) async throws
-    func addToFavorites(objectId: String, accountInfo: AccountInfo) async throws
-    func removeFromFavorites(widgetBlockId: String, accountInfo: AccountInfo) async throws
 }
 
 final class PersonalFavoritesService: PersonalFavoritesServiceProtocol {
-    @Injected(\.blockWidgetService) private var blockWidgetService: any BlockWidgetServiceProtocol
+    private let blockWidgetService: any BlockWidgetServiceProtocol = Container.shared.blockWidgetService()
     private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
 
     func toggle(objectId: String, accountInfo: AccountInfo) async throws {
@@ -191,27 +189,26 @@ final class PersonalFavoritesService: PersonalFavoritesServiceProtocol {
             spaceId: accountInfo.accountSpaceId
         )
         if let blockId = doc.widgetBlockIdFor(targetObjectId: objectId) {
-            try await removeFromFavorites(widgetBlockId: blockId, accountInfo: accountInfo)
+            try await blockWidgetService.removeWidgetBlock(
+                contextId: accountInfo.personalWidgetsId,
+                widgetBlockId: blockId
+            )
         } else {
-            try await addToFavorites(objectId: objectId, accountInfo: accountInfo)
+            // WidgetPosition enum mapping (Open Question #2 — RESOLVED):
+            // iOS `WidgetPosition` has `.end`, `.above`, `.below` only (no `.start` /
+            // `.innerFirst`). Reproduce "prepend to top" via `.above(first)` with
+            // `.end` fallback for an empty document — same pattern
+            // `ObjectSettingsViewModel` uses for channel pins.
+            let firstChildId = doc.children.first?.id
+            let position: WidgetPosition = firstChildId.map { .above(widgetId: $0) } ?? .end
+            try await blockWidgetService.createWidgetBlock(
+                contextId: accountInfo.personalWidgetsId,
+                sourceId: objectId,
+                layout: .link,
+                limit: 0,
+                position: position
+            )
         }
-    }
-
-    func addToFavorites(objectId: String, accountInfo: AccountInfo) async throws {
-        try await blockWidgetService.createWidgetBlock(
-            contextId: accountInfo.personalWidgetsId,
-            sourceId: objectId,
-            layout: .link,
-            limit: 0,
-            position: .start    // WidgetPosition — prepend so new favorites land at the top; verify enum value in Task 3
-        )
-    }
-
-    func removeFromFavorites(widgetBlockId: String, accountInfo: AccountInfo) async throws {
-        try await blockWidgetService.removeWidgetBlock(
-            contextId: accountInfo.personalWidgetsId,
-            widgetBlockId: widgetBlockId
-        )
     }
 }
 ```
@@ -400,24 +397,27 @@ Gate `.pin(…)` with `canManageChannelPins && canCreateWidget`. Add `.favorite(
 
 ### Loc keys
 
-Add to `Modules/Loc/Sources/Loc/Resources/Object.xcstrings` or `Workspace.xcstrings` (pick based on where `pinned`/`unread` live):
-- `myFavorites` → "My Favorites"
-- `favorite` → "Favorite"
-- `unfavorite` → "Unfavorite"
-- `pinToChannel` → "Pin to Channel"
-- `unpinFromChannel` → "Unpin from Channel"
+Added to `Modules/Loc/Sources/Loc/Resources/UI.xcstrings` (alongside existing `Pinned` / `Unpinned` / `Favorite` / `Unfavorite`) and `Modules/Loc/Sources/Loc/Resources/Workspace.xcstrings` (for `myFavorites`):
+- `myFavorites` → "My Favorites" (Workspace.xcstrings)
+- `favorite` → "Favorite" (UI.xcstrings)
+- `unfavorite` → "Unfavorite" (UI.xcstrings)
+- `favorited` → "Favorited" (UI.xcstrings, toast)
+- `unfavorited` → "Unfavorited" (UI.xcstrings, toast)
+- `pinToChannel` → "Pin to Channel" (UI.xcstrings)
+- `unpinFromChannel` → "Unpin from Channel" (UI.xcstrings)
 
 ### Feature flag
 
 ```swift
 static let personalFavorites = FeatureDescription(
-    title: "Personal Favorites",
-    description: "Per-user favorites + channel pins split (IOS-5864). Requires MW GO-6962.",
-    value: .debug(false),
-    author: "k@anytype.io",
-    releaseVersion: "0.47.0"  // adjust to release 18 target
+    title: "Personal Favorites - IOS-5864 (requires MW GO-6962)",
+    category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+    defaultValue: false,
+    debugValue: true
 )
 ```
+
+Production defaults OFF; debug builds get the feature enabled to exercise it end-to-end against a local MW build. Do not flip `defaultValue` to `true` until middleware GO-6962 has shipped in the minimum supported release.
 
 ## What Goes Where
 
@@ -632,6 +632,8 @@ static let personalFavorites = FeatureDescription(
 
 ### Task 15: Verify acceptance + hand off manual checklist to user
 
+> Note: `[x]` on items below means **handed off to the user for manual simulator verification**, not executed by the agent. Items 1–12 require a local MW GO-6962 build (Task 0 prerequisites).
+
 **Manual simulator checklist** (user runs):
 1. Owner: favorite + unfavorite an object via the "⋯" menu; via widget long-press; verify star/star.fill icon + title toggle correctly.
 2. Owner: pin + unpin an object to channel via both menu paths; verify pin/pin.slash icon + title.
@@ -675,7 +677,9 @@ static let personalFavorites = FeatureDescription(
 **External / follow-ups**
 - **Admin role follow-up (conditional)**: if/when middleware introduces an Admin permission role (no plan today — previous attempt PR #2972 was abandoned), file a small iOS task to widen `canManageChannelPins` to include it. Single-predicate structure means a one-line change.
 - **Analytics coverage** (if deferred in Task 12): file a follow-up to add favorite/unfavorite and pin/unpin analytics events if product requests them.
-- Do not enable the feature flag in production until MW GO-6962 has shipped in the minimum supported release.
+- Do not enable the feature flag in production until MW GO-6962 has shipped in the minimum supported release. `defaultValue` shipped as `false` with `debugValue: true` — flip once the MW dependency lands.
+- **Temporary debug print**: the `#if DEBUG` log in `HomeWidgetsViewModel.startPersonalWidgetsObjectTask()` has been removed post-review (the task itself was redundant once `MyFavoritesViewModel` owns the subscription). No residual debug wiring remains.
+- **Icon assets (design-system follow-up, plan Addendum A)**: add `X24.star`, `X24.starFill`, `X24.pin`, `X24.pinSlash` (and matching X32 variants if needed) via the `design-system-developer` flow, then replace the SF Symbol fallbacks in `ObjectActionRow.menuIcon`, `WidgetCommonActionsMenuView`, and `MyFavoritesRowView` context menu.
 
 ## Open Questions / Verification Gaps
 

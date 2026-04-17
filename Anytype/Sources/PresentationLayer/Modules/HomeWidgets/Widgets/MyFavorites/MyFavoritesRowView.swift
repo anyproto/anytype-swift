@@ -7,14 +7,15 @@ struct MyFavoritesRowView: View {
     let row: MyFavoritesViewModel.Row
     let showDivider: Bool
     let accountInfo: AccountInfo
-    /// Channel widgets document for this space (`info.widgetsId`). Used by the
-    /// Pin-to-channel / Unpin-from-channel context-menu item. The row reads the
-    /// current pinned state from it reactively via `syncPublisher`.
+    /// Channel widgets document for this space (`info.widgetsId`). Passed through
+    /// to `WidgetActionsViewCommonMenuProvider.onChannelPinTap` so it can toggle
+    /// the pin against the correct document.
     let channelWidgetsObject: any BaseDocumentProtocol
     let canManageChannelPins: Bool
+    /// Computed once at the ViewModel layer (`pinnedToChannelByObjectId`) so each
+    /// row receives a plain Bool instead of opening its own subscription.
+    let isPinnedToChannel: Bool
     let onTap: (ObjectDetails) -> Void
-
-    @State private var isPinnedToChannel: Bool = false
 
     var body: some View {
         Button {
@@ -49,27 +50,12 @@ struct MyFavoritesRowView: View {
                     isPinnedToChannel: isPinnedToChannel
                 )
             }
-            .task {
-                await observeChannelPinState()
-            }
-        }
-    }
-
-    /// Reacts to `syncPublisher` emissions on the channel widgets document so the
-    /// menu label ("Pin to Channel" vs "Unpin from Channel") stays in sync with
-    /// the shared pinned list without requiring a ViewModel.
-    private func observeChannelPinState() async {
-        for await _ in channelWidgetsObject.syncPublisher.values {
-            let next = channelWidgetsObject.isPinnedToChannel(objectId: row.details.id)
-            guard isPinnedToChannel != next else { continue }
-            isPinnedToChannel = next
         }
     }
 }
 
 /// Split out so the context menu's body does not re-compute when the outer row
-/// redraws for unrelated reasons (spacing / divider). Uses DI for the provider
-/// the same way `WidgetCommonActionsMenuView` does.
+/// redraws for unrelated reasons (spacing / divider).
 private struct MyFavoritesRowContextMenu: View {
     let details: ObjectDetails
     let accountInfo: AccountInfo
@@ -77,11 +63,9 @@ private struct MyFavoritesRowContextMenu: View {
     let canManageChannelPins: Bool
     let isPinnedToChannel: Bool
 
-    @StateObject private var model = Model()
-
     var body: some View {
         Button {
-            model.provider.onFavoriteTap(
+            provider.onFavoriteTap(
                 targetObjectId: details.id,
                 accountInfo: accountInfo
             )
@@ -92,7 +76,7 @@ private struct MyFavoritesRowContextMenu: View {
 
         if canManageChannelPins {
             Button {
-                model.provider.onChannelPinTap(
+                provider.onChannelPinTap(
                     targetObjectId: details.id,
                     widgetObject: channelWidgetsObject
                 )
@@ -103,8 +87,9 @@ private struct MyFavoritesRowContextMenu: View {
         }
     }
 
-    private final class Model: ObservableObject {
-        @Injected(\.widgetActionsViewCommonMenuProvider)
-        var provider: any WidgetActionsViewCommonMenuProviderProtocol
+    // Resolve DI once per menu render; no need to wrap the provider in an
+    // `ObservableObject` (rows are transient; lifecycle churn would hurt).
+    private var provider: any WidgetActionsViewCommonMenuProviderProtocol {
+        Container.shared.widgetActionsViewCommonMenuProvider()
     }
 }

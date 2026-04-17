@@ -354,6 +354,7 @@ public enum Loc {
   public static let export = Loc.tr("UI", "Export", fallback: "Export")
   public static let failedToSyncTryingAgain = Loc.tr("UI", "Failed to sync, trying again...", fallback: "Failed to sync, trying again...")
   public static let favorite = Loc.tr("UI", "Favorite", fallback: "Favorite")
+  public static let favorited = Loc.tr("UI", "Favorited", fallback: "Favorited")
   public static let featuredRelations = Loc.tr("UI", "Featured relations", fallback: "Featured properties")
   public static let fields = Loc.tr("UI", "Fields", fallback: "Properties")
   public static func file(_ p1: Int) -> String {
@@ -645,6 +646,7 @@ public enum Loc {
   public static let undoTyping = Loc.tr("UI", "Undo typing", fallback: "Undo typing")
   public static let undoRedo = Loc.tr("UI", "Undo/Redo", fallback: "Undo/Redo")
   public static let unfavorite = Loc.tr("UI", "Unfavorite", fallback: "Unfavorite")
+  public static let unfavorited = Loc.tr("UI", "Unfavorited", fallback: "Unfavorited")
   public static let unknown = Loc.tr("UI", "Unknown", fallback: "Unknown")
   public static let unknownError = Loc.tr("UI", "Unknown error", fallback: "Unknown error")
   public static let unlimited = Loc.tr("UI", "unlimited", fallback: "Unlimited")

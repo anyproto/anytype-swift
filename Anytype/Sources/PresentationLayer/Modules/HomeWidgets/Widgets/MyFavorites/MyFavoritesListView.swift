@@ -9,6 +9,9 @@ struct MyFavoritesListView: View {
     /// can render Pin-to-channel / Unpin-from-channel with up-to-date state.
     let channelWidgetsObject: any BaseDocumentProtocol
     let canManageChannelPins: Bool
+    /// Per-object pinned-to-channel flags. Computed once at the ViewModel layer;
+    /// row reads its flag via `pinnedToChannelByObjectId[row.details.id] ?? false`.
+    let pinnedToChannelByObjectId: [String: Bool]
     let onTapRow: (ObjectDetails) -> Void
     let dropUpdate: (_ from: DropDataElement<MyFavoritesViewModel.Row>, _ to: DropDataElement<MyFavoritesViewModel.Row>) -> Void
     let dropFinish: (_ from: DropDataElement<MyFavoritesViewModel.Row>, _ to: DropDataElement<MyFavoritesViewModel.Row>) -> Void
@@ -24,6 +27,7 @@ struct MyFavoritesListView: View {
                     accountInfo: accountInfo,
                     channelWidgetsObject: channelWidgetsObject,
                     canManageChannelPins: canManageChannelPins,
+                    isPinnedToChannel: pinnedToChannelByObjectId[row.details.id] ?? false,
                     onTap: onTapRow
                 )
                 .setZeroOpacity(favoritesDndState.dragInitiateId == row.id)

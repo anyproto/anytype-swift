@@ -112,7 +112,13 @@ struct WidgetCommonActionsMenuView: View {
             // Symbol fallback mirrors `ObjectActionRow.menuIcon` — dedicated icons are a
             // design-system follow-up.
             Button {
-                guard let targetObjectId, let accountInfo else { return }
+                guard let targetObjectId, let accountInfo else {
+                    #if DEBUG
+                    preconditionFailure(".favorite menu item emitted without targetObjectId/accountInfo")
+                    #else
+                    return
+                    #endif
+                }
                 model.provider.onFavoriteTap(
                     targetObjectId: targetObjectId,
                     accountInfo: accountInfo
@@ -126,11 +132,25 @@ struct WidgetCommonActionsMenuView: View {
             // the same document the `.remove` case operates on. See
             // `WidgetActionsViewCommonMenuProvider.onChannelPinTap` for the toggle logic.
             Button {
-                guard let targetObjectId else { return }
-                model.provider.onChannelPinTap(
-                    targetObjectId: targetObjectId,
-                    widgetObject: widgetObject
-                )
+                guard let targetObjectId else {
+                    #if DEBUG
+                    preconditionFailure(".channelPin menu item emitted without targetObjectId")
+                    #else
+                    return
+                    #endif
+                }
+                // Match the 0.7s delay used by `.remove` above: the context menu's
+                // transition-to-list animation hasn't finished when the tap fires. Without
+                // the delay, unpin-from-channel (which removes a widget whose row is
+                // currently animating) produces the same glitch.
+                let provider = model.provider
+                let widgetObject = widgetObject
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    provider.onChannelPinTap(
+                        targetObjectId: targetObjectId,
+                        widgetObject: widgetObject
+                    )
+                }
             } label: {
                 Text(isPinned ? Loc.unpinFromChannel : Loc.pinToChannel)
                 Image(systemName: isPinned ? "pin.slash" : "pin")

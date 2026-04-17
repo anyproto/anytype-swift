@@ -119459,6 +119459,28 @@
         }
       }
     },
+    "Favorited" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorited"
+          }
+        }
+      }
+    },
+    "Unfavorited" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unfavorited"
+          }
+        }
+      }
+    },
     "Pin to Channel" : {
       "extractionState" : "manual",
       "localizations" : {
