@@ -225,8 +225,12 @@ final class HomeWidgetsViewModel {
             supportsMultiChats = !spaceView.isOneToOne
 
             // Home widget renders whichever object is set as homepage (Chat / Page / Collection).
-            // Treat `.empty` as `.widgets` via `displayValue` — empty homepage must never render the widget.
-            guard case let .object(objectId) = spaceView.homepage.displayValue else {
+            // 1-on-1 channels always home on Chat; `SpaceView.homepage` is unreliable there
+            // (middleware may not populate it), so fall back to `info.spaceChatId`.
+            let effectiveHomepage: SpaceHomepage = spaceView.isOneToOne && !info.spaceChatId.isEmpty
+                ? .object(objectId: info.spaceChatId)
+                : spaceView.homepage
+            guard case let .object(objectId) = effectiveHomepage else {
                 if lastObserved != nil {
                     homepageTask?.cancel()
                     homepageTask = nil
