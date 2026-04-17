@@ -76,6 +76,9 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
         targetObjectId: String,
         accountInfo: AccountInfo
     ) {
+        // TODO: IOS-5864 No dedicated favorite/unfavorite analytics event exists today.
+        // Mirror with `ObjectSettingsViewModel.changeFavoriteState` when product confirms
+        // the event shape.
         let service = personalFavoritesService
         Task {
             try? await service.toggle(objectId: targetObjectId, accountInfo: accountInfo)
@@ -87,6 +90,9 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
         targetObjectId: String,
         widgetObject: any BaseDocumentProtocol
     ) {
+        // TODO: IOS-5864 No dedicated pin/unpin analytics event exists today.
+        // Mirror with `ObjectSettingsViewModel.changePinState` when product confirms
+        // the event shape.
         // Mirrors `ObjectSettingsViewModel.changePinState`: add or remove a widget
         // block against the channel widgets document. The call site supplies whichever
         // document is the "channel" in that context (for LinkWidget long-press, that's

@@ -597,11 +597,11 @@ static let personalFavorites = FeatureDescription(
 **Files:**
 - Modify: whichever file houses the `logReorderWidget` source enum (typically `Anytype/Sources/ServiceLayer/Analytics/AnalyticsEventsName.swift` or a dedicated source-labels file — locate via `rg "logReorderWidget"`)
 
-- [ ] add `personalFavorites` (or equivalent casing matching existing labels) to the reorder-widget source enum
-- [ ] wire `AnytypeAnalytics.instance().logReorderWidget(source: .personalFavorites)` call in `MyFavoritesViewModel.dropFinish`
-- [ ] if per-event entries exist for pin/unpin + favorite/unfavorite today, add matching entries; otherwise defer via an inline TODO
-- [ ] run `make generate` if the analytics layer uses codegen
-- [ ] verify compile
+- [x] add `personalFavorites` case to `AnalyticsWidgetSource` in `Anytype/Sources/Analytics/AnalyticsConstants.swift` (`analyticsId` = `"PersonalFavorites"`, matching the existing PascalCase labels `"Pinned"` / `"Recent"` / `"RecentOpen"` / `"Bin"` / `"Chat"`).
+- [x] wire `AnytypeAnalytics.instance().logReorderWidget(source: .personalFavorites)` into `MyFavoritesViewModel.dropFinish` (placed after the no-op guard so self-drops don't fire analytics).
+- [x] per-event pin/unpin and favorite/unfavorite analytics — DEFERRED. No dedicated `logPinObject` / `logFavoriteObject` events exist today; only widget-level `logAddWidget` / `logDeleteWidget` / `logChangeWidgetSource` / `logReorderWidget` exist. Added inline `TODO: IOS-5864` comments at `ObjectSettingsViewModel.changePinState`, `ObjectSettingsViewModel.changeFavoriteState`, and `WidgetActionsViewCommonMenuProvider.onFavoriteTap` / `onChannelPinTap` so a follow-up can add the events once product confirms their shape. Also captured under plan's Post-Completion "Analytics coverage" bullet.
+- [x] `make generate` skipped — analytics layer is hand-written (`AnalyticsConstants.swift` + `AnytypeAnalytics+Events.swift`); no Sourcery/SwiftGen codegen over it.
+- [x] verify compile — `xcodebuild … build-for-testing` → `** TEST BUILD SUCCEEDED **`. Simulator verification of the actual `"ReorderWidget"` event firing deferred to Task 15 (requires local MW GO-6962).
 
 ### Task 13: Finalise permissions gating + replace hard-coded strings
 

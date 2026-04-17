@@ -116,8 +116,9 @@ enum AnalyticsWidgetSource {
     case recentOpen
     case bin
     case chat
+    case personalFavorites
     case object(type: AnalyticsObjectType)
-    
+
     var analyticsId: String {
         switch self {
         case .pinned:
@@ -130,6 +131,8 @@ enum AnalyticsWidgetSource {
             return "Bin"
         case .chat:
             return "Chat"
+        case .personalFavorites:
+            return "PersonalFavorites"
         case .object(let type):
             return type.analyticsId
         }

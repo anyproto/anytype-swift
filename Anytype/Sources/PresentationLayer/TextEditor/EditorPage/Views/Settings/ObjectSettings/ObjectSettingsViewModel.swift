@@ -322,6 +322,9 @@ final class ObjectSettingsViewModel {
     }
 
     func changePinState(_ pinned: Bool) async throws {
+        // TODO: IOS-5864 No dedicated pin/unpin analytics event exists today.
+        // Add `logPinObject` / `logUnpinObject` (or a unified `logChangePinState(pinned:)`)
+        // once product confirms the event shape. Reorder already has `logReorderWidget`.
         guard let widgetObject else {
             anytypeAssertionFailure("Widget object not found")
             return
@@ -362,6 +365,10 @@ final class ObjectSettingsViewModel {
     }
 
     func changeFavoriteState() async throws {
+        // TODO: IOS-5864 No dedicated favorite/unfavorite analytics event exists today.
+        // Add `logFavoriteObject` / `logUnfavoriteObject` (or a unified
+        // `logChangeFavoriteState(favorited:)`) once product confirms the event shape.
+        // Reorder of My Favorites is already covered via `logReorderWidget(source: .personalFavorites)`.
         guard let details = document.details else {
             anytypeAssertionFailure("Details object not found")
             return

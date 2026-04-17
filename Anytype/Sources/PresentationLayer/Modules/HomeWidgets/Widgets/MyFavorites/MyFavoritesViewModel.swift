@@ -85,6 +85,7 @@ final class MyFavoritesViewModel {
 
     func dropFinish(from: DropDataElement<Row>, to: DropDataElement<Row>) {
         guard from.data.id != to.data.id else { return }
+        AnytypeAnalytics.instance().logReorderWidget(source: .personalFavorites)
         let dashboardId = accountInfo.personalWidgetsId
         let blockId = from.data.id
         let dropPositionblockId = to.data.id
