@@ -540,10 +540,10 @@ static let personalFavorites = FeatureDescription(
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Container/HomeWidgetsView.swift`
 
-- [ ] extract `homeWidget` and `unreadWidget` from `topWidgets` into separate `@ViewBuilder`s
-- [ ] restructure `widgets` VStack order (flag on): Home → Channel Pins → Unread → My Favorites → Objects
-- [ ] preserve flag-off legacy order byte-identically
-- [ ] verify compile; simulator smoke-check of section order
+- [x] extract `homeWidget` and `unreadWidget` from `topWidgets` into separate `@ViewBuilder`s
+- [x] restructure `widgets` VStack order (flag on): Home → Channel Pins → Unread → My Favorites → Objects
+- [x] preserve flag-off legacy order byte-identically (legacy `topWidgets` kept intact; used in the flag-off branch)
+- [x] verify compile — `xcodebuild … build-for-testing` → `** TEST BUILD SUCCEEDED **`; simulator smoke-check deferred to Task 15 (requires local MW GO-6962)
 
 ### Task 9: Object "⋯" settings menu — Favorite + gate existing Pin
 

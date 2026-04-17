@@ -81,9 +81,16 @@ private struct HomeWidgetsInternalView: View {
             VStack(spacing: 0) {
                 SpaceInfoView(spaceId: model.spaceId)
                 InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
-                topWidgets
-                blockWidgets
-                myFavoritesWidget
+                if FeatureFlags.personalFavorites {
+                    homeWidget
+                    blockWidgets
+                    unreadWidget
+                    myFavoritesWidget
+                } else {
+                    topWidgets
+                    blockWidgets
+                    myFavoritesWidget
+                }
                 objectTypeWidgets
                 AnytypeNavigationSpacer(minHeight: context.showEmbeddedBottomPanel ? 72 : 0)
             }
@@ -99,6 +106,26 @@ private struct HomeWidgetsInternalView: View {
             HomeWidgetView(data: data)
                 .id("\(data.objectId)-\(data.canSetHomepage)")
         } else if model.shouldShowUnreadSection {
+            HomeWidgetsGroupView(title: Loc.unread) {
+                model.onTapUnreadHeader()
+            }
+            if model.unreadSectionIsExpanded {
+                UnreadChatsGroupedView(chats: model.unreadChats)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var homeWidget: some View {
+        if context == .overlay, let data = model.homeWidgetData {
+            HomeWidgetView(data: data)
+                .id("\(data.objectId)-\(data.canSetHomepage)")
+        }
+    }
+
+    @ViewBuilder
+    private var unreadWidget: some View {
+        if context == .overlay, model.shouldShowUnreadSection {
             HomeWidgetsGroupView(title: Loc.unread) {
                 model.onTapUnreadHeader()
             }
