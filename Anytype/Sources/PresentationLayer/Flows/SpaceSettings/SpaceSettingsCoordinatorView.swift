@@ -62,7 +62,7 @@ fileprivate struct SpaceSettingInternalsCoordinator: View {
                 HomepageSettingsPickerView(
                     spaceId: $0.value,
                     onHomepageSet: FeatureFlags.fixChannelHomeBackNavigation
-                        ? { pageNavigation.replaceHome($0) }
+                        ? { spaceId, homeData in pageNavigation.replaceHome(spaceId, homeData) }
                         : nil
                 )
             }

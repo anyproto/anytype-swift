@@ -54,7 +54,7 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         guard case .homepageSet(let value) = result, case .object(let details) = value else { return }
         if FeatureFlags.fixChannelHomeBackNavigation {
             if let homeData = details.screenData().homeSlotValue {
-                pageNavigation?.replaceHome(homeData)
+                pageNavigation?.replaceHome(spaceInfo.accountSpaceId, homeData)
             }
         } else {
             pageNavigation?.open(details.screenData())

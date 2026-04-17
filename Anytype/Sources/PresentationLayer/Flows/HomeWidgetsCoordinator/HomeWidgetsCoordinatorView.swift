@@ -91,8 +91,8 @@ private struct HomeWidgetsCoordinatorInternalView: View {
                 HomepageSettingsPickerView(
                     spaceId: model.spaceInfo.accountSpaceId,
                     onHomepageSet: FeatureFlags.fixChannelHomeBackNavigation
-                        ? {
-                            pageNavigation.replaceHome($0)
+                        ? { spaceId, homeData in
+                            pageNavigation.replaceHome(spaceId, homeData)
                             model.shouldDismissOverlay = true
                         }
                         : nil

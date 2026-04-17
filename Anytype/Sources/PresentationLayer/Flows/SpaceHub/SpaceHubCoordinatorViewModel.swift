@@ -78,8 +78,10 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
                 navigationPath.push(data)
             }
         },
-        replaceHome: { [weak self] newData in
+        replaceHome: { [weak self] spaceId, newData in
             guard let self, FeatureFlags.fixChannelHomeBackNavigation else { return }
+            // Guard against a space switch that happened while the picker was awaiting setHomepage.
+            guard spaceId == currentSpaceId else { return }
             guard !pathChanging, let current = navigationPath.currentHome else { return }
             let isReplaceableHomeSlot =
                 current is HomeWidgetData ||

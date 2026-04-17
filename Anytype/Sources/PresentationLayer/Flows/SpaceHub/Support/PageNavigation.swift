@@ -7,11 +7,11 @@ struct PageNavigation {
     let pop: () -> Void
     let popToFirstInSpace: () -> Void
     let replace: (EditorScreenData) -> Void
-    let replaceHome: (AnyHashable) -> Void
+    let replaceHome: (String, AnyHashable) -> Void
 }
 
 extension EnvironmentValues {
-    @Entry var pageNavigation = PageNavigation(open: { _ in }, pushHome: { }, pop: { }, popToFirstInSpace: {}, replace: { _ in }, replaceHome: { _ in })
+    @Entry var pageNavigation = PageNavigation(open: { _ in }, pushHome: { }, pop: { }, popToFirstInSpace: {}, replace: { _ in }, replaceHome: { _, _ in })
 }
 
 extension View {
