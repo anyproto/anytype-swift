@@ -656,9 +656,9 @@ static let personalFavorites = FeatureDescription(
 - (Optional) Modify: `CLAUDE.md` if a new cross-cutting pattern emerged worth documenting
 - Move: `docs/plans/20260417-ios-5864-personal-favorites.md` → `docs/plans/completed/20260417-ios-5864-personal-favorites.md`
 
-- [ ] update `CLAUDE.md` only if a reusable pattern emerged (e.g. "second widget document per channel")
-- [ ] create `docs/plans/completed/` if missing: `mkdir -p docs/plans/completed`
-- [ ] move this plan file into `completed/`
+- [x] update `CLAUDE.md` only if a reusable pattern emerged (e.g. "second widget document per channel") — (no cross-cutting pattern warranting CLAUDE.md update). The "second widget document per channel" and "personal virtual widget object opened client-side" shapes are feature-specific to personal favorites and backed by middleware GO-6962's per-user CRDT store; no future iOS feature would reach for them as a reusable building block. The `PersonalFavoritesService`-lives-in-app-target deviation was already inline-documented in the service file per Task 3 and follows the existing `ChatActionService` / `PinnedSubscriptionService` precedent (not new). The `canManageChannelPins` single-predicate gate is a narrow permission shape, not a reusable pattern.
+- [x] create `docs/plans/completed/` if missing: `mkdir -p docs/plans/completed` — ran `mkdir -p` (idempotent); directory already existed with prior completed plans.
+- [x] move this plan file into `completed/` — (deferred until after review phases and finalize — plan must stay at current path for review agents to read)
 
 ## Post-Completion
 
