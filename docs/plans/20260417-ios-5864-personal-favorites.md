@@ -458,9 +458,9 @@ static let personalFavorites = FeatureDescription(
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Container/HomeWidgetsViewModel.swift`
 
-- [ ] add optional `personalWidgetsObject: (any BaseDocumentProtocol)?` property
-- [ ] initialise in `init`: assign only when `FeatureFlags.personalFavorites` is on (use `documentService.document(objectId: info.personalWidgetsId, spaceId: info.accountSpaceId)`)
-- [ ] verify compile — nothing else touches the property yet
+- [x] add optional `personalWidgetsObject: (any BaseDocumentProtocol)?` property
+- [x] initialise in `init`: assign only when `FeatureFlags.personalFavorites` is on (use `documentService.document(objectId: info.personalWidgetsId, spaceId: info.accountSpaceId)`)
+- [x] verify compile — nothing else touches the property yet — `xcodebuild … build-for-testing` → `** TEST BUILD SUCCEEDED **`
 
 ### Task 2b: Subscribe to personal widgets document
 

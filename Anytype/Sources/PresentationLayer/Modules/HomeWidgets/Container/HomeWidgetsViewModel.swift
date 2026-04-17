@@ -19,6 +19,11 @@ final class HomeWidgetsViewModel {
 
     let info: AccountInfo
     let widgetObject: any BaseDocumentProtocol
+    // Personal (per-user) favorites live on a separate virtual widget document keyed by
+    // `info.personalWidgetsId` (see `AccountInfo+PersonalWidgets`). Opened only when
+    // `FeatureFlags.personalFavorites` is on so flag-off behaviour is byte-identical.
+    // Wiring subscription to this document is handled in Task 2b.
+    let personalWidgetsObject: (any BaseDocumentProtocol)?
 
     @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
@@ -81,6 +86,14 @@ final class HomeWidgetsViewModel {
         self.info = info
         self.output = output
         self.widgetObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
+        if FeatureFlags.personalFavorites {
+            self.personalWidgetsObject = documentService.document(
+                objectId: info.personalWidgetsId,
+                spaceId: info.accountSpaceId
+            )
+        } else {
+            self.personalWidgetsObject = nil
+        }
         self.pinnedSectionIsExpanded = expandedService.isExpanded(id: Constants.pinnedSectionId, defaultValue: true)
         self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
         self.unreadSectionIsExpanded = expandedService.isExpanded(id: Constants.unreadSectionId, defaultValue: true)
