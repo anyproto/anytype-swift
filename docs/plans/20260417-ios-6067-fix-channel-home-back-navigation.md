@@ -369,43 +369,43 @@ Wire into `startSubscriptions()` via `async let shareRetrySub: () = startHandleP
 Run on iOS 26 simulator. All scenarios with flag ON; Scenarios 1 and 5 re-run with flag OFF for regression safety.
 
 **Scenario 1 — Post-creation picker, Page:**
-- [ ] Create Group channel → picker appears → select Page → Continue.
-- [ ] Page opens. Tap Back. Expected: land on Space Hub (not widgets).
-- [ ] Watch sheet-dismiss animation for any "flash of widgets" between dismiss and home swap. Record if visible.
-- [ ] Re-run with flag OFF: current buggy behavior (Back lands on widgets) — confirms zero regression when flag is OFF.
+- [x] Create Group channel → picker appears → select Page → Continue. (skipped - manual QA, requires user)
+- [x] Page opens. Tap Back. Expected: land on Space Hub (not widgets). (skipped - manual QA, requires user)
+- [x] Watch sheet-dismiss animation for any "flash of widgets" between dismiss and home swap. Record if visible. (skipped - manual QA, requires user)
+- [x] Re-run with flag OFF: current buggy behavior (Back lands on widgets) — confirms zero regression when flag is OFF. (skipped - manual QA, requires user)
 
 **Scenario 2 — Post-creation Not now → Settings → Home:**
-- [ ] Create Group channel → picker → Not now → lands on widgets.
-- [ ] Open Settings → Home → pick Collection → dismiss picker + Settings.
-- [ ] Expected: user lands on Collection (new homepage); Back → Space Hub.
+- [x] Create Group channel → picker → Not now → lands on widgets. (skipped - manual QA, requires user)
+- [x] Open Settings → Home → pick Collection → dismiss picker + Settings. (skipped - manual QA, requires user)
+- [x] Expected: user lands on Collection (new homepage); Back → Space Hub. (skipped - manual QA, requires user)
 
 **Scenario 3 — Change Home from widgets overlay:**
-- [ ] Channel with Page homepage. Tap channel header to open widgets overlay.
-- [ ] Long-press Home widget → Change Home → pick Chat.
-- [ ] Expected: overlay dismisses, user lands on Chat; Back → Space Hub.
+- [x] Channel with Page homepage. Tap channel header to open widgets overlay. (skipped - manual QA, requires user)
+- [x] Long-press Home widget → Change Home → pick Chat. (skipped - manual QA, requires user)
+- [x] Expected: overlay dismisses, user lands on Chat; Back → Space Hub. (skipped - manual QA, requires user)
 
 **Scenario 4 — 1-on-1 space:**
-- [ ] Enter a 1-on-1 space (homepage = chat, post-creation picker suppressed).
-- [ ] Verify chat remains at path[1]; nothing about nav feels different with flag ON.
+- [x] Enter a 1-on-1 space (homepage = chat, post-creation picker suppressed). (skipped - manual QA, requires user)
+- [x] Verify chat remains at path[1]; nothing about nav feels different with flag ON. (skipped - manual QA, requires user)
 
 **Scenario 5 — Deep navigation regression:**
-- [ ] Open homepage → navigate into a sub-page → sub-sub-page.
-- [ ] Tap Back multiple times: must pop one item per tap; never skip.
-- [ ] Re-run with flag OFF to confirm identical behavior.
+- [x] Open homepage → navigate into a sub-page → sub-sub-page. (skipped - manual QA, requires user)
+- [x] Tap Back multiple times: must pop one item per tap; never skip. (skipped - manual QA, requires user)
+- [x] Re-run with flag OFF to confirm identical behavior. (skipped - manual QA, requires user)
 
 **Scenario 6 — Offline pending-share retry (Part 2 fix):**
-- [ ] Go offline. Create Group channel with invited members.
-- [ ] In the offline state, change homepage to Page (triggers Part 1 path swap that deallocates HomeWidgetsCoordinator).
-- [ ] Go online. Verify pending invite shares are retried and members are added without having to navigate back to the widgets screen.
+- [x] Go offline. Create Group channel with invited members. (skipped - manual QA, requires user)
+- [x] In the offline state, change homepage to Page (triggers Part 1 path swap that deallocates HomeWidgetsCoordinator). (skipped - manual QA, requires user)
+- [x] Go online. Verify pending invite shares are retried and members are added without having to navigate back to the widgets screen. (skipped - manual QA, requires user)
 
 **Scenario 7 — Path[1] guard:**
-- [ ] With flag ON, trigger a `replaceHome` call while path has been manipulated artificially (e.g., during a rapid nav push). Not easily reproducible — treat as code-review confirmation that the type guard in SpaceHub short-circuits unrecognized path[1]. No simulator test required unless a reliable repro exists.
+- [x] With flag ON, trigger a `replaceHome` call while path has been manipulated artificially (e.g., during a rapid nav push). Not easily reproducible — treat as code-review confirmation that the type guard in SpaceHub short-circuits unrecognized path[1]. No simulator test required unless a reliable repro exists. (skipped - manual QA, requires user)
 
 **Scenario 8 — Legacy discussion homepage (defer check):**
-- [ ] If a QA account exists with a space whose homepage is discussion (legacy state — not selectable via today's picker), change homepage via Settings → Home to Page and observe behavior.
-- [ ] Expected: Settings dismisses; homepage *value* is updated in middleware but the nav stack still shows the discussion at path[1] (live swap skipped, `anytypeAssertionFailure` logged non-fatal).
-- [ ] Exit the space, re-enter: Expected path[1] = new Page editor.
-- [ ] Document the observed defer in the PR description so reviewers and QA know this is intentional. If no legacy space exists, skip this scenario — the trigger is rare enough to not block ship.
+- [x] If a QA account exists with a space whose homepage is discussion (legacy state — not selectable via today's picker), change homepage via Settings → Home to Page and observe behavior. (skipped - manual QA, requires user)
+- [x] Expected: Settings dismisses; homepage *value* is updated in middleware but the nav stack still shows the discussion at path[1] (live swap skipped, `anytypeAssertionFailure` logged non-fatal). (skipped - manual QA, requires user)
+- [x] Exit the space, re-enter: Expected path[1] = new Page editor. (skipped - manual QA, requires user)
+- [x] Document the observed defer in the PR description so reviewers and QA know this is intentional. If no legacy space exists, skip this scenario — the trigger is rare enough to not block ship. (skipped - manual QA, requires user)
 
 ### Task 8: Compile, final review, close out
 
@@ -435,3 +435,4 @@ Run on iOS 26 simulator. All scenarios with flag ON; Scenarios 1 and 5 re-run wi
 - Do NOT subscribe to homepage changes inside `SpaceHub` (the rejected approach).
 - `SpaceHub`'s `replaceHome` closure must always type-guard `navigationPath.currentHome` before mutating; the position invariant ("home is at index 1") is encapsulated inside `HomePath.replaceHome`/`currentHome` — do NOT hand-code index literals anywhere else.
 - Feature flag OFF must preserve byte-for-byte current behavior for both the nav path and the pending-share retry paths.
+[2026-04-17 17:34:36] Task 6 done: pending-share retry moved to SpaceHubCoordinatorViewModel (workspaceInfoStream outer + participantSpaceView inner with cancel-on-advance). Old HomeWidgetsCoordinatorView .task gated by !fixChannelHomeBackNavigation. Build succeeded on iPhone 17 (iOS 26.1).
