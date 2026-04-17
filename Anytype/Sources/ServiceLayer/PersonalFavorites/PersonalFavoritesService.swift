@@ -23,6 +23,13 @@ final class PersonalFavoritesService: PersonalFavoritesServiceProtocol {
             objectId: accountInfo.personalWidgetsId,
             spaceId: accountInfo.accountSpaceId
         )
+        // OpenedDocumentsProvider fires `document.open()` in a detached Task and
+        // returns synchronously, so `children` / `widgetBlockIdFor` may still be
+        // empty here. Await open explicitly before the read to avoid a race
+        // where an existing favorite reads as absent and we fall into the create
+        // branch, producing a duplicate widget block. `open()` is idempotent:
+        // it early-exits when already opened and re-uses the in-flight task.
+        try await document.open()
         try await blockWidgetService.toggleWidgetBlock(
             contextId: accountInfo.personalWidgetsId,
             targetObjectId: objectId,
