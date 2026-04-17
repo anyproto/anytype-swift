@@ -53,6 +53,8 @@ final class ObjectSettingsViewModel {
     private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
+    @Injected(\.personalFavoritesService) @ObservationIgnored
+    private var personalFavoritesService: any PersonalFavoritesServiceProtocol
     @Injected(\.spaceViewsStorage) @ObservationIgnored
     private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.universalLinkParser) @ObservationIgnored
@@ -61,6 +63,8 @@ final class ObjectSettingsViewModel {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @Injected(\.accountManager) @ObservationIgnored
+    private var accountManager: any AccountManagerProtocol
 
     @ObservationIgnored
     private weak var output: (any ObjectSettingsModelOutput)?
@@ -77,6 +81,18 @@ final class ObjectSettingsViewModel {
             return nil
         }
         return openDocumentsProvider.document(objectId: info.widgetsId, spaceId: spaceId)
+    }()
+
+    // Per-user personal widgets document (IOS-5864). Opened lazily so flag-off
+    // behaviour stays byte-identical. `isFavorited` is read from this document's
+    // widget tree via the `BaseDocumentProtocol+Favorites` helper.
+    @ObservationIgnored
+    private lazy var personalWidgetsObject: (any BaseDocumentProtocol)? = {
+        guard FeatureFlags.personalFavorites else { return nil }
+        return openDocumentsProvider.document(
+            objectId: accountManager.account.info.personalWidgetsId,
+            spaceId: spaceId
+        )
     }()
 
     @ObservationIgnored
@@ -120,9 +136,10 @@ final class ObjectSettingsViewModel {
     func startDocumentTask() async {
         async let documentSub: () = startDocumentSubscription()
         async let widgetSub: () = startWidgetObjectSubscription()
+        async let personalWidgetSub: () = startPersonalWidgetsObjectSubscription()
         async let ownerSub: () = startOwnerStatusSubscription()
         async let spaceViewSub: () = startSpaceViewSubscription()
-        _ = await (documentSub, widgetSub, ownerSub, spaceViewSub)
+        _ = await (documentSub, widgetSub, personalWidgetSub, ownerSub, spaceViewSub)
     }
 
     private func startDocumentSubscription() async {
@@ -135,6 +152,13 @@ final class ObjectSettingsViewModel {
     private func startWidgetObjectSubscription() async {
         guard let widgetObject else { return }
         for await _ in widgetObject.syncPublisher.values {
+            updateActions()
+        }
+    }
+
+    private func startPersonalWidgetsObjectSubscription() async {
+        guard let personalWidgetsObject else { return }
+        for await _ in personalWidgetsObject.syncPublisher.values {
             updateActions()
         }
     }
@@ -180,11 +204,16 @@ final class ObjectSettingsViewModel {
             return
         }
 
+        let isPinnedToWidgets = widgetObject?.widgetBlockIdFor(targetObjectId: objectId).isNotNil ?? false
+        let isFavorited = personalWidgetsObject?.isInMyFavorites(objectId: objectId) ?? false
+
         if FeatureFlags.createChannelFlow {
             objectActions = ObjectAction.buildActions(
                 details: details,
                 isLocked: document.isLocked,
-                isPinnedToWidgets: widgetObject?.widgetBlockIdFor(targetObjectId: objectId).isNotNil ?? false,
+                isPinnedToWidgets: isPinnedToWidgets,
+                isFavorited: isFavorited,
+                canManageChannelPins: canManageChannelPins,
                 permissions: document.permissions,
                 spaceType: spaceType,
                 isSpaceOwner: isSpaceOwner
@@ -193,12 +222,26 @@ final class ObjectSettingsViewModel {
             objectActions = ObjectAction.buildActions(
                 details: details,
                 isLocked: document.isLocked,
-                isPinnedToWidgets: widgetObject?.widgetBlockIdFor(targetObjectId: objectId).isNotNil ?? false,
+                isPinnedToWidgets: isPinnedToWidgets,
+                isFavorited: isFavorited,
+                canManageChannelPins: canManageChannelPins,
                 permissions: document.permissions,
                 spaceUxType: spaceUxType,
                 isSpaceOwner: isSpaceOwner
             )
         }
+    }
+
+    // Channel pins are Owner-only on iOS today. The middleware has no Admin role
+    // (verified 2026-04-17 in plan Context). When/if MW adds Admin, widen this
+    // single predicate — all call sites pass through it.
+    private var canManageChannelPins: Bool {
+        // When the feature flag is off, fall back to the legacy behaviour where
+        // every canCreateWidget-eligible object can be pinned by anyone who passes
+        // permission checks. The split (Owner-only channel pin + everyone Favorite)
+        // only activates when the flag is on.
+        guard FeatureFlags.personalFavorites else { return true }
+        return isSpaceOwner
     }
     
     func onTapIconPicker() {
@@ -315,6 +358,18 @@ final class ObjectSettingsViewModel {
             )
         }
         toastData = ToastBarData(pinned ? Loc.unpinned : Loc.pinned)
+        dismiss.toggle()
+    }
+
+    func changeFavoriteState() async throws {
+        guard let details = document.details else {
+            anytypeAssertionFailure("Details object not found")
+            return
+        }
+        let accountInfo = accountManager.account.info
+        let wasFavorited = personalWidgetsObject?.isInMyFavorites(objectId: details.id) ?? false
+        try await personalFavoritesService.toggle(objectId: details.id, accountInfo: accountInfo)
+        toastData = ToastBarData(wasFavorited ? Loc.unfavorite : Loc.favorite)
         dismiss.toggle()
     }
 

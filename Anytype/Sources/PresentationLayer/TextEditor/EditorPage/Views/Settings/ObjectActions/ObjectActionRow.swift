@@ -54,7 +54,9 @@ extension ObjectAction {
         case let .archive(isArchived):
             return isArchived ? Loc.restore : Loc.delete
         case let .pin(isPinned):
-            return isPinned ? Loc.unpin : Loc.pin
+            return isPinned ? Loc.unpinFromChannel : Loc.pinToChannel
+        case let .favorite(isFavorited):
+            return isFavorited ? Loc.unfavorite : Loc.favorite
         case let .locked(isLocked):
             return isLocked ? Loc.unlock : Loc.lock
         case .duplicate:
@@ -83,7 +85,12 @@ extension ObjectAction {
         case let .archive(isArchived):
             return isArchived ? .X32.restore : .X32.delete
         case let .pin(isPinned):
+            // Reuses the star asset pair pending design-system follow-up for dedicated pin/pin.slash X32 icons.
             return isPinned ? .X32.Favorite.unfavorite : .X32.Favorite.favorite
+        case let .favorite(isFavorited):
+            // Star / filled-star. Uses the existing X32.Favorite asset pair; X24 variants
+            // and dedicated pin/pin.slash assets are a design-system follow-up (plan Addendum A).
+            return isFavorited ? .X32.Favorite.unfavorite : .X32.Favorite.favorite
         case let .locked(isLocked):
             return isLocked ? .X32.Lock.unlock : .X32.Lock.lock
         case .duplicate:
@@ -113,6 +120,10 @@ extension ObjectAction {
             return .system("pin")
         case .pin(true):
             return .system("pin.slash")
+        case .favorite(false):
+            return .system("star")
+        case .favorite(true):
+            return .system("star.fill")
         case .copyLink:
             return .system("link")
         case .archive(false):

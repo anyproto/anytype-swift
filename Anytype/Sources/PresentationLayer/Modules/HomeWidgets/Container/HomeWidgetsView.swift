@@ -190,8 +190,7 @@ private struct HomeWidgetsInternalView: View {
         if FeatureFlags.personalFavorites,
            let myFavoritesViewModel = model.myFavoritesViewModel,
            myFavoritesViewModel.rows.isNotEmpty {
-            // TODO: replace with Loc.myFavorites in Task 9 (IOS-5864)
-            HomeWidgetsGroupView(title: "My Favorites") {
+            HomeWidgetsGroupView(title: Loc.myFavorites) {
                 model.onTapMyFavoritesHeader()
             }
             if model.myFavoritesSectionIsExpanded {

@@ -26,7 +26,7 @@ extension ObjectMenuSectionType {
         switch action {
         case .editInfo:
             return .horizontal
-        case .pin:
+        case .pin, .favorite:
             return .mainSettings
         case .undoRedo, .copyLink, .inviteMembers:
             return .mainSettings

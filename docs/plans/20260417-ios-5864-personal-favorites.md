@@ -553,14 +553,15 @@ static let personalFavorites = FeatureDescription(
 - Modify: `Anytype/Sources/PresentationLayer/TextEditor/EditorPage/Views/Settings/ObjectSettings/ObjectSettingsViewModel.swift` — pass through `isFavorited` + `canManageChannelPins` when building actions
 - Modify: `Modules/Loc/Sources/Loc/Resources/*.xcstrings` — add `favorite`, `unfavorite`, `pinToChannel`, `unpinFromChannel`
 
-- [ ] add `case favorite(isFavorited: Bool)` to `ObjectAction`
-- [ ] update `buildActions(...)` both overloads: accept `isFavorited: Bool` and `canManageChannelPins: Bool`; add `.favorite(...)` whenever `canCreateWidget && FeatureFlags.personalFavorites && !details.isTemplate`; gate existing `.pin(...)` with `canManageChannelPins && canCreateWidget`
-- [ ] update `ObjectActionRow` to render icon (`X24.star` / `X24.star.fill`) + title for the new case
-- [ ] in `ObjectSettingsViewModel`, compute `isFavorited` via `personalWidgetsDocument.isInMyFavorites(objectId:)` and `canManageChannelPins` via the participant resolver (Owner-only fallback per ⚠️ above); pass both into `buildActions`
-- [ ] on `.favorite` tap: call `personalFavoritesService.toggle(objectId:, accountInfo:)`
-- [ ] existing `.pin` tap path is unchanged — still uses the existing widget-pin service call
-- [ ] run `make generate` after xcstrings edit
-- [ ] verify compile; simulator smoke-check: Favorite appears for objects, toggles state; Pin appears only for Owner; title + icon flip on state change
+- [x] add `case favorite(isFavorited: Bool)` to `ObjectAction`
+- [x] update `buildActions(...)` both overloads: accept `isFavorited: Bool` and `canManageChannelPins: Bool`; add `.favorite(...)` whenever `canCreateWidget && FeatureFlags.personalFavorites && !details.isTemplate`; gate existing `.pin(...)` with `canManageChannelPins && canCreateWidget`
+- [x] update `ObjectActionRow` to render icon + title for the new case. X24 star variants do not exist (Addendum A); reused `X32.Favorite.favorite/unfavorite` for the rail icon and `Image(systemName: "star"/"star.fill")` for the inline menu icon (`menuIcon` case). Inline comments in `ObjectActionRow.swift` document the fallback. Dedicated pin/pin.slash / X24 assets remain a design-system follow-up.
+- [x] in `ObjectSettingsViewModel`, compute `isFavorited` via `personalWidgetsObject.isInMyFavorites(objectId:)` (new lazy doc opened via `accountManager.account.info.personalWidgetsId` per plan option b); `canManageChannelPins` is a local computed property — returns `true` when flag off (byte-identical legacy) and `isSpaceOwner` when on. Added `startPersonalWidgetsObjectSubscription()` task so favorite state stays reactive. Both are passed into both `buildActions(...)` overloads.
+- [x] on `.favorite` tap: `ObjectSettingsMenuViewModel.handleAction(.favorite)` calls the new `ObjectSettingsViewModel.changeFavoriteState()`, which invokes `personalFavoritesService.toggle(objectId:, accountInfo:)` (injected via `@Injected(\.personalFavoritesService)`) and shows a `Favorite`/`Unfavorite` toast.
+- [x] existing `.pin` tap path unchanged — still wired to `changePinState(pinned)` via the same `BlockWidgetServiceProtocol` call.
+- [x] run `make generate` after xcstrings edit — Loc.favorite / Loc.unfavorite / Loc.pinToChannel / Loc.unpinFromChannel / Loc.myFavorites generated in `Modules/Loc/Sources/Loc/Generated/Strings.swift`; Task 6 TODO-marked hard-coded "My Favorites" replaced with `Loc.myFavorites` in `HomeWidgetsView.swift`.
+- [x] Also updated `ObjectMenuSectionType.section(for:)` to place `.favorite` alongside `.pin` in `.mainSettings` (exhaustive-switch fix surfaced during validation).
+- [x] verify compile — `xcodebuild … build-for-testing` → `** TEST BUILD SUCCEEDED **`. Simulator smoke-check deferred to Task 15 (requires local MW GO-6962).
 
 ### Task 10: Widget long-press menu — Favorite + Pin additions
 

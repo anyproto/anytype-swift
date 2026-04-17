@@ -5,6 +5,7 @@ enum ObjectAction: Hashable, Identifiable {
     case undoRedo
     case archive(isArchived: Bool)
     case pin(isPinned: Bool)
+    case favorite(isFavorited: Bool)
     case locked(isLocked: Bool)
     case duplicate
     case linkItself
@@ -21,6 +22,8 @@ enum ObjectAction: Hashable, Identifiable {
         details: ObjectDetails,
         isLocked: Bool,
         isPinnedToWidgets: Bool,
+        isFavorited: Bool,
+        canManageChannelPins: Bool,
         permissions: ObjectPermissions,
         spaceUxType: SpaceUxType?,
         isSpaceOwner: Bool
@@ -35,8 +38,12 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.archive(isArchived: details.isArchived)
             }
 
-            if canCreateWidget {
+            if canCreateWidget && canManageChannelPins {
                 ObjectAction.pin(isPinned: isPinnedToWidgets)
+            }
+
+            if canCreateWidget && FeatureFlags.personalFavorites && !details.isTemplate {
+                ObjectAction.favorite(isFavorited: isFavorited)
             }
 
             if permissions.canDuplicate {
@@ -87,6 +94,8 @@ enum ObjectAction: Hashable, Identifiable {
         details: ObjectDetails,
         isLocked: Bool,
         isPinnedToWidgets: Bool,
+        isFavorited: Bool,
+        canManageChannelPins: Bool,
         permissions: ObjectPermissions,
         spaceType: SpaceType?,
         isSpaceOwner: Bool
@@ -101,8 +110,12 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.archive(isArchived: details.isArchived)
             }
 
-            if canCreateWidget {
+            if canCreateWidget && canManageChannelPins {
                 ObjectAction.pin(isPinned: isPinnedToWidgets)
+            }
+
+            if canCreateWidget && FeatureFlags.personalFavorites && !details.isTemplate {
+                ObjectAction.favorite(isFavorited: isFavorited)
             }
 
             if permissions.canDuplicate {
@@ -157,6 +170,8 @@ enum ObjectAction: Hashable, Identifiable {
             return "archive"
         case .pin:
             return "pin"
+        case .favorite:
+            return "favorite"
         case .locked:
             return "locked"
         case .duplicate:
@@ -182,6 +197,8 @@ enum ObjectAction: Hashable, Identifiable {
         switch self {
         case .editInfo:
             return 5
+        case .favorite:
+            return 9
         case .pin:
             return 10
         case .undoRedo:
