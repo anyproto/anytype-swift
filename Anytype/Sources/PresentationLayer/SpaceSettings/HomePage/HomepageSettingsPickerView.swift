@@ -6,8 +6,8 @@ struct HomepageSettingsPickerView: View {
     @State private var model: HomepageSettingsPickerViewModel
     @Environment(\.dismiss) private var dismiss
 
-    init(spaceId: String) {
-        _model = State(initialValue: HomepageSettingsPickerViewModel(spaceId: spaceId))
+    init(spaceId: String, onHomepageSet: ((AnyHashable) -> Void)? = nil) {
+        _model = State(initialValue: HomepageSettingsPickerViewModel(spaceId: spaceId, onHomepageSet: onHomepageSet))
     }
 
     var body: some View {

@@ -29,8 +29,12 @@ final class HomepageSettingsPickerViewModel {
     @ObservationIgnored
     private let spaceId: String
 
-    init(spaceId: String) {
+    @ObservationIgnored
+    private let onHomepageSet: ((AnyHashable) -> Void)?
+
+    init(spaceId: String, onHomepageSet: ((AnyHashable) -> Void)? = nil) {
         self.spaceId = spaceId
+        self.onHomepageSet = onHomepageSet
         let homepage = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)?.homepage ?? .empty
         switch homepage.displayValue {
         case .empty, .widgets, .graph:
@@ -62,12 +66,16 @@ final class HomepageSettingsPickerViewModel {
     func onNoHomeSelected() async throws {
         try await homepagePickerService.setHomepage(spaceId: spaceId, homepage: .widgets)
         AnytypeAnalytics.instance().logChangeSpaceDashboard()
+        onHomepageSet?(HomeWidgetData(spaceId: spaceId))
         dismiss = true
     }
 
     func onObjectSelected(_ details: ObjectDetails) async throws {
         try await homepagePickerService.setHomepage(spaceId: spaceId, homepage: .object(objectId: details.id))
         AnytypeAnalytics.instance().logChangeSpaceDashboard()
+        if let homeData = details.screenData().homeSlotValue {
+            onHomepageSet?(homeData)
+        }
         dismiss = true
     }
 }

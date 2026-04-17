@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct SpaceSettingsCoordinator: View {
     let spaceId: String
@@ -58,7 +59,12 @@ fileprivate struct SpaceSettingInternalsCoordinator: View {
                 SpaceTypeChangeView(data: $0)
             }
             .sheet(item: $model.homePagePickerSpaceId) {
-                HomepageSettingsPickerView(spaceId: $0.value)
+                HomepageSettingsPickerView(
+                    spaceId: $0.value,
+                    onHomepageSet: FeatureFlags.fixChannelHomeBackNavigation
+                        ? { pageNavigation.replaceHome($0) }
+                        : nil
+                )
             }
     }
 }

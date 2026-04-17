@@ -342,13 +342,13 @@ Wire into `startSubscriptions()` via `async let shareRetrySub: () = startHandleP
 - Modify: `Anytype/Sources/PresentationLayer/Flows/SpaceSettings/SpaceSettingsCoordinatorView.swift`
 - Modify: `Anytype/Sources/PresentationLayer/Flows/HomeWidgetsCoordinator/HomeWidgetsCoordinatorView.swift`
 
-- [ ] Add optional closure property `onHomepageSet: ((AnyHashable) -> Void)?` to `HomepageSettingsPickerViewModel`; accept via init.
-- [ ] Call `onHomepageSet?(HomeWidgetData(spaceId: spaceId))` in `onNoHomeSelected` after `setHomepage` succeeds.
-- [ ] Call `onHomepageSet?(details.screenData().homeSlotValue)` in `onObjectSelected` — safely via optional bind; skip when `homeSlotValue` is `nil` (defensive, shouldn't happen for valid homepage selections). Uses the `ScreenData.homeSlotValue` helper added alongside Task 3/4.
-- [ ] Thread the closure through `HomepageSettingsPickerView`'s init. Note: `HomepageSettingsPickerView` currently constructs its view model internally at the top of its body (verify exact site in the file). Extend the view's init to accept `onHomepageSet:` and forward it to the VM constructor so the closure flows end-to-end.
-- [ ] In `SpaceSettingsCoordinatorView.swift:61`, pass `onHomepageSet: { pageNavigation.replaceHome($0) }` when mounting the picker, gated behind `FeatureFlags.fixChannelHomeBackNavigation` (pass `nil` when flag is OFF so behavior is identical to today).
-- [ ] In `HomeWidgetsCoordinatorView.swift:89` (Change Home sheet), same wiring — the view has access to `pageNavigation` via `@Environment` (already used elsewhere in this file); pass the flag-gated closure identically.
-- [ ] No compile/build checkpoint here — batch with Task 6.
+- [x] Add optional closure property `onHomepageSet: ((AnyHashable) -> Void)?` to `HomepageSettingsPickerViewModel`; accept via init.
+- [x] Call `onHomepageSet?(HomeWidgetData(spaceId: spaceId))` in `onNoHomeSelected` after `setHomepage` succeeds.
+- [x] Call `onHomepageSet?(details.screenData().homeSlotValue)` in `onObjectSelected` — safely via optional bind; skip when `homeSlotValue` is `nil` (defensive, shouldn't happen for valid homepage selections). Uses the `ScreenData.homeSlotValue` helper added alongside Task 3/4.
+- [x] Thread the closure through `HomepageSettingsPickerView`'s init. Note: `HomepageSettingsPickerView` currently constructs its view model internally at the top of its body (verify exact site in the file). Extend the view's init to accept `onHomepageSet:` and forward it to the VM constructor so the closure flows end-to-end.
+- [x] In `SpaceSettingsCoordinatorView.swift:61`, pass `onHomepageSet: { pageNavigation.replaceHome($0) }` when mounting the picker, gated behind `FeatureFlags.fixChannelHomeBackNavigation` (pass `nil` when flag is OFF so behavior is identical to today).
+- [x] In `HomeWidgetsCoordinatorView.swift:89` (Change Home sheet), same wiring — the view has access to `pageNavigation` via `@Environment` (already used elsewhere in this file); pass the flag-gated closure identically.
+- [x] No compile/build checkpoint here — batch with Task 6.
 
 ### Task 6: Move pending-share retry from `HomeWidgetsCoordinator` to `SpaceHub`
 
