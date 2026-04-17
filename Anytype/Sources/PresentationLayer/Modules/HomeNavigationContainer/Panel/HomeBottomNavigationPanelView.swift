@@ -99,8 +99,9 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         } label: {
             Image(systemName: "message")
                 .foregroundStyle(Color.Control.primary)
+                .frame(width: 48, height: 48)
+                .contentShape(Circle())
         }
-        .frame(width: 48, height: 48)
         .glassEffectInteractiveIOS26(in: Circle())
     }
 
