@@ -83,6 +83,7 @@ private struct HomeWidgetsInternalView: View {
                 InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
                 topWidgets
                 blockWidgets
+                myFavoritesWidget
                 objectTypeWidgets
                 AnytypeNavigationSpacer(minHeight: context.showEmbeddedBottomPanel ? 72 : 0)
             }
@@ -135,6 +136,26 @@ private struct HomeWidgetsInternalView: View {
     }
     }
     
+    @ViewBuilder
+    private var myFavoritesWidget: some View {
+        if FeatureFlags.personalFavorites,
+           let myFavoritesViewModel = model.myFavoritesViewModel,
+           myFavoritesViewModel.rows.isNotEmpty {
+            // TODO: replace with Loc.myFavorites in Task 9 (IOS-5864)
+            HomeWidgetsGroupView(title: "My Favorites") {
+                model.onTapMyFavoritesHeader()
+            }
+            if model.myFavoritesSectionIsExpanded {
+                MyFavoritesListView(
+                    rows: myFavoritesViewModel.rows,
+                    onTapRow: { details in
+                        myFavoritesViewModel.onTapRow(details: details)
+                    }
+                )
+            }
+        }
+    }
+
     @ViewBuilder
     private var objectTypeWidgets: some View {
         HomeWidgetsGroupView(title: Loc.objects, onTap: {

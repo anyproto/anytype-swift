@@ -13,6 +13,7 @@ final class HomeWidgetsViewModel {
         static let pinnedSectionId = "HomePinnedSection"
         static let objectTypeSectionId = "HomeObjectTypeSection"
         static let unreadSectionId = "HomeUnreadSection"
+        static let myFavoritesSectionId = "HomeMyFavoritesSection"
     }
     
     // MARK: - DI
@@ -68,6 +69,8 @@ final class HomeWidgetsViewModel {
     var unreadSectionIsExpanded: Bool = false
     var unreadChats: [UnreadChatWidgetData] = []
     var isPersonalWidgetsLoaded: Bool = false
+    var myFavoritesSectionIsExpanded: Bool = false
+    var myFavoritesViewModel: MyFavoritesViewModel?
     private var supportsMultiChats: Bool = false
 
     var spaceId: String { info.accountSpaceId }
@@ -88,27 +91,36 @@ final class HomeWidgetsViewModel {
         self.output = output
         self.widgetObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
         if FeatureFlags.personalFavorites {
-            self.personalWidgetsObject = documentService.document(
+            let personalWidgetsObject = documentService.document(
                 objectId: info.personalWidgetsId,
                 spaceId: info.accountSpaceId
             )
+            self.personalWidgetsObject = personalWidgetsObject
+            self.myFavoritesViewModel = MyFavoritesViewModel(
+                accountInfo: info,
+                personalWidgetsObject: personalWidgetsObject,
+                output: nil
+            )
         } else {
             self.personalWidgetsObject = nil
+            self.myFavoritesViewModel = nil
         }
         self.pinnedSectionIsExpanded = expandedService.isExpanded(id: Constants.pinnedSectionId, defaultValue: true)
         self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
         self.unreadSectionIsExpanded = expandedService.isExpanded(id: Constants.unreadSectionId, defaultValue: true)
+        self.myFavoritesSectionIsExpanded = expandedService.isExpanded(id: Constants.myFavoritesSectionId, defaultValue: true)
     }
 
     func startSubscriptions() async {
         async let widgetObjectSub: () = startWidgetObjectTask()
         async let personalWidgetsSub: () = startPersonalWidgetsObjectTask()
+        async let myFavoritesSub: () = startMyFavoritesTask()
         async let participantTask: () = startParticipantTask()
         async let objectTypesTask: () = startObjectTypesTask()
         async let spaceViewTask: () = startSpaceViewTask()
         async let unreadChatsTask: () = startUnreadChatsTask()
 
-        _ = await (widgetObjectSub, personalWidgetsSub, participantTask, objectTypesTask, spaceViewTask, unreadChatsTask)
+        _ = await (widgetObjectSub, personalWidgetsSub, myFavoritesSub, participantTask, objectTypesTask, spaceViewTask, unreadChatsTask)
     }
 
     func onAppear() {
@@ -168,6 +180,13 @@ final class HomeWidgetsViewModel {
         expandedService.setState(id: Constants.unreadSectionId, isExpanded: unreadSectionIsExpanded)
     }
 
+    func onTapMyFavoritesHeader() {
+        withAnimation {
+            myFavoritesSectionIsExpanded = !myFavoritesSectionIsExpanded
+        }
+        expandedService.setState(id: Constants.myFavoritesSectionId, isExpanded: myFavoritesSectionIsExpanded)
+    }
+
     // MARK: - Private
     
     private func startWidgetObjectTask() async {
@@ -184,6 +203,13 @@ final class HomeWidgetsViewModel {
 
             widgetBlocks = newWidgetBlocks
         }
+    }
+
+    private func startMyFavoritesTask() async {
+        // Drives the `MyFavoritesViewModel.rows` list — only spins up when the feature flag
+        // enabled the sub-viewmodel in `init`.
+        guard let myFavoritesViewModel else { return }
+        await myFavoritesViewModel.startSubscriptions()
     }
 
     private func startPersonalWidgetsObjectTask() async {

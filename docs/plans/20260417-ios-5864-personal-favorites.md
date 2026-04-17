@@ -520,11 +520,11 @@ static let personalFavorites = FeatureDescription(
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Container/HomeWidgetsView.swift`
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Container/HomeWidgetsViewModel.swift`
 
-- [ ] add `myFavoritesSectionIsExpanded: Bool` persisted via `expandedService` with id `"HomeMyFavoritesSection"`
-- [ ] add `onTapMyFavoritesHeader()` toggling collapse state
-- [ ] add `@ViewBuilder var myFavoritesWidget`: when flag on AND `rows.isNotEmpty`, render `HomeWidgetsGroupView(title: Loc.myFavorites) { onTap }` + `MyFavoritesListView` when expanded
-- [ ] insert `myFavoritesWidget` into the `widgets` VStack (after Unread, before Objects)
-- [ ] verify compile; simulator smoke-check empty-state (section absent) and populated-state (section visible, collapsible)
+- [x] add `myFavoritesSectionIsExpanded: Bool` persisted via `expandedService` with id `"HomeMyFavoritesSection"`
+- [x] add `onTapMyFavoritesHeader()` toggling collapse state
+- [x] add `@ViewBuilder var myFavoritesWidget`: when flag on AND `rows.isNotEmpty`, render header + `MyFavoritesListView` when expanded. Title uses a TODO-marked hard-coded "My Favorites" string — `Loc.myFavorites` is scheduled for Task 9 (Loc keys + xcstrings edit + make generate). Task 13 will audit remaining hard-coded strings.
+- [x] insert `myFavoritesWidget` into the `widgets` VStack — placed between `blockWidgets` and `objectTypeWidgets` (adjacent-to-blockWidgets sensible spot). Final layout order (Home → Channel Pins → Unread → My Favorites → Objects) is finalized in Task 8.
+- [x] verify compile — `xcodebuild … build-for-testing` → `** TEST BUILD SUCCEEDED **`; simulator smoke-check deferred to Task 15 (requires local MW GO-6962). Also wired a `MyFavoritesViewModel` property onto `HomeWidgetsViewModel` (only constructed when flag on AND `personalWidgetsObject != nil`) and drove its `startSubscriptions()` via a new `startMyFavoritesTask()` inside `HomeWidgetsViewModel.startSubscriptions()` so `rows` stays reactive to the shared document emissions.
 
 ### Task 7: Remove "Pinned" section header (behind flag)
 
