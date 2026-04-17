@@ -15,6 +15,10 @@ final class MyFavoritesViewModel {
     @ObservationIgnored
     weak var output: (any MyFavoritesModuleOutput)?
 
+    @ObservationIgnored
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
+
     // MARK: - Row
 
     struct Row: Identifiable, Equatable {
@@ -71,15 +75,27 @@ final class MyFavoritesViewModel {
         output?.onObjectSelected(details: details)
     }
 
-    // MARK: - Drag-and-drop (Task 11)
+    // MARK: - Drag-and-drop
 
     func dropUpdate(from: DropDataElement<Row>, to: DropDataElement<Row>) {
-        // Optimistic local reorder — real implementation lands in Task 11.
-        // Stubbed today so Task 5 can compile standalone; wiring into the view happens later.
+        // Optimistic local reorder so the gesture feels immediate. The authoritative
+        // tree arrives via `syncPublisher` once the move RPC completes.
+        rows.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
     }
 
     func dropFinish(from: DropDataElement<Row>, to: DropDataElement<Row>) {
-        // Async move via `ObjectActionsService.move(dashboadId: accountInfo.personalWidgetsId, ...)`
-        // — real implementation lands in Task 11.
+        guard from.data.id != to.data.id else { return }
+        let dashboardId = accountInfo.personalWidgetsId
+        let blockId = from.data.id
+        let dropPositionblockId = to.data.id
+        let isMovingDown = to.index > from.index
+        Task { [objectActionsService] in
+            try? await objectActionsService.move(
+                dashboadId: dashboardId,
+                blockId: blockId,
+                dropPositionblockId: dropPositionblockId,
+                position: isMovingDown ? .bottom : .top
+            )
+        }
     }
 }

@@ -585,12 +585,12 @@ static let personalFavorites = FeatureDescription(
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/MyFavorites/MyFavoritesListView.swift`
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/MyFavorites/MyFavoritesViewModel.swift`
 
-- [ ] add `@State favoritesDndState = DragState()` to `MyFavoritesListView`
-- [ ] wrap VStack with `.anytypeVerticalDrop(data: rows, state: $state) { dropUpdate } dropFinish: { dropFinish }`
-- [ ] in ViewModel: `dropUpdate(from:to:)` performs optimistic local reorder on `rows`
-- [ ] in ViewModel: `dropFinish(from:to:)` calls `objectActionsService.move(dashboadId: accountInfo.personalWidgetsId, blockId: from.data.id, dropPositionblockId: to.data.id, position: to.index > from.index ? .bottom : .top)`
-- [ ] early-return on no-op drop (same id)
-- [ ] verify compile; simulator smoke-check reorder persists across relaunch
+- [x] add `@State favoritesDndState = DragState()` to `MyFavoritesListView`
+- [x] wrap VStack with `.anytypeVerticalDrop(data: rows, state: $state) { dropUpdate } dropFinish: { dropFinish }`. Also added per-row `.anytypeVerticalDrag(itemId: row.id)` + `.setZeroOpacity(favoritesDndState.dragInitiateId == row.id)` mirroring the `LinkWidgetViewContainer` gesture — without a drag source the drop delegate receives nothing.
+- [x] in ViewModel: `dropUpdate(from:to:)` performs optimistic local reorder on `rows` via `rows.move(fromOffsets:toOffset:)` — identical shape to `HomeWidgetsViewModel.widgetsDropUpdate`.
+- [x] in ViewModel: `dropFinish(from:to:)` calls `objectActionsService.move(dashboadId: accountInfo.personalWidgetsId, blockId: from.data.id, dropPositionblockId: to.data.id, position: to.index > from.index ? .bottom : .top)`. `objectActionsService` is injected via `@Injected(\.objectActionsService)`.
+- [x] early-return on no-op drop (same id) — `guard from.data.id != to.data.id else { return }` at the top of `dropFinish`.
+- [x] verify compile — `xcodebuild … build-for-testing` → `** TEST BUILD SUCCEEDED **`; simulator smoke-check (reorder persists across relaunch) deferred to Task 15 (requires local MW GO-6962). `HomeWidgetsView` call site updated to pass the two drop closures through `MyFavoritesListView(..., dropUpdate:, dropFinish:)`.
 
 ### Task 12: Analytics source enum addition
 

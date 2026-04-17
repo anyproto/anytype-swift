@@ -203,6 +203,12 @@ private struct HomeWidgetsInternalView: View {
                     canManageChannelPins: model.canManageChannelPins,
                     onTapRow: { details in
                         myFavoritesViewModel.onTapRow(details: details)
+                    },
+                    dropUpdate: { from, to in
+                        myFavoritesViewModel.dropUpdate(from: from, to: to)
+                    },
+                    dropFinish: { from, to in
+                        myFavoritesViewModel.dropFinish(from: from, to: to)
                     }
                 )
             }

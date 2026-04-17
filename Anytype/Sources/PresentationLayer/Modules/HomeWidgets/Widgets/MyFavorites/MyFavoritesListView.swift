@@ -10,6 +10,10 @@ struct MyFavoritesListView: View {
     let channelWidgetsObject: any BaseDocumentProtocol
     let canManageChannelPins: Bool
     let onTapRow: (ObjectDetails) -> Void
+    let dropUpdate: (_ from: DropDataElement<MyFavoritesViewModel.Row>, _ to: DropDataElement<MyFavoritesViewModel.Row>) -> Void
+    let dropFinish: (_ from: DropDataElement<MyFavoritesViewModel.Row>, _ to: DropDataElement<MyFavoritesViewModel.Row>) -> Void
+
+    @State private var favoritesDndState = DragState()
 
     var body: some View {
         VStack(spacing: 0) {
@@ -22,9 +26,17 @@ struct MyFavoritesListView: View {
                     canManageChannelPins: canManageChannelPins,
                     onTap: onTapRow
                 )
+                .setZeroOpacity(favoritesDndState.dragInitiateId == row.id)
+                .anytypeVerticalDrag(itemId: row.id)
             }
         }
         .background(Color.Background.widget)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .anytypeVerticalDrop(data: rows, state: $favoritesDndState) { from, to in
+            dropUpdate(from, to)
+        } dropFinish: { from, to in
+            dropFinish(from, to)
+        }
     }
 }
