@@ -412,10 +412,10 @@ Run on iOS 26 simulator. All scenarios with flag ON; Scenarios 1 and 5 re-run wi
 **Files:**
 - Affected files across the branch; no new files in this task.
 
-- [ ] Full project compile clean.
-- [ ] Report compilation status to user (per CLAUDE.md — user verifies in Xcode with warm caches).
-- [ ] Self-review against TASTE_INVARIANTS.md (no dead code, no unused comments, no backwards-compat stubs for code we're removing, feature flag not leaking into public APIs).
-- [ ] Move this plan to `docs/plans/completed/` when all above boxes are checked and user confirms build + QA.
+- [x] Full project compile clean.
+- [x] Report compilation status to user (per CLAUDE.md — user verifies in Xcode with warm caches).
+- [x] Self-review against TASTE_INVARIANTS.md (no dead code, no unused comments, no backwards-compat stubs for code we're removing, feature flag not leaking into public APIs).
+- [ ] Move this plan to `docs/plans/completed/` when all above boxes are checked and user confirms build + QA. (deferred - user confirms after QA + PR)
 
 ## Post-Completion
 
