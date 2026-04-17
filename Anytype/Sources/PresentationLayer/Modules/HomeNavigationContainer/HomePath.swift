@@ -79,7 +79,6 @@ struct HomePath: Equatable, @unchecked Sendable {
 
 extension HomePath {
     // Home slot is at index 1 (index 0 is SpaceHubNavigationItem).
-    // Nil when path is rootless or has no home committed yet.
     var currentHome: AnyHashable? {
         path[safe: 1]
     }

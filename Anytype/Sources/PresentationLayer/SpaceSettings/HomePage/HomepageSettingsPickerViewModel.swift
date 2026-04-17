@@ -32,7 +32,7 @@ final class HomepageSettingsPickerViewModel {
     @ObservationIgnored
     private let onHomepageSet: ((AnyHashable) -> Void)?
 
-    init(spaceId: String, onHomepageSet: ((AnyHashable) -> Void)? = nil) {
+    init(spaceId: String, onHomepageSet: ((AnyHashable) -> Void)?) {
         self.spaceId = spaceId
         self.onHomepageSet = onHomepageSet
         let homepage = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)?.homepage ?? .empty
