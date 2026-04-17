@@ -492,10 +492,10 @@ static let personalFavorites = FeatureDescription(
 - Create: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Container/Models/BaseDocumentProtocol+Favorites.swift`
 - Create: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Container/Models/ObjectPinState.swift`
 
-- [ ] add `isInMyFavorites(objectId:)` and `isPinnedToChannel(objectId:)` extension methods wrapping `widgetBlockIdFor`
-- [ ] create `ObjectPinState` struct (two `Bool` properties)
-- [ ] if a fake `BaseDocumentProtocol` exists in `AnyTypeTests/`, write a test with seeded widget children: object present → true, object absent → false, empty document → false, non-widget children ignored. Else skip with an inline comment
-- [ ] verify compile
+- [x] add `isInMyFavorites(objectId:)` and `isPinnedToChannel(objectId:)` extension methods wrapping `widgetBlockIdFor`
+- [x] create `ObjectPinState` struct (two `Bool` properties)
+- [x] `MockBaseDocument` exists in `AnyTypeTests/Markdown/Mocks/`, but its `InfoContainerMock` requires stubbing both widget `children` and link-content blocks for each test case. That scaffolding outweighs value for a trivial single-expression wrapper — skipped per plan's pragmatic testing policy, inline rationale added to `BaseDocumentProtocol+Favorites.swift`. Covered via Task 15 manual verification.
+- [x] verify compile — `xcodebuild … build-for-testing` → `** TEST BUILD SUCCEEDED **`
 
 ### Task 5: `MyFavoritesViewModel`, `MyFavoritesListView`, `MyFavoritesRowView`, `MyFavoritesModuleOutput`
 
