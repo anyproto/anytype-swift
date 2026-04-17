@@ -196,6 +196,11 @@ private struct HomeWidgetsInternalView: View {
             if model.myFavoritesSectionIsExpanded {
                 MyFavoritesListView(
                     rows: myFavoritesViewModel.rows,
+                    accountInfo: model.info,
+                    // Each row's long-press menu reads the current pinned state from the
+                    // shared channel widgets document and toggles against it.
+                    channelWidgetsObject: model.widgetObject,
+                    canManageChannelPins: model.canManageChannelPins,
                     onTapRow: { details in
                         myFavoritesViewModel.onTapRow(details: details)
                     }

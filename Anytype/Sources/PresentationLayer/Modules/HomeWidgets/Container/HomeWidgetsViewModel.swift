@@ -65,6 +65,10 @@ final class HomeWidgetsViewModel {
     var pinnedSectionIsExpanded: Bool = false
     var objectTypeSectionIsExpanded: Bool = false
     var canCreateObjectType: Bool = false
+    /// Owner-only predicate for the Pin/Unpin-from-channel menu items. Kept as a
+    /// single property so a future Admin role (no plan today) widens it in one spot.
+    /// Task 13 will plumb this to additional call sites if needed.
+    var canManageChannelPins: Bool = false
     var homeWidgetData: HomepageWidgetViewData?
     var unreadSectionIsExpanded: Bool = false
     var unreadChats: [UnreadChatWidgetData] = []
@@ -233,9 +237,26 @@ final class HomeWidgetsViewModel {
     }
     
     private func startParticipantTask() async {
+        async let editSub: () = startCanEditSubscription()
+        async let ownerSub: () = startOwnerSubscription()
+        _ = await (editSub, ownerSub)
+    }
+
+    private func startCanEditSubscription() async {
         for await canEdit in accountParticipantStorage.canEditSequence(spaceId: info.accountSpaceId) {
             homeState = canEdit ? .readwrite : .readonly
             canCreateObjectType = canEdit
+        }
+    }
+
+    // Drives `canManageChannelPins` off the current participant's role. Owner-only
+    // today (plan Context — middleware has no Admin role). Single-predicate gate
+    // so a future Admin role widens here in one spot without touching call sites.
+    private func startOwnerSubscription() async {
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: info.accountSpaceId).values {
+            let next = participantSpaceView.isOwner
+            guard canManageChannelPins != next else { continue }
+            canManageChannelPins = next
         }
     }
     

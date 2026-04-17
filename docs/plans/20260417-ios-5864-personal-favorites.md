@@ -571,13 +571,13 @@ static let personalFavorites = FeatureDescription(
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/Common/Link/LinkWidgetViewContainer.swift` (attach for channel-pin rows)
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/MyFavorites/MyFavoritesRowView.swift` (attach for favorites rows)
 
-- [ ] extend `WidgetMenuItem` enum with `.favorite(isFavorited:)` and `.channelPin(isPinned:)`
-- [ ] render new cases in `WidgetCommonActionsMenuView` body (Button + Text + Image)
-- [ ] add `onFavoriteTap` + `onChannelPinTap` to `WidgetActionsViewCommonMenuProvider`
-- [ ] attach in `LinkWidgetViewContainer` for channel-pin rows: `.favorite` for everyone; `.channelPin(isPinned: true)` (Unpin) gated by `canManageChannelPins`
-- [ ] attach in `MyFavoritesRowView`: Unfavorite always; `.channelPin(...)` gated
-- [ ] gate all additions behind `FeatureFlags.personalFavorites`
-- [ ] verify compile; simulator smoke-check long-press menus
+- [x] extend `WidgetMenuItem` enum with `.favorite(isFavorited:)` and `.channelPin(isPinned:)` — dropped `String` raw backing so associated values compile; `Hashable` synthesized preserves `id: \.self` iteration and `!= .changeType` filtering.
+- [x] render new cases in `WidgetCommonActionsMenuView` body — Button + Text (`Loc.favorite/unfavorite`, `Loc.pinToChannel/unpinFromChannel`) + SF Symbol fallback (`star`/`star.fill`, `pin`/`pin.slash`) per plan Addendum A (X24 variants unavailable).
+- [x] add `onFavoriteTap(targetObjectId:accountInfo:)` + `onChannelPinTap(targetObjectId:widgetObject:)` to `WidgetActionsViewCommonMenuProvider` — `onFavoriteTap` calls `PersonalFavoritesService.toggle` via DI; `onChannelPinTap` mirrors `ObjectSettingsViewModel.changePinState` (add or remove against the channel widgets doc).
+- [x] attach for channel-pin rows — threaded through `WidgetContainerView` + `WidgetContainerViewModel` (the call site for `LinkWidgetViewContainer`'s menu closure). `.favorite(isFavorited:)` always rendered when flag on + targetObjectId known; `.channelPin(isPinned: true)` (Unpin) appended when `canManageChannelPins` is true. `WidgetContainerViewModel.startFavoriteSubscription()` reacts to `personalWidgetsObject.syncPublisher` so the label flips live. `LinkWidgetViewModel` computes `canManageChannelPins` from `participantSpacesStorage.participantSpaceViewPublisher(...).isOwner` and passes into `LinkWidgetView` -> `WidgetContainerView`.
+- [x] attach in `MyFavoritesRowView` — new `.contextMenu` renders "Unfavorite" always (rows in this list are by definition favorited); `.channelPin(isPinned: observed)` gated by `canManageChannelPins`. `isPinnedToChannel` observed via `channelWidgetsObject.syncPublisher` so the Pin-to-channel / Unpin-from-channel label flips live. `MyFavoritesListView` threads `accountInfo` / `channelWidgetsObject` / `canManageChannelPins` from `HomeWidgetsView`. New `canManageChannelPins` property on `HomeWidgetsViewModel` wired via a parallel `startOwnerSubscription()` task inside `startParticipantTask()`.
+- [x] gate all additions behind `FeatureFlags.personalFavorites` — new menu items early-return in `WidgetContainerView.fullMenuItems`; `MyFavoritesRowContextMenu` only attaches inside `.if(FeatureFlags.personalFavorites)`; subscription in `WidgetContainerViewModel` only spins up when flag on.
+- [x] verify compile — `xcodebuild … build-for-testing` → `** TEST BUILD SUCCEEDED **`. Simulator smoke-check deferred to Task 15 (requires local MW GO-6962).
 
 ### Task 11: Drag-and-drop reorder for My Favorites
 

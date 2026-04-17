@@ -4,6 +4,11 @@ import Services
 
 struct MyFavoritesListView: View {
     let rows: [MyFavoritesViewModel.Row]
+    let accountInfo: AccountInfo
+    /// Channel widgets document — threaded through so each row's long-press menu
+    /// can render Pin-to-channel / Unpin-from-channel with up-to-date state.
+    let channelWidgetsObject: any BaseDocumentProtocol
+    let canManageChannelPins: Bool
     let onTapRow: (ObjectDetails) -> Void
 
     var body: some View {
@@ -12,6 +17,9 @@ struct MyFavoritesListView: View {
                 MyFavoritesRowView(
                     row: row,
                     showDivider: index != rows.count - 1,
+                    accountInfo: accountInfo,
+                    channelWidgetsObject: channelWidgetsObject,
+                    canManageChannelPins: canManageChannelPins,
                     onTap: onTapRow
                 )
             }

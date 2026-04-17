@@ -12,6 +12,15 @@ final class WidgetContainerViewModel {
 
     let widgetBlockId: String
     let widgetObject: any BaseDocumentProtocol
+    /// Per-space account info — needed by the new `.favorite` menu items to
+    /// derive `personalWidgetsId`. `nil` for legacy call sites (e.g. Home widget)
+    /// that pre-date the personal favorites feature.
+    let spaceInfo: AccountInfo?
+    /// Target object id referenced by this widget block. Populated for `.object`
+    /// sources (channel pins / personal favorites) and `nil` for library widgets
+    /// (Pinned / Recent / etc.). Needed by the new `.favorite` / `.channelPin`
+    /// menu items in Task 10 so the provider can toggle state for the right object.
+    let targetObjectId: String?
     weak var output: (any CommonWidgetModuleOutput)?
 
     @ObservationIgnored
@@ -28,6 +37,10 @@ final class WidgetContainerViewModel {
     @ObservationIgnored
     @Injected(\.widgetActionsViewCommonMenuProvider)
     private var widgetActionsViewCommonMenuProvider: any WidgetActionsViewCommonMenuProviderProtocol
+    @ObservationIgnored
+    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
+    @ObservationIgnored
+    private var personalWidgetsObject: (any BaseDocumentProtocol)?
 
     // MARK: - State
 
@@ -37,29 +50,66 @@ final class WidgetContainerViewModel {
     var homeState: HomeWidgetsState = .readonly
     var toastData: ToastBarData?
     let menuItems: [WidgetMenuItem]
+    /// Tracks whether `targetObjectId` currently lives in the per-user personal
+    /// widgets document. Drives the Favorite / Unfavorite label + icon in the
+    /// long-press menu. Updated reactively from `personalWidgetsObject.syncPublisher`.
+    var isFavorited: Bool = false
 
     @ObservationIgnored
     private var isAutoExpanding = false
-    
+
     init(
         widgetBlockId: String,
         widgetObject: some BaseDocumentProtocol,
+        spaceInfo: AccountInfo?,
         expectedMenuItems: [WidgetMenuItem],
         defaultExpanded: Bool = true,
         output: (any CommonWidgetModuleOutput)?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
+        self.spaceInfo = spaceInfo
         self.output = output
 
         expandedService = Container.shared.expandedService()
         isExpanded = expandedService.isExpanded(id: widgetBlockId, defaultValue: defaultExpanded)
-        
-        let source = widgetObject.widgetInfo(blockId: widgetBlockId)?.source
-        
+
+        let widgetInfo = widgetObject.widgetInfo(blockId: widgetBlockId)
+        let source = widgetInfo?.source
+
+        if case let .object(details) = source {
+            self.targetObjectId = details.id
+        } else {
+            self.targetObjectId = nil
+        }
+
         let numberOfWidgetLayouts = source?.availableWidgetLayout.count ?? 0
         let menuItems = numberOfWidgetLayouts > 1 ? expectedMenuItems : expectedMenuItems.filter { $0 != .changeType }
         self.menuItems = (source?.isLibrary ?? false) ? menuItems.filter { $0 != .remove } : menuItems.filter { $0 != .removeSystemWidget }
+
+        // Resolve the personal widgets doc once so `startFavoriteSubscription()` can
+        // observe it. Flag-gated to keep byte-identical behaviour when the feature
+        // is off — no document is opened and no subscription fires.
+        if FeatureFlags.personalFavorites, let spaceInfo, targetObjectId != nil {
+            self.personalWidgetsObject = documentService.document(
+                objectId: spaceInfo.personalWidgetsId,
+                spaceId: spaceInfo.accountSpaceId
+            )
+        }
+    }
+
+    // MARK: - Subscriptions
+
+    /// Keeps `isFavorited` in sync with the personal widgets virtual document so the
+    /// long-press menu label / icon flip the moment a favorite is added or removed
+    /// elsewhere (another menu, another device via CRDT, etc.).
+    func startFavoriteSubscription() async {
+        guard let personalWidgetsObject, let targetObjectId else { return }
+        for await _ in personalWidgetsObject.syncPublisher.values {
+            let next = personalWidgetsObject.isInMyFavorites(objectId: targetObjectId)
+            guard isFavorited != next else { continue }
+            isFavorited = next
+        }
     }
     
     func updateExpanded(contentState: WidgetContentState, animated: Bool = true) {

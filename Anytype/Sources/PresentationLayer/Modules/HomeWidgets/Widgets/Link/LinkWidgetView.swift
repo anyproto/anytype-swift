@@ -26,11 +26,15 @@ struct LinkWidgetInternalView: View {
         WidgetContainerView(
             widgetBlockId: data.widgetBlockId,
             widgetObject: data.widgetObject,
+            // `spaceInfo` drives `personalWidgetsId` derivation for the new Favorite
+            // menu item; `canManageChannelPins` gates the Unpin-from-channel item.
+            spaceInfo: data.spaceInfo,
             homeState: data.homeState,
             name: model.name,
             icon: model.icon,
             badgeModel: model.badgeModel,
             dragId: model.dragId,
+            canManageChannelPins: model.canManageChannelPins,
             onCreateObjectTap: nil,
             onHeaderTap: {
                 model.onHeaderTap()

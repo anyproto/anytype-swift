@@ -1,13 +1,14 @@
 import Foundation
 import SwiftUI
 import AnytypeCore
+import Services
 
 struct WidgetContainerView<Content: View>: View {
 
     @State private var model: WidgetContainerViewModel
     @Binding private var homeState: HomeWidgetsState
     @Environment(\.shouldHideChatBadges) private var shouldHideChatBadges
-    
+
     let name: String
     let icon: Icon?
     let badgeModel: MessagePreviewModel?
@@ -15,11 +16,17 @@ struct WidgetContainerView<Content: View>: View {
     let contentState: WidgetContentState
     let onCreateObjectTap: (() -> Void)?
     let onHeaderTap: () -> Void
+    /// Gate for the `.channelPin(isPinned: true)` (Unpin-from-channel) menu item.
+    /// Mirrors `ObjectAction` plumbing: Owner-only today, single predicate so
+    /// a future Admin role widens this in one spot. Plan Task 13 wires the
+    /// live participant-driven value; Task 10 only threads the parameter.
+    let canManageChannelPins: Bool
     let content: Content
-    
+
     init(
         widgetBlockId: String,
         widgetObject: some BaseDocumentProtocol,
+        spaceInfo: AccountInfo? = nil,
         homeState: Binding<HomeWidgetsState>,
         name: String,
         icon: Icon? = nil,
@@ -28,6 +35,7 @@ struct WidgetContainerView<Content: View>: View {
         contentState: WidgetContentState = .hasData,
         defaultExpanded: Bool = true,
         menuItems: [WidgetMenuItem] = [.changeType, .remove, .removeSystemWidget],
+        canManageChannelPins: Bool = false,
         onCreateObjectTap: (() -> Void)?,
         onHeaderTap: @escaping () -> Void,
         output: (any CommonWidgetModuleOutput)?,
@@ -41,11 +49,13 @@ struct WidgetContainerView<Content: View>: View {
         self.contentState = contentState
         self.onCreateObjectTap = onCreateObjectTap
         self.onHeaderTap = onHeaderTap
+        self.canManageChannelPins = canManageChannelPins
         self.content = content()
         self._model = State(
             initialValue: WidgetContainerViewModel(
                 widgetBlockId: widgetBlockId,
                 widgetObject: widgetObject,
+                spaceInfo: spaceInfo,
                 expectedMenuItems: menuItems,
                 defaultExpanded: defaultExpanded,
                 output: output
@@ -111,18 +121,45 @@ struct WidgetContainerView<Content: View>: View {
             let animated = oldValue != .loading
             model.updateExpanded(contentState: newValue, animated: animated)
         }
+        .task {
+            // Feature-gated inside the view model — flag-off or missing targetObjectId
+            // early-returns so no document is observed and legacy behaviour is
+            // byte-identical.
+            await model.startFavoriteSubscription()
+        }
     }
-    
+
     @ViewBuilder
     private var menuItemsView: some View {
         createObjectMenuButton
         WidgetCommonActionsMenuView(
-            items: model.menuItems,
+            items: fullMenuItems,
             widgetBlockId: model.widgetBlockId,
             widgetObject: model.widgetObject,
             homeState: model.homeState,
-            output: model.output
+            output: model.output,
+            targetObjectId: model.targetObjectId,
+            accountInfo: model.spaceInfo
         )
+    }
+
+    /// Composes the base legacy menu items (changeType / remove / removeSystemWidget)
+    /// with the Task 10 Favorite + Unpin-from-channel additions when the feature flag
+    /// is on and the widget points to a concrete object (channel-pin rows). The order
+    /// mirrors the object "⋯" menu so users see a consistent layout across both hosts.
+    private var fullMenuItems: [WidgetMenuItem] {
+        guard FeatureFlags.personalFavorites,
+              model.targetObjectId != nil
+        else {
+            return model.menuItems
+        }
+        var extras: [WidgetMenuItem] = [.favorite(isFavorited: model.isFavorited)]
+        if canManageChannelPins {
+            // Channel-pin rows are always pinned (the widget itself is the pin), so the
+            // label renders as "Unpin from Channel". See plan Task 10 row attachment note.
+            extras.append(.channelPin(isPinned: true))
+        }
+        return extras + model.menuItems
     }
     
     @ViewBuilder
