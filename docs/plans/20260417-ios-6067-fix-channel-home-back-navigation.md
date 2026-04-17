@@ -317,11 +317,11 @@ Wire into `startSubscriptions()` via `async let shareRetrySub: () = startHandleP
 - Modify: `Anytype/Sources/PresentationLayer/Flows/SpaceHub/Support/PageNavigation.swift`
 - Modify: `Anytype/Sources/PresentationLayer/Flows/SpaceHub/SpaceHubCoordinatorViewModel.swift`
 
-- [ ] Add `let replaceHome: (AnyHashable) -> Void` closure to `PageNavigation` struct. Update the default `EnvironmentValues` initializer with `replaceHome: { _ in }`.
-- [ ] Implement `replaceHome` in `SpaceHubCoordinatorViewModel.pageNavigation` with flag check inside the closure: guard `FeatureFlags.fixChannelHomeBackNavigation`, `!pathChanging`, bind `current = navigationPath.currentHome`, verify `current` is one of the three **replaceable** home-slot types (`HomeWidgetData` / `EditorScreenData` / `ChatCoordinatorData`), and `current != newData`. Call `navigationPath.replaceHome(newData)`. `SpaceChatCoordinatorData` and `DiscussionCoordinatorData` are intentionally excluded — see Technical Details for rationale.
-- [ ] Audit every `PageNavigation(...)` constructor invocation in the codebase (`rg "PageNavigation\("`) and add the `replaceHome:` argument — missing initializer argument will hard-fail the build. Known sites: `SpaceHubCoordinatorViewModel.pageNavigation`, `ChatCreateObjectCoordinatorViewModel` (use `{ _ in }` no-op), the default env `@Entry` declaration in `PageNavigation.swift`.
-- [ ] Compile check (Xcode build checkpoint #1 per Testing Strategy).
-- [ ] No unit tests for `SpaceHubCoordinatorViewModel` — not unit-tested in this repo.
+- [x] Add `let replaceHome: (AnyHashable) -> Void` closure to `PageNavigation` struct. Update the default `EnvironmentValues` initializer with `replaceHome: { _ in }`.
+- [x] Implement `replaceHome` in `SpaceHubCoordinatorViewModel.pageNavigation` with flag check inside the closure: guard `FeatureFlags.fixChannelHomeBackNavigation`, `!pathChanging`, bind `current = navigationPath.currentHome`, verify `current` is one of the three **replaceable** home-slot types (`HomeWidgetData` / `EditorScreenData` / `ChatCoordinatorData`), and `current != newData`. Call `navigationPath.replaceHome(newData)`. `SpaceChatCoordinatorData` and `DiscussionCoordinatorData` are intentionally excluded — see Technical Details for rationale.
+- [x] Audit every `PageNavigation(...)` constructor invocation in the codebase (`rg "PageNavigation\("`) and add the `replaceHome:` argument — missing initializer argument will hard-fail the build. Known sites: `SpaceHubCoordinatorViewModel.pageNavigation`, `ChatCreateObjectCoordinatorViewModel` (use `{ _ in }` no-op), the default env `@Entry` declaration in `PageNavigation.swift`.
+- [x] Compile check (Xcode build checkpoint #1 per Testing Strategy).
+- [x] No unit tests for `SpaceHubCoordinatorViewModel` — not unit-tested in this repo.
 
 ### Task 4: Wire post-creation picker to `replaceHome`
 

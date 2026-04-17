@@ -77,6 +77,23 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             } else {
                 navigationPath.push(data)
             }
+        },
+        replaceHome: { [weak self] newData in
+            guard let self, FeatureFlags.fixChannelHomeBackNavigation else { return }
+            guard !pathChanging, let current = navigationPath.currentHome else { return }
+            let isReplaceableHomeSlot =
+                current is HomeWidgetData ||
+                current is EditorScreenData ||
+                current is ChatCoordinatorData
+            guard isReplaceableHomeSlot else {
+                anytypeAssertionFailure(
+                    "replaceHome called with non-replaceable home slot",
+                    info: ["currentType": "\(type(of: current))"]
+                )
+                return
+            }
+            guard current != newData else { return }
+            navigationPath.replaceHome(newData)
         }
     )
 

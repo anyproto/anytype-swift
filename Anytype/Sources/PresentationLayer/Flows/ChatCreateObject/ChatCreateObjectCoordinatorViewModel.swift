@@ -22,7 +22,8 @@ final class ChatCreateObjectCoordinatorViewModel {
         pushHome: { },
         pop: { },
         popToFirstInSpace: {},
-        replace: { _ in }
+        replace: { _ in },
+        replaceHome: { _ in }
     )
     @ObservationIgnored
     private let document: (any BaseDocumentProtocol)?
