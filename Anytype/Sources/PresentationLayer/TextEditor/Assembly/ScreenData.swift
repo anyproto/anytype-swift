@@ -86,7 +86,8 @@ extension ScreenData {
         switch self {
         case .editor(let data):  return data
         case .chat(let data):    return data
-        default:                 return nil
+        case .alert, .preview, .bookmark, .spaceInfo, .spaceChat, .widget, .discussion:
+            return nil
         }
     }
 }
