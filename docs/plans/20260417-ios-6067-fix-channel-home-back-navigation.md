@@ -357,12 +357,12 @@ Wire into `startSubscriptions()` via `async let shareRetrySub: () = startHandleP
 - Modify: `Anytype/Sources/PresentationLayer/Flows/HomeWidgetsCoordinator/HomeWidgetsCoordinatorViewModel.swift`
 - Modify: `Anytype/Sources/PresentationLayer/Flows/HomeWidgetsCoordinator/HomeWidgetsCoordinatorView.swift`
 
-- [ ] Add `@Injected(\.pendingShareService)` and `@Injected(\.pendingShareStorage)` to `SpaceHubCoordinatorViewModel` if not already present.
-- [ ] Add private `startHandlePendingShareRetry()` using the outer-loop-on-`activeSpaceManager.workspaceInfoStream` + inner-`Task`-per-active-space pattern shown in Technical Details. Gate with `FeatureFlags.fixChannelHomeBackNavigation`. Cancel `innerTask` on every outer advance and after the outer loop exits.
-- [ ] Wire into `startSubscriptions()` as `async let shareRetrySub: () = startHandlePendingShareRetry()`.
-- [ ] Gate the old call site with `!FeatureFlags.fixChannelHomeBackNavigation` so exactly one retry loop is active at any time. In `HomeWidgetsCoordinatorView`, wrap the modifier as: `.task { if !FeatureFlags.fixChannelHomeBackNavigation { await model.startPendingShareRetryTask() } }` (or equivalent). This avoids two concurrent subscriptions firing `pendingShareService.retryIfNeeded` during the brief window HomeWidgetsCoordinator is alive with flag ON — `retryIfNeeded` is not verified idempotent for this change, and deterministic single-source behavior is safer than relying on idempotency.
-- [ ] Keep `startPendingShareRetryTask` method in `HomeWidgetsCoordinatorViewModel` (do not delete) — still used when flag is OFF.
-- [ ] Compile check (Xcode build checkpoint #2 per Testing Strategy — full build after Tasks 4, 5, and 6 are all wired).
+- [x] Add `@Injected(\.pendingShareService)` and `@Injected(\.pendingShareStorage)` to `SpaceHubCoordinatorViewModel` if not already present.
+- [x] Add private `startHandlePendingShareRetry()` using the outer-loop-on-`activeSpaceManager.workspaceInfoStream` + inner-`Task`-per-active-space pattern shown in Technical Details. Gate with `FeatureFlags.fixChannelHomeBackNavigation`. Cancel `innerTask` on every outer advance and after the outer loop exits.
+- [x] Wire into `startSubscriptions()` as `async let shareRetrySub: () = startHandlePendingShareRetry()`.
+- [x] Gate the old call site with `!FeatureFlags.fixChannelHomeBackNavigation` so exactly one retry loop is active at any time. In `HomeWidgetsCoordinatorView`, wrap the modifier as: `.task { if !FeatureFlags.fixChannelHomeBackNavigation { await model.startPendingShareRetryTask() } }` (or equivalent). This avoids two concurrent subscriptions firing `pendingShareService.retryIfNeeded` during the brief window HomeWidgetsCoordinator is alive with flag ON — `retryIfNeeded` is not verified idempotent for this change, and deterministic single-source behavior is safer than relying on idempotency.
+- [x] Keep `startPendingShareRetryTask` method in `HomeWidgetsCoordinatorViewModel` (do not delete) — still used when flag is OFF.
+- [x] Compile check (Xcode build checkpoint #2 per Testing Strategy — full build after Tasks 4, 5, and 6 are all wired).
 
 ### Task 7: Manual simulator QA
 

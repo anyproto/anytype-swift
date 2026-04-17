@@ -62,7 +62,9 @@ private struct HomeWidgetsCoordinatorInternalView: View {
                 }
             }
             .task {
-                await model.startPendingShareRetryTask()
+                if !FeatureFlags.fixChannelHomeBackNavigation {
+                    await model.startPendingShareRetryTask()
+                }
             }
             .task {
                 await model.startSpaceViewTask()

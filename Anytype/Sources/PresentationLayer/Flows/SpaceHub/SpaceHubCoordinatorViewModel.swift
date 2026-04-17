@@ -132,6 +132,10 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private var searchService: any SearchServiceProtocol
     @Injected(\.contactsService) @ObservationIgnored
     private var contactsService: any ContactsServiceProtocol
+    @Injected(\.pendingShareService) @ObservationIgnored
+    private var pendingShareService: any PendingShareServiceProtocol
+    @Injected(\.pendingShareStorage) @ObservationIgnored
+    private var pendingShareStorage: any PendingShareStorageProtocol
     @ObservationIgnored
     private var needSetup = true
     
@@ -168,7 +172,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         async let appActionsSub: () = startHandleAppActions()
         async let membershipSub: () = startHandleMembershipStatus()
         async let spaceInfoSub: () = startHandleSpaceInfo()
-        (_,_,_,_) = await (workspaceInfoSub, appActionsSub, membershipSub, spaceInfoSub)
+        async let shareRetrySub: () = startHandlePendingShareRetry()
+        (_,_,_,_,_) = await (workspaceInfoSub, appActionsSub, membershipSub, spaceInfoSub, shareRetrySub)
     }
     
     private func startHandleAppActions() async {
@@ -190,6 +195,32 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         for await spaces in participantSpacesStorage.activeParticipantSpacesPublisher.values {
             fallbackSpaceView = spaces.first?.spaceView
         }
+    }
+
+    private func startHandlePendingShareRetry() async {
+        guard FeatureFlags.fixChannelHomeBackNavigation else { return }
+        var innerTask: Task<Void, Never>?
+        for await info in activeSpaceManager.workspaceInfoStream {
+            innerTask?.cancel()
+            let spaceId = info?.accountSpaceId ?? ""
+            guard !spaceId.isEmpty,
+                  pendingShareStorage.pendingState(for: spaceId) != nil else {
+                innerTask = nil
+                continue
+            }
+            innerTask = Task { [weak self] in
+                guard let self else { return }
+                for await participantSpaceView in participantSpacesStorage
+                    .participantSpaceViewPublisher(spaceId: spaceId).values {
+                    guard !Task.isCancelled else { return }
+                    guard pendingShareStorage.pendingState(for: spaceId) != nil else { return }
+                    if participantSpaceView.spaceView.isActive {
+                        await pendingShareService.retryIfNeeded(spaceId: spaceId)
+                    }
+                }
+            }
+        }
+        innerTask?.cancel()
     }
     
     func startHandleMembershipStatus() async {
