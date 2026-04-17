@@ -52,7 +52,13 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     func onHomepagePickerFinished(result: HomepagePickerResult) {
         showHomepagePicker = false
         guard case .homepageSet(let value) = result, case .object(let details) = value else { return }
-        pageNavigation?.open(details.screenData())
+        if FeatureFlags.fixChannelHomeBackNavigation {
+            if let homeData = details.screenData().homeSlotValue {
+                pageNavigation?.replaceHome(homeData)
+            }
+        } else {
+            pageNavigation?.open(details.screenData())
+        }
     }
 
     func startPendingShareRetryTask() async {

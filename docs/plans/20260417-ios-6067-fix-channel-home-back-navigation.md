@@ -329,10 +329,10 @@ Wire into `startSubscriptions()` via `async let shareRetrySub: () = startHandleP
 - Modify: `Anytype/Sources/PresentationLayer/Flows/HomeWidgetsCoordinator/HomeWidgetsCoordinatorViewModel.swift`
 - Modify: `Anytype/Sources/PresentationLayer/TextEditor/Assembly/ScreenData.swift` (add `homeSlotValue` helper if not added in Task 3)
 
-- [ ] Add the `ScreenData.homeSlotValue` extension helper in `ScreenData.swift` (see Technical Details — `.editor` / `.chat` only; discussion returns `nil`).
-- [ ] In `onHomepagePickerFinished`, branch on the flag. ON: unwrap `details.screenData().homeSlotValue`; if non-nil, call `pageNavigation?.replaceHome(homeData)`. OFF: keep current `pageNavigation?.open(details.screenData())`.
-- [ ] Do NOT add a `// when flag is on …` comment — per CLAUDE.md, the WHAT is obvious from the flag name.
-- [ ] No compile/build checkpoint here — batch with Task 5 and 6.
+- [x] Add the `ScreenData.homeSlotValue` extension helper in `ScreenData.swift` (see Technical Details — `.editor` / `.chat` only; discussion returns `nil`).
+- [x] In `onHomepagePickerFinished`, branch on the flag. ON: unwrap `details.screenData().homeSlotValue`; if non-nil, call `pageNavigation?.replaceHome(homeData)`. OFF: keep current `pageNavigation?.open(details.screenData())`.
+- [x] Do NOT add a `// when flag is on …` comment — per CLAUDE.md, the WHAT is obvious from the flag name.
+- [x] No compile/build checkpoint here — batch with Task 5 and 6.
 
 ### Task 5: Add `onHomepageSet` output on `HomepageSettingsPickerViewModel` and plumb through both presenters
 
