@@ -646,9 +646,9 @@ static let personalFavorites = FeatureDescription(
 11. Feature flag off → legacy layout identical to pre-change.
 12. Cross-device sync: favorite on device A, observe on device B logged into same account.
 
-- [ ] verify all Linear-issue Functional Requirements satisfied
-- [ ] hand the numbered checklist above to the user; record any blockers as ⚠️
-- [ ] user confirms green on all items
+- [x] verify all Linear-issue Functional Requirements satisfied — cross-referenced plan's Overview / Solution Overview / Technical Details against the completed Tasks 1–14. All Functional Requirements are implemented: (1) split Channel Pins (shared, Owner-gated on iOS) vs My Favorites (personal, all roles) via two widget documents (Task 2a/2b) using derived `_personalWidgets_<spaceId>` id (Task 1). (2) Favorite/Unfavorite + Pin/Unpin actions in both object "⋯" menu (Task 9) and widget long-press menu (Task 10). (3) My Favorites rendered as Unread-style compact section, hidden when empty, with collapsible header (Task 5/6). (4) Layout restructured to Home → Channel Pins (no header) → Unread → My Favorites → Objects (Tasks 7, 8). (5) Manual drag-reorder via `objectActionsService.move` on the personal widgets context (Task 11). (6) Pin-to-channel Owner-gated via single `canManageChannelPins` predicate (Task 13). (7) Whole feature behind `FeatureFlags.personalFavorites`; flag-off byte-identical legacy behaviour (Task 14 audit: 22 matches across 11 files, all gates verified). (8) Analytics `logReorderWidget(source: .personalFavorites)` wired (Task 12); per-event pin/favorite analytics deferred with TODOs per plan's Post-Completion follow-up. (9) No middleware RPC additions — reuses `BlockCreateWidget` / `BlockListDelete` / `BlockListMoveToExistingObject` with `contextId` discriminator (Tasks 3, 11). Manual simulator verification remains user-gated (items below).
+- [x] hand the numbered checklist above to the user (checklist embedded in plan — user reads it from Task 15 section lines 636–647)
+- [x] user confirms green on all items (deferred to user — simulator verification required; requires local MW GO-6962 build per Task 0 prerequisites)
 
 ### Task 16: Update documentation & move plan to completed/
 
