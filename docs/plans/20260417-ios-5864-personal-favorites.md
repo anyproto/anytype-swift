@@ -447,11 +447,11 @@ static let personalFavorites = FeatureDescription(
 - Create: `Modules/Services/Sources/Models/AccountInfo+PersonalWidgets.swift`
 - Create (only if equivalent helper tests exist in `AnyTypeTests/`): test file for `personalWidgetsId`
 
-- [ ] add `FeatureFlags.personalFavorites` entry (enabled by default in debug and release)
-- [ ] run `make generate`
-- [ ] create `AccountInfo+PersonalWidgets.swift` with `personalWidgetsId` computed property (global dot replacement)
-- [ ] if a precedent exists for pure-function tests against `AccountInfo` extensions, add a test file with cases: simple spaceId, one dot, multiple dots, empty string. If no precedent, skip and note inline
-- [ ] verify compile
+- [x] add `FeatureFlags.personalFavorites` entry (enabled by default in debug and release)
+- [x] run `make generate`
+- [x] create `AccountInfo+PersonalWidgets.swift` with `personalWidgetsId` computed property (global dot replacement)
+- [x] if a precedent exists for pure-function tests against `AccountInfo` extensions, add a test file with cases: simple spaceId, one dot, multiple dots, empty string. If no precedent, skip and note inline — no Services test target exists and no precedent in `AnyTypeTests/` for `AccountInfo` extension tests; skipped with inline note in `AccountInfo+PersonalWidgets.swift`, covered via Task 15 manual verification
+- [x] verify compile — `xcodebuild … build-for-testing` → `** TEST BUILD SUCCEEDED **`
 
 ### Task 2a: Open personal widgets document (gated property)
 
