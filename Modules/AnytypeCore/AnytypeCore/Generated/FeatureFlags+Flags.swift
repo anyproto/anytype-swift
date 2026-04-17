@@ -26,6 +26,10 @@ public extension FeatureFlags {
         value(for: .createChannelFlow)
     }
 
+    static var fixChannelHomeBackNavigation: Bool {
+        value(for: .fixChannelHomeBackNavigation)
+    }
+
     static var channelTypeSwitcher: Bool {
         value(for: .channelTypeSwitcher)
     }
@@ -125,6 +129,7 @@ public extension FeatureFlags {
         .discussionButton,
         .qrCodeCircularText,
         .createChannelFlow,
+        .fixChannelHomeBackNavigation,
         .channelTypeSwitcher,
         .fixAvatarTapFreeze,
         .muteAndHide,

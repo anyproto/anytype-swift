@@ -290,10 +290,10 @@ Wire into `startSubscriptions()` via `async let shareRetrySub: () = startHandleP
 - Modify: `Modules/AnytypeCore/AnytypeCore/Utils/FeatureFlags/FeatureDescription+Flags.swift`
 - Regenerated: `Modules/AnytypeCore/AnytypeCore/Generated/FeatureFlags+Flags.swift`
 
-- [ ] Add `fixChannelHomeBackNavigation` entry next to `createChannelFlow` in `FeatureDescription+Flags.swift` (author `k@anytype.io`, targetRelease `18`, `defaultValue: true`, no `debugValue`).
-- [ ] Run `make generate` to regenerate `FeatureFlags+Flags.swift`.
-- [ ] Compile check: ensure `FeatureFlags.fixChannelHomeBackNavigation` accessor is callable.
-- [ ] No unit tests — flag definitions are not unit-tested in this repo.
+- [x] Add `fixChannelHomeBackNavigation` entry next to `createChannelFlow` in `FeatureDescription+Flags.swift` (author `k@anytype.io`, targetRelease `18`, `defaultValue: true`, no `debugValue`).
+- [x] Run `make generate` to regenerate `FeatureFlags+Flags.swift`.
+- [x] Compile check: ensure `FeatureFlags.fixChannelHomeBackNavigation` accessor is callable.
+- [x] No unit tests — flag definitions are not unit-tested in this repo.
 
 ### Task 2: Add `currentHome` / `replaceHome(_:)` to `HomePath` with unit tests
 
