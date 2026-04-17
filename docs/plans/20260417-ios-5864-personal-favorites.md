@@ -506,12 +506,13 @@ static let personalFavorites = FeatureDescription(
 - Create: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/MyFavorites/MyFavoritesModuleOutput.swift`
 - Discovery-only: check for `X24.star`, `X24.star.fill`, `X24.pin`, `X24.pin.slash` assets; if missing, route through `design-system-developer` flow (may spawn a follow-up)
 
-- [ ] implement `MyFavoritesViewModel` per Technical Details
-- [ ] implement `MyFavoritesListView` mirroring `UnreadChatsGroupedView` (VStack + background + clipShape, dividers between rows except last)
-- [ ] implement `MyFavoritesRowView` with icon + title (no counter)
-- [ ] row tap calls `output?.onObjectSelected(details:)` routing to the same navigation the pinned widget uses
-- [ ] define `MyFavoritesModuleOutput` protocol (single method: `onObjectSelected(details: ObjectDetails)`)
-- [ ] verify compile; simulator smoke-check with seeded favorite if MW available
+- [x] implement `MyFavoritesViewModel` per Technical Details
+- [x] implement `MyFavoritesListView` mirroring `UnreadChatsGroupedView` (VStack + background + clipShape, dividers between rows except last via `.newDivider(leadingPadding: 16, trailingPadding: 16, color: .Widget.divider)` — same modifier the Unread row uses)
+- [x] implement `MyFavoritesRowView` with icon + title (no counter); icon via `IconView(icon: row.details.objectIconImage)` at 20×20, title via `AnytypeText(.bodySemibold)` — same shape as `UnreadChatRowView` minus the badge stack
+- [x] row tap calls `output?.onObjectSelected(details:)` routing to the same navigation the pinned widget uses — bridge from `ObjectDetails` to `ScreenData` via `details.screenData()` will live in the coordinator layer when the wiring happens in Task 6
+- [x] define `MyFavoritesModuleOutput` protocol (single method: `onObjectSelected(details: ObjectDetails)`); `@MainActor` to match widget output conventions
+- [x] **Asset discovery**: verified via `Modules/Assets/Sources/Assets/Generated/ImageAssets.swift` — `X24.star`, `X24.star.fill`, `X24.pin`, `X24.pin.slash` do NOT exist. Root `CustomIcons` namespace has `pin` and `star` only (no `.fill` / `.slash` variants). Recorded in addendum below — assets will need the `design-system-developer` flow before Task 9 / 10 can render the menu row icons. Not added in Task 5 (discovery-only per plan).
+- [x] verify compile — `xcodebuild … build-for-testing` → `** TEST BUILD SUCCEEDED **`; simulator smoke-check deferred to Task 15 (requires local MW GO-6962)
 
 ### Task 6: Insert My Favorites section in layout (behind flag)
 
@@ -670,4 +671,14 @@ static let personalFavorites = FeatureDescription(
 2. **`WidgetPosition.start` ↔ MW `InnerFirst`** enum mapping — verify in Task 3 (checkbox there references this gap).
 3. **`documentService.document(...)` auto-open** — verify in Task 2b via temporary debug log.
 4. **Analytics event parallels** for favorite/pin — Task 12 checks; follow-up if absent.
-5. **Icon asset variants** (`X24.star.fill`, `X24.pin.slash`) — Task 5 discovery.
+5. **Icon asset variants** (`X24.star.fill`, `X24.pin.slash`) — Task 5 discovery: RESOLVED with finding. See Addendum A.
+
+## Addendum A — Icon asset findings (Task 5 discovery, 2026-04-17)
+
+Grepped `Modules/Assets/Sources/Assets/Generated/ImageAssets.swift`. The `ImageAsset.X24` enum (lines 604-684) does **not** contain `star`, `star.fill`, `pin`, or `pin.slash`. Only a root-level `star` / `pin` exist under `CustomIcons/` (lines 298, 364); no filled-star or slashed-pin variants exist anywhere.
+
+Implication: Tasks 9 (object "⋯" menu) and 10 (widget long-press menu) need the `design-system-developer` flow to add:
+- `X24.star` (empty outline) + `X24.starFill` (filled)
+- `X24.pin` (upright) + `X24.pinSlash` (struck-through)
+
+Source Figma nodes listed in plan Post-Completion. Assets are NOT added in Task 5 per plan's discovery-only instruction; the follow-up is a blocker for Task 9 menu row rendering but not for this task's compile.
