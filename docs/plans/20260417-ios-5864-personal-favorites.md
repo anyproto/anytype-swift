@@ -476,15 +476,15 @@ static let personalFavorites = FeatureDescription(
 ### Task 3: `PersonalFavoritesService` + DI
 
 **Files:**
-- Create: `Modules/Services/Sources/Services/PersonalFavorites/PersonalFavoritesService.swift` (protocol + implementation co-located)
-- Modify: `Modules/Services/Sources/ServicesDI.swift` — add `Injected` key for the new service
+- Create: `Anytype/Sources/ServiceLayer/PersonalFavorites/PersonalFavoritesService.swift` (protocol + implementation co-located). Deviation from original plan note (`Modules/Services/Sources/Services/PersonalFavorites/...`): the service needs `OpenedDocumentsProviderProtocol` which is declared `internal` in the Anytype app target and not visible to `Modules/Services`. The app target is the idiomatic home — same as `ChatActionService`, `PinnedSubscriptionService` — and the inline header in the service file documents the rationale.
+- Modify: `Anytype/Sources/ServiceLayer/ServicesDI.swift` — add `Factory` key for the new service (the plan's note pointed at `Modules/Services/Sources/ServicesDI.swift`; registration moved to the app target's DI file for the same visibility reason).
 - Optional test file: only if a mock `BlockWidgetServiceProtocol` already exists in `AnyTypeTests/`
 
-- [ ] define `PersonalFavoritesServiceProtocol` with `toggle`, `addToFavorites`, `removeFromFavorites`
-- [ ] implement `PersonalFavoritesService` per Technical Details (position `.start` — verify against `WidgetPosition` enum definition that `.start` maps to `InnerFirst` on MW; if enum case name differs, use the correct one and document inline)
-- [ ] register in DI container using the same pattern as `BlockWidgetService`
-- [ ] if mock `BlockWidgetServiceProtocol` exists, add a test file with three cases: object not in favorites → `createWidgetBlock` called with correct `contextId`; object in favorites → `removeWidgetBlock` called with correct `widgetBlockId`; forwarded error surface. Else skip with an inline comment
-- [ ] verify compile
+- [x] define `PersonalFavoritesServiceProtocol` with `toggle`, `addToFavorites`, `removeFromFavorites`
+- [x] implement `PersonalFavoritesService` per Technical Details. WidgetPosition enum resolution (plan Open Question #2): the iOS `WidgetPosition` has `.end`, `.above`, `.below` — no `.start`/`.innerFirst` case exists today. "Prepend to top" is implemented via `.above(first)` with `.end` as empty-document fallback, matching the existing `ObjectSettingsViewModel` channel-pin code path. Inline comment in the service documents the mapping.
+- [x] register in DI container using the same `Factory` pattern as `pinnedSubscriptionService` / `blockWidgetService`
+- [x] mock `BlockWidgetServiceProtocol` is absent in `AnyTypeTests/` (verified via `rg "BlockWidgetServiceProtocol" AnyTypeTests/` → no matches) — unit test skipped per plan's pragmatic testing policy, inline note added to the service file; covered by Task 15 simulator checklist items 1, 6, 7
+- [x] verify compile — `xcodebuild … build-for-testing` → `** TEST BUILD SUCCEEDED **`
 
 ### Task 4: isFavorite / isPinnedToChannel helpers + `ObjectPinState`
 
