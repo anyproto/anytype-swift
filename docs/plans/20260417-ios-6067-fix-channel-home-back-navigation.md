@@ -301,15 +301,15 @@ Wire into `startSubscriptions()` via `async let shareRetrySub: () = startHandleP
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeNavigationContainer/HomePath.swift`
 - Modify: `AnyTypeTests/Home/HomePathTests.swift`
 
-- [ ] Add `var currentHome: AnyHashable?` computed property returning `path[safe: 1]`. Same internal access level as existing members.
-- [ ] Add `mutating func replaceHome(_ newHome: AnyHashable)` with `path.count >= 2` guard via `anytypeAssertionFailure` (match style of `replaceLast`) and no-op when `path[1] == newHome`.
-- [ ] Keep all existing methods untouched.
-- [ ] Add test `testCurrentHomeReturnsIndexOne` — seed a 2-element path; verify `currentHome == path[1]`.
-- [ ] Add test `testCurrentHomeNilWhenPathEmpty` and `testCurrentHomeNilWhenOnlyRoot` — single-element / empty paths return nil.
-- [ ] Add test `testReplaceHomeOnValidPath` — replace on a 2-element path; verify path[1] updated and path[0] unchanged. Extend test with a 3-element path to confirm path[2] is NOT touched.
-- [ ] Add test `testReplaceHomeSameValueNoOp` — replace with equal value; verify path unchanged.
-- [ ] Add test `testReplaceHomeOnRootlessPath` — call `replaceHome` on `[root]` (no home yet) or empty path; verify path unchanged (assertion is non-fatal in test builds).
-- [ ] Run `HomePathTests` — must pass before next task.
+- [x] Add `var currentHome: AnyHashable?` computed property returning `path[safe: 1]`. Same internal access level as existing members.
+- [x] Add `mutating func replaceHome(_ newHome: AnyHashable)` with `path.count >= 2` guard via `anytypeAssertionFailure` (match style of `replaceLast`) and no-op when `path[1] == newHome`.
+- [x] Keep all existing methods untouched.
+- [x] Add test `testCurrentHomeReturnsIndexOne` — seed a 2-element path; verify `currentHome == path[1]`.
+- [x] Add test `testCurrentHomeNilWhenPathEmpty` and `testCurrentHomeNilWhenOnlyRoot` — single-element / empty paths return nil.
+- [x] Add test `testReplaceHomeOnValidPath` — replace on a 2-element path; verify path[1] updated and path[0] unchanged. Extend test with a 3-element path to confirm path[2] is NOT touched.
+- [x] Add test `testReplaceHomeSameValueNoOp` — replace with equal value; verify path unchanged.
+- [x] Add test `testReplaceHomeOnRootlessPath` — call `replaceHome` on `[root]` (no home yet) or empty path; verify path unchanged (assertion is non-fatal in test builds).
+- [x] Run `HomePathTests` — must pass before next task.
 
 ### Task 3: Add `replaceHome` to `PageNavigation` and implement in `SpaceHubCoordinatorViewModel`
 
