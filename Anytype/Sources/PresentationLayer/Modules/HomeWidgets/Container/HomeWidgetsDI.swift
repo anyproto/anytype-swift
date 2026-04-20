@@ -8,8 +8,12 @@ extension Container {
     var widgetActionsViewCommonMenuProvider: Factory<any WidgetActionsViewCommonMenuProviderProtocol> {
         self { WidgetActionsViewCommonMenuProvider() }.shared
     }
-    
+
     var setObjectWidgetOrderHelper: Factory<any SetObjectWidgetOrderHelperProtocol> {
         self { SetObjectWidgetOrderHelper() }
+    }
+
+    var widgetChatPreviewBuilder: Factory<any WidgetChatPreviewBuilderProtocol> {
+        self { WidgetChatPreviewBuilder() }
     }
 }

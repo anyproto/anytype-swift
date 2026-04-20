@@ -1,6 +1,5 @@
 import Foundation
 import Services
-import Factory
 
 @MainActor
 protocol WidgetChatPreviewBuilderProtocol: AnyObject, Sendable {
@@ -50,11 +49,5 @@ final class WidgetChatPreviewBuilder: WidgetChatPreviewBuilderProtocol, Sendable
             notificationMode: notificationMode,
             chatName: nil
         )
-    }
-}
-
-extension Container {
-    var widgetChatPreviewBuilder: Factory<any WidgetChatPreviewBuilderProtocol> {
-        self { WidgetChatPreviewBuilder() }.shared
     }
 }
