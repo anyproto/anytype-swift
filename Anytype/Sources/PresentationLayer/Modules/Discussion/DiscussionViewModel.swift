@@ -67,6 +67,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var chatStorage: (any DiscussionMessagesStorageProtocol)?
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private var discussionMessageBuilder: (any DiscussionMessageBuilderProtocol)?
+    private let threadGrouper = DiscussionThreadGrouper()
     private var chatObject: (any BaseDocumentProtocol)?
     private let initialMessageId: String?
 
@@ -599,15 +600,20 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func didSelectReplyTo(message: MessageViewData) {
         AnytypeAnalytics.instance().logClickMessageMenuReply()
+        let rootParentId = resolveRootParentId(for: message.message)
         withAnimation {
             inputFocused = true
             replyToMessage = ChatInputReplyModel(
-                id: message.message.id,
+                id: rootParentId,
                 title: Loc.Chat.replyTo(message.authorName),
                 description: message.discussionBlocks.plainText,
                 icon: message.attachmentsDetails.first?.objectIconImage
             )
         }
+    }
+
+    private func resolveRootParentId(for message: ChatMessage) -> String {
+        threadGrouper.findRootParent(of: message, in: messages) ?? message.id
     }
 
     func didSelectReplyMessage(message: MessageViewData) {
