@@ -63,9 +63,6 @@ final class ObjectSettingsViewModel {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.accountManager) @ObservationIgnored
-    private var accountManager: any AccountManagerProtocol
-
     @ObservationIgnored
     private weak var output: (any ObjectSettingsModelOutput)?
 
@@ -86,11 +83,23 @@ final class ObjectSettingsViewModel {
     // Per-user personal widgets document (IOS-5864). Opened lazily so flag-off
     // behaviour stays byte-identical. `isFavorited` is read from this document's
     // widget tree via the `BaseDocumentProtocol+Favorites` helper.
+    //
+    // Uses the per-space `AccountInfo` from `workspaceStorage` (same pattern as
+    // `widgetObject` above) rather than the global `accountManager.account.info`:
+    // (1) personal widgets are per-space, so the encoded id must reflect the
+    // current space — using the global signup-space id would derive the wrong
+    // virtual document in shared workspaces; (2) `accountManager.account.info`
+    // can race app launch with `AccountData.empty`, which would silently ship
+    // `_personalWidgets_` to MW.
     @ObservationIgnored
     private lazy var personalWidgetsObject: (any BaseDocumentProtocol)? = {
         guard FeatureFlags.personalFavorites else { return nil }
+        guard let info = workspaceStorage.spaceInfo(spaceId: spaceId) else {
+            anytypeAssertionFailure("info not found for personal widgets")
+            return nil
+        }
         return openDocumentsProvider.document(
-            objectId: accountManager.account.info.personalWidgetsId,
+            objectId: info.personalWidgetsId,
             spaceId: spaceId
         )
     }()
@@ -384,7 +393,10 @@ final class ObjectSettingsViewModel {
             anytypeAssertionFailure("Details object not found")
             return
         }
-        let accountInfo = accountManager.account.info
+        guard let accountInfo = workspaceStorage.spaceInfo(spaceId: spaceId) else {
+            anytypeAssertionFailure("info not found for favorite toggle")
+            return
+        }
         let wasFavorited = personalWidgetsObject?.isInMyFavorites(objectId: details.id) ?? false
         try await personalFavoritesService.toggle(objectId: details.id, accountInfo: accountInfo)
         toastData = ToastBarData(wasFavorited ? Loc.unfavorited : Loc.favorited)
