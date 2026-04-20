@@ -119,6 +119,10 @@ private struct HomeWidgetsInternalView: View {
         if context == .overlay, let data = model.homeWidgetData {
             HomeWidgetView(data: data)
                 .id("\(data.objectId)-\(data.canSetHomepage)")
+                // 8pt gap to the channel-pins section that follows. Lives on
+                // the home widget itself so the spacing only applies when home
+                // is visible — no extra view needed otherwise.
+                .padding(.bottom, 8)
         }
     }
 
