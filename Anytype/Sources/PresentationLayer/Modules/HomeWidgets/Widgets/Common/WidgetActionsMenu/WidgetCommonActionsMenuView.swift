@@ -3,21 +3,13 @@ import SwiftUI
 import AnytypeCore
 import Services
 
-// Matches the context-menu transition-to-list animation so remove / unpin actions
-// don't glitch mid-animation. Used by `.remove`, `.removeSystemWidget`, and
-// `.channelPin` (IOS-5864). Historical value — keep in one place so future tuning
-// updates all call sites together.
+// Matches the context-menu transition-to-list animation so delete / unpin actions
+// don't glitch mid-animation. Used by `.removeSystemWidget` and `.channelPin`.
 private let menuDismissAnimationDelay: TimeInterval = 0.7
 
-// Channel-pin / favorite cases (IOS-5864 Task 10):
-// Associated values mean `WidgetMenuItem` can no longer use a raw `String` backing.
-// `Hashable` is synthesized for the enum because every payload is `Hashable`, which
-// preserves the existing `id: \.self` iteration in `ForEach` and the `!= .changeType`
-// filter comparisons in `WidgetContainerViewModel`.
 enum WidgetMenuItem: Hashable {
     case changeType
-    case remove
-    case removeSystemWidget // Temporary action for split unpin and delete system widget. Delete after migration
+    case removeSystemWidget
     case favorite(isFavorited: Bool)
     case channelPin(isPinned: Bool)
 }
@@ -29,13 +21,11 @@ struct WidgetCommonActionsMenuView: View {
     let widgetObject: any BaseDocumentProtocol
     let homeState: HomeWidgetsState
     let output: (any CommonWidgetModuleOutput)?
-    // Optional context needed by `.favorite(...)` / `.channelPin(...)` handlers.
-    // Older call sites that only surface the legacy trio (changeType / remove /
-    // removeSystemWidget) don't have to supply these — the new handlers early-return
-    // when `targetObjectId` / `accountInfo` are missing so a misconfigured caller
-    // never crashes (Task 10 defensive wiring).
+    /// `nil` for library widgets (Bin / Objects / Tasks / …). `.favorite` and
+    /// `.channelPin` items require this to be non-nil — the VM's `menuItems` only
+    /// emits them when `targetObjectId != nil`.
     let targetObjectId: String?
-    let accountInfo: AccountInfo?
+    let accountInfo: AccountInfo
 
     @StateObject private var model = WidgetCommonActionsMenuViewModel()
 
@@ -45,8 +35,8 @@ struct WidgetCommonActionsMenuView: View {
         widgetObject: any BaseDocumentProtocol,
         homeState: HomeWidgetsState,
         output: (any CommonWidgetModuleOutput)?,
-        targetObjectId: String? = nil,
-        accountInfo: AccountInfo? = nil
+        targetObjectId: String?,
+        accountInfo: AccountInfo
     ) {
         self.items = items
         self.widgetBlockId = widgetBlockId
@@ -77,24 +67,6 @@ struct WidgetCommonActionsMenuView: View {
                 Text(Loc.Widgets.Actions.changeWidgetType)
                 Image(systemName: "arrow.2.squarepath")
             }
-        case .remove:
-            Button {
-                // Fix animation glitch.
-                // We should to finalize context menu transition to list and then delete object
-                // If we find how customize context menu transition, this 🩼 can be deleted
-                DispatchQueue.main.asyncAfter(deadline: .now() + menuDismissAnimationDelay) {
-                    model.provider.onDeleteWidgetTap(
-                        widgetObject: widgetObject,
-                        widgetBlockId: widgetBlockId,
-                        homeState: homeState,
-                        output: output
-                    )
-                }
-            } label: {
-                Text(Loc.unpin)
-                Image(systemName: "pin.slash")
-
-            }
         case .removeSystemWidget:
             Button(role: .destructive) {
                 // Fix animation glitch.
@@ -118,12 +90,9 @@ struct WidgetCommonActionsMenuView: View {
             // Symbol fallback mirrors `ObjectActionRow.menuIcon` — dedicated icons are a
             // design-system follow-up.
             Button {
-                guard let targetObjectId, let accountInfo else {
-                    #if DEBUG
-                    preconditionFailure(".favorite menu item emitted without targetObjectId/accountInfo")
-                    #else
+                guard let targetObjectId else {
+                    anytypeAssertionFailure(".favorite menu item emitted without targetObjectId")
                     return
-                    #endif
                 }
                 model.provider.onFavoriteTap(
                     targetObjectId: targetObjectId,
@@ -134,21 +103,19 @@ struct WidgetCommonActionsMenuView: View {
                 Image(systemName: isFavorited ? "star.fill" : "star")
             }
         case let .channelPin(isPinned):
-            // `widgetObject` here is the channel widgets document (`info.widgetsId`) —
-            // the same document the `.remove` case operates on. See
-            // `WidgetActionsViewCommonMenuProvider.onChannelPinTap` for the toggle logic.
+            // `widgetObject` here is the channel widgets document (`info.widgetsId`).
+            // See `WidgetActionsViewCommonMenuProvider.onChannelPinTap` for the toggle
+            // logic. This action replaced the old `.remove` / "Unpin" menu item —
+            // channel pins are now permission-gated and bidirectional (pin or unpin).
             Button {
                 guard let targetObjectId else {
-                    #if DEBUG
-                    preconditionFailure(".channelPin menu item emitted without targetObjectId")
-                    #else
+                    anytypeAssertionFailure(".channelPin menu item emitted without targetObjectId")
                     return
-                    #endif
                 }
-                // Match the `menuDismissAnimationDelay` used by `.remove` above: the context menu's
-                // transition-to-list animation hasn't finished when the tap fires. Without
-                // the delay, unpin-from-channel (which removes a widget whose row is
-                // currently animating) produces the same glitch.
+                // Match `menuDismissAnimationDelay` used by `.removeSystemWidget`: the
+                // context menu's transition-to-list animation hasn't finished when the
+                // tap fires. Without the delay, unpinning a row that's currently
+                // animating produces a glitch.
                 let provider = model.provider
                 let widgetObject = widgetObject
                 DispatchQueue.main.asyncAfter(deadline: .now() + menuDismissAnimationDelay) {

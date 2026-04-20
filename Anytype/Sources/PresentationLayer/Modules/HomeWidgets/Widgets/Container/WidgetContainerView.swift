@@ -29,7 +29,7 @@ struct WidgetContainerView<Content: View>: View {
         dragId: String?,
         contentState: WidgetContentState = .hasData,
         defaultExpanded: Bool = true,
-        menuItems: [WidgetMenuItem] = [.changeType, .remove, .removeSystemWidget],
+        menuItems: [WidgetMenuItem] = [.changeType, .removeSystemWidget],
         onCreateObjectTap: (() -> Void)?,
         onHeaderTap: @escaping () -> Void,
         output: (any CommonWidgetModuleOutput)?,
@@ -114,19 +114,13 @@ struct WidgetContainerView<Content: View>: View {
             let animated = oldValue != .loading
             model.updateExpanded(contentState: newValue, animated: animated)
         }
-        .task {
-            // Feature-gated inside the view model — flag-off or missing targetObjectId
-            // early-returns so no document is observed and legacy behaviour is
-            // byte-identical.
-            await model.startSubscriptions()
-        }
     }
 
     @ViewBuilder
     private var menuItemsView: some View {
         createObjectMenuButton
         WidgetCommonActionsMenuView(
-            items: fullMenuItems,
+            items: model.menuItems,
             widgetBlockId: model.widgetBlockId,
             widgetObject: model.widgetObject,
             homeState: model.homeState,
@@ -136,25 +130,6 @@ struct WidgetContainerView<Content: View>: View {
         )
     }
 
-    /// Composes the base legacy menu items (changeType / remove / removeSystemWidget)
-    /// with the Task 10 Favorite + Pin-to-Channel additions when the feature flag
-    /// is on and the widget points to a concrete object (channel-pin rows). The order
-    /// mirrors the object "⋯" menu so users see a consistent layout across both hosts.
-    private var fullMenuItems: [WidgetMenuItem] {
-        guard FeatureFlags.personalFavorites,
-              model.targetObjectId != nil
-        else {
-            return model.menuItems
-        }
-        var extras: [WidgetMenuItem] = [.favorite(isFavorited: model.isFavorited)]
-        if model.canManageChannelPins {
-            // Read reactively so a concurrent cross-device unpin doesn't leave a stale
-            // "Unpin" label whose tap would fall into the add branch and re-pin.
-            extras.append(.channelPin(isPinned: model.isPinnedToChannel))
-        }
-        return extras + model.menuItems
-    }
-    
     @ViewBuilder
     private var createObjectMenuButton: some View {
         if let onCreateObjectTap {

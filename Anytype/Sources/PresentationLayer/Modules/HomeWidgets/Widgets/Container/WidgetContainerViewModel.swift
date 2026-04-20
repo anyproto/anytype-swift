@@ -26,18 +26,6 @@ final class WidgetContainerViewModel {
     @ObservationIgnored
     private let expandedService: any ExpandedServiceProtocol
     @ObservationIgnored
-    @Injected(\.blockWidgetService)
-    private var blockWidgetService: any BlockWidgetServiceProtocol
-    @ObservationIgnored
-    @Injected(\.objectActionsService)
-    private var objectActionsService: any ObjectActionsServiceProtocol
-    @ObservationIgnored
-    @Injected(\.searchService)
-    private var searchService: any SearchServiceProtocol
-    @ObservationIgnored
-    @Injected(\.widgetActionsViewCommonMenuProvider)
-    private var widgetActionsViewCommonMenuProvider: any WidgetActionsViewCommonMenuProviderProtocol
-    @ObservationIgnored
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @ObservationIgnored
@@ -52,19 +40,48 @@ final class WidgetContainerViewModel {
     }
     var homeState: HomeWidgetsState = .readonly
     var toastData: ToastBarData?
-    let menuItems: [WidgetMenuItem]
-    /// Tracks whether `targetObjectId` currently lives in the per-user personal
-    /// widgets document. Drives the Favorite / Unfavorite label + icon in the
-    /// long-press menu. Updated reactively from `personalWidgetsObject.syncPublisher`.
-    var isFavorited: Bool = false
-    /// Tracks whether `targetObjectId` is currently present in the shared channel
-    /// widgets document. Drives the Pin-to-Channel / Unpin-from-Channel label + icon
-    /// in the long-press menu. Reactive so a concurrent cross-device remove doesn't
-    /// cause a stale "Unpin" tap to re-pin.
-    var isPinnedToChannel: Bool = false
-    /// Gate for rendering the Pin-to-Channel / Unpin-from-Channel menu item.
-    /// Read off the current participant's role via `ParticipantSpaceViewData.canManageChannelPins`.
-    var canManageChannelPins: Bool = false
+    /// Source-filtered items fixed at init — `.changeType` / `.removeSystemWidget`
+    /// inclusion depends only on widget source. Runtime items (`.favorite`,
+    /// `.channelPin`) are appended by the computed `menuItems` below.
+    @ObservationIgnored
+    private let baseMenuItems: [WidgetMenuItem]
+    /// Final menu items for the long-press context menu. Evaluated lazily each time
+    /// SwiftUI builds the `.contextMenu` closure (i.e. on long-press), so the
+    /// per-item state is read synchronously from live documents without needing
+    /// persistent subscriptions.
+    var menuItems: [WidgetMenuItem] {
+        guard FeatureFlags.personalFavorites, targetObjectId != nil else {
+            return baseMenuItems
+        }
+        var extras: [WidgetMenuItem] = [.favorite(isFavorited: isFavorited)]
+        if canManageChannelPins {
+            extras.append(.channelPin(isPinned: isPinnedToChannel))
+        }
+        return baseMenuItems + extras
+    }
+
+    /// Whether `targetObjectId` currently lives in the per-user personal widgets
+    /// document. Read on demand from the already-open doc; stale-while-menu-open is
+    /// acceptable since the menu is re-evaluated on every long-press.
+    private var isFavorited: Bool {
+        guard let personalWidgetsObject, let targetObjectId else { return false }
+        return personalWidgetsObject.isInMyFavorites(objectId: targetObjectId)
+    }
+    /// Whether `targetObjectId` is currently present in the shared channel widgets
+    /// document. Read on demand from `widgetObject` (which is the channel widgets
+    /// doc for object-widget call sites).
+    private var isPinnedToChannel: Bool {
+        guard let targetObjectId else { return false }
+        return widgetObject.isPinnedToChannel(objectId: targetObjectId)
+    }
+    /// Gate for rendering `.channelPin`. Read on demand from the participant-space
+    /// storage snapshot.
+    private var canManageChannelPins: Bool {
+        guard FeatureFlags.personalFavorites, targetObjectId != nil else { return false }
+        return participantSpacesStorage
+            .participantSpaceView(spaceId: spaceInfo.accountSpaceId)?
+            .canManageChannelPins ?? false
+    }
 
     @ObservationIgnored
     private var isAutoExpanding = false
@@ -96,11 +113,14 @@ final class WidgetContainerViewModel {
 
         let numberOfWidgetLayouts = source?.availableWidgetLayout.count ?? 0
         let menuItems = numberOfWidgetLayouts > 1 ? expectedMenuItems : expectedMenuItems.filter { $0 != .changeType }
-        self.menuItems = (source?.isLibrary ?? false) ? menuItems.filter { $0 != .remove } : menuItems.filter { $0 != .removeSystemWidget }
+        // `.removeSystemWidget` is only for library widgets (Bin, Objects, Tasks, …).
+        // Object widgets get channel-pin toggling via `.channelPin`, appended by the
+        // computed `menuItems` property below from live state + permissions.
+        self.baseMenuItems = (source?.isLibrary ?? false) ? menuItems : menuItems.filter { $0 != .removeSystemWidget }
 
-        // Resolve the personal widgets doc once so `startFavoriteSubscription()` can
-        // observe it. Flag-gated to keep byte-identical behaviour when the feature
-        // is off — no document is opened and no subscription fires.
+        // Resolve the personal widgets doc once so `isFavorited` can read a snapshot
+        // from it on demand. Flag-gated + targetObjectId-gated to keep byte-identical
+        // behaviour when the feature is off or when this widget has no target (library).
         if FeatureFlags.personalFavorites, targetObjectId != nil {
             self.personalWidgetsObject = documentService.document(
                 objectId: spaceInfo.personalWidgetsId,
@@ -109,53 +129,6 @@ final class WidgetContainerViewModel {
         }
     }
 
-    // MARK: - Subscriptions
-
-    /// Fan-out entry point called from the view's `.task` — launches the three
-    /// flag-gated subscriptions concurrently. Keeping the fan-out here (rather than
-    /// inside the view) matches the codebase convention of VM-owned subscriptions.
-    func startSubscriptions() async {
-        async let favoriteSub: () = startFavoriteSubscription()
-        async let channelPinSub: () = startChannelPinSubscription()
-        async let permissionSub: () = startPermissionSubscription()
-        _ = await (favoriteSub, channelPinSub, permissionSub)
-    }
-
-    /// Keeps `isFavorited` in sync with the personal widgets virtual document so the
-    /// long-press menu label / icon flip the moment a favorite is added or removed
-    /// elsewhere (another menu, another device via CRDT, etc.).
-    private func startFavoriteSubscription() async {
-        guard let personalWidgetsObject, let targetObjectId else { return }
-        for await _ in personalWidgetsObject.syncPublisher.values {
-            let next = personalWidgetsObject.isInMyFavorites(objectId: targetObjectId)
-            guard isFavorited != next else { continue }
-            isFavorited = next
-        }
-    }
-
-    /// Keeps `isPinnedToChannel` in sync with the shared channel widgets document so
-    /// an Unpin tap never races a concurrent cross-device remove.
-    private func startChannelPinSubscription() async {
-        guard let targetObjectId else { return }
-        for await _ in widgetObject.syncPublisher.values {
-            let next = widgetObject.isPinnedToChannel(objectId: targetObjectId)
-            guard isPinnedToChannel != next else { continue }
-            isPinnedToChannel = next
-        }
-    }
-
-    /// Keeps `canManageChannelPins` in sync with the current participant's role so
-    /// Tree/List/Set widgets surface the same Pin-to-Channel menu item as LinkWidget.
-    /// Guarded by flag + targetObjectId to keep the subscription dormant otherwise.
-    private func startPermissionSubscription() async {
-        guard FeatureFlags.personalFavorites, targetObjectId != nil else { return }
-        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceInfo.accountSpaceId).values {
-            let next = participantSpaceView.canManageChannelPins
-            guard canManageChannelPins != next else { continue }
-            canManageChannelPins = next
-        }
-    }
-    
     func updateExpanded(contentState: WidgetContentState, animated: Bool = true) {
         guard contentState != .loading else { return }
         guard !expandedService.hasUserOverride(id: widgetBlockId) else { return }
