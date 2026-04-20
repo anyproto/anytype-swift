@@ -16,6 +16,11 @@ struct MyFavoritesRowView: View {
     /// row receives a plain Bool instead of opening its own subscription.
     let isPinnedToChannel: Bool
 
+    /// Hides chat badges while the dedicated unread section is expanded — a chat's
+    /// unread signal shouldn't appear in two places at once. Pushed into the
+    /// environment by `HomeWidgetsView`.
+    @Environment(\.shouldHideChatBadges) private var shouldHideChatBadges
+
     var body: some View {
         Button {
             row.onTap()
@@ -29,6 +34,11 @@ struct MyFavoritesRowView: View {
                     .lineLimit(1)
 
                 Spacer()
+
+                if let chatPreview = row.chatPreview, chatPreview.hasVisibleCounters {
+                    chatBadges(chatPreview: chatPreview)
+                        .opacity(shouldHideChatBadges ? 0 : 1)
+                }
             }
             .padding(.horizontal, 16)
             .frame(height: 48)
@@ -47,6 +57,24 @@ struct MyFavoritesRowView: View {
                     channelWidgetsObject: channelWidgetsObject,
                     canManageChannelPins: canManageChannelPins,
                     isPinnedToChannel: isPinnedToChannel
+                )
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func chatBadges(chatPreview: MessagePreviewModel) -> some View {
+        HStack(spacing: 4) {
+            if chatPreview.hasUnreadReactions {
+                HeartBadge(style: chatPreview.reactionStyle)
+            }
+            if chatPreview.mentionCounter > 0 {
+                MentionBadge(style: chatPreview.mentionCounterStyle)
+            }
+            if chatPreview.shouldShowUnreadCounter {
+                CounterView(
+                    count: chatPreview.unreadCounter,
+                    style: chatPreview.unreadCounterStyle
                 )
             }
         }

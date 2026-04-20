@@ -26,8 +26,30 @@ final class MyFavoritesViewModel {
     @ObservationIgnored
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
+    @ObservationIgnored
+    @Injected(\.chatMessagesPreviewsStorage)
+    private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
+    @ObservationIgnored
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored
+    @Injected(\.widgetChatPreviewBuilder)
+    private var chatPreviewBuilder: any WidgetChatPreviewBuilderProtocol
 
-    // MARK: - State
+    // MARK: - Source state
+
+    /// Raw per-favorite (block id + details) tuples sourced from the personal
+    /// widgets document. Kept separate from the published `rows` so we can
+    /// recompute the row array whenever chat previews / space view update
+    /// without re-reading the document tree.
+    @ObservationIgnored
+    private var sourceBlocks: [(blockId: String, details: ObjectDetails)] = []
+    @ObservationIgnored
+    private var chatPreviews: [ChatMessagePreview] = []
+    @ObservationIgnored
+    private var spaceView: SpaceView?
+
+    // MARK: - Published state
 
     var rows: [MyFavoritesRowData] = []
     /// Per-object `isPinnedToChannel` flags, keyed by `ObjectDetails.id`.
@@ -52,33 +74,23 @@ final class MyFavoritesViewModel {
     func startSubscriptions() async {
         async let personalSub: () = startPersonalWidgetsSubscription()
         async let channelSub: () = startChannelPinsSubscription()
-        _ = await (personalSub, channelSub)
+        async let chatPreviewsSub: () = startChatPreviewsSubscription()
+        async let spaceViewSub: () = startSpaceViewSubscription()
+        _ = await (personalSub, channelSub, chatPreviewsSub, spaceViewSub)
     }
 
     private func startPersonalWidgetsSubscription() async {
         for await _ in personalWidgetsObject.syncPublisher.values {
             let widgets = personalWidgetsObject.children.filter(\.isWidget)
-            let newRows: [MyFavoritesRowData] = widgets.compactMap { block in
+            sourceBlocks = widgets.compactMap { block in
                 guard let info = personalWidgetsObject.widgetInfo(block: block),
                       case let .object(details) = info.source,
                       details.isNotDeletedAndSupportedForOpening else {
                     return nil
                 }
-                // Bind routing at row-build time so the view never sees
-                // `ObjectDetails` — matches the `ListWidgetRowModel` pattern
-                // used by channel-pin rows.
-                let onObjectSelected = self.onObjectSelected
-                return MyFavoritesRowData(
-                    id: block.id,
-                    objectId: details.id,
-                    title: details.pluralTitle,
-                    icon: details.objectIconImage,
-                    onTap: { onObjectSelected(details) }
-                )
+                return (blockId: block.id, details: details)
             }
-
-            guard rows != newRows else { continue }
-            rows = newRows
+            recomputeRows()
         }
     }
 
@@ -96,6 +108,48 @@ final class MyFavoritesViewModel {
             guard pinnedToChannelByObjectId != next else { continue }
             pinnedToChannelByObjectId = next
         }
+    }
+
+    private func startChatPreviewsSubscription() async {
+        for await previews in await chatMessagesPreviewsStorage.previewsSequence {
+            chatPreviews = previews
+            recomputeRows()
+        }
+    }
+
+    private func startSpaceViewSubscription() async {
+        for await spaceView in spaceViewsStorage.spaceViewPublisher(spaceId: accountInfo.accountSpaceId).values {
+            self.spaceView = spaceView
+            recomputeRows()
+        }
+    }
+
+    // MARK: - Row recomputation
+
+    /// Single projection point from raw sources to published `rows`. Called from
+    /// every subscription so a chat-preview-only change (e.g. unread counter tick)
+    /// still propagates without touching the personal widgets document.
+    private func recomputeRows() {
+        let onObjectSelected = self.onObjectSelected
+        let spaceView = self.spaceView
+        let newRows: [MyFavoritesRowData] = sourceBlocks.map { block in
+            let chatPreview = chatPreviewBuilder.build(
+                chatPreviews: chatPreviews,
+                objectId: block.details.id,
+                spaceView: spaceView
+            )
+            let details = block.details
+            return MyFavoritesRowData(
+                id: block.blockId,
+                objectId: details.id,
+                title: details.pluralTitle,
+                icon: details.objectIconImage,
+                chatPreview: chatPreview,
+                onTap: { onObjectSelected(details) }
+            )
+        }
+        guard rows != newRows else { return }
+        rows = newRows
     }
 
     // MARK: - Drag-and-drop

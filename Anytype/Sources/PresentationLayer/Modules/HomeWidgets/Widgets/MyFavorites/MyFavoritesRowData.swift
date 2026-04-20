@@ -16,5 +16,9 @@ struct MyFavoritesRowData: Identifiable, Equatable {
     let objectId: String
     let title: String
     let icon: Icon
+    /// Non-nil only when the favorited object is a chat with a last message.
+    /// Drives the unread-counter / mention / reaction badges — gated view-side by
+    /// `\.shouldHideChatBadges` so they hide while the unread section is expanded.
+    let chatPreview: MessagePreviewModel?
     @EquatableNoop var onTap: @MainActor () -> Void
 }
