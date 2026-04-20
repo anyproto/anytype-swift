@@ -124,7 +124,13 @@ private struct HomeWidgetsInternalView: View {
 
     @ViewBuilder
     private var unreadWidget: some View {
-        if context == .overlay, model.shouldShowUnreadSection {
+        // No `context == .overlay` gate — unread is global to the space and
+        // should be visible in both navigation and overlay contexts. The legacy
+        // `topWidgets` (flag-off branch) only suppressed unread in overlay as a
+        // side effect of sharing the slot with the home widget via `else if`;
+        // that constraint doesn't carry over now that home and unread are
+        // dedicated sections.
+        if model.shouldShowUnreadSection {
             HomeWidgetsGroupView(title: Loc.unread) {
                 model.onTapUnreadHeader()
             }
