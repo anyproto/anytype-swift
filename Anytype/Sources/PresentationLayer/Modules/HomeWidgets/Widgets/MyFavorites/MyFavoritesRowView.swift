@@ -4,7 +4,7 @@ import Services
 import AnytypeCore
 
 struct MyFavoritesRowView: View {
-    let row: MyFavoritesViewModel.Row
+    let row: MyFavoritesRowData
     let showDivider: Bool
     let accountInfo: AccountInfo
     /// Channel widgets document for this space (`info.widgetsId`). Passed through
@@ -15,17 +15,16 @@ struct MyFavoritesRowView: View {
     /// Computed once at the ViewModel layer (`pinnedToChannelByObjectId`) so each
     /// row receives a plain Bool instead of opening its own subscription.
     let isPinnedToChannel: Bool
-    let onTap: (ObjectDetails) -> Void
 
     var body: some View {
         Button {
-            onTap(row.details)
+            row.onTap()
         } label: {
             HStack(spacing: 12) {
-                IconView(icon: row.details.objectIconImage)
+                IconView(icon: row.icon)
                     .frame(width: 20, height: 20)
 
-                AnytypeText(row.details.pluralTitle, style: .bodySemibold)
+                AnytypeText(row.title, style: .bodySemibold)
                     .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
 
@@ -43,7 +42,7 @@ struct MyFavoritesRowView: View {
             $0.contextMenu {
                 // Favorite section of a favorites row always renders "Unfavorite".
                 MyFavoritesRowContextMenu(
-                    details: row.details,
+                    objectId: row.objectId,
                     accountInfo: accountInfo,
                     channelWidgetsObject: channelWidgetsObject,
                     canManageChannelPins: canManageChannelPins,
@@ -57,7 +56,7 @@ struct MyFavoritesRowView: View {
 /// Split out so the context menu's body does not re-compute when the outer row
 /// redraws for unrelated reasons (spacing / divider).
 private struct MyFavoritesRowContextMenu: View {
-    let details: ObjectDetails
+    let objectId: String
     let accountInfo: AccountInfo
     let channelWidgetsObject: any BaseDocumentProtocol
     let canManageChannelPins: Bool
@@ -66,7 +65,7 @@ private struct MyFavoritesRowContextMenu: View {
     var body: some View {
         Button {
             provider.onFavoriteTap(
-                targetObjectId: details.id,
+                targetObjectId: objectId,
                 accountInfo: accountInfo
             )
         } label: {
@@ -77,7 +76,7 @@ private struct MyFavoritesRowContextMenu: View {
         if canManageChannelPins {
             Button {
                 provider.onChannelPinTap(
-                    targetObjectId: details.id,
+                    targetObjectId: objectId,
                     widgetObject: channelWidgetsObject
                 )
             } label: {

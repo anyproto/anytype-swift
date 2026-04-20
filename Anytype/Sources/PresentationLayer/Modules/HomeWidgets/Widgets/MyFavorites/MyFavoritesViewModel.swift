@@ -27,19 +27,9 @@ final class MyFavoritesViewModel {
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
 
-    // MARK: - Row
-
-    struct Row: Identifiable, Equatable {
-        /// Widget block id inside the personal widgets virtual document. Stable per-favorite,
-        /// used both as the SwiftUI identity and as the block id handed to reorder / remove
-        /// RPCs in Tasks 10 and 11.
-        let id: String
-        let details: ObjectDetails
-    }
-
     // MARK: - State
 
-    var rows: [Row] = []
+    var rows: [MyFavoritesRowData] = []
     /// Per-object `isPinnedToChannel` flags, keyed by `ObjectDetails.id`.
     /// Computed reactively from `channelWidgetsObject.syncPublisher` so each row can
     /// render a plain `Bool` without its own subscription (single source of truth).
@@ -68,13 +58,23 @@ final class MyFavoritesViewModel {
     private func startPersonalWidgetsSubscription() async {
         for await _ in personalWidgetsObject.syncPublisher.values {
             let widgets = personalWidgetsObject.children.filter(\.isWidget)
-            let newRows: [Row] = widgets.compactMap { block in
+            let newRows: [MyFavoritesRowData] = widgets.compactMap { block in
                 guard let info = personalWidgetsObject.widgetInfo(block: block),
                       case let .object(details) = info.source,
                       details.isNotDeletedAndSupportedForOpening else {
                     return nil
                 }
-                return Row(id: block.id, details: details)
+                // Bind routing at row-build time so the view never sees
+                // `ObjectDetails` — matches the `ListWidgetRowModel` pattern
+                // used by channel-pin rows.
+                let onObjectSelected = self.onObjectSelected
+                return MyFavoritesRowData(
+                    id: block.id,
+                    objectId: details.id,
+                    title: details.pluralTitle,
+                    icon: details.objectIconImage,
+                    onTap: { onObjectSelected(details) }
+                )
             }
 
             guard rows != newRows else { continue }
@@ -98,22 +98,16 @@ final class MyFavoritesViewModel {
         }
     }
 
-    // MARK: - Actions
-
-    func onTapRow(details: ObjectDetails) {
-        onObjectSelected(details)
-    }
-
     // MARK: - Drag-and-drop
 
-    func dropUpdate(from: DropDataElement<Row>, to: DropDataElement<Row>) {
+    func dropUpdate(from: DropDataElement<MyFavoritesRowData>, to: DropDataElement<MyFavoritesRowData>) {
         guard from.data.id != to.data.id else { return }
         // Optimistic local reorder so the gesture feels immediate. The authoritative
         // tree arrives via `syncPublisher` once the move RPC completes.
         rows.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
     }
 
-    func dropFinish(from: DropDataElement<Row>, to: DropDataElement<Row>) {
+    func dropFinish(from: DropDataElement<MyFavoritesRowData>, to: DropDataElement<MyFavoritesRowData>) {
         guard from.data.id != to.data.id else { return }
         AnytypeAnalytics.instance().logReorderWidget(source: .personalFavorites)
         let dashboardId = accountInfo.personalWidgetsId

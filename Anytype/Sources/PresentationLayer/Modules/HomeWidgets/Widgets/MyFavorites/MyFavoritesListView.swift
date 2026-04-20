@@ -3,18 +3,17 @@ import SwiftUI
 import Services
 
 struct MyFavoritesListView: View {
-    let rows: [MyFavoritesViewModel.Row]
+    let rows: [MyFavoritesRowData]
     let accountInfo: AccountInfo
     /// Channel widgets document — threaded through so each row's long-press menu
     /// can render Pin-to-channel / Unpin-from-channel with up-to-date state.
     let channelWidgetsObject: any BaseDocumentProtocol
     let canManageChannelPins: Bool
     /// Per-object pinned-to-channel flags. Computed once at the ViewModel layer;
-    /// row reads its flag via `pinnedToChannelByObjectId[row.details.id] ?? false`.
+    /// row reads its flag via `pinnedToChannelByObjectId[row.objectId] ?? false`.
     let pinnedToChannelByObjectId: [String: Bool]
-    let onTapRow: (ObjectDetails) -> Void
-    let dropUpdate: (_ from: DropDataElement<MyFavoritesViewModel.Row>, _ to: DropDataElement<MyFavoritesViewModel.Row>) -> Void
-    let dropFinish: (_ from: DropDataElement<MyFavoritesViewModel.Row>, _ to: DropDataElement<MyFavoritesViewModel.Row>) -> Void
+    let dropUpdate: (_ from: DropDataElement<MyFavoritesRowData>, _ to: DropDataElement<MyFavoritesRowData>) -> Void
+    let dropFinish: (_ from: DropDataElement<MyFavoritesRowData>, _ to: DropDataElement<MyFavoritesRowData>) -> Void
 
     @State private var favoritesDndState = DragState()
 
@@ -27,8 +26,7 @@ struct MyFavoritesListView: View {
                     accountInfo: accountInfo,
                     channelWidgetsObject: channelWidgetsObject,
                     canManageChannelPins: canManageChannelPins,
-                    isPinnedToChannel: pinnedToChannelByObjectId[row.details.id] ?? false,
-                    onTap: onTapRow
+                    isPinnedToChannel: pinnedToChannelByObjectId[row.objectId] ?? false
                 )
                 .setZeroOpacity(favoritesDndState.dragInitiateId == row.id)
                 .anytypeVerticalDrag(itemId: row.id)

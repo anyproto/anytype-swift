@@ -211,9 +211,6 @@ private struct HomeWidgetsInternalView: View {
                     channelWidgetsObject: model.widgetObject,
                     canManageChannelPins: model.canManageChannelPins,
                     pinnedToChannelByObjectId: myFavoritesViewModel.pinnedToChannelByObjectId,
-                    onTapRow: { details in
-                        myFavoritesViewModel.onTapRow(details: details)
-                    },
                     dropUpdate: { from, to in
                         myFavoritesViewModel.dropUpdate(from: from, to: to)
                     },
