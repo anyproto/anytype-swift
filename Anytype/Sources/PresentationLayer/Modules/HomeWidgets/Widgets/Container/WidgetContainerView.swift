@@ -20,7 +20,8 @@ struct WidgetContainerView<Content: View>: View {
 
     init(
         widgetBlockId: String,
-        widgetObject: some BaseDocumentProtocol,
+        channelWidgetsObject: some BaseDocumentProtocol,
+        personalWidgetsObject: (any BaseDocumentProtocol)?,
         spaceInfo: AccountInfo,
         homeState: Binding<HomeWidgetsState>,
         name: String,
@@ -47,7 +48,8 @@ struct WidgetContainerView<Content: View>: View {
         self._model = State(
             initialValue: WidgetContainerViewModel(
                 widgetBlockId: widgetBlockId,
-                widgetObject: widgetObject,
+                channelWidgetsObject: channelWidgetsObject,
+                personalWidgetsObject: personalWidgetsObject,
                 spaceInfo: spaceInfo,
                 expectedMenuItems: menuItems,
                 defaultExpanded: defaultExpanded,
@@ -122,7 +124,7 @@ struct WidgetContainerView<Content: View>: View {
         WidgetCommonActionsMenuView(
             items: model.menuItems,
             widgetBlockId: model.widgetBlockId,
-            widgetObject: model.widgetObject,
+            channelWidgetsObject: model.channelWidgetsObject,
             homeState: model.homeState,
             output: model.output,
             targetObjectId: model.targetObjectId,

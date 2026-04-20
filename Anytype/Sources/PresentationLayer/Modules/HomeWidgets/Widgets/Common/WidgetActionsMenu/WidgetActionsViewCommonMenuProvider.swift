@@ -26,12 +26,12 @@ protocol WidgetActionsViewCommonMenuProviderProtocol: AnyObject {
         accountInfo: AccountInfo
     )
 
-    /// Toggle channel pin for `targetObjectId` against `widgetObject` (the shared
-    /// channel widgets document, `info.widgetsId`). Mirrors the pin/unpin flow
-    /// in `ObjectSettingsViewModel.changePinState`.
+    /// Toggle channel pin for `targetObjectId` against `channelWidgetsObject`
+    /// (`info.widgetsId`). Mirrors the pin/unpin flow in
+    /// `ObjectSettingsViewModel.changePinState`.
     func onChannelPinTap(
         targetObjectId: String,
-        widgetObject: any BaseDocumentProtocol
+        channelWidgetsObject: any BaseDocumentProtocol
     )
 }
 
@@ -88,19 +88,15 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
 
     func onChannelPinTap(
         targetObjectId: String,
-        widgetObject: any BaseDocumentProtocol
+        channelWidgetsObject: any BaseDocumentProtocol
     ) {
         // TODO: IOS-5864 No dedicated pin/unpin analytics event exists today.
         // Mirror with `ObjectSettingsViewModel.changePinState` when product confirms
         // the event shape.
-        // Toggle a widget block against the channel widgets document. The call site
-        // supplies whichever document is the "channel" in that context (for LinkWidget
-        // long-press, that's `WidgetSubmoduleData.widgetObject`; for My Favorites rows,
-        // the caller hands in the channel widgets doc explicitly).
         let service = blockWidgetService
-        let contextId = widgetObject.objectId
-        let existingWidgetBlockId = widgetObject.widgetBlockIdFor(targetObjectId: targetObjectId)
-        let firstChildBlockId = widgetObject.children.first?.id
+        let contextId = channelWidgetsObject.objectId
+        let existingWidgetBlockId = channelWidgetsObject.widgetBlockIdFor(targetObjectId: targetObjectId)
+        let firstChildBlockId = channelWidgetsObject.children.first?.id
         Task {
             try? await service.toggleWidgetBlock(
                 contextId: contextId,

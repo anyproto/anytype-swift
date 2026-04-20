@@ -41,7 +41,7 @@ final class LinkWidgetViewModel {
 
     init(data: WidgetSubmoduleData) {
         self.widgetBlockId = data.widgetBlockId
-        self.widgetObject = data.widgetObject
+        self.widgetObject = data.channelWidgetsObject
         self.output = data.output
     }
     

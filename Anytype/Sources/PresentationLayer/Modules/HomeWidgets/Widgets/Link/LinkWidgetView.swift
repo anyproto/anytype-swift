@@ -25,10 +25,8 @@ struct LinkWidgetInternalView: View {
     var body: some View {
         WidgetContainerView(
             widgetBlockId: data.widgetBlockId,
-            widgetObject: data.widgetObject,
-            // `spaceInfo` drives `personalWidgetsId` derivation for the new Favorite
-            // menu item. `canManageChannelPins` is computed reactively inside
-            // `WidgetContainerViewModel` so every widget host behaves identically.
+            channelWidgetsObject: data.channelWidgetsObject,
+            personalWidgetsObject: data.personalWidgetsObject,
             spaceInfo: data.spaceInfo,
             homeState: data.homeState,
             name: model.name,

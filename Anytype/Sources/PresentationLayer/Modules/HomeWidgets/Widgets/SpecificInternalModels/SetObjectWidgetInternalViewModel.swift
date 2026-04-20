@@ -63,7 +63,7 @@ final class SetObjectWidgetInternalViewModel {
     init(data: WidgetSubmoduleData, style: SetObjecWidgetStyle) {
         self.widgetBlockId = data.widgetBlockId
         self.style = style
-        self.widgetObject = data.widgetObject
+        self.widgetObject = data.channelWidgetsObject
         self.output = data.output
         
         let storageProvider = Container.shared.subscriptionStorageProvider.resolve()

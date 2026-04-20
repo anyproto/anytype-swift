@@ -11,7 +11,14 @@ final class WidgetContainerViewModel {
     // MARK: - DI
 
     let widgetBlockId: String
-    let widgetObject: any BaseDocumentProtocol
+    /// Shared channel widgets document (`info.widgetsId`). The widget block this
+    /// container wraps lives in here.
+    let channelWidgetsObject: any BaseDocumentProtocol
+    /// Per-user personal widgets document (`info.personalWidgetsId`). Passed in
+    /// from `HomeWidgetsViewModel` via `WidgetSubmoduleData` so there is a single
+    /// owner. `nil` when the personalFavorites flag is off.
+    @ObservationIgnored
+    let personalWidgetsObject: (any BaseDocumentProtocol)?
     /// Per-space account info — needed by the new `.favorite` menu items to
     /// derive `personalWidgetsId`. All current call sites forward
     /// `WidgetSubmoduleData.spaceInfo` here.
@@ -28,10 +35,6 @@ final class WidgetContainerViewModel {
     @ObservationIgnored
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @ObservationIgnored
-    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
-    @ObservationIgnored
-    private var personalWidgetsObject: (any BaseDocumentProtocol)?
 
     // MARK: - State
 
@@ -68,11 +71,10 @@ final class WidgetContainerViewModel {
         return personalWidgetsObject.isInMyFavorites(objectId: targetObjectId)
     }
     /// Whether `targetObjectId` is currently present in the shared channel widgets
-    /// document. Read on demand from `widgetObject` (which is the channel widgets
-    /// doc for object-widget call sites).
+    /// document. Read on demand from `channelWidgetsObject`.
     private var isPinnedToChannel: Bool {
         guard let targetObjectId else { return false }
-        return widgetObject.isPinnedToChannel(objectId: targetObjectId)
+        return channelWidgetsObject.isPinnedToChannel(objectId: targetObjectId)
     }
     /// Gate for rendering `.channelPin`. Read on demand from the participant-space
     /// storage snapshot.
@@ -88,21 +90,23 @@ final class WidgetContainerViewModel {
 
     init(
         widgetBlockId: String,
-        widgetObject: some BaseDocumentProtocol,
+        channelWidgetsObject: some BaseDocumentProtocol,
+        personalWidgetsObject: (any BaseDocumentProtocol)?,
         spaceInfo: AccountInfo,
         expectedMenuItems: [WidgetMenuItem],
         defaultExpanded: Bool = true,
         output: (any CommonWidgetModuleOutput)?
     ) {
         self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
+        self.channelWidgetsObject = channelWidgetsObject
+        self.personalWidgetsObject = personalWidgetsObject
         self.spaceInfo = spaceInfo
         self.output = output
 
         expandedService = Container.shared.expandedService()
         isExpanded = expandedService.isExpanded(id: widgetBlockId, defaultValue: defaultExpanded)
 
-        let widgetInfo = widgetObject.widgetInfo(blockId: widgetBlockId)
+        let widgetInfo = channelWidgetsObject.widgetInfo(blockId: widgetBlockId)
         let source = widgetInfo?.source
 
         if case let .object(details) = source {
@@ -117,16 +121,6 @@ final class WidgetContainerViewModel {
         // Object widgets get channel-pin toggling via `.channelPin`, appended by the
         // computed `menuItems` property below from live state + permissions.
         self.baseMenuItems = (source?.isLibrary ?? false) ? menuItems : menuItems.filter { $0 != .removeSystemWidget }
-
-        // Resolve the personal widgets doc once so `isFavorited` can read a snapshot
-        // from it on demand. Flag-gated + targetObjectId-gated to keep byte-identical
-        // behaviour when the feature is off or when this widget has no target (library).
-        if FeatureFlags.personalFavorites, targetObjectId != nil {
-            self.personalWidgetsObject = documentService.document(
-                objectId: spaceInfo.personalWidgetsId,
-                spaceId: spaceInfo.accountSpaceId
-            )
-        }
     }
 
     func updateExpanded(contentState: WidgetContentState, animated: Bool = true) {
@@ -149,7 +143,7 @@ final class WidgetContainerViewModel {
     private func expandedDidChange() {
         guard !isAutoExpanding else { return }
         UISelectionFeedbackGenerator().selectionChanged()
-        if let info = widgetObject.widgetInfo(blockId: widgetBlockId) {
+        if let info = channelWidgetsObject.widgetInfo(blockId: widgetBlockId) {
             if isExpanded {
                 AnytypeAnalytics.instance().logOpenSidebarGroupToggle(source: info.source.analyticsSource)
             } else {

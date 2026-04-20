@@ -19,7 +19,11 @@ final class HomeWidgetsViewModel {
     // MARK: - DI
 
     let info: AccountInfo
-    let widgetObject: any BaseDocumentProtocol
+    let channelWidgetsObject: any BaseDocumentProtocol
+    /// Per-user personal widgets document. Resolved once here so every downstream
+    /// consumer (My Favorites, widget containers) shares the same handle.
+    /// `nil` when the personalFavorites flag is off — nothing is opened.
+    let personalWidgetsObject: (any BaseDocumentProtocol)?
 
     @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
@@ -86,22 +90,24 @@ final class HomeWidgetsViewModel {
     ) {
         self.info = info
         self.output = output
-        let widgetObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
-        self.widgetObject = widgetObject
+        let channelWidgetsObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
+        self.channelWidgetsObject = channelWidgetsObject
         if FeatureFlags.personalFavorites {
             let personalWidgetsObject = documentService.document(
                 objectId: info.personalWidgetsId,
                 spaceId: info.accountSpaceId
             )
+            self.personalWidgetsObject = personalWidgetsObject
             self.myFavoritesViewModel = MyFavoritesViewModel(
                 accountInfo: info,
                 personalWidgetsObject: personalWidgetsObject,
-                channelWidgetsObject: widgetObject,
+                channelWidgetsObject: channelWidgetsObject,
                 onObjectSelected: { [weak output] details in
                     output?.onObjectSelected(screenData: details.screenData())
                 }
             )
         } else {
+            self.personalWidgetsObject = nil
             self.myFavoritesViewModel = nil
         }
         self.pinnedSectionIsExpanded = expandedService.isExpanded(id: Constants.pinnedSectionId, defaultValue: true)
@@ -133,7 +139,7 @@ final class HomeWidgetsViewModel {
         AnytypeAnalytics.instance().logReorderWidget(source: from.data.source.analyticsSource)
         Task {
             try? await objectActionService.move(
-                dashboadId: widgetObject.objectId,
+                dashboadId: channelWidgetsObject.objectId,
                 blockId: from.data.id,
                 dropPositionblockId: to.data.id,
                 position: to.index > from.index ? .bottom : .top
@@ -188,14 +194,14 @@ final class HomeWidgetsViewModel {
     // MARK: - Private
     
     private func startWidgetObjectTask() async {
-        for await _ in widgetObject.syncPublisher.values {
+        for await _ in channelWidgetsObject.syncPublisher.values {
             widgetsDataLoaded = true
 
-            let blocks = widgetObject.children.filter(\.isWidget)
-            recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
+            let blocks = channelWidgetsObject.children.filter(\.isWidget)
+            recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: channelWidgetsObject)
 
             let newWidgetBlocks = blocks
-                .compactMap { widgetObject.widgetInfo(block: $0) }
+                .compactMap { channelWidgetsObject.widgetInfo(block: $0) }
 
             guard widgetBlocks != newWidgetBlocks else { continue }
 

@@ -153,7 +153,8 @@ private struct HomeWidgetsInternalView: View {
                     ForEach(model.widgetBlocks) { widgetInfo in
                         HomeWidgetSubmoduleView(
                             widgetInfo: widgetInfo,
-                            widgetObject: model.widgetObject,
+                            channelWidgetsObject: model.channelWidgetsObject,
+                            personalWidgetsObject: model.personalWidgetsObject,
                             workspaceInfo: model.info,
                             homeState: $model.homeState,
                             output: model.output
@@ -177,7 +178,8 @@ private struct HomeWidgetsInternalView: View {
                         ForEach(model.widgetBlocks) { widgetInfo in
                             HomeWidgetSubmoduleView(
                                 widgetInfo: widgetInfo,
-                                widgetObject: model.widgetObject,
+                                channelWidgetsObject: model.channelWidgetsObject,
+                                personalWidgetsObject: model.personalWidgetsObject,
                                 workspaceInfo: model.info,
                                 homeState: $model.homeState,
                                 output: model.output
@@ -208,7 +210,7 @@ private struct HomeWidgetsInternalView: View {
                     accountInfo: model.info,
                     // Each row's long-press menu reads the current pinned state from the
                     // shared channel widgets document and toggles against it.
-                    channelWidgetsObject: model.widgetObject,
+                    channelWidgetsObject: model.channelWidgetsObject,
                     canManageChannelPins: model.canManageChannelPins,
                     pinnedToChannelByObjectId: myFavoritesViewModel.pinnedToChannelByObjectId,
                     dropUpdate: { from, to in

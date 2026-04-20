@@ -24,7 +24,8 @@ private struct SetObjectWidgetSubmoduleInternalView: View {
     var body: some View {
         WidgetContainerView(
             widgetBlockId: data.widgetBlockId,
-            widgetObject: data.widgetObject,
+            channelWidgetsObject: data.channelWidgetsObject,
+            personalWidgetsObject: data.personalWidgetsObject,
             spaceInfo: data.spaceInfo,
             homeState: data.homeState,
             name: model.name,

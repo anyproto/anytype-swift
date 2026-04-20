@@ -15,17 +15,18 @@ struct TreeWidgetView: View {
         self._model = StateObject(
             wrappedValue: TreeWidgetViewModel(
                 widgetBlockId: data.widgetBlockId,
-                widgetObject: data.widgetObject,
+                widgetObject: data.channelWidgetsObject,
                 internalModel: internalModel,
                 output: data.output
             )
         )
     }
-    
+
     var body: some View {
         WidgetContainerView(
             widgetBlockId: data.widgetBlockId,
-            widgetObject: data.widgetObject,
+            channelWidgetsObject: data.channelWidgetsObject,
+            personalWidgetsObject: data.personalWidgetsObject,
             spaceInfo: data.spaceInfo,
             homeState: data.homeState,
             name: model.name,

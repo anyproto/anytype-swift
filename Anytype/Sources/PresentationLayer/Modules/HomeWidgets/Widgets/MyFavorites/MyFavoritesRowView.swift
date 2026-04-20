@@ -105,7 +105,7 @@ private struct MyFavoritesRowContextMenu: View {
             Button {
                 provider.onChannelPinTap(
                     targetObjectId: objectId,
-                    widgetObject: channelWidgetsObject
+                    channelWidgetsObject: channelWidgetsObject
                 )
             } label: {
                 Text(isPinnedToChannel ? Loc.unpinFromChannel : Loc.pinToChannel)

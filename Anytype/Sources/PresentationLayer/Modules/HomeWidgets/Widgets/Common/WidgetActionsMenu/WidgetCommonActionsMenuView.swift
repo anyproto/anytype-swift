@@ -18,7 +18,7 @@ struct WidgetCommonActionsMenuView: View {
 
     let items: [WidgetMenuItem]
     let widgetBlockId: String
-    let widgetObject: any BaseDocumentProtocol
+    let channelWidgetsObject: any BaseDocumentProtocol
     let homeState: HomeWidgetsState
     let output: (any CommonWidgetModuleOutput)?
     /// `nil` for library widgets (Bin / Objects / Tasks / …). `.favorite` and
@@ -32,7 +32,7 @@ struct WidgetCommonActionsMenuView: View {
     init(
         items: [WidgetMenuItem],
         widgetBlockId: String,
-        widgetObject: any BaseDocumentProtocol,
+        channelWidgetsObject: any BaseDocumentProtocol,
         homeState: HomeWidgetsState,
         output: (any CommonWidgetModuleOutput)?,
         targetObjectId: String?,
@@ -40,7 +40,7 @@ struct WidgetCommonActionsMenuView: View {
     ) {
         self.items = items
         self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
+        self.channelWidgetsObject = channelWidgetsObject
         self.homeState = homeState
         self.output = output
         self.targetObjectId = targetObjectId
@@ -74,7 +74,7 @@ struct WidgetCommonActionsMenuView: View {
                 // If we find how customize context menu transition, this 🩼 can be deleted
                 DispatchQueue.main.asyncAfter(deadline: .now() + menuDismissAnimationDelay) {
                     model.provider.onDeleteWidgetTap(
-                        widgetObject: widgetObject,
+                        widgetObject: channelWidgetsObject,
                         widgetBlockId: widgetBlockId,
                         homeState: homeState,
                         output: output
@@ -103,7 +103,6 @@ struct WidgetCommonActionsMenuView: View {
                 Image(systemName: isFavorited ? "star.fill" : "star")
             }
         case let .channelPin(isPinned):
-            // `widgetObject` here is the channel widgets document (`info.widgetsId`).
             // See `WidgetActionsViewCommonMenuProvider.onChannelPinTap` for the toggle
             // logic. This action replaced the old `.remove` / "Unpin" menu item —
             // channel pins are now permission-gated and bidirectional (pin or unpin).
@@ -117,11 +116,11 @@ struct WidgetCommonActionsMenuView: View {
                 // tap fires. Without the delay, unpinning a row that's currently
                 // animating produces a glitch.
                 let provider = model.provider
-                let widgetObject = widgetObject
+                let channelWidgetsObject = channelWidgetsObject
                 DispatchQueue.main.asyncAfter(deadline: .now() + menuDismissAnimationDelay) {
                     provider.onChannelPinTap(
                         targetObjectId: targetObjectId,
-                        widgetObject: widgetObject
+                        channelWidgetsObject: channelWidgetsObject
                     )
                 }
             } label: {
