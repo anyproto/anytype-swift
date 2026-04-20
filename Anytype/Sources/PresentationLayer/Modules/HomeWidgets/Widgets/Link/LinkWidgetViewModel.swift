@@ -23,6 +23,9 @@ final class LinkWidgetViewModel {
     @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored
+    @Injected(\.widgetChatPreviewBuilder)
+    private var chatPreviewBuilder: any WidgetChatPreviewBuilderProtocol
 
     // MARK: - State
 
@@ -35,9 +38,6 @@ final class LinkWidgetViewModel {
     private(set) var icon: Icon?
     private(set) var badgeModel: MessagePreviewModel?
     var dragId: String? { widgetBlockId }
-
-    @ObservationIgnored
-    private let dateFormatter = ChatPreviewDateFormatter()
 
     init(data: WidgetSubmoduleData) {
         self.widgetBlockId = data.widgetBlockId
@@ -85,34 +85,11 @@ final class LinkWidgetViewModel {
             badgeModel = nil
             return
         }
-
-        guard let chatPreview = chatPreviews.first(where: { $0.chatId == linkedObjectDetails.id }),
-              let lastMessage = chatPreview.lastMessage else {
-            badgeModel = nil
-            return
-        }
-
-        let attachments = lastMessage.attachments.prefix(3).map { objectDetails in
-            MessagePreviewModel.Attachment(
-                id: objectDetails.id,
-                icon: objectDetails.objectIconImage
-            )
-        }
-
         let spaceView = spaceViewsStorage.spaceView(spaceId: linkedObjectDetails.spaceId)
-        let notificationMode = spaceView?.effectiveNotificationMode(for: linkedObjectDetails.id) ?? .all
-
-        badgeModel = MessagePreviewModel(
-            creatorTitle: lastMessage.creator?.title,
-            text: lastMessage.text,
-            attachments: Array(attachments),
-            localizedAttachmentsText: lastMessage.localizedAttachmentsText,
-            chatPreviewDate: dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true),
-            unreadCounter: chatPreview.unreadCounter,
-            mentionCounter: chatPreview.mentionCounter,
-            hasUnreadReactions: chatPreview.hasUnreadReactions,
-            notificationMode: notificationMode,
-            chatName: nil
+        badgeModel = chatPreviewBuilder.build(
+            chatPreviews: chatPreviews,
+            objectId: linkedObjectDetails.id,
+            spaceView: spaceView
         )
     }
 }
