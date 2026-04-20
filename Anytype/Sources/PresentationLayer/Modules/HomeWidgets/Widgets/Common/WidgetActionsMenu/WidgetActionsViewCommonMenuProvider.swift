@@ -20,15 +20,15 @@ protocol WidgetActionsViewCommonMenuProviderProtocol: AnyObject {
 
     /// Toggle the personal favorite state for `targetObjectId`. Backed by
     /// `PersonalFavoritesService` — adds or removes a widget block in the
-    /// per-user `personalWidgetsId` document.
+    /// per-user `personalWidgetsObject`.
     func onFavoriteTap(
         targetObjectId: String,
-        accountInfo: AccountInfo
+        personalWidgetsObject: any BaseDocumentProtocol
     )
 
     /// Toggle channel pin for `targetObjectId` against `channelWidgetsObject`
-    /// (`info.widgetsId`). Mirrors the pin/unpin flow in
-    /// `ObjectSettingsViewModel.changePinState`.
+    /// (`info.widgetsId`). Backed by `ChannelPinsService`. From the widget menu
+    /// channel pins use `.link` / `0` — flat shortcuts in the channel widgets tree.
     func onChannelPinTap(
         targetObjectId: String,
         channelWidgetsObject: any BaseDocumentProtocol
@@ -42,6 +42,8 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
     private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.personalFavoritesService)
     private var personalFavoritesService: any PersonalFavoritesServiceProtocol
+    @Injected(\.channelPinsService)
+    private var channelPinsService: any ChannelPinsServiceProtocol
 
     nonisolated init() {}
 
@@ -74,14 +76,14 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
 
     func onFavoriteTap(
         targetObjectId: String,
-        accountInfo: AccountInfo
+        personalWidgetsObject: any BaseDocumentProtocol
     ) {
         // TODO: IOS-5864 No dedicated favorite/unfavorite analytics event exists today.
         // Mirror with `ObjectSettingsViewModel.changeFavoriteState` when product confirms
         // the event shape.
         let service = personalFavoritesService
         Task {
-            try? await service.toggle(objectId: targetObjectId, accountInfo: accountInfo)
+            try? await service.toggle(objectId: targetObjectId, personalWidgetsObject: personalWidgetsObject)
         }
         UISelectionFeedbackGenerator().selectionChanged()
     }
@@ -93,16 +95,11 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
         // TODO: IOS-5864 No dedicated pin/unpin analytics event exists today.
         // Mirror with `ObjectSettingsViewModel.changePinState` when product confirms
         // the event shape.
-        let service = blockWidgetService
-        let contextId = channelWidgetsObject.objectId
-        let existingWidgetBlockId = channelWidgetsObject.widgetBlockIdFor(targetObjectId: targetObjectId)
-        let firstChildBlockId = channelWidgetsObject.children.first?.id
+        let service = channelPinsService
         Task {
-            try? await service.toggleWidgetBlock(
-                contextId: contextId,
-                targetObjectId: targetObjectId,
-                existingWidgetBlockId: existingWidgetBlockId,
-                firstChildBlockId: firstChildBlockId,
+            try? await service.toggle(
+                objectId: targetObjectId,
+                channelWidgetsObject: channelWidgetsObject,
                 layout: .link,
                 limit: 0
             )

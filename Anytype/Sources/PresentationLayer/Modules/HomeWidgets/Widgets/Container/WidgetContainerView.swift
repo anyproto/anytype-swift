@@ -125,10 +125,10 @@ struct WidgetContainerView<Content: View>: View {
             items: model.menuItems,
             widgetBlockId: model.widgetBlockId,
             channelWidgetsObject: model.channelWidgetsObject,
+            personalWidgetsObject: model.personalWidgetsObject,
             homeState: model.homeState,
             output: model.output,
-            targetObjectId: model.targetObjectId,
-            accountInfo: model.spaceInfo
+            targetObjectId: model.targetObjectId
         )
     }
 

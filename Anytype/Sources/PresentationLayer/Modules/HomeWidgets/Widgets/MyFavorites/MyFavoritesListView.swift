@@ -4,10 +4,12 @@ import Services
 
 struct MyFavoritesListView: View {
     let rows: [MyFavoritesRowData]
-    let accountInfo: AccountInfo
     /// Channel widgets document — threaded through so each row's long-press menu
     /// can render Pin-to-channel / Unpin-from-channel with up-to-date state.
     let channelWidgetsObject: any BaseDocumentProtocol
+    /// Per-user personal widgets document — threaded through to each row's
+    /// `onFavoriteTap` so the service toggles against an already-open doc.
+    let personalWidgetsObject: any BaseDocumentProtocol
     let canManageChannelPins: Bool
     /// Per-object pinned-to-channel flags. Computed once at the ViewModel layer;
     /// row reads its flag via `pinnedToChannelByObjectId[row.objectId] ?? false`.
@@ -23,8 +25,8 @@ struct MyFavoritesListView: View {
                 MyFavoritesRowView(
                     row: row,
                     showDivider: index != rows.count - 1,
-                    accountInfo: accountInfo,
                     channelWidgetsObject: channelWidgetsObject,
+                    personalWidgetsObject: personalWidgetsObject,
                     canManageChannelPins: canManageChannelPins,
                     isPinnedToChannel: pinnedToChannelByObjectId[row.objectId] ?? false
                 )

@@ -6,11 +6,13 @@ import AnytypeCore
 struct MyFavoritesRowView: View {
     let row: MyFavoritesRowData
     let showDivider: Bool
-    let accountInfo: AccountInfo
     /// Channel widgets document for this space (`info.widgetsId`). Passed through
     /// to `WidgetActionsViewCommonMenuProvider.onChannelPinTap` so it can toggle
     /// the pin against the correct document.
     let channelWidgetsObject: any BaseDocumentProtocol
+    /// Per-user personal widgets document (`info.personalWidgetsId`). Passed through
+    /// to `onFavoriteTap` so the toggle runs against an already-open doc.
+    let personalWidgetsObject: any BaseDocumentProtocol
     let canManageChannelPins: Bool
     /// Computed once at the ViewModel layer (`pinnedToChannelByObjectId`) so each
     /// row receives a plain Bool instead of opening its own subscription.
@@ -53,8 +55,8 @@ struct MyFavoritesRowView: View {
                 // Favorite section of a favorites row always renders "Unfavorite".
                 MyFavoritesRowContextMenu(
                     objectId: row.objectId,
-                    accountInfo: accountInfo,
                     channelWidgetsObject: channelWidgetsObject,
+                    personalWidgetsObject: personalWidgetsObject,
                     canManageChannelPins: canManageChannelPins,
                     isPinnedToChannel: isPinnedToChannel
                 )
@@ -85,8 +87,8 @@ struct MyFavoritesRowView: View {
 /// redraws for unrelated reasons (spacing / divider).
 private struct MyFavoritesRowContextMenu: View {
     let objectId: String
-    let accountInfo: AccountInfo
     let channelWidgetsObject: any BaseDocumentProtocol
+    let personalWidgetsObject: any BaseDocumentProtocol
     let canManageChannelPins: Bool
     let isPinnedToChannel: Bool
 
@@ -94,7 +96,7 @@ private struct MyFavoritesRowContextMenu: View {
         Button {
             provider.onFavoriteTap(
                 targetObjectId: objectId,
-                accountInfo: accountInfo
+                personalWidgetsObject: personalWidgetsObject
             )
         } label: {
             Text(Loc.unfavorite)

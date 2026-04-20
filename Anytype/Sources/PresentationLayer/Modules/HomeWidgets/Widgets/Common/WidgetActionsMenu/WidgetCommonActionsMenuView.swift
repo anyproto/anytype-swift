@@ -19,13 +19,16 @@ struct WidgetCommonActionsMenuView: View {
     let items: [WidgetMenuItem]
     let widgetBlockId: String
     let channelWidgetsObject: any BaseDocumentProtocol
+    /// Per-user personal widgets document. `nil` when the personalFavorites flag
+    /// is off; in that case `.favorite` items never appear (VM's `menuItems`
+    /// filters them out).
+    let personalWidgetsObject: (any BaseDocumentProtocol)?
     let homeState: HomeWidgetsState
     let output: (any CommonWidgetModuleOutput)?
     /// `nil` for library widgets (Bin / Objects / Tasks / …). `.favorite` and
     /// `.channelPin` items require this to be non-nil — the VM's `menuItems` only
     /// emits them when `targetObjectId != nil`.
     let targetObjectId: String?
-    let accountInfo: AccountInfo
 
     @StateObject private var model = WidgetCommonActionsMenuViewModel()
 
@@ -33,18 +36,18 @@ struct WidgetCommonActionsMenuView: View {
         items: [WidgetMenuItem],
         widgetBlockId: String,
         channelWidgetsObject: any BaseDocumentProtocol,
+        personalWidgetsObject: (any BaseDocumentProtocol)?,
         homeState: HomeWidgetsState,
         output: (any CommonWidgetModuleOutput)?,
-        targetObjectId: String?,
-        accountInfo: AccountInfo
+        targetObjectId: String?
     ) {
         self.items = items
         self.widgetBlockId = widgetBlockId
         self.channelWidgetsObject = channelWidgetsObject
+        self.personalWidgetsObject = personalWidgetsObject
         self.homeState = homeState
         self.output = output
         self.targetObjectId = targetObjectId
-        self.accountInfo = accountInfo
     }
 
     var body: some View {
@@ -94,9 +97,13 @@ struct WidgetCommonActionsMenuView: View {
                     anytypeAssertionFailure(".favorite menu item emitted without targetObjectId")
                     return
                 }
+                guard let personalWidgetsObject else {
+                    anytypeAssertionFailure(".favorite menu item emitted without personalWidgetsObject")
+                    return
+                }
                 model.provider.onFavoriteTap(
                     targetObjectId: targetObjectId,
-                    accountInfo: accountInfo
+                    personalWidgetsObject: personalWidgetsObject
                 )
             } label: {
                 Text(isFavorited ? Loc.unfavorite : Loc.favorite)

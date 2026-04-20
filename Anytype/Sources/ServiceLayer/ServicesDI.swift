@@ -99,6 +99,10 @@ extension Container {
     var personalFavoritesService: Factory<any PersonalFavoritesServiceProtocol> {
         self { PersonalFavoritesService() }.shared
     }
+
+    var channelPinsService: Factory<any ChannelPinsServiceProtocol> {
+        self { ChannelPinsService() }.shared
+    }
     
     var recentSubscriptionService: Factory<any RecentSubscriptionServiceProtocol> {
         self { RecentSubscriptionService() }

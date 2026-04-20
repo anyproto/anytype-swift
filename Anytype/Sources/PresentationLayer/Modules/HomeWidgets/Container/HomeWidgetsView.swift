@@ -200,6 +200,7 @@ private struct HomeWidgetsInternalView: View {
     private var myFavoritesWidget: some View {
         if FeatureFlags.personalFavorites,
            let myFavoritesViewModel = model.myFavoritesViewModel,
+           let personalWidgetsObject = model.personalWidgetsObject,
            myFavoritesViewModel.rows.isNotEmpty {
             HomeWidgetsGroupView(title: Loc.myFavorites) {
                 model.onTapMyFavoritesHeader()
@@ -207,10 +208,10 @@ private struct HomeWidgetsInternalView: View {
             if model.myFavoritesSectionIsExpanded {
                 MyFavoritesListView(
                     rows: myFavoritesViewModel.rows,
-                    accountInfo: model.info,
                     // Each row's long-press menu reads the current pinned state from the
                     // shared channel widgets document and toggles against it.
                     channelWidgetsObject: model.channelWidgetsObject,
+                    personalWidgetsObject: personalWidgetsObject,
                     canManageChannelPins: model.canManageChannelPins,
                     pinnedToChannelByObjectId: myFavoritesViewModel.pinnedToChannelByObjectId,
                     dropUpdate: { from, to in

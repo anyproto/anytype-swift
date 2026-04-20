@@ -51,8 +51,8 @@ final class ObjectSettingsViewModel {
     private var templatesService: any TemplatesServiceProtocol
     @Injected(\.documentsProvider) @ObservationIgnored
     private var documentsProvider: any DocumentsProviderProtocol
-    @Injected(\.blockWidgetService) @ObservationIgnored
-    private var blockWidgetService: any BlockWidgetServiceProtocol
+    @Injected(\.channelPinsService) @ObservationIgnored
+    private var channelPinsService: any ChannelPinsServiceProtocol
     @Injected(\.personalFavoritesService) @ObservationIgnored
     private var personalFavoritesService: any PersonalFavoritesServiceProtocol
     @Injected(\.spaceViewsStorage) @ObservationIgnored
@@ -355,31 +355,22 @@ final class ObjectSettingsViewModel {
             return
         }
 
-        if pinned {
-
-            guard let widgetBlockId = widgetObject.widgetBlockIdFor(targetObjectId: details.id) else {
-                anytypeAssertionFailure("Block not found")
-                return
-            }
-
-            try await blockWidgetService.removeWidgetBlock(contextId: widgetObject.objectId, widgetBlockId: widgetBlockId)
-
-        } else {
-            guard let layout = details.availableWidgetLayout.first else {
-                anytypeAssertionFailure("Default layout not found")
-                return
-            }
-
-            let first = widgetObject.children.first
-
-            try await blockWidgetService.createWidgetBlock(
-                contextId: widgetObject.objectId,
-                sourceId: details.id,
-                layout: layout,
-                limit: layout.limits.first ?? 0,
-                position: first.map { .above(widgetId: $0.id) } ?? .end
-            )
+        // Per-object-type layout: a Set pins as `.view` with limit 6, a regular page
+        // pins as `.link` with limit 0, etc. Preserved from the pre-IOS-5864 shape so
+        // Object Settings pin semantics stay richer than the widget-menu flow (which
+        // always uses `.link`/`0`).
+        guard let layout = details.availableWidgetLayout.first else {
+            anytypeAssertionFailure("Default layout not found")
+            return
         }
+
+        try await channelPinsService.toggle(
+            objectId: details.id,
+            channelWidgetsObject: widgetObject,
+            layout: layout,
+            limit: layout.limits.first ?? 0
+        )
+
         toastData = ToastBarData(pinned ? Loc.unpinned : Loc.pinned)
         dismiss.toggle()
     }
@@ -393,12 +384,12 @@ final class ObjectSettingsViewModel {
             anytypeAssertionFailure("Details object not found")
             return
         }
-        guard let accountInfo = workspaceStorage.spaceInfo(spaceId: spaceId) else {
-            anytypeAssertionFailure("info not found for favorite toggle")
+        guard let personalWidgetsObject else {
+            anytypeAssertionFailure("personalWidgetsObject not found for favorite toggle")
             return
         }
-        let wasFavorited = personalWidgetsObject?.isInMyFavorites(objectId: details.id) ?? false
-        try await personalFavoritesService.toggle(objectId: details.id, accountInfo: accountInfo)
+        let wasFavorited = personalWidgetsObject.isInMyFavorites(objectId: details.id)
+        try await personalFavoritesService.toggle(objectId: details.id, personalWidgetsObject: personalWidgetsObject)
         toastData = ToastBarData(wasFavorited ? Loc.unfavorited : Loc.favorited)
         dismiss.toggle()
     }
