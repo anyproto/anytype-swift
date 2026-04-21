@@ -8,6 +8,9 @@ struct HomepagePickerThumbnailCard: View {
     var body: some View {
         VStack(spacing: 7) {
             Image(asset: option.thumbnailAsset)
+            Image(asset: option.thumbnailAsset)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
                 .frame(height: 176)
 
             AnytypeText(option.title, style: .caption1Medium)
