@@ -34,7 +34,8 @@ final class WidgetRowModelBuilder: WidgetRowModelBuilderProtocol, Sendable {
         let previewsByChatId: [String: ChatMessagePreview]
         if let spaceId = spaceView?.targetSpaceId {
             previewsByChatId = Dictionary(
-                uniqueKeysWithValues: chatPreviews.lazy.filter { $0.spaceId == spaceId }.map { ($0.chatId, $0) }
+                chatPreviews.lazy.filter { $0.spaceId == spaceId }.map { ($0.chatId, $0) },
+                uniquingKeysWith: { first, _ in first }
             )
         } else {
             previewsByChatId = [:]

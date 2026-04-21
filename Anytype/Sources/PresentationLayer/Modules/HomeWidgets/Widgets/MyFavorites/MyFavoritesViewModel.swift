@@ -127,7 +127,8 @@ final class MyFavoritesViewModel {
         let spaceView = self.spaceView
         let spaceId = self.spaceId
         let previewsByChatId = Dictionary(
-            uniqueKeysWithValues: chatPreviews.lazy.filter { $0.spaceId == spaceId }.map { ($0.chatId, $0) }
+            chatPreviews.lazy.filter { $0.spaceId == spaceId }.map { ($0.chatId, $0) },
+            uniquingKeysWith: { first, _ in first }
         )
         let newRows: [MyFavoritesRowData] = sourceBlocks.map { block in
             let details = block.details
