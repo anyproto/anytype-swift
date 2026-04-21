@@ -33,6 +33,7 @@ private struct HomeWidgetsInternalView: View {
 
             content
                 .animation(.default, value: model.widgetBlocks.count)
+                .animation(.default, value: model.myFavoritesViewModel?.rows.count)
 
             if context.showEmbeddedBottomPanel {
                 HomeBottomNavigationPanelView(
