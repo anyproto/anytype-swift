@@ -25504,13 +25504,13 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat"
+            "value" : "الدردشة"
           }
         },
         "be" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat"
+            "value" : "Чат"
           }
         },
         "cs" : {
@@ -25552,13 +25552,13 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat"
+            "value" : "Messagerie"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat"
+            "value" : "Obrolan"
           }
         },
         "it" : {
@@ -25570,13 +25570,13 @@
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat"
+            "value" : "チャット"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat"
+            "value" : "채팅"
           }
         },
         "nb" : {
@@ -25600,7 +25600,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat"
+            "value" : "Czat"
           }
         },
         "pt-BR" : {
@@ -25618,13 +25618,13 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat"
+            "value" : "Чат"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat"
+            "value" : "Sohbet"
           }
         },
         "uk" : {
@@ -25642,7 +25642,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat"
+            "value" : "聊天"
           }
         },
         "zh-Hant" : {
