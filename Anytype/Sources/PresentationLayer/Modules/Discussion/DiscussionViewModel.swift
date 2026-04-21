@@ -67,6 +67,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var chatStorage: (any DiscussionMessagesStorageProtocol)?
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private var discussionMessageBuilder: (any DiscussionMessageBuilderProtocol)?
+    private let threadGrouper = DiscussionThreadGrouper()
     private var chatObject: (any BaseDocumentProtocol)?
     private let initialMessageId: String?
 
@@ -599,15 +600,20 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func didSelectReplyTo(message: MessageViewData) {
         AnytypeAnalytics.instance().logClickMessageMenuReply()
+        let rootParentId = resolveRootParentId(for: message.message)
         withAnimation {
             inputFocused = true
             replyToMessage = ChatInputReplyModel(
-                id: message.message.id,
+                id: rootParentId,
                 title: Loc.Chat.replyTo(message.authorName),
                 description: message.discussionBlocks.plainText,
                 icon: message.attachmentsDetails.first?.objectIconImage
             )
         }
+    }
+
+    private func resolveRootParentId(for message: ChatMessage) -> String {
+        threadGrouper.findRootParent(of: message, in: messages) ?? message.id
     }
 
     func didSelectReplyMessage(message: MessageViewData) {
@@ -829,7 +835,13 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             chatActionProviderBinding.wrappedValue.register(chatId: newChatId, handler: self)
         }
 
-        // Start deferred subscriptions
+        // Best-effort: register the message subscription with middleware before createMessage
+        // fires, so the first chatAdd event carries our subId instead of being filtered out in
+        // DiscussionMessagesStorage.handle(events:). If this throws (e.g. transient network
+        // error), swallow it — addDiscussion already succeeded and the user's first comment
+        // must still be sendable; startDeferredSubscriptions will retry on its own.
+        try? await chatStorage?.startSubscriptionIfNeeded()
+
         startDeferredSubscriptions()
 
         return newChatId

@@ -1,32 +1,28 @@
 import Foundation
 
 enum HomepagePickerOption: Identifiable, Equatable {
-    case widgets
     case object(ObjectHomepageType)
 
     var id: String {
         switch self {
-        case .widgets: return "widgets"
         case .object(let type): return type.rawValue
         }
     }
 
     var title: String {
         switch self {
-        case .widgets: return Loc.SpaceSettings.HomePage.widgets
         case .object(let type): return type.title
         }
     }
 
     static var allCases: [HomepagePickerOption] {
-        [.object(.chat), .widgets, .object(.page), .object(.collection)]
+        [.object(.chat), .object(.page), .object(.collection)]
     }
 }
 
 extension HomepagePickerOption {
     var analyticsType: CreateHomePageType {
         switch self {
-        case .widgets: return .empty
         case .object(let type):
             switch type {
             case .chat: return .chat

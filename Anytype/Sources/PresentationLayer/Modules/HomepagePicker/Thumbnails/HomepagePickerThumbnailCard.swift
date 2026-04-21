@@ -1,4 +1,5 @@
 import SwiftUI
+import DesignKit
 
 struct HomepagePickerThumbnailCard: View {
     let option: HomepagePickerOption
@@ -11,33 +12,31 @@ struct HomepagePickerThumbnailCard: View {
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                 .overlay(
                     RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .strokeBorder(
-                            isSelected ? Color.Control.accent50 : Color.Control.tertiary,
-                            lineWidth: isSelected ? 1.5 : 1
-                        )
+                        .strokeBorder(Color.Control.tertiary, lineWidth: 1)
                 )
 
             AnytypeText(option.title, style: .caption1Medium)
-                .foregroundStyle(isSelected ? Color.Control.accent100 : Color.Control.secondary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
                 .truncationMode(.tail)
+
+            AnytypeCircleCheckbox(checked: isSelected)
         }
         .frame(width: 88)
+        .contentShape(Rectangle())
     }
 
     @ViewBuilder
     private var thumbnailContent: some View {
         switch option {
-        case .widgets:
-            WidgetsThumbnail(isSelected: isSelected)
         case .object(let type):
             switch type {
             case .chat:
-                ChatThumbnail(isSelected: isSelected)
+                ChatThumbnail()
             case .page:
-                PageThumbnail(isSelected: isSelected)
+                PageThumbnail()
             case .collection:
-                CollectionThumbnail(isSelected: isSelected)
+                CollectionThumbnail()
             }
         }
     }

@@ -80,7 +80,7 @@ private struct HomeWidgetsInternalView: View {
         ScrollView {
             VStack(spacing: 0) {
                 SpaceInfoView(spaceId: model.spaceId)
-                StubWidgetsView(spaceId: model.spaceId, output: model.output)
+                InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
                 topWidgets
                 blockWidgets
                 objectTypeWidgets
@@ -94,8 +94,9 @@ private struct HomeWidgetsInternalView: View {
 
     @ViewBuilder
     private var topWidgets: some View {
-        if let data = model.chatWidgetData {
-            SpaceChatWidgetView(data: data)
+        if context == .overlay, let data = model.homeWidgetData {
+            HomeWidgetView(data: data)
+                .id("\(data.objectId)-\(data.canSetHomepage)")
         } else if model.shouldShowUnreadSection {
             HomeWidgetsGroupView(title: Loc.unread) {
                 model.onTapUnreadHeader()

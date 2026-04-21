@@ -7,6 +7,16 @@ struct DiscussionThreadGroupResult {
 
 struct DiscussionThreadGrouper {
 
+    /// Find the root parent id of `message` within `messages`.
+    /// If `message` has no parent, returns its own id.
+    /// Returns nil if the reply chain is broken (orphan) or cyclic.
+    func findRootParent(of message: ChatMessage, in messages: [FullChatMessage]) -> String? {
+        guard !message.replyToMessageID.isEmpty else { return message.id }
+        let messageById = makeMessageById(messages)
+        var cache: [String: String] = [:]
+        return findRootParentId(messageId: message.replyToMessageID, messageById: messageById, rootCache: &cache)
+    }
+
     /// Walk the replyToMessageID chain to find the root parent message id.
     /// Returns nil if the chain is broken (orphan) or cyclic.
     /// Uses `rootCache` to memoize results — all intermediate nodes in a resolved
@@ -60,10 +70,7 @@ struct DiscussionThreadGrouper {
     func groupMessagesIntoThreads(
         messages: [FullChatMessage]
     ) -> DiscussionThreadGroupResult {
-        let messageById = Dictionary(
-            messages.map { ($0.message.id, $0) },
-            uniquingKeysWith: { _, last in last }
-        )
+        let messageById = makeMessageById(messages)
 
         var roots: [FullChatMessage] = []
         var threadReplies: [String: [FullChatMessage]] = [:]
@@ -89,5 +96,12 @@ struct DiscussionThreadGrouper {
         }
 
         return DiscussionThreadGroupResult(roots: roots, threadReplies: threadReplies)
+    }
+
+    private func makeMessageById(_ messages: [FullChatMessage]) -> [String: FullChatMessage] {
+        Dictionary(
+            messages.map { ($0.message.id, $0) },
+            uniquingKeysWith: { _, last in last }
+        )
     }
 }

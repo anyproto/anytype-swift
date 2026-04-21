@@ -1415,6 +1415,7 @@ public enum Loc {
   public static let newProperty = Loc.tr("Workspace", "NewProperty", fallback: "New Property")
   public static let note = Loc.tr("Workspace", "Note", fallback: "Note")
   public static let notifications = Loc.tr("Workspace", "Notifications", fallback: "Notifications")
+  public static let notNow = Loc.tr("Workspace", "NotNow", fallback: "Not now")
   public static let page = Loc.tr("Workspace", "Page", fallback: "Page")
   public static let pages = Loc.tr("Workspace", "Pages", fallback: "Pages")
   public static let properties = Loc.tr("Workspace", "Properties", fallback: "Properties")
@@ -1766,8 +1767,9 @@ public enum Loc {
     }
   }
   public enum HomepagePicker {
-    public static let description = Loc.tr("Workspace", "HomepagePicker.description", fallback: "Select what you and channel members see when they open the channel. You can always change it in settings.")
-    public static let title = Loc.tr("Workspace", "HomepagePicker.title", fallback: "Create Home")
+    public static let changeHome = Loc.tr("Workspace", "HomepagePicker.changeHome", fallback: "Change Home")
+    public static let description = Loc.tr("Workspace", "HomepagePicker.description", fallback: "Members will land here directly instead of browsing navigation")
+    public static let title = Loc.tr("Workspace", "HomepagePicker.title", fallback: "Add a Channel Home?")
     public enum Thumbnail {
       public static let idea = Loc.tr("Workspace", "HomepagePicker.Thumbnail.idea", fallback: "Idea")
       public static let tasks = Loc.tr("Workspace", "HomepagePicker.Thumbnail.tasks", fallback: "Tasks")
@@ -2368,7 +2370,10 @@ public enum Loc {
       }
     }
     public enum HomePage {
+      public static let channelHome = Loc.tr("Workspace", "SpaceSettings.HomePage.ChannelHome", fallback: "Channel home")
       public static let chooseHome = Loc.tr("Workspace", "SpaceSettings.HomePage.ChooseHome", fallback: "Choose Home")
+      public static let noHome = Loc.tr("Workspace", "SpaceSettings.HomePage.NoHome", fallback: "No home")
+      public static let noHomeSubtitle = Loc.tr("Workspace", "SpaceSettings.HomePage.NoHomeSubtitle", fallback: "Opens to navigation on entry")
       public static let title = Loc.tr("Workspace", "SpaceSettings.HomePage.Title", fallback: "Home")
       public static let widgets = Loc.tr("Workspace", "SpaceSettings.HomePage.Widgets", fallback: "Widgets")
     }

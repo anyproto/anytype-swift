@@ -71,7 +71,9 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
         case .subheading: return 12
         case .quote: return 12
         case .checkbox, .bulleted, .numbered: return 12
-        case .text, .callout, .toggle, .image, .video, .file, .linkObject, .bookmark, .embed, .divider, .unsupported:
+        case .image, .video, .file, .linkObject, .bookmark, .embed:
+            return 12
+        case .text, .callout, .toggle, .divider, .unsupported:
             return 8
         }
     }
@@ -79,8 +81,9 @@ enum DiscussionBlockItem: Equatable, Hashable, Identifiable {
     var bottomSpacing: CGFloat {
         switch self {
         case .quote: return 12
-        case .text, .title, .heading, .subheading, .callout, .checkbox, .bulleted, .numbered, .toggle,
-             .image, .video, .file, .linkObject, .bookmark, .embed, .divider, .unsupported:
+        case .image, .video, .file, .linkObject, .bookmark, .embed:
+            return 12
+        case .text, .title, .heading, .subheading, .callout, .checkbox, .bulleted, .numbered, .toggle, .divider, .unsupported:
             return 0
         }
     }
