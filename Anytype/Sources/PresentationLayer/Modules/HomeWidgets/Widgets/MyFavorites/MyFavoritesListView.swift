@@ -3,32 +3,20 @@ import SwiftUI
 import Services
 
 struct MyFavoritesListView: View {
-    let rows: [MyFavoritesRowData]
-    /// Channel widgets document — threaded through so each row's long-press menu
-    /// can render Pin-to-channel / Unpin-from-channel with up-to-date state.
-    let channelWidgetsObject: any BaseDocumentProtocol
-    /// Per-user personal widgets document — threaded through to each row's
-    /// `onFavoriteTap` so the service toggles against an already-open doc.
-    let personalWidgetsObject: any BaseDocumentProtocol
-    let canManageChannelPins: Bool
-    /// Per-object pinned-to-channel flags. Computed once at the ViewModel layer;
-    /// row reads its flag via `pinnedToChannelByObjectId[row.objectId] ?? false`.
-    let pinnedToChannelByObjectId: [String: Bool]
-    let dropUpdate: (_ from: DropDataElement<MyFavoritesRowData>, _ to: DropDataElement<MyFavoritesRowData>) -> Void
-    let dropFinish: (_ from: DropDataElement<MyFavoritesRowData>, _ to: DropDataElement<MyFavoritesRowData>) -> Void
+    let model: MyFavoritesViewModel
 
     @State private var favoritesDndState = DragState()
 
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(Array(rows.enumerated()), id: \.element.id) { index, row in
+            ForEach(Array(model.rows.enumerated()), id: \.element.id) { index, row in
                 MyFavoritesRowView(
                     row: row,
-                    showDivider: index != rows.count - 1,
-                    channelWidgetsObject: channelWidgetsObject,
-                    personalWidgetsObject: personalWidgetsObject,
-                    canManageChannelPins: canManageChannelPins,
-                    isPinnedToChannel: pinnedToChannelByObjectId[row.objectId] ?? false
+                    showDivider: index != model.rows.count - 1,
+                    channelWidgetsObject: model.channelWidgetsObject,
+                    personalWidgetsObject: model.personalWidgetsObject,
+                    canManageChannelPins: model.canManageChannelPins,
+                    isPinnedToChannel: model.pinnedToChannelByObjectId[row.objectId] ?? false
                 )
                 .setZeroOpacity(favoritesDndState.dragInitiateId == row.id)
                 .anytypeVerticalDrag(itemId: row.id)
@@ -37,10 +25,10 @@ struct MyFavoritesListView: View {
         .background(Color.Background.widget)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
         .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .anytypeVerticalDrop(data: rows, state: $favoritesDndState) { from, to in
-            dropUpdate(from, to)
+        .anytypeVerticalDrop(data: model.rows, state: $favoritesDndState) { from, to in
+            model.dropUpdate(from: from, to: to)
         } dropFinish: { from, to in
-            dropFinish(from, to)
+            model.dropFinish(from: from, to: to)
         }
     }
 }

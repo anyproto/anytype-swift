@@ -20,10 +20,6 @@ final class HomeWidgetsViewModel {
 
     let info: AccountInfo
     let channelWidgetsObject: any BaseDocumentProtocol
-    /// Per-user personal widgets document. Resolved once here so every downstream
-    /// consumer (My Favorites, widget containers) shares the same handle.
-    /// `nil` when the personalFavorites flag is off — nothing is opened.
-    let personalWidgetsObject: (any BaseDocumentProtocol)?
 
     @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
@@ -64,9 +60,6 @@ final class HomeWidgetsViewModel {
     var pinnedSectionIsExpanded: Bool = false
     var objectTypeSectionIsExpanded: Bool = false
     var canCreateObjectType: Bool = false
-    /// Owner-only predicate for the Pin/Unpin-from-channel menu items. Kept as a
-    /// single property so a future Admin role (no plan today) widens it in one spot.
-    var canManageChannelPins: Bool = false
     var homeWidgetData: HomepageWidgetViewData?
     var unreadSectionIsExpanded: Bool = false
     var unreadChats: [UnreadChatWidgetData] = []
@@ -97,7 +90,6 @@ final class HomeWidgetsViewModel {
                 objectId: info.personalWidgetsId,
                 spaceId: info.accountSpaceId
             )
-            self.personalWidgetsObject = personalWidgetsObject
             self.myFavoritesViewModel = MyFavoritesViewModel(
                 accountInfo: info,
                 personalWidgetsObject: personalWidgetsObject,
@@ -107,7 +99,6 @@ final class HomeWidgetsViewModel {
                 }
             )
         } else {
-            self.personalWidgetsObject = nil
             self.myFavoritesViewModel = nil
         }
         self.pinnedSectionIsExpanded = expandedService.isExpanded(id: Constants.pinnedSectionId, defaultValue: true)
@@ -119,12 +110,12 @@ final class HomeWidgetsViewModel {
     func startSubscriptions() async {
         async let widgetObjectSub: () = startWidgetObjectTask()
         async let myFavoritesSub: () = startMyFavoritesTask()
-        async let participantTask: () = startParticipantTask()
+        async let canEditSub: () = startCanEditSubscription()
         async let objectTypesTask: () = startObjectTypesTask()
         async let spaceViewTask: () = startSpaceViewTask()
         async let unreadChatsTask: () = startUnreadChatsTask()
 
-        _ = await (widgetObjectSub, myFavoritesSub, participantTask, objectTypesTask, spaceViewTask, unreadChatsTask)
+        _ = await (widgetObjectSub, myFavoritesSub, canEditSub, objectTypesTask, spaceViewTask, unreadChatsTask)
     }
 
     func onAppear() {
@@ -216,27 +207,10 @@ final class HomeWidgetsViewModel {
         await myFavoritesViewModel.startSubscriptions()
     }
 
-    private func startParticipantTask() async {
-        async let editSub: () = startCanEditSubscription()
-        async let ownerSub: () = startOwnerSubscription()
-        _ = await (editSub, ownerSub)
-    }
-
     private func startCanEditSubscription() async {
         for await canEdit in accountParticipantStorage.canEditSequence(spaceId: info.accountSpaceId) {
             homeState = canEdit ? .readwrite : .readonly
             canCreateObjectType = canEdit
-        }
-    }
-
-    // Drives `canManageChannelPins` off the current participant's role. The
-    // predicate lives on `ParticipantSpaceViewData` so all three widget-screen
-    // call sites share one definition.
-    private func startOwnerSubscription() async {
-        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: info.accountSpaceId).values {
-            let next = participantSpaceView.canManageChannelPins
-            guard canManageChannelPins != next else { continue }
-            canManageChannelPins = next
         }
     }
     

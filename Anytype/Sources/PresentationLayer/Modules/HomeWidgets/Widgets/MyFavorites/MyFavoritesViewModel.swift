@@ -33,6 +33,9 @@ final class MyFavoritesViewModel {
     @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
     @ObservationIgnored
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @ObservationIgnored
     @Injected(\.widgetChatPreviewBuilder)
     private var chatPreviewBuilder: any WidgetChatPreviewBuilderProtocol
 
@@ -56,6 +59,15 @@ final class MyFavoritesViewModel {
     /// Computed reactively from `channelWidgetsObject.syncPublisher` so each row can
     /// render a plain `Bool` without its own subscription (single source of truth).
     var pinnedToChannelByObjectId: [String: Bool] = [:]
+
+    /// Owner-only gate for the row's `.pinToChannel` menu item. Read on demand from
+    /// the participant-space storage snapshot — ownership transfer is rare enough
+    /// that a live subscription isn't warranted. Mirrors `WidgetContainerViewModel`.
+    var canManageChannelPins: Bool {
+        participantSpacesStorage
+            .participantSpaceView(spaceId: accountInfo.accountSpaceId)?
+            .canManageChannelPins ?? false
+    }
 
     init(
         accountInfo: AccountInfo,

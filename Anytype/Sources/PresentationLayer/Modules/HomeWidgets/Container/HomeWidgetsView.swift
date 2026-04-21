@@ -154,7 +154,7 @@ private struct HomeWidgetsInternalView: View {
                         HomeWidgetSubmoduleView(
                             widgetInfo: widgetInfo,
                             channelWidgetsObject: model.channelWidgetsObject,
-                            personalWidgetsObject: model.personalWidgetsObject,
+                            personalWidgetsObject: model.myFavoritesViewModel?.personalWidgetsObject,
                             workspaceInfo: model.info,
                             homeState: $model.homeState,
                             output: model.output
@@ -179,7 +179,7 @@ private struct HomeWidgetsInternalView: View {
                             HomeWidgetSubmoduleView(
                                 widgetInfo: widgetInfo,
                                 channelWidgetsObject: model.channelWidgetsObject,
-                                personalWidgetsObject: model.personalWidgetsObject,
+                                personalWidgetsObject: model.myFavoritesViewModel?.personalWidgetsObject,
                                 workspaceInfo: model.info,
                                 homeState: $model.homeState,
                                 output: model.output
@@ -200,27 +200,12 @@ private struct HomeWidgetsInternalView: View {
     private var myFavoritesWidget: some View {
         if FeatureFlags.personalFavorites,
            let myFavoritesViewModel = model.myFavoritesViewModel,
-           let personalWidgetsObject = model.personalWidgetsObject,
            myFavoritesViewModel.rows.isNotEmpty {
             HomeWidgetsGroupView(title: Loc.myFavorites) {
                 model.onTapMyFavoritesHeader()
             }
             if model.myFavoritesSectionIsExpanded {
-                MyFavoritesListView(
-                    rows: myFavoritesViewModel.rows,
-                    // Each row's long-press menu reads the current pinned state from the
-                    // shared channel widgets document and toggles against it.
-                    channelWidgetsObject: model.channelWidgetsObject,
-                    personalWidgetsObject: personalWidgetsObject,
-                    canManageChannelPins: model.canManageChannelPins,
-                    pinnedToChannelByObjectId: myFavoritesViewModel.pinnedToChannelByObjectId,
-                    dropUpdate: { from, to in
-                        myFavoritesViewModel.dropUpdate(from: from, to: to)
-                    },
-                    dropFinish: { from, to in
-                        myFavoritesViewModel.dropFinish(from: from, to: to)
-                    }
-                )
+                MyFavoritesListView(model: myFavoritesViewModel)
             }
         }
     }
