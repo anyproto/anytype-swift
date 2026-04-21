@@ -40,16 +40,14 @@ struct MyFavoritesRowView: View {
         .if(showDivider) {
             $0.newDivider(leadingPadding: 16, trailingPadding: 16, color: .Widget.divider)
         }
-        .if(FeatureFlags.personalFavorites) {
-            $0.contextMenu {
-                MyFavoritesRowContextMenu(
-                    objectId: row.objectId,
-                    channelWidgetsObject: channelWidgetsObject,
-                    personalWidgetsObject: personalWidgetsObject,
-                    canManageChannelPins: canManageChannelPins,
-                    isPinnedToChannel: isPinnedToChannel
-                )
-            }
+        .contextMenu {
+            MyFavoritesRowContextMenu(
+                objectId: row.objectId,
+                channelWidgetsObject: channelWidgetsObject,
+                personalWidgetsObject: personalWidgetsObject,
+                canManageChannelPins: canManageChannelPins,
+                isPinnedToChannel: isPinnedToChannel
+            )
         }
     }
 
