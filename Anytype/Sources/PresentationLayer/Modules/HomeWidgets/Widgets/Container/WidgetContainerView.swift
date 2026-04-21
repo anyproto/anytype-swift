@@ -115,6 +115,9 @@ struct WidgetContainerView<Content: View>: View {
             let animated = oldValue != .loading
             model.updateExpanded(contentState: newValue, animated: animated)
         }
+        .task {
+            await model.startSubscriptions()
+        }
     }
 
     @ViewBuilder

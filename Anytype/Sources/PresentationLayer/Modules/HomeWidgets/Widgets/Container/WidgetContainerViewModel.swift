@@ -47,14 +47,11 @@ final class WidgetContainerViewModel {
         return baseMenuItems + extras
     }
 
-    private var isFavorited: Bool {
-        guard let personalWidgetsObject, let targetObjectId else { return false }
-        return personalWidgetsObject.containsWidgetFor(objectId: targetObjectId)
-    }
-    private var isPinnedToChannel: Bool {
-        guard let targetObjectId else { return false }
-        return channelWidgetsObject.containsWidgetFor(objectId: targetObjectId)
-    }
+    // Tracked stored state updated from doc syncPublishers so SwiftUI invalidates
+    // `menuItems` (and the context-menu closure reading it) whenever the pinned /
+    // favorited state changes — `@ObservationIgnored` docs don't invalidate on their own.
+    private var isFavorited: Bool = false
+    private var isPinnedToChannel: Bool = false
     private var canManageChannelPins: Bool {
         guard FeatureFlags.personalFavorites, targetObjectId != nil else { return false }
         return participantSpacesStorage
@@ -100,6 +97,30 @@ final class WidgetContainerViewModel {
             self.baseMenuItems = menuItems.filter { $0 != .remove && $0 != .removeSystemWidget }
         } else {
             self.baseMenuItems = menuItems.filter { $0 != .removeSystemWidget }
+        }
+    }
+
+    func startSubscriptions() async {
+        async let personalSub: () = startPersonalSubscription()
+        async let channelSub: () = startChannelSubscription()
+        _ = await (personalSub, channelSub)
+    }
+
+    private func startPersonalSubscription() async {
+        guard let personalWidgetsObject, let targetObjectId else { return }
+        for await _ in personalWidgetsObject.syncPublisher.values {
+            let next = personalWidgetsObject.containsWidgetFor(objectId: targetObjectId)
+            guard isFavorited != next else { continue }
+            isFavorited = next
+        }
+    }
+
+    private func startChannelSubscription() async {
+        guard let targetObjectId else { return }
+        for await _ in channelWidgetsObject.syncPublisher.values {
+            let next = channelWidgetsObject.containsWidgetFor(objectId: targetObjectId)
+            guard isPinnedToChannel != next else { continue }
+            isPinnedToChannel = next
         }
     }
 

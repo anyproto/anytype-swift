@@ -129,9 +129,13 @@ Two distinct position enums appear in this plan:
 
 1. **Two widget documents per channel.** `HomeWidgetsViewModel` today holds a single `widgetObject` (`info.widgetsId`). Add a sibling `personalWidgetsObject` opened with the derived personal widgets id. Both expose the same `BaseDocumentProtocol` surface and the same widget-tree parsing.
 
-2. **Personal widgets id derivation** (client-side, matches desktop `U.Object.getPersonalWidgetsId()`):
+2. **Personal widgets id derivation** (client-side, matches MW `domain.NewPersonalWidgetsId` — replace only the **first** dot so `ParsePersonalWidgetsId` can round-trip spaceIds containing multiple dots):
    ```swift
-   "_personalWidgets_" + spaceId.replacingOccurrences(of: ".", with: "_")
+   var encoded = spaceId
+   if let firstDot = encoded.firstIndex(of: ".") {
+       encoded.replaceSubrange(firstDot...firstDot, with: "_")
+   }
+   return "_personalWidgets_" + encoded
    ```
 
 3. **Thin `PersonalFavoritesService`** wraps `BlockWidgetServiceProtocol` with id derivation + `toggle(objectId:)` helper. Channel pins continue to use `BlockWidgetService` directly (no second service).
@@ -167,7 +171,11 @@ Two distinct position enums appear in this plan:
 // Modules/Services/Sources/Models/AccountInfo+PersonalWidgets.swift (new)
 public extension AccountInfo {
     var personalWidgetsId: String {
-        "_personalWidgets_" + accountSpaceId.replacingOccurrences(of: ".", with: "_")
+        var encoded = accountSpaceId
+        if let firstDot = encoded.firstIndex(of: ".") {
+            encoded.replaceSubrange(firstDot...firstDot, with: "_")
+        }
+        return "_personalWidgets_" + encoded
     }
 }
 ```
