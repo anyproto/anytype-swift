@@ -40,6 +40,8 @@ struct MyFavoritesRowView: View {
         .if(showDivider) {
             $0.newDivider(leadingPadding: 16, trailingPadding: 16, color: .Widget.divider)
         }
+        .background(Color.Background.widget)
+        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 24, style: .continuous))
         .contextMenu {
             MyFavoritesRowContextMenu(
                 objectId: row.objectId,

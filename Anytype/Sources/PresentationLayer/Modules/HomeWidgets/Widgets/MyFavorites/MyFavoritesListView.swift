@@ -18,13 +18,13 @@ struct MyFavoritesListView: View {
                     canManageChannelPins: model.canManageChannelPins,
                     isPinnedToChannel: model.pinnedToChannelObjectIds.contains(row.objectId)
                 )
-                .setZeroOpacity(favoritesDndState.dragInitiateId == row.id)
+                .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 24, style: .continuous))
                 .anytypeVerticalDrag(itemId: row.id)
+                .setZeroOpacity(favoritesDndState.dragInitiateId == row.id)
             }
         }
         .background(Color.Background.widget)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 24, style: .continuous))
         .anytypeVerticalDrop(data: model.rows, state: $favoritesDndState) { from, to in
             model.dropUpdate(from: from, to: to)
         } dropFinish: { from, to in
