@@ -91,7 +91,7 @@ final class HomeWidgetsViewModel {
                 spaceId: info.accountSpaceId
             )
             self.myFavoritesViewModel = MyFavoritesViewModel(
-                accountInfo: info,
+                spaceId: info.accountSpaceId,
                 personalWidgetsObject: personalWidgetsObject,
                 channelWidgetsObject: channelWidgetsObject,
                 onObjectSelected: { [weak output] details in

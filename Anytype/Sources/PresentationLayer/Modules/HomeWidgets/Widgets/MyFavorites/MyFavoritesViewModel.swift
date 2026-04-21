@@ -9,8 +9,6 @@ final class MyFavoritesViewModel {
     // MARK: - DI
 
     @ObservationIgnored
-    let accountInfo: AccountInfo
-    @ObservationIgnored
     let personalWidgetsObject: any BaseDocumentProtocol
     /// Shared channel widgets document — used to compute the per-row
     /// `isPinnedToChannel` flag shown in the long-press menu.
@@ -22,6 +20,9 @@ final class MyFavoritesViewModel {
     /// `ScreenData` would be noise. See IOS-5864 Task 5.
     @ObservationIgnored
     let onObjectSelected: (ObjectDetails) -> Void
+
+    @ObservationIgnored
+    private let spaceId: String
 
     @ObservationIgnored
     @Injected(\.objectActionsService)
@@ -55,27 +56,27 @@ final class MyFavoritesViewModel {
     // MARK: - Published state
 
     var rows: [MyFavoritesRowData] = []
-    /// Per-object `isPinnedToChannel` flags, keyed by `ObjectDetails.id`.
-    /// Computed reactively from `channelWidgetsObject.syncPublisher` so each row can
-    /// render a plain `Bool` without its own subscription (single source of truth).
-    var pinnedToChannelByObjectId: [String: Bool] = [:]
+    /// Object ids currently pinned to the channel widgets document. Computed
+    /// reactively from `channelWidgetsObject.syncPublisher` so each row can
+    /// render a plain `Bool` via `.contains(objectId)` without its own subscription.
+    var pinnedToChannelObjectIds: Set<String> = []
 
     /// Owner-only gate for the row's `.pinToChannel` menu item. Read on demand from
     /// the participant-space storage snapshot — ownership transfer is rare enough
     /// that a live subscription isn't warranted. Mirrors `WidgetContainerViewModel`.
     var canManageChannelPins: Bool {
         participantSpacesStorage
-            .participantSpaceView(spaceId: accountInfo.accountSpaceId)?
+            .participantSpaceView(spaceId: spaceId)?
             .canManageChannelPins ?? false
     }
 
     init(
-        accountInfo: AccountInfo,
+        spaceId: String,
         personalWidgetsObject: any BaseDocumentProtocol,
         channelWidgetsObject: any BaseDocumentProtocol,
         onObjectSelected: @escaping (ObjectDetails) -> Void
     ) {
-        self.accountInfo = accountInfo
+        self.spaceId = spaceId
         self.personalWidgetsObject = personalWidgetsObject
         self.channelWidgetsObject = channelWidgetsObject
         self.onObjectSelected = onObjectSelected
@@ -106,19 +107,18 @@ final class MyFavoritesViewModel {
         }
     }
 
-    /// Rebuilds `pinnedToChannelByObjectId` on every channel widgets document
+    /// Rebuilds `pinnedToChannelObjectIds` on every channel widgets document
     /// emission. Single subscription instead of one per row.
     private func startChannelPinsSubscription() async {
         for await _ in channelWidgetsObject.syncPublisher.values {
-            var next: [String: Bool] = [:]
-            let widgets = channelWidgetsObject.children.filter(\.isWidget)
-            for block in widgets {
+            var next: Set<String> = []
+            for block in channelWidgetsObject.children where block.isWidget {
                 guard let info = channelWidgetsObject.widgetInfo(block: block),
                       case let .object(details) = info.source else { continue }
-                next[details.id] = true
+                next.insert(details.id)
             }
-            guard pinnedToChannelByObjectId != next else { continue }
-            pinnedToChannelByObjectId = next
+            guard pinnedToChannelObjectIds != next else { continue }
+            pinnedToChannelObjectIds = next
         }
     }
 
@@ -130,7 +130,7 @@ final class MyFavoritesViewModel {
     }
 
     private func startSpaceViewSubscription() async {
-        for await spaceView in spaceViewsStorage.spaceViewPublisher(spaceId: accountInfo.accountSpaceId).values {
+        for await spaceView in spaceViewsStorage.spaceViewPublisher(spaceId: spaceId).values {
             self.spaceView = spaceView
             recomputeRows()
         }
@@ -176,7 +176,7 @@ final class MyFavoritesViewModel {
     func dropFinish(from: DropDataElement<MyFavoritesRowData>, to: DropDataElement<MyFavoritesRowData>) {
         guard from.data.id != to.data.id else { return }
         AnytypeAnalytics.instance().logReorderWidget(source: .personalFavorites)
-        let dashboardId = accountInfo.personalWidgetsId
+        let dashboardId = personalWidgetsObject.objectId
         let blockId = from.data.id
         let dropPositionblockId = to.data.id
         let isMovingDown = to.index > from.index

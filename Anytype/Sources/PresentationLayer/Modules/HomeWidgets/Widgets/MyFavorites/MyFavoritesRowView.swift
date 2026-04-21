@@ -14,7 +14,7 @@ struct MyFavoritesRowView: View {
     /// to `onFavoriteTap` so the toggle runs against an already-open doc.
     let personalWidgetsObject: any BaseDocumentProtocol
     let canManageChannelPins: Bool
-    /// Computed once at the ViewModel layer (`pinnedToChannelByObjectId`) so each
+    /// Computed once at the ViewModel layer (`pinnedToChannelObjectIds`) so each
     /// row receives a plain Bool instead of opening its own subscription.
     let isPinnedToChannel: Bool
 

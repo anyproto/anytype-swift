@@ -16,7 +16,7 @@ struct MyFavoritesListView: View {
                     channelWidgetsObject: model.channelWidgetsObject,
                     personalWidgetsObject: model.personalWidgetsObject,
                     canManageChannelPins: model.canManageChannelPins,
-                    isPinnedToChannel: model.pinnedToChannelByObjectId[row.objectId] ?? false
+                    isPinnedToChannel: model.pinnedToChannelObjectIds.contains(row.objectId)
                 )
                 .setZeroOpacity(favoritesDndState.dragInitiateId == row.id)
                 .anytypeVerticalDrag(itemId: row.id)
