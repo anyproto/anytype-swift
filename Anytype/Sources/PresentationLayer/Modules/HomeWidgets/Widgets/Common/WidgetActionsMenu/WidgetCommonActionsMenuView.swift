@@ -9,6 +9,9 @@ private let menuDismissAnimationDelay: TimeInterval = 0.7
 
 enum WidgetMenuItem: Hashable {
     case changeType
+    /// Legacy "Unpin" action for object widgets under `personalFavorites` flag-off.
+    /// Under flag-on, `.channelPin` (bidirectional, owner-gated) replaces this.
+    case remove
     case removeSystemWidget
     case favorite(isFavorited: Bool)
     case channelPin(isPinned: Bool)
@@ -70,6 +73,23 @@ struct WidgetCommonActionsMenuView: View {
                 Text(Loc.Widgets.Actions.changeWidgetType)
                 Image(systemName: "arrow.2.squarepath")
             }
+        case .remove:
+            Button {
+                // Same delay rationale as `.removeSystemWidget`: wait for the context
+                // menu's transition-to-list animation to finish before triggering the
+                // unpin, or the row-removal animation glitches.
+                DispatchQueue.main.asyncAfter(deadline: .now() + menuDismissAnimationDelay) {
+                    model.provider.onDeleteWidgetTap(
+                        widgetObject: channelWidgetsObject,
+                        widgetBlockId: widgetBlockId,
+                        homeState: homeState,
+                        output: output
+                    )
+                }
+            } label: {
+                Text(Loc.unpin)
+                Image(systemName: "pin.slash")
+            }
         case .removeSystemWidget:
             Button(role: .destructive) {
                 // Fix animation glitch.
@@ -111,8 +131,10 @@ struct WidgetCommonActionsMenuView: View {
             }
         case let .channelPin(isPinned):
             // See `WidgetActionsViewCommonMenuProvider.onChannelPinTap` for the toggle
-            // logic. This action replaced the old `.remove` / "Unpin" menu item —
-            // channel pins are now permission-gated and bidirectional (pin or unpin).
+            // logic. Under the `personalFavorites` flag, this replaces the legacy
+            // `.remove` / "Unpin" menu item — channel pins become permission-gated and
+            // bidirectional (pin or unpin). Flag-off keeps `.remove` for parity with
+            // the pre-IOS-5864 behavior.
             Button {
                 guard let targetObjectId else {
                     anytypeAssertionFailure(".channelPin menu item emitted without targetObjectId")

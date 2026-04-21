@@ -218,7 +218,7 @@ final class ObjectSettingsViewModel {
         }
 
         let isPinnedToWidgets = widgetObject?.widgetBlockIdFor(targetObjectId: objectId).isNotNil ?? false
-        let isFavorited = personalWidgetsObject?.isInMyFavorites(objectId: objectId) ?? false
+        let isFavorited = personalWidgetsObject?.containsWidgetFor(objectId: objectId) ?? false
 
         if FeatureFlags.createChannelFlow {
             objectActions = ObjectAction.buildActions(
@@ -371,7 +371,7 @@ final class ObjectSettingsViewModel {
             anytypeAssertionFailure("personalWidgetsObject not found for favorite toggle")
             return
         }
-        let wasFavorited = personalWidgetsObject.isInMyFavorites(objectId: details.id)
+        let wasFavorited = personalWidgetsObject.containsWidgetFor(objectId: details.id)
         try await personalFavoritesService.toggle(objectId: details.id, personalWidgetsObject: personalWidgetsObject)
         toastData = ToastBarData(wasFavorited ? Loc.unfavorited : Loc.favorited)
         dismiss.toggle()

@@ -30,7 +30,7 @@ struct WidgetContainerView<Content: View>: View {
         dragId: String?,
         contentState: WidgetContentState = .hasData,
         defaultExpanded: Bool = true,
-        menuItems: [WidgetMenuItem] = [.changeType, .removeSystemWidget],
+        menuItems: [WidgetMenuItem] = [.changeType, .remove, .removeSystemWidget],
         onCreateObjectTap: (() -> Void)?,
         onHeaderTap: @escaping () -> Void,
         output: (any CommonWidgetModuleOutput)?,

@@ -1,22 +1,15 @@
 import Foundation
 import Services
 
-// Both helpers below are identical wrappers over `widgetBlockIdFor(targetObjectId:)`.
-// They are kept as separately-named methods because they operate on different
-// `BaseDocumentProtocol` instances at the call sites:
-//  - `isInMyFavorites` is called on the personal widgets document
-//    (`accountInfo.personalWidgetsId`), representing the per-user CRDT favorites list.
-//  - `isPinnedToChannel` is called on the channel widgets document
-//    (`info.widgetsId`), representing the shared channel pins list.
-// The distinct names document intent at the call site and prevent accidental
-// cross-wiring of the two mechanisms.
 extension BaseDocumentProtocol {
 
-    func isInMyFavorites(objectId: String) -> Bool {
-        widgetBlockIdFor(targetObjectId: objectId) != nil
-    }
-
-    func isPinnedToChannel(objectId: String) -> Bool {
+    /// Returns true if this document's widget tree contains a widget block referencing
+    /// `objectId`. The semantic meaning is carried by the document the call is made on:
+    ///  - Called on the per-user personal widgets document, it answers "is favorited".
+    ///  - Called on the shared channel widgets document, it answers "is channel-pinned".
+    /// Call-site variable names (`personalWidgetsObject` / `channelWidgetsObject`) make
+    /// the intent explicit without needing separately-named wrappers.
+    func containsWidgetFor(objectId: String) -> Bool {
         widgetBlockIdFor(targetObjectId: objectId) != nil
     }
 }

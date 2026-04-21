@@ -68,13 +68,13 @@ final class WidgetContainerViewModel {
     /// acceptable since the menu is re-evaluated on every long-press.
     private var isFavorited: Bool {
         guard let personalWidgetsObject, let targetObjectId else { return false }
-        return personalWidgetsObject.isInMyFavorites(objectId: targetObjectId)
+        return personalWidgetsObject.containsWidgetFor(objectId: targetObjectId)
     }
     /// Whether `targetObjectId` is currently present in the shared channel widgets
     /// document. Read on demand from `channelWidgetsObject`.
     private var isPinnedToChannel: Bool {
         guard let targetObjectId else { return false }
-        return channelWidgetsObject.isPinnedToChannel(objectId: targetObjectId)
+        return channelWidgetsObject.containsWidgetFor(objectId: targetObjectId)
     }
     /// Gate for rendering `.channelPin`. Read on demand from the participant-space
     /// storage snapshot.
@@ -117,10 +117,17 @@ final class WidgetContainerViewModel {
 
         let numberOfWidgetLayouts = source?.availableWidgetLayout.count ?? 0
         let menuItems = numberOfWidgetLayouts > 1 ? expectedMenuItems : expectedMenuItems.filter { $0 != .changeType }
-        // `.removeSystemWidget` is only for library widgets (Bin, Objects, Tasks, …).
-        // Object widgets get channel-pin toggling via `.channelPin`, appended by the
-        // computed `menuItems` property below from live state + permissions.
-        self.baseMenuItems = (source?.isLibrary ?? false) ? menuItems : menuItems.filter { $0 != .removeSystemWidget }
+        // `.removeSystemWidget` is library-only (destructive delete for Bin / Objects / …).
+        // `.remove` is the legacy "Unpin" action for object widgets (flag-off only). Under
+        // flag-on, `.channelPin` (bidirectional, owner-gated) is appended by the computed
+        // `menuItems` below and replaces `.remove`.
+        if source?.isLibrary ?? false {
+            self.baseMenuItems = menuItems.filter { $0 != .remove }
+        } else if FeatureFlags.personalFavorites {
+            self.baseMenuItems = menuItems.filter { $0 != .remove && $0 != .removeSystemWidget }
+        } else {
+            self.baseMenuItems = menuItems.filter { $0 != .removeSystemWidget }
+        }
     }
 
     func updateExpanded(contentState: WidgetContentState, animated: Bool = true) {

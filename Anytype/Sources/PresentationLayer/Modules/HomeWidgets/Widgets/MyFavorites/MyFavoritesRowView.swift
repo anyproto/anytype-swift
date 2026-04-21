@@ -92,9 +92,11 @@ private struct MyFavoritesRowContextMenu: View {
     let canManageChannelPins: Bool
     let isPinnedToChannel: Bool
 
+    @StateObject private var model = MyFavoritesRowContextMenuViewModel()
+
     var body: some View {
         Button {
-            provider.onFavoriteTap(
+            model.provider.onFavoriteTap(
                 targetObjectId: objectId,
                 personalWidgetsObject: personalWidgetsObject
             )
@@ -105,7 +107,7 @@ private struct MyFavoritesRowContextMenu: View {
 
         if canManageChannelPins {
             Button {
-                provider.onChannelPinTap(
+                model.provider.onChannelPinTap(
                     targetObjectId: objectId,
                     channelWidgetsObject: channelWidgetsObject
                 )
@@ -115,10 +117,10 @@ private struct MyFavoritesRowContextMenu: View {
             }
         }
     }
+}
 
-    // Resolve DI once per menu render; no need to wrap the provider in an
-    // `ObservableObject` (rows are transient; lifecycle churn would hurt).
-    private var provider: any WidgetActionsViewCommonMenuProviderProtocol {
-        Container.shared.widgetActionsViewCommonMenuProvider()
-    }
+private final class MyFavoritesRowContextMenuViewModel: ObservableObject {
+    // Simple way for inject di. Model in this case is not needed.
+    @Injected(\.widgetActionsViewCommonMenuProvider)
+    var provider: any WidgetActionsViewCommonMenuProviderProtocol
 }
