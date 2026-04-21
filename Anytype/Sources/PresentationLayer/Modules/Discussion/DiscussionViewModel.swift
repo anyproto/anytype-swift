@@ -835,7 +835,13 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             chatActionProviderBinding.wrappedValue.register(chatId: newChatId, handler: self)
         }
 
-        // Start deferred subscriptions
+        // Best-effort: register the message subscription with middleware before createMessage
+        // fires, so the first chatAdd event carries our subId instead of being filtered out in
+        // DiscussionMessagesStorage.handle(events:). If this throws (e.g. transient network
+        // error), swallow it — addDiscussion already succeeded and the user's first comment
+        // must still be sendable; startDeferredSubscriptions will retry on its own.
+        try? await chatStorage?.startSubscriptionIfNeeded()
+
         startDeferredSubscriptions()
 
         return newChatId
