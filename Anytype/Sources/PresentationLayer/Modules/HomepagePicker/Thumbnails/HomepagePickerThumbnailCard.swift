@@ -5,9 +5,8 @@ struct HomepagePickerThumbnailCard: View {
     let option: HomepagePickerOption
     let isSelected: Bool
 
-        Image(asset: option.thumbnailAsset)
+    var body: some View {
         VStack(spacing: 7) {
-            Image(asset: option.thumbnailAsset)
             Image(asset: option.thumbnailAsset)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
