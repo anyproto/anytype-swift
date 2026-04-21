@@ -4,7 +4,7 @@ import DesignKit
 struct HomepageCreatePickerView: View {
 
     @State private var model: HomepageCreatePickerViewModel
-    @State private var contentHeight: CGFloat = 516
+    @State private var contentHeight: CGFloat = 455
     @Environment(\.dismiss) private var dismiss
 
     init(spaceId: String, onFinish: @escaping (HomepagePickerResult) async throws -> Void) {
@@ -28,14 +28,15 @@ struct HomepageCreatePickerView: View {
     // MARK: - Sections
     
     private var content: some View {
-          VStack(spacing: 31) {
-              titleSection
-              optionsSection
-              buttons
-          }
-          .padding(.top, 31)
-          .padding(.bottom, 16)
-      }
+        VStack(spacing: 28) {
+            titleSection
+            optionsSection
+            buttons
+        }
+        .padding(.top, 28)
+        .padding(.bottom, 16)
+        .padding(.horizontal, 16)
+    }
 
     private var titleSection: some View {
         VStack(spacing: 9) {
@@ -47,7 +48,6 @@ struct HomepageCreatePickerView: View {
                 .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
-                .padding(.horizontal, 16)
         }
     }
 
@@ -78,7 +78,6 @@ struct HomepageCreatePickerView: View {
                     try await model.onNotNow()
                 }
             }
-            .padding(.horizontal, 16)
         }
     }
 }

@@ -1771,10 +1771,6 @@ public enum Loc {
     public static let defaultChatName = Loc.tr("Workspace", "HomepagePicker.defaultChatName", fallback: "Chat")
     public static let description = Loc.tr("Workspace", "HomepagePicker.description", fallback: "Members will land here directly instead of browsing navigation")
     public static let title = Loc.tr("Workspace", "HomepagePicker.title", fallback: "Add a Channel Home?")
-    public enum Thumbnail {
-      public static let idea = Loc.tr("Workspace", "HomepagePicker.Thumbnail.idea", fallback: "Idea")
-      public static let tasks = Loc.tr("Workspace", "HomepagePicker.Thumbnail.tasks", fallback: "Tasks")
-    }
   }
   public enum Membership {
     public static let emailValidation = Loc.tr("Workspace", "Membership.EmailValidation", fallback: "Enter the code sent to your email")

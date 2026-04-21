@@ -7,36 +7,29 @@ struct HomepagePickerThumbnailCard: View {
 
     var body: some View {
         VStack(spacing: 7) {
-            thumbnailContent
+            Image(asset: option.thumbnailAsset)
                 .frame(height: 176)
-                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .strokeBorder(Color.Control.tertiary, lineWidth: 1)
-                )
 
             AnytypeText(option.title, style: .caption1Medium)
                 .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
                 .truncationMode(.tail)
 
-            AnytypeCircleCheckbox(checked: isSelected)
+            AnytypeCircleCheckbox(checked: isSelected, size: 20)
         }
-        .frame(width: 88)
+        .frame(width: 88, height: 228)
         .contentShape(Rectangle())
     }
+}
 
-    @ViewBuilder
-    private var thumbnailContent: some View {
-        switch option {
+private extension HomepagePickerOption {
+    var thumbnailAsset: ImageAsset {
+        switch self {
         case .object(let type):
             switch type {
-            case .chat:
-                ChatThumbnail()
-            case .page:
-                PageThumbnail()
-            case .collection:
-                CollectionThumbnail()
+            case .chat: return .HomepagePicker.chatThumbnail
+            case .page: return .HomepagePicker.pageThumbnail
+            case .collection: return .HomepagePicker.collectionThumbnail
             }
         }
     }
