@@ -83,10 +83,12 @@ private struct MyFavoritesRowContextMenu: View {
 
     var body: some View {
         Button {
-            model.provider.onFavoriteTap(
-                targetObjectId: objectId,
-                personalWidgetsObject: personalWidgetsObject
-            )
+            DispatchQueue.main.asyncAfter(deadline: .now() + menuDismissAnimationDelay) {
+                model.provider.onFavoriteTap(
+                    targetObjectId: objectId,
+                    personalWidgetsObject: personalWidgetsObject
+                )
+            }
         } label: {
             Text(Loc.unfavorite)
             Image(systemName: "star.fill")
@@ -94,10 +96,12 @@ private struct MyFavoritesRowContextMenu: View {
 
         if canManageChannelPins {
             Button {
-                model.provider.onChannelPinTap(
-                    targetObjectId: objectId,
-                    channelWidgetsObject: channelWidgetsObject
-                )
+                DispatchQueue.main.asyncAfter(deadline: .now() + menuDismissAnimationDelay) {
+                    model.provider.onChannelPinTap(
+                        targetObjectId: objectId,
+                        channelWidgetsObject: channelWidgetsObject
+                    )
+                }
             } label: {
                 Text(isPinnedToChannel ? Loc.unpinFromChannel : Loc.pinToChannel)
                 Image(systemName: isPinnedToChannel ? "pin.slash" : "pin")

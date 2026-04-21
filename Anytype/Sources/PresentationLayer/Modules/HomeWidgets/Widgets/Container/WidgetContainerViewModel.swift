@@ -15,7 +15,8 @@ final class WidgetContainerViewModel {
     // `nil` when the personalFavorites flag is off.
     @ObservationIgnored
     let personalWidgetsObject: (any BaseDocumentProtocol)?
-    let spaceInfo: AccountInfo
+    @ObservationIgnored
+    private let spaceId: String
     // `nil` for library widgets (Pinned / Recent / …).
     let targetObjectId: String?
     weak var output: (any CommonWidgetModuleOutput)?
@@ -57,7 +58,7 @@ final class WidgetContainerViewModel {
     private var canManageChannelPins: Bool {
         guard FeatureFlags.personalFavorites, targetObjectId != nil else { return false }
         return participantSpacesStorage
-            .participantSpaceView(spaceId: spaceInfo.accountSpaceId)?
+            .participantSpaceView(spaceId: spaceId)?
             .canManageChannelPins ?? false
     }
 
@@ -68,7 +69,7 @@ final class WidgetContainerViewModel {
         widgetBlockId: String,
         channelWidgetsObject: some BaseDocumentProtocol,
         personalWidgetsObject: (any BaseDocumentProtocol)?,
-        spaceInfo: AccountInfo,
+        spaceId: String,
         expectedMenuItems: [WidgetMenuItem],
         defaultExpanded: Bool = true,
         output: (any CommonWidgetModuleOutput)?
@@ -76,7 +77,7 @@ final class WidgetContainerViewModel {
         self.widgetBlockId = widgetBlockId
         self.channelWidgetsObject = channelWidgetsObject
         self.personalWidgetsObject = personalWidgetsObject
-        self.spaceInfo = spaceInfo
+        self.spaceId = spaceId
         self.output = output
 
         expandedService = Container.shared.expandedService()

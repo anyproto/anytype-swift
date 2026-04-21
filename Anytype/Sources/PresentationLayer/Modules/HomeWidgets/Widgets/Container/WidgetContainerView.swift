@@ -1,7 +1,6 @@
 import Foundation
 import SwiftUI
 import AnytypeCore
-import Services
 
 struct WidgetContainerView<Content: View>: View {
 
@@ -22,7 +21,7 @@ struct WidgetContainerView<Content: View>: View {
         widgetBlockId: String,
         channelWidgetsObject: some BaseDocumentProtocol,
         personalWidgetsObject: (any BaseDocumentProtocol)?,
-        spaceInfo: AccountInfo,
+        spaceId: String,
         homeState: Binding<HomeWidgetsState>,
         name: String,
         icon: Icon? = nil,
@@ -50,7 +49,7 @@ struct WidgetContainerView<Content: View>: View {
                 widgetBlockId: widgetBlockId,
                 channelWidgetsObject: channelWidgetsObject,
                 personalWidgetsObject: personalWidgetsObject,
-                spaceInfo: spaceInfo,
+                spaceId: spaceId,
                 expectedMenuItems: menuItems,
                 defaultExpanded: defaultExpanded,
                 output: output

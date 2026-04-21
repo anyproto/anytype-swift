@@ -3,10 +3,6 @@ import SwiftUI
 import AnytypeCore
 import Services
 
-// Wait for the context menu's transition-to-list animation before running actions
-// that mutate the list, otherwise the removal animation glitches.
-private let menuDismissAnimationDelay: TimeInterval = 0.7
-
 enum WidgetMenuItem: Hashable {
     case changeType
     case remove

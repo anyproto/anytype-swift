@@ -7,9 +7,6 @@ public protocol BlockWidgetServiceProtocol: Sendable {
     func removeWidgetBlock(contextId: String, widgetBlockId: String) async throws
     func setLayout(contextId: String, widgetBlockId: String, layout: BlockWidget.Layout) async throws
     func setViewId(contextId: String, widgetBlockId: String, viewId: String) async throws
-}
-
-public extension BlockWidgetServiceProtocol {
     /// Toggle a widget-block entry inside `contextId` for the given `targetObjectId`.
     /// If an existing widget block references the target, it is removed; otherwise a
     /// new widget block is inserted via `.above(firstChildId)` with `.end` fallback.
@@ -23,26 +20,13 @@ public extension BlockWidgetServiceProtocol {
         firstChildBlockId: String?,
         layout: BlockWidget.Layout,
         limit: Int
-    ) async throws {
-        if let existingWidgetBlockId {
-            try await removeWidgetBlock(contextId: contextId, widgetBlockId: existingWidgetBlockId)
-        } else {
-            let position: WidgetPosition = firstChildBlockId.map { .above(widgetId: $0) } ?? .end
-            try await createWidgetBlock(
-                contextId: contextId,
-                sourceId: targetObjectId,
-                layout: layout,
-                limit: limit,
-                position: position
-            )
-        }
-    }
+    ) async throws
 }
 
 final class BlockWidgetService: BlockWidgetServiceProtocol {
-        
+
     // MARK: - BlockWidgetServiceProtocol
-    
+
     public func createWidgetBlock(contextId: String, sourceId: String, layout: BlockWidget.Layout, limit: Int, position: WidgetPosition) async throws {
         
         let info = BlockInformation.empty(content: .link(.empty(targetBlockID: sourceId)))
@@ -81,5 +65,27 @@ final class BlockWidgetService: BlockWidgetServiceProtocol {
             $0.blockID = widgetBlockId
             $0.viewID = viewId
         }).invoke()
+    }
+
+    public func toggleWidgetBlock(
+        contextId: String,
+        targetObjectId: String,
+        existingWidgetBlockId: String?,
+        firstChildBlockId: String?,
+        layout: BlockWidget.Layout,
+        limit: Int
+    ) async throws {
+        if let existingWidgetBlockId {
+            try await removeWidgetBlock(contextId: contextId, widgetBlockId: existingWidgetBlockId)
+        } else {
+            let position: WidgetPosition = firstChildBlockId.map { .above(widgetId: $0) } ?? .end
+            try await createWidgetBlock(
+                contextId: contextId,
+                sourceId: targetObjectId,
+                layout: layout,
+                limit: limit,
+                position: position
+            )
+        }
     }
 }

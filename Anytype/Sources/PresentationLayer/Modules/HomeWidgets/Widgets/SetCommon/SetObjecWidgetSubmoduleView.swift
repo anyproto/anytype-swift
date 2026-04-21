@@ -26,7 +26,7 @@ private struct SetObjectWidgetSubmoduleInternalView: View {
             widgetBlockId: data.widgetBlockId,
             channelWidgetsObject: data.channelWidgetsObject,
             personalWidgetsObject: data.personalWidgetsObject,
-            spaceInfo: data.spaceInfo,
+            spaceId: data.spaceInfo.accountSpaceId,
             homeState: data.homeState,
             name: model.name,
             icon: model.icon,
