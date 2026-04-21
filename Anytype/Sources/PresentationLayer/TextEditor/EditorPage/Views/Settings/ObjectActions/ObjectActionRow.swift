@@ -85,11 +85,8 @@ extension ObjectAction {
         case let .archive(isArchived):
             return isArchived ? .X32.restore : .X32.delete
         case .pin, .favorite:
-            // Neutral fallback — `.pin` and `.favorite` are rendered via `menuIcon`
-            // (SF Symbols) in `ObjectSettingsMenuView`, which is the only runtime
-            // surface. The rail asset only appears in the SwiftUI preview below.
-            // Dedicated X32.pin / X32.pin.slash / X32.star assets are a
-            // design-system follow-up (plan Addendum A).
+            // TODO: swap for X32.pin / X32.star once design ships them. Runtime uses
+            // `menuIcon` (SF Symbols); this rail asset only appears in the preview.
             return .X32.Favorite.favorite
         case let .locked(isLocked):
             return isLocked ? .X32.Lock.unlock : .X32.Lock.lock

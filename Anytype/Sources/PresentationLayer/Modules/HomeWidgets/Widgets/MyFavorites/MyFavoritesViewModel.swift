@@ -10,14 +10,8 @@ final class MyFavoritesViewModel {
 
     @ObservationIgnored
     let personalWidgetsObject: any BaseDocumentProtocol
-    /// Shared channel widgets document — used to compute the per-row
-    /// `isPinnedToChannel` flag shown in the long-press menu.
     @ObservationIgnored
     let channelWidgetsObject: any BaseDocumentProtocol
-    /// Row-tap routing. Plain closure (not a module-output protocol) because
-    /// `HomeWidgetsView` already has a `CommonWidgetModuleOutput` it can forward
-    /// to — adding another protocol indirection just to hand back the same
-    /// `ScreenData` would be noise. See IOS-5864 Task 5.
     @ObservationIgnored
     let onObjectSelected: (ObjectDetails) -> Void
 
@@ -42,12 +36,8 @@ final class MyFavoritesViewModel {
 
     // MARK: - Source state
 
-    /// Raw per-favorite (block id + details) tuples sourced from the personal
-    /// widgets document. Kept separate from the published `rows` so we can
-    /// recompute the row array whenever chat previews / space view update
-    /// without re-reading the document tree.
     @ObservationIgnored
-    private var sourceBlocks: [(blockId: String, details: ObjectDetails)] = []
+    private var sourceBlocks: [SourceBlock] = []
     @ObservationIgnored
     private var chatPreviews: [ChatMessagePreview] = []
     @ObservationIgnored
@@ -56,14 +46,8 @@ final class MyFavoritesViewModel {
     // MARK: - Published state
 
     var rows: [MyFavoritesRowData] = []
-    /// Object ids currently pinned to the channel widgets document. Computed
-    /// reactively from `channelWidgetsObject.syncPublisher` so each row can
-    /// render a plain `Bool` via `.contains(objectId)` without its own subscription.
     var pinnedToChannelObjectIds: Set<String> = []
 
-    /// Owner-only gate for the row's `.pinToChannel` menu item. Read on demand from
-    /// the participant-space storage snapshot — ownership transfer is rare enough
-    /// that a live subscription isn't warranted. Mirrors `WidgetContainerViewModel`.
     var canManageChannelPins: Bool {
         participantSpacesStorage
             .participantSpaceView(spaceId: spaceId)?
@@ -95,20 +79,20 @@ final class MyFavoritesViewModel {
     private func startPersonalWidgetsSubscription() async {
         for await _ in personalWidgetsObject.syncPublisher.values {
             let widgets = personalWidgetsObject.children.filter(\.isWidget)
-            sourceBlocks = widgets.compactMap { block in
+            let next: [SourceBlock] = widgets.compactMap { block in
                 guard let info = personalWidgetsObject.widgetInfo(block: block),
                       case let .object(details) = info.source,
                       details.isNotDeletedAndSupportedForOpening else {
                     return nil
                 }
-                return (blockId: block.id, details: details)
+                return SourceBlock(blockId: block.id, details: details)
             }
+            guard sourceBlocks != next else { continue }
+            sourceBlocks = next
             recomputeRows()
         }
     }
 
-    /// Rebuilds `pinnedToChannelObjectIds` on every channel widgets document
-    /// emission. Single subscription instead of one per row.
     private func startChannelPinsSubscription() async {
         for await _ in channelWidgetsObject.syncPublisher.values {
             var next: Set<String> = []
@@ -138,19 +122,15 @@ final class MyFavoritesViewModel {
 
     // MARK: - Row recomputation
 
-    /// Single projection point from raw sources to published `rows`. Called from
-    /// every subscription so a chat-preview-only change (e.g. unread counter tick)
-    /// still propagates without touching the personal widgets document.
     private func recomputeRows() {
         let onObjectSelected = self.onObjectSelected
         let spaceView = self.spaceView
+        let previewsByChatId = Dictionary(chatPreviews.map { ($0.chatId, $0) }, uniquingKeysWith: { first, _ in first })
         let newRows: [MyFavoritesRowData] = sourceBlocks.map { block in
-            let chatPreview = chatPreviewBuilder.build(
-                chatPreviews: chatPreviews,
-                objectId: block.details.id,
-                spaceView: spaceView
-            )
             let details = block.details
+            let chatPreview = previewsByChatId[details.id].flatMap {
+                chatPreviewBuilder.build(chatPreview: $0, spaceView: spaceView)
+            }
             return MyFavoritesRowData(
                 id: block.blockId,
                 objectId: details.id,
@@ -168,8 +148,6 @@ final class MyFavoritesViewModel {
 
     func dropUpdate(from: DropDataElement<MyFavoritesRowData>, to: DropDataElement<MyFavoritesRowData>) {
         guard from.data.id != to.data.id else { return }
-        // Optimistic local reorder so the gesture feels immediate. The authoritative
-        // tree arrives via `syncPublisher` once the move RPC completes.
         rows.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
     }
 
@@ -189,4 +167,9 @@ final class MyFavoritesViewModel {
             )
         }
     }
+}
+
+private struct SourceBlock: Equatable {
+    let blockId: String
+    let details: ObjectDetails
 }

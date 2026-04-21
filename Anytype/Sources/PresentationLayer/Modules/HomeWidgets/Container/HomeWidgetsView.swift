@@ -119,21 +119,12 @@ private struct HomeWidgetsInternalView: View {
         if context == .overlay, let data = model.homeWidgetData {
             HomeWidgetView(data: data)
                 .id("\(data.objectId)-\(data.canSetHomepage)")
-                // 8pt gap to the channel-pins section that follows. Lives on
-                // the home widget itself so the spacing only applies when home
-                // is visible — no extra view needed otherwise.
                 .padding(.bottom, 8)
         }
     }
 
     @ViewBuilder
     private var unreadWidget: some View {
-        // No `context == .overlay` gate — unread is global to the space and
-        // should be visible in both navigation and overlay contexts. The legacy
-        // `topWidgets` (flag-off branch) only suppressed unread in overlay as a
-        // side effect of sharing the slot with the home widget via `else if`;
-        // that constraint doesn't carry over now that home and unread are
-        // dedicated sections.
         if model.shouldShowUnreadSection {
             HomeWidgetsGroupView(title: Loc.unread) {
                 model.onTapUnreadHeader()

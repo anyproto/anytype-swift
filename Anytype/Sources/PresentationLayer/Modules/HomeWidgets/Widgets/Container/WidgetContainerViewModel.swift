@@ -11,22 +11,12 @@ final class WidgetContainerViewModel {
     // MARK: - DI
 
     let widgetBlockId: String
-    /// Shared channel widgets document (`info.widgetsId`). The widget block this
-    /// container wraps lives in here.
     let channelWidgetsObject: any BaseDocumentProtocol
-    /// Per-user personal widgets document (`info.personalWidgetsId`). Passed in
-    /// from `HomeWidgetsViewModel` via `WidgetSubmoduleData` so there is a single
-    /// owner. `nil` when the personalFavorites flag is off.
+    // `nil` when the personalFavorites flag is off.
     @ObservationIgnored
     let personalWidgetsObject: (any BaseDocumentProtocol)?
-    /// Per-space account info — needed by the new `.favorite` menu items to
-    /// derive `personalWidgetsId`. All current call sites forward
-    /// `WidgetSubmoduleData.spaceInfo` here.
     let spaceInfo: AccountInfo
-    /// Target object id referenced by this widget block. Populated for `.object`
-    /// sources (channel pins / personal favorites) and `nil` for library widgets
-    /// (Pinned / Recent / etc.). Needed by the new `.favorite` / `.channelPin`
-    /// menu items in Task 10 so the provider can toggle state for the right object.
+    // `nil` for library widgets (Pinned / Recent / …).
     let targetObjectId: String?
     weak var output: (any CommonWidgetModuleOutput)?
 
@@ -43,15 +33,8 @@ final class WidgetContainerViewModel {
     }
     var homeState: HomeWidgetsState = .readonly
     var toastData: ToastBarData?
-    /// Source-filtered items fixed at init — `.changeType` / `.removeSystemWidget`
-    /// inclusion depends only on widget source. Runtime items (`.favorite`,
-    /// `.channelPin`) are appended by the computed `menuItems` below.
     @ObservationIgnored
     private let baseMenuItems: [WidgetMenuItem]
-    /// Final menu items for the long-press context menu. Evaluated lazily each time
-    /// SwiftUI builds the `.contextMenu` closure (i.e. on long-press), so the
-    /// per-item state is read synchronously from live documents without needing
-    /// persistent subscriptions.
     var menuItems: [WidgetMenuItem] {
         guard FeatureFlags.personalFavorites, targetObjectId != nil else {
             return baseMenuItems
@@ -63,21 +46,14 @@ final class WidgetContainerViewModel {
         return baseMenuItems + extras
     }
 
-    /// Whether `targetObjectId` currently lives in the per-user personal widgets
-    /// document. Read on demand from the already-open doc; stale-while-menu-open is
-    /// acceptable since the menu is re-evaluated on every long-press.
     private var isFavorited: Bool {
         guard let personalWidgetsObject, let targetObjectId else { return false }
         return personalWidgetsObject.containsWidgetFor(objectId: targetObjectId)
     }
-    /// Whether `targetObjectId` is currently present in the shared channel widgets
-    /// document. Read on demand from `channelWidgetsObject`.
     private var isPinnedToChannel: Bool {
         guard let targetObjectId else { return false }
         return channelWidgetsObject.containsWidgetFor(objectId: targetObjectId)
     }
-    /// Gate for rendering `.channelPin`. Read on demand from the participant-space
-    /// storage snapshot.
     private var canManageChannelPins: Bool {
         guard FeatureFlags.personalFavorites, targetObjectId != nil else { return false }
         return participantSpacesStorage
@@ -117,10 +93,6 @@ final class WidgetContainerViewModel {
 
         let numberOfWidgetLayouts = source?.availableWidgetLayout.count ?? 0
         let menuItems = numberOfWidgetLayouts > 1 ? expectedMenuItems : expectedMenuItems.filter { $0 != .changeType }
-        // `.removeSystemWidget` is library-only (destructive delete for Bin / Objects / …).
-        // `.remove` is the legacy "Unpin" action for object widgets (flag-off only). Under
-        // flag-on, `.channelPin` (bidirectional, owner-gated) is appended by the computed
-        // `menuItems` below and replaces `.remove`.
         if source?.isLibrary ?? false {
             self.baseMenuItems = menuItems.filter { $0 != .remove }
         } else if FeatureFlags.personalFavorites {

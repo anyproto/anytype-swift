@@ -16,7 +16,6 @@ enum ObjectAction: Hashable, Identifiable {
     case inviteMembers
     case editInfo
 
-    // When adding to case
     @available(*, deprecated, message: "Use spaceType overload instead")
     static func buildActions(
         details: ObjectDetails,
@@ -42,7 +41,6 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.pin(isPinned: isPinnedToWidgets)
             }
 
-            // `canCreateWidget` already excludes templates, so no extra check needed.
             if canCreateWidget && FeatureFlags.personalFavorites {
                 ObjectAction.favorite(isFavorited: isFavorited)
             }
@@ -115,7 +113,6 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.pin(isPinned: isPinnedToWidgets)
             }
 
-            // `canCreateWidget` already excludes templates, so no extra check needed.
             if canCreateWidget && FeatureFlags.personalFavorites {
                 ObjectAction.favorite(isFavorited: isFavorited)
             }
