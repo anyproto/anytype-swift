@@ -125,7 +125,10 @@ final class MyFavoritesViewModel {
     private func recomputeRows() {
         let onObjectSelected = self.onObjectSelected
         let spaceView = self.spaceView
-        let previewsByChatId = Dictionary(chatPreviews.map { ($0.chatId, $0) }, uniquingKeysWith: { first, _ in first })
+        let spaceId = self.spaceId
+        let previewsByChatId = Dictionary(
+            uniqueKeysWithValues: chatPreviews.lazy.filter { $0.spaceId == spaceId }.map { ($0.chatId, $0) }
+        )
         let newRows: [MyFavoritesRowData] = sourceBlocks.map { block in
             let details = block.details
             let chatPreview = previewsByChatId[details.id].flatMap {
