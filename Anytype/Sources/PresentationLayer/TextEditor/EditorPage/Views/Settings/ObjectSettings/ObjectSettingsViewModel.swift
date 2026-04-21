@@ -124,7 +124,7 @@ final class ObjectSettingsViewModel {
     // `isOwner`, but modelled as its own predicate so a future Admin role widens in
     // one spot. Used by `.pin` gating in `buildActions`. Kept separate from
     // `isSpaceOwner` so the two concepts do not collapse.
-    private var canManageChannelPinsValue: Bool = false
+    private var canManageChannelPins: Bool = false
     // Real ownership check — drives `.inviteMembers` gating. Reads
     // `participantSpaceView.isOwner` directly so it stays decoupled from channel-pin
     // management semantics above.
@@ -152,8 +152,8 @@ final class ObjectSettingsViewModel {
 
     func startDocumentTask() async {
         async let documentSub: () = startDocumentSubscription()
-        async let widgetSub: () = startWidgetObjectSubscription()
-        async let personalWidgetSub: () = startPersonalWidgetsObjectSubscription()
+        async let widgetSub: () = startWidgetDocSubscription(widgetObject)
+        async let personalWidgetSub: () = startWidgetDocSubscription(personalWidgetsObject)
         async let participantSub: () = startParticipantSpaceViewSubscription()
         async let spaceViewSub: () = startSpaceViewSubscription()
         _ = await (documentSub, widgetSub, personalWidgetSub, participantSub, spaceViewSub)
@@ -166,23 +166,18 @@ final class ObjectSettingsViewModel {
         }
     }
 
-    private func startWidgetObjectSubscription() async {
-        guard let widgetObject else { return }
-        for await _ in widgetObject.syncPublisher.values {
-            updateActions()
-        }
-    }
-
-    private func startPersonalWidgetsObjectSubscription() async {
-        guard let personalWidgetsObject else { return }
-        for await _ in personalWidgetsObject.syncPublisher.values {
+    private func startWidgetDocSubscription(_ doc: (any BaseDocumentProtocol)?) async {
+        guard let doc else { return }
+        for await _ in doc.syncPublisher.values {
             updateActions()
         }
     }
 
     private func startParticipantSpaceViewSubscription() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
-            canManageChannelPinsValue = participantSpaceView.canManageChannelPins
+            canManageChannelPins = FeatureFlags.personalFavorites
+                ? participantSpaceView.canManageChannelPins
+                : true
             isSpaceOwner = participantSpaceView.isOwner
             updateActions()
         }
@@ -250,20 +245,6 @@ final class ObjectSettingsViewModel {
         }
     }
 
-    // Channel pins are Owner-only on iOS today. The middleware has no Admin role
-    // (verified 2026-04-17 in plan Context). When/if MW adds Admin, widen the
-    // stored `canManageChannelPinsValue` predicate via
-    // `ParticipantSpaceViewData.canManageChannelPins` — all call sites pass
-    // through this single computed.
-    //
-    // When the feature flag is off, fall back to the legacy behaviour where
-    // every canCreateWidget-eligible object can be pinned by anyone who passes
-    // permission checks. The split (Owner-only channel pin + everyone Favorite)
-    // only activates when the flag is on.
-    private var canManageChannelPins: Bool {
-        FeatureFlags.personalFavorites ? canManageChannelPinsValue : true
-    }
-    
     func onTapIconPicker() {
         output?.showIconPicker(document: document)
     }
@@ -341,7 +322,7 @@ final class ObjectSettingsViewModel {
         }
     }
 
-    func changePinState(_ pinned: Bool) async throws {
+    func changePinState() async throws {
         // TODO: IOS-5864 No dedicated pin/unpin analytics event exists today.
         // Add `logPinObject` / `logUnpinObject` (or a unified `logChangePinState(pinned:)`)
         // once product confirms the event shape. Reorder already has `logReorderWidget`.
@@ -364,6 +345,8 @@ final class ObjectSettingsViewModel {
             return
         }
 
+        let wasPinned = widgetObject.widgetBlockIdFor(targetObjectId: details.id).isNotNil
+
         try await channelPinsService.toggle(
             objectId: details.id,
             channelWidgetsObject: widgetObject,
@@ -371,7 +354,7 @@ final class ObjectSettingsViewModel {
             limit: layout.limits.first ?? 0
         )
 
-        toastData = ToastBarData(pinned ? Loc.unpinned : Loc.pinned)
+        toastData = ToastBarData(wasPinned ? Loc.unpinned : Loc.pinned)
         dismiss.toggle()
     }
 
