@@ -5,7 +5,7 @@ struct HomepagePickerThumbnailCard: View {
     let option: HomepagePickerOption
     let isSelected: Bool
 
-    var body: some View {
+        Image(asset: option.thumbnailAsset)
         VStack(spacing: 7) {
             Image(asset: option.thumbnailAsset)
             Image(asset: option.thumbnailAsset)
