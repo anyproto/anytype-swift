@@ -86,9 +86,7 @@ final class LinkWidgetViewModel {
             return
         }
         let spaceView = spaceViewsStorage.spaceView(spaceId: linkedObjectDetails.spaceId)
-        badgeModel = chatPreviews.first(where: {
-            $0.spaceId == linkedObjectDetails.spaceId && $0.chatId == linkedObjectDetails.id
-        }).flatMap {
+        badgeModel = chatPreviews.first(where: { $0.chatId == linkedObjectDetails.id }).flatMap {
             chatPreviewBuilder.build(chatPreview: $0, spaceView: spaceView)
         }
     }
