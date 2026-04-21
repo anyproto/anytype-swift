@@ -1768,12 +1768,9 @@ public enum Loc {
   }
   public enum HomepagePicker {
     public static let changeHome = Loc.tr("Workspace", "HomepagePicker.changeHome", fallback: "Change Home")
+    public static let defaultChatName = Loc.tr("Workspace", "HomepagePicker.defaultChatName", fallback: "Chat")
     public static let description = Loc.tr("Workspace", "HomepagePicker.description", fallback: "Members will land here directly instead of browsing navigation")
     public static let title = Loc.tr("Workspace", "HomepagePicker.title", fallback: "Add a Channel Home?")
-    public enum Thumbnail {
-      public static let idea = Loc.tr("Workspace", "HomepagePicker.Thumbnail.idea", fallback: "Idea")
-      public static let tasks = Loc.tr("Workspace", "HomepagePicker.Thumbnail.tasks", fallback: "Tasks")
-    }
   }
   public enum Membership {
     public static let emailValidation = Loc.tr("Workspace", "Membership.EmailValidation", fallback: "Enter the code sent to your email")
@@ -2374,6 +2371,7 @@ public enum Loc {
       public static let chooseHome = Loc.tr("Workspace", "SpaceSettings.HomePage.ChooseHome", fallback: "Choose Home")
       public static let noHome = Loc.tr("Workspace", "SpaceSettings.HomePage.NoHome", fallback: "No home")
       public static let noHomeSubtitle = Loc.tr("Workspace", "SpaceSettings.HomePage.NoHomeSubtitle", fallback: "Opens to navigation on entry")
+      public static let objects = Loc.tr("Workspace", "SpaceSettings.HomePage.Objects", fallback: "Objects")
       public static let title = Loc.tr("Workspace", "SpaceSettings.HomePage.Title", fallback: "Home")
       public static let widgets = Loc.tr("Workspace", "SpaceSettings.HomePage.Widgets", fallback: "Widgets")
     }
