@@ -96,7 +96,7 @@ struct HomepageSettingsPickerView: View {
                     .frame(width: 48, height: 48)
 
                 VStack(alignment: .leading, spacing: 2) {
-                    AnytypeText(details.name.withPlaceholder, style: .uxBodyRegular)
+                    AnytypeText(details.homePickerTitle, style: .uxBodyRegular)
                         .foregroundStyle(Color.Text.primary)
                         .lineLimit(1)
 
@@ -114,5 +114,14 @@ struct HomepageSettingsPickerView: View {
             }
             .padding(.vertical, 14)
         }
+    }
+}
+
+private extension ObjectDetails {
+    var homePickerTitle: String {
+        if resolvedLayoutValue == .objectType, !pluralName.isEmpty {
+            return pluralName
+        }
+        return name.withPlaceholder
     }
 }
