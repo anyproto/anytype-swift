@@ -44,9 +44,7 @@ extension ParticipantSpaceViewData {
         participant?.isOwner ?? false
     }
 
-    /// Single source of truth for the IOS-5864 Pin-to-channel / Unpin-from-channel
-    /// gate. Owner-only today — middleware has no Admin role. When/if MW adds
-    /// Admin, widen this predicate in one spot.
+    // Owner-only today. Separate from `isOwner` so a future Admin role widens here.
     var canManageChannelPins: Bool {
         isOwner
     }

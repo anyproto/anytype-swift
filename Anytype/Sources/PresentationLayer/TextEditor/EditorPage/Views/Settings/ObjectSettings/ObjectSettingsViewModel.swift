@@ -80,17 +80,9 @@ final class ObjectSettingsViewModel {
         return openDocumentsProvider.document(objectId: info.widgetsId, spaceId: spaceId)
     }()
 
-    // Per-user personal widgets document (IOS-5864). Opened lazily so flag-off
-    // behaviour stays byte-identical. `isFavorited` is read from this document's
-    // widget tree via the `BaseDocumentProtocol+Favorites` helper.
-    //
-    // Uses the per-space `AccountInfo` from `workspaceStorage` (same pattern as
-    // `widgetObject` above) rather than the global `accountManager.account.info`:
-    // (1) personal widgets are per-space, so the encoded id must reflect the
-    // current space — using the global signup-space id would derive the wrong
-    // virtual document in shared workspaces; (2) `accountManager.account.info`
-    // can race app launch with `AccountData.empty`, which would silently ship
-    // `_personalWidgets_` to MW.
+    // Uses per-space `AccountInfo` from `workspaceStorage` (not the global
+    // `accountManager.account.info`) because personal widgets are per-space and
+    // the global info can race app launch with `AccountData.empty`.
     @ObservationIgnored
     private lazy var personalWidgetsObject: (any BaseDocumentProtocol)? = {
         guard FeatureFlags.personalFavorites else { return nil }
@@ -120,14 +112,7 @@ final class ObjectSettingsViewModel {
     // MARK: - Actions State
 
     var objectActions: [ObjectAction] = []
-    // Mirrors `ParticipantSpaceViewData.canManageChannelPins` — today synonymous with
-    // `isOwner`, but modelled as its own predicate so a future Admin role widens in
-    // one spot. Used by `.pin` gating in `buildActions`. Kept separate from
-    // `isSpaceOwner` so the two concepts do not collapse.
     private var canManageChannelPins: Bool = false
-    // Real ownership check — drives `.inviteMembers` gating. Reads
-    // `participantSpaceView.isOwner` directly so it stays decoupled from channel-pin
-    // management semantics above.
     private var isSpaceOwner: Bool = false
     private var chatNotificationMode: SpacePushNotificationsMode?
     var toastData: ToastBarData?

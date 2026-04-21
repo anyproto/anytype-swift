@@ -31,12 +31,19 @@ final class WidgetRowModelBuilder: WidgetRowModelBuilderProtocol, Sendable {
         spaceView: SpaceView?,
         chatPreviews: [ChatMessagePreview]
     ) -> [ListWidgetRowModel] {
-        configs.map { config in
-            let chatPreview = chatPreviewBuilder.build(
-                chatPreviews: chatPreviews,
-                objectId: config.id,
-                spaceView: spaceView
+        let previewsByChatId: [String: ChatMessagePreview]
+        if let spaceId = spaceView?.targetSpaceId {
+            previewsByChatId = Dictionary(
+                chatPreviews.lazy.filter { $0.spaceId == spaceId }.map { ($0.chatId, $0) },
+                uniquingKeysWith: { first, _ in first }
             )
+        } else {
+            previewsByChatId = [:]
+        }
+        return configs.map { config in
+            let chatPreview = previewsByChatId[config.id].flatMap {
+                chatPreviewBuilder.build(chatPreview: $0, spaceView: spaceView)
+            }
             return ListWidgetRowModel(details: config, chatPreview: chatPreview)
         }
     }
