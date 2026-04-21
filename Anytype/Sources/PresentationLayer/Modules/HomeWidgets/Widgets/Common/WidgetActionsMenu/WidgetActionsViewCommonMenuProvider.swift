@@ -81,9 +81,8 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
         // TODO: IOS-5864 No dedicated favorite/unfavorite analytics event exists today.
         // Mirror with `ObjectSettingsViewModel.changeFavoriteState` when product confirms
         // the event shape.
-        let service = personalFavoritesService
         Task {
-            try? await service.toggle(objectId: targetObjectId, personalWidgetsObject: personalWidgetsObject)
+            try? await personalFavoritesService.toggle(objectId: targetObjectId, personalWidgetsObject: personalWidgetsObject)
         }
         UISelectionFeedbackGenerator().selectionChanged()
     }
@@ -95,9 +94,8 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
         // TODO: IOS-5864 No dedicated pin/unpin analytics event exists today.
         // Mirror with `ObjectSettingsViewModel.changePinState` when product confirms
         // the event shape.
-        let service = channelPinsService
         Task {
-            try? await service.toggle(
+            try? await channelPinsService.toggle(
                 objectId: targetObjectId,
                 channelWidgetsObject: channelWidgetsObject,
                 layout: .link,

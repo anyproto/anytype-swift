@@ -122,10 +122,8 @@ struct WidgetCommonActionsMenuView: View {
                 // context menu's transition-to-list animation hasn't finished when the
                 // tap fires. Without the delay, unpinning a row that's currently
                 // animating produces a glitch.
-                let provider = model.provider
-                let channelWidgetsObject = channelWidgetsObject
                 DispatchQueue.main.asyncAfter(deadline: .now() + menuDismissAnimationDelay) {
-                    provider.onChannelPinTap(
+                    model.provider.onChannelPinTap(
                         targetObjectId: targetObjectId,
                         channelWidgetsObject: channelWidgetsObject
                     )
