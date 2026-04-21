@@ -101,6 +101,8 @@ extension Anytype_Event.Message {
       case chatUpdateReactionReadStatus(Anytype_Event.Chat.UpdateReactionReadStatus)
       case objectAutoArchive(Anytype_Event.Object.AutoArchive)
       case objectAutoRestore(Anytype_Event.Object.AutoRestore)
+      /// received whenever the total number of non-deleted messages in
+      case chatUpdateMessageCount(Anytype_Event.Chat.UpdateMessageCount)
       case chatDelete(Anytype_Event.Chat.Delete)
       /// in case new unread messages received or chat state changed
       case chatStateUpdate(Anytype_Event.Chat.UpdateState)
