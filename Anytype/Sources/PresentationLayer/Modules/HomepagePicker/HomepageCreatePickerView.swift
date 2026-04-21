@@ -33,7 +33,6 @@ struct HomepageCreatePickerView: View {
             buttons
         }
         .padding(.top, 28)
-        .padding(.bottom, 16)
         .padding(.horizontal, 16)
     }
 
