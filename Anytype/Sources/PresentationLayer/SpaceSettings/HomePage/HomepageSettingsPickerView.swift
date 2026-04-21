@@ -38,8 +38,13 @@ struct HomepageSettingsPickerView: View {
                         AnytypeDivider()
                     }
 
+                    if !model.objects.isEmpty {
+                        ListSectionHeaderView(title: Loc.SpaceSettings.HomePage.objects)
+                    }
+
                     ForEach(model.objects) { object in
                         objectRow(object)
+                            .newDivider()
                     }
                 }
                 .padding(.horizontal, 16)

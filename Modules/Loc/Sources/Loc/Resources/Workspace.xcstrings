@@ -68180,6 +68180,161 @@
         }
       }
     },
+    "SpaceSettings.HomePage.Objects" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Objects"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objects"
+          }
+        }
+      }
+    },
     "SpaceSettings.HomePage.Title" : {
       "extractionState" : "manual",
       "localizations" : {

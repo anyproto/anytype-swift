@@ -2374,6 +2374,7 @@ public enum Loc {
       public static let chooseHome = Loc.tr("Workspace", "SpaceSettings.HomePage.ChooseHome", fallback: "Choose Home")
       public static let noHome = Loc.tr("Workspace", "SpaceSettings.HomePage.NoHome", fallback: "No home")
       public static let noHomeSubtitle = Loc.tr("Workspace", "SpaceSettings.HomePage.NoHomeSubtitle", fallback: "Opens to navigation on entry")
+      public static let objects = Loc.tr("Workspace", "SpaceSettings.HomePage.Objects", fallback: "Objects")
       public static let title = Loc.tr("Workspace", "SpaceSettings.HomePage.Title", fallback: "Home")
       public static let widgets = Loc.tr("Workspace", "SpaceSettings.HomePage.Widgets", fallback: "Widgets")
     }
