@@ -21,7 +21,7 @@ final class HomepagePickerService: HomepagePickerServiceProtocol {
         switch option {
         case .object(let type):
             let details = try await objectActionsService.createObject(
-                name: "",
+                name: type.defaultName,
                 typeUniqueKey: type.objectTypeKey,
                 shouldDeleteEmptyObject: false,
                 shouldSelectType: false,
@@ -45,6 +45,13 @@ private extension ObjectHomepageType {
         case .chat: return .chatDerived
         case .page: return .page
         case .collection: return .collection
+        }
+    }
+
+    var defaultName: String {
+        switch self {
+        case .chat: return Loc.HomepagePicker.defaultChatName
+        case .page, .collection: return ""
         }
     }
 }

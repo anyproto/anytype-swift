@@ -1768,6 +1768,7 @@ public enum Loc {
   }
   public enum HomepagePicker {
     public static let changeHome = Loc.tr("Workspace", "HomepagePicker.changeHome", fallback: "Change Home")
+    public static let defaultChatName = Loc.tr("Workspace", "HomepagePicker.defaultChatName", fallback: "Chat")
     public static let description = Loc.tr("Workspace", "HomepagePicker.description", fallback: "Members will land here directly instead of browsing navigation")
     public static let title = Loc.tr("Workspace", "HomepagePicker.title", fallback: "Add a Channel Home?")
     public enum Thumbnail {
