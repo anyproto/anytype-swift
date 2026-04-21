@@ -94,5 +94,16 @@ private struct HomeWidgetsCoordinatorInternalView: View {
                 }
                 .interactiveDismissDisabled(true)
             }
+            .overlay {
+                if model.showHomepagePicker {
+                    Rectangle()
+                        .fill(.ultraThinMaterial)
+                        .ignoresSafeArea()
+                        .transition(.asymmetric(
+                            insertion: .identity,
+                            removal: .opacity.animation(.easeInOut(duration: 0.3))
+                        ))
+                }
+            }
     }
 }

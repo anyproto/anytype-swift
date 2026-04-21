@@ -19,7 +19,6 @@ struct HomepageCreatePickerView: View {
         .presentationDetents([.height(contentHeight)])
         .presentationDragIndicator(.hidden)
         .presentationBackground(Color.Background.secondary)
-        .presentationBackgroundInteraction(.enabled)
         .onChange(of: model.dismiss) {
             dismiss()
         }
