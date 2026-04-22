@@ -193,12 +193,12 @@ Middleware work merged 2026-04-21:
 - Modify: `Modules/Loc/Sources/Loc/en.xcstrings` (+ pl/ru/... per 3-file workflow in LOCALIZATION_GUIDE.md)
 - Modify generated: `Modules/Loc/Sources/Loc/Generated/Strings.swift` (via `make generate`)
 
-- [ ] Add keys:
+- [x] Add keys:
   - `Discussion.Notifications.title` → "Notifications"
   - `Discussion.Notifications.allNewReplies` → "All New Replies"
   - `Discussion.Notifications.mentionsOnly` → "Mentions Only"
-- [ ] Follow the 3-file workflow exactly (LOCALIZATION_GUIDE.md).
-- [ ] Run `make generate`; confirm `Loc.Discussion.Notifications.title` compiles.
+- [x] Follow the 3-file workflow exactly (LOCALIZATION_GUIDE.md). — added to `Workspace.xcstrings` (the file already hosting the existing `Discussion.Header.Comments` key) with all 24 locales seeded per the existing pattern (English `translated`, others `new`).
+- [x] Run `make generate`; confirm `Loc.Discussion.Notifications.title` compiles. — regenerated `Modules/Loc/Sources/Loc/Generated/Strings.swift`; all three `Loc.Discussion.Notifications.*` constants present (lines 1621-1624).
 
 ### Task 1.7: Hand off to user for build + manual verification
 
