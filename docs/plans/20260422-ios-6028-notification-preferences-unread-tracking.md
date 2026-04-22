@@ -156,11 +156,11 @@ Middleware work merged 2026-04-21:
 **Files:**
 - Create: `Anytype/Sources/PresentationLayer/Modules/Discussion/Subviews/DiscussionNotificationsMenu.swift`
 
-- [ ] Two-option menu (SwiftUI `Menu`) with items "All New Replies" and "Mentions Only".
-- [ ] Checkmark (`Image(systemName: "checkmark")`) on the currently-active option.
-- [ ] Parent label: `Label { Text(Loc.Discussion.Notifications.title) } icon: { Image(systemName: "bell") }` — match `NotificationModeMenu.swift` visual style.
-- [ ] Async callback `onModeChange: (DiscussionNotificationMode) async -> Void` where `DiscussionNotificationMode` is a local 2-case enum.
-- [ ] No tests — SwiftUI view only.
+- [x] Two-option menu (SwiftUI `Menu`) with items "All New Replies" and "Mentions Only".
+- [x] Checkmark (`Image(systemName: "checkmark")`) on the currently-active option.
+- [x] Parent label: `Label { Text(Loc.Discussion.Notifications.title) } icon: { Image(systemName: "bell") }` — match `NotificationModeMenu.swift` visual style.
+- [x] Async callback `onModeChange: (DiscussionNotificationMode) async -> Void` where `DiscussionNotificationMode` is a local 2-case enum.
+- [x] No tests — SwiftUI view only.
 
 ### Task 1.4: Surface Notifications menu in discussion 3-dot menu + wire to ViewModel
 
