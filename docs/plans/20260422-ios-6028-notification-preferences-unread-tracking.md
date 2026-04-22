@@ -148,7 +148,7 @@ Middleware work merged 2026-04-21:
   - `func removeNotificationSubscriber(chatObjectId: String, identity: String) async throws`
   - **Do NOT add `getNotificationSubscribers`.** Current mode is derived from the object-details subscription (Task 1.4); a getter would be dead code.
 - [x] Implement by wrapping `ClientCommands.chatAddNotificationSubscriber` / `chatRemoveNotificationSubscriber`.
-- [ ] ~~Write a minimal unit test for each new method if there's an existing `ChatServiceTests` fixture — happy path + error propagation only.~~ (no fixture exists)
+- [x] ~~Write a minimal unit test for each new method if there's an existing `ChatServiceTests` fixture — happy path + error propagation only.~~ (no fixture exists)
 - [x] No tests if repository has no existing ChatService test file (follow "minimal tests" decision).
 
 ### Task 1.3: Build DiscussionNotificationsMenu view
@@ -206,6 +206,27 @@ Middleware work merged 2026-04-21:
 - [x] Summarize changes to the user so they can verify in Xcode + simulator (Owner account): open a discussion → 3-dot menu → Notifications submenu shows both options with correct checkmark; toggling flips the checkmark; menu hidden for a Viewer test account.
 - [x] Stage + commit only if the user explicitly asks. (chunk commits made inline per task prompts)
 - [x] **STOP. Open PR. Start Chunk 2 in a new session.** (handoff — reviews run now, PR opening deferred to user)
+
+### Post-review refinements (Chunk 1)
+
+These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supersede the original Task 1.4 sub-bullets and are the final shape for Chunk 2 to build on.
+
+- **Identity model** — `notificationSubscribers` is declared `"objectTypes": ["participant"]` in `Dependencies/Middleware/json/relations.json`, so middleware stores **participant object IDs** there (e.g. `_participant_<spaceId>_<identity>`), not raw identity strings. The RPC write side still takes a raw identity (`Anytype_Rpc.Chat.AddNotificationSubscriber.Request.identity`) — middleware resolves it internally. This asymmetry mirrors `workspaceService.participantRemove(..., identity:)` and friends.
+  - Read compare: `details.notificationSubscribers.contains(participant.id)`
+  - Write: `chatService.addNotificationSubscriber(chatObjectId:, identity: participant.identity)`
+  - **Do not** use `accountManager.account.id` for the read compare — that's the raw identity and the check silently always returns false.
+
+- **Source of the participant** — `accountParticipantsStorage.participantSequence(spaceId:)` (returns `AnyAsyncSequence<Participant>`). It is backed by `AsyncToManyStream`, which replays `lastValue` on subscribe, so `.first(where: { _ in true })` serves as both fast-path and cold-launch fallback. Chunk 2 should use the same source if it needs current-user participant info.
+
+- **Subscription shape in `subscribeOnNotificationMode`** — `combineLatest(subscribersSequence, participantIdSequence)`, each with `.removeDuplicates()`, mirroring the `subscribeOnPermissions` pattern in the same file. Correctness is self-evident from the call site without depending on `subscibeFor`'s replay semantics. The body also guards `if notificationMode != newMode` before assigning, to avoid @Observable no-op invalidations when unrelated subscribers change.
+
+- **Deferred subscription rebind** — for the first-comment creation path, `subscribeOnNotificationMode` is re-invoked from `startDeferredSubscriptions()` after `createDiscussionIfNeeded` assigns `chatObject`. The initial `startSubscriptions()` call exits early (`guard let chatObject else { return }`) when `chatId` was nil at init.
+
+- **Error handling** — the `anytypeAssertionFailure` the original plan suggested for RPC errors was removed; network failures only surface a `ToastBarData` failure toast. Matches the `sendMessageTask` pattern.
+
+- **Layer split** — `DiscussionNotificationMode` lives in its own file (`Modules/Discussion/DiscussionNotificationMode.swift`) alongside the ViewModel, not inside the Menu view. The localized `title` extension travels with the enum.
+
+- **Loc keys** — `Discussion.Notifications.title` was added and then removed during review; the menu parent label reuses the existing `Loc.notifications` key. Only `Discussion.Notifications.allNewReplies` and `Discussion.Notifications.mentionsOnly` were added.
 
 ---
 
