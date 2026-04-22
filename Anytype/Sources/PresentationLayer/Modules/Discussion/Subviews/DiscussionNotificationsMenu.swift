@@ -1,19 +1,5 @@
 import SwiftUI
 
-enum DiscussionNotificationMode: Hashable {
-    case allNewReplies
-    case mentionsOnly
-
-    var title: String {
-        switch self {
-        case .allNewReplies:
-            Loc.Discussion.Notifications.allNewReplies
-        case .mentionsOnly:
-            Loc.Discussion.Notifications.mentionsOnly
-        }
-    }
-}
-
 struct DiscussionNotificationsMenu: View {
     let currentMode: DiscussionNotificationMode
     let onModeChange: (DiscussionNotificationMode) async -> Void
