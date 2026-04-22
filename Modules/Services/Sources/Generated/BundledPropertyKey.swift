@@ -511,6 +511,15 @@ public enum BundledPropertyKey: String, Sendable {
     /// Date of the last message in a chat
     case lastMessageDate = "lastMessageDate"
 
+    /// Participants subscribed to notifications on this discussion
+    case notificationSubscribers = "notificationSubscribers"
+
+    /// Number of unread messages in a discussion for the current user
+    case unreadMessageCount = "unreadMessageCount"
+
+    /// Number of unread mentions in a discussion for the current user
+    case unreadMentionCount = "unreadMentionCount"
+
     /// Is file available offline
     case fileAvailableOffline = "fileAvailableOffline"
 
