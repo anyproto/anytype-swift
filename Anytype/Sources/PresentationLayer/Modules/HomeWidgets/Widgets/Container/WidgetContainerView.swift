@@ -7,7 +7,7 @@ struct WidgetContainerView<Content: View>: View {
     @State private var model: WidgetContainerViewModel
     @Binding private var homeState: HomeWidgetsState
     @Environment(\.shouldHideChatBadges) private var shouldHideChatBadges
-    
+
     let name: String
     let icon: Icon?
     let badgeModel: MessagePreviewModel?
@@ -16,10 +16,12 @@ struct WidgetContainerView<Content: View>: View {
     let onCreateObjectTap: (() -> Void)?
     let onHeaderTap: () -> Void
     let content: Content
-    
+
     init(
         widgetBlockId: String,
-        widgetObject: some BaseDocumentProtocol,
+        channelWidgetsObject: some BaseDocumentProtocol,
+        personalWidgetsObject: (any BaseDocumentProtocol)?,
+        spaceId: String,
         homeState: Binding<HomeWidgetsState>,
         name: String,
         icon: Icon? = nil,
@@ -45,7 +47,9 @@ struct WidgetContainerView<Content: View>: View {
         self._model = State(
             initialValue: WidgetContainerViewModel(
                 widgetBlockId: widgetBlockId,
-                widgetObject: widgetObject,
+                channelWidgetsObject: channelWidgetsObject,
+                personalWidgetsObject: personalWidgetsObject,
+                spaceId: spaceId,
                 expectedMenuItems: menuItems,
                 defaultExpanded: defaultExpanded,
                 output: output
@@ -111,20 +115,25 @@ struct WidgetContainerView<Content: View>: View {
             let animated = oldValue != .loading
             model.updateExpanded(contentState: newValue, animated: animated)
         }
+        .task {
+            await model.startSubscriptions()
+        }
     }
-    
+
     @ViewBuilder
     private var menuItemsView: some View {
         createObjectMenuButton
         WidgetCommonActionsMenuView(
             items: model.menuItems,
             widgetBlockId: model.widgetBlockId,
-            widgetObject: model.widgetObject,
+            channelWidgetsObject: model.channelWidgetsObject,
+            personalWidgetsObject: model.personalWidgetsObject,
             homeState: model.homeState,
-            output: model.output
+            output: model.output,
+            targetObjectId: model.targetObjectId
         )
     }
-    
+
     @ViewBuilder
     private var createObjectMenuButton: some View {
         if let onCreateObjectTap {

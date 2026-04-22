@@ -13,12 +13,13 @@ final class HomeWidgetsViewModel {
         static let pinnedSectionId = "HomePinnedSection"
         static let objectTypeSectionId = "HomeObjectTypeSection"
         static let unreadSectionId = "HomeUnreadSection"
+        static let myFavoritesSectionId = "HomeMyFavoritesSection"
     }
     
     // MARK: - DI
 
     let info: AccountInfo
-    let widgetObject: any BaseDocumentProtocol
+    let channelWidgetsObject: any BaseDocumentProtocol
 
     @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
@@ -62,6 +63,8 @@ final class HomeWidgetsViewModel {
     var homeWidgetData: HomepageWidgetViewData?
     var unreadSectionIsExpanded: Bool = false
     var unreadChats: [UnreadChatWidgetData] = []
+    var myFavoritesSectionIsExpanded: Bool = false
+    var myFavoritesViewModel: MyFavoritesViewModel?
     private var supportsMultiChats: Bool = false
 
     var spaceId: String { info.accountSpaceId }
@@ -80,20 +83,39 @@ final class HomeWidgetsViewModel {
     ) {
         self.info = info
         self.output = output
-        self.widgetObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
+        let channelWidgetsObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
+        self.channelWidgetsObject = channelWidgetsObject
+        if FeatureFlags.personalFavorites {
+            let personalWidgetsObject = documentService.document(
+                objectId: info.personalWidgetsId,
+                spaceId: info.accountSpaceId
+            )
+            self.myFavoritesViewModel = MyFavoritesViewModel(
+                spaceId: info.accountSpaceId,
+                personalWidgetsObject: personalWidgetsObject,
+                channelWidgetsObject: channelWidgetsObject,
+                onObjectSelected: { [weak output] details in
+                    output?.onObjectSelected(screenData: details.screenData())
+                }
+            )
+        } else {
+            self.myFavoritesViewModel = nil
+        }
         self.pinnedSectionIsExpanded = expandedService.isExpanded(id: Constants.pinnedSectionId, defaultValue: true)
         self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
         self.unreadSectionIsExpanded = expandedService.isExpanded(id: Constants.unreadSectionId, defaultValue: true)
+        self.myFavoritesSectionIsExpanded = expandedService.isExpanded(id: Constants.myFavoritesSectionId, defaultValue: true)
     }
 
     func startSubscriptions() async {
         async let widgetObjectSub: () = startWidgetObjectTask()
-        async let participantTask: () = startParticipantTask()
+        async let myFavoritesSub: () = startMyFavoritesTask()
+        async let canEditSub: () = startCanEditSubscription()
         async let objectTypesTask: () = startObjectTypesTask()
         async let spaceViewTask: () = startSpaceViewTask()
         async let unreadChatsTask: () = startUnreadChatsTask()
 
-        _ = await (widgetObjectSub, participantTask, objectTypesTask, spaceViewTask, unreadChatsTask)
+        _ = await (widgetObjectSub, myFavoritesSub, canEditSub, objectTypesTask, spaceViewTask, unreadChatsTask)
     }
 
     func onAppear() {
@@ -108,7 +130,7 @@ final class HomeWidgetsViewModel {
         AnytypeAnalytics.instance().logReorderWidget(source: from.data.source.analyticsSource)
         Task {
             try? await objectActionService.move(
-                dashboadId: widgetObject.objectId,
+                dashboadId: channelWidgetsObject.objectId,
                 blockId: from.data.id,
                 dropPositionblockId: to.data.id,
                 position: to.index > from.index ? .bottom : .top
@@ -153,25 +175,39 @@ final class HomeWidgetsViewModel {
         expandedService.setState(id: Constants.unreadSectionId, isExpanded: unreadSectionIsExpanded)
     }
 
+    func onTapMyFavoritesHeader() {
+        withAnimation {
+            myFavoritesSectionIsExpanded = !myFavoritesSectionIsExpanded
+        }
+        expandedService.setState(id: Constants.myFavoritesSectionId, isExpanded: myFavoritesSectionIsExpanded)
+    }
+
     // MARK: - Private
     
     private func startWidgetObjectTask() async {
-        for await _ in widgetObject.syncPublisher.values {
+        for await _ in channelWidgetsObject.syncPublisher.values {
             widgetsDataLoaded = true
-            
-            let blocks = widgetObject.children.filter(\.isWidget)
-            recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
-            
+
+            let blocks = channelWidgetsObject.children.filter(\.isWidget)
+            recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: channelWidgetsObject)
+
             let newWidgetBlocks = blocks
-                .compactMap { widgetObject.widgetInfo(block: $0) }
-            
+                .compactMap { channelWidgetsObject.widgetInfo(block: $0) }
+
             guard widgetBlocks != newWidgetBlocks else { continue }
-            
+
             widgetBlocks = newWidgetBlocks
         }
     }
-    
-    private func startParticipantTask() async {
+
+    private func startMyFavoritesTask() async {
+        // Drives the `MyFavoritesViewModel.rows` list — only spins up when the feature flag
+        // enabled the sub-viewmodel in `init`.
+        guard let myFavoritesViewModel else { return }
+        await myFavoritesViewModel.startSubscriptions()
+    }
+
+    private func startCanEditSubscription() async {
         for await canEdit in accountParticipantStorage.canEditSequence(spaceId: info.accountSpaceId) {
             homeState = canEdit ? .readwrite : .readonly
             canCreateObjectType = canEdit

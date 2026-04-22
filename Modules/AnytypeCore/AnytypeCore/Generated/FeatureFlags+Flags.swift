@@ -38,6 +38,10 @@ public extension FeatureFlags {
         value(for: .muteAndHide)
     }
 
+    static var personalFavorites: Bool {
+        value(for: .personalFavorites)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -128,6 +132,7 @@ public extension FeatureFlags {
         .channelTypeSwitcher,
         .fixAvatarTapFreeze,
         .muteAndHide,
+        .personalFavorites,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

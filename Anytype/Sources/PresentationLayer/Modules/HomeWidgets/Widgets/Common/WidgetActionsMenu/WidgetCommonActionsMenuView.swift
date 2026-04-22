@@ -1,29 +1,52 @@
 import Foundation
 import SwiftUI
 import AnytypeCore
+import Services
 
-enum WidgetMenuItem: String {
+enum WidgetMenuItem: Hashable {
     case changeType
     case remove
-    case removeSystemWidget // Temporary action for split unpin and delete system widget. Delete after migration
+    case removeSystemWidget
+    case favorite(isFavorited: Bool)
+    case channelPin(isPinned: Bool)
 }
 
 struct WidgetCommonActionsMenuView: View {
-    
+
     let items: [WidgetMenuItem]
     let widgetBlockId: String
-    let widgetObject: any BaseDocumentProtocol
+    let channelWidgetsObject: any BaseDocumentProtocol
+    let personalWidgetsObject: (any BaseDocumentProtocol)?
     let homeState: HomeWidgetsState
     let output: (any CommonWidgetModuleOutput)?
-    
+    let targetObjectId: String?
+
     @StateObject private var model = WidgetCommonActionsMenuViewModel()
-    
+
+    init(
+        items: [WidgetMenuItem],
+        widgetBlockId: String,
+        channelWidgetsObject: any BaseDocumentProtocol,
+        personalWidgetsObject: (any BaseDocumentProtocol)?,
+        homeState: HomeWidgetsState,
+        output: (any CommonWidgetModuleOutput)?,
+        targetObjectId: String?
+    ) {
+        self.items = items
+        self.widgetBlockId = widgetBlockId
+        self.channelWidgetsObject = channelWidgetsObject
+        self.personalWidgetsObject = personalWidgetsObject
+        self.homeState = homeState
+        self.output = output
+        self.targetObjectId = targetObjectId
+    }
+
     var body: some View {
         ForEach(items, id: \.self) {
             menuItemToView(item: $0)
         }
     }
-    
+
     @ViewBuilder
     private func menuItemToView(item: WidgetMenuItem) -> some View {
         switch item {
@@ -40,12 +63,9 @@ struct WidgetCommonActionsMenuView: View {
             }
         case .remove:
             Button {
-                // Fix animation glitch.
-                // We should to finalize context menu transition to list and then delete object
-                // If we find how customize context menu transition, this 🩼 can be deleted
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + menuDismissAnimationDelay) {
                     model.provider.onDeleteWidgetTap(
-                        widgetObject: widgetObject,
+                        widgetObject: channelWidgetsObject,
                         widgetBlockId: widgetBlockId,
                         homeState: homeState,
                         output: output
@@ -54,16 +74,12 @@ struct WidgetCommonActionsMenuView: View {
             } label: {
                 Text(Loc.unpin)
                 Image(systemName: "pin.slash")
-                
             }
         case .removeSystemWidget:
             Button(role: .destructive) {
-                // Fix animation glitch.
-                // We should to finalize context menu transition to list and then delete object
-                // If we find how customize context menu transition, this 🩼 can be deleted
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + menuDismissAnimationDelay) {
                     model.provider.onDeleteWidgetTap(
-                        widgetObject: widgetObject,
+                        widgetObject: channelWidgetsObject,
                         widgetBlockId: widgetBlockId,
                         homeState: homeState,
                         output: output
@@ -72,14 +88,48 @@ struct WidgetCommonActionsMenuView: View {
             } label: {
                 Text(Loc.Widgets.Actions.removeWidget)
                 Image(systemName: "trash")
-                
+
+            }
+        case let .favorite(isFavorited):
+            // TODO: swap SF Symbol fallback for X24 star assets once design adds them.
+            Button {
+                guard let targetObjectId else {
+                    anytypeAssertionFailure(".favorite menu item emitted without targetObjectId")
+                    return
+                }
+                guard let personalWidgetsObject else {
+                    anytypeAssertionFailure(".favorite menu item emitted without personalWidgetsObject")
+                    return
+                }
+                model.provider.onFavoriteTap(
+                    targetObjectId: targetObjectId,
+                    personalWidgetsObject: personalWidgetsObject
+                )
+            } label: {
+                Text(isFavorited ? Loc.unfavorite : Loc.favorite)
+                Image(systemName: isFavorited ? "star.fill" : "star")
+            }
+        case let .channelPin(isPinned):
+            Button {
+                guard let targetObjectId else {
+                    anytypeAssertionFailure(".channelPin menu item emitted without targetObjectId")
+                    return
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + menuDismissAnimationDelay) {
+                    model.provider.onChannelPinTap(
+                        targetObjectId: targetObjectId,
+                        channelWidgetsObject: channelWidgetsObject
+                    )
+                }
+            } label: {
+                Text(isPinned ? Loc.unpinFromChannel : Loc.pinToChannel)
+                Image(systemName: isPinned ? "pin.slash" : "pin")
             }
         }
     }
 }
 
 private final class WidgetCommonActionsMenuViewModel: ObservableObject {
-    // Simple way for inject di. Model is this case is not needed.
     @Injected(\.widgetActionsViewCommonMenuProvider)
     var provider: any WidgetActionsViewCommonMenuProviderProtocol
 }

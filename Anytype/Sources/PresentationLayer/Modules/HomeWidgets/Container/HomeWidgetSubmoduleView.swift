@@ -4,9 +4,10 @@ import Services
 import AnytypeCore
 
 struct HomeWidgetSubmoduleView: View {
-    
+
     let widgetInfo: BlockWidgetInfo
-    let widgetObject: any BaseDocumentProtocol
+    let channelWidgetsObject: any BaseDocumentProtocol
+    let personalWidgetsObject: (any BaseDocumentProtocol)?
     let workspaceInfo: AccountInfo
     @Binding var homeState: HomeWidgetsState
     let output: (any CommonWidgetModuleOutput)?
@@ -70,6 +71,13 @@ struct HomeWidgetSubmoduleView: View {
     }
     
     private var widgetData: WidgetSubmoduleData {
-        WidgetSubmoduleData(widgetBlockId: widgetInfo.id, widgetObject: widgetObject, homeState: $homeState, spaceInfo: workspaceInfo, output: output)
+        WidgetSubmoduleData(
+            widgetBlockId: widgetInfo.id,
+            channelWidgetsObject: channelWidgetsObject,
+            personalWidgetsObject: personalWidgetsObject,
+            homeState: $homeState,
+            spaceInfo: workspaceInfo,
+            output: output
+        )
     }
 }

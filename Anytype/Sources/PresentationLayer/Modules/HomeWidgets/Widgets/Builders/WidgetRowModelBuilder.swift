@@ -18,8 +18,8 @@ protocol WidgetRowModelBuilderProtocol: AnyObject, Sendable {
 @MainActor
 final class WidgetRowModelBuilder: WidgetRowModelBuilderProtocol, Sendable {
 
-    private let dateFormatter = ChatPreviewDateFormatter()
-    
+    private let chatPreviewBuilder: any WidgetChatPreviewBuilderProtocol = Container.shared.widgetChatPreviewBuilder()
+
     func buildGalleryRows(
         from configs: [SetContentViewItemConfiguration]
     ) -> [GalleryWidgetRowModel] {
@@ -31,47 +31,16 @@ final class WidgetRowModelBuilder: WidgetRowModelBuilderProtocol, Sendable {
         spaceView: SpaceView?,
         chatPreviews: [ChatMessagePreview]
     ) -> [ListWidgetRowModel] {
-        configs.map { config in
-            let chatPreview = buildChatPreview(
-                objectId: config.id,
-                spaceView: spaceView,
-                chatPreviews: chatPreviews
-            )
+        let previewsByChatId = Dictionary(
+            chatPreviews.lazy.map { ($0.chatId, $0) },
+            uniquingKeysWith: { first, _ in first }
+        )
+        return configs.map { config in
+            let chatPreview = previewsByChatId[config.id].flatMap {
+                chatPreviewBuilder.build(chatPreview: $0, spaceView: spaceView)
+            }
             return ListWidgetRowModel(details: config, chatPreview: chatPreview)
         }
-    }
-
-    private func buildChatPreview(
-        objectId: String,
-        spaceView: SpaceView?,
-        chatPreviews: [ChatMessagePreview]
-    ) -> MessagePreviewModel? {
-        guard let preview = chatPreviews.first(where: { $0.chatId == objectId }),
-              let lastMessage = preview.lastMessage else {
-            return nil
-        }
-
-        let attachments = lastMessage.attachments.prefix(3).map { objectDetails in
-            MessagePreviewModel.Attachment(
-                id: objectDetails.id,
-                icon: objectDetails.objectIconImage
-            )
-        }
-
-        let notificationMode = spaceView?.effectiveNotificationMode(for: objectId) ?? .all
-
-        return MessagePreviewModel(
-            creatorTitle: lastMessage.creator?.title,
-            text: lastMessage.text,
-            attachments: Array(attachments),
-            localizedAttachmentsText: lastMessage.localizedAttachmentsText,
-            chatPreviewDate: dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true),
-            unreadCounter: preview.unreadCounter,
-            mentionCounter: preview.mentionCounter,
-            hasUnreadReactions: preview.hasUnreadReactions,
-            notificationMode: notificationMode,
-            chatName: nil
-        )
     }
 }
 

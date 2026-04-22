@@ -35,7 +35,7 @@ private struct ListWidgetInternalView: View {
         self._model = StateObject(
             wrappedValue: ListWidgetViewModel(
                 widgetBlockId: data.widgetBlockId,
-                widgetObject: data.widgetObject,
+                widgetObject: data.channelWidgetsObject,
                 style: style,
                 internalModel: internalModel,
                 internalHeaderModel: internalHeaderModel,
@@ -43,11 +43,13 @@ private struct ListWidgetInternalView: View {
             )
         )
     }
-    
+
     var body: some View {
         WidgetContainerView(
             widgetBlockId: data.widgetBlockId,
-            widgetObject: data.widgetObject,
+            channelWidgetsObject: data.channelWidgetsObject,
+            personalWidgetsObject: data.personalWidgetsObject,
+            spaceId: data.spaceInfo.accountSpaceId,
             homeState: data.homeState,
             name: model.name,
             icon: model.icon,

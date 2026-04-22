@@ -95,6 +95,14 @@ extension Container {
     var pinnedSubscriptionService: Factory<any PinnedSubscriptionServiceProtocol> {
         self { PinnedSubscriptionService() }
     }
+
+    var personalFavoritesService: Factory<any PersonalFavoritesServiceProtocol> {
+        self { PersonalFavoritesService() }.shared
+    }
+
+    var channelPinsService: Factory<any ChannelPinsServiceProtocol> {
+        self { ChannelPinsService() }.shared
+    }
     
     var recentSubscriptionService: Factory<any RecentSubscriptionServiceProtocol> {
         self { RecentSubscriptionService() }

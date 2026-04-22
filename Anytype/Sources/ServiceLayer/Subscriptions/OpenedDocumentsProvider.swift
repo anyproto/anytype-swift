@@ -1,6 +1,6 @@
 import Foundation
 
-protocol OpenedDocumentsProviderProtocol: AnyObject {
+protocol OpenedDocumentsProviderProtocol: Sendable {
     func document(objectId: String, spaceId: String, mode: DocumentMode) -> any BaseDocumentProtocol
     func setDocument(objectId: String, spaceId: String, mode: DocumentMode) -> any SetDocumentProtocol
 }

@@ -33,6 +33,7 @@ private struct HomeWidgetsInternalView: View {
 
             content
                 .animation(.default, value: model.widgetBlocks.count)
+                .animation(.default, value: model.myFavoritesViewModel?.rows.count)
 
             if context.showEmbeddedBottomPanel {
                 HomeBottomNavigationPanelView(
@@ -81,8 +82,15 @@ private struct HomeWidgetsInternalView: View {
             VStack(spacing: 0) {
                 SpaceInfoView(spaceId: model.spaceId)
                 InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
-                topWidgets
-                blockWidgets
+                if FeatureFlags.personalFavorites {
+                    homeWidget
+                    blockWidgets
+                    unreadWidget
+                    myFavoritesWidget
+                } else {
+                    topWidgets
+                    blockWidgets
+                }
                 objectTypeWidgets
                 AnytypeNavigationSpacer(minHeight: context.showEmbeddedBottomPanel ? 72 : 0)
             }
@@ -108,18 +116,37 @@ private struct HomeWidgetsInternalView: View {
     }
 
     @ViewBuilder
-    private var blockWidgets: some View {
-        if model.widgetBlocks.isNotEmpty {
-            HomeWidgetsGroupView(title: Loc.pinned) {
-                model.onTapPinnedHeader()
+    private var homeWidget: some View {
+        if context == .overlay, let data = model.homeWidgetData {
+            HomeWidgetView(data: data)
+                .id("\(data.objectId)-\(data.canSetHomepage)")
+                .padding(.bottom, 8)
+        }
+    }
+
+    @ViewBuilder
+    private var unreadWidget: some View {
+        if model.shouldShowUnreadSection {
+            HomeWidgetsGroupView(title: Loc.unread) {
+                model.onTapUnreadHeader()
             }
-            if model.pinnedSectionIsExpanded {
+            if model.unreadSectionIsExpanded {
+                UnreadChatsGroupedView(chats: model.unreadChats)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var blockWidgets: some View {
+        if FeatureFlags.personalFavorites {
+            if model.widgetBlocks.isNotEmpty {
                 VStack(spacing: 12) {
                     WidgetSwipeTipView()
                     ForEach(model.widgetBlocks) { widgetInfo in
                         HomeWidgetSubmoduleView(
                             widgetInfo: widgetInfo,
-                            widgetObject: model.widgetObject,
+                            channelWidgetsObject: model.channelWidgetsObject,
+                            personalWidgetsObject: model.myFavoritesViewModel?.personalWidgetsObject,
                             workspaceInfo: model.info,
                             homeState: $model.homeState,
                             output: model.output
@@ -131,10 +158,50 @@ private struct HomeWidgetsInternalView: View {
                 } dropFinish: { from, to in
                     model.widgetsDropFinish(from: from, to: to)
                 }
+            }
+        } else {
+            if model.widgetBlocks.isNotEmpty {
+                HomeWidgetsGroupView(title: Loc.pinned) {
+                    model.onTapPinnedHeader()
+                }
+                if model.pinnedSectionIsExpanded {
+                    VStack(spacing: 12) {
+                        WidgetSwipeTipView()
+                        ForEach(model.widgetBlocks) { widgetInfo in
+                            HomeWidgetSubmoduleView(
+                                widgetInfo: widgetInfo,
+                                channelWidgetsObject: model.channelWidgetsObject,
+                                personalWidgetsObject: model.myFavoritesViewModel?.personalWidgetsObject,
+                                workspaceInfo: model.info,
+                                homeState: $model.homeState,
+                                output: model.output
+                            )
+                        }
+                    }
+                    .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
+                        model.widgetsDropUpdate(from: from, to: to)
+                    } dropFinish: { from, to in
+                        model.widgetsDropFinish(from: from, to: to)
+                    }
+                }
+            }
         }
     }
-    }
     
+    @ViewBuilder
+    private var myFavoritesWidget: some View {
+        if FeatureFlags.personalFavorites,
+           let myFavoritesViewModel = model.myFavoritesViewModel,
+           myFavoritesViewModel.rows.isNotEmpty {
+            HomeWidgetsGroupView(title: Loc.myFavorites) {
+                model.onTapMyFavoritesHeader()
+            }
+            if model.myFavoritesSectionIsExpanded {
+                MyFavoritesListView(model: myFavoritesViewModel)
+            }
+        }
+    }
+
     @ViewBuilder
     private var objectTypeWidgets: some View {
         HomeWidgetsGroupView(title: Loc.objects, onTap: {
