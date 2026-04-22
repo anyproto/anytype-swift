@@ -9,6 +9,7 @@ struct HomepagePickerThumbnailCard: View {
         VStack(spacing: 7) {
             Image(asset: option.thumbnailAsset)
                 .resizable()
+                .aspectRatio(contentMode: .fit)
                 .frame(width: 88, height: 176)
 
             AnytypeText(option.title, style: .caption1Medium)
