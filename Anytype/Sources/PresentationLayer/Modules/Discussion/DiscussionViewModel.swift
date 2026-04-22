@@ -62,8 +62,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var universalLinkParser: any UniversalLinkParserProtocol
     @Injected(\.workspaceService) @ObservationIgnored
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.accountManager) @ObservationIgnored
-    private var accountManager: any AccountManagerProtocol
 
     private let participantSubscription: any ParticipantsSubscriptionProtocol
     private var chatStorage: (any DiscussionMessagesStorageProtocol)?
@@ -675,8 +673,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func toggleNotificationMode(_ newMode: DiscussionNotificationMode) async {
         guard newMode != notificationMode else { return }
-        guard let chatId else { return }
-        let identity = accountManager.account.id
+        guard let chatId, let identity = currentParticipant()?.identity else { return }
         do {
             switch newMode {
             case .allNewReplies:
@@ -753,11 +750,16 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     private func subscribeOnNotificationMode() async {
         guard let chatObject else { return }
+        // notificationSubscribers stores participant object IDs (relations.json:
+        // "objectTypes": ["participant"]), not raw identity strings.
+        guard let participantId = currentParticipant()?.id else { return }
         for await details in chatObject.detailsPublisher.values {
-            let subscribers = details.notificationSubscribers
-            let identity = accountManager.account.id
-            notificationMode = subscribers.contains(identity) ? .allNewReplies : .mentionsOnly
+            notificationMode = details.notificationSubscribers.contains(participantId) ? .allNewReplies : .mentionsOnly
         }
+    }
+
+    private func currentParticipant() -> Participant? {
+        accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
     }
 
     private func subscribeOnTypes() async {
