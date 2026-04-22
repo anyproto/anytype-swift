@@ -10,7 +10,7 @@ struct HomepagePickerThumbnailCard: View {
             Image(asset: option.thumbnailAsset)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(height: 176)
+                .frame(width: 88, height: 176)
 
             AnytypeText(option.title, style: .caption1Medium)
                 .foregroundStyle(Color.Text.primary)
@@ -19,7 +19,7 @@ struct HomepagePickerThumbnailCard: View {
 
             AnytypeCircleCheckbox(checked: isSelected, size: 20)
         }
-        .frame(width: 88, height: 228)
+        .frame(width: 88)
         .contentShape(Rectangle())
     }
 }
