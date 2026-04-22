@@ -673,7 +673,15 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func toggleNotificationMode(_ newMode: DiscussionNotificationMode) async {
         guard newMode != notificationMode else { return }
-        guard let chatId, let identity = await currentParticipant()?.identity else { return }
+        guard let chatId else { return }
+        // Fast path + cold-launch fallback: ParticipantsStorage may not have emitted yet.
+        let participant: Participant?
+        if let loaded = accountParticipantsStorage.participants.first(where: { $0.spaceId == spaceId }) {
+            participant = loaded
+        } else {
+            participant = await accountParticipantsStorage.participantSequence(spaceId: spaceId).first(where: { _ in true })
+        }
+        guard let identity = participant?.identity else { return }
         do {
             switch newMode {
             case .allNewReplies:
@@ -762,17 +770,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         for await (subscribers, participantId) in combineLatest(subscribersSequence, participantIdSequence) {
             notificationMode = subscribers.contains(participantId) ? .allNewReplies : .mentionsOnly
         }
-    }
-
-    private func currentParticipant() async -> Participant? {
-        if let participant = accountParticipantsStorage.participants.first(where: { $0.spaceId == spaceId }) {
-            return participant
-        }
-        // Cold-launch fallback: ParticipantsStorage may not have emitted yet.
-        for await participant in accountParticipantsStorage.participantSequence(spaceId: spaceId) {
-            return participant
-        }
-        return nil
     }
 
     private func subscribeOnTypes() async {
