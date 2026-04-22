@@ -143,13 +143,13 @@ Middleware work merged 2026-04-21:
 - Modify: protocol definition for `ChatServiceProtocol`
 - Create/Modify: `Modules/Services/Tests/ChatServiceTests.swift` (if a test file exists)
 
-- [ ] Add protocol methods:
+- [x] Add protocol methods:
   - `func addNotificationSubscriber(chatObjectId: String, identity: String) async throws`
   - `func removeNotificationSubscriber(chatObjectId: String, identity: String) async throws`
   - **Do NOT add `getNotificationSubscribers`.** Current mode is derived from the object-details subscription (Task 1.4); a getter would be dead code.
-- [ ] Implement by wrapping `ClientCommands.chatAddNotificationSubscriber` / `chatRemoveNotificationSubscriber`.
-- [ ] Write a minimal unit test for each new method if there's an existing `ChatServiceTests` fixture — happy path + error propagation only.
-- [ ] No tests if repository has no existing ChatService test file (follow "minimal tests" decision).
+- [x] Implement by wrapping `ClientCommands.chatAddNotificationSubscriber` / `chatRemoveNotificationSubscriber`.
+- [ ] ~~Write a minimal unit test for each new method if there's an existing `ChatServiceTests` fixture — happy path + error propagation only.~~ (no fixture exists)
+- [x] No tests if repository has no existing ChatService test file (follow "minimal tests" decision).
 
 ### Task 1.3: Build DiscussionNotificationsMenu view
 
