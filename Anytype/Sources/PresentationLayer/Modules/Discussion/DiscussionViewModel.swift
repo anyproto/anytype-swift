@@ -674,13 +674,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     func toggleNotificationMode(_ newMode: DiscussionNotificationMode) async {
         guard newMode != notificationMode else { return }
         guard let chatId else { return }
-        // Fast path + cold-launch fallback: ParticipantsStorage may not have emitted yet.
-        let participant: Participant?
-        if let loaded = accountParticipantsStorage.participants.first(where: { $0.spaceId == spaceId }) {
-            participant = loaded
-        } else {
-            participant = await accountParticipantsStorage.participantSequence(spaceId: spaceId).first(where: { _ in true })
-        }
+        let participant = await accountParticipantsStorage.participantSequence(spaceId: spaceId).first(where: { _ in true })
         guard let identity = participant?.identity else { return }
         do {
             switch newMode {
@@ -689,8 +683,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             case .mentionsOnly:
                 try await chatService.removeNotificationSubscriber(chatObjectId: chatId, identity: identity)
             }
-            // Optimistic update — the details subscription will reconfirm; keeps UI responsive
-            // even if the publisher echo is delayed, and prevents duplicate RPCs from fast taps.
             notificationMode = newMode
         } catch {
             toastBarData = ToastBarData(error.localizedDescription, type: .failure)
@@ -768,7 +760,10 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             .removeDuplicates()
             .values
         for await (subscribers, participantId) in combineLatest(subscribersSequence, participantIdSequence) {
-            notificationMode = subscribers.contains(participantId) ? .allNewReplies : .mentionsOnly
+            let newMode: DiscussionNotificationMode = subscribers.contains(participantId) ? .allNewReplies : .mentionsOnly
+            if notificationMode != newMode {
+                notificationMode = newMode
+            }
         }
     }
 
