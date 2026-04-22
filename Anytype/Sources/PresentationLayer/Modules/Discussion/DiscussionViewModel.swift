@@ -752,11 +752,14 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         guard let chatObject else { return }
         // notificationSubscribers stores participant object IDs (relations.json:
         // "objectTypes": ["participant"]), not raw identity strings.
-        guard let participantId = await currentParticipant()?.id else { return }
-        for await subscribers in chatObject.detailsPublisher
+        let participantIdSequence = accountParticipantsStorage.participantSequence(spaceId: spaceId)
+            .map(\.id)
+            .removeDuplicates()
+        let subscribersSequence = chatObject.detailsPublisher
             .map(\.notificationSubscribers)
             .removeDuplicates()
-            .values {
+            .values
+        for await (subscribers, participantId) in combineLatest(subscribersSequence, participantIdSequence) {
             notificationMode = subscribers.contains(participantId) ? .allNewReplies : .mentionsOnly
         }
     }
