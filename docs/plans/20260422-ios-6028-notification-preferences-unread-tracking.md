@@ -130,11 +130,11 @@ Middleware work merged 2026-04-21:
 - Regenerated (do not hand-edit): `Modules/Services/Sources/Generated/BundledPropertyKey.swift`, `Modules/Services/Sources/Generated/BundledPropertiesValueProvider.swift`
 - Modify if needed: `Modules/Services/Sources/Models/Details/BundledPropertyValueProvider+CustomProperties.swift` (only if accessors need custom typing)
 
-- [ ] Follow `CODE_GENERATION_GUIDE.md` to add cases `notificationSubscribers`, `unreadMessageCount`, `unreadMentionCount` in the source (not the generated file).
-- [ ] Run `make generate`.
-- [ ] Confirm generated accessors exist on `BundledPropertyValueProvider` (`unreadMessageCountValue: Int64?`, `unreadMentionCountValue: Int64?`, `notificationSubscribersValue: [String]?` or equivalent).
-- [ ] Add custom accessor in `BundledPropertyValueProvider+CustomProperties.swift` only if generated types need unwrapping (e.g., default-zero integer accessor).
-- [ ] No unit tests for generated code.
+- [x] Follow `CODE_GENERATION_GUIDE.md` to add cases `notificationSubscribers`, `unreadMessageCount`, `unreadMentionCount` in the source (not the generated file). — already present in `Dependencies/Middleware/json/relations.json` (middleware-provided); no source change needed.
+- [x] Run `make generate`. — executed; Services generation runs in Xcode build phases (swiftgen.yml at `Modules/Services/swiftgen.yml`), no file churn.
+- [x] Confirm generated accessors exist on `BundledPropertyValueProvider` (`unreadMessageCountValue: Int64?`, `unreadMentionCountValue: Int64?`, `notificationSubscribersValue: [String]?` or equivalent). — verified: `notificationSubscribers: [ObjectId]` (ObjectId = String), `unreadMessageCount: Int?`, `unreadMentionCount: Int?`.
+- [x] Add custom accessor in `BundledPropertyValueProvider+CustomProperties.swift` only if generated types need unwrapping (e.g., default-zero integer accessor). — added `unreadMessageCountValue: Int` and `unreadMentionCountValue: Int` with default-zero unwrap.
+- [x] No unit tests for generated code.
 
 ### Task 1.2: Wire up Chat notification subscriber RPCs in ChatService
 
