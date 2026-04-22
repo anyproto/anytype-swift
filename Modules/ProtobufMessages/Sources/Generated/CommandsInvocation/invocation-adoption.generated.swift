@@ -616,6 +616,11 @@ extension Anytype_Rpc.Chat.AddMessage.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Chat.AddNotificationSubscriber.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.AddNotificationSubscriber.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Chat.DeleteMessage.Response: ResultWithError {}
 extension Anytype_Rpc.Chat.DeleteMessage.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -653,6 +658,11 @@ extension Anytype_Rpc.Chat.ReadMessages.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Chat.ReadReactions.Response: ResultWithError {}
 extension Anytype_Rpc.Chat.ReadReactions.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Chat.RemoveNotificationSubscriber.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.RemoveNotificationSubscriber.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

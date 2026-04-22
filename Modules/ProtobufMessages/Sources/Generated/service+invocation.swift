@@ -3214,6 +3214,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func chatAddNotificationSubscriber(
+        _ request: Anytype_Rpc.Chat.AddNotificationSubscriber.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.AddNotificationSubscriber.Request, Anytype_Rpc.Chat.AddNotificationSubscriber.Response> {
+        return Invocation(messageName: "ChatAddNotificationSubscriber", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatAddNotificationSubscriber(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.AddNotificationSubscriber.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func chatRemoveNotificationSubscriber(
+        _ request: Anytype_Rpc.Chat.RemoveNotificationSubscriber.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.RemoveNotificationSubscriber.Request, Anytype_Rpc.Chat.RemoveNotificationSubscriber.Response> {
+        return Invocation(messageName: "ChatRemoveNotificationSubscriber", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatRemoveNotificationSubscriber(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.RemoveNotificationSubscriber.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func aIWritingTools(
         _ request: Anytype_Rpc.AI.WritingTools.Request = .init()
     ) -> Invocation<Anytype_Rpc.AI.WritingTools.Request, Anytype_Rpc.AI.WritingTools.Response> {
