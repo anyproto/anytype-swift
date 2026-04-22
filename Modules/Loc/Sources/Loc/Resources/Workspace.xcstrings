@@ -25689,7 +25689,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Change Home"
+            "value" : "Cambiar Inicio"
           }
         },
         "fa" : {
@@ -25779,7 +25779,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Change Home"
+            "value" : "Ana Sayfayı Değiştir"
           }
         },
         "uk" : {
@@ -67751,7 +67751,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Channel home"
+            "value" : "Inicio del canal"
           }
         },
         "fa" : {
@@ -67841,7 +67841,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Channel home"
+            "value" : "Ana sayfa kanalı"
           }
         },
         "uk" : {
@@ -68061,7 +68061,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No home"
+            "value" : "Sin Inicio "
           }
         },
         "fa" : {
@@ -68151,7 +68151,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No home"
+            "value" : "Ana sayfa yok"
           }
         },
         "uk" : {
@@ -68216,7 +68216,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Opens to navigation on entry"
+            "value" : "Al entrar, se abre la navegación "
           }
         },
         "fa" : {
@@ -68306,7 +68306,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Opens to navigation on entry"
+            "value" : "Giriş yapıldığında gezinme menüsü açılır"
           }
         },
         "uk" : {
@@ -68341,13 +68341,13 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "كائنات"
           }
         },
         "be" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Аб'екты"
           }
         },
         "cs" : {
@@ -68359,7 +68359,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Objekte"
           }
         },
         "en" : {
@@ -68371,7 +68371,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Objetos"
           }
         },
         "fa" : {
@@ -68383,109 +68383,109 @@
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Objektit"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Objets"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Objek"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Oggetti"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "オブジェクト"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "객체"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Objekter"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Objecten"
           }
         },
         "or" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "ଅବଜେକ୍ଟ"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Obiekty"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Objetos"
           }
         },
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Objetos"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Объекты"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Nesneler"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Об'єкти"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "Các đối tượng"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "对象"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Objects"
+            "value" : "物件"
           }
         }
       }
