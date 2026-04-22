@@ -47,7 +47,10 @@ final class HomepageSettingsPickerViewModel {
     func search() async {
         do {
             try await Task.sleep(for: .milliseconds(300))
-            let layouts: [DetailsLayout] = DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType)
+            let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
+            let layouts: [DetailsLayout] = FeatureFlags.fixChannelHomeBackNavigation
+                ? DetailsLayout.visibleLayouts(spaceType: spaceType) - [.bookmark]
+                : DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceType)
             objects = try await searchService.searchObjectsWithLayouts(
                 text: searchText,
                 layouts: layouts,
