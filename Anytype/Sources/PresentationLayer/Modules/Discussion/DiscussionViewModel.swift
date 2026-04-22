@@ -673,7 +673,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func toggleNotificationMode(_ newMode: DiscussionNotificationMode) async {
         guard newMode != notificationMode else { return }
-        guard let chatId, let identity = currentParticipant()?.identity else { return }
+        guard let chatId, let identity = await currentParticipant()?.identity else { return }
         do {
             switch newMode {
             case .allNewReplies:
@@ -752,14 +752,21 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         guard let chatObject else { return }
         // notificationSubscribers stores participant object IDs (relations.json:
         // "objectTypes": ["participant"]), not raw identity strings.
-        guard let participantId = currentParticipant()?.id else { return }
+        guard let participantId = await currentParticipant()?.id else { return }
         for await details in chatObject.detailsPublisher.values {
             notificationMode = details.notificationSubscribers.contains(participantId) ? .allNewReplies : .mentionsOnly
         }
     }
 
-    private func currentParticipant() -> Participant? {
-        accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
+    private func currentParticipant() async -> Participant? {
+        if let participant = accountParticipantsStorage.participants.first(where: { $0.spaceId == spaceId }) {
+            return participant
+        }
+        // Cold-launch fallback: ParticipantsStorage may not have emitted yet.
+        for await participant in accountParticipantsStorage.participantSequence(spaceId: spaceId) {
+            return participant
+        }
+        return nil
     }
 
     private func subscribeOnTypes() async {
