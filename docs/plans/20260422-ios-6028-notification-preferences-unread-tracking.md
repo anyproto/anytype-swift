@@ -183,9 +183,9 @@ Middleware work merged 2026-04-21:
 - Modify: `Anytype/Sources/PresentationLayer/Modules/Discussion/DiscussionViewModel.swift`
 - Modify: `Anytype/Sources/PresentationLayer/Modules/Discussion/DiscussionView.swift`
 
-- [ ] Reuse the existing edit-permission flag on `DiscussionViewModel` if one is already exposed (look for `canEdit` / `canWrite` / `canSendMessages` — whatever already gates message send and delete). Only add a new `@Published` flag if no suitable one exists.
-- [ ] In `DiscussionView.swift`, conditionally include the `DiscussionNotificationsMenu` only when that flag is true.
-- [ ] Manual verification (Post-Completion) covers the permission behavior.
+- [x] Reuse the existing edit-permission flag on `DiscussionViewModel` if one is already exposed (look for `canEdit` / `canWrite` / `canSendMessages` — whatever already gates message send and delete). Only add a new `@Published` flag if no suitable one exists. — reused `canEdit` (line 81, set in `subscribeOnPermissions`; already gates message input panel at `DiscussionView.bottomPanel`).
+- [x] In `DiscussionView.swift`, conditionally include the `DiscussionNotificationsMenu` only when that flag is true. — gated in both ios26 toolbar menu (inside `Menu { if model.canEdit { ... } }`) and legacy path via new `canEdit` parameter on `DiscussionHeaderView`.
+- [x] Manual verification (Post-Completion) covers the permission behavior. (manual test — covered in Post-Completion)
 
 ### Task 1.6: Add localization strings for the menu
 
