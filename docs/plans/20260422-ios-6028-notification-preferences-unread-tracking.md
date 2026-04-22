@@ -168,14 +168,14 @@ Middleware work merged 2026-04-21:
 - Modify: `Anytype/Sources/PresentationLayer/Modules/Discussion/DiscussionView.swift`
 - Modify: `Anytype/Sources/PresentationLayer/Modules/Discussion/DiscussionViewModel.swift`
 
-- [ ] Locate existing 3-dot menu in `DiscussionView.swift` (grep for "ellipsis" or `Menu` in that file).
-- [ ] Add `DiscussionNotificationsMenu` entry to the menu, bound to `viewModel.notificationMode` and `viewModel.toggleNotificationMode`.
-- [ ] In `DiscussionViewModel`:
-  - Publish `@Published var notificationMode: DiscussionNotificationMode = .mentionsOnly` (default while loading).
-  - Subscribe to the chat object's details (the chat object is already opened at `self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)`, line ~160 in current code). React to `notificationSubscribers` changes and update `notificationMode` based on current-user identity membership.
-  - `func toggleNotificationMode(_ newMode: DiscussionNotificationMode) async` — call `chatService.addNotificationSubscriber` or `removeNotificationSubscriber` with chatId + current identity. Let the subsequent detail event flip `notificationMode` naturally.
-- [ ] Resolve current user identity via `AccountParticipantsStorage` (same source used by `SpaceNotificationsSettingsViewModel`). If that storage isn't reachable from the DiscussionViewModel context, follow the same injection path `SpaceNotificationsSettingsViewModel` uses.
-- [ ] No tests for view/VM wiring.
+- [x] Locate existing 3-dot menu in `DiscussionView.swift` (grep for "ellipsis" or `Menu` in that file). — found in both `ios26Content` toolbar trailing item and `legacyContent` via `DiscussionHeaderView.moreButton`.
+- [x] Add `DiscussionNotificationsMenu` entry to the menu, bound to `viewModel.notificationMode` and `viewModel.toggleNotificationMode`. — inserted as the first item in both ios26 and legacy menus.
+- [x] In `DiscussionViewModel`:
+  - Publish `@Published var notificationMode: DiscussionNotificationMode = .mentionsOnly` (default while loading). — added as `@Observable` var (model is `@Observable`).
+  - Subscribe to the chat object's details via `chatObject.detailsPublisher.values`. React to `notificationSubscribers` changes and update `notificationMode` based on current-user identity membership.
+  - `func toggleNotificationMode(_ newMode: DiscussionNotificationMode) async` — calls `chatService.addNotificationSubscriber` or `removeNotificationSubscriber` with chatId + current identity. No-op when chatId or identity are missing. Errors handled via `anytypeAssertionFailure` + toast.
+- [x] Resolve current user identity via `accountManager.account.id` (injected `AccountManagerProtocol`). `SpaceNotificationsSettingsViewModel` uses the workspace-mode path, so we followed the `accountManager` injection pattern already used by other VMs (e.g., `ProfileQRCodeViewModel`).
+- [x] No tests for view/VM wiring.
 
 ### Task 1.5: Hide Notifications menu for Viewers
 

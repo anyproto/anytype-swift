@@ -62,6 +62,8 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var universalLinkParser: any UniversalLinkParserProtocol
     @Injected(\.workspaceService) @ObservationIgnored
     private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.accountManager) @ObservationIgnored
+    private var accountManager: any AccountManagerProtocol
 
     private let participantSubscription: any ParticipantsSubscriptionProtocol
     private var chatStorage: (any DiscussionMessagesStorageProtocol)?
@@ -77,6 +79,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     var dataLoaded = false
     var canEdit = false
+    var notificationMode: DiscussionNotificationMode = .mentionsOnly
     @ObservationIgnored
     var keyboardDismiss: KeyboardDismiss?
     @ObservationIgnored
@@ -241,8 +244,9 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         async let linkedObjectsSub: () = subscribeOnLinkedObjects()
         async let attachmentsDownloadingSub: () = subscribeOnAttachmentsDownloading()
         async let photosItemsTaskSub: () = subscribeOnPhotosItemsTask()
+        async let notificationModeSub: () = subscribeOnNotificationMode()
 
-        _ = await (permissionsSub, participantsSub, typesSub, spaceViewSub, linkedObjectsSub, attachmentsDownloadingSub, photosItemsTaskSub)
+        _ = await (permissionsSub, participantsSub, typesSub, spaceViewSub, linkedObjectsSub, attachmentsDownloadingSub, photosItemsTaskSub, notificationModeSub)
     }
 
     func subscribeOnMessages() async throws {
@@ -669,6 +673,24 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         toastBarData = ToastBarData(Loc.copied)
     }
 
+    func toggleNotificationMode(_ newMode: DiscussionNotificationMode) async {
+        guard newMode != notificationMode else { return }
+        guard let chatId else { return }
+        let identity = accountManager.account.id
+        guard identity.isNotEmpty else { return }
+        do {
+            switch newMode {
+            case .allNewReplies:
+                try await chatService.addNotificationSubscriber(chatObjectId: chatId, identity: identity)
+            case .mentionsOnly:
+                try await chatService.removeNotificationSubscriber(chatObjectId: chatId, identity: identity)
+            }
+        } catch {
+            anytypeAssertionFailure("Failed to toggle discussion notification mode", info: ["error": error.localizedDescription])
+            toastBarData = ToastBarData(error.localizedDescription, type: .failure)
+        }
+    }
+
     // MARK: - ChatActionProviderHandler
 
     func scrollToMessage(messageId: String) {
@@ -725,6 +747,15 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             for await canEditMessages in permissionsSequence {
                 canEdit = canEditMessages
             }
+        }
+    }
+
+    private func subscribeOnNotificationMode() async {
+        guard let chatObject else { return }
+        for await details in chatObject.detailsPublisher.values {
+            let subscribers = details.notificationSubscribers
+            let identity = accountManager.account.id
+            notificationMode = subscribers.contains(identity) ? .allNewReplies : .mentionsOnly
         }
     }
 

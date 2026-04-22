@@ -89,6 +89,9 @@ struct DiscussionView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     if model.chatId != nil {
                         Menu {
+                            DiscussionNotificationsMenu(currentMode: model.notificationMode) { mode in
+                                await model.toggleNotificationMode(mode)
+                            }
                             Button {
                                 Task { await model.copyObjectLink() }
                             } label: {
@@ -117,8 +120,12 @@ struct DiscussionView: View {
                 objectName: model.objectName,
                 commentsCount: model.commentsCount,
                 chatId: model.chatId,
+                notificationMode: model.notificationMode,
                 onTapCopyLink: {
                     Task { await model.copyObjectLink() }
+                },
+                onNotificationModeChange: { mode in
+                    await model.toggleNotificationMode(mode)
                 }
             )
         }
