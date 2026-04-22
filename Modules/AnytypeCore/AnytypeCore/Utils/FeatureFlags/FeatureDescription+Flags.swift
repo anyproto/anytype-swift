@@ -35,6 +35,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
+    static let fixChannelHomeBackNavigation = FeatureDescription(
+        title: "Fix channel home back navigation - IOS-6067",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: true
+    )
+
     // should be disabled
     static let channelTypeSwitcher = FeatureDescription(
         title: "Channel type switcher - IOS-5378",

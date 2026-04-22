@@ -62,7 +62,9 @@ private struct HomeWidgetsCoordinatorInternalView: View {
                 }
             }
             .task {
-                await model.startPendingShareRetryTask()
+                if !FeatureFlags.fixChannelHomeBackNavigation {
+                    await model.startPendingShareRetryTask()
+                }
             }
             .task {
                 await model.startSpaceViewTask()
@@ -86,7 +88,15 @@ private struct HomeWidgetsCoordinatorInternalView: View {
                 QrCodeView(title: Loc.joinSpace, data: $0.value.absoluteString, analyticsType: .inviteSpace, route: .inviteLink)
             }
             .sheet(isPresented: $model.showHomeChangePicker) {
-                HomepageSettingsPickerView(spaceId: model.spaceInfo.accountSpaceId)
+                HomepageSettingsPickerView(
+                    spaceId: model.spaceInfo.accountSpaceId,
+                    onHomepageSet: FeatureFlags.fixChannelHomeBackNavigation
+                        ? { spaceId, homeData in
+                            pageNavigation.replaceHome(spaceId, homeData)
+                            model.shouldDismissOverlay = true
+                        }
+                        : nil
+                )
             }
             .sheet(isPresented: $model.showHomepagePicker) {
                 HomepageCreatePickerView(spaceId: model.spaceInfo.accountSpaceId) { result in
