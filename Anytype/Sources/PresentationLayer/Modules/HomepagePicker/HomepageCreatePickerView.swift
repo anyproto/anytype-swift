@@ -41,10 +41,15 @@ struct HomepageCreatePickerView: View {
             AnytypeText(Loc.HomepagePicker.title, style: .heading)
                 .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
+                .lineLimit(2)
+                .truncationMode(.tail)
+                .fixedSize(horizontal: false, vertical: true)
 
             AnytypeText(Loc.HomepagePicker.description, style: .previewTitle2Regular)
                 .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
+                .lineLimit(2)
+                .truncationMode(.tail)
                 .fixedSize(horizontal: false, vertical: true)
         }
     }
