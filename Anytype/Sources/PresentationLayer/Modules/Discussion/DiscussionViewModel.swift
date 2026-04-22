@@ -677,7 +677,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         guard newMode != notificationMode else { return }
         guard let chatId else { return }
         let identity = accountManager.account.id
-        guard identity.isNotEmpty else { return }
         do {
             switch newMode {
             case .allNewReplies:
@@ -685,8 +684,10 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             case .mentionsOnly:
                 try await chatService.removeNotificationSubscriber(chatObjectId: chatId, identity: identity)
             }
+            // Optimistic update — the details subscription will reconfirm; keeps UI responsive
+            // even if the publisher echo is delayed, and prevents duplicate RPCs from fast taps.
+            notificationMode = newMode
         } catch {
-            anytypeAssertionFailure("Failed to toggle discussion notification mode", info: ["error": error.localizedDescription])
             toastBarData = ToastBarData(error.localizedDescription, type: .failure)
         }
     }
@@ -881,6 +882,12 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private func startDeferredSubscriptions() {
         Task { [weak self] in
             try? await self?.subscribeOnMessages()
+        }
+        Task { [weak self] in
+            // chatObject was nil on initial startSubscriptions() (first-comment case).
+            // Rebind now that createDiscussionIfNeeded assigned it, so the UI reflects
+            // the middleware-auto-subscribed creator state instead of the default.
+            await self?.subscribeOnNotificationMode()
         }
     }
 

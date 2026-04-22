@@ -133,12 +133,4 @@ extension BundledPropertiesValueProvider {
         guard let syncError else { return nil }
         return SyncError(rawValue: syncError)
     }
-
-    public var unreadMessageCountValue: Int {
-        unreadMessageCount ?? 0
-    }
-
-    public var unreadMentionCountValue: Int {
-        unreadMentionCount ?? 0
-    }
 }

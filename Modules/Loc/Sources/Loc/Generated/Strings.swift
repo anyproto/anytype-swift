@@ -1621,7 +1621,6 @@ public enum Loc {
     public enum Notifications {
       public static let allNewReplies = Loc.tr("Workspace", "Discussion.Notifications.allNewReplies", fallback: "All New Replies")
       public static let mentionsOnly = Loc.tr("Workspace", "Discussion.Notifications.mentionsOnly", fallback: "Mentions Only")
-      public static let title = Loc.tr("Workspace", "Discussion.Notifications.title", fallback: "Notifications")
     }
   }
   public enum EditSet {

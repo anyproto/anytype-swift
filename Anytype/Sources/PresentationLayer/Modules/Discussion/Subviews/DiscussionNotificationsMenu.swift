@@ -36,7 +36,7 @@ struct DiscussionNotificationsMenu: View {
             }
         } label: {
             Label {
-                Text(Loc.Discussion.Notifications.title)
+                Text(Loc.notifications)
             } icon: {
                 Image(systemName: "bell")
             }
