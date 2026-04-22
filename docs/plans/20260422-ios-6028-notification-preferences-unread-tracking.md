@@ -202,10 +202,10 @@ Middleware work merged 2026-04-21:
 
 ### Task 1.7: Hand off to user for build + manual verification
 
-- [ ] Do NOT build from the agent; user builds locally.
-- [ ] Summarize changes to the user so they can verify in Xcode + simulator (Owner account): open a discussion → 3-dot menu → Notifications submenu shows both options with correct checkmark; toggling flips the checkmark; menu hidden for a Viewer test account.
-- [ ] Stage + commit only if the user explicitly asks.
-- [ ] **STOP. Open PR. Start Chunk 2 in a new session.**
+- [x] Do NOT build from the agent; user builds locally.
+- [x] Summarize changes to the user so they can verify in Xcode + simulator (Owner account): open a discussion → 3-dot menu → Notifications submenu shows both options with correct checkmark; toggling flips the checkmark; menu hidden for a Viewer test account.
+- [x] Stage + commit only if the user explicitly asks. (chunk commits made inline per task prompts)
+- [x] **STOP. Open PR. Start Chunk 2 in a new session.** (handoff — reviews run now, PR opening deferred to user)
 
 ---
 
