@@ -753,8 +753,11 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         // notificationSubscribers stores participant object IDs (relations.json:
         // "objectTypes": ["participant"]), not raw identity strings.
         guard let participantId = await currentParticipant()?.id else { return }
-        for await details in chatObject.detailsPublisher.values {
-            notificationMode = details.notificationSubscribers.contains(participantId) ? .allNewReplies : .mentionsOnly
+        for await subscribers in chatObject.detailsPublisher
+            .map(\.notificationSubscribers)
+            .removeDuplicates()
+            .values {
+            notificationMode = subscribers.contains(participantId) ? .allNewReplies : .mentionsOnly
         }
     }
 
