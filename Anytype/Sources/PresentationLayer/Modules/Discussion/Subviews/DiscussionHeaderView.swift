@@ -5,7 +5,10 @@ struct DiscussionHeaderView: View {
     let objectName: String
     let commentsCount: Int
     let chatId: String?
+    let notificationMode: DiscussionNotificationMode
+    let canEdit: Bool
     let onTapCopyLink: () -> Void
+    let onNotificationModeChange: (DiscussionNotificationMode) async -> Void
 
     var body: some View {
         NavigationHeader(
@@ -38,6 +41,9 @@ struct DiscussionHeaderView: View {
     private var moreButton: some View {
         if chatId != nil {
             Menu {
+                if canEdit {
+                    DiscussionNotificationsMenu(currentMode: notificationMode, onModeChange: onNotificationModeChange)
+                }
                 Button {
                     onTapCopyLink()
                 } label: {

@@ -77,6 +77,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     var dataLoaded = false
     var canEdit = false
+    var notificationMode: DiscussionNotificationMode = .mentionsOnly
     @ObservationIgnored
     var keyboardDismiss: KeyboardDismiss?
     @ObservationIgnored
@@ -241,8 +242,9 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         async let linkedObjectsSub: () = subscribeOnLinkedObjects()
         async let attachmentsDownloadingSub: () = subscribeOnAttachmentsDownloading()
         async let photosItemsTaskSub: () = subscribeOnPhotosItemsTask()
+        async let notificationModeSub: () = subscribeOnNotificationMode()
 
-        _ = await (permissionsSub, participantsSub, typesSub, spaceViewSub, linkedObjectsSub, attachmentsDownloadingSub, photosItemsTaskSub)
+        _ = await (permissionsSub, participantsSub, typesSub, spaceViewSub, linkedObjectsSub, attachmentsDownloadingSub, photosItemsTaskSub, notificationModeSub)
     }
 
     func subscribeOnMessages() async throws {
@@ -669,6 +671,24 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         toastBarData = ToastBarData(Loc.copied)
     }
 
+    func toggleNotificationMode(_ newMode: DiscussionNotificationMode) async {
+        guard newMode != notificationMode else { return }
+        guard let chatId else { return }
+        let participant = await accountParticipantsStorage.participantSequence(spaceId: spaceId).first(where: { _ in true })
+        guard let identity = participant?.identity else { return }
+        do {
+            switch newMode {
+            case .allNewReplies:
+                try await chatService.addNotificationSubscriber(chatObjectId: chatId, identity: identity)
+            case .mentionsOnly:
+                try await chatService.removeNotificationSubscriber(chatObjectId: chatId, identity: identity)
+            }
+            notificationMode = newMode
+        } catch {
+            toastBarData = ToastBarData(error.localizedDescription, type: .failure)
+        }
+    }
+
     // MARK: - ChatActionProviderHandler
 
     func scrollToMessage(messageId: String) {
@@ -724,6 +744,25 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         } else {
             for await canEditMessages in permissionsSequence {
                 canEdit = canEditMessages
+            }
+        }
+    }
+
+    private func subscribeOnNotificationMode() async {
+        guard let chatObject else { return }
+        // notificationSubscribers stores participant object IDs (relations.json:
+        // "objectTypes": ["participant"]), not raw identity strings.
+        let participantIdSequence = accountParticipantsStorage.participantSequence(spaceId: spaceId)
+            .map(\.id)
+            .removeDuplicates()
+        let subscribersSequence = chatObject.detailsPublisher
+            .map(\.notificationSubscribers)
+            .removeDuplicates()
+            .values
+        for await (subscribers, participantId) in combineLatest(subscribersSequence, participantIdSequence) {
+            let newMode: DiscussionNotificationMode = subscribers.contains(participantId) ? .allNewReplies : .mentionsOnly
+            if notificationMode != newMode {
+                notificationMode = newMode
             }
         }
     }
@@ -850,6 +889,12 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private func startDeferredSubscriptions() {
         Task { [weak self] in
             try? await self?.subscribeOnMessages()
+        }
+        Task { [weak self] in
+            // chatObject was nil on initial startSubscriptions() (first-comment case).
+            // Rebind now that createDiscussionIfNeeded assigned it, so the UI reflects
+            // the middleware-auto-subscribed creator state instead of the default.
+            await self?.subscribeOnNotificationMode()
         }
     }
 

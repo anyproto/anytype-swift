@@ -1618,6 +1618,10 @@ public enum Loc {
         return Loc.tr("Workspace", "Discussion.Header.Comments", p1, fallback: "%#@comments@")
       }
     }
+    public enum Notifications {
+      public static let allNewReplies = Loc.tr("Workspace", "Discussion.Notifications.allNewReplies", fallback: "All New Replies")
+      public static let mentionsOnly = Loc.tr("Workspace", "Discussion.Notifications.mentionsOnly", fallback: "Mentions Only")
+    }
   }
   public enum EditSet {
     public enum Popup {
