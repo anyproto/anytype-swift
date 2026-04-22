@@ -204,7 +204,7 @@ private struct HomeWidgetsInternalView: View {
 
     @ViewBuilder
     private var objectTypeWidgets: some View {
-        HomeWidgetsGroupView(title: Loc.objects, onTap: {
+        HomeWidgetsGroupView(title: Loc.types, onTap: {
             model.onTapObjectTypeHeader()
         }, onCreate: nil)
         if model.objectTypeSectionIsExpanded {
