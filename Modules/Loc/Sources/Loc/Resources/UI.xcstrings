@@ -119783,7 +119783,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorited"
+            "value" : "Favorito"
           }
         },
         "fa" : {
@@ -119873,7 +119873,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorited"
+            "value" : "Favorilere eklendi"
           }
         },
         "uk" : {
@@ -119938,7 +119938,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unfavorited"
+            "value" : "No favorito"
           }
         },
         "fa" : {
@@ -120028,7 +120028,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unfavorited"
+            "value" : "Favorilerden çıkarıldı"
           }
         },
         "uk" : {
@@ -120093,7 +120093,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pin to Channel"
+            "value" : "Anclar en el canal"
           }
         },
         "fa" : {
@@ -120183,7 +120183,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pin to Channel"
+            "value" : "Kanala sabitle"
           }
         },
         "uk" : {
@@ -120248,7 +120248,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unpin from Channel"
+            "value" : "Desanclar del canal"
           }
         },
         "fa" : {
@@ -120338,7 +120338,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unpin from Channel"
+            "value" : "Kanaldan sabitlemeyi kaldır"
           }
         },
         "uk" : {
@@ -120403,7 +120403,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My Favorites"
+            "value" : "Mis favoritos"
           }
         },
         "fa" : {
@@ -120493,7 +120493,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My Favorites"
+            "value" : "Favorilerim"
           }
         },
         "uk" : {
