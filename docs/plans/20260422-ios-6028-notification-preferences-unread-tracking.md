@@ -351,24 +351,24 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
 
 > **Prerequisite handled by the user before the session starts.** The `Libraryfile` is bumped to a tag containing `anyproto/anytype-heart` PR #3109. The session does not touch `Libraryfile` or run `make setup-middle`.
 
-- [ ] Sanity-check: `BundledPropertyValueProvider` exposes `unreadMessageCountValue: Int` and `unreadMentionCountValue: Int` (added in Chunk 1). If either is missing, stop — the middleware bump didn't land.
-- [ ] Tests: N/A — prerequisite verification only.
-- [ ] No commit for this task — sanity check produces no diff.
+- [x] Sanity-check: `BundledPropertyValueProvider` exposes `unreadMessageCountValue: Int` and `unreadMentionCountValue: Int` (added in Chunk 1). If either is missing, stop — the middleware bump didn't land. — ➕ deviation: custom `*Value` helpers were removed during Chunk 1 review (commit 1a6cce45); generated `unreadMessageCount: Int?` / `unreadMentionCount: Int?` are present, so the middleware bump is fine. Call sites inline the `?? 0` unwrap instead of reintroducing the helper.
+- [x] Tests: N/A — prerequisite verification only.
+- [x] No commit for this task — sanity check produces no diff.
 
 ### Task 2.1: Publish `discussButtonHasUnread` from the bottom navigation panel VM
 
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeNavigationContainer/Panel/HomeBottomNavigationPanelViewModel.swift`
 
-- [ ] The VM is already `@MainActor @Observable` and already subscribes to the current editor's document details via `subscribeToDetailsChanges(from:)` (lines 165–177), which iterates `document.detailsPublisher.values` and calls `updateState()` on every emission. `updateState()` (lines ~222–239) already derives `showDiscussButton` from `document.details?.discussionId`. We piggy-back on this.
-- [ ] Add observable stored property: `var discussButtonHasUnread: Bool = false`.
-- [ ] In `updateState()`, alongside the existing `hasDiscussion` line, compute `discussButtonHasUnread = (document.details?.unreadMessageCountValue ?? 0) > 0`.
-- [ ] **Reset in all early-return paths** so the dot never persists across object switches:
-  - `guard let participantSpaceView else { ... }` branch (no participant yet) → set `discussButtonHasUnread = false` before returning.
-  - `DiscussionCoordinatorData` branch (line ~227, navigating into a discussion) → acceptable to leave the flag stale because the panel is hidden during navigation; document this choice inline with a one-line `// Why:` comment referring to the hidden-panel invariant so a future reader doesn't "fix" it.
-  - "no editor data / no objectId" branch → set `discussButtonHasUnread = false` before returning.
-- [ ] No new subscription — `detailsPublisher.values` already re-emits on arbitrary detail changes, so the dot refreshes in real time as comments arrive.
-- [ ] Tests: N/A — view-model wiring on an existing subscription.
+- [x] The VM is already `@MainActor @Observable` and already subscribes to the current editor's document details via `subscribeToDetailsChanges(from:)` (lines 165–177), which iterates `document.detailsPublisher.values` and calls `updateState()` on every emission. `updateState()` (lines ~222–239) already derives `showDiscussButton` from `document.details?.discussionId`. We piggy-back on this.
+- [x] Add observable stored property: `var discussButtonHasUnread: Bool = false`.
+- [x] In `updateState()`, alongside the existing `hasDiscussion` line, compute `discussButtonHasUnread = (document.details?.unreadMessageCount ?? 0) > 0`. — inlined `?? 0` because the `*Value` helper was removed in Chunk 1 review.
+- [x] **Reset in all early-return paths** so the dot never persists across object switches:
+  - `guard let participantSpaceView else { ... }` branch → `discussButtonHasUnread = false` before returning.
+  - `DiscussionCoordinatorData` branch → flag left stale; inline comment extends the existing hidden-panel invariant note.
+  - "no editor data / no objectId" branch → `discussButtonHasUnread = false` before returning.
+- [x] No new subscription — `detailsPublisher.values` already re-emits on arbitrary detail changes, so the dot refreshes in real time as comments arrive.
+- [x] Tests: N/A — view-model wiring on an existing subscription.
 - [ ] Commit as `IOS-6028 Publish discussButtonHasUnread from bottom nav VM`.
 
 ### Task 2.2: Render blue-dot indicator on the Discuss button
@@ -376,17 +376,17 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeNavigationContainer/Panel/HomeBottomNavigationPanelView.swift`
 
-- [ ] In `discussIsland` (lines ~96–106), switch the SF symbol and apply palette tinting:
+- [x] In `discussIsland` (lines ~96–106), switch the SF symbol and apply palette tinting:
   ```swift
   Image(systemName: model.discussButtonHasUnread ? "message.badge" : "message")
       .symbolRenderingMode(.palette)
       .foregroundStyle(Color.Control.primary, Color.Control.accent100)
   ```
-- [ ] Palette mode stacks two colors — first tints the bubble, second tints the badge dot. Pattern precedent: `DeleteIndicator.swift:10–14`. `message.badge` is available on iOS 17 (repo's minimum deployment target) — no fallback needed.
-- [ ] Verify `Color.Control.accent100` still exists in `DESIGN_SYSTEM_MAPPING.md` at the time of implementation; if the token was renamed, update the plan inline and use the new name.
-- [ ] Keep the frame (48×48) and `contentShape(Circle())` unchanged.
-- [ ] Preview both states if a preview file for this view exists.
-- [ ] Tests: N/A — SwiftUI view.
+- [x] Palette mode stacks two colors — first tints the bubble, second tints the badge dot. Pattern precedent: `DeleteIndicator.swift:10–14`. `message.badge` is available on iOS 17 (repo's minimum deployment target) — no fallback needed.
+- [x] Verify `Color.Control.accent100` still exists — confirmed via `Modules/Assets/Sources/Assets/Generated/Color+Assets.swift:177`.
+- [x] Keep the frame (48×48) and `contentShape(Circle())` unchanged.
+- [x] Preview both states if a preview file for this view exists. — no preview file for this view.
+- [x] Tests: N/A — SwiftUI view.
 - [ ] Commit as `IOS-6028 Render unread blue dot on Discuss button`.
 
 ### Task 2.3: Open-at-first-unread scroll (verification deferred to user)
@@ -395,19 +395,19 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
 - `Anytype/Sources/PresentationLayer/Modules/Discussion/Services/DiscussionMessagesStorage.swift` (lines 108–124)
 - `Anytype/Sources/PresentationLayer/Modules/Discussion/DiscussionViewModel.swift` (lines 277–290)
 
-- [ ] Expected behavior: opening a discussion with unread messages lands on the first unread with `.center` scroll position via the existing branch on `chatState.messages.oldestOrderID`. Tail-scroll when `oldestOrderID` is empty.
-- [ ] No unread divider — per design, we only scroll; we do not insert any visible separator.
-- [ ] The agent does not build or run the app. Reading-level sanity check only: confirm `DiscussionMessagesStorage:108–124` and `DiscussionViewModel:277–290` are still present and structurally intact after any Chunk 2 edits.
-- [ ] **User manually verifies this scenario on-device during the Chunk 2 hand-off (Task 2.5).** If broken, user files a note and we fix in-place; otherwise this task is a no-op.
-- [ ] Tests: N/A — verification only.
-- [ ] No commit for this task — zero-diff verification. If the sanity check triggers an actual fix, commit that fix as a fresh task.
+- [x] Expected behavior: opening a discussion with unread messages lands on the first unread with `.center` scroll position via the existing branch on `chatState.messages.oldestOrderID`. Tail-scroll when `oldestOrderID` is empty.
+- [x] No unread divider — per design, we only scroll; we do not insert any visible separator.
+- [x] Reading-level sanity check: `DiscussionMessagesStorage.swift:108–124` branches on `chatState.messages.oldestOrderID` and calls `loadPagesTo(orderId:)`; `DiscussionViewModel.swift:277–290` scrolls `.center` to matching oldest-unread message or `.bottom` to last. Both intact; Chunk 2 did not touch these files.
+- [x] **User manually verifies this scenario on-device during the Chunk 2 hand-off (Task 2.5).** If broken, user files a note and we fix in-place; otherwise this task is a no-op.
+- [x] Tests: N/A — verification only.
+- [x] No commit for this task — zero-diff verification. If the sanity check triggers an actual fix, commit that fix as a fresh task.
 
 ### Task 2.4: Push notification tap routing (manual check by user)
 
 **Files:** (read-only reference)
 - `Anytype/Sources/PresentationLayer/Flows/SpaceHub/SpaceHubCoordinatorViewModel.swift` — `handleChatMessageDeepLink(chatObjectId:spaceId:messageId:)` at lines ~620–680. Pre-located: this is IOS-5838's central handler and it already branches on `details.editorViewType == .discussion || details.discussionId.isNotEmpty` (line 632) to push a `DiscussionCoordinatorData` with the `messageId` payload. Discussion pushes route through this single point.
 
-- [ ] Agent action is limited to spot-reading `SpaceHubCoordinatorViewModel:620–680` to confirm the discussion branch still compiles and the `messageId` is passed into `DiscussionCoordinatorData`. Record the confirmation inline as a ➕ note.
+- [x] Agent action is limited to spot-reading `SpaceHubCoordinatorViewModel:620–680` to confirm the discussion branch still compiles and the `messageId` is passed into `DiscussionCoordinatorData`. — ➕ confirmed: `handleChatMessageDeepLink` at lines 620–694, discussion branch at line 633 (`details.editorViewType == .discussion || details.discussionId.isNotEmpty`) resolves `discussionId` and pushes `DiscussionCoordinatorData(..., messageId: messageId)` in all three sub-paths (existing-in-path replace at 651, standalone at 666, object+discussion at 682).
 - [ ] **User manually verifies during the Chunk 2 hand-off (Task 2.5)**: copy a deeplink to a comment from another client (web/macOS/Android) or trigger a real push, tap it in iOS, and confirm against these explicit pass criteria:
   1. Space opens correctly.
   2. Parent object opens correctly.
@@ -416,7 +416,7 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
   - If criteria 1–3 pass but criterion 4 fails, treat it as a **partial pass** — Chunk 2 still ships (unread-dot + first-unread scroll are the scope); criterion 4 becomes a Chunk 2 follow-up task scoped to `messageId` plumbing, not a Chunk 2 blocker.
   - If criterion 1, 2, or 3 fails, Chunk 2 is blocked until fixed.
 - [ ] If user reports any of 1–3 broken, agent diagnoses and patches in-place when the fix is ≤10 lines; otherwise files a separate Linear task and ships Chunk 2 without the patch.
-- [ ] Tests: N/A — not simulable from the agent; pass/fail decided by user verification.
+- [x] Tests: N/A — not simulable from the agent; pass/fail decided by user verification.
 - [ ] Commit as `IOS-6028 Verify discussion push routing handler` (even if no code changes — the ➕ note is the artifact; use `--allow-empty` if the sanity check produced zero diff).
 
 ### Task 2.5: Hand off to user for build + manual verification
