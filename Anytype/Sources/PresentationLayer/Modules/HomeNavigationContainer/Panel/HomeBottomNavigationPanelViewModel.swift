@@ -67,7 +67,7 @@ final class HomeBottomNavigationPanelViewModel {
         self.info = info
         self.output = output
     }
-    
+
     func onTapNewObject() {
         handleCreateObject()
     }
@@ -235,7 +235,6 @@ final class HomeBottomNavigationPanelViewModel {
         }
 
         // Don't stop observing — popping back from the discussion screen should preserve the count.
-        // The unread flag is re-evaluated via subscribeToDetailsChanges / next detailsPublisher emission.
         if currentData is DiscussionCoordinatorData { return }
 
         canCreateObject = participantSpaceView.permissions.canEdit
