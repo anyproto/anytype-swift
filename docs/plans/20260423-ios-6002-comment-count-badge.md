@@ -497,34 +497,34 @@ Five sequential tasks. Commit after each (`IOS-6002 <short>`), single-line messa
 - `Anytype/Sources/PresentationLayer/Modules/HomeNavigationContainer/Panel/HomeBottomNavigationPanelViewModel.swift`
 - `Anytype/Sources/PresentationLayer/Modules/Discussion/DiscussionViewModel.swift`
 
-- [ ] Remove `func getMessageCount(chatObjectId:) async throws -> Int` from `ChatServiceProtocol` and its implementation.
-- [ ] Remove `messageCount: Int?` field and its default-init from `ChatMessagePreview`.
-- [ ] Remove from `ChatMessagesPreviewsStorage`: the `messageCount(spaceId:chatId:)` method, the `inFlightMessageCountFetches` map, `applyFetchedMessageCount`, and the `.chatUpdateMessageCount` case in `handle(events:)`. Restore the storage to its pre-IOS-6002 shape.
-- [ ] **Keep** the `ChatUpdateMessageCountData` typealias in `Modules/Services/Sources/Models/ChatModels.swift` — Task R2 and Task R4 both reference it.
-- [ ] Remove from `HomeBottomNavigationPanelViewModel`: the `@Injected(\.chatMessagesPreviewsStorage)`, `currentDiscussionId`, `commentsCount`, `subscribeOnCommentsCount()`, and the bootstrap `Task { ... messageCount(...) }` inside `updateState`. `updateState` returns to its pre-IOS-6002 shape.
-- [ ] Remove from `DiscussionViewModel`: `@Injected(\.chatMessagesPreviewsStorage)`, `subscribeOnCommentsCount`, `bootstrapCommentsCount`, the `commentsCountSub` async-let in `startSubscriptions`, and the bootstrap call at the end of `createDiscussionIfNeeded`. Keep `commentsCount` as a stored property. Do NOT restore `self.commentsCount = messages.count` — that was the original bug; Task R5 replaces it with the right source.
+- [x] Remove `func getMessageCount(chatObjectId:) async throws -> Int` from `ChatServiceProtocol` and its implementation.
+- [x] Remove `messageCount: Int?` field and its default-init from `ChatMessagePreview`.
+- [x] Remove from `ChatMessagesPreviewsStorage`: the `messageCount(spaceId:chatId:)` method, the `inFlightMessageCountFetches` map, `applyFetchedMessageCount`, and the `.chatUpdateMessageCount` case in `handle(events:)`. Restore the storage to its pre-IOS-6002 shape.
+- [x] **Keep** the `ChatUpdateMessageCountData` typealias in `Modules/Services/Sources/Models/ChatModels.swift` — Task R2 and Task R4 both reference it.
+- [x] Remove from `HomeBottomNavigationPanelViewModel`: the `@Injected(\.chatMessagesPreviewsStorage)`, `currentDiscussionId`, `commentsCount`, `subscribeOnCommentsCount()`, and the bootstrap `Task { ... messageCount(...) }` inside `updateState`. `updateState` returns to its pre-IOS-6002 shape.
+- [x] Remove from `DiscussionViewModel`: `@Injected(\.chatMessagesPreviewsStorage)`, `subscribeOnCommentsCount`, `bootstrapCommentsCount`, the `commentsCountSub` async-let in `startSubscriptions`, and the bootstrap call at the end of `createDiscussionIfNeeded`. Keep `commentsCount` as a stored property. Do NOT restore `self.commentsCount = messages.count` — that was the original bug; Task R5 replaces it with the right source.
 
 #### Task R2: Create `DiscussionMessageCountObserver`  *(Part 1 — PR #1)*
 
 **Files:**
 - New: `Anytype/Sources/PresentationLayer/Modules/Chat/Services/DiscussionMessageCountObserver.swift`
 
-- [ ] Implement as an `actor` with the shape in "## Technical Details — REVISED → New: `DiscussionMessageCountObserver`".
-- [ ] `start()` opens `chatService.subscribeLastMessages(chatObjectId:, subId:, limit: 0)`, emits `Int(response.messageCount)` into an internal `AsyncToManyStream<Int>`, then kicks a `for await events in EventBunchSubscribtion.default.stream()` task.
-- [ ] Event handler: only `.chatUpdateMessageCount(data)` case, gated by `data.subIds.contains(subId)`. Emit the updated count through the same stream.
-- [ ] `deinit`: cancel the events task; detached `Task` calling `chatService.unsubscribeLastMessages(chatObjectId:, subId:)`, guarded by `basicUserInfoStorage.usersId.isNotEmpty`. Mirror the pattern at `DiscussionMessagesStorage.swift:221-228`.
-- [ ] Verify with a first run: if `chatSubscribeLastMessages(limit: 0)` returns no messages and delivers events, we're good. If it returns everything (0 interpreted as unlimited), switch to `limit: 1`.
+- [x] Implement as an `actor` with the shape in "## Technical Details — REVISED → New: `DiscussionMessageCountObserver`".
+- [x] `start()` opens `chatService.subscribeLastMessages(chatObjectId:, subId:, limit: 0)`, emits `Int(response.messageCount)` into an internal `AsyncToManyStream<Int>`, then kicks a `for await events in EventBunchSubscribtion.default.stream()` task.
+- [x] Event handler: only `.chatUpdateMessageCount(data)` case, gated by `data.subIds.contains(subId)`. Emit the updated count through the same stream.
+- [x] `deinit`: cancel the events task; detached `Task` calling `chatService.unsubscribeLastMessages(chatObjectId:, subId:)`, guarded by `basicUserInfoStorage.usersId.isNotEmpty`. Mirror the pattern at `DiscussionMessagesStorage.swift:221-228`.
+- [x] Verify with a first run: if `chatSubscribeLastMessages(limit: 0)` returns no messages and delivers events, we're good. If it returns everything (0 interpreted as unlimited), switch to `limit: 1`.
 
 #### Task R3: Wire `HomeBottomNavigationPanelViewModel` with the observer  *(Part 1 — PR #1)*
 
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeNavigationContainer/Panel/HomeBottomNavigationPanelViewModel.swift`
 
-- [ ] Add `var commentsCount: Int = 0` observable property.
-- [ ] Add `@ObservationIgnored private var messageCountObserver: DiscussionMessageCountObserver?` and `@ObservationIgnored private var messageCountIterationTask: Task<Void, Never>?`.
-- [ ] Add a helper `private func setMessageCountObserver(spaceId: String, chatId: String)` that: cancels the existing iteration task; constructs the new observer; kicks `Task { @MainActor [weak self] in try? await observer.start(); for await count in await observer.messageCountStream { self?.commentsCount = count } }`; stores both onto the VM. Track the observer's chatId via a small struct or a separate `private var currentDiscussionId: String?`.
-- [ ] Add a helper `private func clearMessageCountObserver()` that cancels the iteration task, releases the observer (ARC → deinit → unsubscribe), and resets `commentsCount = 0` and `currentDiscussionId = nil`.
-- [ ] In `updateState()`:
+- [x] Add `var commentsCount: Int = 0` observable property.
+- [x] Add `@ObservationIgnored private var messageCountObserver: DiscussionMessageCountObserver?` and `@ObservationIgnored private var messageCountIterationTask: Task<Void, Never>?`.
+- [x] Add a helper `private func setMessageCountObserver(spaceId: String, chatId: String)` that: cancels the existing iteration task; constructs the new observer; kicks `Task { @MainActor [weak self] in try? await observer.start(); for await count in await observer.messageCountStream { self?.commentsCount = count } }`; stores both onto the VM. Track the observer's chatId via a small struct or a separate `private var currentDiscussionId: String?`.
+- [x] Add a helper `private func clearMessageCountObserver()` that cancels the iteration task, releases the observer (ARC → deinit → unsubscribe), and resets `commentsCount = 0` and `currentDiscussionId = nil`.
+- [x] In `updateState()`:
   - When `hasDiscussion, let discussionId` and `discussionId != currentDiscussionId`: call `setMessageCountObserver(spaceId:chatId:)`.
   - In the else branches (no editor data, no discussion): call `clearMessageCountObserver()`.
   - When `DiscussionCoordinatorData` early-return fires: **do not** clear the observer — the panel is hidden anyway, and popping back to the editor should show the same count without a reload bounce.
@@ -535,10 +535,10 @@ Five sequential tasks. Commit after each (`IOS-6002 <short>`), single-line messa
 - Modify: `Anytype/Sources/PresentationLayer/Modules/Discussion/Services/DiscussionMessagesStorage.swift`
 - Modify: the `ChatUpdate` enum (find via `rg "enum ChatUpdate" --type swift`).
 
-- [ ] Add `case messageCount` to the `ChatUpdate` enum. If `allCases` is still synthesized via `CaseIterable`, the initial `syncStream.send(ChatUpdate.allCases)` will pick it up automatically.
-- [ ] Add `private(set) var messageCount: Int?` to `DiscussionMessagesStorage`.
-- [ ] In `startSubscriptionIfNeeded(...)` after the `subscribeLastMessages(...)` call: `messageCount = Int(response.messageCount)`.
-- [ ] In `handle(events:)` switch, add:
+- [x] Add `case messageCount` to the `ChatUpdate` enum. If `allCases` is still synthesized via `CaseIterable`, the initial `syncStream.send(ChatUpdate.allCases)` will pick it up automatically.
+- [x] Add `private(set) var messageCount: Int?` to `DiscussionMessagesStorage`.
+- [x] In `startSubscriptionIfNeeded(...)` after the `subscribeLastMessages(...)` call: `messageCount = Int(response.messageCount)`.
+- [x] In `handle(events:)` switch, add:
   ```swift
   case let .chatUpdateMessageCount(data):
       guard data.subIds.contains(subId) else { break }
@@ -554,9 +554,9 @@ Five sequential tasks. Commit after each (`IOS-6002 <short>`), single-line messa
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Modules/Discussion/DiscussionViewModel.swift`
 
-- [ ] In `subscribeOnMessages`, after reading `chatStorage.chatState` / `chatStorage.fullMessages`, add: `if updates.contains(.messageCount) { self.commentsCount = await chatStorage.messageCount ?? 0 }`.
-- [ ] Ensure `commentsCount` remains an observable stored property (do not reintroduce the old `messages.count` assignment).
-- [ ] No other changes — the existing `for await updates in chatStorage.updateStream` loop is the only consumer we need.
+- [x] In `subscribeOnMessages`, after reading `chatStorage.chatState` / `chatStorage.fullMessages`, add: `if updates.contains(.messageCount) { self.commentsCount = await chatStorage.messageCount ?? 0 }`.
+- [x] Ensure `commentsCount` remains an observable stored property (do not reintroduce the old `messages.count` assignment).
+- [x] No other changes — the existing `for await updates in chatStorage.updateStream` loop is the only consumer we need.
 
 ### Part 2 — UI
 
