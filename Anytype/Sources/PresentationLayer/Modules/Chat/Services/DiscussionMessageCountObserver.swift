@@ -37,8 +37,11 @@ actor DiscussionMessageCountObserver: DiscussionMessageCountObserverProtocol {
         let subId = "DiscussionMessageCountObserver-\(UUID().uuidString)"
         current = (chatId: chatId, subId: subId)
 
-        eventTask = Task { [weak self, events] in
-            for await events in await events.stream() {
+        // Register the bus subscription synchronously before the RPC so we never miss an
+        // event between the server-side subscribe registering and our local iterator starting.
+        let eventStream = await events.stream()
+        eventTask = Task { [weak self] in
+            for await events in eventStream {
                 await self?.handle(events: events, expectedSubId: subId)
             }
         }
