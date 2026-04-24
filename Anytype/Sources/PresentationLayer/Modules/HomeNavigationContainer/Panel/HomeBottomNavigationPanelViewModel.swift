@@ -43,13 +43,8 @@ final class HomeBottomNavigationPanelViewModel {
     private var messageCountObserver: any DiscussionMessageCountObserverProtocol
     @ObservationIgnored
     private var observerCommandTask: Task<Void, Never>?
-    // What we want the observer to watch.
     @ObservationIgnored
     private var currentDiscussionId: String?
-    // What the observer has confirmed it is watching, via a stream emission. Diverges from
-    // currentDiscussionId when a subscribe fails; next updateState retries until they match.
-    @ObservationIgnored
-    private var observedDiscussionId: String?
 
     // MARK: - Public properties
 
@@ -255,30 +250,21 @@ final class HomeBottomNavigationPanelViewModel {
             return
         }
 
-        if currentDiscussionId != discussionId {
-            currentDiscussionId = discussionId
-            commentsCount = 0
-        }
-        // Enqueue start whenever the observer hasn't confirmed this chat via a stream emission.
-        // A transient subscribe failure clears the observer's internal state but leaves
-        // observedDiscussionId unchanged, so subsequent updateState calls retry until a count
-        // arrives.
-        if observedDiscussionId != discussionId {
-            enqueueObserverCommand { await $0.startObserving(chatId: discussionId) }
-        }
+        guard currentDiscussionId != discussionId else { return }
+        currentDiscussionId = discussionId
+        commentsCount = 0
+        enqueueObserverCommand { await $0.startObserving(chatId: discussionId) }
     }
 
     private func clearDiscussionObservation() {
         if commentsCount != 0 { commentsCount = 0 }
         guard currentDiscussionId != nil else { return }
         currentDiscussionId = nil
-        observedDiscussionId = nil
         enqueueObserverCommand { await $0.stopObserving() }
     }
 
     private func subscribeOnMessageCount() async {
         for await update in await messageCountObserver.messageCountStream {
-            observedDiscussionId = update.chatId
             guard update.chatId == currentDiscussionId else { continue }
             commentsCount = update.count
         }
