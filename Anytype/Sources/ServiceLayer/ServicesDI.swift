@@ -348,6 +348,10 @@ extension Container {
         self { ChatActionService() }
     }
 
+    var discussionMessageCountObserver: Factory<any DiscussionMessageCountObserverProtocol> {
+        self { DiscussionMessageCountObserver() }
+    }
+
 
     var shareSuggestionService: Factory<any ShareSuggestionServiceProtocol> {
         self { ShareSuggestionService() }
