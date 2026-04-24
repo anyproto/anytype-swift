@@ -20,7 +20,7 @@ struct MyFavoritesListView: View {
                 )
                 .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 24, style: .continuous))
                 .anytypeVerticalDrag(itemId: row.id)
-                .setZeroOpacity(favoritesDndState.dragInitiateId == row.id)
+                .setZeroOpacity(favoritesDndState.dragInitiateId == row.id && favoritesDndState.dragInProgress)
             }
         }
         .background(Color.Background.widget)
