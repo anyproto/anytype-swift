@@ -12,16 +12,13 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Model_MembershipV2 {
-    public struct Cart: Sendable {
+    public struct CryptoCheckout: Sendable {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// if you add Nx the same product - it will be Nx in the 'products' array, i.e:
-    /// each product instance has a unique index
-    public var products: [Anytype_Model_MembershipV2.CartProduct] = []
+    public var invoiceURL: String = String()
 
-    /// total amount of the cart (including discounts, etc)
     public var total: Anytype_Model_MembershipV2.Amount {
       get {return _total ?? Anytype_Model_MembershipV2.Amount()}
       set {_total = newValue}
@@ -31,33 +28,19 @@ extension Anytype_Model_MembershipV2 {
     /// Clears the value of `total`. Subsequent reads from it will return its default value.
     public mutating func clearTotal() {self._total = nil}
 
-    /// in case you are paying in the middle of the period (for existing customers)
-    /// the next invoice amount will also be generated
-    public var totalNextInvoice: Anytype_Model_MembershipV2.Amount {
-      get {return _totalNextInvoice ?? Anytype_Model_MembershipV2.Amount()}
-      set {_totalNextInvoice = newValue}
-    }
-    /// Returns true if `totalNextInvoice` has been explicitly set.
-    public var hasTotalNextInvoice: Bool {return self._totalNextInvoice != nil}
-    /// Clears the value of `totalNextInvoice`. Subsequent reads from it will return its default value.
-    public mutating func clearTotalNextInvoice() {self._totalNextInvoice = nil}
-
-    public var nextInvoiceDate: UInt64 = 0
-
-    public var appliedPromocodes: [String] = []
+    public var isCanCancel: Bool = false
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
 
     fileprivate var _total: Anytype_Model_MembershipV2.Amount? = nil
-    fileprivate var _totalNextInvoice: Anytype_Model_MembershipV2.Amount? = nil
   }    
 }
 
-extension Anytype_Model_MembershipV2.Cart: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Model_MembershipV2.protoMessageName + ".Cart"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}products\0\u{1}total\0\u{1}totalNextInvoice\0\u{1}nextInvoiceDate\0\u{1}appliedPromocodes\0")
+extension Anytype_Model_MembershipV2.CryptoCheckout: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_MembershipV2.protoMessageName + ".CryptoCheckout"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}invoiceURL\0\u{1}total\0\u{1}isCanCancel\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -65,11 +48,9 @@ extension Anytype_Model_MembershipV2.Cart: SwiftProtobuf.Message, SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.products) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.invoiceURL) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._total) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._totalNextInvoice) }()
-      case 4: try { try decoder.decodeSingularUInt64Field(value: &self.nextInvoiceDate) }()
-      case 5: try { try decoder.decodeRepeatedStringField(value: &self.appliedPromocodes) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.isCanCancel) }()
       default: break
       }
     }
@@ -80,30 +61,22 @@ extension Anytype_Model_MembershipV2.Cart: SwiftProtobuf.Message, SwiftProtobuf.
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.products.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.products, fieldNumber: 1)
+    if !self.invoiceURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.invoiceURL, fieldNumber: 1)
     }
     try { if let v = self._total {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
-    try { if let v = self._totalNextInvoice {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    } }()
-    if self.nextInvoiceDate != 0 {
-      try visitor.visitSingularUInt64Field(value: self.nextInvoiceDate, fieldNumber: 4)
-    }
-    if !self.appliedPromocodes.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.appliedPromocodes, fieldNumber: 5)
+    if self.isCanCancel != false {
+      try visitor.visitSingularBoolField(value: self.isCanCancel, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Model_MembershipV2.Cart, rhs: Anytype_Model_MembershipV2.Cart) -> Bool {
-    if lhs.products != rhs.products {return false}
+  public static func ==(lhs: Anytype_Model_MembershipV2.CryptoCheckout, rhs: Anytype_Model_MembershipV2.CryptoCheckout) -> Bool {
+    if lhs.invoiceURL != rhs.invoiceURL {return false}
     if lhs._total != rhs._total {return false}
-    if lhs._totalNextInvoice != rhs._totalNextInvoice {return false}
-    if lhs.nextInvoiceDate != rhs.nextInvoiceDate {return false}
-    if lhs.appliedPromocodes != rhs.appliedPromocodes {return false}
+    if lhs.isCanCancel != rhs.isCanCancel {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
