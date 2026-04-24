@@ -11,6 +11,7 @@ public typealias ChatUnreadReadType = Anytype_Rpc.Chat.Unread.ReadType
 public typealias ChatUpdateState = Anytype_Event.Chat.UpdateState
 public typealias ChatAddData = Anytype_Event.Chat.Add
 public typealias ChatDeleteData = Anytype_Event.Chat.Delete
+public typealias ChatUpdateMessageCountData = Anytype_Event.Chat.UpdateMessageCount
 
 public extension ChatMessage {
     var createdAtDate: Date {

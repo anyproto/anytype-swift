@@ -257,6 +257,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
             let chatState = await chatStorage.chatState
             let messages = await chatStorage.fullMessages
+            let messageCount = await chatStorage.messageCount
 
             if !showScreenLogged, let chatId {
                 AnytypeAnalytics.instance().logScreenChat(
@@ -272,7 +273,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
                 let prevChatIsEmpty = self.messages.isEmpty
 
                 self.messages = messages
-                self.commentsCount = messages.count
                 if prevChatIsEmpty {
                     firstUnreadMessageOrderId = chatState?.messages.oldestOrderID
                 }
@@ -294,6 +294,10 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             if updates.contains(.state), let chatState {
                 self.chatState = chatState
                 updateActions()
+            }
+
+            if updates.contains(.messageCount) {
+                self.commentsCount = messageCount ?? 0
             }
         }
     }

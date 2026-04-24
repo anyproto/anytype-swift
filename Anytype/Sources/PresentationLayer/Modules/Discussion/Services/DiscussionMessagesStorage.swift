@@ -20,6 +20,7 @@ protocol DiscussionMessagesStorageProtocol: AnyObject, Sendable {
     var updateStream: AnyAsyncSequence<[ChatUpdate]> { get }
     var fullMessages: [FullChatMessage]? { get async }
     var chatState: ChatState? { get async }
+    var messageCount: Int? { get async }
 }
 
 actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
@@ -62,6 +63,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     private var replies = [String: ChatMessage]()
     private(set) var fullMessages: [FullChatMessage]?
     private(set) var chatState: ChatState?
+    private(set) var messageCount: Int?
 
     private let syncStream = AsyncToManyStream<[ChatUpdate]>()
 
@@ -108,6 +110,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
         let response = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, subId: subId, limit: Constants.pageSize)
 
         chatState = response.chatState
+        messageCount = Int(response.messageCount)
 
         lastMessages.add(response.messages)
 
@@ -286,6 +289,13 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
                 guard data.subIds.contains(subId) else { break }
                 if messages.chatUpdateMessageSyncStatus(data) {
                     updates.insert(.messages)
+                }
+            case let .chatUpdateMessageCount(data):
+                guard data.subIds.contains(subId) else { break }
+                let newCount = Int(data.messageCount)
+                if messageCount != newCount {
+                    messageCount = newCount
+                    updates.insert(.messageCount)
                 }
             default:
                 break
