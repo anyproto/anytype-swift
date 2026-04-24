@@ -20,7 +20,6 @@ actor DiscussionMessageCountObserver: DiscussionMessageCountObserverProtocol {
     private let events: EventBunchSubscribtion = .default
 
     private var currentChatId: String?
-    private var currentSpaceId: String?
     private var currentSubId: String?
     private var eventTask: Task<Void, Never>?
 
@@ -36,7 +35,6 @@ actor DiscussionMessageCountObserver: DiscussionMessageCountObserverProtocol {
         await stopObserving()
 
         let subId = "DiscussionMessageCountObserver-\(UUID().uuidString)"
-        currentSpaceId = spaceId
         currentChatId = chatId
         currentSubId = subId
 
@@ -48,10 +46,21 @@ actor DiscussionMessageCountObserver: DiscussionMessageCountObserverProtocol {
 
         do {
             let response = try await chatService.subscribeLastMessages(chatObjectId: chatId, subId: subId, limit: 0)
-            guard currentSubId == subId else { return }
+            // Superseded while the RPC was in flight — unsubscribe to avoid a server-side
+            // orphan, don't emit (a newer attempt is already active on this actor).
+            guard currentSubId == subId else {
+                try? await chatService.unsubscribeLastMessages(chatObjectId: chatId, subId: subId)
+                return
+            }
             stream.send(DiscussionMessageCount(chatId: chatId, count: Int(response.messageCount)))
         } catch {
-            anytypeAssertionFailure("DiscussionMessageCountObserver subscribe failed", info: ["error": error.localizedDescription])
+            // Only clear state if we're still the active attempt; otherwise a later
+            // startObserving has taken over and must not be clobbered.
+            guard currentSubId == subId else { return }
+            eventTask?.cancel()
+            eventTask = nil
+            currentChatId = nil
+            currentSubId = nil
         }
     }
 
@@ -62,7 +71,6 @@ actor DiscussionMessageCountObserver: DiscussionMessageCountObserverProtocol {
         let chatId = currentChatId
         let subId = currentSubId
         currentChatId = nil
-        currentSpaceId = nil
         currentSubId = nil
 
         if let chatId, let subId {

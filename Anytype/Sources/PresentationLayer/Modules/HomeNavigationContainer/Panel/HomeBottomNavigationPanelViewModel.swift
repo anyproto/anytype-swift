@@ -42,6 +42,8 @@ final class HomeBottomNavigationPanelViewModel {
     @ObservationIgnored
     private let messageCountObserver: any DiscussionMessageCountObserverProtocol = DiscussionMessageCountObserver()
     @ObservationIgnored
+    private var observerCommandTask: Task<Void, Never>?
+    @ObservationIgnored
     private var currentDiscussionId: String?
 
     // MARK: - Public properties
@@ -240,7 +242,7 @@ final class HomeBottomNavigationPanelViewModel {
             showDiscussButton = false
             currentDiscussionId = nil
             commentsCount = 0
-            Task { [messageCountObserver] in await messageCountObserver.stopObserving() }
+            enqueueObserverStop()
             return
         }
         let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
@@ -252,22 +254,41 @@ final class HomeBottomNavigationPanelViewModel {
             if currentDiscussionId != discussionId {
                 currentDiscussionId = discussionId
                 commentsCount = 0
-                let spaceId = editorData.spaceId
-                Task { [messageCountObserver] in
-                    await messageCountObserver.startObserving(spaceId: spaceId, chatId: discussionId)
-                }
+                enqueueObserverStart(spaceId: editorData.spaceId, chatId: discussionId)
             }
         } else {
             currentDiscussionId = nil
             commentsCount = 0
-            Task { [messageCountObserver] in await messageCountObserver.stopObserving() }
+            enqueueObserverStop()
         }
     }
 
     private func subscribeOnMessageCount() async {
+        // Both writer (here) and reader of currentDiscussionId (updateState) run on @MainActor,
+        // so this filter is not racy.
         for await update in await messageCountObserver.messageCountStream {
             guard update.chatId == currentDiscussionId else { continue }
             commentsCount = update.count
+        }
+    }
+
+    // Chain observer commands through a single Task so start/stop run in the order they
+    // were enqueued from updateState, even though each one is asynchronous.
+    private func enqueueObserverStart(spaceId: String, chatId: String) {
+        let previous = observerCommandTask
+        let observer = messageCountObserver
+        observerCommandTask = Task {
+            await previous?.value
+            await observer.startObserving(spaceId: spaceId, chatId: chatId)
+        }
+    }
+
+    private func enqueueObserverStop() {
+        let previous = observerCommandTask
+        let observer = messageCountObserver
+        observerCommandTask = Task {
+            await previous?.value
+            await observer.stopObserving()
         }
     }
 
