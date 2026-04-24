@@ -26,12 +26,17 @@ extension Anytype_Model_MembershipV2 {
     /// Clears the value of `product`. Subsequent reads from it will return its default value.
     public mutating func clearProduct() {self._product = nil}
 
-    /// otherwise - monthly
+    /// otherwise - monthly or isLifetime
     public var isYearly: Bool = false
 
     /// set to true if you want to remove this item from the customer
     /// it's like setting -1 to some product
     public var remove: Bool = false
+
+    /// if true - then this is lifetime product (no matter what isYearly above is)
+    /// unfortunately we do not use Period here to keep compatibility with old versions 
+    /// that still use isYearly! 
+    public var isLifetime: Bool = false
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -43,7 +48,7 @@ extension Anytype_Model_MembershipV2 {
 
 extension Anytype_Model_MembershipV2.CartProduct: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_MembershipV2.protoMessageName + ".CartProduct"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}product\0\u{1}isYearly\0\u{1}remove\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}product\0\u{1}isYearly\0\u{1}remove\0\u{1}isLifetime\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -54,6 +59,7 @@ extension Anytype_Model_MembershipV2.CartProduct: SwiftProtobuf.Message, SwiftPr
       case 1: try { try decoder.decodeSingularMessageField(value: &self._product) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.isYearly) }()
       case 3: try { try decoder.decodeSingularBoolField(value: &self.remove) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.isLifetime) }()
       default: break
       }
     }
@@ -73,6 +79,9 @@ extension Anytype_Model_MembershipV2.CartProduct: SwiftProtobuf.Message, SwiftPr
     if self.remove != false {
       try visitor.visitSingularBoolField(value: self.remove, fieldNumber: 3)
     }
+    if self.isLifetime != false {
+      try visitor.visitSingularBoolField(value: self.isLifetime, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -80,6 +89,7 @@ extension Anytype_Model_MembershipV2.CartProduct: SwiftProtobuf.Message, SwiftPr
     if lhs._product != rhs._product {return false}
     if lhs.isYearly != rhs.isYearly {return false}
     if lhs.remove != rhs.remove {return false}
+    if lhs.isLifetime != rhs.isLifetime {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
