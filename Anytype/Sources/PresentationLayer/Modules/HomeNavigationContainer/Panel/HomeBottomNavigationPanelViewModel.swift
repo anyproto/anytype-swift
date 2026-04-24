@@ -272,8 +272,12 @@ final class HomeBottomNavigationPanelViewModel {
         }
     }
 
-    // Chain observer commands through a single Task so start/stop run in the order they
-    // were enqueued from updateState, even though each one is asynchronous.
+    // updateState() is synchronous but observer calls are async, so each call must be
+    // dispatched via Task { await ... }. The actor serializes method bodies but does not
+    // guarantee which waiting Task acquires the actor first — so a raw `Task { stop() }`
+    // followed by `Task { start(D) }` can run in reverse, leaving the observer stopped
+    // while the VM's currentDiscussionId is set to D. Chaining through observerCommandTask
+    // forces FIFO: each new command awaits the previous task's completion before running.
     private func enqueueObserverStart(spaceId: String, chatId: String) {
         let previous = observerCommandTask
         let observer = messageCountObserver
