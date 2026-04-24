@@ -179,14 +179,14 @@ Align `MyFavorites` architecture with `blockWidgets`: parent VM owns only the st
 **Files:**
 - Create: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/MyFavorites/MyFavoritesRowViewModel.swift`
 
-- [ ] create `@MainActor @Observable` final class `MyFavoritesRowViewModel`
-- [ ] injections (`@ObservationIgnored @Injected`): `chatMessagesPreviewsStorage`, `spaceViewsStorage`, `widgetChatPreviewBuilder`
-- [ ] initializer `init(objectId: String, spaceId: String)`
-- [ ] stored (`@ObservationIgnored`): `objectId`, `spaceId`, `chatPreviews: [ChatMessagePreview] = []`
-- [ ] exposed: `private(set) var badgeModel: MessagePreviewModel?`
-- [ ] `func startSubscriptions() async` → runs `startChatPreviewsSubscription()`
-- [ ] `startChatPreviewsSubscription()` iterates `chatMessagesPreviewsStorage.previewsSequence`, assigns `chatPreviews`, calls `updateBadgeModel()`
-- [ ] `updateBadgeModel()`: find preview where `chatId == objectId`, read `spaceView = spaceViewsStorage.spaceView(spaceId: spaceId)`, build via `chatPreviewBuilder.build(chatPreview:spaceView:)` — copy shape from `LinkWidgetViewModel.updateBadgeModel`
+- [x] create `@MainActor @Observable` final class `MyFavoritesRowViewModel`
+- [x] injections (`@ObservationIgnored @Injected`): `chatMessagesPreviewsStorage`, `spaceViewsStorage`, `widgetChatPreviewBuilder`
+- [x] initializer `init(objectId: String, spaceId: String)`
+- [x] stored (`@ObservationIgnored`): `objectId`, `spaceId`, `chatPreviews: [ChatMessagePreview] = []`
+- [x] exposed: `private(set) var badgeModel: MessagePreviewModel?`
+- [x] `func startSubscriptions() async` → runs `startChatPreviewsSubscription()`
+- [x] `startChatPreviewsSubscription()` iterates `chatMessagesPreviewsStorage.previewsSequence`, assigns `chatPreviews`, calls `updateBadgeModel()`
+- [x] `updateBadgeModel()`: find preview where `chatId == objectId`, read `spaceView = spaceViewsStorage.spaceView(spaceId: spaceId)`, build via `chatPreviewBuilder.build(chatPreview:spaceView:)` — copy shape from `LinkWidgetViewModel.updateBadgeModel`
 
 #### Task A2: Add `MyFavoritesRowInternalView` + wire the per-row VM + plumb `spaceId`
 
@@ -195,13 +195,13 @@ Align `MyFavorites` architecture with `blockWidgets`: parent VM owns only the st
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/MyFavorites/MyFavoritesListView.swift` (pass `spaceId` to each row)
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/MyFavorites/MyFavoritesRowView.swift` (outer + new internal view)
 
-- [ ] remove `private` from `spaceId` on `MyFavoritesViewModel` (or expose via a public `let`/computed accessor) so the view can read it
-- [ ] in `MyFavoritesListView.swift`, pass `spaceId: model.spaceId` into each `MyFavoritesRowView`
-- [ ] split `MyFavoritesRowView` — the outer struct now wraps `MyFavoritesRowInternalView(...).id(row.id)`, threading through the existing parameters including `canManageChannelPins` and `isPinnedToChannel` (these are removed in Task A3; leave them wired for now so the project keeps compiling)
-- [ ] inside `MyFavoritesRowInternalView`, hold `@State private var rowModel: MyFavoritesRowViewModel`; init from `(row.objectId, spaceId)` exactly like `LinkWidgetInternalView` inits `LinkWidgetViewModel`
-- [ ] add `.task { await rowModel.startSubscriptions() }` on the internal view's body
-- [ ] in the chat-badge branch of the body, replace `row.chatPreview` with `rowModel.badgeModel`. `MyFavoritesRowData.chatPreview` still exists and is still populated by the parent VM at this point — just stop reading it from the view.
-- [ ] **keep `.setZeroOpacity(...)` and `.anytypeVerticalDrag(itemId: row.id)` at list-level in `MyFavoritesListView`** — do not move them into `MyFavoritesRowInternalView`
+- [x] remove `private` from `spaceId` on `MyFavoritesViewModel` (or expose via a public `let`/computed accessor) so the view can read it
+- [x] in `MyFavoritesListView.swift`, pass `spaceId: model.spaceId` into each `MyFavoritesRowView`
+- [x] split `MyFavoritesRowView` — the outer struct now wraps `MyFavoritesRowInternalView(...).id(row.id)`, threading through the existing parameters including `canManageChannelPins` and `isPinnedToChannel` (these are removed in Task A3; leave them wired for now so the project keeps compiling)
+- [x] inside `MyFavoritesRowInternalView`, hold `@State private var rowModel: MyFavoritesRowViewModel`; init from `(row.objectId, spaceId)` exactly like `LinkWidgetInternalView` inits `LinkWidgetViewModel`
+- [x] add `.task { await rowModel.startSubscriptions() }` on the internal view's body
+- [x] in the chat-badge branch of the body, replace `row.chatPreview` with `rowModel.badgeModel`. `MyFavoritesRowData.chatPreview` still exists and is still populated by the parent VM at this point — just stop reading it from the view.
+- [x] **keep `.setZeroOpacity(...)` and `.anytypeVerticalDrag(itemId: row.id)` at list-level in `MyFavoritesListView`** — do not move them into `MyFavoritesRowInternalView`
 
 #### Task A3: Move pin flags + can-manage flag into the context-menu VM
 
@@ -209,16 +209,16 @@ Align `MyFavorites` architecture with `blockWidgets`: parent VM owns only the st
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/MyFavorites/MyFavoritesRowView.swift`
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/MyFavorites/MyFavoritesListView.swift`
 
-- [ ] add `func isPinnedToChannel(objectId: String, channelWidgetsObject: any BaseDocumentProtocol) -> Bool` to `MyFavoritesRowContextMenuViewModel` — iterate `channelWidgetsObject.children` filtered by `isWidget`, match `.object(details)` with `details.id == objectId`
-- [ ] add `@Injected(\.participantSpacesStorage) private var participantSpacesStorage` plus `func canManageChannelPins(spaceId: String) -> Bool` reading `participantSpacesStorage.participantSpaceView(spaceId:)?.canManageChannelPins ?? false`
-- [ ] keep `MyFavoritesRowContextMenuViewModel` as `ObservableObject` used with `@StateObject` — no `@Published` added
-- [ ] update the inner `MyFavoritesRowContextMenu`:
+- [x] add `func isPinnedToChannel(objectId: String, channelWidgetsObject: any BaseDocumentProtocol) -> Bool` to `MyFavoritesRowContextMenuViewModel` — iterate `channelWidgetsObject.children` filtered by `isWidget`, match `.object(details)` with `details.id == objectId`
+- [x] add `@Injected(\.participantSpacesStorage) private var participantSpacesStorage` plus `func canManageChannelPins(spaceId: String) -> Bool` reading `participantSpacesStorage.participantSpaceView(spaceId:)?.canManageChannelPins ?? false`
+- [x] keep `MyFavoritesRowContextMenuViewModel` as `ObservableObject` used with `@StateObject` — no `@Published` added
+- [x] update the inner `MyFavoritesRowContextMenu`:
   - drop `canManageChannelPins: Bool` and `isPinnedToChannel: Bool` from its parameters
   - add `let spaceId: String`
   - in `body`, replace the static `canManageChannelPins` / `isPinnedToChannel` reads with `model.canManageChannelPins(spaceId: spaceId)` and `model.isPinnedToChannel(objectId: objectId, channelWidgetsObject: channelWidgetsObject)` — these are evaluated lazily when SwiftUI renders the menu on long-press
-- [ ] drop `canManageChannelPins` and `isPinnedToChannel` from `MyFavoritesRowView` and `MyFavoritesRowInternalView` parameters; keep `channelWidgetsObject`, `personalWidgetsObject`, `spaceId`
-- [ ] update the `.contextMenu { MyFavoritesRowContextMenu(...) }` invocation to the new parameter shape
-- [ ] in `MyFavoritesListView.swift`, stop passing `canManageChannelPins` and `pinnedToChannelObjectIds.contains(...)`; pass `spaceId: model.spaceId` instead
+- [x] drop `canManageChannelPins` and `isPinnedToChannel` from `MyFavoritesRowView` and `MyFavoritesRowInternalView` parameters; keep `channelWidgetsObject`, `personalWidgetsObject`, `spaceId`
+- [x] update the `.contextMenu { MyFavoritesRowContextMenu(...) }` invocation to the new parameter shape
+- [x] in `MyFavoritesListView.swift`, stop passing `canManageChannelPins` and `pinnedToChannelObjectIds.contains(...)`; pass `spaceId: model.spaceId` instead
 
 #### Task A4: Trim the parent `MyFavoritesViewModel`
 
@@ -229,16 +229,16 @@ Align `MyFavorites` architecture with `blockWidgets`: parent VM owns only the st
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Container/HomeWidgetsView.swift`
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/MyFavorites/MyFavoritesListView.swift` (if it currently reads `myFavoritesViewModel.channelWidgetsObject`)
 
-- [ ] in `MyFavoritesRowData.swift`: drop `chatPreview: MessagePreviewModel?`
-- [ ] in `MyFavoritesViewModel.swift`:
+- [x] in `MyFavoritesRowData.swift`: drop `chatPreview: MessagePreviewModel?`
+- [x] in `MyFavoritesViewModel.swift`:
   - delete `startChatPreviewsSubscription`, `startSpaceViewSubscription`, `startChannelPinsSubscription`, and their stored state (`chatPreviews`, `spaceView`, `pinnedToChannelObjectIds`)
   - delete computed `canManageChannelPins`
   - delete injections: `chatMessagesPreviewsStorage`, `spaceViewsStorage`, `participantSpacesStorage`, `widgetChatPreviewBuilder`
   - simplify `startSubscriptions()` to run only `startPersonalWidgetsSubscription()`
   - shrink `recomputeRows()` to build `MyFavoritesRowData(id: block.blockId, objectId: details.id, title: details.pluralTitle, icon: details.objectIconImage, onTap: { onObjectSelected(details) })` only
   - drop `channelWidgetsObject` parameter from `init` — no longer read by the VM after Task A3
-- [ ] in `HomeWidgetsViewModel.init`, update the `MyFavoritesViewModel(...)` invocation to match the new init
-- [ ] in `HomeWidgetsView.swift` (and `MyFavoritesListView.swift` if applicable), the places that previously read `myFavoritesViewModel.channelWidgetsObject` switch to reading `model.channelWidgetsObject` from the parent `HomeWidgetsViewModel` (same reference — both used to point to the same document) and pass it down explicitly where needed
+- [x] in `HomeWidgetsViewModel.init`, update the `MyFavoritesViewModel(...)` invocation to match the new init
+- [x] in `HomeWidgetsView.swift` (and `MyFavoritesListView.swift` if applicable), the places that previously read `myFavoritesViewModel.channelWidgetsObject` switch to reading `model.channelWidgetsObject` from the parent `HomeWidgetsViewModel` (same reference — both used to point to the same document) and pass it down explicitly where needed
 
 #### Phase A hand-off (end of PR 1)
 
