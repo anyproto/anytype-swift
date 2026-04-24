@@ -39,11 +39,16 @@ final class HomeBottomNavigationPanelViewModel {
     private var participantSpaceView: ParticipantSpaceViewData?
     @ObservationIgnored
     private var detailsSubscriptionTask: Task<Void, Never>?
+    @ObservationIgnored
+    private let messageCountObserver: any DiscussionMessageCountObserverProtocol = DiscussionMessageCountObserver()
+    @ObservationIgnored
+    private var currentDiscussionId: String?
 
     // MARK: - Public properties
 
     var showDiscussButton: Bool = false
     var canCreateObject: Bool = false
+    var commentsCount: Int = 0
     var pageObjectType: ObjectType?
     var noteObjectType: ObjectType?
     var taskObjectType: ObjectType?
@@ -94,8 +99,9 @@ final class HomeBottomNavigationPanelViewModel {
         async let participantSub: () = participantSubscription()
         async let typesSub: () = typesSubscription()
         async let featuresSub: () = featuresSubscription()
-        
-        _ = await (participantSub, typesSub, featuresSub)
+        async let messageCountSub: () = subscribeOnMessageCount()
+
+        _ = await (participantSub, typesSub, featuresSub, messageCountSub)
     }
     
     func updateVisibleScreen(data: AnyHashable) {
@@ -223,18 +229,46 @@ final class HomeBottomNavigationPanelViewModel {
         guard let participantSpaceView else { return }
 
         // Skip state update when navigating to discussion — panel will be hidden anyway,
-        // and updating would flicker the discuss button to search during push animation
+        // and updating would flicker the discuss button to search during push animation.
+        // Intentionally do NOT stop observing: popping back to the editor should show the
+        // same count without a reload bounce.
         if currentData is DiscussionCoordinatorData { return }
 
         canCreateObject = participantSpaceView.permissions.canEdit
         guard let editorData = currentData as? EditorScreenData,
               let objectId = editorData.objectId else {
             showDiscussButton = false
+            currentDiscussionId = nil
+            commentsCount = 0
+            Task { [messageCountObserver] in await messageCountObserver.stopObserving() }
             return
         }
         let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
-        let hasDiscussion = document.details?.discussionId.isNotEmpty == true
+        let discussionId = document.details?.discussionId
+        let hasDiscussion = discussionId?.isNotEmpty == true
         showDiscussButton = FeatureFlags.discussionButton && (canCreateObject || hasDiscussion)
+
+        if hasDiscussion, let discussionId {
+            if currentDiscussionId != discussionId {
+                currentDiscussionId = discussionId
+                commentsCount = 0
+                let spaceId = editorData.spaceId
+                Task { [messageCountObserver] in
+                    await messageCountObserver.startObserving(spaceId: spaceId, chatId: discussionId)
+                }
+            }
+        } else {
+            currentDiscussionId = nil
+            commentsCount = 0
+            Task { [messageCountObserver] in await messageCountObserver.stopObserving() }
+        }
+    }
+
+    private func subscribeOnMessageCount() async {
+        for await update in await messageCountObserver.messageCountStream {
+            guard update.chatId == currentDiscussionId else { continue }
+            commentsCount = update.count
+        }
     }
 
     private func handleCreateObject() {
