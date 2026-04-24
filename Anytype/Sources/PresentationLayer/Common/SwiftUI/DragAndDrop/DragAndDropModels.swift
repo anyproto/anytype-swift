@@ -33,7 +33,7 @@ class DragItemProvider: NSItemProvider {
     var didEnd: (() -> Void)?
     deinit {
         // Deferred to the next runloop to avoid re-entrant @Binding mutation when deinit
-        // fires during SwiftUI graph tear-down or drag payload release (IOS-6105).
+        // fires during SwiftUI graph tear-down or drag payload release.
         let didEnd = didEnd
         DispatchQueue.main.async { didEnd?() }
     }
