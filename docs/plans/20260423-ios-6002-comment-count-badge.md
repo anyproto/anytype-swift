@@ -9,6 +9,25 @@ Add a real-time total-comment-count indicator in two places, both fed from the s
 
 The value must update live as comments arrive, and stay consistent across bottom panel and header.
 
+## Phasing — Two PRs
+
+Ships in two independently reviewable PRs on the same feature branch.
+
+**Part 1 — Business logic (service, storage, VM wiring)** → PR #1
+
+- Task 1, Task 2, Task 3 — `ChatService` + `ChatMessagesPreviewsStorage` plumbing.
+- Task 4 — `HomeBottomNavigationPanelViewModel` wiring (`commentsCount` tracked but not yet rendered).
+- Task 6 — `DiscussionViewModel` wiring (replaces the wrong `messages.count`).
+
+User-visible result after Part 1: **Discussion header subtitle** shows the correct backend total on both iOS 18 and iOS 26+ builds. The bottom-panel VM tracks `commentsCount` but nothing renders it yet — dead until Part 2.
+
+**Part 2 — UI (discuss button morph)** → PR #2
+
+- Task 5 — `HomeBottomNavigationPanelView.discussIsland` circle↔capsule morph with inline counter.
+- Task 7 — Full acceptance pass + Figma cross-check + housekeeping.
+
+User-visible result after Part 2: badge on the discuss button. Both surfaces now consistent.
+
 ## Context (from discovery)
 
 **Backend contract (GO-7166, already shipped in middleware rc bundled in the repo)**
@@ -250,7 +269,7 @@ Same single long-lived `for await` shape as the bottom panel, but chatId is read
 
 ## Implementation Steps
 
-### Task 1: Extend `ChatService` with `getMessageCount`
+### Task 1: Extend `ChatService` with `getMessageCount`  *(Part 1 — PR #1)*
 
 **Files:**
 - Modify: `Modules/Services/Sources/Services/Chat/ChatService.swift`
@@ -259,7 +278,7 @@ Same single long-lived `for await` shape as the bottom panel, but chatId is read
 - [ ] Implement it by calling `ClientCommands.chatGetMessages` with `limit = 0` and returning `Int(result.messageCount)`.
 - [ ] Keep the existing `getMessages` methods unchanged — callers that want messages still get messages.
 
-### Task 2: Extend `ChatMessagePreview` and storage with `messageCount`
+### Task 2: Extend `ChatMessagePreview` and storage with `messageCount`  *(Part 1 — PR #1)*
 
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Modules/Chat/Services/ChatMessagesPreviewsStorage.swift`
@@ -271,7 +290,7 @@ Same single long-lived `for await` shape as the bottom panel, but chatId is read
 - [ ] Add a one-time dev log of `data.subIds` inside the handler so we can confirm middleware tagging behavior during QA; remove the log before landing.
 - [ ] Verify the existing trailing `if hasChanges { previewsStream.send(...) }` at the end of `handle(events:)` fires for this case — no new emit call needed.
 
-### Task 3: Lazy bootstrap + public accessor on the storage
+### Task 3: Lazy bootstrap + public accessor on the storage  *(Part 1 — PR #1)*
 
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Modules/Chat/Services/ChatMessagesPreviewsStorage.swift`
@@ -283,7 +302,7 @@ Same single long-lived `for await` shape as the bottom panel, but chatId is read
   - On miss: `try? await chatService.getMessageCount(chatObjectId: chatId)`, upsert into `previewsBySpace`, emit `previewsStream.send(...)`, return the value. Errors from `getMessageCount` are intentionally swallowed — caller receives `nil` and gets a retry on the next invocation (e.g., next editor open).
 - [ ] For task cleanup, mirror the existing `subscription?.cancel()` pattern in `deinit`. Do not invent new cancellation machinery; if in-flight bootstrap tasks don't cleanly fit the existing pattern, rely on the tasks completing naturally (each is a single RPC).
 
-### Task 4: Wire bottom panel VM to the count
+### Task 4: Wire bottom panel VM to the count  *(Part 1 — PR #1)*
 
 Follow the `UnreadChatWidgetViewModel.startPreviewsSubscription()` precedent: a single long-lived `for await` — no cancel/restart on editor changes.
 
@@ -297,7 +316,7 @@ Follow the `UnreadChatWidgetViewModel.startPreviewsSubscription()` precedent: a 
 - [ ] Add `async let commentsCountSub: () = subscribeOnCommentsCount()` to the `startSubscriptions()` group.
 - [ ] In `updateState()`, when `discussionId` is present: set `currentDiscussionId = discussionId` and kick a detached bootstrap `Task { _ = await chatMessagesPreviewsStorage.messageCount(spaceId: editorData.spaceId, chatId: discussionId) }`. In the early-return branches (no editor data, no objectId, `DiscussionCoordinatorData`), set `currentDiscussionId = nil` and `commentsCount = 0`.
 
-### Task 5: Morph `discussIsland` into circle↔capsule with inline counter
+### Task 5: Morph `discussIsland` into circle↔capsule with inline counter  *(Part 2 — PR #2)*
 
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Modules/HomeNavigationContainer/Panel/HomeBottomNavigationPanelView.swift`
@@ -310,7 +329,7 @@ Follow the `UnreadChatWidgetViewModel.startPreviewsSubscription()` precedent: a 
 - [ ] Keep the plain `message` SF symbol (no `message.badge` — that is IOS-6028).
 - [ ] Do NOT merge the unread-dot behavior from IOS-6028 task 2.2 here.
 
-### Task 6: Replace loaded-count with backend count in `DiscussionViewModel`
+### Task 6: Replace loaded-count with backend count in `DiscussionViewModel`  *(Part 1 — PR #1)*
 
 **Files:**
 - Modify: `Anytype/Sources/PresentationLayer/Modules/Discussion/DiscussionViewModel.swift`
@@ -323,7 +342,7 @@ Follow the `UnreadChatWidgetViewModel.startPreviewsSubscription()` precedent: a 
 - [ ] At the end of `createDiscussionIfNeeded(...)` (after `self.chatId = newChatId`), kick the same bootstrap call so the existing long-lived `subscribeOnCommentsCount()` task picks up the new chatId on the next `previewsSequence` emission.
 - [ ] **Do not** relaunch `subscribeOnCommentsCount()` from `startDeferredSubscriptions()`. One long-lived iterator is enough — a second would race on `commentsCount` writes.
 
-### Task 7: Final — acceptance + housekeeping
+### Task 7: Final — acceptance + housekeeping  *(Part 2 — PR #2)*
 
 - [ ] Manually verify the scenarios in the Testing Strategy section on both iOS 18 and iOS 26+ builds.
 - [ ] Re-check counter `Text` typography and color against Figma (`node-id=11172-5099`) — adjust font and foreground style if off.
