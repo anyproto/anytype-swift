@@ -4,6 +4,7 @@ import Services
 
 struct MyFavoritesListView: View {
     let model: MyFavoritesViewModel
+    let channelWidgetsObject: any BaseDocumentProtocol
 
     @State private var favoritesDndState = DragState()
 
@@ -13,10 +14,9 @@ struct MyFavoritesListView: View {
                 MyFavoritesRowView(
                     row: row,
                     showDivider: index != model.rows.count - 1,
-                    channelWidgetsObject: model.channelWidgetsObject,
-                    personalWidgetsObject: model.personalWidgetsObject,
-                    canManageChannelPins: model.canManageChannelPins,
-                    isPinnedToChannel: model.pinnedToChannelObjectIds.contains(row.objectId)
+                    spaceId: model.spaceId,
+                    channelWidgetsObject: channelWidgetsObject,
+                    personalWidgetsObject: model.personalWidgetsObject
                 )
                 .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 24, style: .continuous))
                 .anytypeVerticalDrag(itemId: row.id)

@@ -197,7 +197,10 @@ private struct HomeWidgetsInternalView: View {
                 model.onTapMyFavoritesHeader()
             }
             if model.myFavoritesSectionIsExpanded {
-                MyFavoritesListView(model: myFavoritesViewModel)
+                MyFavoritesListView(
+                    model: myFavoritesViewModel,
+                    channelWidgetsObject: model.channelWidgetsObject
+                )
             }
         }
     }

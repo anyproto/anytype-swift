@@ -6,12 +6,47 @@ import AnytypeCore
 struct MyFavoritesRowView: View {
     let row: MyFavoritesRowData
     let showDivider: Bool
+    let spaceId: String
     let channelWidgetsObject: any BaseDocumentProtocol
     let personalWidgetsObject: any BaseDocumentProtocol
-    let canManageChannelPins: Bool
-    let isPinnedToChannel: Bool
+
+    var body: some View {
+        MyFavoritesRowInternalView(
+            row: row,
+            showDivider: showDivider,
+            spaceId: spaceId,
+            channelWidgetsObject: channelWidgetsObject,
+            personalWidgetsObject: personalWidgetsObject
+        )
+        .id(row.id)
+    }
+}
+
+private struct MyFavoritesRowInternalView: View {
+    let row: MyFavoritesRowData
+    let showDivider: Bool
+    let spaceId: String
+    let channelWidgetsObject: any BaseDocumentProtocol
+    let personalWidgetsObject: any BaseDocumentProtocol
+
+    @State private var rowModel: MyFavoritesRowViewModel
 
     @Environment(\.shouldHideChatBadges) private var shouldHideChatBadges
+
+    init(
+        row: MyFavoritesRowData,
+        showDivider: Bool,
+        spaceId: String,
+        channelWidgetsObject: any BaseDocumentProtocol,
+        personalWidgetsObject: any BaseDocumentProtocol
+    ) {
+        self.row = row
+        self.showDivider = showDivider
+        self.spaceId = spaceId
+        self.channelWidgetsObject = channelWidgetsObject
+        self.personalWidgetsObject = personalWidgetsObject
+        _rowModel = State(initialValue: MyFavoritesRowViewModel(objectId: row.objectId, spaceId: spaceId))
+    }
 
     var body: some View {
         Button {
@@ -27,7 +62,7 @@ struct MyFavoritesRowView: View {
 
                 Spacer()
 
-                if let chatPreview = row.chatPreview, chatPreview.hasVisibleCounters {
+                if let chatPreview = rowModel.badgeModel, chatPreview.hasVisibleCounters {
                     chatBadges(chatPreview: chatPreview)
                         .opacity(shouldHideChatBadges ? 0 : 1)
                 }
@@ -45,11 +80,13 @@ struct MyFavoritesRowView: View {
         .contextMenu {
             MyFavoritesRowContextMenu(
                 objectId: row.objectId,
+                spaceId: spaceId,
                 channelWidgetsObject: channelWidgetsObject,
-                personalWidgetsObject: personalWidgetsObject,
-                canManageChannelPins: canManageChannelPins,
-                isPinnedToChannel: isPinnedToChannel
+                personalWidgetsObject: personalWidgetsObject
             )
+        }
+        .task {
+            await rowModel.startSubscriptions()
         }
     }
 
@@ -74,10 +111,9 @@ struct MyFavoritesRowView: View {
 
 private struct MyFavoritesRowContextMenu: View {
     let objectId: String
+    let spaceId: String
     let channelWidgetsObject: any BaseDocumentProtocol
     let personalWidgetsObject: any BaseDocumentProtocol
-    let canManageChannelPins: Bool
-    let isPinnedToChannel: Bool
 
     @StateObject private var model = MyFavoritesRowContextMenuViewModel()
 
@@ -94,7 +130,11 @@ private struct MyFavoritesRowContextMenu: View {
             Image(systemName: "star.fill")
         }
 
-        if canManageChannelPins {
+        if model.canManageChannelPins(spaceId: spaceId) {
+            let isPinnedToChannel = model.isPinnedToChannel(
+                objectId: objectId,
+                channelWidgetsObject: channelWidgetsObject
+            )
             Button {
                 DispatchQueue.main.asyncAfter(deadline: .now() + menuDismissAnimationDelay) {
                     model.provider.onChannelPinTap(
@@ -113,4 +153,21 @@ private struct MyFavoritesRowContextMenu: View {
 private final class MyFavoritesRowContextMenuViewModel: ObservableObject {
     @Injected(\.widgetActionsViewCommonMenuProvider)
     var provider: any WidgetActionsViewCommonMenuProviderProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+
+    func canManageChannelPins(spaceId: String) -> Bool {
+        participantSpacesStorage
+            .participantSpaceView(spaceId: spaceId)?
+            .canManageChannelPins ?? false
+    }
+
+    func isPinnedToChannel(objectId: String, channelWidgetsObject: any BaseDocumentProtocol) -> Bool {
+        for block in channelWidgetsObject.children where block.isWidget {
+            guard let info = channelWidgetsObject.widgetInfo(block: block),
+                  case let .object(details) = info.source else { continue }
+            if details.id == objectId { return true }
+        }
+        return false
+    }
 }

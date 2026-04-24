@@ -5,6 +5,5 @@ struct MyFavoritesRowData: Identifiable, Equatable {
     let objectId: String
     let title: String
     let icon: Icon
-    let chatPreview: MessagePreviewModel?
     @EquatableNoop var onTap: @MainActor () -> Void
 }
