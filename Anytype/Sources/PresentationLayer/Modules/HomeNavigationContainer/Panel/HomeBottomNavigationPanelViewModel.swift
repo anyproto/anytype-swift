@@ -39,8 +39,8 @@ final class HomeBottomNavigationPanelViewModel {
     private var participantSpaceView: ParticipantSpaceViewData?
     @ObservationIgnored
     private var detailsSubscriptionTask: Task<Void, Never>?
-    @ObservationIgnored
-    private let messageCountObserver: any DiscussionMessageCountObserverProtocol = DiscussionMessageCountObserver()
+    @ObservationIgnored @Injected(\.discussionMessageCountObserver)
+    private var messageCountObserver: any DiscussionMessageCountObserverProtocol
     @ObservationIgnored
     private var observerCommandTask: Task<Void, Never>?
     @ObservationIgnored
@@ -230,19 +230,14 @@ final class HomeBottomNavigationPanelViewModel {
     private func updateState() {
         guard let participantSpaceView else { return }
 
-        // Skip state update when navigating to discussion — panel will be hidden anyway,
-        // and updating would flicker the discuss button to search during push animation.
-        // Intentionally do NOT stop observing: popping back to the editor should show the
-        // same count without a reload bounce.
+        // Don't stop observing — popping back from the discussion screen should preserve the count.
         if currentData is DiscussionCoordinatorData { return }
 
         canCreateObject = participantSpaceView.permissions.canEdit
         guard let editorData = currentData as? EditorScreenData,
               let objectId = editorData.objectId else {
             showDiscussButton = false
-            currentDiscussionId = nil
-            commentsCount = 0
-            enqueueObserverStop()
+            clearDiscussionObservation()
             return
         }
         let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
@@ -250,49 +245,40 @@ final class HomeBottomNavigationPanelViewModel {
         let hasDiscussion = discussionId?.isNotEmpty == true
         showDiscussButton = FeatureFlags.discussionButton && (canCreateObject || hasDiscussion)
 
-        if hasDiscussion, let discussionId {
-            if currentDiscussionId != discussionId {
-                currentDiscussionId = discussionId
-                commentsCount = 0
-                enqueueObserverStart(spaceId: editorData.spaceId, chatId: discussionId)
-            }
-        } else {
-            currentDiscussionId = nil
-            commentsCount = 0
-            enqueueObserverStop()
+        guard hasDiscussion, let discussionId else {
+            clearDiscussionObservation()
+            return
         }
+
+        guard currentDiscussionId != discussionId else { return }
+        currentDiscussionId = discussionId
+        commentsCount = 0
+        enqueueObserverCommand { await $0.startObserving(chatId: discussionId) }
+    }
+
+    private func clearDiscussionObservation() {
+        if commentsCount != 0 { commentsCount = 0 }
+        guard currentDiscussionId != nil else { return }
+        currentDiscussionId = nil
+        enqueueObserverCommand { await $0.stopObserving() }
     }
 
     private func subscribeOnMessageCount() async {
-        // Both writer (here) and reader of currentDiscussionId (updateState) run on @MainActor,
-        // so this filter is not racy.
         for await update in await messageCountObserver.messageCountStream {
             guard update.chatId == currentDiscussionId else { continue }
             commentsCount = update.count
         }
     }
 
-    // updateState() is synchronous but observer calls are async, so each call must be
-    // dispatched via Task { await ... }. The actor serializes method bodies but does not
-    // guarantee which waiting Task acquires the actor first — so a raw `Task { stop() }`
-    // followed by `Task { start(D) }` can run in reverse, leaving the observer stopped
-    // while the VM's currentDiscussionId is set to D. Chaining through observerCommandTask
-    // forces FIFO: each new command awaits the previous task's completion before running.
-    private func enqueueObserverStart(spaceId: String, chatId: String) {
+    // Actor method bodies are serialized, but the actor does not preserve Task enqueue
+    // order — a raw `Task { stop() }` followed by `Task { start(D) }` can run in reverse.
+    // Chaining through observerCommandTask forces FIFO.
+    private func enqueueObserverCommand(_ command: @Sendable @escaping (any DiscussionMessageCountObserverProtocol) async -> Void) {
         let previous = observerCommandTask
         let observer = messageCountObserver
         observerCommandTask = Task {
             await previous?.value
-            await observer.startObserving(spaceId: spaceId, chatId: chatId)
-        }
-    }
-
-    private func enqueueObserverStop() {
-        let previous = observerCommandTask
-        let observer = messageCountObserver
-        observerCommandTask = Task {
-            await previous?.value
-            await observer.stopObserving()
+            await command(observer)
         }
     }
 

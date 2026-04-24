@@ -257,7 +257,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
             let chatState = await chatStorage.chatState
             let messages = await chatStorage.fullMessages
-            let messageCount = await chatStorage.messageCount
 
             if !showScreenLogged, let chatId {
                 AnytypeAnalytics.instance().logScreenChat(
@@ -297,7 +296,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             }
 
             if updates.contains(.messageCount) {
-                self.commentsCount = messageCount ?? 0
+                self.commentsCount = await chatStorage.messageCount ?? 0
             }
         }
     }
