@@ -94,6 +94,11 @@ extension Anytype_Model_MembershipV2 {
     /// Clears the value of `features`. Subsequent reads from it will return its default value.
     public mutating func clearFeatures() {_uniqueStorage()._features = nil}
 
+    public var pricesLifetime: [Anytype_Model_MembershipV2.Amount] {
+      get {return _storage._pricesLifetime}
+      set {_uniqueStorage()._pricesLifetime = newValue}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -104,7 +109,7 @@ extension Anytype_Model_MembershipV2 {
 
 extension Anytype_Model_MembershipV2.Product: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_MembershipV2.protoMessageName + ".Product"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}name\0\u{1}description\0\u{1}isTopLevel\0\u{1}isHidden\0\u{1}isIntro\0\u{1}isUpgradeable\0\u{1}pricesYearly\0\u{1}pricesMonthly\0\u{1}colorStr\0\u{1}offer\0\u{1}features\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}name\0\u{1}description\0\u{1}isTopLevel\0\u{1}isHidden\0\u{1}isIntro\0\u{1}isUpgradeable\0\u{1}pricesYearly\0\u{1}pricesMonthly\0\u{1}colorStr\0\u{1}offer\0\u{1}features\0\u{1}pricesLifetime\0")
 
   fileprivate class _StorageClass {
     var _id: String = String()
@@ -119,6 +124,7 @@ extension Anytype_Model_MembershipV2.Product: SwiftProtobuf.Message, SwiftProtob
     var _colorStr: String = String()
     var _offer: String = String()
     var _features: Anytype_Model_MembershipV2.Features? = nil
+    var _pricesLifetime: [Anytype_Model_MembershipV2.Amount] = []
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -141,6 +147,7 @@ extension Anytype_Model_MembershipV2.Product: SwiftProtobuf.Message, SwiftProtob
       _colorStr = source._colorStr
       _offer = source._offer
       _features = source._features
+      _pricesLifetime = source._pricesLifetime
     }
   }
 
@@ -171,6 +178,7 @@ extension Anytype_Model_MembershipV2.Product: SwiftProtobuf.Message, SwiftProtob
         case 10: try { try decoder.decodeSingularStringField(value: &_storage._colorStr) }()
         case 11: try { try decoder.decodeSingularStringField(value: &_storage._offer) }()
         case 12: try { try decoder.decodeSingularMessageField(value: &_storage._features) }()
+        case 13: try { try decoder.decodeRepeatedMessageField(value: &_storage._pricesLifetime) }()
         default: break
         }
       }
@@ -219,6 +227,9 @@ extension Anytype_Model_MembershipV2.Product: SwiftProtobuf.Message, SwiftProtob
       try { if let v = _storage._features {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
       } }()
+      if !_storage._pricesLifetime.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._pricesLifetime, fieldNumber: 13)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -240,6 +251,7 @@ extension Anytype_Model_MembershipV2.Product: SwiftProtobuf.Message, SwiftProtob
         if _storage._colorStr != rhs_storage._colorStr {return false}
         if _storage._offer != rhs_storage._offer {return false}
         if _storage._features != rhs_storage._features {return false}
+        if _storage._pricesLifetime != rhs_storage._pricesLifetime {return false}
         return true
       }
       if !storagesAreEqual {return false}

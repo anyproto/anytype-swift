@@ -15,10 +15,13 @@ extension Anytype_Model_MembershipV2 {
 
   public enum Period: SwiftProtobuf.Enum, Swift.CaseIterable {
     public typealias RawValue = Int
+
+    /// NOTE: This enum value was marked as deprecated in the .proto file
     case unlimited // = 0
     case monthly // = 1
     case yearly // = 2
     case threeYears // = 3
+    case lifetime // = 4
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -31,6 +34,7 @@ extension Anytype_Model_MembershipV2 {
       case 1: self = .monthly
       case 2: self = .yearly
       case 3: self = .threeYears
+      case 4: self = .lifetime
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -41,6 +45,7 @@ extension Anytype_Model_MembershipV2 {
       case .monthly: return 1
       case .yearly: return 2
       case .threeYears: return 3
+      case .lifetime: return 4
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -51,12 +56,13 @@ extension Anytype_Model_MembershipV2 {
       .monthly,
       .yearly,
       .threeYears,
+      .lifetime,
     ]
 
   }}
 
 extension Anytype_Model_MembershipV2.Period: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Unlimited\0\u{1}Monthly\0\u{1}Yearly\0\u{1}ThreeYears\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Unlimited\0\u{1}Monthly\0\u{1}Yearly\0\u{1}ThreeYears\0\u{1}Lifetime\0")
 }
 
 // If the compiler emits an error on this type, it is because this file
