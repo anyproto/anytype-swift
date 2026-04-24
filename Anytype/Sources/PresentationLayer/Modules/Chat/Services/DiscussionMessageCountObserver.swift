@@ -92,9 +92,3 @@ actor DiscussionMessageCountObserver: DiscussionMessageCountObserverProtocol {
         stream.send(DiscussionMessageCount(chatId: chatId, count: count))
     }
 }
-
-extension Container {
-    var discussionMessageCountObserver: Factory<any DiscussionMessageCountObserverProtocol> {
-        self { DiscussionMessageCountObserver() }
-    }
-}
