@@ -25379,7 +25379,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Change Home"
+            "value" : "Cambiar Inicio"
           }
         },
         "fa" : {
@@ -25469,7 +25469,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Change Home"
+            "value" : "Ana Sayfayı Değiştir"
           }
         },
         "uk" : {
@@ -67596,7 +67596,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Channel home"
+            "value" : "Inicio del canal"
           }
         },
         "fa" : {
@@ -67686,7 +67686,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Channel home"
+            "value" : "Ana sayfa kanalı"
           }
         },
         "uk" : {
@@ -67906,7 +67906,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No home"
+            "value" : "Sin Inicio"
           }
         },
         "fa" : {
@@ -67996,7 +67996,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No home"
+            "value" : "Ana sayfa yok"
           }
         },
         "uk" : {
@@ -68061,7 +68061,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Opens to navigation on entry"
+            "value" : "Al entrar, se abre la navegación"
           }
         },
         "fa" : {
@@ -68151,7 +68151,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Opens to navigation on entry"
+            "value" : "Giriş yapıldığında gezinme menüsü açılır"
           }
         },
         "uk" : {
