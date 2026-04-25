@@ -249,7 +249,7 @@ final class HomeBottomNavigationPanelViewModel {
         let discussionId = document.details?.discussionId
         let hasDiscussion = discussionId?.isNotEmpty == true
         showDiscussButton = FeatureFlags.discussionButton && (canCreateObject || hasDiscussion)
-        discussButtonHasUnread = (document.details?.unreadMessageCount ?? 0) > 0
+        discussButtonHasUnread = showDiscussButton && (document.details?.unreadMessageCount ?? 0) > 0
 
         guard hasDiscussion, let discussionId else {
             clearDiscussionObservation()

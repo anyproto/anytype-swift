@@ -369,7 +369,7 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
   - "no editor data / no objectId" branch → `discussButtonHasUnread = false` before returning.
 - [x] No new subscription — `detailsPublisher.values` already re-emits on arbitrary detail changes, so the dot refreshes in real time as comments arrive.
 - [x] Tests: N/A — view-model wiring on an existing subscription.
-- [ ] Commit as `IOS-6028 Publish discussButtonHasUnread from bottom nav VM`.
+- [x] Commit as `IOS-6028 Publish discussButtonHasUnread from bottom nav VM`.
 
 ### Task 2.2: Render blue-dot indicator on the Discuss button
 
@@ -387,7 +387,7 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
 - [x] Keep the frame (48×48) and `contentShape(Circle())` unchanged.
 - [x] Preview both states if a preview file for this view exists. — no preview file for this view.
 - [x] Tests: N/A — SwiftUI view.
-- [ ] Commit as `IOS-6028 Render unread blue dot on Discuss button`.
+- [x] Commit as `IOS-6028 Render unread blue dot on Discuss button`.
 
 ### Task 2.3: Open-at-first-unread scroll (verification deferred to user)
 
@@ -417,7 +417,7 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
   - If criterion 1, 2, or 3 fails, Chunk 2 is blocked until fixed.
 - [ ] If user reports any of 1–3 broken, agent diagnoses and patches in-place when the fix is ≤10 lines; otherwise files a separate Linear task and ships Chunk 2 without the patch.
 - [x] Tests: N/A — not simulable from the agent; pass/fail decided by user verification.
-- [ ] Commit as `IOS-6028 Verify discussion push routing handler` (even if no code changes — the ➕ note is the artifact; use `--allow-empty` if the sanity check produced zero diff).
+- [x] Commit as `IOS-6028 Verify discussion push routing handler` (even if no code changes — the ➕ note is the artifact; use `--allow-empty` if the sanity check produced zero diff).
 
 ### Task 2.5: Hand off to user for build + manual verification
 
