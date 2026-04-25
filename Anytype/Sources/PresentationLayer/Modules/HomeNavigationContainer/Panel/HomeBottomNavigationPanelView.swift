@@ -110,7 +110,6 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             }
             .padding(.horizontal, 12)
             .frame(minHeight: 48)
-            .contentShape(Capsule())
         }
         .glassEffectInteractiveIOS26(in: Capsule())
         .animation(.bouncy, value: hasCount)
