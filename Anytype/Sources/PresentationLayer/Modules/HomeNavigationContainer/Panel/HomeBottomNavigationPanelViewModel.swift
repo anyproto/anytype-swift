@@ -49,6 +49,7 @@ final class HomeBottomNavigationPanelViewModel {
     // MARK: - Public properties
 
     var showDiscussButton: Bool = false
+    var discussButtonHasUnread: Bool = false
     var canCreateObject: Bool = false
     var commentsCount: Int = 0
     var pageObjectType: ObjectType?
@@ -66,7 +67,7 @@ final class HomeBottomNavigationPanelViewModel {
         self.info = info
         self.output = output
     }
-    
+
     func onTapNewObject() {
         handleCreateObject()
     }
@@ -228,7 +229,10 @@ final class HomeBottomNavigationPanelViewModel {
     }
     
     private func updateState() {
-        guard let participantSpaceView else { return }
+        guard let participantSpaceView else {
+            discussButtonHasUnread = false
+            return
+        }
 
         // Don't stop observing — popping back from the discussion screen should preserve the count.
         if currentData is DiscussionCoordinatorData { return }
@@ -237,6 +241,7 @@ final class HomeBottomNavigationPanelViewModel {
         guard let editorData = currentData as? EditorScreenData,
               let objectId = editorData.objectId else {
             showDiscussButton = false
+            discussButtonHasUnread = false
             clearDiscussionObservation()
             return
         }
@@ -244,6 +249,7 @@ final class HomeBottomNavigationPanelViewModel {
         let discussionId = document.details?.discussionId
         let hasDiscussion = discussionId?.isNotEmpty == true
         showDiscussButton = FeatureFlags.discussionButton && (canCreateObject || hasDiscussion)
+        discussButtonHasUnread = showDiscussButton && (document.details?.unreadMessageCount ?? 0) > 0
 
         guard hasDiscussion, let discussionId else {
             clearDiscussionObservation()

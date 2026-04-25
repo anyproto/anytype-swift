@@ -15,7 +15,7 @@ struct DiscussionMessageCountObserverTests {
         self.chatService = mock
     }
 
-    @Test func startObserving_subscribesWithChatIdAndLimitZero() async {
+    @Test func startObserving_subscribesWithChatIdAndLimitOne() async {
         let observer = DiscussionMessageCountObserver()
 
         await observer.startObserving(chatId: "chat-a")
@@ -23,7 +23,7 @@ struct DiscussionMessageCountObserverTests {
         #expect(chatService.subscribeLastMessagesCalls.count == 1)
         let call = chatService.subscribeLastMessagesCalls.first
         #expect(call?.chatObjectId == "chat-a")
-        #expect(call?.limit == 0)
+        #expect(call?.limit == 1)
 
         await observer.stopObserving()
     }

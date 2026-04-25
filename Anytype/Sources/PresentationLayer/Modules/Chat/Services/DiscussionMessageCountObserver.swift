@@ -47,7 +47,8 @@ actor DiscussionMessageCountObserver: DiscussionMessageCountObserverProtocol {
         }
 
         do {
-            let response = try await chatService.subscribeLastMessages(chatObjectId: chatId, subId: subId, limit: 0)
+            // limit must be > 0; the middleware treats 0 as "no limit" and returns every message.
+            let response = try await chatService.subscribeLastMessages(chatObjectId: chatId, subId: subId, limit: 1)
             emit(count: Int(response.messageCount), for: chatId)
         } catch {
             // Clear state so a subsequent startObserving(sameChatId) actually retries

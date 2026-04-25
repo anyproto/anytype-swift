@@ -99,8 +99,13 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             model.onTapDiscuss()
         } label: {
             HStack(spacing: 3) {
-                Image(systemName: "message")
-                    .foregroundStyle(Color.Control.primary)
+                Image(systemName: model.discussButtonHasUnread ? "message.badge" : "message")
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(
+                        model.discussButtonHasUnread ? Color.Control.accent100 : Color.Control.primary,
+                        Color.Control.primary
+                    )
+                    .frame(width: 22, height: 22)
                 if hasCount {
                     AnytypeText("\(model.commentsCount)", style: .previewTitle2Medium)
                         .foregroundStyle(Color.Text.primary)
