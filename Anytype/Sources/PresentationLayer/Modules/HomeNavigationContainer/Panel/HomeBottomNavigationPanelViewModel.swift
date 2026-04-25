@@ -49,7 +49,9 @@ final class HomeBottomNavigationPanelViewModel {
     var taskObjectType: ObjectType?
     var otherObjectTypes: [ObjectType] = []
     var newObjectPlusMenu: Bool = false
-    
+
+    var spaceId: String { info.accountSpaceId }
+
     init(
         info: AccountInfo,
         output: (any HomeBottomNavigationPanelModuleOutput)?
@@ -60,6 +62,10 @@ final class HomeBottomNavigationPanelViewModel {
     
     func onTapNewObject() {
         handleCreateObject()
+    }
+
+    func onLongPressNewObject(details: ObjectDetails) {
+        output?.onCreateObjectSelected(screenData: details.screenData())
     }
 
     func onTapSearch() {

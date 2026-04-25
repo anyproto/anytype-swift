@@ -23,4 +23,10 @@ enum SpaceHomepage: Equatable, Hashable {
         case .object(let id): return id
         }
     }
+
+    /// Display fallback: treat `.empty` as `.widgets` at UI render sites.
+    /// Call sites that write or inspect raw state keep using the enum as-is.
+    var displayValue: SpaceHomepage {
+        self == .empty ? .widgets : self
+    }
 }

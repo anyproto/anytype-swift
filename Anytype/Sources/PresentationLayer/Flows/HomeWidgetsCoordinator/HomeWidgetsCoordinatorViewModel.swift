@@ -18,36 +18,41 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     var showGlobalSearchData: GlobalSearchModuleData?
     var spaceShareData: SpaceShareData?
     var qrCodeInviteData: URLIdentifiable?
+    var showHomeChangePicker = false
     var showHomepagePicker = false
+    var shouldDismissOverlay = false
 
     @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
-    @Injected(\.channelOnboardingStorage) @ObservationIgnored
-    private var onboardingStorage: any ChannelOnboardingStorageProtocol
     @Injected(\.pendingShareService) @ObservationIgnored
     private var pendingShareService: any PendingShareServiceProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.pendingShareStorage) @ObservationIgnored
     private var pendingShareStorage: any PendingShareStorageProtocol
-    @Injected(\.spaceViewsStorage) @ObservationIgnored
-    private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
     init(info: AccountInfo) {
         self.spaceInfo = info
     }
 
-    func onAppear() {
+    func startSpaceViewTask() async {
         guard FeatureFlags.createChannelFlow else { return }
         let spaceId = spaceInfo.accountSpaceId
-        let canSetHomepage = participantSpacesStorage.participantSpaceView(spaceId: spaceId)?.canSetHomepage ?? false
-        guard canSetHomepage else { return }
-        let spaceView = spaceViewsStorage.spaceView(spaceId: spaceId)
-        let homepageNotSet = spaceView?.homepage == .empty
-        let pickerAlreadyDismissed = onboardingStorage.isHomepagePickerDismissed(spaceId: spaceId)
-        if homepageNotSet, !pickerAlreadyDismissed, !showHomepagePicker {
-            showHomepagePicker = true
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
+            let spaceView = participantSpaceView.spaceView
+            let homepageNotSet = spaceView.homepage == .empty
+            let canSetHomepage = participantSpaceView.canSetHomepage
+            // 1-on-1 spaces have their homepage set by middleware; never prompt the picker.
+            if homepageNotSet, canSetHomepage, !spaceView.isOneToOne, !showHomepagePicker {
+                showHomepagePicker = true
+            }
         }
+    }
+
+    func onHomepagePickerFinished(result: HomepagePickerResult) {
+        showHomepagePicker = false
+        guard case .homepageSet(let value) = result, case .object(let details) = value else { return }
+        pageNavigation?.open(details.screenData())
     }
 
     func startPendingShareRetryTask() async {
@@ -64,16 +69,6 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         }
     }
 
-    func onHomepagePickerFinished(result: HomepagePickerResult) {
-        showHomepagePicker = false
-        onboardingStorage.setHomepagePickerDismissed(spaceId: spaceInfo.accountSpaceId)
-
-        if case .later = result { return }
-
-        guard case .homepageSet(let value) = result, case .object(let details) = value else { return }
-        pageNavigation?.open(details.screenData())
-    }
-
     // MARK: - HomeWidgetsModuleOutput
 
     func onSpaceSelected() {
@@ -84,8 +79,13 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         createTypeData = CreateObjectTypeData(spaceId: spaceInfo.accountSpaceId, name: "", route: .screenWidget)
     }
 
-    func onShowHomepagePicker() {
-        showHomepagePicker = true
+    func onChangeHome() {
+        showHomeChangePicker = true
+    }
+
+    func onHomeObjectSelected(screenData: ScreenData) {
+        shouldDismissOverlay = true
+        pageNavigation?.popToFirstInSpace()
     }
 
     func onObjectSelected(screenData: ScreenData) {

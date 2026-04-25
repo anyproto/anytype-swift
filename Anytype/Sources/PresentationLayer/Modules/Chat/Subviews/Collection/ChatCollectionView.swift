@@ -18,6 +18,7 @@ struct ChatCollectionView<
     let emptyView: EmptyView
     let showEmptyState: Bool
     let showSectionHeaders: Bool
+    let topContentInset: CGFloat
     let itemBuilder: (Item) -> ItemView
     let headerBuilder: (Section.Header) -> HeaderView
     @ViewBuilder
@@ -80,7 +81,7 @@ struct ChatCollectionView<
         actionView.safeAreaRegions = SafeAreaRegions()
 
         let container = ChatCollectionViewContainer(collectionView: collectionView, bottomPanel: bottomPanel, emptyView: emptyView, actionView: actionView)
-        container.contentInset = UIEdgeInsets(top: NavigationHeaderConstants.height, left: 0, bottom: 10, right: 0)
+        container.contentInset = UIEdgeInsets(top: topContentInset, left: 0, bottom: 10, right: 0)
         return container
     }
     

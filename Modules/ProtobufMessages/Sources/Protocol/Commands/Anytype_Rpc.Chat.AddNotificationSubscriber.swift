@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.Chat {
-    public struct SubscribeLastMessages: Sendable {
+    public struct AddNotificationSubscriber: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -24,13 +24,9 @@ extension Anytype_Rpc.Chat {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        /// Identifier for the chat
         public var chatObjectID: String = String()
 
-        /// Number of max last messages to return and subscribe
-        public var limit: Int32 = 0
-
-        public var subID: String = String()
+        public var identity: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -42,33 +38,14 @@ extension Anytype_Rpc.Chat {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error {
-          get {return _error ?? Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error()}
+        public var error: Anytype_Rpc.Chat.AddNotificationSubscriber.Response.Error {
+          get {return _error ?? Anytype_Rpc.Chat.AddNotificationSubscriber.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
         public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
-
-        /// List of messages
-        public var messages: [Anytype_Model_ChatMessage] = []
-
-        /// Number of messages before the returned messages
-        public var numMessagesBefore: Int32 = 0
-
-        /// Chat state
-        public var chatState: Anytype_Model_ChatState {
-          get {return _chatState ?? Anytype_Model_ChatState()}
-          set {_chatState = newValue}
-        }
-        /// Returns true if `chatState` has been explicitly set.
-        public var hasChatState: Bool {return self._chatState != nil}
-        /// Clears the value of `chatState`. Subsequent reads from it will return its default value.
-        public mutating func clearChatState() {self._chatState = nil}
-
-        /// Total number of non-deleted messages in the chat
-        public var messageCount: Int32 = 0
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -77,7 +54,7 @@ extension Anytype_Rpc.Chat {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Chat.AddNotificationSubscriber.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -115,7 +92,7 @@ extension Anytype_Rpc.Chat {
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Chat.AddNotificationSubscriber.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
@@ -128,16 +105,15 @@ extension Anytype_Rpc.Chat {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error? = nil
-        fileprivate var _chatState: Anytype_Model_ChatState? = nil
+        fileprivate var _error: Anytype_Rpc.Chat.AddNotificationSubscriber.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Chat.SubscribeLastMessages: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.protoMessageName + ".SubscribeLastMessages"
+extension Anytype_Rpc.Chat.AddNotificationSubscriber: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.protoMessageName + ".AddNotificationSubscriber"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -149,15 +125,15 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.SubscribeLastMessages, rhs: Anytype_Rpc.Chat.SubscribeLastMessages) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.AddNotificationSubscriber, rhs: Anytype_Rpc.Chat.AddNotificationSubscriber) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Chat.SubscribeLastMessages.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.SubscribeLastMessages.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}chatObjectId\0\u{1}limit\0\u{1}subId\0")
+extension Anytype_Rpc.Chat.AddNotificationSubscriber.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.AddNotificationSubscriber.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}chatObjectId\0\u{1}identity\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -166,8 +142,7 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Request: SwiftProtobuf.Message,
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.subID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.identity) }()
       default: break
       }
     }
@@ -177,27 +152,23 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Request: SwiftProtobuf.Message,
     if !self.chatObjectID.isEmpty {
       try visitor.visitSingularStringField(value: self.chatObjectID, fieldNumber: 1)
     }
-    if self.limit != 0 {
-      try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 2)
-    }
-    if !self.subID.isEmpty {
-      try visitor.visitSingularStringField(value: self.subID, fieldNumber: 3)
+    if !self.identity.isEmpty {
+      try visitor.visitSingularStringField(value: self.identity, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.SubscribeLastMessages.Request, rhs: Anytype_Rpc.Chat.SubscribeLastMessages.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.AddNotificationSubscriber.Request, rhs: Anytype_Rpc.Chat.AddNotificationSubscriber.Request) -> Bool {
     if lhs.chatObjectID != rhs.chatObjectID {return false}
-    if lhs.limit != rhs.limit {return false}
-    if lhs.subID != rhs.subID {return false}
+    if lhs.identity != rhs.identity {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.SubscribeLastMessages.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}messages\0\u{1}numMessagesBefore\0\u{1}chatState\0\u{1}messageCount\0")
+extension Anytype_Rpc.Chat.AddNotificationSubscriber.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.AddNotificationSubscriber.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -206,10 +177,6 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.messages) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self.numMessagesBefore) }()
-      case 4: try { try decoder.decodeSingularMessageField(value: &self._chatState) }()
-      case 5: try { try decoder.decodeSingularInt32Field(value: &self.messageCount) }()
       default: break
       }
     }
@@ -223,34 +190,18 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.messages.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.messages, fieldNumber: 2)
-    }
-    if self.numMessagesBefore != 0 {
-      try visitor.visitSingularInt32Field(value: self.numMessagesBefore, fieldNumber: 3)
-    }
-    try { if let v = self._chatState {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-    } }()
-    if self.messageCount != 0 {
-      try visitor.visitSingularInt32Field(value: self.messageCount, fieldNumber: 5)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.SubscribeLastMessages.Response, rhs: Anytype_Rpc.Chat.SubscribeLastMessages.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.AddNotificationSubscriber.Response, rhs: Anytype_Rpc.Chat.AddNotificationSubscriber.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.messages != rhs.messages {return false}
-    if lhs.numMessagesBefore != rhs.numMessagesBefore {return false}
-    if lhs._chatState != rhs._chatState {return false}
-    if lhs.messageCount != rhs.messageCount {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.SubscribeLastMessages.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Chat.AddNotificationSubscriber.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.AddNotificationSubscriber.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -276,7 +227,7 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error, rhs: Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.AddNotificationSubscriber.Response.Error, rhs: Anytype_Rpc.Chat.AddNotificationSubscriber.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -284,7 +235,7 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: SwiftProtobuf.M
   }
 }
 
-extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Chat.AddNotificationSubscriber.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 

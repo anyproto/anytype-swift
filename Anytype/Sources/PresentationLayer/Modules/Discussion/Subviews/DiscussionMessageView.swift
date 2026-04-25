@@ -36,10 +36,6 @@ struct DiscussionMessageView: View {
             .fixTappableArea()
             .messageFlashBackground(id: data.id)
             .background(Color.Background.primary)
-            .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .contextMenu {
-                contextMenu
-            }
     }
 
     private var messageBody: some View {
@@ -52,27 +48,46 @@ struct DiscussionMessageView: View {
                         .padding(.leading, Constants.replyBarLeadingPadding)
                         .padding(.bottom, data.isLastReply ? Constants.replyBarBottomPadding : 0)
                     messageInnerContent
-                        .padding(.leading, Constants.replyContentLeadingPadding)
-                        .padding(.trailing, Constants.messageHorizontalPadding)
-                        .padding(.vertical, Constants.messageVerticalPadding)
-                    Spacer()
                 }
             } else {
                 messageInnerContent
-                    .padding(.horizontal, Constants.messageHorizontalPadding)
-                    .padding(.vertical, Constants.messageVerticalPadding)
             }
         }
     }
 
     private var messageInnerContent: some View {
         VStack(alignment: .leading, spacing: 0) {
+            bubble
+            reactions
+        }
+    }
+
+    // Context menu is attached to `bubble` (which excludes the reactions row)
+    // so the preview-source rect stays stable when the first reaction is added.
+    // Otherwise the dismiss-zoom animation interpolates into a taller rect and
+    // clips the comment content (IOS-6074). Padding lives inside the bubble so
+    // the full padded comment area is part of the long-press hit region and
+    // defines the preview card's shape. The bubble's bottom padding doubles as
+    // the visible gap between the last text line and the reactions row below.
+    private var bubble: some View {
+        VStack(alignment: .leading, spacing: 0) {
             header
             Spacer.fixedHeight(8)
             messageContent
-            Spacer.fixedHeight(8)
-            reactions
         }
+        .padding(.leading, bubbleLeadingPadding)
+        .padding(.trailing, Constants.messageHorizontalPadding)
+        .padding(.vertical, Constants.messageVerticalPadding)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.Background.primary)
+        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .contextMenu {
+            contextMenu
+        }
+    }
+
+    private var bubbleLeadingPadding: CGFloat {
+        data.isReply ? Constants.replyContentLeadingPadding : Constants.messageHorizontalPadding
     }
 
     private var header: some View {
@@ -84,7 +99,7 @@ struct DiscussionMessageView: View {
             } label: {
                 HStack(spacing: 0) {
                     IconView(icon: data.authorIcon)
-                        .frame(width: 28, height: 28)
+                        .frame(width: 20, height: 20)
 
                     Spacer().frame(width: 6)
 
@@ -108,12 +123,12 @@ struct DiscussionMessageView: View {
             timestampLabel
                 .fixedSize()
         }
-        .frame(height: 32)
+        .frame(height: 20)
     }
 
     private var timestampLabel: some View {
         Text(data.timestampLabel)
-            .anytypeStyle(.caption2Regular)
+            .anytypeStyle(.caption1Regular)
             .foregroundStyle(Color.Text.secondary)
             .lineLimit(1)
     }
@@ -189,7 +204,9 @@ struct DiscussionMessageView: View {
                     output?.didSelectAddReaction(messageId: data.message.id)
                 }
             )
-            .padding(.top, 4)
+            .padding(.leading, bubbleLeadingPadding)
+            .padding(.trailing, Constants.messageHorizontalPadding)
+            .padding(.bottom, Constants.messageVerticalPadding)
         }
     }
 

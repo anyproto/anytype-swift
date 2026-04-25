@@ -269,6 +269,60 @@ struct DiscussionThreadGrouperTests {
         #expect(result.roots[0].message.id == "root1")
         #expect(result.threadReplies.isEmpty)
     }
+
+    // MARK: - findRootParent(of:in:)
+
+    @Test
+    func findRootParent_rootMessage_returnsOwnId() {
+        let root = makeMessage(id: "root1", orderID: "001")
+
+        let rootId = grouper.findRootParent(of: root.message, in: [root])
+
+        #expect(rootId == "root1")
+    }
+
+    @Test
+    func findRootParent_directReply_returnsParentId() {
+        let root = makeMessage(id: "root1", orderID: "001")
+        let reply = makeMessage(id: "r1", orderID: "002", replyToMessageID: "root1")
+
+        let rootId = grouper.findRootParent(of: reply.message, in: [root, reply])
+
+        #expect(rootId == "root1")
+    }
+
+    @Test
+    func findRootParent_nestedReplyChain_returnsRootId() {
+        // A (root) → B → C; findRootParent(C) should return A
+        let msgA = makeMessage(id: "A", orderID: "001")
+        let msgB = makeMessage(id: "B", orderID: "002", replyToMessageID: "A")
+        let msgC = makeMessage(id: "C", orderID: "003", replyToMessageID: "B")
+
+        let rootId = grouper.findRootParent(of: msgC.message, in: [msgA, msgB, msgC])
+
+        #expect(rootId == "A")
+    }
+
+    @Test
+    func findRootParent_orphanReply_returnsNil() {
+        // Reply references a parent not in the message list
+        let orphan = makeMessage(id: "orphan", orderID: "001", replyToMessageID: "missing")
+
+        let rootId = grouper.findRootParent(of: orphan.message, in: [orphan])
+
+        #expect(rootId == nil)
+    }
+
+    @Test
+    func findRootParent_cyclicChain_returnsNil() {
+        // A replies to B, B replies to A → cycle
+        let msgA = makeMessage(id: "A", orderID: "001", replyToMessageID: "B")
+        let msgB = makeMessage(id: "B", orderID: "002", replyToMessageID: "A")
+
+        let rootId = grouper.findRootParent(of: msgA.message, in: [msgA, msgB])
+
+        #expect(rootId == nil)
+    }
 }
 
 // MARK: - Integration Tests for MessageViewData Flags
