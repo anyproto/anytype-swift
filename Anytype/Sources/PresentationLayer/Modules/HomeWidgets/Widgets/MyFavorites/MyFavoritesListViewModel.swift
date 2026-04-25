@@ -4,12 +4,14 @@ import AnytypeCore
 
 @MainActor
 @Observable
-final class MyFavoritesViewModel {
+final class MyFavoritesListViewModel {
 
     // MARK: - DI
 
     @ObservationIgnored
     let personalWidgetsObject: any BaseDocumentProtocol
+    @ObservationIgnored
+    let channelWidgetsObject: any BaseDocumentProtocol
     @ObservationIgnored
     let onObjectSelected: (ObjectDetails) -> Void
 
@@ -20,11 +22,6 @@ final class MyFavoritesViewModel {
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
 
-    // MARK: - Source state
-
-    @ObservationIgnored
-    private var sourceBlocks: [SourceBlock] = []
-
     // MARK: - Published state
 
     var rows: [MyFavoritesRowData] = []
@@ -32,10 +29,12 @@ final class MyFavoritesViewModel {
     init(
         spaceId: String,
         personalWidgetsObject: any BaseDocumentProtocol,
+        channelWidgetsObject: any BaseDocumentProtocol,
         onObjectSelected: @escaping (ObjectDetails) -> Void
     ) {
         self.spaceId = spaceId
         self.personalWidgetsObject = personalWidgetsObject
+        self.channelWidgetsObject = channelWidgetsObject
         self.onObjectSelected = onObjectSelected
     }
 
@@ -48,36 +47,17 @@ final class MyFavoritesViewModel {
     private func startPersonalWidgetsSubscription() async {
         for await _ in personalWidgetsObject.syncPublisher.values {
             let widgets = personalWidgetsObject.children.filter(\.isWidget)
-            let next: [SourceBlock] = widgets.compactMap { block in
+            let newRows: [MyFavoritesRowData] = widgets.compactMap { block in
                 guard let info = personalWidgetsObject.widgetInfo(block: block),
                       case let .object(details) = info.source,
                       details.isNotDeletedAndSupportedForOpening else {
                     return nil
                 }
-                return SourceBlock(blockId: block.id, details: details)
+                return MyFavoritesRowData(id: block.id, details: details)
             }
-            guard sourceBlocks != next else { continue }
-            sourceBlocks = next
-            recomputeRows()
+            guard rows != newRows else { continue }
+            rows = newRows
         }
-    }
-
-    // MARK: - Row recomputation
-
-    private func recomputeRows() {
-        let onObjectSelected = self.onObjectSelected
-        let newRows: [MyFavoritesRowData] = sourceBlocks.map { block in
-            let details = block.details
-            return MyFavoritesRowData(
-                id: block.blockId,
-                objectId: details.id,
-                title: details.pluralTitle,
-                icon: details.objectIconImage,
-                onTap: { onObjectSelected(details) }
-            )
-        }
-        guard rows != newRows else { return }
-        rows = newRows
     }
 
     // MARK: - Drag-and-drop
@@ -103,9 +83,4 @@ final class MyFavoritesViewModel {
             )
         }
     }
-}
-
-private struct SourceBlock: Equatable {
-    let blockId: String
-    let details: ObjectDetails
 }

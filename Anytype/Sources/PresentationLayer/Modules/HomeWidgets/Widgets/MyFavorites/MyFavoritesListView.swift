@@ -1,10 +1,8 @@
 import Foundation
 import SwiftUI
-import Services
 
 struct MyFavoritesListView: View {
-    let model: MyFavoritesViewModel
-    let channelWidgetsObject: any BaseDocumentProtocol
+    let model: MyFavoritesListViewModel
 
     @State private var favoritesDndState = DragState()
 
@@ -15,8 +13,9 @@ struct MyFavoritesListView: View {
                     row: row,
                     showDivider: index != model.rows.count - 1,
                     spaceId: model.spaceId,
-                    channelWidgetsObject: channelWidgetsObject,
-                    personalWidgetsObject: model.personalWidgetsObject
+                    channelWidgetsObject: model.channelWidgetsObject,
+                    personalWidgetsObject: model.personalWidgetsObject,
+                    onObjectSelected: model.onObjectSelected
                 )
                 .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 24, style: .continuous))
                 .anytypeVerticalDrag(itemId: row.id)

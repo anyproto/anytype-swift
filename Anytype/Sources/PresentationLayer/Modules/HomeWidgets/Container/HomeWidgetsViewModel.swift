@@ -64,7 +64,7 @@ final class HomeWidgetsViewModel {
     var unreadSectionIsExpanded: Bool = false
     var unreadChats: [UnreadChatWidgetData] = []
     var myFavoritesSectionIsExpanded: Bool = false
-    var myFavoritesViewModel: MyFavoritesViewModel?
+    var myFavoritesListViewModel: MyFavoritesListViewModel?
     private var supportsMultiChats: Bool = false
 
     var spaceId: String { info.accountSpaceId }
@@ -90,15 +90,16 @@ final class HomeWidgetsViewModel {
                 objectId: info.personalWidgetsId,
                 spaceId: info.accountSpaceId
             )
-            self.myFavoritesViewModel = MyFavoritesViewModel(
+            self.myFavoritesListViewModel = MyFavoritesListViewModel(
                 spaceId: info.accountSpaceId,
                 personalWidgetsObject: personalWidgetsObject,
+                channelWidgetsObject: channelWidgetsObject,
                 onObjectSelected: { [weak output] details in
                     output?.onObjectSelected(screenData: details.screenData())
                 }
             )
         } else {
-            self.myFavoritesViewModel = nil
+            self.myFavoritesListViewModel = nil
         }
         self.pinnedSectionIsExpanded = expandedService.isExpanded(id: Constants.pinnedSectionId, defaultValue: true)
         self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
@@ -200,10 +201,10 @@ final class HomeWidgetsViewModel {
     }
 
     private func startMyFavoritesTask() async {
-        // Drives the `MyFavoritesViewModel.rows` list — only spins up when the feature flag
+        // Drives the `MyFavoritesListViewModel.rows` list — only spins up when the feature flag
         // enabled the sub-viewmodel in `init`.
-        guard let myFavoritesViewModel else { return }
-        await myFavoritesViewModel.startSubscriptions()
+        guard let myFavoritesListViewModel else { return }
+        await myFavoritesListViewModel.startSubscriptions()
     }
 
     private func startCanEditSubscription() async {

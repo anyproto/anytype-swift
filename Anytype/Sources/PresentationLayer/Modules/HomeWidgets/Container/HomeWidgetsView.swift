@@ -33,7 +33,7 @@ private struct HomeWidgetsInternalView: View {
 
             content
                 .animation(.default, value: model.widgetBlocks.count)
-                .animation(.default, value: model.myFavoritesViewModel?.rows.count)
+                .animation(.default, value: model.myFavoritesListViewModel?.rows.count)
 
             if context.showEmbeddedBottomPanel {
                 HomeBottomNavigationPanelView(
@@ -146,7 +146,7 @@ private struct HomeWidgetsInternalView: View {
                         HomeWidgetSubmoduleView(
                             widgetInfo: widgetInfo,
                             channelWidgetsObject: model.channelWidgetsObject,
-                            personalWidgetsObject: model.myFavoritesViewModel?.personalWidgetsObject,
+                            personalWidgetsObject: model.myFavoritesListViewModel?.personalWidgetsObject,
                             workspaceInfo: model.info,
                             homeState: $model.homeState,
                             output: model.output
@@ -171,7 +171,7 @@ private struct HomeWidgetsInternalView: View {
                             HomeWidgetSubmoduleView(
                                 widgetInfo: widgetInfo,
                                 channelWidgetsObject: model.channelWidgetsObject,
-                                personalWidgetsObject: model.myFavoritesViewModel?.personalWidgetsObject,
+                                personalWidgetsObject: model.myFavoritesListViewModel?.personalWidgetsObject,
                                 workspaceInfo: model.info,
                                 homeState: $model.homeState,
                                 output: model.output
@@ -191,16 +191,13 @@ private struct HomeWidgetsInternalView: View {
     @ViewBuilder
     private var myFavoritesWidget: some View {
         if FeatureFlags.personalFavorites,
-           let myFavoritesViewModel = model.myFavoritesViewModel,
-           myFavoritesViewModel.rows.isNotEmpty {
+           let myFavoritesListViewModel = model.myFavoritesListViewModel,
+           myFavoritesListViewModel.rows.isNotEmpty {
             HomeWidgetsGroupView(title: Loc.myFavorites) {
                 model.onTapMyFavoritesHeader()
             }
             if model.myFavoritesSectionIsExpanded {
-                MyFavoritesListView(
-                    model: myFavoritesViewModel,
-                    channelWidgetsObject: model.channelWidgetsObject
-                )
+                MyFavoritesListView(model: myFavoritesListViewModel)
             }
         }
     }
