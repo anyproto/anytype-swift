@@ -2704,13 +2704,23 @@ public struct ClientCommands {
         }
     }
 
-    public static func debugExportLog(
-        _ request: Anytype_Rpc.Debug.ExportLog.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Debug.ExportLog.Request, Anytype_Rpc.Debug.ExportLog.Response> {
-        return Invocation(messageName: "DebugExportLog", request: request) { request in
+    public static func debugExportReport(
+        _ request: Anytype_Rpc.Debug.ExportReport.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.ExportReport.Request, Anytype_Rpc.Debug.ExportReport.Response> {
+        return Invocation(messageName: "DebugExportReport", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServiceDebugExportLog(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.ExportLog.Response(serializedBytes: responseData)
+            let responseData = Lib.ServiceDebugExportReport(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.ExportReport.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func debugCleanupReport(
+        _ request: Anytype_Rpc.Debug.CleanupReport.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.CleanupReport.Request, Anytype_Rpc.Debug.CleanupReport.Response> {
+        return Invocation(messageName: "DebugCleanupReport", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDebugCleanupReport(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.CleanupReport.Response(serializedBytes: responseData)
         }
     }
 

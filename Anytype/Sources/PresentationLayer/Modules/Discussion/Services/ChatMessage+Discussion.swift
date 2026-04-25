@@ -101,6 +101,10 @@ extension ChatMessage {
                 block.processor = embedBlock.processor
                 let data = embedContentDataBuilder.build(from: block)
                 result.append(.embed(id: index, data: data))
+            case .editorQuote:
+                result.append(.unsupported(id: index, blockName: "editorQuote"))
+            case .messageQuote:
+                result.append(.unsupported(id: index, blockName: "messageQuote"))
             case nil:
                 result.append(.unsupported(id: index, blockName: "unknown"))
             }
