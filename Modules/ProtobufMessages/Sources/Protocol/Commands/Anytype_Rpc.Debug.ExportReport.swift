@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.Debug {
-    public struct ExportLog: Sendable {
+    public struct ExportReport: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -27,6 +27,10 @@ extension Anytype_Rpc.Debug {
         /// empty means using OS-provided temp dir
         public var dir: String = String()
 
+        /// When false (default) the report includes only the 2 newest log files
+        /// (active + most recent rotated). When true, all logs are included.
+        public var full: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -37,8 +41,8 @@ extension Anytype_Rpc.Debug {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Debug.ExportLog.Response.Error {
-          get {return _error ?? Anytype_Rpc.Debug.ExportLog.Response.Error()}
+        public var error: Anytype_Rpc.Debug.ExportReport.Response.Error {
+          get {return _error ?? Anytype_Rpc.Debug.ExportReport.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -48,6 +52,12 @@ extension Anytype_Rpc.Debug {
 
         public var path: String = String()
 
+        /// JSON summary with profile counts by reason and log count
+        public var summary: String = String()
+
+        /// Unix timestamp (seconds) of the newest source file in this report. Pass to DebugCleanupReport after the report is successfully uploaded to the reporter server.
+        public var lastModifiedTs: Int64 = 0
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -55,7 +65,7 @@ extension Anytype_Rpc.Debug {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Debug.ExportLog.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Debug.ExportReport.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -94,7 +104,7 @@ extension Anytype_Rpc.Debug {
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Debug.ExportLog.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Debug.ExportReport.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
@@ -108,15 +118,15 @@ extension Anytype_Rpc.Debug {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Debug.ExportLog.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.Debug.ExportReport.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Debug.ExportLog: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Debug.protoMessageName + ".ExportLog"
+extension Anytype_Rpc.Debug.ExportReport: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.protoMessageName + ".ExportReport"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -128,15 +138,15 @@ extension Anytype_Rpc.Debug.ExportLog: SwiftProtobuf.Message, SwiftProtobuf._Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Debug.ExportLog, rhs: Anytype_Rpc.Debug.ExportLog) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Debug.ExportReport, rhs: Anytype_Rpc.Debug.ExportReport) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Debug.ExportLog.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Debug.ExportLog.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}dir\0")
+extension Anytype_Rpc.Debug.ExportReport.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.ExportReport.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}dir\0\u{1}full\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -145,6 +155,7 @@ extension Anytype_Rpc.Debug.ExportLog.Request: SwiftProtobuf.Message, SwiftProto
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.dir) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.full) }()
       default: break
       }
     }
@@ -154,19 +165,23 @@ extension Anytype_Rpc.Debug.ExportLog.Request: SwiftProtobuf.Message, SwiftProto
     if !self.dir.isEmpty {
       try visitor.visitSingularStringField(value: self.dir, fieldNumber: 1)
     }
+    if self.full != false {
+      try visitor.visitSingularBoolField(value: self.full, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Debug.ExportLog.Request, rhs: Anytype_Rpc.Debug.ExportLog.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Debug.ExportReport.Request, rhs: Anytype_Rpc.Debug.ExportReport.Request) -> Bool {
     if lhs.dir != rhs.dir {return false}
+    if lhs.full != rhs.full {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Debug.ExportLog.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Debug.ExportLog.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}path\0")
+extension Anytype_Rpc.Debug.ExportReport.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.ExportReport.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}path\0\u{1}summary\0\u{1}lastModifiedTs\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -176,6 +191,8 @@ extension Anytype_Rpc.Debug.ExportLog.Response: SwiftProtobuf.Message, SwiftProt
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.path) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.summary) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.lastModifiedTs) }()
       default: break
       }
     }
@@ -192,19 +209,27 @@ extension Anytype_Rpc.Debug.ExportLog.Response: SwiftProtobuf.Message, SwiftProt
     if !self.path.isEmpty {
       try visitor.visitSingularStringField(value: self.path, fieldNumber: 2)
     }
+    if !self.summary.isEmpty {
+      try visitor.visitSingularStringField(value: self.summary, fieldNumber: 3)
+    }
+    if self.lastModifiedTs != 0 {
+      try visitor.visitSingularInt64Field(value: self.lastModifiedTs, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Debug.ExportLog.Response, rhs: Anytype_Rpc.Debug.ExportLog.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Debug.ExportReport.Response, rhs: Anytype_Rpc.Debug.ExportReport.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.path != rhs.path {return false}
+    if lhs.summary != rhs.summary {return false}
+    if lhs.lastModifiedTs != rhs.lastModifiedTs {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Debug.ExportLog.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Debug.ExportLog.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Debug.ExportReport.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.ExportReport.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -230,7 +255,7 @@ extension Anytype_Rpc.Debug.ExportLog.Response.Error: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Debug.ExportLog.Response.Error, rhs: Anytype_Rpc.Debug.ExportLog.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Debug.ExportReport.Response.Error, rhs: Anytype_Rpc.Debug.ExportReport.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -238,7 +263,7 @@ extension Anytype_Rpc.Debug.ExportLog.Response.Error: SwiftProtobuf.Message, Swi
   }
 }
 
-extension Anytype_Rpc.Debug.ExportLog.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Debug.ExportReport.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{1}NO_FOLDER\0")
 }
 

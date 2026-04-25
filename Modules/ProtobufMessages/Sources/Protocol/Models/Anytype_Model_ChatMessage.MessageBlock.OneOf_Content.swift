@@ -17,6 +17,8 @@ extension Anytype_Model_ChatMessage.MessageBlock {
       case text(Anytype_Model_ChatMessage.MessageBlockText)
       case link(Anytype_Model_ChatMessage.MessageBlockLink)
       case embed(Anytype_Model_ChatMessage.MessageBlockEmbed)
+      case editorQuote(Anytype_Model_ChatMessage.MessageBlockEditorQuote)
+      case messageQuote(Anytype_Model_ChatMessage.MessageBlockMessageQuote)
 
     }}
 

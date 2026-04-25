@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.Debug {
-    public struct RunProfiler: Sendable {
+    public struct CleanupReport: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -24,79 +24,10 @@ extension Anytype_Rpc.Debug {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        /// 0 = save heap snapshot only; >0 = run full profiler (CPU, heap, trace, goroutines) for this many seconds
-        public var durationInSeconds: Int32 = 0
-
-        public var reason: Anytype_Rpc.Debug.RunProfiler.Request.Reason = .unknown
-
-        /// Optional free-form description to attach to the profile
-        public var reasonDesc: String = String()
+        /// Unix timestamp (seconds); files with lastModified < ts will be removed
+        public var ts: Int64 = 0
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public enum Reason: SwiftProtobuf.Enum, Swift.CaseIterable {
-          public typealias RawValue = Int
-          case unknown // = 0
-
-          /// Triggered explicitly by the user
-          case userRequest // = 1
-
-          /// iOS: DISPATCH_MEMORYPRESSURE_WARN
-          /// Android: onTrimMemory(RUNNING_LOW)
-          case memoryPressureWarn // = 2
-
-          /// iOS: DISPATCH_MEMORYPRESSURE_CRITICAL / applicationDidReceiveMemoryWarning
-          /// Android: onTrimMemory(RUNNING_CRITICAL)
-          case memoryPressureCritical // = 3
-
-          /// iOS: ProcessInfo.thermalState == .serious
-          /// Android: THERMAL_STATUS_SEVERE
-          case thermalSerious // = 4
-
-          /// iOS: ProcessInfo.thermalState == .critical
-          /// Android: THERMAL_STATUS_CRITICAL or higher
-          case thermalCritical // = 5
-          case UNRECOGNIZED(Int)
-
-          public init() {
-            self = .unknown
-          }
-
-          public init?(rawValue: Int) {
-            switch rawValue {
-            case 0: self = .unknown
-            case 1: self = .userRequest
-            case 2: self = .memoryPressureWarn
-            case 3: self = .memoryPressureCritical
-            case 4: self = .thermalSerious
-            case 5: self = .thermalCritical
-            default: self = .UNRECOGNIZED(rawValue)
-            }
-          }
-
-          public var rawValue: Int {
-            switch self {
-            case .unknown: return 0
-            case .userRequest: return 1
-            case .memoryPressureWarn: return 2
-            case .memoryPressureCritical: return 3
-            case .thermalSerious: return 4
-            case .thermalCritical: return 5
-            case .UNRECOGNIZED(let i): return i
-            }
-          }
-
-          // The compiler won't synthesize support with the UNRECOGNIZED case.
-          public static let allCases: [Anytype_Rpc.Debug.RunProfiler.Request.Reason] = [
-            .unknown,
-            .userRequest,
-            .memoryPressureWarn,
-            .memoryPressureCritical,
-            .thermalSerious,
-            .thermalCritical,
-          ]
-
-        }
 
         public init() {}
       }
@@ -106,16 +37,14 @@ extension Anytype_Rpc.Debug {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Debug.RunProfiler.Response.Error {
-          get {return _error ?? Anytype_Rpc.Debug.RunProfiler.Response.Error()}
+        public var error: Anytype_Rpc.Debug.CleanupReport.Response.Error {
+          get {return _error ?? Anytype_Rpc.Debug.CleanupReport.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
         public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
-
-        public var path: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -124,7 +53,7 @@ extension Anytype_Rpc.Debug {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Debug.RunProfiler.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Debug.CleanupReport.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -160,7 +89,7 @@ extension Anytype_Rpc.Debug {
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Debug.RunProfiler.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Debug.CleanupReport.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
@@ -173,15 +102,15 @@ extension Anytype_Rpc.Debug {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Debug.RunProfiler.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.Debug.CleanupReport.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Debug.RunProfiler: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Debug.protoMessageName + ".RunProfiler"
+extension Anytype_Rpc.Debug.CleanupReport: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.protoMessageName + ".CleanupReport"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -193,15 +122,15 @@ extension Anytype_Rpc.Debug.RunProfiler: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Debug.RunProfiler, rhs: Anytype_Rpc.Debug.RunProfiler) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Debug.CleanupReport, rhs: Anytype_Rpc.Debug.CleanupReport) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Debug.RunProfiler.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Debug.RunProfiler.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}durationInSeconds\0\u{1}reason\0\u{1}reasonDesc\0")
+extension Anytype_Rpc.Debug.CleanupReport.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.CleanupReport.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}ts\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -209,43 +138,29 @@ extension Anytype_Rpc.Debug.RunProfiler.Request: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularInt32Field(value: &self.durationInSeconds) }()
-      case 2: try { try decoder.decodeSingularEnumField(value: &self.reason) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.reasonDesc) }()
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.ts) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.durationInSeconds != 0 {
-      try visitor.visitSingularInt32Field(value: self.durationInSeconds, fieldNumber: 1)
-    }
-    if self.reason != .unknown {
-      try visitor.visitSingularEnumField(value: self.reason, fieldNumber: 2)
-    }
-    if !self.reasonDesc.isEmpty {
-      try visitor.visitSingularStringField(value: self.reasonDesc, fieldNumber: 3)
+    if self.ts != 0 {
+      try visitor.visitSingularInt64Field(value: self.ts, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Debug.RunProfiler.Request, rhs: Anytype_Rpc.Debug.RunProfiler.Request) -> Bool {
-    if lhs.durationInSeconds != rhs.durationInSeconds {return false}
-    if lhs.reason != rhs.reason {return false}
-    if lhs.reasonDesc != rhs.reasonDesc {return false}
+  public static func ==(lhs: Anytype_Rpc.Debug.CleanupReport.Request, rhs: Anytype_Rpc.Debug.CleanupReport.Request) -> Bool {
+    if lhs.ts != rhs.ts {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Debug.RunProfiler.Request.Reason: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0UNKNOWN\0\u{1}USER_REQUEST\0\u{1}MEMORY_PRESSURE_WARN\0\u{1}MEMORY_PRESSURE_CRITICAL\0\u{1}THERMAL_SERIOUS\0\u{1}THERMAL_CRITICAL\0")
-}
-
-extension Anytype_Rpc.Debug.RunProfiler.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Debug.RunProfiler.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}path\0")
+extension Anytype_Rpc.Debug.CleanupReport.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.CleanupReport.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -254,7 +169,6 @@ extension Anytype_Rpc.Debug.RunProfiler.Response: SwiftProtobuf.Message, SwiftPr
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.path) }()
       default: break
       }
     }
@@ -268,22 +182,18 @@ extension Anytype_Rpc.Debug.RunProfiler.Response: SwiftProtobuf.Message, SwiftPr
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.path.isEmpty {
-      try visitor.visitSingularStringField(value: self.path, fieldNumber: 2)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Debug.RunProfiler.Response, rhs: Anytype_Rpc.Debug.RunProfiler.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Debug.CleanupReport.Response, rhs: Anytype_Rpc.Debug.CleanupReport.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.path != rhs.path {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Debug.RunProfiler.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Debug.RunProfiler.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Debug.CleanupReport.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.CleanupReport.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -309,7 +219,7 @@ extension Anytype_Rpc.Debug.RunProfiler.Response.Error: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Debug.RunProfiler.Response.Error, rhs: Anytype_Rpc.Debug.RunProfiler.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Debug.CleanupReport.Response.Error, rhs: Anytype_Rpc.Debug.CleanupReport.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -317,7 +227,7 @@ extension Anytype_Rpc.Debug.RunProfiler.Response.Error: SwiftProtobuf.Message, S
   }
 }
 
-extension Anytype_Rpc.Debug.RunProfiler.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Debug.CleanupReport.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
