@@ -242,8 +242,8 @@ Align `MyFavorites` architecture with `blockWidgets`: parent VM owns only the st
 
 #### Phase A hand-off (end of PR 1)
 
-- [ ] full Xcode build passes
-- [ ] manual QA (on iOS 26.3+ device, real hardware):
+- [x] full Xcode build passes
+- [x] manual QA (on iOS 26.3+ device, real hardware):
   - IOS-6106 reproducer: 5×, no crash
   - IOS-6104 regression: long-press + context-menu dismiss, row visible
   - IOS-6105 regression: Favorite/Unfavorite/Pin/Unpin → Vault → no SIGABRT
@@ -251,7 +251,7 @@ Align `MyFavorites` architecture with `blockWidgets`: parent VM owns only the st
   - Pin/Unpin menu item shows correct label, hidden for Member/Viewer
   - reorder-within-zone persists
   - block-widgets drag-reorder still works (same delegate)
-- [ ] open PR 1 titled e.g. `IOS-6106 MyFavorites per-row ViewModel refactor`; commit trailer `IOS-6106`; "Release" label per workflow
+- [x] open PR 1 titled e.g. `IOS-6106 MyFavorites per-row ViewModel refactor`; commit trailer `IOS-6106`; "Release" label per workflow — opened as PR #4877 targeting `release`
 - [ ] merge PR 1 before starting Phase B (or continue on a new branch cut off develop post-merge — either way, Phase B should not stack on unmerged Phase A)
 
 ---
