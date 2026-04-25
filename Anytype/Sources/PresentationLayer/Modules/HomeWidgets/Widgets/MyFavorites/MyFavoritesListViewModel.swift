@@ -22,6 +22,11 @@ final class MyFavoritesListViewModel {
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
 
+    // MARK: - Source state
+
+    @ObservationIgnored
+    private var sourceIds: [String] = []
+
     // MARK: - Published state
 
     var rows: [MyFavoritesRowData] = []
@@ -55,7 +60,15 @@ final class MyFavoritesListViewModel {
                 }
                 return MyFavoritesRowData(id: block.id, details: details)
             }
-            guard rows != newRows else { continue }
+            // Dedup on STRUCTURAL changes only (block-id list), not on detail-only emissions.
+            // - Compares against the persisted-order snapshot, not against `rows`, which `dropUpdate`
+            //   mutates into the optimistic drag order — comparing against `rows` would snap the list
+            //   back mid-drag on any unchanged-source emission.
+            // - Detail-only updates (renames, icon changes) are handled by per-row VMs via
+            //   `widgetTargetDetailsPublisher`, so the parent doesn't need to rebuild for those.
+            let newIds = newRows.map(\.id)
+            guard sourceIds != newIds else { continue }
+            sourceIds = newIds
             rows = newRows
         }
     }
