@@ -112,8 +112,8 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             .frame(minHeight: 48)
         }
         .glassEffectInteractiveIOS26(in: Capsule())
-        .animation(.bouncy, value: hasCount)
-        .animation(.smooth, value: model.commentsCount)
+        .animation(.snappy(duration: 0.35), value: hasCount)
+        .animation(.snappy(duration: 0.25), value: model.commentsCount)
     }
 
     @ViewBuilder
