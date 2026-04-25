@@ -105,6 +105,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                         model.discussButtonHasUnread ? Color.Control.accent100 : Color.Control.primary,
                         Color.Control.primary
                     )
+                    .frame(width: 22, height: 22)
                 if hasCount {
                     AnytypeText("\(model.commentsCount)", style: .previewTitle2Medium)
                         .foregroundStyle(Color.Text.primary)
