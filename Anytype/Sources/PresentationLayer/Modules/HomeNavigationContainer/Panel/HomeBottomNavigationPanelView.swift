@@ -94,15 +94,27 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     }
 
     private var discussIsland: some View {
-        Button {
+        let hasCount = model.commentsCount > 0
+        return Button {
             model.onTapDiscuss()
         } label: {
-            Image(systemName: "message")
-                .foregroundStyle(Color.Control.primary)
-                .frame(width: 48, height: 48)
-                .contentShape(Circle())
+            HStack(spacing: 3) {
+                Image(systemName: "message")
+                    .foregroundStyle(Color.Control.primary)
+                if hasCount {
+                    AnytypeText("\(model.commentsCount)", style: .previewTitle2Medium)
+                        .foregroundStyle(Color.Text.primary)
+                        .contentTransition(.numericText())
+                        .transition(.opacity.combined(with: .scale(scale: 0.5, anchor: .leading)))
+                }
+            }
+            .padding(.horizontal, 12)
+            .frame(minHeight: 48)
+            .contentShape(Capsule())
         }
-        .glassEffectInteractiveIOS26(in: Circle())
+        .glassEffectInteractiveIOS26(in: Capsule())
+        .animation(.bouncy, value: hasCount)
+        .animation(.smooth, value: model.commentsCount)
     }
 
     @ViewBuilder
