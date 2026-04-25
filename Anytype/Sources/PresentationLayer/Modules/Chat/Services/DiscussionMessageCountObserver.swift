@@ -47,7 +47,7 @@ actor DiscussionMessageCountObserver: DiscussionMessageCountObserverProtocol {
         }
 
         do {
-            let response = try await chatService.subscribeLastMessages(chatObjectId: chatId, subId: subId, limit: 0)
+            let response = try await chatService.subscribeLastMessages(chatObjectId: chatId, subId: subId, limit: 1)
             emit(count: Int(response.messageCount), for: chatId)
         } catch {
             // Clear state so a subsequent startObserving(sameChatId) actually retries
