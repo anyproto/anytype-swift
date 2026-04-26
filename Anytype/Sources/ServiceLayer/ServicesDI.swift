@@ -28,6 +28,10 @@ extension Container {
         self { ChatDetailsStorage() }.singleton
     }
 
+    var objectsWithUnreadDiscussionsSubscription: Factory<any ObjectsWithUnreadDiscussionsSubscriptionProtocol> {
+        self { ObjectsWithUnreadDiscussionsSubscription() }.singleton
+    }
+
     var singleObjectSubscriptionService: Factory<any SingleObjectSubscriptionServiceProtocol> {
         self { SingleObjectSubscriptionService() }
     }

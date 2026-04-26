@@ -1,47 +1,47 @@
 import Foundation
 import Services
-import AnytypeCore
 
 protocol ObjectsWithUnreadDiscussionsSubscriptionBuilderProtocol: AnyObject, Sendable {
-    var primarySubscriptionId: String { get }
-    var secondarySubscriptionId: String { get }
+    var subscriptionId: String { get }
     func build(myParticipantIds: [String]) -> SubscriptionData
-    func buildSecondary(parentIds: [String]) -> SubscriptionData
 }
 
 final class ObjectsWithUnreadDiscussionsSubscriptionBuilder: ObjectsWithUnreadDiscussionsSubscriptionBuilderProtocol {
 
     private enum Constants {
-        static let primarySubId = "SubscriptionId.ObjectsWithUnreadDiscussions"
-        static let secondarySubId = "SubscriptionId.ObjectsWithUnreadDiscussions.Parents"
+        static let subId = "SubscriptionId.ObjectsWithUnreadDiscussions"
     }
 
-    var primarySubscriptionId: String { Constants.primarySubId }
-    var secondarySubscriptionId: String { Constants.secondarySubId }
+    var subscriptionId: String { Constants.subId }
 
     func build(myParticipantIds: [String]) -> SubscriptionData {
-//        let filters: [DataviewFilter] = [
-//            SearchHelper.layoutFilter([.discussion]),
-//            visibilityFilter(myParticipantIds: myParticipantIds)
-//        ]
-
+        let parentBranch = andFilter([
+            SearchHelper.layoutFilter(DetailsLayout.editorLayouts + DetailsLayout.listLayouts),
+            orFilter([
+                countGreaterThanZero(relation: .unreadMessageCount),
+                countGreaterThanZero(relation: .unreadMentionCount)
+            ])
+        ])
+        let discussionBranch = andFilter([
+            SearchHelper.layoutFilter([.discussion]),
+            isInFilter(relation: .notificationSubscribers, values: myParticipantIds)
+        ])
         let filters: [DataviewFilter] = [
-            SearchHelper.layoutFilter([.discussion])
+            orFilter([parentBranch, discussionBranch])
         ]
         let keys: [String] = [
             BundledPropertyKey.id.rawValue,
             BundledPropertyKey.spaceId.rawValue,
-            BundledPropertyKey.layout.rawValue,
-            BundledPropertyKey.backlinks.rawValue,
+            BundledPropertyKey.resolvedLayout.rawValue,
+            BundledPropertyKey.name.rawValue,
+            BundledPropertyKey.discussionId.rawValue,
             BundledPropertyKey.lastMessageDate.rawValue,
-            BundledPropertyKey.notificationSubscribers.rawValue,
             BundledPropertyKey.unreadMessageCount.rawValue,
             BundledPropertyKey.unreadMentionCount.rawValue
         ]
-
         return .crossSpaceSearch(
             SubscriptionData.CrossSpaceSearch(
-                identifier: Constants.primarySubId,
+                identifier: Constants.subId,
                 filters: filters,
                 keys: keys,
                 noDepSubscription: true
@@ -49,49 +49,20 @@ final class ObjectsWithUnreadDiscussionsSubscriptionBuilder: ObjectsWithUnreadDi
         )
     }
 
-    func buildSecondary(parentIds: [String]) -> SubscriptionData {
-        let filters: [DataviewFilter] = [
-            SearchHelper.includeIdsFilter(parentIds)
-        ]
+    // MARK: - Filter helpers
 
-        let keys: [String] = [
-            BundledPropertyKey.id.rawValue,
-            BundledPropertyKey.spaceId.rawValue,
-            BundledPropertyKey.name.rawValue,
-            BundledPropertyKey.iconImage.rawValue,
-            BundledPropertyKey.layout.rawValue,
-            BundledPropertyKey.discussionId.rawValue
-        ]
-
-        return .crossSpaceSearch(
-            SubscriptionData.CrossSpaceSearch(
-                identifier: Constants.secondarySubId,
-                filters: filters,
-                keys: keys,
-                noDepSubscription: true
-            )
-        )
+    private func andFilter(_ filters: [DataviewFilter]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.operator = .and
+        filter.nestedFilters = filters
+        return filter
     }
 
-    // MARK: - Private
-
-    /// `unreadMentionCount > 0 OR (unreadMessageCount > 0 AND notificationSubscribers IN [myParticipantIds])`
-    /// — discussions a row should appear for. Rows 3 and 7 of the truth table are filtered server-side.
-    private func visibilityFilter(myParticipantIds: [String]) -> DataviewFilter {
-        var unreadAndSubscribed = DataviewFilter()
-        unreadAndSubscribed.operator = .and
-        unreadAndSubscribed.nestedFilters = [
-            countGreaterThanZero(relation: .unreadMessageCount),
-            isInFilter(relation: .notificationSubscribers, values: myParticipantIds)
-        ]
-
-        var visibility = DataviewFilter()
-        visibility.operator = .or
-        visibility.nestedFilters = [
-            countGreaterThanZero(relation: .unreadMentionCount),
-            unreadAndSubscribed
-        ]
-        return visibility
+    private func orFilter(_ filters: [DataviewFilter]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.operator = .or
+        filter.nestedFilters = filters
+        return filter
     }
 
     private func countGreaterThanZero(relation: BundledPropertyKey) -> DataviewFilter {

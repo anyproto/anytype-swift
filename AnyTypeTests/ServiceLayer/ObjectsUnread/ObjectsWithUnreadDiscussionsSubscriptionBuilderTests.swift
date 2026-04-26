@@ -10,112 +10,97 @@ struct ObjectsWithUnreadDiscussionsSubscriptionBuilderTests {
 
     // MARK: - Identity
 
-    @Test func subscriptionIds_areStableAndDistinct() {
-        #expect(builder.primarySubscriptionId == "SubscriptionId.ObjectsWithUnreadDiscussions")
-        #expect(builder.secondarySubscriptionId == "SubscriptionId.ObjectsWithUnreadDiscussions.Parents")
-        #expect(builder.primarySubscriptionId != builder.secondarySubscriptionId)
+    @Test func subscriptionId_isStable() {
+        #expect(builder.subscriptionId == "SubscriptionId.ObjectsWithUnreadDiscussions")
     }
 
-    // MARK: - Primary subscription
-
-    @Test func primary_identifierMatchesSubscriptionId() {
+    @Test func build_identifierMatchesSubscriptionId() {
         let crossSearch = unwrap(builder.build(myParticipantIds: ["me"]))
-        #expect(crossSearch?.identifier == builder.primarySubscriptionId)
+        #expect(crossSearch?.identifier == builder.subscriptionId)
         #expect(crossSearch?.noDepSubscription == true)
     }
 
-    @Test func primary_filtersByDiscussionLayoutAndNestedVisibility() {
+    // MARK: - Filter shape
+
+    @Test func build_topLevelFilterIsOrOfTwoBranches() {
         let crossSearch = unwrap(builder.build(myParticipantIds: ["me"]))
         let filters = crossSearch?.filters ?? []
 
-        #expect(filters.count == 2)
-
-        // Filter 1: layout IN [.discussion]
-        #expect(filters[0].relationKey == BundledPropertyKey.resolvedLayout.rawValue)
-        #expect(filters[0].condition == .in)
-
-        // Filter 2: nested OR
-        let visibility = filters[1]
-        #expect(visibility.operator == .or)
-        #expect(visibility.nestedFilters.count == 2)
-
-        // OR branch 1: unreadMentionCount > 0
-        let mentionBranch = visibility.nestedFilters[0]
-        #expect(mentionBranch.relationKey == BundledPropertyKey.unreadMentionCount.rawValue)
-        #expect(mentionBranch.condition == .greater)
-
-        // OR branch 2: AND of (unreadMessageCount > 0, notificationSubscribers IN [...])
-        let subscribedBranch = visibility.nestedFilters[1]
-        #expect(subscribedBranch.operator == .and)
-        #expect(subscribedBranch.nestedFilters.count == 2)
-        #expect(subscribedBranch.nestedFilters[0].relationKey == BundledPropertyKey.unreadMessageCount.rawValue)
-        #expect(subscribedBranch.nestedFilters[0].condition == .greater)
-        #expect(subscribedBranch.nestedFilters[1].relationKey == BundledPropertyKey.notificationSubscribers.rawValue)
-        #expect(subscribedBranch.nestedFilters[1].condition == .in)
+        #expect(filters.count == 1)
+        #expect(filters[0].operator == .or)
+        #expect(filters[0].nestedFilters.count == 2)
     }
 
-    @Test func primary_passesParticipantIdsIntoSubscribersFilter() {
+    @Test func build_parentBranch_filtersByLayoutsAndCounters() {
+        let crossSearch = unwrap(builder.build(myParticipantIds: ["me"]))
+        let parentBranch = crossSearch?.filters[0].nestedFilters[0]
+
+        #expect(parentBranch?.operator == .and)
+        #expect(parentBranch?.nestedFilters.count == 2)
+
+        // Layout filter on editor + list layouts
+        let layoutFilter = parentBranch?.nestedFilters[0]
+        #expect(layoutFilter?.relationKey == BundledPropertyKey.resolvedLayout.rawValue)
+        #expect(layoutFilter?.condition == .in)
+
+        // Nested OR(unreadMessageCount > 0, unreadMentionCount > 0)
+        let countersFilter = parentBranch?.nestedFilters[1]
+        #expect(countersFilter?.operator == .or)
+        #expect(countersFilter?.nestedFilters.count == 2)
+        #expect(countersFilter?.nestedFilters[0].relationKey == BundledPropertyKey.unreadMessageCount.rawValue)
+        #expect(countersFilter?.nestedFilters[0].condition == .greater)
+        #expect(countersFilter?.nestedFilters[1].relationKey == BundledPropertyKey.unreadMentionCount.rawValue)
+        #expect(countersFilter?.nestedFilters[1].condition == .greater)
+    }
+
+    @Test func build_discussionBranch_filtersByLayoutAndSubscribers() {
+        let crossSearch = unwrap(builder.build(myParticipantIds: ["me"]))
+        let discussionBranch = crossSearch?.filters[0].nestedFilters[1]
+
+        #expect(discussionBranch?.operator == .and)
+        #expect(discussionBranch?.nestedFilters.count == 2)
+
+        // Layout filter on .discussion
+        let layoutFilter = discussionBranch?.nestedFilters[0]
+        #expect(layoutFilter?.relationKey == BundledPropertyKey.resolvedLayout.rawValue)
+        #expect(layoutFilter?.condition == .in)
+
+        // notificationSubscribers IN [...]
+        let subscribersFilter = discussionBranch?.nestedFilters[1]
+        #expect(subscribersFilter?.relationKey == BundledPropertyKey.notificationSubscribers.rawValue)
+        #expect(subscribersFilter?.condition == .in)
+    }
+
+    @Test func build_passesParticipantIdsIntoSubscribersFilter() {
         let crossSearch = unwrap(builder.build(myParticipantIds: ["alice", "bob"]))
-        let subscribersFilter = crossSearch?.filters[1].nestedFilters[1].nestedFilters[1]
+        let subscribersFilter = crossSearch?.filters[0].nestedFilters[1].nestedFilters[1]
         let listValues = subscribersFilter?.value.listValue.values.map(\.stringValue)
 
         #expect(listValues == ["alice", "bob"])
     }
 
-    @Test func primary_emptyParticipantIds_buildsValidFilter() {
+    @Test func build_emptyParticipantIds_isValid() {
         let crossSearch = unwrap(builder.build(myParticipantIds: []))
-        let subscribersFilter = crossSearch?.filters[1].nestedFilters[1].nestedFilters[1]
+        let subscribersFilter = crossSearch?.filters[0].nestedFilters[1].nestedFilters[1]
         let listValues = subscribersFilter?.value.listValue.values.map(\.stringValue)
 
         #expect(listValues == [])
     }
 
-    @Test func primary_includesAllConsumerKeys() {
+    // MARK: - Keys
+
+    @Test func build_includesAllConsumerKeys() {
         let crossSearch = unwrap(builder.build(myParticipantIds: []))
         let keys = Set(crossSearch?.keys ?? [])
         let expected: Set<String> = [
             BundledPropertyKey.id.rawValue,
             BundledPropertyKey.spaceId.rawValue,
-            BundledPropertyKey.layout.rawValue,
-            BundledPropertyKey.backlinks.rawValue,
+            BundledPropertyKey.resolvedLayout.rawValue,
+            BundledPropertyKey.name.rawValue,
+            BundledPropertyKey.discussionId.rawValue,
             BundledPropertyKey.lastMessageDate.rawValue,
-            BundledPropertyKey.notificationSubscribers.rawValue,
             BundledPropertyKey.unreadMessageCount.rawValue,
             BundledPropertyKey.unreadMentionCount.rawValue
-        ]
-        #expect(keys == expected)
-    }
-
-    // MARK: - Secondary subscription
-
-    @Test func secondary_identifierMatchesSubscriptionId() {
-        let crossSearch = unwrap(builder.buildSecondary(parentIds: ["parent-1"]))
-        #expect(crossSearch?.identifier == builder.secondarySubscriptionId)
-        #expect(crossSearch?.noDepSubscription == true)
-    }
-
-    @Test func secondary_filtersByIdInParentIds() {
-        let crossSearch = unwrap(builder.buildSecondary(parentIds: ["a", "b"]))
-        let filters = crossSearch?.filters ?? []
-
-        #expect(filters.count == 1)
-        #expect(filters[0].relationKey == BundledPropertyKey.id.rawValue)
-        #expect(filters[0].condition == .in)
-
-        let listValues = filters[0].value.listValue.values.map(\.stringValue)
-        #expect(listValues == ["a", "b"])
-    }
-
-    @Test func secondary_includesAllConsumerKeys() {
-        let crossSearch = unwrap(builder.buildSecondary(parentIds: []))
-        let keys = Set(crossSearch?.keys ?? [])
-        let expected: Set<String> = [
-            BundledPropertyKey.id.rawValue,
-            BundledPropertyKey.spaceId.rawValue,
-            BundledPropertyKey.name.rawValue,
-            BundledPropertyKey.iconImage.rawValue,
-            BundledPropertyKey.layout.rawValue,
-            BundledPropertyKey.discussionId.rawValue
         ]
         #expect(keys == expected)
     }
