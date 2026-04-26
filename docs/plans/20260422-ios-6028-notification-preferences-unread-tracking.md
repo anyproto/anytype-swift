@@ -607,38 +607,15 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
 
 ### Task 3a.2: Add `ObjectsWithUnreadDiscussionsSubscriptionBuilder`
 
-**Files:**
-- Create: `Anytype/Sources/ServiceLayer/ObjectsUnread/ObjectsWithUnreadDiscussionsSubscriptionBuilder.swift`
+**Files (delivered):**
+- `Anytype/Sources/ServiceLayer/ObjectsUnread/ObjectsWithUnreadDiscussionsSubscriptionBuilder.swift`
 
-- [ ] Mirror `ChatDetailsSubscriptionBuilder:20–47`'s shape: `final class … : Sendable`, exposes `subscriptionId: String` (constant) plus `build(myParticipantIds: [String]) -> SubscriptionData` and `buildSecondary(parentIds: [String]) -> SubscriptionData`.
-- [ ] **Primary builder** (discussions visible to current user):
-  - `SubscriptionData.crossSpaceSearch` with `noDepSubscription: true`.
-  - Filters (built using `Anytype_Model_Block.Content.Dataview.Filter` with `Operator.and` / `.or` and `Condition.in` — pattern available in `DataviewFilter+Condition.swift:42–54`):
-    ```
-    .and([
-        layout == .discussion,
-        .or([
-            unreadMentionCount > 0,
-            .and([
-                unreadMessageCount > 0,
-                notificationSubscribers .in [myParticipantIds]
-            ])
-        ])
-    ])
-    ```
-  - Keys (finalized — every downstream consumer in 3b/3c/3d uses something here):
-    - `id`, `spaceId`, `layout` (cell shape + defensive type-filter).
-    - `backlinks` (parent resolution — filtered by `discussionId == self.id` post-emission).
-    - `lastMessageDate` (sort key — read directly from the discussion).
-    - `notificationSubscribers` (per-emit `isSubscribed` resolution).
-    - `unreadMessageCount`, `unreadMentionCount` (raw counts).
-- [ ] **Secondary builder** (parent objects):
-  - `SubscriptionData.crossSpaceSearch` with `noDepSubscription: true`.
-  - Filter: `id .in parentIds` (where `parentIds` is the union of all `backlinks` from primary).
-  - Keys: `id`, `spaceId`, `name`, `iconImage`, `layout`, `discussionId`. (`discussionId` is required to filter `backlinks` for actual parents at emission time.)
-- [ ] No DI on the builder — it's pure construction.
-- [ ] Tests: N/A — builder is pure shape; correctness asserted in the integration probe (3a.0).
-- [ ] Commit as `IOS-6028 Add ObjectsWithUnreadDiscussionsSubscriptionBuilder`.
+- [x] Mirrors `ChatDetailsSubscriptionBuilder:20–47`'s shape — `final class : Sendable`, protocol-backed. Exposes `primarySubscriptionId` and `secondarySubscriptionId` (two distinct subIds because the actor will own two `subscriptionStorage` instances), plus `build(myParticipantIds:)` and `buildSecondary(parentIds:)`.
+- [x] **Primary builder** — `crossSpaceSearch(noDepSubscription: true)` with the nested-OR filter (`layout IN [.discussion]` AND `(unreadMentionCount > 0 OR (unreadMessageCount > 0 AND notificationSubscribers IN [myParticipantIds]))`). Layout filter via `SearchHelper.layoutFilter([.discussion])`; OR/AND nodes built directly with `DataviewFilter.operator = .or/.and` + `nestedFilters`. Keys: id, spaceId, layout, backlinks, lastMessageDate, notificationSubscribers, unreadMessageCount, unreadMentionCount.
+- [x] **Secondary builder** — `crossSpaceSearch(noDepSubscription: true)` with `id IN parentIds` via `SearchHelper.includeIdsFilter(parentIds)`. Keys: id, spaceId, name, iconImage, layout, discussionId.
+- [x] No DI on the builder — pure construction.
+- [x] Tests: N/A — pure shape; filter correctness already asserted by Task 3a.0 probe.
+- [x] Commit as `IOS-6028 Add ObjectsWithUnreadDiscussionsSubscriptionBuilder`.
 
 ### Task 3a.3: Add `ObjectsWithUnreadDiscussionsSubscription`
 
