@@ -614,7 +614,7 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
 - [x] **Primary builder** — `crossSpaceSearch(noDepSubscription: true)` with the nested-OR filter (`layout IN [.discussion]` AND `(unreadMentionCount > 0 OR (unreadMessageCount > 0 AND notificationSubscribers IN [myParticipantIds]))`). Layout filter via `SearchHelper.layoutFilter([.discussion])`; OR/AND nodes built directly with `DataviewFilter.operator = .or/.and` + `nestedFilters`. Keys: id, spaceId, layout, backlinks, lastMessageDate, notificationSubscribers, unreadMessageCount, unreadMentionCount.
 - [x] **Secondary builder** — `crossSpaceSearch(noDepSubscription: true)` with `id IN parentIds` via `SearchHelper.includeIdsFilter(parentIds)`. Keys: id, spaceId, name, iconImage, layout, discussionId.
 - [x] No DI on the builder — pure construction.
-- [x] Tests: N/A — pure shape; filter correctness already asserted by Task 3a.0 probe.
+- [x] Tests: shape regression coverage in `ObjectsWithUnreadDiscussionsSubscriptionBuilderTests.swift` — verifies subscription IDs, layout filter, nested OR/AND structure, participant ID propagation, and key sets for both primary and secondary. Server-side filter correctness still asserted by Task 3a.0 probe.
 - [x] Commit as `IOS-6028 Add ObjectsWithUnreadDiscussionsSubscriptionBuilder`.
 
 ### Task 3a.3: Add `ObjectsWithUnreadDiscussionsSubscription`
