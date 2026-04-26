@@ -13,9 +13,22 @@ protocol ObjectsWithUnreadDiscussionsSubscriptionProtocol: AnyObject, Sendable {
 
 actor ObjectsWithUnreadDiscussionsSubscription: ObjectsWithUnreadDiscussionsSubscriptionProtocol {
 
+
+    // MARK: - ok
     private let subscriptionBuilder: any ObjectsWithUnreadDiscussionsSubscriptionBuilderProtocol = ObjectsWithUnreadDiscussionsSubscriptionBuilder()
     private let subscriptionStorageProvider: any SubscriptionStorageProviderProtocol = Container.shared.subscriptionStorageProvider()
+
+    
     private let participantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
+
+    
+    
+    // MARK: - test
+    
+    private var participantsTask: Task<Void, Never>?
+    
+    // MARK: - generated
+    
     private let spaceViewsStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     private let primaryStorage: any SubscriptionStorageProtocol
     private let secondaryStorage: any SubscriptionStorageProtocol
@@ -29,6 +42,8 @@ actor ObjectsWithUnreadDiscussionsSubscription: ObjectsWithUnreadDiscussionsSubs
         self.primaryStorage = subscriptionStorageProvider.createSubscriptionStorage(
             subId: subscriptionBuilder.primarySubscriptionId
         )
+        // Why do we need this secondary storage subscription? Maybe we can build Subscription which will get list of object with layout discussion which will have unread unreads and
+        // or maybe we just need to maybe we just don't need to subscribe to discussion objects and trying to get parent details from discussion object maybe we will subscribe for objects across all spaces which have discussion ID. And then search for discussions Which has unread counters or are unread mentions. 
         self.secondaryStorage = subscriptionStorageProvider.createSubscriptionStorage(
             subId: subscriptionBuilder.secondarySubscriptionId
         )
@@ -43,35 +58,52 @@ actor ObjectsWithUnreadDiscussionsSubscription: ObjectsWithUnreadDiscussionsSubs
     }
 
     func startSubscription() async {
-        guard combineTask == nil else { return }
-
+        
         let initialIds = Set(participantsStorage.participants.map(\.id))
-        try? await primaryStorage.startOrUpdateSubscription(
-            data: subscriptionBuilder.build(myParticipantIds: Array(initialIds))
-        )
-        lastAppliedParticipantIds = initialIds
-
-        // Start the secondary subscription with an empty id set so its publisher emits a first
-        // value immediately. combineLatest then fires as soon as primary returns; handleEmission
-        // updates the secondary id set with the actual backlinks.
-        try? await secondaryStorage.startOrUpdateSubscription(
-            data: subscriptionBuilder.buildSecondary(parentIds: [])
-        )
-        lastAppliedParentIds = []
-
-        let primaryStream = primaryStorage.statePublisher.values.map(\.items)
-        let secondaryStream = secondaryStorage.statePublisher.values.map(\.items)
-        let participantsStream = participantsStorage.participantsSequence
-
-        combineTask = Task { [weak self] in
-            for await (primary, secondary, participants) in combineLatest(
-                primaryStream,
-                secondaryStream,
-                participantsStream
-            ) {
-                await self?.handleEmission(primary: primary, secondary: secondary, participants: participants)
+        
+        // We should subscribe for participants sequence because if we access participant storage synchronously it returns new or empty array of participants
+        participantsTask = Task {
+            for await participants in participantsStorage.participantsSequence {
+                debugPrint("debuuug \(participants)")
             }
         }
+        
+        
+        
+        let data = subscriptionBuilder.build(myParticipantIds: Array(initialIds))
+        try? await primaryStorage.startOrUpdateSubscription(data: data, update: { state in
+            debugPrint("debuuug \(state)")
+        })
+        
+//        guard combineTask == nil else { return }
+
+//        let initialIds = Set(participantsStorage.participants.map(\.id))
+//        try? await primaryStorage.startOrUpdateSubscription(
+//            data: subscriptionBuilder.build(myParticipantIds: Array(initialIds))
+//        )
+//        lastAppliedParticipantIds = initialIds
+//
+//        // Start the secondary subscription with an empty id set so its publisher emits a first
+//        // value immediately. combineLatest then fires as soon as primary returns; handleEmission
+//        // updates the secondary id set with the actual backlinks.
+//        try? await secondaryStorage.startOrUpdateSubscription(
+//            data: subscriptionBuilder.buildSecondary(parentIds: [])
+//        )
+//        lastAppliedParentIds = []
+//
+//        let primaryStream = primaryStorage.statePublisher.values.map(\.items)
+//        let secondaryStream = secondaryStorage.statePublisher.values.map(\.items)
+//        let participantsStream = participantsStorage.participantsSequence
+//
+//        combineTask = Task { [weak self] in
+//            for await (primary, secondary, participants) in combineLatest(
+//                primaryStream,
+//                secondaryStream,
+//                participantsStream
+//            ) {
+//                await self?.handleEmission(primary: primary, secondary: secondary, participants: participants)
+//            }
+//        }
     }
 
     func stopSubscription() async {

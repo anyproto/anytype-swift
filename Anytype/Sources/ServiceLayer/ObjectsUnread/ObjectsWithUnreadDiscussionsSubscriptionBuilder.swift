@@ -20,11 +20,14 @@ final class ObjectsWithUnreadDiscussionsSubscriptionBuilder: ObjectsWithUnreadDi
     var secondarySubscriptionId: String { Constants.secondarySubId }
 
     func build(myParticipantIds: [String]) -> SubscriptionData {
-        let filters: [DataviewFilter] = [
-            SearchHelper.layoutFilter([.discussion]),
-            visibilityFilter(myParticipantIds: myParticipantIds)
-        ]
+//        let filters: [DataviewFilter] = [
+//            SearchHelper.layoutFilter([.discussion]),
+//            visibilityFilter(myParticipantIds: myParticipantIds)
+//        ]
 
+        let filters: [DataviewFilter] = [
+            SearchHelper.layoutFilter([.discussion])
+        ]
         let keys: [String] = [
             BundledPropertyKey.id.rawValue,
             BundledPropertyKey.spaceId.rawValue,

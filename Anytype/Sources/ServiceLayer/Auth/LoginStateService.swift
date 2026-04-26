@@ -32,7 +32,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let workspacesStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     private let chatDetailsStorage: any ChatDetailsStorageProtocol = Container.shared.chatDetailsStorage()
     private let accountParticipantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
-    private let objectsWithUnreadDiscussionsSubscription: any ObjectsWithUnreadDiscussionsSubscriptionProtocol = Container.shared.objectsWithUnreadDiscussionsSubscription()
+    private let objectsWithUnreadDiscussionsSubscription: any ObjectsWithUnreadDiscussionsSubscriptionNewProtocol = Container.shared.objectsWithUnreadDiscussionsSubscriptionNew()
     private let participantSpacesStorage: any ParticipantSpacesStorageProtocol = Container.shared.participantSpacesStorage()
     private let storeKitService: any StoreKitServiceProtocol = Container.shared.storeKitService()
     private let syncStatusStorage: any SyncStatusStorageProtocol = Container.shared.syncStatusStorage()
