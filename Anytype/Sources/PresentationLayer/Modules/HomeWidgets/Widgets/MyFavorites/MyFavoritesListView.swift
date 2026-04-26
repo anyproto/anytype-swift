@@ -29,7 +29,7 @@ struct MyFavoritesListView: View {
                     // for the cancel preview when the gesture is released near screen edges.
                     MyFavoritesDragPreviewView(
                         row: row,
-                        width: rowWidths[row.id] ?? UIScreen.main.bounds.width - 40
+                        width: rowWidths[row.id] ?? (UIScreen.main.bounds.width - 40)
                     )
                 }
                 .setZeroOpacity(favoritesDndState.dragInitiateId == row.id && favoritesDndState.dragInProgress)

@@ -2,38 +2,42 @@ import Foundation
 import SwiftUI
 import UniformTypeIdentifiers
 
+private extension DragItemProvider {
+    static func anytypeProvider(
+        itemId: String,
+        state: Binding<DragState>,
+        pendingCommit: DragAndDropPendingCommit
+    ) -> DragItemProvider {
+        state.wrappedValue.dragInitiateId = itemId
+
+        let provider = DragItemProvider(object: "\(itemId)" as NSString)
+        provider.didEnd = {
+            let commit = pendingCommit.commit
+            pendingCommit.commit = nil
+            if let commit {
+                state.wrappedValue.resetState()
+                commit()
+            } else if !state.wrappedValue.dragInProgress {
+                state.wrappedValue.resetState()
+            }
+            // else: iOS can deallocate a transient drag provider while the actual drag
+            // session is still active. Resetting here would make SwiftUI treat the row
+            // as non-draggable mid-gesture (shows "not allowed" badge / row reappears).
+        }
+        return provider
+    }
+}
+
 struct AnytypeVerticalDragViewModifier: ViewModifier {
     let itemId: String
-    @Environment(\.anytypeDragState) @Binding var state: DragState
-    @Environment(\.anytypeDragAndDropFrames) var framesStorage
+    @Environment(\.anytypeDragState) private var state: Binding<DragState>
+    @Environment(\.anytypeDragAndDropFrames) private var framesStorage
     @Environment(\.anytypeDragAndDropPendingCommit) private var pendingCommit
 
     func body(content: Content) -> some View {
         content
             .onDrag {
-                state.dragInitiateId = itemId
-
-                let provider = DragItemProvider(object: "\(itemId)" as NSString)
-                let pendingCommit = self.pendingCommit
-
-                provider.didEnd = {
-                    let commit = pendingCommit.commit
-                    pendingCommit.commit = nil
-                    if let commit {
-                        state.resetState()
-                        commit()
-                    } else if !state.dragInProgress {
-                        state.resetState()
-                    } else {
-                        // iOS can deallocate a transient drag provider while the actual drag
-                        // session is still active. Resetting here makes SwiftUI treat the row
-                        // as non-draggable mid-gesture, which shows the "not allowed" badge and
-                        // puts the source row back into the list.
-                        return
-                    }
-                }
-
-                return provider
+                DragItemProvider.anytypeProvider(itemId: itemId, state: state, pendingCommit: pendingCommit)
             }
             .readFrame(space: .named("anytypeDropSpace")) { frame in
                 framesStorage.frames[itemId] = frame
@@ -54,36 +58,14 @@ extension View {
 struct AnytypeVerticalDragWithPreviewViewModifier<Preview: View>: ViewModifier {
     let itemId: String
     let preview: () -> Preview
-    @Environment(\.anytypeDragState) @Binding var state: DragState
-    @Environment(\.anytypeDragAndDropFrames) var framesStorage
+    @Environment(\.anytypeDragState) private var state: Binding<DragState>
+    @Environment(\.anytypeDragAndDropFrames) private var framesStorage
     @Environment(\.anytypeDragAndDropPendingCommit) private var pendingCommit
 
     func body(content: Content) -> some View {
         content
             .onDrag {
-                state.dragInitiateId = itemId
-
-                let provider = DragItemProvider(object: "\(itemId)" as NSString)
-                let pendingCommit = self.pendingCommit
-
-                provider.didEnd = {
-                    let commit = pendingCommit.commit
-                    pendingCommit.commit = nil
-                    if let commit {
-                        state.resetState()
-                        commit()
-                    } else if !state.dragInProgress {
-                        state.resetState()
-                    } else {
-                        // iOS can deallocate a transient drag provider while the actual drag
-                        // session is still active. Resetting here makes SwiftUI treat the row
-                        // as non-draggable mid-gesture, which shows the "not allowed" badge and
-                        // puts the source row back into the list.
-                        return
-                    }
-                }
-
-                return provider
+                DragItemProvider.anytypeProvider(itemId: itemId, state: state, pendingCommit: pendingCommit)
             } preview: {
                 preview()
             }
