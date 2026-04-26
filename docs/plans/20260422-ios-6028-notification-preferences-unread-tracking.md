@@ -574,83 +574,36 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
 
 > **Single-session scope.** No consumers wired — this chunk lands dormant. 3b/3c/3d are independent PRs that consume what 3a introduces.
 
-### Task 3a.1: Add `UnreadEntry` and `UnreadDecision`
+### Task 3a.1: Add `UnreadBadge` + `ParentObjectUnreadEntry` + builder
 
-**Files:**
-- Create: `Anytype/Sources/ServiceLayer/ObjectsUnread/UnreadEntry.swift` (ServiceLayer — consumed by service-layer + multiple presentation modules)
-- Create: `Anytype/Sources/ServiceLayer/ObjectsUnread/UnreadDecision.swift` (colocated)
+**Files (delivered):**
+- `Anytype/Sources/ServiceLayer/ObjectsUnread/UnreadBadge.swift`
+- `Anytype/Sources/ServiceLayer/ObjectsUnread/ParentObjectUnreadEntry.swift`
+- `Anytype/Sources/ServiceLayer/ObjectsUnread/ParentObjectUnreadEntryBuilder.swift`
 
-- [ ] Define `UnreadEntry` — sum type carrying RAW state for both variants:
-  ```swift
-  enum UnreadEntry {
-      case chat(ChatMessagePreview, isSubscribed: Bool, spaceMuted: Bool)
-      case parentObject(
-          ObjectDetails,
-          isSubscribed: Bool,
-          spaceMuted: Bool,
-          unreadMessageCount: Int,
-          unreadMentionCount: Int,
-          lastMessageDate: Date?
-      )
-      var id: String { ... }
-      var name: String { ... }
-      var spaceId: String { ... }
-      var unreadCount: Int { ... }      // chat → preview.unreadCounter; parent → unreadMessageCount
-      var mentionCount: Int { ... }     // chat → preview.mentionCounter; parent → unreadMentionCount
-      var lastUpdate: Date { ... }
-      var isSubscribed: Bool { ... }
-      var spaceMuted: Bool { ... }
-  }
-  ```
-  - `lastUpdate` for `.chat` → `preview.lastMessage.createdAt`.
-  - `lastUpdate` for `.parentObject` → `lastMessageDate ?? details.lastModifiedDate`.
-- [ ] Define `UnreadDecision` — pure, synchronous helper encoding all case logic in one place:
-  ```swift
-  struct UnreadDecision {
-      enum Style { case blue, grey }
-      let isVisible: Bool
-      let unreadCounterVisible: Bool
-      let mentionBadgeVisible: Bool
-      let style: Style
-      let badgeContribution: Int
+➕ **Design shifted during implementation** from the original `UnreadEntry`/`UnreadDecision` enum. Final decisions:
+- **Scope**: parent-object only. Chat surfaces stay untouched in 3a — no enum, no chat-side migration. When 3b.1 needs a unified merged list, introduce a protocol or wrapper there.
+- **Names**: `BadgeDecision`/`UnreadDecision` → `UnreadBadge` (it's data, not a decision). `UnreadEntry` → `ParentObjectUnreadEntry` (parent-only).
+- **Mention shape**: `hasMention: Bool`, no count and no style. Mention indicator is always blue on parent objects; the count is never rendered as a number anywhere on the unread surfaces (verified against `MentionBadge.swift` — view shows only `@`).
+- **App-icon contribution**: only blue unread counter contributes (`appIconContribution` on `UnreadBadge`). Parent-mention rows never bump the app icon — deviation from plan literal (was `unreadMentionCount` for rows 4/8) — aligns with what's actually rendered in UI.
+- **Decision place**: extracted to `ParentObjectUnreadEntryBuilder.makeEntry(discussion:parent:myParticipantId:spaceMuted:)`. Pure helper; returns `nil` for filtered rows (3 and 7). The 8-row truth table is encoded in one place; 3a.3 just calls it.
 
-      static func decide(for entry: UnreadEntry, supportsMentions: Bool) -> UnreadDecision
-  }
-  ```
-  Implementation:
-  - **`.parentObject(...)` branch** (8 truth-table rows):
-    - `isVisible = (isSubscribed && unreadMessageCount > 0) || unreadMentionCount > 0`.
-    - `unreadCounterVisible = isSubscribed && unreadMessageCount > 0`.
-    - `mentionBadgeVisible = unreadMentionCount > 0`.
-    - `style = spaceMuted ? .grey : .blue`.
-    - `badgeContribution`:
-      - Rows 1–2 (unmuted, subscribed) → `unreadMessageCount` (mentions subset).
-      - Row 4 (unmuted, !subscribed, mention>0) → `unreadMentionCount`.
-      - Rows 5–6 (muted, subscribed) → `0` (grey counter visible in widgets, but badge omits — chat parity).
-      - Row 8 (muted, !subscribed, mention>0) → `supportsMentions ? unreadMentionCount : 0`.
-      - Hidden rows (3, 7) → `0`.
-  - **`.chat(...)` branch** — reproduce today's `SpacePreviewCountersBuilder.build:57–71` and `AppIconBadgeService:81–91` switches verbatim so chat behavior is preserved bit-for-bit.
-- [ ] No DI — both types are value types / pure functions.
-- [ ] Tests: covered in Task 3a.4.
-- [ ] Commit as `IOS-6028 Introduce UnreadEntry and UnreadDecision`.
+- [x] `UnreadBadge` defined: `Style` + `UnreadCounter?` + `hasMention: Bool` + computed `appIconContribution`.
+- [x] `ParentObjectUnreadEntry` defined: `details + lastMessageDate + badge` with computed `id/spaceId/name/lastUpdate/unreadCount/hasMention`.
+- [x] `ParentObjectUnreadEntryBuilder.makeEntry(...)` defined — pure static helper.
+- [x] No DI — all types are value types / pure helpers.
+- [x] Tests: covered in Task 3a.4.
+- [x] Commit as `IOS-6028 Add UnreadBadge, ParentObjectUnreadEntry, builder + tests`.
 
 ### Task 3a.0: Probe filter shape and `lastMessageDate` reactivity
 
 > **No code changes — verification only.** Recorded as ➕ note before 3a.2 starts.
 
-- [ ] On a dev account, log discussion-object details (the discussion's `details` dictionary) for an object with at least one unread comment. Confirm:
-  - `lastMessageDate` is present and equals the timestamp of the latest message.
-  - `notificationSubscribers` is present and contains the current user's participant id when subscribed.
-  - `backlinks` is present and contains the parent object's id (the object that hosts the discussion via its `discussionId` relation).
-- [ ] Send a new message in the discussion and watch the discussion object's `lastMessageDate` value change reactively.
-- [ ] Try a hand-built `crossSpaceSearch` request with the nested-OR filter shape (using a quick scratch builder in `searchService` or `subscriptionStorage`); confirm middleware accepts the request.
-- [ ] Record probe results as a ➕ note under this task: paste a one-line summary per check.
-  - **Pass (all four)** → proceed with the design as written.
-  - **`lastMessageDate` not reactive** → fall back to a per-discussion `subscribeLastMessages(limit: 1)` source for sort (re-introduce a stripped-down pool); revise design before 3a.2.
-  - **Backlinks empty / parent not in backlinks** → fall back to a discussionId-keyed cross-space search (filter `discussionId IN [primaryIds]` over parent objects) for parent resolution; revise design before 3a.2.
-  - **Nested-OR filter rejected** → simplify primary filter to `layout == .discussion AND unreadMessageCount > 0`, re-introduce client-side `decision.isVisible` post-filter; revise builder before 3a.2.
-- [ ] Tests: N/A.
-- [ ] No commit (probe only — the ➕ note is the artifact).
+- [x] Logged discussion-object details on a dev account. — ➕ user verified: `lastMessageDate`, `notificationSubscribers`, `backlinks` all present and behave as expected.
+- [x] Sent a new message and watched `lastMessageDate` update. — ➕ confirmed reactive.
+- [x] Tried the nested-OR `crossSpaceSearch` filter shape. — ➕ middleware accepts the request.
+- [x] Tests: N/A.
+- [x] No commit (probe only).
 
 ### Task 3a.2: Add `ObjectsWithUnreadDiscussionsSubscriptionBuilder`
 
@@ -696,8 +649,8 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
 - [ ] **Actor declaration**: mirror `ChatDetailsStorage:14–53` 1:1.
   ```swift
   protocol ObjectsWithUnreadDiscussionsSubscriptionProtocol: AnyObject, Sendable {
-      func entries() async -> [UnreadEntry]
-      var entriesSequence: AnyAsyncSequence<[UnreadEntry]> { get async }
+      func entries() async -> [ParentObjectUnreadEntry]
+      var entriesSequence: AnyAsyncSequence<[ParentObjectUnreadEntry]> { get async }
       func startSubscription() async
       func stopSubscription() async
   }
@@ -708,7 +661,7 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
       private let secondaryStorage: SubscriptionStorageProtocol
       private let participantsStorage: ParticipantsStorageProtocol = Container.shared.participantsStorage()
       private let spaceViewsStorage: SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
-      private let entriesStream = AsyncToManyStream<[UnreadEntry]>()
+      private let entriesStream = AsyncToManyStream<[ParentObjectUnreadEntry]>()
       private var combineTask: Task<Void, Never>?
       private var lastAppliedParentIds: Set<String> = []
       private var lastAppliedParticipantIds: Set<String> = []
@@ -733,25 +686,26 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
 - [ ] **`handleEmission`** logic (in this order):
   1. **Filter rebuild on participants change**: compute `myParticipantIds = Set(participants.map(\.id))`. If `myParticipantIds != lastAppliedParticipantIds`, call `primaryStorage.startOrUpdateSubscription(data: builder.build(myParticipantIds:))` and update the cached set. Idempotent — middleware updates filter in place.
   2. **Secondary set rebuild**: compute `parentIds = Set(primaryItems.flatMap(\.backlinks))`. If `parentIds != lastAppliedParentIds`, call `secondaryStorage.startOrUpdateSubscription(data: builder.buildSecondary(parentIds:))` and update the cached set. Same idempotent pattern.
-  3. **Compose entries**:
+  3. **Compose entries** via `ParentObjectUnreadEntryBuilder.makeEntry(...)`:
      ```
      let participantsBySpaceId = Dictionary(uniqueKeysWithValues: participants.map { ($0.spaceId, $0.id) })
+     var entries: [ParentObjectUnreadEntry] = []
      for discussion in primaryItems {
          guard let parent = secondaryItems.first(where: { $0.discussionId == discussion.id }) else { continue }
-         let isSubscribed = participantsBySpaceId[parent.spaceId].map(discussion.notificationSubscribers.contains) ?? false
+         let myParticipantId = participantsBySpaceId[parent.spaceId]
          let spaceMuted = (await spaceViewsStorage.spaceView(spaceId: parent.spaceId))?.pushNotificationMode == .nothing
-         entries.append(.parentObject(
-             parent,
-             isSubscribed: isSubscribed,
-             spaceMuted: spaceMuted,
-             unreadMessageCount: discussion.unreadMessageCount,
-             unreadMentionCount: discussion.unreadMentionCount,
-             lastMessageDate: discussion.lastMessageDate
-         ))
+         if let entry = ParentObjectUnreadEntryBuilder.makeEntry(
+             discussion: discussion,
+             parent: parent,
+             myParticipantId: myParticipantId,
+             spaceMuted: spaceMuted
+         ) {
+             entries.append(entry)
+         }
      }
      entriesStream.send(entries)
      ```
-  4. **No truth-table application here** — the server filter already enforces visibility; consumers call `UnreadDecision.decide(...)` to pick counter/badge/style/badgeContribution per surface.
+  4. **No truth-table application here** — the builder encapsulates the truth table and the server filter handles visibility; consumers read `entry.badge` directly.
 - [ ] **`stopSubscription()`**: cancel `combineTask`, call `primaryStorage.stopSubscription()`, `secondaryStorage.stopSubscription()`, clear `lastApplied*` state.
 - [ ] **Login wiring**: in `LoginStateService.startSubscriptions:88–104`, add `await objectsWithUnreadDiscussionsSubscription.startSubscription()` directly under line 90 (`await chatDetailsStorage.startSubscription()`). Mirror in `stopSubscriptions` near line 111.
 - [ ] **DI registration**: extend `Container` with `var objectsWithUnreadDiscussionsSubscription: Factory<…>` returning `.shared`-scoped `ObjectsWithUnreadDiscussionsSubscription()`.
@@ -759,22 +713,23 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
 - [ ] Tests: integration verified in 3b/3c/3d via consumers; the filter shape is asserted as part of the 3a.0 probe note. No standalone unit tests for the actor itself — it's wiring.
 - [ ] Commit as `IOS-6028 Add ObjectsWithUnreadDiscussionsSubscription`.
 
-### Task 3a.4: Truth-table tests for `UnreadDecision`
+### Task 3a.4: Truth-table tests for `ParentObjectUnreadEntryBuilder`
 
-**Files:**
-- Create: `AnyTypeTests/ServiceLayer/ObjectsUnread/UnreadDecisionTests.swift`
+**Files (delivered):**
+- `AnyTypeTests/ServiceLayer/ObjectsUnread/ParentObjectUnreadEntryBuilderTests.swift`
 
-- [ ] One test method per parent-object row (8 total), names `testParentRow1Visible_SubscribedUnmuted_NoMention()` … `testParentRow8Visible_NotSubscribedMutedWithMention()`. Each constructs `UnreadEntry.parentObject(...)` with the matching combination and asserts `(isVisible, unreadCounterVisible, mentionBadgeVisible, style, badgeContribution)` against the truth-table row.
-- [ ] Three tests for `.chat(...)` variant: `.all` / `.mentions` / `.nothing` modes, with `supportsMentions ∈ {true, false}` parameterization where it matters. These guard against regressing existing chat behavior when `AppIconBadgeService` (3d) and `SpacePreviewCountersBuilder` (3b) are refactored onto `UnreadDecision`.
-- [ ] `decide(for:supportsMentions:)` must be a pure function (no DI, no actor hops). Tests are synchronous.
-- [ ] These tests must pass before 3b starts (3b's correctness assumes `UnreadDecision` is correct).
-- [ ] Commit as `IOS-6028 Cover UnreadDecision with truth-table tests`.
+- [x] 8 truth-table tests driving the builder with raw `ObjectDetails` fixtures (real protobuf values for `unreadMessageCount`, `unreadMentionCount`, `notificationSubscribers`). Each row asserts `entry?.badge.unreadCounter` (presence + count + style), `hasMention`, and `appIconContribution`.
+- [x] Rows 3 and 7 (!subscribed + no mention) assert `entry == nil` — service-side filter mirror.
+- [x] Carry-through tests: parent id round-trip, `lastMessageDate` propagation, nil `myParticipantId` treated as not subscribed.
+- [x] Builder is a pure function (no DI, no actor hops). Tests synchronous.
+- [x] Chat-mode parity tests dropped — chat surfaces stay untouched in 3a, so no chat helper to test.
+- [x] Commit folded into `IOS-6028 Add UnreadBadge, ParentObjectUnreadEntry, builder + tests`.
 
 ### Task 3a.5: Hand off
 
 - [ ] User builds locally; foundation has no UI to verify.
 - [ ] Stage + commit only if user explicitly asks.
-- [ ] Tests: `UnreadDecisionTests` must pass (covered in 3a.4). 3a.0 probe ➕ note recorded in the plan file.
+- [ ] Tests: `ParentObjectUnreadEntryBuilderTests` must pass (covered in 3a.4). 3a.0 probe ➕ note recorded in the plan file.
 - [ ] **STOP. Open PR. Start Chunk 3b in a new session.**
 
 ---
