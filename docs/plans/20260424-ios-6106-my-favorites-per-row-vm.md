@@ -258,11 +258,17 @@ Align `MyFavorites` architecture with `blockWidgets`: parent VM owns only the st
 
 ### Phase B — DnD commit-on-drag-end hygiene (PR 2)
 
-**Goal**: move the server RPC off `dropExited` to actual drag-end for both MyFavorites and block widgets. Matches user-requested UX ("drop outside = commit last visual state") and eliminates a residual mid-drag server round-trip.
+**Goal**: move the server RPC off `dropExited` to drag-end / accepted drop paths, and give MyFavorites a detached drag preview. This fixes the edge-release crash and preserves "drop outside = commit last visual state" for both MyFavorites and block widgets.
 
 **Branch**: after Phase A merges, cut a new branch (e.g. `ios-6106-dnd-commit-on-drag-end`) off develop. Do NOT stack on unmerged Phase A.
 
 **Working agreement**: every intermediate task inside Phase B must leave the project compiling. No simulator build required between tasks.
+
+**Current implementation notes from device debugging**:
+- Root cause was split across two iOS 26 drag paths: SwiftUI could crash while rebuilding the live MyFavorites row subtree for `previewForCancelling`, and edge drops could call `performDrop` after `dropExited` had cleared `dropState`.
+- MyFavorites now uses an explicit lightweight drag preview detached from the live row subtree. Keep this: the live row owns subscriptions/context-menu state, and iOS 26 can crash while rebuilding it for cancel preview near screen edges.
+- `DragItemProvider.didEnd` can fire for transient providers while the actual drag is still active. Do not reset `DragState` on a no-commit `didEnd` when `dragInProgress == true`; that causes the row to reappear and can switch the preview to the "not allowed" badge.
+- `performDrop` can arrive after `dropExited` has cleared `dropState` while `pendingCommit` still contains the last valid reorder. Treat that as an accepted edge-drop and execute the pending commit; returning `false` is what makes iOS show the "not allowed" badge and snap the row back.
 
 #### Task B1: Introduce `DragAndDropPendingCommit` + commit-on-drag-end plumbing
 
@@ -271,32 +277,45 @@ Align `MyFavorites` architecture with `blockWidgets`: parent VM owns only the st
 - Modify: `Anytype/Sources/PresentationLayer/Common/SwiftUI/DragAndDrop/View+DragAndDrop.swift`
 - Modify: `Anytype/Sources/PresentationLayer/Common/SwiftUI/DragAndDrop/DragAndDropVerticalDelegate.swift`
 
-- [ ] in `DragAndDropModels.swift`:
+- [x] in `DragAndDropModels.swift`:
   - add `final class DragAndDropPendingCommit { var commit: (() -> Void)? }`
   - add `@Entry var anytypeDragAndDropPendingCommit: DragAndDropPendingCommit = DragAndDropPendingCommit()` on `EnvironmentValues` (mirror `DragAndDropFrames` / `anytypeDragAndDropFrames`)
   - **do not touch** `DragItemProvider.deinit` — the `DispatchQueue.main.async` defer from IOS-6105 stays
-- [ ] in `View+DragAndDrop.swift`:
+- [x] in `View+DragAndDrop.swift`:
   - in `AnytypeVerticalDropViewModifier`: `@State private var pendingCommit = DragAndDropPendingCommit()`; add `.environment(\.anytypeDragAndDropPendingCommit, pendingCommit)` alongside the existing frames env; pass `pendingCommit` into `DragAndDropVerticalDelegate`
   - in `AnytypeVerticalDragViewModifier`: `@Environment(\.anytypeDragAndDropPendingCommit) private var pendingCommit`; inside `.onDrag`, capture by value and wire `provider.didEnd`:
     ```swift
     let pendingCommit = self.pendingCommit
     provider.didEnd = {
-        state.resetState()
         let commit = pendingCommit.commit
         pendingCommit.commit = nil
-        commit?()
+        if let commit {
+            state.resetState()
+            commit()
+        } else if !state.dragInProgress {
+            state.resetState()
+        }
     }
     ```
-- [ ] in `DragAndDropVerticalDelegate.swift`:
+- [x] in `DragAndDropVerticalDelegate.swift`:
   - add `let pendingCommit: DragAndDropPendingCommit` property (sibling of `framesStorage`)
   - in `dropUpdated`, immediately after computing `(fromElement, toElement)`: `pendingCommit.commit = { [dropFinish] in dropFinish(fromElement, toElement) }` (struct values captured by copy; no bindings, no view types)
-  - in `dropExited`: **remove** the `dropFinish(fromElement, toElement)` call; keep `dropState.resetState()`. Do NOT touch `pendingCommit.commit`.
-  - in `performDrop` success path: call `dropFinish(from, to)` as today inside `withAnimation`, then `pendingCommit.commit = nil` before returning. On the guard-else (no elements) path: also set `pendingCommit.commit = nil` defensively.
+  - in `dropExited`: **remove** the `dropFinish(fromElement, toElement)` call; keep `dropState.resetState()`. Keep `dragInProgress` true while a pending commit exists.
+  - in `performDrop` success path: call `dropFinish(from, to)` as today inside `withAnimation`, then `pendingCommit.commit = nil` before returning. On the guard-else (no elements) path, if `pendingCommit.commit` exists, execute it and return `true`; only return `false` when there is no pending commit.
+
+#### Task B2: Add detached MyFavorites drag preview
+
+**Files:**
+- Modify: `Anytype/Sources/PresentationLayer/Modules/HomeWidgets/Widgets/MyFavorites/MyFavoritesListView.swift`
+
+- [x] add `MyFavoritesDragPreviewView` as a lightweight preview that renders only icon/title against widget background
+- [x] measure each source row width and use it for the explicit preview to avoid transparent trailing space
+- [x] keep `.contentShape(.dragPreview, ...)`, `.anytypeVerticalDrag(...)`, and `.setZeroOpacity(...)` on the list-level row wrapper
 
 #### Phase B hand-off (end of PR 2)
 
 - [ ] full Xcode build passes
-- [ ] manual DnD verification on real hardware:
+- [x] manual DnD verification on real hardware:
   - MyFavorites: drop inside zone → persists (happy path)
   - MyFavorites: drop outside zone (drag near Bin and release) → persists last in-zone position if one was captured during the drag; nothing persists if the drag never entered the zone; no crash
   - MyFavorites: start drag but release immediately without entering the zone → no commit, no crash
@@ -323,4 +342,4 @@ Align `MyFavorites` architecture with `blockWidgets`: parent VM owns only the st
 - No middleware changes; no backend coordination required.
 
 **Fallback (if crash still reproduces after both phases land)**:
-- Switch `AnytypeVerticalDragViewModifier` to `.onDrag(_:preview:)` with an explicit preview view snapshot. Bypasses the `previewForCancelling` AttributeGraph path entirely. Open as a separate follow-up issue only if needed.
+- The explicit MyFavorites preview is already implemented. If the crash returns, collect a fresh iOS 26 crash stack and check whether it still points at `SwiftUI DragAndDropBridge.previewForCancelling` or has moved to the reorder commit path.
