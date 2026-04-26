@@ -619,11 +619,11 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
 
 ### Task 3a.3: Add `ObjectsWithUnreadDiscussionsSubscription`
 
-**Files:**
-- Create: `Anytype/Sources/ServiceLayer/ObjectsUnread/ObjectsWithUnreadDiscussionsSubscription.swift`
-- Modify: `Anytype/Sources/ServiceLayer/Auth/LoginStateService.swift:88–104` (start/stop wiring under line 90)
+**Files (delivered):**
+- `Anytype/Sources/ServiceLayer/ObjectsUnread/ObjectsWithUnreadDiscussionsSubscription.swift`
+- Modified: `Anytype/Sources/ServiceLayer/Auth/LoginStateService.swift` (start/stop wiring after `accountParticipantsStorage`)
 
-- [ ] **Actor declaration**: mirror `ChatDetailsStorage:14–53` 1:1.
+- [x] **Actor declaration**: mirrors `ChatDetailsStorage:14–53` 1:1.
   ```swift
   protocol ObjectsWithUnreadDiscussionsSubscriptionProtocol: AnyObject, Sendable {
       func entries() async -> [ParentObjectUnreadEntry]
@@ -646,7 +646,7 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
   }
   ```
   DI style: direct `Container.shared.*` calls (matches the `ChatDetailsStorage` template). Two `subscriptionStorage` instances — one per builder (primary + secondary) — created from `subscriptionStorageProvider`.
-- [ ] **`startSubscription()`**:
+- [x] **`startSubscription()`**:
   1. Snapshot current `myParticipantIds` from `participantsStorage.participants`.
   2. Call `primaryStorage.startOrUpdateSubscription(data: builder.build(myParticipantIds:))`.
   3. Spin up a single `combineTask` that drives:
@@ -660,7 +660,7 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
      }
      ```
      `combineLatest` arity = 3, supported by AsyncAlgorithms.
-- [ ] **`handleEmission`** logic (in this order):
+- [x] **`handleEmission`** logic (in this order):
   1. **Filter rebuild on participants change**: compute `myParticipantIds = Set(participants.map(\.id))`. If `myParticipantIds != lastAppliedParticipantIds`, call `primaryStorage.startOrUpdateSubscription(data: builder.build(myParticipantIds:))` and update the cached set. Idempotent — middleware updates filter in place.
   2. **Secondary set rebuild**: compute `parentIds = Set(primaryItems.flatMap(\.backlinks))`. If `parentIds != lastAppliedParentIds`, call `secondaryStorage.startOrUpdateSubscription(data: builder.buildSecondary(parentIds:))` and update the cached set. Same idempotent pattern.
   3. **Compose entries** via `ParentObjectUnreadEntryBuilder.makeEntry(...)`:
@@ -683,12 +683,12 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
      entriesStream.send(entries)
      ```
   4. **No truth-table application here** — the builder encapsulates the truth table and the server filter handles visibility; consumers read `entry.badge` directly.
-- [ ] **`stopSubscription()`**: cancel `combineTask`, call `primaryStorage.stopSubscription()`, `secondaryStorage.stopSubscription()`, clear `lastApplied*` state.
-- [ ] **Login wiring**: in `LoginStateService.startSubscriptions:88–104`, add `await objectsWithUnreadDiscussionsSubscription.startSubscription()` directly under line 90 (`await chatDetailsStorage.startSubscription()`). Mirror in `stopSubscriptions` near line 111.
-- [ ] **DI registration**: extend `Container` with `var objectsWithUnreadDiscussionsSubscription: Factory<…>` returning `.shared`-scoped `ObjectsWithUnreadDiscussionsSubscription()`.
-- [ ] **Cold-start behavior**: until the secondary subscription fires its first emission, no entries emit (parent lookup misses). Until participants are populated, the filter rebuild may run with an empty `myParticipantIds` — that's fine, server returns empty primary. Both converge within one round-trip.
-- [ ] Tests: integration verified in 3b/3c/3d via consumers; the filter shape is asserted as part of the 3a.0 probe note. No standalone unit tests for the actor itself — it's wiring.
-- [ ] Commit as `IOS-6028 Add ObjectsWithUnreadDiscussionsSubscription`.
+- [x] **`stopSubscription()`**: cancels `combineTask`, stops both storages, clears `lastApplied*` state and the entries stream.
+- [x] **Login wiring**: in `LoginStateService.startSubscriptions`, `await objectsWithUnreadDiscussionsSubscription.startSubscription()` runs after `accountParticipantsStorage.startSubscription()` and before `participantSpacesStorage`. Stop wiring mirrors in `stopSubscriptions`.
+- [x] **DI registration**: `Container.objectsWithUnreadDiscussionsSubscription` factory added in the same file (singleton-scoped — same lifecycle as `chatDetailsStorage`).
+- [x] **Cold-start behavior**: secondary is started with an empty `parentIds` set so its publisher emits immediately; `combineLatest` then fires as soon as primary returns, and the first `handleEmission` updates the secondary id set with the actual backlinks.
+- [x] Tests: N/A — actor wiring; integration is exercised by 3b/3c/3d consumers.
+- [x] Commit as `IOS-6028 Add ObjectsWithUnreadDiscussionsSubscription`.
 
 ### Task 3a.4: Truth-table tests for `ParentObjectUnreadEntryBuilder`
 
