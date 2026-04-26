@@ -610,11 +610,20 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
 **Files (delivered):**
 - `Anytype/Sources/ServiceLayer/ObjectsUnread/ObjectsWithUnreadDiscussionsSubscriptionBuilder.swift`
 
-- [x] Mirrors `ChatDetailsSubscriptionBuilder:20–47`'s shape — `final class : Sendable`, protocol-backed. Exposes `primarySubscriptionId` and `secondarySubscriptionId` (two distinct subIds because the actor will own two `subscriptionStorage` instances), plus `build(myParticipantIds:)` and `buildSecondary(parentIds:)`.
-- [x] **Primary builder** — `crossSpaceSearch(noDepSubscription: true)` with the nested-OR filter (`layout IN [.discussion]` AND `(unreadMentionCount > 0 OR (unreadMessageCount > 0 AND notificationSubscribers IN [myParticipantIds]))`). Layout filter via `SearchHelper.layoutFilter([.discussion])`; OR/AND nodes built directly with `DataviewFilter.operator = .or/.and` + `nestedFilters`. Keys: id, spaceId, layout, backlinks, lastMessageDate, notificationSubscribers, unreadMessageCount, unreadMentionCount.
-- [x] **Secondary builder** — `crossSpaceSearch(noDepSubscription: true)` with `id IN parentIds` via `SearchHelper.includeIdsFilter(parentIds)`. Keys: id, spaceId, name, iconImage, layout, discussionId.
+➕ **Design shifted during implementation** — collapsed primary/secondary into one builder method. Final shape:
+- **Single subscription**: protocol exposes `subscriptionId` and `build(myParticipantIds:)` only. No primary/secondary split, no `buildSecondary`.
+- **Filter shape**: top-level `OR` of two `AND` branches —
+  - parent branch: `layout IN [editor + list layouts]` AND `OR(unreadMessageCount > 0, unreadMentionCount > 0)` — every parent with any unread counter.
+  - discussion branch: `layout IN [.discussion]` AND `notificationSubscribers IN [myParticipantIds]` — discussions where I'm subscribed.
+- **Why one query**: the consumer is "show parent if it has unread AND I'm subscribed to its discussion (or it has a mention regardless)." Putting both layouts in one query lets the actor build a `subscribedDiscussionIds` set client-side from the discussion-side items and join via `parent.discussionId`. Avoids the chicken-and-egg of two-subscription `combineLatest` and is verified to work with middleware's existing `IN` semantics on multi-value relations.
+- **Keys**: id, spaceId, resolvedLayout, name, discussionId, lastMessageDate, unreadMessageCount, unreadMentionCount. (`backlinks` and `notificationSubscribers` dropped from keys — neither is needed in the response now: backlinks isn't part of the join, subscribers is filter-only.)
+- **resolvedLayout, not layout**: middleware filters by and exposes `resolvedLayout`; `layout` is deprecated and not populated for cross-space search responses.
+- **Tests**: rewritten to assert OR-of-AND structure, both branches' relations/conditions, participant id propagation into the subscribers filter, and the new key set (8 tests).
+
+- [x] Mirrors `ChatDetailsSubscriptionBuilder:20–47`'s shape — `final class : Sendable`, protocol-backed. Single `subscriptionId` + single `build(myParticipantIds:)`.
+- [x] Mixed-layout filter built via private `andFilter`/`orFilter`/`countGreaterThanZero`/`isInFilter` helpers.
 - [x] No DI on the builder — pure construction.
-- [x] Tests: shape regression coverage in `ObjectsWithUnreadDiscussionsSubscriptionBuilderTests.swift` — verifies subscription IDs, layout filter, nested OR/AND structure, participant ID propagation, and key sets for both primary and secondary. Server-side filter correctness still asserted by Task 3a.0 probe.
+- [x] Tests: shape regression coverage in `ObjectsWithUnreadDiscussionsSubscriptionBuilderTests.swift`.
 - [x] Commit as `IOS-6028 Add ObjectsWithUnreadDiscussionsSubscriptionBuilder`.
 
 ### Task 3a.3: Add `ObjectsWithUnreadDiscussionsSubscription`
@@ -622,71 +631,22 @@ These adjustments came out of Codex/ClaudeBot review on PR #4863 — they supers
 **Files (delivered):**
 - `Anytype/Sources/ServiceLayer/ObjectsUnread/ObjectsWithUnreadDiscussionsSubscription.swift`
 - Modified: `Anytype/Sources/ServiceLayer/Auth/LoginStateService.swift` (start/stop wiring after `accountParticipantsStorage`)
+- Modified: `Anytype/Sources/ServiceLayer/ServicesDI.swift` (factory registration)
 
-- [x] **Actor declaration**: mirrors `ChatDetailsStorage:14–53` 1:1.
-  ```swift
-  protocol ObjectsWithUnreadDiscussionsSubscriptionProtocol: AnyObject, Sendable {
-      func entries() async -> [ParentObjectUnreadEntry]
-      var entriesSequence: AnyAsyncSequence<[ParentObjectUnreadEntry]> { get async }
-      func startSubscription() async
-      func stopSubscription() async
-  }
+➕ **Design shifted during implementation** — collapsed to a single subscription, deferred entries emission. Final shape:
+- **One `SubscriptionStorageProtocol`** (not primary + secondary). Consumes the mixed-layout query from 3a.2; both parents and subscribed discussions arrive in `state.items` and the actor partitions them by `resolvedLayoutValue`.
+- **No `combineLatest`**. Reactivity is one-way: `participantsStorage.participantsSequence` drives `applyParticipants(_:)`, which calls `storage.startOrUpdateSubscription(...)` with the participant set baked into the discussion-branch filter. Dedupe via `lastAppliedParticipantIds: Set<String>?` — Optional sentinel distinguishes "never applied" from "applied empty" so the first emission always issues.
+- **Cold-start fix**: dropped the synchronous `participantsStorage.participants` read at start. The earlier shape returned an empty array before participants finished loading, which caused the discussion branch to never see real ids; now the only entry point for participants is the async sequence.
+- **Protocol stayed minimal**: `start/stop` only. `entries()` and `entriesSequence` removed for now — entries emission is a follow-up step where the entry builder will be reshaped to fit the new join (counters live on parent, subscription state implied by presence in the discussion-side response). The actor currently emits via a temporary `logMatched(_:)` debug print of qualifying parent names.
+- **Match logic** (in `logMatched`, will move to entries emission): a parent is included if `unreadMentionCount > 0` OR `parent.discussionId ∈ subscribedDiscussionIds`, where `subscribedDiscussionIds = Set(items.filter(.discussion).map(\.id))`. Mention-only parents pass regardless of subscription; unread-only parents pass only when their discussion is in the subscribed set. Verified end-to-end on a dev account (4 parents with counters, 5 subscribed discussions, 2 correctly matched).
+- **Single subscription vs. two-subscription**: the two-sub alternative (parents + all-discussions client-joined) was prototyped and verified equivalent. Picked single-sub for less data over the wire (`notificationSubscribers IN` filters server-side instead of returning every cross-space discussion), one storage instance, and simpler control flow.
+- **DI registration**: `Container.objectsWithUnreadDiscussionsSubscription` factory lives in `ServicesDI.swift` next to `chatDetailsStorage`, not in an inline `extension Container` in the actor file.
 
-  actor ObjectsWithUnreadDiscussionsSubscription: ObjectsWithUnreadDiscussionsSubscriptionProtocol {
-      private let subscriptionBuilder = ObjectsWithUnreadDiscussionsSubscriptionBuilder()
-      private let primaryStorage: SubscriptionStorageProtocol
-      private let secondaryStorage: SubscriptionStorageProtocol
-      private let participantsStorage: ParticipantsStorageProtocol = Container.shared.participantsStorage()
-      private let spaceViewsStorage: SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
-      private let entriesStream = AsyncToManyStream<[ParentObjectUnreadEntry]>()
-      private var combineTask: Task<Void, Never>?
-      private var lastAppliedParentIds: Set<String> = []
-      private var lastAppliedParticipantIds: Set<String> = []
-      // ...
-  }
-  ```
-  DI style: direct `Container.shared.*` calls (matches the `ChatDetailsStorage` template). Two `subscriptionStorage` instances — one per builder (primary + secondary) — created from `subscriptionStorageProvider`.
-- [x] **`startSubscription()`**:
-  1. Snapshot current `myParticipantIds` from `participantsStorage.participants`.
-  2. Call `primaryStorage.startOrUpdateSubscription(data: builder.build(myParticipantIds:))`.
-  3. Spin up a single `combineTask` that drives:
-     ```
-     for await (primaryItems, secondaryItems, participants) in combineLatest(
-         primaryStorage.statePublisher.values.map(\.items),
-         secondaryStorage.statePublisher.values.map(\.items),
-         participantsStorage.participantsSequence
-     ).removeDuplicates() {
-         await handleEmission(primary: primaryItems, secondary: secondaryItems, participants: participants)
-     }
-     ```
-     `combineLatest` arity = 3, supported by AsyncAlgorithms.
-- [x] **`handleEmission`** logic (in this order):
-  1. **Filter rebuild on participants change**: compute `myParticipantIds = Set(participants.map(\.id))`. If `myParticipantIds != lastAppliedParticipantIds`, call `primaryStorage.startOrUpdateSubscription(data: builder.build(myParticipantIds:))` and update the cached set. Idempotent — middleware updates filter in place.
-  2. **Secondary set rebuild**: compute `parentIds = Set(primaryItems.flatMap(\.backlinks))`. If `parentIds != lastAppliedParentIds`, call `secondaryStorage.startOrUpdateSubscription(data: builder.buildSecondary(parentIds:))` and update the cached set. Same idempotent pattern.
-  3. **Compose entries** via `ParentObjectUnreadEntryBuilder.makeEntry(...)`:
-     ```
-     let participantsBySpaceId = Dictionary(uniqueKeysWithValues: participants.map { ($0.spaceId, $0.id) })
-     var entries: [ParentObjectUnreadEntry] = []
-     for discussion in primaryItems {
-         guard let parent = secondaryItems.first(where: { $0.discussionId == discussion.id }) else { continue }
-         let myParticipantId = participantsBySpaceId[parent.spaceId]
-         let spaceMuted = (await spaceViewsStorage.spaceView(spaceId: parent.spaceId))?.pushNotificationMode == .nothing
-         if let entry = ParentObjectUnreadEntryBuilder.makeEntry(
-             discussion: discussion,
-             parent: parent,
-             myParticipantId: myParticipantId,
-             spaceMuted: spaceMuted
-         ) {
-             entries.append(entry)
-         }
-     }
-     entriesStream.send(entries)
-     ```
-  4. **No truth-table application here** — the builder encapsulates the truth table and the server filter handles visibility; consumers read `entry.badge` directly.
-- [x] **`stopSubscription()`**: cancels `combineTask`, stops both storages, clears `lastApplied*` state and the entries stream.
-- [x] **Login wiring**: in `LoginStateService.startSubscriptions`, `await objectsWithUnreadDiscussionsSubscription.startSubscription()` runs after `accountParticipantsStorage.startSubscription()` and before `participantSpacesStorage`. Stop wiring mirrors in `stopSubscriptions`.
-- [x] **DI registration**: `Container.objectsWithUnreadDiscussionsSubscription` factory added in the same file (singleton-scoped — same lifecycle as `chatDetailsStorage`).
-- [x] **Cold-start behavior**: secondary is started with an empty `parentIds` set so its publisher emits immediately; `combineLatest` then fires as soon as primary returns, and the first `handleEmission` updates the secondary id set with the actual backlinks.
+- [x] Actor declaration with simple protocol, single `SubscriptionStorageProtocol` storage, single `participantsTask`, dedupe via `lastAppliedParticipantIds`.
+- [x] `startSubscription()` spawns participants task; `applyParticipants` re-issues `startOrUpdateSubscription` on participant set change.
+- [x] `stopSubscription()` cancels task, stops storage, clears state.
+- [x] Login wiring in `LoginStateService.startSubscriptions` after `accountParticipantsStorage.startSubscription()`.
+- [x] DI registration in `ServicesDI.swift` (singleton-scoped).
 - [x] Tests: N/A — actor wiring; integration is exercised by 3b/3c/3d consumers.
 - [x] Commit as `IOS-6028 Add ObjectsWithUnreadDiscussionsSubscription`.
 
