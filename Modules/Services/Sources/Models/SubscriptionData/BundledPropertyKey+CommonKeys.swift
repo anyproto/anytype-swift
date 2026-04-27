@@ -68,6 +68,7 @@ public extension BundledPropertyKey {
             BundledPropertyKey.iconEmoji
             BundledPropertyKey.iconName
             BundledPropertyKey.iconOption
+            BundledPropertyKey.done
             BundledPropertyKey.discussionId
             BundledPropertyKey.lastMessageDate
             BundledPropertyKey.notificationSubscribers

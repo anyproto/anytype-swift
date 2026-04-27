@@ -89,6 +89,7 @@ struct ObjectsWithUnreadDiscussionsSubscriptionBuilderTests {
             BundledPropertyKey.iconEmoji.rawValue,
             BundledPropertyKey.iconName.rawValue,
             BundledPropertyKey.iconOption.rawValue,
+            BundledPropertyKey.done.rawValue,
             BundledPropertyKey.discussionId.rawValue,
             BundledPropertyKey.lastMessageDate.rawValue,
             BundledPropertyKey.notificationSubscribers.rawValue,
