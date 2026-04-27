@@ -78,6 +78,14 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                             return date1 > date2
                         }
 
+                    let visibleDiscussionParents = (discussionUnread?.parents ?? []).filter { parent in
+                        if FeatureFlags.muteAndHide && space.spaceView.uxType.supportsMultiChats,
+                           space.spaceView.pushNotificationMode == .nothing {
+                            return parent.hasUnreadMention
+                        }
+                        return true
+                    }
+
                     return ParticipantSpaceViewDataWithPreview(
                         space: space,
                         latestPreview: latestPreview,
@@ -88,7 +96,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                         mentionCounterStyle: counterData.mentionStyle,
                         reactionStyle: counterData.reactionStyle,
                         unreadPreviews: unreadPreviews,
-                        unreadDiscussionParents: discussionUnread?.parents ?? []
+                        unreadDiscussionParents: visibleDiscussionParents
                     )
                 }
             }

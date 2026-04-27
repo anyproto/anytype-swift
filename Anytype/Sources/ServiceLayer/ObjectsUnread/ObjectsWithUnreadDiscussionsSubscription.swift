@@ -18,7 +18,9 @@ actor ObjectsWithUnreadDiscussionsSubscription: ObjectsWithUnreadDiscussionsSubs
     private let unreadBySpaceStream = AsyncToManyStream<[String: SpaceDiscussionsUnreadInfo]>()
 
     private var participantsTask: Task<Void, Never>?
-    private var lastAppliedParticipantIds: Set<String>?
+    private var currentParticipantIds: Set<String> = []
+    private var lastObservedItems: [ObjectDetails] = []
+    private var subscriptionStarted = false
 
     init() {
         self.storage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
@@ -40,24 +42,41 @@ actor ObjectsWithUnreadDiscussionsSubscription: ObjectsWithUnreadDiscussionsSubs
         participantsTask?.cancel()
         participantsTask = nil
         try? await storage.stopSubscription()
-        lastAppliedParticipantIds = nil
+        currentParticipantIds = []
+        lastObservedItems = []
+        subscriptionStarted = false
         unreadBySpaceStream.send([:])
     }
 
     // MARK: - Private
 
     private func applyParticipants(_ ids: Set<String>) async {
-        guard lastAppliedParticipantIds != ids else { return }
-        lastAppliedParticipantIds = ids
-        try? await storage.startOrUpdateSubscription(
-            data: subscriptionBuilder.build()
-        ) { [unreadBySpaceStream, ids] state in
-            unreadBySpaceStream.send(
-                ObjectsWithUnreadDiscussionsAggregator.aggregate(
-                    items: state.items,
-                    myParticipantIds: ids
-                )
-            )
+        guard currentParticipantIds != ids else { return }
+        currentParticipantIds = ids
+
+        if subscriptionStarted {
+            emitAggregate()
+        } else {
+            subscriptionStarted = true
+            try? await storage.startOrUpdateSubscription(
+                data: subscriptionBuilder.build()
+            ) { [weak self] state in
+                await self?.handleState(state)
+            }
         }
+    }
+
+    private func handleState(_ state: SubscriptionStorageState) {
+        lastObservedItems = state.items
+        emitAggregate()
+    }
+
+    private func emitAggregate() {
+        unreadBySpaceStream.send(
+            ObjectsWithUnreadDiscussionsAggregator.aggregate(
+                items: lastObservedItems,
+                myParticipantIds: currentParticipantIds
+            )
+        )
     }
 }

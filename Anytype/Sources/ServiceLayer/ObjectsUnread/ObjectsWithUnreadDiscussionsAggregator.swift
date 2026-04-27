@@ -28,7 +28,8 @@ enum ObjectsWithUnreadDiscussionsAggregator {
                 DiscussionUnreadParent(
                     id: parent.id,
                     name: parent.objectName,
-                    lastMessageDate: discussion?.lastMessageDate ?? parent.lastMessageDate
+                    lastMessageDate: discussion?.lastMessageDate ?? parent.lastMessageDate,
+                    hasUnreadMention: mentionCount > 0
                 )
             )
         }

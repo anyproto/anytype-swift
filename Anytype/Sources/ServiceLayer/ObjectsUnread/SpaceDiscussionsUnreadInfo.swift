@@ -10,4 +10,5 @@ struct DiscussionUnreadParent: Hashable, Sendable {
     let id: String
     let name: String
     let lastMessageDate: Date?
+    let hasUnreadMention: Bool
 }

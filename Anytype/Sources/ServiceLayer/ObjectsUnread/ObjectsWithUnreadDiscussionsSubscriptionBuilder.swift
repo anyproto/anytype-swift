@@ -17,6 +17,9 @@ final class ObjectsWithUnreadDiscussionsSubscriptionBuilder: ObjectsWithUnreadDi
     func build() -> SubscriptionData {
         let parentBranch = andFilter([
             SearchHelper.layoutFilter(DetailsLayout.supportedForDiscussion),
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.isDeletedFilter(isDeleted: false),
+            SearchHelper.isHidden(false),
             orFilter([
                 countGreaterThanZero(relation: .unreadMessageCount),
                 countGreaterThanZero(relation: .unreadMentionCount)
