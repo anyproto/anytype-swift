@@ -68,8 +68,9 @@ final class LinkWidgetViewModel {
         async let detailsSub: () = startDetailsSubscriptions()
         async let chatPreviewsSub: () = startChatPreviewsSubscription()
         async let unreadDiscussionsSub: () = startUnreadDiscussionsSubscription()
+        async let spaceViewsSub: () = startSpaceViewsSubscription()
 
-        _ = await (detailsSub, chatPreviewsSub, unreadDiscussionsSub)
+        _ = await (detailsSub, chatPreviewsSub, unreadDiscussionsSub, spaceViewsSub)
     }
 
     // MARK: - Private
@@ -90,6 +91,14 @@ final class LinkWidgetViewModel {
         }
     }
 
+    private func startSpaceViewsSubscription() async {
+        // Linked space id is dynamic; recompute badges on any space-view change. updateBadges()
+        // guards on equality so unrelated emits become no-ops downstream.
+        for await _ in spaceViewsStorage.allSpaceViewsPublisher.removeDuplicates().values {
+            updateBadges()
+        }
+    }
+
     private func startUnreadDiscussionsSubscription() async {
         for await unreadBySpace in await unreadDiscussionsSubscription.unreadBySpaceSequence {
             unreadDiscussionsBySpace = unreadBySpace
@@ -99,18 +108,24 @@ final class LinkWidgetViewModel {
 
     private func updateBadges() {
         guard let linkedObjectDetails else {
-            badgeModel = nil
-            parentBadge = nil
+            if badgeModel != nil { badgeModel = nil }
+            if parentBadge != nil { parentBadge = nil }
             return
         }
         let spaceView = spaceViewsStorage.spaceView(spaceId: linkedObjectDetails.spaceId)
 
-        badgeModel = chatPreviews.first(where: { $0.chatId == linkedObjectDetails.id }).flatMap {
+        let nextChatBadge = chatPreviews.first(where: { $0.chatId == linkedObjectDetails.id }).flatMap {
             chatPreviewBuilder.build(chatPreview: $0, spaceView: spaceView)
+        }
+        if badgeModel != nextChatBadge {
+            badgeModel = nextChatBadge
         }
 
         let parent = unreadDiscussionsBySpace[linkedObjectDetails.spaceId]?
             .parents.first(where: { $0.id == linkedObjectDetails.id })
-        parentBadge = parent.map { parentBadgeBuilder.build(parent: $0, spaceView: spaceView) }
+        let nextParentBadge = parent.map { parentBadgeBuilder.build(parent: $0, spaceView: spaceView) }
+        if parentBadge != nextParentBadge {
+            parentBadge = nextParentBadge
+        }
     }
 }
