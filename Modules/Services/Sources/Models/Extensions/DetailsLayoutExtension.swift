@@ -19,7 +19,7 @@ public extension DetailsLayout {
 
     private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFilesBase + [.objectType, .participant] + chatLayouts
     // Kept separate from `editorLayouts` so the discussion whitelist can grow (e.g. files) without touching call sites.
-    private static let supportedForDiscussion: [DetailsLayout] = editorLayouts
+    static let supportedForDiscussion: [DetailsLayout] = editorLayouts
 
     private static let supportedForCreationInSetsBase: [DetailsLayout] = editorLayouts + [.bookmark] + listLayouts
     private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile, .objectType]

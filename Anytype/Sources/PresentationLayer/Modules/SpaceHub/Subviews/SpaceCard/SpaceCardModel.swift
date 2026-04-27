@@ -27,6 +27,7 @@ struct SpaceCardModel: Equatable, Identifiable {
     let reactionStyle: BadgeStyle
     let hasCounters: Bool
     let multichatCompactPreview: String?
+    let lastUnreadDateText: String?
 
     let wallpaper: SpaceWallpaperType
 
