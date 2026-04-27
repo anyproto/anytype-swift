@@ -27,8 +27,6 @@ final class UnreadDiscussionParentWidgetViewModel {
     private(set) var icon: Icon?
     private(set) var badge: ParentObjectUnreadBadge?
 
-    var notificationMode: SpacePushNotificationsMode { badge?.notificationMode ?? .all }
-
     init(data: UnreadDiscussionParentWidgetData) {
         self.data = data
     }
@@ -53,23 +51,23 @@ final class UnreadDiscussionParentWidgetViewModel {
             let next = unreadBySpace[data.spaceId]?.parents.first(where: { $0.id == data.id })
             guard parent != next else { continue }
             parent = next
-            updateRowState()
+            name = next?.name ?? ""
+            icon = next?.details.objectIconImage
+            updateBadge()
         }
     }
 
     private func startSpaceViewSubscription() async {
         for await _ in spaceViewsStorage.spaceViewPublisher(spaceId: data.spaceId).removeDuplicates().values {
-            updateRowState()
+            updateBadge()
         }
     }
 
-    private func updateRowState() {
+    private func updateBadge() {
         guard let parent else {
             badge = nil
             return
         }
-        name = parent.name
-        icon = parent.details.objectIconImage
         let spaceView = spaceViewsStorage.spaceView(spaceId: data.spaceId)
         let next = badgeBuilder.build(parent: parent, spaceView: spaceView)
         if badge != next {

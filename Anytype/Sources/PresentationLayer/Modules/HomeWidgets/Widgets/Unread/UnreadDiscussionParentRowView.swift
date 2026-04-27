@@ -22,7 +22,7 @@ struct UnreadDiscussionParentRowView: View {
                     .frame(width: 20, height: 20)
 
                 AnytypeText(model.name, style: .bodySemibold)
-                    .foregroundStyle(model.notificationMode == .nothing ? Color.Text.secondary : Color.Text.primary)
+                    .foregroundStyle(model.badge?.titleColor ?? Color.Text.primary)
                     .lineLimit(1)
 
                 Spacer()
