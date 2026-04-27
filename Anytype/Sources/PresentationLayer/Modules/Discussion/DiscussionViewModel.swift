@@ -530,33 +530,29 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
-        // Reset before the divider guard: this is a one-shot latch that initializes
-        // to true and must flip on the first scroll tick after open, even if the
-        // viewport edge happens to be a divider cell.
+        // Reset before any narrowing: this is a one-shot latch that initializes to true
+        // and must flip on the first scroll tick after open, even when the viewport edges
+        // are non-message cells.
         forceHiddenActionPanel = false
 
-        // Skip ticks where either edge is a non-message cell (e.g. discussion divider).
-        // Otherwise `bottomVisibleOrderId` would hold a divider string like "divider-bafy..."
-        // which lex-compares incorrectly against real lexorank orderIDs in `onTapScrollToBottom`,
-        // and `markAsRead` would silently no-op on the divider id.
-        guard let fromMessageId = from.trackedMessageId,
-              let fromOrderId = from.trackedOrderId,
-              let toMessageId = to.trackedMessageId,
-              let toOrderId = to.trackedOrderId else {
+        // Narrow to inner real-message cells: the outermost visible cells can be
+        // discussion dividers, whose ids would lex-compare incorrectly against lexorank
+        // orderIDs in `onTapScrollToBottom` and silently no-op `markAsRead`.
+        guard let resolved = resolveTrackedRange(from: from, to: to) else {
             return
         }
 
-        bottomVisibleOrderId = toOrderId
+        bottomVisibleOrderId = resolved.toOrderId
 
         // Extend the pending union span: smallest-seen top, largest-seen bottom.
         // Ordering uses Swift's default String `<` (matches storage's lexorank comparisons).
-        if minObservedTopOrderId.map({ fromOrderId < $0 }) ?? true {
-            minObservedTopMessageId = fromMessageId
-            minObservedTopOrderId = fromOrderId
+        if minObservedTopOrderId.map({ resolved.fromOrderId < $0 }) ?? true {
+            minObservedTopMessageId = resolved.fromMessageId
+            minObservedTopOrderId = resolved.fromOrderId
         }
-        if maxObservedBottomOrderId.map({ toOrderId > $0 }) ?? true {
-            maxObservedBottomMessageId = toMessageId
-            maxObservedBottomOrderId = toOrderId
+        if maxObservedBottomOrderId.map({ resolved.toOrderId > $0 }) ?? true {
+            maxObservedBottomMessageId = resolved.toMessageId
+            maxObservedBottomOrderId = resolved.toOrderId
         }
 
         pendingMarkAsReadTask?.cancel()
@@ -572,6 +568,35 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             self.pendingMarkAsReadTask = nil
             await self.chatStorage?.updateVisibleRange(startMessageId: topId, endMessageId: bottomId)
         }
+    }
+
+    private func resolveTrackedRange(
+        from: MessageSectionItem,
+        to: MessageSectionItem
+    ) -> (fromMessageId: String, fromOrderId: String, toMessageId: String, toOrderId: String)? {
+        if let fromMessageId = from.trackedMessageId,
+           let fromOrderId = from.trackedOrderId,
+           let toMessageId = to.trackedMessageId,
+           let toOrderId = to.trackedOrderId {
+            return (fromMessageId, fromOrderId, toMessageId, toOrderId)
+        }
+
+        let allItems = mesageBlocks.flatMap(\.items)
+        guard let fromIdx = allItems.firstIndex(where: { $0.id == from.id }),
+              let toIdx = allItems.firstIndex(where: { $0.id == to.id }),
+              fromIdx <= toIdx else {
+            return nil
+        }
+        let slice = allItems[fromIdx...toIdx]
+        guard let innerFrom = slice.first(where: { $0.trackedMessageId != nil }),
+              let innerTo = slice.last(where: { $0.trackedMessageId != nil }),
+              let fromMessageId = innerFrom.trackedMessageId,
+              let fromOrderId = innerFrom.trackedOrderId,
+              let toMessageId = innerTo.trackedMessageId,
+              let toOrderId = innerTo.trackedOrderId else {
+            return nil
+        }
+        return (fromMessageId, fromOrderId, toMessageId, toOrderId)
     }
 
     func bigDistanceToTheBottomChanged(isBig: Bool) {
