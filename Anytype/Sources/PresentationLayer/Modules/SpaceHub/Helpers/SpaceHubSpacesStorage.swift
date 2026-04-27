@@ -79,7 +79,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                         }
 
                     let visibleDiscussionParents = (discussionUnread?.parents ?? []).filter { parent in
-                        if FeatureFlags.muteAndHide && space.spaceView.uxType.supportsMultiChats,
+                        if FeatureFlags.muteAndHide && !space.spaceView.isOneToOne,
                            space.spaceView.pushNotificationMode == .nothing {
                             return parent.hasUnreadMention
                         }
