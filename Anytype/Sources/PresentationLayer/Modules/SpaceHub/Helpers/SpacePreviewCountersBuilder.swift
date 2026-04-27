@@ -74,7 +74,7 @@ enum SpacePreviewCountersBuilder {
         if let discussionUnread {
             counters = contribute(
                 unreadCount: discussionUnread.unreadMessageCount,
-                mentionCount: discussionUnread.unreadMentionCount,
+                mentionCount: discussionUnread.mentions.totalCount,
                 mode: spaceView.pushNotificationMode,
                 spaceView: spaceView,
                 supportsMentions: supportsMentions,

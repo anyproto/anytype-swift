@@ -3,13 +3,19 @@ import Services
 
 enum ObjectsWithUnreadDiscussionsAggregator {
 
+    private struct SpaceCounters {
+        var messages: Int = 0
+        var subscribedMentions: Int = 0
+        var unsubscribedMentions: Int = 0
+    }
+
     static func aggregate(items: [ObjectDetails], myParticipantIds: Set<String>) -> [String: SpaceDiscussionsUnreadInfo] {
         var discussionsById = [String: ObjectDetails]()
         for item in items where item.resolvedLayoutValue == .discussion {
             discussionsById[item.id] = item
         }
 
-        var countsBySpace = [String: (messages: Int, mentions: Int)]()
+        var countsBySpace = [String: SpaceCounters]()
         var parentsBySpace = [String: [DiscussionUnreadParent]]()
 
         for parent in items where parent.isSupportedForDiscussion {
@@ -18,12 +24,15 @@ enum ObjectsWithUnreadDiscussionsAggregator {
             let isSubscribed = discussion?.notificationSubscribers.contains(where: myParticipantIds.contains) ?? false
             guard mentionCount > 0 || isSubscribed else { continue }
 
-            let messageCount = isSubscribed ? (parent.unreadMessageCount ?? 0) : 0
-            let existing = countsBySpace[parent.spaceId] ?? (0, 0)
-            countsBySpace[parent.spaceId] = (
-                existing.messages + messageCount,
-                existing.mentions + mentionCount
-            )
+            var counters = countsBySpace[parent.spaceId] ?? SpaceCounters()
+            if isSubscribed {
+                counters.messages += parent.unreadMessageCount ?? 0
+                counters.subscribedMentions += mentionCount
+            } else {
+                counters.unsubscribedMentions += mentionCount
+            }
+            countsBySpace[parent.spaceId] = counters
+
             parentsBySpace[parent.spaceId, default: []].append(
                 DiscussionUnreadParent(
                     id: parent.id,
@@ -35,13 +44,16 @@ enum ObjectsWithUnreadDiscussionsAggregator {
         }
 
         var result = [String: SpaceDiscussionsUnreadInfo]()
-        for (spaceId, counts) in countsBySpace {
+        for (spaceId, counters) in countsBySpace {
             let parents = (parentsBySpace[spaceId] ?? []).sorted { (lhs: DiscussionUnreadParent, rhs: DiscussionUnreadParent) -> Bool in
                 (lhs.lastMessageDate ?? .distantPast) > (rhs.lastMessageDate ?? .distantPast)
             }
             result[spaceId] = SpaceDiscussionsUnreadInfo(
-                unreadMessageCount: counts.messages,
-                unreadMentionCount: counts.mentions,
+                unreadMessageCount: counters.messages,
+                mentions: SpaceDiscussionsMentions(
+                    subscribedCount: counters.subscribedMentions,
+                    unsubscribedCount: counters.unsubscribedMentions
+                ),
                 parents: parents
             )
         }

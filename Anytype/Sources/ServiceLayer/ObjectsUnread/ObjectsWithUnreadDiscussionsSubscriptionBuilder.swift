@@ -15,15 +15,14 @@ final class ObjectsWithUnreadDiscussionsSubscriptionBuilder: ObjectsWithUnreadDi
     var subscriptionId: String { Constants.subId }
 
     func build() -> SubscriptionData {
+        // A mention message is also a regular message, so any parent with unread mentions
+        // also has `unreadMessageCount > 0`. Filtering on the message count alone is sufficient.
         let parentBranch = andFilter([
             SearchHelper.layoutFilter(DetailsLayout.supportedForDiscussion),
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.isDeletedFilter(isDeleted: false),
             SearchHelper.isHidden(false),
-            orFilter([
-                countGreaterThanZero(relation: .unreadMessageCount),
-                countGreaterThanZero(relation: .unreadMentionCount)
-            ])
+            countGreaterThanZero(relation: .unreadMessageCount)
         ])
         let discussionBranch = SearchHelper.layoutFilter([.discussion])
         let filters: [DataviewFilter] = [
