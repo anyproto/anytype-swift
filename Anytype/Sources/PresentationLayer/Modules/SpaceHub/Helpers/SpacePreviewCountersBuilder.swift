@@ -14,9 +14,14 @@ enum SpacePreviewCountersBuilder {
 
     static func build(
         spaceView: SpaceView,
-        previews: [ChatMessagePreview]
+        previews: [ChatMessagePreview],
+        discussionUnread: SpaceDiscussionsUnreadInfo?
     ) -> SpacePreviewCountersData {
-        let counters = aggregateCounters(spaceView: spaceView, previews: previews)
+        let counters = aggregateCounters(
+            spaceView: spaceView,
+            previews: previews,
+            discussionUnread: discussionUnread
+        )
         let styles = determineStyles(spaceView: spaceView, counters: counters)
 
         return SpacePreviewCountersData(
@@ -42,7 +47,8 @@ enum SpacePreviewCountersBuilder {
 
     private static func aggregateCounters(
         spaceView: SpaceView,
-        previews: [ChatMessagePreview]
+        previews: [ChatMessagePreview],
+        discussionUnread: SpaceDiscussionsUnreadInfo?
     ) -> AggregatedCounters {
         var totalUnread = 0
         var totalMentions = 0
@@ -88,6 +94,36 @@ enum SpacePreviewCountersBuilder {
                 if effectiveMode == .all {
                     hasHighlightedReaction = true
                 }
+            }
+        }
+
+        if let discussionUnread {
+            let mode = spaceView.pushNotificationMode
+
+            if FeatureFlags.muteAndHide && !spaceView.isOneToOne {
+                switch mode {
+                case .all, .mentions, .UNRECOGNIZED:
+                    totalUnread += discussionUnread.unreadMessageCount
+                    if supportsMentions {
+                        totalMentions += discussionUnread.unreadMentionCount
+                    }
+                case .nothing:
+                    if supportsMentions {
+                        totalMentions += discussionUnread.unreadMentionCount
+                    }
+                }
+            } else {
+                totalUnread += discussionUnread.unreadMessageCount
+                if supportsMentions {
+                    totalMentions += discussionUnread.unreadMentionCount
+                }
+            }
+
+            if discussionUnread.unreadMessageCount > 0 && mode == .all {
+                hasHighlightedUnread = true
+            }
+            if discussionUnread.unreadMentionCount > 0 && (mode == .all || mode == .mentions) {
+                hasHighlightedMention = true
             }
         }
 

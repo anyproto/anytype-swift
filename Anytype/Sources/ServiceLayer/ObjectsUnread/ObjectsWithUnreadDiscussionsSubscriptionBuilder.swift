@@ -3,7 +3,7 @@ import Services
 
 protocol ObjectsWithUnreadDiscussionsSubscriptionBuilderProtocol: AnyObject, Sendable {
     var subscriptionId: String { get }
-    func build(myParticipantIds: [String]) -> SubscriptionData
+    func build() -> SubscriptionData
 }
 
 final class ObjectsWithUnreadDiscussionsSubscriptionBuilder: ObjectsWithUnreadDiscussionsSubscriptionBuilderProtocol {
@@ -14,7 +14,7 @@ final class ObjectsWithUnreadDiscussionsSubscriptionBuilder: ObjectsWithUnreadDi
 
     var subscriptionId: String { Constants.subId }
 
-    func build(myParticipantIds: [String]) -> SubscriptionData {
+    func build() -> SubscriptionData {
         let parentBranch = andFilter([
             SearchHelper.layoutFilter(DetailsLayout.editorLayouts + DetailsLayout.listLayouts),
             orFilter([
@@ -22,10 +22,7 @@ final class ObjectsWithUnreadDiscussionsSubscriptionBuilder: ObjectsWithUnreadDi
                 countGreaterThanZero(relation: .unreadMentionCount)
             ])
         ])
-        let discussionBranch = andFilter([
-            SearchHelper.layoutFilter([.discussion]),
-            isInFilter(relation: .notificationSubscribers, values: myParticipantIds)
-        ])
+        let discussionBranch = SearchHelper.layoutFilter([.discussion])
         let filters: [DataviewFilter] = [
             orFilter([parentBranch, discussionBranch])
         ]
@@ -34,8 +31,10 @@ final class ObjectsWithUnreadDiscussionsSubscriptionBuilder: ObjectsWithUnreadDi
             BundledPropertyKey.spaceId.rawValue,
             BundledPropertyKey.resolvedLayout.rawValue,
             BundledPropertyKey.name.rawValue,
+            BundledPropertyKey.snippet.rawValue,
             BundledPropertyKey.discussionId.rawValue,
             BundledPropertyKey.lastMessageDate.rawValue,
+            BundledPropertyKey.notificationSubscribers.rawValue,
             BundledPropertyKey.unreadMessageCount.rawValue,
             BundledPropertyKey.unreadMentionCount.rawValue
         ]
@@ -70,14 +69,6 @@ final class ObjectsWithUnreadDiscussionsSubscriptionBuilder: ObjectsWithUnreadDi
         filter.condition = .greater
         filter.relationKey = relation.rawValue
         filter.value = 0.protobufValue
-        return filter
-    }
-
-    private func isInFilter(relation: BundledPropertyKey, values: [String]) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .in
-        filter.relationKey = relation.rawValue
-        filter.value = values.protobufValue
         return filter
     }
 }

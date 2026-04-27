@@ -3,6 +3,7 @@ import Services
 import AsyncTools
 
 protocol ObjectsWithUnreadDiscussionsSubscriptionProtocol: AnyObject, Sendable {
+    var unreadBySpaceSequence: AnyAsyncSequence<[String: SpaceDiscussionsUnreadInfo]> { get async }
     func startSubscription() async
     func stopSubscription() async
 }
@@ -14,11 +15,17 @@ actor ObjectsWithUnreadDiscussionsSubscription: ObjectsWithUnreadDiscussionsSubs
     private let participantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
     private let storage: any SubscriptionStorageProtocol
 
+    private let unreadBySpaceStream = AsyncToManyStream<[String: SpaceDiscussionsUnreadInfo]>()
+
     private var participantsTask: Task<Void, Never>?
     private var lastAppliedParticipantIds: Set<String>?
 
     init() {
         self.storage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
+    }
+
+    var unreadBySpaceSequence: AnyAsyncSequence<[String: SpaceDiscussionsUnreadInfo]> {
+        unreadBySpaceStream.subscribe([:]).eraseToAnyAsyncSequence()
     }
 
     func startSubscription() async {
@@ -34,6 +41,7 @@ actor ObjectsWithUnreadDiscussionsSubscription: ObjectsWithUnreadDiscussionsSubs
         participantsTask = nil
         try? await storage.stopSubscription()
         lastAppliedParticipantIds = nil
+        unreadBySpaceStream.send([:])
     }
 
     // MARK: - Private
@@ -42,28 +50,14 @@ actor ObjectsWithUnreadDiscussionsSubscription: ObjectsWithUnreadDiscussionsSubs
         guard lastAppliedParticipantIds != ids else { return }
         lastAppliedParticipantIds = ids
         try? await storage.startOrUpdateSubscription(
-            data: subscriptionBuilder.build(myParticipantIds: Array(ids))
-        ) { state in
-            Self.logMatched(state)
+            data: subscriptionBuilder.build()
+        ) { [unreadBySpaceStream, ids] state in
+            unreadBySpaceStream.send(
+                ObjectsWithUnreadDiscussionsAggregator.aggregate(
+                    items: state.items,
+                    myParticipantIds: ids
+                )
+            )
         }
     }
-
-    private static func logMatched(_ state: SubscriptionStorageState) {
-        let parentLayouts: Set<DetailsLayout> = Set(DetailsLayout.editorLayouts + DetailsLayout.listLayouts)
-        let subscribedDiscussionIds = Set(
-            state.items
-                .filter { $0.resolvedLayoutValue == .discussion }
-                .map(\.id)
-        )
-        let names = state.items
-            .filter { parentLayouts.contains($0.resolvedLayoutValue) }
-            .compactMap { parent -> String? in
-                let hasMention = (parent.unreadMentionCount ?? 0) > 0
-                let isSubscribed = subscribedDiscussionIds.contains(parent.discussionId)
-                guard hasMention || isSubscribed else { return nil }
-                return parent.name
-            }
-        debugPrint("[unread] matched=\(names)")
-    }
 }
-

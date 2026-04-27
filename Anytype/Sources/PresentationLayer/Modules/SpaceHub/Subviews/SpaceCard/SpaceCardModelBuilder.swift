@@ -1,3 +1,4 @@
+import Foundation
 import Services
 import AnytypeCore
 import Factory
@@ -63,11 +64,21 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             lastMessage = nil
         }
 
+        let unreadEntries: [UnreadEntry]
         let multichatCompactPreview: String?
         if !spaceView.isOneToOne {
-            multichatCompactPreview = await buildMultichatCompactPreview(unreadPreviews: spaceData.unreadPreviews)
+            unreadEntries = await buildUnreadEntries(
+                unreadPreviews: spaceData.unreadPreviews,
+                unreadDiscussionParents: spaceData.unreadDiscussionParents
+            )
+            multichatCompactPreview = formatCompactPreview(entries: unreadEntries)
         } else {
+            unreadEntries = []
             multichatCompactPreview = nil
+        }
+
+        let lastUnreadDateText = unreadEntries.first?.date.map {
+            chatPreviewDateFormatter.localizedDateString(for: $0, showTodayTime: true)
         }
 
         return SpaceCardModel(
@@ -95,27 +106,48 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             reactionStyle: spaceData.reactionStyle,
             hasCounters: spaceData.hasCounters,
             multichatCompactPreview: multichatCompactPreview,
+            lastUnreadDateText: lastUnreadDateText,
             wallpaper: wallpapers[spaceView.targetSpaceId] ?? .default
         )
     }
-    private func buildMultichatCompactPreview(unreadPreviews: [ChatMessagePreview]) async -> String? {
-        guard unreadPreviews.isNotEmpty else { return nil }
 
-        let maxVisible = 3
-        var names = [String]()
-        for preview in unreadPreviews.prefix(maxVisible) {
-            if let chatDetail = await chatDetailsStorage.chat(id: preview.chatId) {
-                names.append(chatDetail.name.withPlaceholder)
-            }
+    private struct UnreadEntry {
+        let name: String
+        let date: Date?
+    }
+
+    private func buildUnreadEntries(
+        unreadPreviews: [ChatMessagePreview],
+        unreadDiscussionParents: [DiscussionUnreadParent]
+    ) async -> [UnreadEntry] {
+        var entries = [UnreadEntry]()
+        for preview in unreadPreviews {
+            guard let chatDetail = await chatDetailsStorage.chat(id: preview.chatId) else { continue }
+            entries.append(UnreadEntry(
+                name: chatDetail.name.withPlaceholder,
+                date: preview.lastMessage?.createdAt
+            ))
         }
+        for parent in unreadDiscussionParents {
+            entries.append(UnreadEntry(
+                name: parent.name.withPlaceholder,
+                date: parent.lastMessageDate
+            ))
+        }
+        return entries.sorted { (lhs: UnreadEntry, rhs: UnreadEntry) -> Bool in
+            (lhs.date ?? .distantPast) > (rhs.date ?? .distantPast)
+        }
+    }
 
-        guard names.isNotEmpty else { return nil }
-
-        let remaining = unreadPreviews.count - maxVisible
+    private func formatCompactPreview(entries: [UnreadEntry]) -> String? {
+        guard entries.isNotEmpty else { return nil }
+        let maxVisible = 3
+        let visibleNames = entries.prefix(maxVisible).map(\.name)
+        let remaining = entries.count - maxVisible
         if remaining > 0 {
-            return names.joined(separator: ", ") + " +\(remaining)"
+            return visibleNames.joined(separator: ", ") + " +\(remaining)"
         } else {
-            return names.joined(separator: ", ")
+            return visibleNames.joined(separator: ", ")
         }
     }
 }
