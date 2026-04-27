@@ -1,39 +1,38 @@
 import Foundation
+import Services
 
 struct SpaceDiscussionsUnreadInfo: Hashable, Sendable {
-    /// Unread messages in parents the user is subscribed to.
-    /// Includes subscribed-parent mentions (a mention is also a message).
-    let unreadMessageCount: Int
-
-    /// Mentions across this space's included parents, split by subscription status.
-    let mentions: SpaceDiscussionsMentions
-
     /// All parents contributing to this space's unread bucket — subscribed OR mention-only-unsubscribed.
     /// Sorted by lastMessageDate desc.
     let parents: [DiscussionUnreadParent]
-}
 
-struct SpaceDiscussionsMentions: Hashable, Sendable {
-    /// Mentions in subscribed parents (already inside `SpaceDiscussionsUnreadInfo.unreadMessageCount`).
-    /// Private — only used internally to derive `totalCount` and avoid double-counting in `.all` mode.
-    private let subscribedCount: Int
+    /// Sum of `unreadMessageCount` across subscribed parents.
+    /// Subscribed-parent mentions are part of these messages (a mention is also a message).
+    var unreadMessageCount: Int {
+        parents.lazy.filter(\.isSubscribed).map(\.unreadMessageCount).reduce(0, +)
+    }
 
     /// Mentions in parents the user is NOT subscribed to.
-    /// Bumps the badge in `.all` mode (not in `unreadMessageCount`).
-    let unsubscribedCount: Int
+    /// These aren't included in `unreadMessageCount`, so they bump badge totals in `.all` mode.
+    var unsubscribedMentionCount: Int {
+        parents.lazy.filter { !$0.isSubscribed }.map(\.unreadMentionCount).reduce(0, +)
+    }
 
-    /// Total mentions across all included parents.
-    var totalCount: Int { subscribedCount + unsubscribedCount }
-
-    init(subscribedCount: Int, unsubscribedCount: Int) {
-        self.subscribedCount = subscribedCount
-        self.unsubscribedCount = unsubscribedCount
+    /// All mentions across all included parents (subscribed + unsubscribed).
+    var totalMentionCount: Int {
+        parents.lazy.map(\.unreadMentionCount).reduce(0, +)
     }
 }
 
 struct DiscussionUnreadParent: Hashable, Sendable {
-    let id: String
-    let name: String
+    let details: ObjectDetails
     let lastMessageDate: Date?
-    let hasUnreadMention: Bool
+    let unreadMessageCount: Int
+    let unreadMentionCount: Int
+    let isSubscribed: Bool
+
+    var id: String { details.id }
+    var spaceId: String { details.spaceId }
+    var name: String { details.objectName }
+    var hasUnreadMention: Bool { unreadMentionCount > 0 }
 }
