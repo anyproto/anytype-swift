@@ -83,7 +83,9 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                            space.spaceView.pushNotificationMode == .nothing {
                             return parent.hasUnreadMention
                         }
-                        return true
+                        // Aggregator admits any subscribed parent; drop fully-caught-up rows
+                        // so the multichat preview never shows a name with no badge.
+                        return parent.unreadMessageCount > 0 || parent.hasUnreadMention
                     }
 
                     return ParticipantSpaceViewDataWithPreview(

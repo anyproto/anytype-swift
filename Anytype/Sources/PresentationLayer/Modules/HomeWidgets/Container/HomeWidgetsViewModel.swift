@@ -363,6 +363,9 @@ final class HomeWidgetsViewModel {
                 if FeatureFlags.muteAndHide && currentSpaceView.pushNotificationMode == .nothing {
                     guard parent.hasUnreadMention else { return nil }
                 }
+                // Aggregator admits any subscribed parent; drop fully-caught-up rows here so the section
+                // never shows a name with no badge. Mirrors the chat path's `hasCounters` guard.
+                guard parent.unreadMessageCount > 0 || parent.hasUnreadMention else { return nil }
                 return .discussionParent(
                     UnreadDiscussionParentWidgetData(id: parent.id, spaceId: spaceId, output: output),
                     lastMessageDate: parent.lastMessageDate
