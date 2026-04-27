@@ -179,11 +179,12 @@ struct ObjectsWithUnreadDiscussionsAggregatorTests {
     // MARK: - Parents list
 
     @Test func parents_populatedWithIdAndName() {
+        // Mentions are also messages on the middleware side, so any mention-bearing parent has unreadMessageCount > 0.
         let parent = makeParent(
             id: "parent-1",
             spaceId: spaceA,
             discussionId: discussion1,
-            unreadMessageCount: 0,
+            unreadMessageCount: 1,
             unreadMentionCount: 1,
             name: "Doc One"
         )
@@ -224,12 +225,12 @@ struct ObjectsWithUnreadDiscussionsAggregatorTests {
         )
         let parentNewer = makeParent(
             id: "parent-newer", spaceId: spaceA, discussionId: discussion2,
-            unreadMessageCount: 0, unreadMentionCount: 1,
+            unreadMessageCount: 1, unreadMentionCount: 1,
             name: "Newer"
         )
         let parentNoDate = makeParent(
             id: "parent-no-date", spaceId: spaceA, discussionId: "discussion-3",
-            unreadMessageCount: 0, unreadMentionCount: 1,
+            unreadMessageCount: 1, unreadMentionCount: 1,
             name: "NoDate"
         )
         let d1 = makeDiscussion(id: discussion1, subscribers: [me], lastMessageDate: older)
@@ -247,7 +248,7 @@ struct ObjectsWithUnreadDiscussionsAggregatorTests {
     @Test func parents_includesBothMentionOnlyAndSubscribed() {
         let mentionOnly = makeParent(
             id: "p-mention", spaceId: spaceA, discussionId: discussion1,
-            unreadMessageCount: 0, unreadMentionCount: 2,
+            unreadMessageCount: 2, unreadMentionCount: 2,
             name: "Mention"
         )
         let subscribed = makeParent(
