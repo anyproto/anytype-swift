@@ -21,8 +21,6 @@ final class HomeWidgetViewModel {
     var messageCount: Int = 0
     var notificationMode: SpacePushNotificationsMode = .all
 
-    var muted: Bool { !notificationMode.isUnmutedAll }
-
     var shouldShowUnreadCounter: Bool {
         notificationMode.shouldShowUnreadCounter(unreadCount: messageCount)
     }
