@@ -20,6 +20,7 @@ actor ObjectsWithUnreadDiscussionsSubscription: ObjectsWithUnreadDiscussionsSubs
     private var participantsTask: Task<Void, Never>?
     private var currentParticipantIds: Set<String> = []
     private var lastObservedItems: [ObjectDetails] = []
+    private var lastEmittedAggregate: [String: SpaceDiscussionsUnreadInfo]?
     private var subscriptionStarted = false
 
     init() {
@@ -45,6 +46,7 @@ actor ObjectsWithUnreadDiscussionsSubscription: ObjectsWithUnreadDiscussionsSubs
         currentParticipantIds = []
         lastObservedItems = []
         subscriptionStarted = false
+        lastEmittedAggregate = nil
         unreadBySpaceStream.send([:])
     }
 
@@ -72,11 +74,12 @@ actor ObjectsWithUnreadDiscussionsSubscription: ObjectsWithUnreadDiscussionsSubs
     }
 
     private func emitAggregate() {
-        unreadBySpaceStream.send(
-            ObjectsWithUnreadDiscussionsAggregator.aggregate(
-                items: lastObservedItems,
-                myParticipantIds: currentParticipantIds
-            )
+        let aggregate = ObjectsWithUnreadDiscussionsAggregator.aggregate(
+            items: lastObservedItems,
+            myParticipantIds: currentParticipantIds
         )
+        guard aggregate != lastEmittedAggregate else { return }
+        lastEmittedAggregate = aggregate
+        unreadBySpaceStream.send(aggregate)
     }
 }

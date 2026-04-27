@@ -37,12 +37,12 @@ enum SpacePreviewCountersBuilder {
     // MARK: - Aggregation
 
     private struct AggregatedCounters {
-        let totalUnread: Int
-        let totalMentions: Int
-        let hasUnreadReactions: Bool
-        let hasHighlightedUnread: Bool
-        let hasHighlightedMention: Bool
-        let hasHighlightedReaction: Bool
+        var totalUnread = 0
+        var totalMentions = 0
+        var hasUnreadReactions = false
+        var hasHighlightedUnread = false
+        var hasHighlightedMention = false
+        var hasHighlightedReaction = false
     }
 
     private static func aggregateCounters(
@@ -50,91 +50,65 @@ enum SpacePreviewCountersBuilder {
         previews: [ChatMessagePreview],
         discussionUnread: SpaceDiscussionsUnreadInfo?
     ) -> AggregatedCounters {
-        var totalUnread = 0
-        var totalMentions = 0
-        var hasUnreadReactions = false
-        var hasHighlightedUnread = false
-        var hasHighlightedMention = false
-        var hasHighlightedReaction = false
-
+        var counters = AggregatedCounters()
         let supportsMentions = !spaceView.isOneToOne
 
         for preview in previews {
-            let effectiveMode = spaceView.effectiveNotificationMode(for: preview.chatId)
-
-            if FeatureFlags.muteAndHide && !spaceView.isOneToOne {
-                switch effectiveMode {
-                case .all, .mentions, .UNRECOGNIZED:
-                    totalUnread += preview.unreadCounter
-                    // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
-                    if supportsMentions {
-                        totalMentions += preview.mentionCounter
-                    }
-                case .nothing:
-                    if supportsMentions {
-                        totalMentions += preview.mentionCounter
-                    }
-                }
-            } else {
-                totalUnread += preview.unreadCounter
-                // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
-                if supportsMentions {
-                    totalMentions += preview.mentionCounter
-                }
-            }
-
-            if preview.unreadCounter > 0 && effectiveMode == .all {
-                hasHighlightedUnread = true
-            }
-            if preview.mentionCounter > 0 && (effectiveMode == .all || effectiveMode == .mentions) {
-                hasHighlightedMention = true
-            }
+            let mode = spaceView.effectiveNotificationMode(for: preview.chatId)
+            counters = contribute(
+                unreadCount: preview.unreadCounter,
+                mentionCount: preview.mentionCounter,
+                mode: mode,
+                spaceView: spaceView,
+                supportsMentions: supportsMentions,
+                counters: counters
+            )
             if preview.hasUnreadReactions {
-                hasUnreadReactions = true
-                if effectiveMode == .all {
-                    hasHighlightedReaction = true
+                counters.hasUnreadReactions = true
+                if mode == .all {
+                    counters.hasHighlightedReaction = true
                 }
             }
         }
 
         if let discussionUnread {
-            let mode = spaceView.pushNotificationMode
-
-            if FeatureFlags.muteAndHide && !spaceView.isOneToOne {
-                switch mode {
-                case .all, .mentions, .UNRECOGNIZED:
-                    totalUnread += discussionUnread.unreadMessageCount
-                    if supportsMentions {
-                        totalMentions += discussionUnread.unreadMentionCount
-                    }
-                case .nothing:
-                    if supportsMentions {
-                        totalMentions += discussionUnread.unreadMentionCount
-                    }
-                }
-            } else {
-                totalUnread += discussionUnread.unreadMessageCount
-                if supportsMentions {
-                    totalMentions += discussionUnread.unreadMentionCount
-                }
-            }
-
-            if discussionUnread.unreadMessageCount > 0 && mode == .all {
-                hasHighlightedUnread = true
-            }
-            if discussionUnread.unreadMentionCount > 0 && (mode == .all || mode == .mentions) {
-                hasHighlightedMention = true
-            }
+            counters = contribute(
+                unreadCount: discussionUnread.unreadMessageCount,
+                mentionCount: discussionUnread.unreadMentionCount,
+                mode: spaceView.pushNotificationMode,
+                spaceView: spaceView,
+                supportsMentions: supportsMentions,
+                counters: counters
+            )
         }
 
-        return AggregatedCounters(
-            totalUnread: totalUnread,
-            totalMentions: totalMentions,
-            hasUnreadReactions: hasUnreadReactions,
-            hasHighlightedUnread: hasHighlightedUnread,
-            hasHighlightedMention: hasHighlightedMention,
-            hasHighlightedReaction: hasHighlightedReaction
-        )
+        return counters
+    }
+
+    private static func contribute(
+        unreadCount: Int,
+        mentionCount: Int,
+        mode: SpacePushNotificationsMode,
+        spaceView: SpaceView,
+        supportsMentions: Bool,
+        counters: AggregatedCounters
+    ) -> AggregatedCounters {
+        var counters = counters
+        let hideUnread = FeatureFlags.muteAndHide && !spaceView.isOneToOne && mode == .nothing
+        if !hideUnread {
+            counters.totalUnread += unreadCount
+        }
+        // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
+        if supportsMentions {
+            counters.totalMentions += mentionCount
+        }
+        if unreadCount > 0 && mode == .all {
+            counters.hasHighlightedUnread = true
+        }
+        if mentionCount > 0 && (mode == .all || mode == .mentions) {
+            counters.hasHighlightedMention = true
+        }
+        return counters
     }
 
     // MARK: - Style Determination
