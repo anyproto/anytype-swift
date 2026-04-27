@@ -125,6 +125,22 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var firstUnreadMessageOrderId: String?
     @ObservationIgnored
     private var bottomVisibleOrderId: String?
+    // Visible-range mark-as-read debounce + accumulator. Collapses a burst of
+    // `visibleRangeChanged` ticks during a 250 ms window into one
+    // `updateVisibleRange` call covering the union span (smallest-seen top
+    // orderID → largest-seen bottom orderID). This defuses the middleware
+    // `lastStateID` race that fast-scroll bursts can trigger and reduces
+    // network chatter from ~60 Hz to ~4 Hz.
+    @ObservationIgnored
+    private var pendingMarkAsReadTask: Task<Void, Never>?
+    @ObservationIgnored
+    private var minObservedTopMessageId: String?
+    @ObservationIgnored
+    private var minObservedTopOrderId: String?
+    @ObservationIgnored
+    private var maxObservedBottomMessageId: String?
+    @ObservationIgnored
+    private var maxObservedBottomOrderId: String?
     @ObservationIgnored
     private var bigDistanceToBottom: Bool = false
     @ObservationIgnored
@@ -282,8 +298,14 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
                         try? await chatStorage.loadPagesTo(messageId: initialMessageId)
                         collectionViewScrollProxy.scrollTo(itemId: initialMessageId, position: .center, animated: false)
                         messageHiglightId = initialMessageId
+                        // After centering on a deep-linked or first-unread message the
+                        // visible range may not change (same range as before the diff
+                        // settled), so explicitly request a one-shot recalc to mark the
+                        // anchor area as read even if the user never scrolls.
+                        collectionViewScrollProxy.refreshVisibleRange()
                     } else if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
                         collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
+                        collectionViewScrollProxy.refreshVisibleRange()
                     } else if let message = messages.last {
                         collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
                     }
@@ -508,10 +530,43 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
-        Task {
-            bottomVisibleOrderId = to.messageOrderId
-            forceHiddenActionPanel = false
-            await chatStorage?.updateVisibleRange(startMessageId: from.messageId, endMessageId: to.messageId)
+        // Skip ticks where either edge is a non-message cell (e.g. discussion divider).
+        // Otherwise `bottomVisibleOrderId` would hold a divider string like "divider-bafy..."
+        // which lex-compares incorrectly against real lexorank orderIDs in `onTapScrollToBottom`,
+        // and `markAsRead` would silently no-op on the divider id.
+        guard let fromMessageId = from.trackedMessageId,
+              let fromOrderId = from.trackedOrderId,
+              let toMessageId = to.trackedMessageId,
+              let toOrderId = to.trackedOrderId else {
+            return
+        }
+
+        bottomVisibleOrderId = toOrderId
+        forceHiddenActionPanel = false
+
+        // Extend the pending union span: smallest-seen top, largest-seen bottom.
+        // Ordering uses Swift's default String `<` (matches storage's lexorank comparisons).
+        if minObservedTopOrderId.map({ fromOrderId < $0 }) ?? true {
+            minObservedTopMessageId = fromMessageId
+            minObservedTopOrderId = fromOrderId
+        }
+        if maxObservedBottomOrderId.map({ toOrderId > $0 }) ?? true {
+            maxObservedBottomMessageId = toMessageId
+            maxObservedBottomOrderId = toOrderId
+        }
+
+        pendingMarkAsReadTask?.cancel()
+        pendingMarkAsReadTask = Task { [weak self] in
+            try? await Task.sleep(for: .milliseconds(250))
+            guard !Task.isCancelled, let self else { return }
+            guard let topId = self.minObservedTopMessageId,
+                  let bottomId = self.maxObservedBottomMessageId else { return }
+            self.minObservedTopMessageId = nil
+            self.minObservedTopOrderId = nil
+            self.maxObservedBottomMessageId = nil
+            self.maxObservedBottomOrderId = nil
+            self.pendingMarkAsReadTask = nil
+            await self.chatStorage?.updateVisibleRange(startMessageId: topId, endMessageId: bottomId)
         }
     }
 

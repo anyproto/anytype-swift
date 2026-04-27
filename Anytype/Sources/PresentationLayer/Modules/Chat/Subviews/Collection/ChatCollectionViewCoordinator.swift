@@ -35,6 +35,7 @@ final class ChatCollectionViewCoordinator<
     var scrollToBottom: (() async -> Void)?
     var decelerating = false
     var lastScrollProxy: ChatCollectionScrollProxy?
+    private var lastRefreshVisibleRangeId: UUID?
     var itemBuilder: ((Item) -> DataView)?
     var headerBuilder: ((Section.Header) -> HeaderView)?
     var handleVisibleRange: ((_ from: Item, _ to: Item) -> Void)?
@@ -90,6 +91,7 @@ final class ChatCollectionViewCoordinator<
     func updateState(collectionView: UICollectionView, sections: [Section], scrollProxy: ChatCollectionScrollProxy) {
         guard let dataSource, self.sections != sections else {
             appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToBottom: false)
+            applyVisibleRangeRefreshIfNeeded(collectionView: collectionView, scrollProxy: scrollProxy)
             return
         }
         
@@ -147,10 +149,12 @@ final class ChatCollectionViewCoordinator<
             canCallScrollToBottom = true
             dataSourceApplyTransaction = false
             CATransaction.commit()
-            
+
             if !isProgrammaticAnimatedScroll {
                 updateStateAfterTransaction(collectionView: collectionView)
             }
+
+            applyVisibleRangeRefreshIfNeeded(collectionView: collectionView, scrollProxy: scrollProxy)
         }
     }
     
@@ -222,6 +226,17 @@ final class ChatCollectionViewCoordinator<
     
     // MARK: - Private
     
+    private func applyVisibleRangeRefreshIfNeeded(collectionView: UICollectionView, scrollProxy: ChatCollectionScrollProxy) {
+        guard let id = scrollProxy.refreshVisibleRangeOperationId, lastRefreshVisibleRangeId != id else { return }
+        lastRefreshVisibleRangeId = id
+        // Defer to the next runloop tick so any in-flight programmatic scroll
+        // has settled before we re-read visible cells.
+        DispatchQueue.main.async { [weak self, weak collectionView] in
+            guard let self, let collectionView else { return }
+            self.updateVisibleRangeIfNeeded(collectionView: collectionView, forceUpdate: true)
+        }
+    }
+
     private func updateVisibleRangeIfNeeded(collectionView: UICollectionView, forceUpdate: Bool = false) {
         guard let handleVisibleRange else { return }
         
