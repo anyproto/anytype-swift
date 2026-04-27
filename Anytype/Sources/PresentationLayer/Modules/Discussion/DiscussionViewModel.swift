@@ -530,6 +530,11 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
+        // Reset before the divider guard: this is a one-shot latch that initializes
+        // to true and must flip on the first scroll tick after open, even if the
+        // viewport edge happens to be a divider cell.
+        forceHiddenActionPanel = false
+
         // Skip ticks where either edge is a non-message cell (e.g. discussion divider).
         // Otherwise `bottomVisibleOrderId` would hold a divider string like "divider-bafy..."
         // which lex-compares incorrectly against real lexorank orderIDs in `onTapScrollToBottom`,
@@ -542,7 +547,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         }
 
         bottomVisibleOrderId = toOrderId
-        forceHiddenActionPanel = false
 
         // Extend the pending union span: smallest-seen top, largest-seen bottom.
         // Ordering uses Swift's default String `<` (matches storage's lexorank comparisons).
