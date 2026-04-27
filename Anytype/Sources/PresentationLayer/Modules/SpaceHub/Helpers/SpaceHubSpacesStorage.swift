@@ -78,13 +78,10 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                             return date1 > date2
                         }
 
-                    let visibleDiscussionParents = (discussionUnread?.parents ?? []).filter { parent in
-                        if FeatureFlags.muteAndHide && !space.spaceView.isOneToOne,
-                           space.spaceView.pushNotificationMode == .nothing {
-                            return parent.hasUnreadMention
-                        }
-                        return true
-                    }
+                    let visibleDiscussionParents = SpaceHubSpacesStorage.filterVisibleDiscussionParents(
+                        discussionUnread?.parents ?? [],
+                        spaceView: space.spaceView
+                    )
 
                     return ParticipantSpaceViewDataWithPreview(
                         space: space,
@@ -102,6 +99,19 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
             }
             .removeDuplicates()
             .eraseToAnyAsyncSequence()
+        }
+    }
+
+    static func filterVisibleDiscussionParents(
+        _ parents: [DiscussionUnreadParent],
+        spaceView: SpaceView
+    ) -> [DiscussionUnreadParent] {
+        parents.filter { parent in
+            if FeatureFlags.muteAndHide && !spaceView.isOneToOne,
+               spaceView.pushNotificationMode == .nothing {
+                return parent.hasUnreadMention
+            }
+            return true
         }
     }
 }

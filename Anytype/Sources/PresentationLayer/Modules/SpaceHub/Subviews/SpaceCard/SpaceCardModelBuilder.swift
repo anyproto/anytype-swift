@@ -64,14 +64,14 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             lastMessage = nil
         }
 
-        let unreadEntries: [UnreadEntry]
+        let unreadEntries: [SpaceCardUnreadEntries.Entry]
         let multichatCompactPreview: String?
         if !spaceView.isOneToOne {
             unreadEntries = await buildUnreadEntries(
                 unreadPreviews: spaceData.unreadPreviews,
                 unreadDiscussionParents: spaceData.unreadDiscussionParents
             )
-            multichatCompactPreview = formatCompactPreview(entries: unreadEntries)
+            multichatCompactPreview = SpaceCardUnreadEntries.formatCompactPreview(entries: unreadEntries)
         } else {
             unreadEntries = []
             multichatCompactPreview = nil
@@ -111,44 +111,22 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
         )
     }
 
-    private struct UnreadEntry {
-        let name: String
-        let date: Date?
-    }
-
     private func buildUnreadEntries(
         unreadPreviews: [ChatMessagePreview],
         unreadDiscussionParents: [DiscussionUnreadParent]
-    ) async -> [UnreadEntry] {
-        var entries = [UnreadEntry]()
+    ) async -> [SpaceCardUnreadEntries.Entry] {
+        var chatEntries = [SpaceCardUnreadEntries.Entry]()
         for preview in unreadPreviews {
             guard let chatDetail = await chatDetailsStorage.chat(id: preview.chatId) else { continue }
-            entries.append(UnreadEntry(
+            chatEntries.append(SpaceCardUnreadEntries.Entry(
                 name: chatDetail.name.withPlaceholder,
                 date: preview.lastMessage?.createdAt
             ))
         }
-        for parent in unreadDiscussionParents {
-            entries.append(UnreadEntry(
-                name: parent.name.withPlaceholder,
-                date: parent.lastMessageDate
-            ))
-        }
-        return entries.sorted { (lhs: UnreadEntry, rhs: UnreadEntry) -> Bool in
-            (lhs.date ?? .distantPast) > (rhs.date ?? .distantPast)
-        }
-    }
-
-    private func formatCompactPreview(entries: [UnreadEntry]) -> String? {
-        guard entries.isNotEmpty else { return nil }
-        let maxVisible = 3
-        let visibleNames = entries.prefix(maxVisible).map(\.name)
-        let remaining = entries.count - maxVisible
-        if remaining > 0 {
-            return visibleNames.joined(separator: ", ") + " +\(remaining)"
-        } else {
-            return visibleNames.joined(separator: ", ")
-        }
+        return SpaceCardUnreadEntries.merge(
+            chatEntries: chatEntries,
+            discussionParents: unreadDiscussionParents
+        )
     }
 }
 
