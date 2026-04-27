@@ -77,8 +77,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     }
 
     func updateVisibleRange(startMessageId: String, endMessageId: String) async {
-        // Bail if either edge can't be resolved to a real message — defaulting to 0
-        // would silently mark the wrong span as read and corrupt the subscription anchors.
+        // Bail on unresolved ids — defaulting to 0 would corrupt subscription anchors.
         guard let startMessageIndex = messages.index(messageId: startMessageId),
               let endMessageIndex = messages.index(messageId: endMessageId) else {
             return

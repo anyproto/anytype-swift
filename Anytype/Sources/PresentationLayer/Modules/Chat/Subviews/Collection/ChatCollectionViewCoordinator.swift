@@ -229,8 +229,7 @@ final class ChatCollectionViewCoordinator<
     private func applyVisibleRangeRefreshIfNeeded(collectionView: UICollectionView, scrollProxy: ChatCollectionScrollProxy) {
         guard let id = scrollProxy.refreshVisibleRangeOperationId, lastRefreshVisibleRangeId != id else { return }
         lastRefreshVisibleRangeId = id
-        // Defer to the next runloop tick so any in-flight programmatic scroll
-        // has settled before we re-read visible cells.
+        // Defer one tick so the programmatic scroll settles before re-reading cells.
         DispatchQueue.main.async { [weak self, weak collectionView] in
             guard let self, let collectionView else { return }
             self.updateVisibleRangeIfNeeded(collectionView: collectionView, forceUpdate: true)

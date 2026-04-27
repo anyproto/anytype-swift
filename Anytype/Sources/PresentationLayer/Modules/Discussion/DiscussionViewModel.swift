@@ -125,12 +125,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var firstUnreadMessageOrderId: String?
     @ObservationIgnored
     private var bottomVisibleOrderId: String?
-    // Visible-range mark-as-read debounce + accumulator. Collapses a burst of
-    // `visibleRangeChanged` ticks during a 250 ms window into one
-    // `updateVisibleRange` call covering the union span (smallest-seen top
-    // orderID → largest-seen bottom orderID). This defuses the middleware
-    // `lastStateID` race that fast-scroll bursts can trigger and reduces
-    // network chatter from ~60 Hz to ~4 Hz.
+    // 250 ms debounced union-span accumulator; defuses lastStateID race on fast scroll.
     @ObservationIgnored
     private var pendingMarkAsReadTask: Task<Void, Never>?
     @ObservationIgnored
@@ -298,10 +293,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
                         try? await chatStorage.loadPagesTo(messageId: initialMessageId)
                         collectionViewScrollProxy.scrollTo(itemId: initialMessageId, position: .center, animated: false)
                         messageHiglightId = initialMessageId
-                        // After centering on a deep-linked or first-unread message the
-                        // visible range may not change (same range as before the diff
-                        // settled), so explicitly request a one-shot recalc to mark the
-                        // anchor area as read even if the user never scrolls.
+                        // Force recalc so the anchor gets marked read even without scroll.
                         collectionViewScrollProxy.refreshVisibleRange()
                     } else if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
                         collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
@@ -530,22 +522,17 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
-        // Reset before any narrowing: this is a one-shot latch that initializes to true
-        // and must flip on the first scroll tick after open, even when the viewport edges
-        // are non-message cells.
+        // Latch must flip on the first tick even when viewport edges are dividers.
         forceHiddenActionPanel = false
 
-        // Narrow to inner real-message cells: the outermost visible cells can be
-        // discussion dividers, whose ids would lex-compare incorrectly against lexorank
-        // orderIDs in `onTapScrollToBottom` and silently no-op `markAsRead`.
+        // Outer visible cells can be dividers; their ids break lex compare and no-op markAsRead.
         guard let resolved = resolveTrackedRange(from: from, to: to) else {
             return
         }
 
         bottomVisibleOrderId = resolved.toOrderId
 
-        // Extend the pending union span: smallest-seen top, largest-seen bottom.
-        // Ordering uses Swift's default String `<` (matches storage's lexorank comparisons).
+        // Lexorank min/max accumulator — String `<` matches storage's comparisons.
         if minObservedTopOrderId.map({ resolved.fromOrderId < $0 }) ?? true {
             minObservedTopMessageId = resolved.fromMessageId
             minObservedTopOrderId = resolved.fromOrderId

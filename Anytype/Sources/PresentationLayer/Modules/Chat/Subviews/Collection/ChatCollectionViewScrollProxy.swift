@@ -32,9 +32,7 @@ struct ChatCollectionScrollProxy: Equatable {
         scrollOperation = .scrollTo(itemId, position, animated)
     }
 
-    /// Request a one-shot re-emit of the current visible range with `forceUpdate: true`.
-    /// Use after a programmatic scroll when the collection view's visible range may not
-    /// have changed but you still need to re-trigger downstream tracking (e.g. mark-as-read).
+    /// One-shot re-emit of the current visible range — use after a programmatic scroll.
     mutating func refreshVisibleRange() {
         refreshVisibleRangeOperationId = UUID()
     }
