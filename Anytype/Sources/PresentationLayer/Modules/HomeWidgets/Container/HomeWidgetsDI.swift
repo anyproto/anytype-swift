@@ -16,4 +16,8 @@ extension Container {
     var widgetChatPreviewBuilder: Factory<any WidgetChatPreviewBuilderProtocol> {
         self { WidgetChatPreviewBuilder() }
     }
+
+    var parentObjectUnreadBadgeBuilder: Factory<any ParentObjectUnreadBadgeBuilderProtocol> {
+        self { ParentObjectUnreadBadgeBuilder() }
+    }
 }
