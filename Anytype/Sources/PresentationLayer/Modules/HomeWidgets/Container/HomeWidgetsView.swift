@@ -110,7 +110,7 @@ private struct HomeWidgetsInternalView: View {
                 model.onTapUnreadHeader()
             }
             if model.unreadSectionIsExpanded {
-                UnreadChatsGroupedView(chats: model.unreadChats)
+                UnreadItemsGroupedView(items: model.unreadItems)
             }
         }
     }
@@ -131,7 +131,7 @@ private struct HomeWidgetsInternalView: View {
                 model.onTapUnreadHeader()
             }
             if model.unreadSectionIsExpanded {
-                UnreadChatsGroupedView(chats: model.unreadChats)
+                UnreadItemsGroupedView(items: model.unreadItems)
             }
         }
     }
