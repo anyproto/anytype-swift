@@ -73,19 +73,30 @@ struct ObjectsWithUnreadDiscussionsSubscriptionBuilderTests {
     @Test func build_includesAllConsumerKeys() {
         let crossSearch = unwrap(builder.build())
         let keys = Set(crossSearch?.keys ?? [])
-        let expected: Set<String> = [
+        // Aggregator consumes:
+        //   id / spaceId / resolvedLayout / discussionId / notificationSubscribers
+        //   unreadMessageCount / unreadMentionCount / lastMessageDate
+        // Row VMs consume the icon-image keys via ObjectDetails.objectIconImage / pluralTitle:
+        //   name / pluralName / snippet / iconImage / iconEmoji / iconName / iconOption
+        let required: Set<String> = [
             BundledPropertyKey.id.rawValue,
             BundledPropertyKey.spaceId.rawValue,
             BundledPropertyKey.resolvedLayout.rawValue,
             BundledPropertyKey.name.rawValue,
+            BundledPropertyKey.pluralName.rawValue,
             BundledPropertyKey.snippet.rawValue,
+            BundledPropertyKey.iconImage.rawValue,
+            BundledPropertyKey.iconEmoji.rawValue,
+            BundledPropertyKey.iconName.rawValue,
+            BundledPropertyKey.iconOption.rawValue,
+            BundledPropertyKey.done.rawValue,
             BundledPropertyKey.discussionId.rawValue,
             BundledPropertyKey.lastMessageDate.rawValue,
             BundledPropertyKey.notificationSubscribers.rawValue,
             BundledPropertyKey.unreadMessageCount.rawValue,
             BundledPropertyKey.unreadMentionCount.rawValue
         ]
-        #expect(keys == expected)
+        #expect(required.isSubset(of: keys))
     }
 
     // MARK: - Helper

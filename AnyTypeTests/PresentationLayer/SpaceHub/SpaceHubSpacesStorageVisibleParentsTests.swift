@@ -7,8 +7,8 @@ struct SpaceHubSpacesStorageVisibleParentsTests {
 
     @Test func mutedMultichat_keepsOnlyMentionParents() {
         let space = makeSpace(spaceType: .regular, mode: .nothing)
-        let mentionParent = makeParent(id: "p-mention", hasUnreadMention: true)
-        let messageOnly = makeParent(id: "p-message", hasUnreadMention: false)
+        let mentionParent = makeParent(id: "p-mention", unreadMessageCount: 0, unreadMentionCount: 1)
+        let messageOnly = makeParent(id: "p-message", unreadMessageCount: 1, unreadMentionCount: 0)
 
         let result = SpaceHubSpacesStorage.filterVisibleDiscussionParents(
             [mentionParent, messageOnly],
@@ -18,10 +18,10 @@ struct SpaceHubSpacesStorageVisibleParentsTests {
         #expect(result.map(\.id) == ["p-mention"])
     }
 
-    @Test func allMode_keepsAllParents() {
+    @Test func allMode_keepsAllParentsWithCounters() {
         let space = makeSpace(spaceType: .regular, mode: .all)
-        let mentionParent = makeParent(id: "p-mention", hasUnreadMention: true)
-        let messageOnly = makeParent(id: "p-message", hasUnreadMention: false)
+        let mentionParent = makeParent(id: "p-mention", unreadMessageCount: 0, unreadMentionCount: 1)
+        let messageOnly = makeParent(id: "p-message", unreadMessageCount: 1, unreadMentionCount: 0)
 
         let result = SpaceHubSpacesStorage.filterVisibleDiscussionParents(
             [mentionParent, messageOnly],
@@ -31,10 +31,10 @@ struct SpaceHubSpacesStorageVisibleParentsTests {
         #expect(result.map(\.id) == ["p-mention", "p-message"])
     }
 
-    @Test func mentionsMode_keepsAllParents() {
+    @Test func mentionsMode_keepsAllParentsWithCounters() {
         let space = makeSpace(spaceType: .regular, mode: .mentions)
-        let mentionParent = makeParent(id: "p-mention", hasUnreadMention: true)
-        let messageOnly = makeParent(id: "p-message", hasUnreadMention: false)
+        let mentionParent = makeParent(id: "p-mention", unreadMessageCount: 0, unreadMentionCount: 1)
+        let messageOnly = makeParent(id: "p-message", unreadMessageCount: 1, unreadMentionCount: 0)
 
         let result = SpaceHubSpacesStorage.filterVisibleDiscussionParents(
             [mentionParent, messageOnly],
@@ -44,11 +44,11 @@ struct SpaceHubSpacesStorageVisibleParentsTests {
         #expect(result.map(\.id) == ["p-mention", "p-message"])
     }
 
-    @Test func oneToOneMuted_keepsAllParents() {
+    @Test func oneToOneMuted_keepsAllParentsWithCounters() {
         // 1:1 spaces are excluded from the muted-hide path.
         let space = makeSpace(spaceType: .oneToOne, mode: .nothing)
-        let mentionParent = makeParent(id: "p-mention", hasUnreadMention: true)
-        let messageOnly = makeParent(id: "p-message", hasUnreadMention: false)
+        let mentionParent = makeParent(id: "p-mention", unreadMessageCount: 0, unreadMentionCount: 1)
+        let messageOnly = makeParent(id: "p-message", unreadMessageCount: 1, unreadMentionCount: 0)
 
         let result = SpaceHubSpacesStorage.filterVisibleDiscussionParents(
             [mentionParent, messageOnly],
@@ -56,6 +56,18 @@ struct SpaceHubSpacesStorageVisibleParentsTests {
         )
 
         #expect(result.map(\.id) == ["p-mention", "p-message"])
+    }
+
+    @Test func anyMode_dropsFullyCaughtUpSubscribedParent() {
+        // Aggregator admits subscribed parents even with zero counters; the visible filter must drop them
+        // so the multichat preview never shows a name with no badge.
+        let caughtUp = makeParent(id: "p-caughtup", unreadMessageCount: 0, unreadMentionCount: 0)
+
+        for mode: SpacePushNotificationsMode in [.all, .mentions, .nothing] {
+            let space = makeSpace(spaceType: .regular, mode: mode)
+            let result = SpaceHubSpacesStorage.filterVisibleDiscussionParents([caughtUp], spaceView: space)
+            #expect(result.isEmpty)
+        }
     }
 
     @Test func emptyInput_returnsEmpty() {
@@ -66,12 +78,17 @@ struct SpaceHubSpacesStorageVisibleParentsTests {
 
     // MARK: - Fixtures
 
-    private func makeParent(id: String, hasUnreadMention: Bool) -> DiscussionUnreadParent {
+    private func makeParent(
+        id: String,
+        unreadMessageCount: Int,
+        unreadMentionCount: Int
+    ) -> DiscussionUnreadParent {
         DiscussionUnreadParent(
-            id: id,
-            name: "Doc \(id)",
+            details: ObjectDetails(id: id, values: [:]),
             lastMessageDate: nil,
-            hasUnreadMention: hasUnreadMention
+            unreadMessageCount: unreadMessageCount,
+            unreadMentionCount: unreadMentionCount,
+            isSubscribed: true
         )
     }
 

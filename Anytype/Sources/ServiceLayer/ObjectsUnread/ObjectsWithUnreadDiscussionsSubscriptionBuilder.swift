@@ -28,18 +28,7 @@ final class ObjectsWithUnreadDiscussionsSubscriptionBuilder: ObjectsWithUnreadDi
         let filters: [DataviewFilter] = [
             orFilter([parentBranch, discussionBranch])
         ]
-        let keys: [String] = [
-            BundledPropertyKey.id.rawValue,
-            BundledPropertyKey.spaceId.rawValue,
-            BundledPropertyKey.resolvedLayout.rawValue,
-            BundledPropertyKey.name.rawValue,
-            BundledPropertyKey.snippet.rawValue,
-            BundledPropertyKey.discussionId.rawValue,
-            BundledPropertyKey.lastMessageDate.rawValue,
-            BundledPropertyKey.notificationSubscribers.rawValue,
-            BundledPropertyKey.unreadMessageCount.rawValue,
-            BundledPropertyKey.unreadMentionCount.rawValue
-        ]
+        let keys = BundledPropertyKey.discussionParentKeys.map(\.rawValue)
         return .crossSpaceSearch(
             SubscriptionData.CrossSpaceSearch(
                 identifier: Constants.subId,

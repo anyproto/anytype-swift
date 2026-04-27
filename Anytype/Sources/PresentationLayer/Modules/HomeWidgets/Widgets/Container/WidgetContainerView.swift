@@ -11,6 +11,7 @@ struct WidgetContainerView<Content: View>: View {
     let name: String
     let icon: Icon?
     let badgeModel: MessagePreviewModel?
+    let parentBadge: ParentObjectUnreadBadge?
     let dragId: String?
     let contentState: WidgetContentState
     let onCreateObjectTap: (() -> Void)?
@@ -26,6 +27,7 @@ struct WidgetContainerView<Content: View>: View {
         name: String,
         icon: Icon? = nil,
         badgeModel: MessagePreviewModel? = nil,
+        parentBadge: ParentObjectUnreadBadge? = nil,
         dragId: String?,
         contentState: WidgetContentState = .hasData,
         defaultExpanded: Bool = true,
@@ -39,6 +41,7 @@ struct WidgetContainerView<Content: View>: View {
         self.name = name
         self.icon = icon
         self.badgeModel = badgeModel
+        self.parentBadge = parentBadge
         self.dragId = dragId
         self.contentState = contentState
         self.onCreateObjectTap = onCreateObjectTap
@@ -75,7 +78,7 @@ struct WidgetContainerView<Content: View>: View {
                 header: {
                     LinkWidgetDefaultHeader(
                         title: name,
-                        titleColor: badgeModel?.titleColor ?? .Text.primary,
+                        titleColor: badgeModel?.titleColor ?? parentBadge?.titleColor ?? .Text.primary,
                         icon: icon,
                         rightAccessory: {
                             if let badgeModel, badgeModel.hasVisibleCounters {
@@ -94,6 +97,9 @@ struct WidgetContainerView<Content: View>: View {
                                     }
                                 }
                                 .opacity(shouldHideChatBadges ? 0 : 1)
+                            } else if let parentBadge, parentBadge.hasVisibleCounters {
+                                ParentBadgesView(badge: parentBadge)
+                                    .opacity(shouldHideChatBadges ? 0 : 1)
                             }
                         },
                         onTap: {

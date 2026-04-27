@@ -37,13 +37,16 @@ struct MyFavoritesRowInternalView: View {
                     .frame(width: 20, height: 20)
 
                 AnytypeText(rowModel.title, style: .bodySemibold)
-                    .foregroundStyle(Color.Text.primary)
+                    .foregroundStyle(rowModel.titleColor)
                     .lineLimit(1)
 
                 Spacer()
 
                 if let chatPreview = rowModel.badgeModel, chatPreview.hasVisibleCounters {
                     chatBadges(chatPreview: chatPreview)
+                        .opacity(shouldHideChatBadges ? 0 : 1)
+                } else if let parentBadge = rowModel.parentBadge, parentBadge.hasVisibleCounters {
+                    ParentBadgesView(badge: parentBadge)
                         .opacity(shouldHideChatBadges ? 0 : 1)
                 }
             }
@@ -82,4 +85,5 @@ struct MyFavoritesRowInternalView: View {
             }
         }
     }
+
 }

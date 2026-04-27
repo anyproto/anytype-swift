@@ -60,11 +60,7 @@ struct SpacePreviewCountersBuilderTests {
 
     @Test func discussionOnly_allMode_contributesUnreadAndMentions() {
         let space = makeSpace(spaceType: .regular, mode: .all)
-        let unread = SpaceDiscussionsUnreadInfo(
-            unreadMessageCount: 4,
-            unreadMentionCount: 1,
-            parents: []
-        )
+        let unread = makeDiscussionInfo(messages: 4, mentions: 1)
 
         let result = SpacePreviewCountersBuilder.build(
             spaceView: space,
@@ -78,11 +74,7 @@ struct SpacePreviewCountersBuilderTests {
 
     @Test func discussionOnly_mutedMode_hidesUnreadKeepsMentions() {
         let space = makeSpace(spaceType: .regular, mode: .nothing)
-        let unread = SpaceDiscussionsUnreadInfo(
-            unreadMessageCount: 9,
-            unreadMentionCount: 2,
-            parents: []
-        )
+        let unread = makeDiscussionInfo(messages: 9, mentions: 2)
 
         let result = SpacePreviewCountersBuilder.build(
             spaceView: space,
@@ -99,11 +91,7 @@ struct SpacePreviewCountersBuilderTests {
     @Test func combinedChatAndDiscussion_unreadAndMentionsSum() {
         let space = makeSpace(spaceType: .regular, mode: .all)
         let preview = makePreview(chatId: "c1", unread: 2, mentions: 1)
-        let unread = SpaceDiscussionsUnreadInfo(
-            unreadMessageCount: 3,
-            unreadMentionCount: 4,
-            parents: []
-        )
+        let unread = makeDiscussionInfo(messages: 3, mentions: 4)
 
         let result = SpacePreviewCountersBuilder.build(
             spaceView: space,
@@ -253,6 +241,19 @@ struct SpacePreviewCountersBuilderTests {
             oneToOneIdentity: "",
             homepage: .empty
         )
+    }
+
+    private func makeDiscussionInfo(messages: Int, mentions: Int) -> SpaceDiscussionsUnreadInfo {
+        // Single subscribed parent yields totals: unreadMessageCount=messages, totalMentionCount=mentions.
+        SpaceDiscussionsUnreadInfo(parents: [
+            DiscussionUnreadParent(
+                details: ObjectDetails(id: "p", values: [:]),
+                lastMessageDate: nil,
+                unreadMessageCount: messages,
+                unreadMentionCount: mentions,
+                isSubscribed: true
+            )
+        ])
     }
 
     private func makePreview(

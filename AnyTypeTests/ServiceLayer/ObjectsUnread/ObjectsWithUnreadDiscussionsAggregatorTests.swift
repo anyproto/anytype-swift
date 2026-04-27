@@ -29,7 +29,7 @@ struct ObjectsWithUnreadDiscussionsAggregatorTests {
         let result = ObjectsWithUnreadDiscussionsAggregator.aggregate(items: [parent], myParticipantIds: [me])
 
         #expect(result[spaceA]?.unreadMessageCount == 0)
-        #expect(result[spaceA]?.mentions.totalCount == 2)
+        #expect(result[spaceA]?.totalMentionCount == 2)
     }
 
     @Test func subscribedParent_contributesMessagesAndMentions() {
@@ -45,7 +45,7 @@ struct ObjectsWithUnreadDiscussionsAggregatorTests {
         let result = ObjectsWithUnreadDiscussionsAggregator.aggregate(items: [parent, discussion], myParticipantIds: [me])
 
         #expect(result[spaceA]?.unreadMessageCount == 5)
-        #expect(result[spaceA]?.mentions.totalCount == 1)
+        #expect(result[spaceA]?.totalMentionCount == 1)
     }
 
     @Test func parentWithNoMentionAndNoSubscription_dropped() {
@@ -76,7 +76,7 @@ struct ObjectsWithUnreadDiscussionsAggregatorTests {
 
         // Mention contributes; message count is dropped because I am not subscribed.
         #expect(result[spaceA]?.unreadMessageCount == 0)
-        #expect(result[spaceA]?.mentions.totalCount == 2)
+        #expect(result[spaceA]?.totalMentionCount == 2)
     }
 
     @Test func subscribedParentWithZeroCounters_keepsZeroContribution() {
@@ -92,7 +92,7 @@ struct ObjectsWithUnreadDiscussionsAggregatorTests {
         let result = ObjectsWithUnreadDiscussionsAggregator.aggregate(items: [parent, discussion], myParticipantIds: [me])
 
         #expect(result[spaceA]?.unreadMessageCount == 0)
-        #expect(result[spaceA]?.mentions.totalCount == 0)
+        #expect(result[spaceA]?.totalMentionCount == 0)
     }
 
     @Test func sumsAcrossParentsInSameSpace() {
@@ -116,7 +116,7 @@ struct ObjectsWithUnreadDiscussionsAggregatorTests {
         let result = ObjectsWithUnreadDiscussionsAggregator.aggregate(items: [parent1, parent2, d1, d2], myParticipantIds: [me])
 
         #expect(result[spaceA]?.unreadMessageCount == 7)
-        #expect(result[spaceA]?.mentions.totalCount == 3)
+        #expect(result[spaceA]?.totalMentionCount == 3)
     }
 
     @Test func groupsByDistinctSpaces() {
@@ -141,9 +141,9 @@ struct ObjectsWithUnreadDiscussionsAggregatorTests {
 
         #expect(result.count == 2)
         #expect(result[spaceA]?.unreadMessageCount == 3)
-        #expect(result[spaceA]?.mentions.totalCount == 0)
+        #expect(result[spaceA]?.totalMentionCount == 0)
         #expect(result[spaceB]?.unreadMessageCount == 5)
-        #expect(result[spaceB]?.mentions.totalCount == 1)
+        #expect(result[spaceB]?.totalMentionCount == 1)
     }
 
     @Test func mentionOnlyParent_excludesMessageCountFromUnsubscribed() {
@@ -158,7 +158,7 @@ struct ObjectsWithUnreadDiscussionsAggregatorTests {
         let result = ObjectsWithUnreadDiscussionsAggregator.aggregate(items: [parent], myParticipantIds: [me])
 
         #expect(result[spaceA]?.unreadMessageCount == 0)
-        #expect(result[spaceA]?.mentions.totalCount == 3)
+        #expect(result[spaceA]?.totalMentionCount == 3)
     }
 
     @Test func nonParentLayoutsIgnored() {
@@ -277,8 +277,8 @@ struct ObjectsWithUnreadDiscussionsAggregatorTests {
 
         // Subscribed mentions are already inside unreadMessageCount; nothing leaks into the unsubscribed split.
         #expect(result[spaceA]?.unreadMessageCount == 5)
-        #expect(result[spaceA]?.mentions.totalCount == 1)
-        #expect(result[spaceA]?.mentions.unsubscribedCount == 0)
+        #expect(result[spaceA]?.totalMentionCount == 1)
+        #expect(result[spaceA]?.unsubscribedMentionCount == 0)
     }
 
     @Test func mentions_unsubscribedParent_totalEqualsUnsubscribed() {
@@ -291,8 +291,8 @@ struct ObjectsWithUnreadDiscussionsAggregatorTests {
 
         // Unsubscribed parent: messages dropped to 0; mentions land entirely in the unsubscribed bucket.
         #expect(result[spaceA]?.unreadMessageCount == 0)
-        #expect(result[spaceA]?.mentions.unsubscribedCount == 3)
-        #expect(result[spaceA]?.mentions.totalCount == 3)
+        #expect(result[spaceA]?.unsubscribedMentionCount == 3)
+        #expect(result[spaceA]?.totalMentionCount == 3)
     }
 
     @Test func mentions_mixedParents_combineSubscribedAndUnsubscribed() {
@@ -309,8 +309,42 @@ struct ObjectsWithUnreadDiscussionsAggregatorTests {
         let result = ObjectsWithUnreadDiscussionsAggregator.aggregate(items: [subscribed, unsubscribed, d1], myParticipantIds: [me])
 
         #expect(result[spaceA]?.unreadMessageCount == 4)
-        #expect(result[spaceA]?.mentions.unsubscribedCount == 2)
-        #expect(result[spaceA]?.mentions.totalCount == 3) // 1 subscribed + 2 unsubscribed
+        #expect(result[spaceA]?.unsubscribedMentionCount == 2)
+        #expect(result[spaceA]?.totalMentionCount == 3) // 1 subscribed + 2 unsubscribed
+    }
+
+    // MARK: - Per-parent fields
+
+    @Test func parents_subscribedParent_carriesPerParentCounters() {
+        let parent = makeParent(
+            id: "parent-1", spaceId: spaceA, discussionId: discussion1,
+            unreadMessageCount: 5, unreadMentionCount: 1
+        )
+        let discussion = makeDiscussion(id: discussion1, subscribers: [me])
+
+        let result = ObjectsWithUnreadDiscussionsAggregator.aggregate(items: [parent, discussion], myParticipantIds: [me])
+
+        let p = result[spaceA]?.parents.first
+        #expect(p?.unreadMessageCount == 5)
+        #expect(p?.unreadMentionCount == 1)
+        #expect(p?.isSubscribed == true)
+    }
+
+    @Test func parents_unsubscribedMentionOnly_carriesRawMessageCount_andIsSubscribedFalse() {
+        let parent = makeParent(
+            id: "parent-1", spaceId: spaceA, discussionId: discussion1,
+            unreadMessageCount: 8, unreadMentionCount: 2
+        )
+
+        let result = ObjectsWithUnreadDiscussionsAggregator.aggregate(items: [parent], myParticipantIds: [me])
+
+        // Raw values are preserved on the per-parent struct so row VMs can decide based on isSubscribed.
+        // Space-level unreadMessageCount stays 0 (only sums subscribed parents).
+        let p = result[spaceA]?.parents.first
+        #expect(p?.unreadMessageCount == 8)
+        #expect(p?.unreadMentionCount == 2)
+        #expect(p?.isSubscribed == false)
+        #expect(result[spaceA]?.unreadMessageCount == 0)
     }
 
     // MARK: - Fixtures

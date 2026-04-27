@@ -38,10 +38,10 @@ enum BadgeTotalCalculator {
             case .all:
                 // Subscribed-parent messages already include their mentions; add unsubscribed-parent
                 // mentions on top so a mention in an object I don't watch still bumps the badge.
-                total += info.unreadMessageCount + info.mentions.unsubscribedCount
+                total += info.unreadMessageCount + info.unsubscribedMentionCount
             case .mentions:
                 if spaceView.uxType.supportsMentions {
-                    total += info.mentions.totalCount
+                    total += info.totalMentionCount
                 }
             case .nothing, .UNRECOGNIZED:
                 break

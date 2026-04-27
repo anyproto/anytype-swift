@@ -319,13 +319,38 @@ struct BadgeTotalCalculatorTests {
         subscribedMentions: Int,
         unsubscribedMentions: Int
     ) -> SpaceDiscussionsUnreadInfo {
-        SpaceDiscussionsUnreadInfo(
-            unreadMessageCount: messages,
-            mentions: SpaceDiscussionsMentions(
-                subscribedCount: subscribedMentions,
-                unsubscribedCount: unsubscribedMentions
-            ),
-            parents: []
+        var parents: [DiscussionUnreadParent] = []
+        if messages > 0 || subscribedMentions > 0 {
+            parents.append(makeParent(
+                id: "subscribed-parent",
+                unreadMessageCount: messages,
+                unreadMentionCount: subscribedMentions,
+                isSubscribed: true
+            ))
+        }
+        if unsubscribedMentions > 0 {
+            parents.append(makeParent(
+                id: "unsubscribed-parent",
+                unreadMessageCount: 0,
+                unreadMentionCount: unsubscribedMentions,
+                isSubscribed: false
+            ))
+        }
+        return SpaceDiscussionsUnreadInfo(parents: parents)
+    }
+
+    private func makeParent(
+        id: String,
+        unreadMessageCount: Int,
+        unreadMentionCount: Int,
+        isSubscribed: Bool
+    ) -> DiscussionUnreadParent {
+        DiscussionUnreadParent(
+            details: ObjectDetails(id: id, values: [:]),
+            lastMessageDate: nil,
+            unreadMessageCount: unreadMessageCount,
+            unreadMentionCount: unreadMentionCount,
+            isSubscribed: isSubscribed
         )
     }
 }

@@ -45,6 +45,8 @@ final class HomeWidgetsViewModel {
     private var objectTypesWithObjectsCreatedService: any ObjectTypesWithObjectsCreatedServiceProtocol
     @Injected(\.chatDetailsStorage) @ObservationIgnored
     private var chatDetailsStorage: any ChatDetailsStorageProtocol
+    @Injected(\.objectsWithUnreadDiscussionsSubscription) @ObservationIgnored
+    private var unreadDiscussionsSubscription: any ObjectsWithUnreadDiscussionsSubscriptionProtocol
 
     @ObservationIgnored
     weak var output: (any HomeWidgetsModuleOutput)?
@@ -62,7 +64,7 @@ final class HomeWidgetsViewModel {
     var canCreateObjectType: Bool = false
     var homeWidgetData: HomepageWidgetViewData?
     var unreadSectionIsExpanded: Bool = false
-    var unreadChats: [UnreadChatWidgetData] = []
+    var unreadItems: [UnreadSectionItem] = []
     var myFavoritesSectionIsExpanded: Bool = false
     var myFavoritesListViewModel: MyFavoritesListViewModel?
     private var supportsMultiChats: Bool = false
@@ -70,7 +72,7 @@ final class HomeWidgetsViewModel {
     var spaceId: String { info.accountSpaceId }
 
     var shouldShowUnreadSection: Bool {
-        supportsMultiChats && unreadChats.isNotEmpty
+        supportsMultiChats && unreadItems.isNotEmpty
     }
 
     var shouldHideChatBadges: Bool {
@@ -113,9 +115,9 @@ final class HomeWidgetsViewModel {
         async let canEditSub: () = startCanEditSubscription()
         async let objectTypesTask: () = startObjectTypesTask()
         async let spaceViewTask: () = startSpaceViewTask()
-        async let unreadChatsTask: () = startUnreadChatsTask()
+        async let unreadItemsTask: () = startUnreadItemsTask()
 
-        _ = await (widgetObjectSub, myFavoritesSub, canEditSub, objectTypesTask, spaceViewTask, unreadChatsTask)
+        _ = await (widgetObjectSub, myFavoritesSub, canEditSub, objectTypesTask, spaceViewTask, unreadItemsTask)
     }
 
     func onAppear() {
@@ -322,7 +324,7 @@ final class HomeWidgetsViewModel {
         }
     }
 
-    private func startUnreadChatsTask() async {
+    private func startUnreadItemsTask() async {
         let spaceId = spaceId
         let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
         guard !(spaceView?.isOneToOne ?? true) else { return }
@@ -330,27 +332,50 @@ final class HomeWidgetsViewModel {
         let previewsSequence = await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
         let chatsSequence = await chatDetailsStorage.allChatsSequence
         let spaceViewSequence = workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values
+        let unreadDiscussionsSequence = await unreadDiscussionsSubscription.unreadBySpaceSequence
 
-        for await (previews, chatDetails, currentSpaceView) in combineLatest(previewsSequence, chatsSequence, spaceViewSequence) {
-            let newUnreadChats = previews
-                .filter { preview in
-                    guard preview.spaceId == spaceId else { return false }
+        // combineLatest is max-arity 3 — nest two pairs.
+        let chatTriple = combineLatest(previewsSequence, chatsSequence, spaceViewSequence)
+        for await (triple, unreadBySpace) in combineLatest(chatTriple, unreadDiscussionsSequence) {
+            let (previews, chatDetails, currentSpaceView) = triple
 
-                    if FeatureFlags.muteAndHide {
-                        let mode = currentSpaceView.effectiveNotificationMode(for: preview.chatId)
-                        if mode == .nothing {
-                            guard preview.mentionCounter > 0 || preview.hasUnreadReactions else { return false }
-                        }
+            let chatItems: [UnreadSectionItem] = previews.compactMap { preview in
+                guard preview.spaceId == spaceId else { return nil }
+
+                if FeatureFlags.muteAndHide {
+                    let mode = currentSpaceView.effectiveNotificationMode(for: preview.chatId)
+                    if mode == .nothing {
+                        guard preview.mentionCounter > 0 || preview.hasUnreadReactions else { return nil }
                     }
-
-                    guard preview.hasCounters else { return false }
-                    guard let chatDetail = chatDetails.first(where: { $0.id == preview.chatId }) else { return false }
-                    return !chatDetail.isArchivedOrDeleted
                 }
-                .map { UnreadChatWidgetData(id: $0.chatId, spaceId: spaceId, output: output) }
 
-            guard unreadChats != newUnreadChats else { continue }
-            unreadChats = newUnreadChats
+                guard preview.hasCounters else { return nil }
+                guard let chatDetail = chatDetails.first(where: { $0.id == preview.chatId }), !chatDetail.isArchivedOrDeleted else {
+                    return nil
+                }
+                return .chat(
+                    UnreadChatWidgetData(id: preview.chatId, spaceId: spaceId, output: output),
+                    lastMessageDate: preview.lastMessage?.createdAt
+                )
+            }
+
+            let parentSource = FeatureFlags.discussionButton ? (unreadBySpace[spaceId]?.parents ?? []) : []
+            let parentItems: [UnreadSectionItem] = parentSource.compactMap { parent in
+                if FeatureFlags.muteAndHide && currentSpaceView.pushNotificationMode == .nothing {
+                    guard parent.hasUnreadMention else { return nil }
+                }
+                // Aggregator admits any subscribed parent; drop fully-caught-up rows here so the section
+                // never shows a name with no badge. Mirrors the chat path's `hasCounters` guard.
+                guard parent.unreadMessageCount > 0 || parent.hasUnreadMention else { return nil }
+                return .discussionParent(
+                    UnreadDiscussionParentWidgetData(id: parent.id, spaceId: spaceId, output: output),
+                    lastMessageDate: parent.lastMessageDate
+                )
+            }
+
+            let merged = (chatItems + parentItems).sorted { $0.sortDate > $1.sortDate }
+            guard unreadItems != merged else { continue }
+            unreadItems = merged
         }
     }
 }

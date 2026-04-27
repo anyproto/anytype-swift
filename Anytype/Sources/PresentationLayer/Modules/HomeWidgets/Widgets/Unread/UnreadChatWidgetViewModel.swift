@@ -30,8 +30,7 @@ final class UnreadChatWidgetViewModel {
     var muted: Bool { notificationMode != .all }
 
     var shouldShowUnreadCounter: Bool {
-        guard FeatureFlags.muteAndHide else { return unreadCounter > 0 }
-        return unreadCounter > 0 && notificationMode != .nothing
+        notificationMode.shouldShowUnreadCounter(unreadCount: unreadCounter)
     }
 
     init(data: UnreadChatWidgetData) {

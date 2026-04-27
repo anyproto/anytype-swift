@@ -24,13 +24,13 @@ struct HomeWidgetView: View {
                     rightAccessory: {
                         HStack(spacing: 4) {
                             if model.hasUnreadReactions {
-                                HeartBadge(style: model.muted ? .muted : .highlighted)
+                                HeartBadge(style: model.notificationMode.reactionCounterStyle)
                             }
                             if model.hasMentions {
-                                MentionBadge(style: model.muted ? .muted : .highlighted)
+                                MentionBadge(style: model.notificationMode.mentionCounterStyle)
                             }
-                            if model.messageCount > 0 {
-                                CounterView(count: model.messageCount, style: model.muted ? .muted : .highlighted)
+                            if model.shouldShowUnreadCounter {
+                                CounterView(count: model.messageCount, style: model.notificationMode.unreadCounterStyle)
                             }
                             Image(asset: .CustomIcons.home)
                                 .resizable()

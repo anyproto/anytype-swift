@@ -1,6 +1,8 @@
 import Testing
 import Foundation
 @testable import Anytype
+import Services
+import SwiftProtobuf
 
 struct SpaceCardUnreadEntriesTests {
 
@@ -93,11 +95,16 @@ struct SpaceCardUnreadEntriesTests {
     // MARK: - Fixtures
 
     private func makeParent(name: String, date: Date?) -> DiscussionUnreadParent {
-        DiscussionUnreadParent(
-            id: name,
-            name: name,
+        var values: [String: Google_Protobuf_Value] = [:]
+        if name.isNotEmpty {
+            values[BundledPropertyKey.name.rawValue] = name.protobufValue
+        }
+        return DiscussionUnreadParent(
+            details: ObjectDetails(id: name, values: values),
             lastMessageDate: date,
-            hasUnreadMention: false
+            unreadMessageCount: 0,
+            unreadMentionCount: 0,
+            isSubscribed: true
         )
     }
 }
