@@ -70,21 +70,10 @@ struct ObjectsWithUnreadDiscussionsSubscriptionBuilderTests {
 
     // MARK: - Keys
 
-    @Test func build_includesAllConsumerKeys() {
+    @Test func build_usesDiscussionParentKeys() {
         let crossSearch = unwrap(builder.build())
         let keys = Set(crossSearch?.keys ?? [])
-        let expected: Set<String> = [
-            BundledPropertyKey.id.rawValue,
-            BundledPropertyKey.spaceId.rawValue,
-            BundledPropertyKey.resolvedLayout.rawValue,
-            BundledPropertyKey.name.rawValue,
-            BundledPropertyKey.snippet.rawValue,
-            BundledPropertyKey.discussionId.rawValue,
-            BundledPropertyKey.lastMessageDate.rawValue,
-            BundledPropertyKey.notificationSubscribers.rawValue,
-            BundledPropertyKey.unreadMessageCount.rawValue,
-            BundledPropertyKey.unreadMentionCount.rawValue
-        ]
+        let expected = Set(BundledPropertyKey.discussionParentKeys.map(\.rawValue))
         #expect(keys == expected)
     }
 

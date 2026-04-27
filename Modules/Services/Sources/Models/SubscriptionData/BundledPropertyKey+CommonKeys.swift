@@ -54,8 +54,30 @@ public extension BundledPropertyKey {
         }.uniqued()
     }
     
+    /// Keys consumed by ObjectsWithUnreadDiscussions* (parent objects + their child discussion).
+    /// Editor layouts only — no file mime / ext keys.
+    static var discussionParentKeys: [BundledPropertyKey] {
+        return .builder {
+            BundledPropertyKey.id
+            BundledPropertyKey.spaceId
+            BundledPropertyKey.resolvedLayout
+            BundledPropertyKey.name
+            BundledPropertyKey.pluralName
+            BundledPropertyKey.snippet
+            BundledPropertyKey.iconImage
+            BundledPropertyKey.iconEmoji
+            BundledPropertyKey.iconName
+            BundledPropertyKey.iconOption
+            BundledPropertyKey.discussionId
+            BundledPropertyKey.lastMessageDate
+            BundledPropertyKey.notificationSubscribers
+            BundledPropertyKey.unreadMessageCount
+            BundledPropertyKey.unreadMentionCount
+        }.uniqued()
+    }
+
     // Keys for object list screens
-    
+
     static var objectListKeys: [BundledPropertyKey] {
         return .builder {
             BundledPropertyKey.id
