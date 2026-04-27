@@ -246,10 +246,12 @@ final class HomeBottomNavigationPanelViewModel {
             return
         }
         let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
-        let discussionId = document.details?.discussionId
+        let details = document.details
+        let discussionId = details?.discussionId
         let hasDiscussion = discussionId?.isNotEmpty == true
-        showDiscussButton = FeatureFlags.discussionButton && (canCreateObject || hasDiscussion)
-        discussButtonHasUnread = showDiscussButton && (document.details?.unreadMessageCount ?? 0) > 0
+        let layoutSupportsDiscussion = details?.isSupportedForDiscussion ?? false
+        showDiscussButton = FeatureFlags.discussionButton && layoutSupportsDiscussion && (canCreateObject || hasDiscussion)
+        discussButtonHasUnread = showDiscussButton && (details?.unreadMessageCount ?? 0) > 0
 
         guard hasDiscussion, let discussionId else {
             clearDiscussionObservation()

@@ -1,11 +1,11 @@
 import Foundation
 import SwiftUI
-import Services
 
 struct MyFavoritesListView: View {
-    let model: MyFavoritesViewModel
+    let model: MyFavoritesListViewModel
 
     @State private var favoritesDndState = DragState()
+    @State private var rowWidths: [String: CGFloat] = [:]
 
     var body: some View {
         VStack(spacing: 0) {
@@ -13,13 +13,25 @@ struct MyFavoritesListView: View {
                 MyFavoritesRowView(
                     row: row,
                     showDivider: index != model.rows.count - 1,
+                    spaceId: model.spaceId,
                     channelWidgetsObject: model.channelWidgetsObject,
                     personalWidgetsObject: model.personalWidgetsObject,
-                    canManageChannelPins: model.canManageChannelPins,
-                    isPinnedToChannel: model.pinnedToChannelObjectIds.contains(row.objectId)
+                    onObjectSelected: model.onObjectSelected
                 )
                 .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 24, style: .continuous))
-                .anytypeVerticalDrag(itemId: row.id)
+                .readFrame { frame in
+                    guard rowWidths[row.id] != frame.width else { return }
+                    rowWidths[row.id] = frame.width
+                }
+                .anytypeVerticalDrag(itemId: row.id) {
+                    // Keep the drag preview detached from the live row subtree. The live row owns
+                    // subscriptions/context menu state, and iOS 26 can crash while rebuilding it
+                    // for the cancel preview when the gesture is released near screen edges.
+                    MyFavoritesDragPreviewView(
+                        row: row,
+                        width: rowWidths[row.id] ?? (UIScreen.main.bounds.width - 40)
+                    )
+                }
                 .setZeroOpacity(favoritesDndState.dragInitiateId == row.id && favoritesDndState.dragInProgress)
             }
         }
@@ -30,5 +42,27 @@ struct MyFavoritesListView: View {
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
         }
+    }
+}
+
+private struct MyFavoritesDragPreviewView: View {
+    let row: MyFavoritesRowData
+    let width: CGFloat
+
+    var body: some View {
+        HStack(spacing: 12) {
+            IconView(icon: row.details.objectIconImage)
+                .frame(width: 20, height: 20)
+
+            AnytypeText(row.details.pluralTitle, style: .bodySemibold)
+                .foregroundStyle(Color.Text.primary)
+                .lineLimit(1)
+
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .frame(width: width, height: 48)
+        .background(Color.Background.widget)
+        .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
     }
 }

@@ -135,6 +135,8 @@ extension BundledPropertiesValueProvider {
     
     var isSupportedForOpening: Bool { resolvedLayoutValue.isSupportedForOpening }
 
+    var isSupportedForDiscussion: Bool { resolvedLayoutValue.isSupportedForDiscussion }
+
     @available(*, deprecated, message: "Use spaceType overload instead")
     func isVisibleLayout(spaceUxType: SpaceUxType?) -> Bool {
         DetailsLayout.visibleLayouts(spaceUxType: spaceUxType).contains(resolvedLayoutValue)
