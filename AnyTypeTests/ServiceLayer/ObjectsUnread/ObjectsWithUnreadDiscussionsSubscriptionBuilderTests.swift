@@ -31,18 +31,30 @@ struct ObjectsWithUnreadDiscussionsSubscriptionBuilderTests {
         #expect(filters[0].nestedFilters.count == 2)
     }
 
-    @Test func build_parentBranch_filtersByLayoutsAndCounters() {
+    @Test func build_parentBranch_filtersByLayoutsArchiveStateAndCounters() {
         let crossSearch = unwrap(builder.build())
         let parentBranch = crossSearch?.filters[0].nestedFilters[0]
 
         #expect(parentBranch?.operator == .and)
-        #expect(parentBranch?.nestedFilters.count == 2)
+        #expect(parentBranch?.nestedFilters.count == 5)
 
         let layoutFilter = parentBranch?.nestedFilters[0]
         #expect(layoutFilter?.relationKey == BundledPropertyKey.resolvedLayout.rawValue)
         #expect(layoutFilter?.condition == .in)
 
-        let countersFilter = parentBranch?.nestedFilters[1]
+        let isArchivedFilter = parentBranch?.nestedFilters[1]
+        #expect(isArchivedFilter?.relationKey == BundledPropertyKey.isArchived.rawValue)
+        #expect(isArchivedFilter?.condition == .notEqual)
+
+        let isDeletedFilter = parentBranch?.nestedFilters[2]
+        #expect(isDeletedFilter?.relationKey == BundledPropertyKey.isDeleted.rawValue)
+        #expect(isDeletedFilter?.condition == .notEqual)
+
+        let isHiddenFilter = parentBranch?.nestedFilters[3]
+        #expect(isHiddenFilter?.relationKey == BundledPropertyKey.isHidden.rawValue)
+        #expect(isHiddenFilter?.condition == .notEqual)
+
+        let countersFilter = parentBranch?.nestedFilters[4]
         #expect(countersFilter?.operator == .or)
         #expect(countersFilter?.nestedFilters.count == 2)
         #expect(countersFilter?.nestedFilters[0].relationKey == BundledPropertyKey.unreadMessageCount.rawValue)
