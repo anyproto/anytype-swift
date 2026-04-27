@@ -37,13 +37,16 @@ struct MyFavoritesRowInternalView: View {
                     .frame(width: 20, height: 20)
 
                 AnytypeText(rowModel.title, style: .bodySemibold)
-                    .foregroundStyle(Color.Text.primary)
+                    .foregroundStyle(rowModel.titleColor)
                     .lineLimit(1)
 
                 Spacer()
 
                 if let chatPreview = rowModel.badgeModel, chatPreview.hasVisibleCounters {
                     chatBadges(chatPreview: chatPreview)
+                        .opacity(shouldHideChatBadges ? 0 : 1)
+                } else if let parentBadge = rowModel.parentBadge, parentBadge.hasVisibleCounters {
+                    parentBadges(badge: parentBadge)
                         .opacity(shouldHideChatBadges ? 0 : 1)
                 }
             }
@@ -78,6 +81,21 @@ struct MyFavoritesRowInternalView: View {
                 CounterView(
                     count: chatPreview.unreadCounter,
                     style: chatPreview.unreadCounterStyle
+                )
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func parentBadges(badge: ParentObjectUnreadBadge) -> some View {
+        HStack(spacing: 4) {
+            if badge.hasMentions {
+                MentionBadge(style: badge.notificationMode.mentionCounterStyle)
+            }
+            if badge.shouldShowUnreadCounter {
+                CounterView(
+                    count: badge.unreadMessageCount,
+                    style: badge.notificationMode.unreadCounterStyle
                 )
             }
         }

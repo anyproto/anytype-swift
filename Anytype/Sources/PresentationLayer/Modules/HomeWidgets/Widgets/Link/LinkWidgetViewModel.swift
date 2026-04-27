@@ -26,6 +26,12 @@ final class LinkWidgetViewModel {
     @ObservationIgnored
     @Injected(\.widgetChatPreviewBuilder)
     private var chatPreviewBuilder: any WidgetChatPreviewBuilderProtocol
+    @ObservationIgnored
+    @Injected(\.objectsWithUnreadDiscussionsSubscription)
+    private var unreadDiscussionsSubscription: any ObjectsWithUnreadDiscussionsSubscriptionProtocol
+    @ObservationIgnored
+    @Injected(\.parentObjectUnreadBadgeBuilder)
+    private var parentBadgeBuilder: any ParentObjectUnreadBadgeBuilderProtocol
 
     // MARK: - State
 
@@ -33,10 +39,13 @@ final class LinkWidgetViewModel {
     private var linkedObjectDetails: ObjectDetails?
     @ObservationIgnored
     private var chatPreviews: [ChatMessagePreview] = []
+    @ObservationIgnored
+    private var unreadParentsBySpace: [String: [DiscussionUnreadParent]] = [:]
 
     private(set) var name = ""
     private(set) var icon: Icon?
     private(set) var badgeModel: MessagePreviewModel?
+    private(set) var parentBadge: ParentObjectUnreadBadge?
     var dragId: String? { widgetBlockId }
 
     init(data: WidgetSubmoduleData) {
@@ -58,36 +67,50 @@ final class LinkWidgetViewModel {
     func startSubscriptions() async {
         async let detailsSub: () = startDetailsSubscriptions()
         async let chatPreviewsSub: () = startChatPreviewsSubscription()
+        async let unreadDiscussionsSub: () = startUnreadDiscussionsSubscription()
 
-        _ = await (detailsSub, chatPreviewsSub)
+        _ = await (detailsSub, chatPreviewsSub, unreadDiscussionsSub)
     }
 
     // MARK: - Private
-    
+
     private func startDetailsSubscriptions() async {
         for await details in widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId).values {
             linkedObjectDetails = details
             name = details.pluralTitle
             icon = details.objectIconImage
-            updateBadgeModel()
+            updateBadges()
         }
     }
 
     private func startChatPreviewsSubscription() async {
         for await previews in await chatMessagesPreviewsStorage.previewsSequence {
             chatPreviews = previews
-            updateBadgeModel()
+            updateBadges()
         }
     }
 
-    private func updateBadgeModel() {
+    private func startUnreadDiscussionsSubscription() async {
+        for await unreadBySpace in await unreadDiscussionsSubscription.unreadBySpaceSequence {
+            unreadParentsBySpace = unreadBySpace.mapValues { $0.parents }
+            updateBadges()
+        }
+    }
+
+    private func updateBadges() {
         guard let linkedObjectDetails else {
             badgeModel = nil
+            parentBadge = nil
             return
         }
         let spaceView = spaceViewsStorage.spaceView(spaceId: linkedObjectDetails.spaceId)
+
         badgeModel = chatPreviews.first(where: { $0.chatId == linkedObjectDetails.id }).flatMap {
             chatPreviewBuilder.build(chatPreview: $0, spaceView: spaceView)
         }
+
+        let parent = unreadParentsBySpace[linkedObjectDetails.spaceId]?
+            .first(where: { $0.id == linkedObjectDetails.id })
+        parentBadge = parent.map { parentBadgeBuilder.build(parent: $0, spaceView: spaceView) }
     }
 }

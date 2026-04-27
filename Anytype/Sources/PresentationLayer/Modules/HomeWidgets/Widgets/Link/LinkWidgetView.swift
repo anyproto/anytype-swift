@@ -32,6 +32,7 @@ struct LinkWidgetInternalView: View {
             name: model.name,
             icon: model.icon,
             badgeModel: model.badgeModel,
+            parentBadge: model.parentBadge,
             dragId: model.dragId,
             onCreateObjectTap: nil,
             onHeaderTap: {

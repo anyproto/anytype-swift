@@ -29,7 +29,7 @@ struct HomeWidgetView: View {
                             if model.hasMentions {
                                 MentionBadge(style: model.muted ? .muted : .highlighted)
                             }
-                            if model.messageCount > 0 {
+                            if model.shouldShowUnreadCounter {
                                 CounterView(count: model.messageCount, style: model.muted ? .muted : .highlighted)
                             }
                             Image(asset: .CustomIcons.home)

@@ -10,6 +10,8 @@ final class HomeWidgetViewModel {
     private var workspaceStorage: any SpaceViewsStorageProtocol
     @ObservationIgnored @Injected(\.chatMessagesPreviewsStorage)
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
+    @ObservationIgnored @Injected(\.objectsWithUnreadDiscussionsSubscription)
+    private var unreadDiscussionsSubscription: any ObjectsWithUnreadDiscussionsSubscriptionProtocol
     private let data: HomepageWidgetViewData
 
     var title: String = ""
@@ -18,6 +20,17 @@ final class HomeWidgetViewModel {
     var hasUnreadReactions: Bool = false
     var messageCount: Int = 0
     var muted = false
+
+    @ObservationIgnored
+    private var notificationMode: SpacePushNotificationsMode = .all
+
+    /// Hidden in `.nothing` mode when muteAndHide is on. Mirrors the chat row rule.
+    /// Mention-only (unsubscribed) parents already set messageCount to 0 upstream, so they never reach the counter.
+    var shouldShowUnreadCounter: Bool {
+        guard messageCount > 0 else { return false }
+        guard FeatureFlags.muteAndHide else { return true }
+        return notificationMode != .nothing
+    }
 
     var canSetHomepage: Bool { data.canSetHomepage }
 
@@ -49,7 +62,7 @@ final class HomeWidgetViewModel {
 
     func startSubscriptions() async {
         async let detailsSub: () = startDetailsSubscription()
-        async let countersSub: () = startChatCountersSubscription()
+        async let countersSub: () = startCountersSubscription()
         _ = await (detailsSub, countersSub)
     }
 
@@ -65,26 +78,39 @@ final class HomeWidgetViewModel {
         }
     }
 
-    private func startChatCountersSubscription() async {
+    private func startCountersSubscription() async {
         let spaceId = data.spaceId
         let objectId = data.objectId
         let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
+        notificationMode = spaceView?.pushNotificationMode ?? .all
         muted = !(spaceView?.pushNotificationMode.isUnmutedAll ?? true)
 
-        // Counters only apply when the homepage object is the space chat.
         let chatId = spaceView?.chatId
         isChatObject = chatId == objectId
-        guard isChatObject else { return }
 
-        let sequence = (await chatMessagesPreviewsStorage.previewsSequence)
-            .compactMap { $0.first { $0.spaceId == spaceId && $0.chatId == chatId } }
-            .removeDuplicates()
-            .throttle(milliseconds: 300)
+        if isChatObject, let chatId {
+            let sequence = (await chatMessagesPreviewsStorage.previewsSequence)
+                .compactMap { $0.first { $0.spaceId == spaceId && $0.chatId == chatId } }
+                .removeDuplicates()
+                .throttle(milliseconds: 300)
 
-        for await counters in sequence {
-            messageCount = counters.unreadCounter
-            hasMentions = counters.mentionCounter > 0
-            hasUnreadReactions = counters.hasUnreadReactions
+            for await counters in sequence {
+                messageCount = counters.unreadCounter
+                hasMentions = counters.mentionCounter > 0
+                hasUnreadReactions = counters.hasUnreadReactions
+            }
+        } else {
+            for await unreadBySpace in await unreadDiscussionsSubscription.unreadBySpaceSequence {
+                guard let parent = unreadBySpace[spaceId]?.parents.first(where: { $0.id == objectId }) else {
+                    messageCount = 0
+                    hasMentions = false
+                    hasUnreadReactions = false
+                    continue
+                }
+                messageCount = parent.isSubscribed ? parent.unreadMessageCount : 0
+                hasMentions = parent.unreadMentionCount > 0
+                hasUnreadReactions = false
+            }
         }
     }
 }
