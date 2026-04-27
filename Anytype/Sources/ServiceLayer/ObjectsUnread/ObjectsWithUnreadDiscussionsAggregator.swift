@@ -4,7 +4,6 @@ import Services
 enum ObjectsWithUnreadDiscussionsAggregator {
 
     static func aggregate(items: [ObjectDetails], myParticipantIds: Set<String>) -> [String: SpaceDiscussionsUnreadInfo] {
-        let parentLayouts: Set<DetailsLayout> = Set(DetailsLayout.editorLayouts + DetailsLayout.listLayouts)
         var discussionsById = [String: ObjectDetails]()
         for item in items where item.resolvedLayoutValue == .discussion {
             discussionsById[item.id] = item
@@ -13,7 +12,7 @@ enum ObjectsWithUnreadDiscussionsAggregator {
         var countsBySpace = [String: (messages: Int, mentions: Int)]()
         var parentsBySpace = [String: [DiscussionUnreadParent]]()
 
-        for parent in items where parentLayouts.contains(parent.resolvedLayoutValue) {
+        for parent in items where parent.isSupportedForDiscussion {
             let mentionCount = parent.unreadMentionCount ?? 0
             let discussion = discussionsById[parent.discussionId]
             let isSubscribed = discussion?.notificationSubscribers.contains(where: myParticipantIds.contains) ?? false
