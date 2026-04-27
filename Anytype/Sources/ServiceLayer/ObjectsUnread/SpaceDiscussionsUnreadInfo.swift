@@ -33,6 +33,6 @@ struct DiscussionUnreadParent: Hashable, Sendable {
 
     var id: String { details.id }
     var spaceId: String { details.spaceId }
-    var name: String { details.objectName }
+    var name: String { details.pluralTitle }
     var hasUnreadMention: Bool { unreadMentionCount > 0 }
 }

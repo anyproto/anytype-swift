@@ -52,7 +52,7 @@ final class SetObjectWidgetInternalViewModel {
     @ObservationIgnored
     private var chatPreviews: [ChatMessagePreview] = []
     @ObservationIgnored
-    private var unreadParentsBySpace: [String: [DiscussionUnreadParent]] = [:]
+    private var unreadDiscussionsBySpace: [String: SpaceDiscussionsUnreadInfo] = [:]
     
     var dragId: String? { widgetBlockId }
     
@@ -149,7 +149,7 @@ final class SetObjectWidgetInternalViewModel {
 
     private func startUnreadDiscussionsSequence() async {
         for await unreadBySpace in await unreadDiscussionsSubscription.unreadBySpaceSequence {
-            unreadParentsBySpace = unreadBySpace.mapValues { $0.parents }
+            unreadDiscussionsBySpace = unreadBySpace
             await updateBodyState()
         }
     }
@@ -193,7 +193,7 @@ final class SetObjectWidgetInternalViewModel {
             from: configs,
             spaceView: spaceView,
             chatPreviews: chatPreviews,
-            unreadParents: unreadParentsBySpace[setDocument.spaceId] ?? []
+            unreadParents: unreadDiscussionsBySpace[setDocument.spaceId]?.parents ?? []
         )
     }
     

@@ -40,7 +40,7 @@ final class LinkWidgetViewModel {
     @ObservationIgnored
     private var chatPreviews: [ChatMessagePreview] = []
     @ObservationIgnored
-    private var unreadParentsBySpace: [String: [DiscussionUnreadParent]] = [:]
+    private var unreadDiscussionsBySpace: [String: SpaceDiscussionsUnreadInfo] = [:]
 
     private(set) var name = ""
     private(set) var icon: Icon?
@@ -92,7 +92,7 @@ final class LinkWidgetViewModel {
 
     private func startUnreadDiscussionsSubscription() async {
         for await unreadBySpace in await unreadDiscussionsSubscription.unreadBySpaceSequence {
-            unreadParentsBySpace = unreadBySpace.mapValues { $0.parents }
+            unreadDiscussionsBySpace = unreadBySpace
             updateBadges()
         }
     }
@@ -109,8 +109,8 @@ final class LinkWidgetViewModel {
             chatPreviewBuilder.build(chatPreview: $0, spaceView: spaceView)
         }
 
-        let parent = unreadParentsBySpace[linkedObjectDetails.spaceId]?
-            .first(where: { $0.id == linkedObjectDetails.id })
+        let parent = unreadDiscussionsBySpace[linkedObjectDetails.spaceId]?
+            .parents.first(where: { $0.id == linkedObjectDetails.id })
         parentBadge = parent.map { parentBadgeBuilder.build(parent: $0, spaceView: spaceView) }
     }
 }
