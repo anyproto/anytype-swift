@@ -359,7 +359,8 @@ final class HomeWidgetsViewModel {
                 )
             }
 
-            let parentItems: [UnreadSectionItem] = (unreadBySpace[spaceId]?.parents ?? []).compactMap { parent in
+            let parentSource = FeatureFlags.discussionButton ? (unreadBySpace[spaceId]?.parents ?? []) : []
+            let parentItems: [UnreadSectionItem] = parentSource.compactMap { parent in
                 if FeatureFlags.muteAndHide && currentSpaceView.pushNotificationMode == .nothing {
                     guard parent.hasUnreadMention else { return nil }
                 }
