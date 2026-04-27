@@ -24,29 +24,36 @@ actor AppIconBadgeService: AppIconBadgeServiceProtocol {
     private var chatDetailsStorage: any ChatDetailsStorageProtocol
     @Injected(\.badgeCountStorage)
     private var badgeCountStorage: any BadgeCountStorageProtocol
+    @Injected(\.objectsWithUnreadDiscussionsSubscription)
+    private var objectsWithUnreadDiscussionsSubscription: any ObjectsWithUnreadDiscussionsSubscriptionProtocol
 
     private var updateTask: Task<Void, Never>?
 
     func startUpdating() async {
         updateTask?.cancel()
 
-        // Compute badge immediately from current values
-        let currentPreviews = await chatMessagesPreviewsStorage.previews()
-        let currentSpaceViews = spaceViewsStorage.allSpaceViews
-        let currentChatDetails = await chatDetailsStorage.allChats()
-        await updateBadge(previews: currentPreviews, spaceViews: currentSpaceViews, chatDetails: currentChatDetails)
-
-        // Subscribe to ongoing updates
-        let stream = combineLatest(
+        // The discussion subscription primes its sequence with `[:]` and the chat / space-view streams
+        // also prime, so the first combineLatest tick fires immediately with current values.
+        let baseTriple = combineLatest(
             await chatMessagesPreviewsStorage.previewsSequenceWithEmpty,
             spaceViewsStorage.allSpaceViewsPublisher.values,
             await chatDetailsStorage.allChatsSequence
+        )
+        let stream = combineLatest(
+            baseTriple,
+            await objectsWithUnreadDiscussionsSubscription.unreadBySpaceSequence
         ).throttle(milliseconds: 300)
 
         updateTask = Task {
-            for await (previews, spaceViews, chatDetails) in stream {
+            for await (triple, discussionsBySpace) in stream {
                 guard !Task.isCancelled else { return }
-                await self.updateBadge(previews: previews, spaceViews: spaceViews, chatDetails: chatDetails)
+                let (previews, spaceViews, chatDetails) = triple
+                await self.updateBadge(
+                    previews: previews,
+                    spaceViews: spaceViews,
+                    chatDetails: chatDetails,
+                    discussionsBySpace: discussionsBySpace
+                )
             }
         }
     }
@@ -63,35 +70,16 @@ actor AppIconBadgeService: AppIconBadgeServiceProtocol {
     private func updateBadge(
         previews: [ChatMessagePreview],
         spaceViews: [SpaceView],
-        chatDetails: [ObjectDetails]
+        chatDetails: [ObjectDetails],
+        discussionsBySpace: [String: SpaceDiscussionsUnreadInfo]
     ) async {
-        var total = 0
-
-        for preview in previews {
-            guard let chatDetail = chatDetails.first(where: { $0.id == preview.chatId }),
-                  !chatDetail.isArchivedOrDeleted else {
-                continue
-            }
-
-            guard let spaceView = spaceViews.first(where: { $0.targetSpaceId == preview.spaceId }),
-                  spaceView.isActive else {
-                continue
-            }
-
-            let mode = spaceView.effectiveNotificationMode(for: preview.chatId)
-
-            switch mode {
-            case .all:
-                total += preview.unreadCounter
-            case .mentions:
-                if spaceView.uxType.supportsMentions {
-                    total += preview.mentionCounter
-                }
-            case .nothing, .UNRECOGNIZED:
-                break
-            }
-        }
-
+        let total = BadgeTotalCalculator.compute(
+            previews: previews,
+            spaceViews: spaceViews,
+            chatDetails: chatDetails,
+            discussionsBySpace: discussionsBySpace
+        )
+        guard total != badgeCountStorage.badgeCount else { return }
         badgeCountStorage.badgeCount = total
         try? await UNUserNotificationCenter.current().setBadgeCount(total)
     }

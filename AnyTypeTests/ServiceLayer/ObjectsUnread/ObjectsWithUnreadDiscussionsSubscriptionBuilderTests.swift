@@ -54,13 +54,10 @@ struct ObjectsWithUnreadDiscussionsSubscriptionBuilderTests {
         #expect(isHiddenFilter?.relationKey == BundledPropertyKey.isHidden.rawValue)
         #expect(isHiddenFilter?.condition == .notEqual)
 
-        let countersFilter = parentBranch?.nestedFilters[4]
-        #expect(countersFilter?.operator == .or)
-        #expect(countersFilter?.nestedFilters.count == 2)
-        #expect(countersFilter?.nestedFilters[0].relationKey == BundledPropertyKey.unreadMessageCount.rawValue)
-        #expect(countersFilter?.nestedFilters[0].condition == .greater)
-        #expect(countersFilter?.nestedFilters[1].relationKey == BundledPropertyKey.unreadMentionCount.rawValue)
-        #expect(countersFilter?.nestedFilters[1].condition == .greater)
+        // Mentions are always also messages, so a single message-count > 0 filter covers both.
+        let messageCountFilter = parentBranch?.nestedFilters[4]
+        #expect(messageCountFilter?.relationKey == BundledPropertyKey.unreadMessageCount.rawValue)
+        #expect(messageCountFilter?.condition == .greater)
     }
 
     @Test func build_discussionBranch_isPlainLayoutFilter() {
