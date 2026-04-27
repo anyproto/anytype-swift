@@ -1,6 +1,5 @@
 import Foundation
 import Services
-import AnytypeCore
 
 @MainActor
 @Observable
@@ -18,36 +17,29 @@ final class UnreadDiscussionParentWidgetViewModel {
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
     @ObservationIgnored
-    private var details: ObjectDetails?
+    @Injected(\.parentObjectUnreadBadgeBuilder)
+    private var badgeBuilder: any ParentObjectUnreadBadgeBuilderProtocol
+
+    @ObservationIgnored
+    private var parent: DiscussionUnreadParent?
 
     private(set) var name: String = ""
     private(set) var icon: Icon?
-    private(set) var unreadCounter: Int = 0
-    private(set) var hasMentions: Bool = false
-    private(set) var isSubscribed: Bool = false
-    private(set) var notificationMode: SpacePushNotificationsMode = .all
+    private(set) var badge: ParentObjectUnreadBadge?
 
-    var muted: Bool { notificationMode != .all }
-
-    /// Mention-only (unsubscribed) parents never show the counter pill regardless of muteAndHide.
-    /// Subscribed parents follow the chat rule: hidden in `.nothing` mode when muteAndHide is on.
-    var shouldShowUnreadCounter: Bool {
-        guard isSubscribed, unreadCounter > 0 else { return false }
-        guard FeatureFlags.muteAndHide else { return true }
-        return notificationMode != .nothing
-    }
+    var notificationMode: SpacePushNotificationsMode { badge?.notificationMode ?? .all }
 
     init(data: UnreadDiscussionParentWidgetData) {
         self.data = data
     }
 
     func onHeaderTap() {
-        guard let details else { return }
+        guard let parent else { return }
         AnytypeAnalytics.instance().logClickWidgetTitle(
-            source: .object(type: details.analyticsType),
+            source: .object(type: parent.details.analyticsType),
             createType: .manual
         )
-        data.output?.onObjectSelected(screenData: details.screenData())
+        data.output?.onObjectSelected(screenData: parent.details.screenData())
     }
 
     func startSubscriptions() async {
@@ -58,21 +50,30 @@ final class UnreadDiscussionParentWidgetViewModel {
 
     private func startUnreadSubscription() async {
         for await unreadBySpace in await unreadDiscussionsSubscription.unreadBySpaceSequence {
-            guard let parent = unreadBySpace[data.spaceId]?.parents.first(where: { $0.id == data.id }) else {
-                continue
-            }
-            details = parent.details
-            name = parent.name
-            icon = parent.details.objectIconImage
-            unreadCounter = parent.unreadMessageCount
-            hasMentions = parent.unreadMentionCount > 0
-            isSubscribed = parent.isSubscribed
+            let next = unreadBySpace[data.spaceId]?.parents.first(where: { $0.id == data.id })
+            guard parent != next else { continue }
+            parent = next
+            updateRowState()
         }
     }
 
     private func startSpaceViewSubscription() async {
-        for await spaceView in spaceViewsStorage.spaceViewPublisher(spaceId: data.spaceId).values {
-            notificationMode = spaceView.pushNotificationMode
+        for await _ in spaceViewsStorage.spaceViewPublisher(spaceId: data.spaceId).removeDuplicates().values {
+            updateRowState()
+        }
+    }
+
+    private func updateRowState() {
+        guard let parent else {
+            badge = nil
+            return
+        }
+        name = parent.name
+        icon = parent.details.objectIconImage
+        let spaceView = spaceViewsStorage.spaceView(spaceId: data.spaceId)
+        let next = badgeBuilder.build(parent: parent, spaceView: spaceView)
+        if badge != next {
+            badge = next
         }
     }
 }

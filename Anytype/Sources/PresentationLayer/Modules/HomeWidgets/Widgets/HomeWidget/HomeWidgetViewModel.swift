@@ -19,17 +19,12 @@ final class HomeWidgetViewModel {
     var hasMentions: Bool = false
     var hasUnreadReactions: Bool = false
     var messageCount: Int = 0
-    var muted = false
+    var notificationMode: SpacePushNotificationsMode = .all
 
-    @ObservationIgnored
-    private var notificationMode: SpacePushNotificationsMode = .all
+    var muted: Bool { !notificationMode.isUnmutedAll }
 
-    /// Hidden in `.nothing` mode when muteAndHide is on. Mirrors the chat row rule.
-    /// Mention-only (unsubscribed) parents already set messageCount to 0 upstream, so they never reach the counter.
     var shouldShowUnreadCounter: Bool {
-        guard messageCount > 0 else { return false }
-        guard FeatureFlags.muteAndHide else { return true }
-        return notificationMode != .nothing
+        notificationMode.shouldShowUnreadCounter(unreadCount: messageCount)
     }
 
     var canSetHomepage: Bool { data.canSetHomepage }
@@ -83,7 +78,6 @@ final class HomeWidgetViewModel {
         let objectId = data.objectId
         let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
         notificationMode = spaceView?.pushNotificationMode ?? .all
-        muted = !(spaceView?.pushNotificationMode.isUnmutedAll ?? true)
 
         let chatId = spaceView?.chatId
         isChatObject = chatId == objectId
@@ -101,15 +95,12 @@ final class HomeWidgetViewModel {
             }
         } else {
             for await unreadBySpace in await unreadDiscussionsSubscription.unreadBySpaceSequence {
-                guard let parent = unreadBySpace[spaceId]?.parents.first(where: { $0.id == objectId }) else {
-                    messageCount = 0
-                    hasMentions = false
-                    hasUnreadReactions = false
-                    continue
-                }
-                messageCount = parent.isSubscribed ? parent.unreadMessageCount : 0
-                hasMentions = parent.unreadMentionCount > 0
-                hasUnreadReactions = false
+                let parent = unreadBySpace[spaceId]?.parents.first(where: { $0.id == objectId })
+                let nextCount = parent.map { $0.isSubscribed ? $0.unreadMessageCount : 0 } ?? 0
+                let nextMentions = (parent?.unreadMentionCount ?? 0) > 0
+                guard messageCount != nextCount || hasMentions != nextMentions else { continue }
+                messageCount = nextCount
+                hasMentions = nextMentions
             }
         }
     }

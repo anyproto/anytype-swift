@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import AnytypeCore
 
 struct UnreadDiscussionParentRowView: View {
     let data: UnreadDiscussionParentWidgetData
@@ -28,13 +27,8 @@ struct UnreadDiscussionParentRowView: View {
 
                 Spacer()
 
-                HStack(spacing: 4) {
-                    if model.hasMentions {
-                        MentionBadge(style: model.notificationMode.mentionCounterStyle)
-                    }
-                    if model.shouldShowUnreadCounter {
-                        CounterView(count: model.unreadCounter, style: model.notificationMode.unreadCounterStyle)
-                    }
+                if let badge = model.badge {
+                    ParentBadgesView(badge: badge)
                 }
             }
             .padding(.horizontal, 16)

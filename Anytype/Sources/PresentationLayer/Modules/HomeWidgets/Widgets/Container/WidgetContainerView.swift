@@ -98,18 +98,8 @@ struct WidgetContainerView<Content: View>: View {
                                 }
                                 .opacity(shouldHideChatBadges ? 0 : 1)
                             } else if let parentBadge, parentBadge.hasVisibleCounters {
-                                HStack(spacing: 4) {
-                                    if parentBadge.hasMentions {
-                                        MentionBadge(style: parentBadge.notificationMode.mentionCounterStyle)
-                                    }
-                                    if parentBadge.shouldShowUnreadCounter {
-                                        CounterView(
-                                            count: parentBadge.unreadMessageCount,
-                                            style: parentBadge.notificationMode.unreadCounterStyle
-                                        )
-                                    }
-                                }
-                                .opacity(shouldHideChatBadges ? 0 : 1)
+                                ParentBadgesView(badge: parentBadge)
+                                    .opacity(shouldHideChatBadges ? 0 : 1)
                             }
                         },
                         onTap: {

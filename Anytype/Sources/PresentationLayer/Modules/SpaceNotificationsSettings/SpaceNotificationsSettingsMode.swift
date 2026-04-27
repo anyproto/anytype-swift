@@ -1,4 +1,5 @@
 import Services
+import AnytypeCore
 
 extension SpacePushNotificationsMode {
 
@@ -55,6 +56,14 @@ extension SpacePushNotificationsMode {
         case .nothing, .UNRECOGNIZED:
             return .muted
         }
+    }
+
+    /// Hidden in `.nothing` mode when `FeatureFlags.muteAndHide` is on.
+    /// Mention-only (unsubscribed) parents pass `isSubscribed: false` to drop the counter regardless of mode.
+    func shouldShowUnreadCounter(unreadCount: Int, isSubscribed: Bool = true) -> Bool {
+        guard isSubscribed, unreadCount > 0 else { return false }
+        guard FeatureFlags.muteAndHide else { return true }
+        return self != .nothing
     }
 
     var reactionCounterStyle: BadgeStyle {

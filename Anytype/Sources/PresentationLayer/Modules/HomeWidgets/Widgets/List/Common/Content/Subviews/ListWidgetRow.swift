@@ -65,18 +65,8 @@ struct ListWidgetRow: View {
 
                 Spacer()
 
-                HStack(spacing: 4) {
-                    if badge.hasMentions {
-                        MentionBadge(style: badge.notificationMode.mentionCounterStyle)
-                    }
-                    if badge.shouldShowUnreadCounter {
-                        CounterView(
-                            count: badge.unreadMessageCount,
-                            style: badge.notificationMode.unreadCounterStyle
-                        )
-                    }
-                }
-                .opacity(shouldHideChatBadges ? 0 : 1)
+                ParentBadgesView(badge: badge)
+                    .opacity(shouldHideChatBadges ? 0 : 1)
             }
             if let description = model.description, description.isNotEmpty {
                 Spacer.fixedHeight(1)
