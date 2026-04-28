@@ -105,7 +105,8 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                         model.discussButtonHasUnread ? Color.Control.accent100 : Color.Control.primary,
                         Color.Control.primary
                     )
-                    .frame(width: 22, height: 22)
+                    .font(.system(size: 20))
+                    .frame(width: 32, height: 32)
                 if hasCount {
                     AnytypeText("\(model.commentsCount)", style: .previewTitle2Medium)
                         .foregroundStyle(Color.Text.primary)
@@ -113,12 +114,12 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                         .transition(.opacity.combined(with: .scale(scale: 0.5, anchor: .leading)))
                 }
             }
-            .padding(.horizontal, 8)
-            .frame(minHeight: 48)
+            .padding(8)
         }
         .glassEffectInteractiveIOS26(in: Capsule())
         .animation(.snappy(duration: 0.35), value: hasCount)
         .animation(.snappy(duration: 0.25), value: model.commentsCount)
+        .animation(.snappy(duration: 0.25), value: model.discussButtonHasUnread)
     }
 
     @ViewBuilder
