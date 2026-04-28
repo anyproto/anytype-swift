@@ -54,7 +54,9 @@ extension ObjectAction {
         case let .archive(isArchived):
             return isArchived ? Loc.restore : Loc.delete
         case let .pin(isPinned):
-            return isPinned ? Loc.unpin : Loc.pin
+            return isPinned ? Loc.unpinFromChannel : Loc.pinToChannel
+        case let .favorite(isFavorited):
+            return isFavorited ? Loc.unfavorite : Loc.favorite
         case let .locked(isLocked):
             return isLocked ? Loc.unlock : Loc.lock
         case .duplicate:
@@ -82,8 +84,10 @@ extension ObjectAction {
             return .X32.undoRedo
         case let .archive(isArchived):
             return isArchived ? .X32.restore : .X32.delete
-        case let .pin(isPinned):
-            return isPinned ? .X32.Favorite.unfavorite : .X32.Favorite.favorite
+        case .pin, .favorite:
+            // TODO: swap for X32.pin / X32.star once design ships them. Runtime uses
+            // `menuIcon` (SF Symbols); this rail asset only appears in the preview.
+            return .X32.Favorite.favorite
         case let .locked(isLocked):
             return isLocked ? .X32.Lock.unlock : .X32.Lock.lock
         case .duplicate:
@@ -113,6 +117,10 @@ extension ObjectAction {
             return .system("pin")
         case .pin(true):
             return .system("pin.slash")
+        case .favorite(false):
+            return .system("star")
+        case .favorite(true):
+            return .system("star.fill")
         case .copyLink:
             return .system("link")
         case .archive(false):

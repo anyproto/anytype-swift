@@ -77,6 +77,24 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             } else {
                 navigationPath.push(data)
             }
+        },
+        replaceHome: { [weak self] spaceId, newData in
+            guard let self, FeatureFlags.fixChannelHomeBackNavigation else { return }
+            // Guard against a space switch that happened while the picker was awaiting setHomepage.
+            guard spaceId == currentSpaceId else { return }
+            guard !pathChanging, let current = navigationPath.currentHome else { return }
+            let isReplaceableHomeSlot =
+                current is HomeWidgetData ||
+                current is EditorScreenData ||
+                current is ChatCoordinatorData
+            guard isReplaceableHomeSlot else {
+                anytypeAssertionFailure(
+                    "replaceHome called with non-replaceable home slot",
+                    info: ["currentType": "\(type(of: current))"]
+                )
+                return
+            }
+            navigationPath.replaceHome(newData)
         }
     )
 
@@ -115,6 +133,10 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private var searchService: any SearchServiceProtocol
     @Injected(\.contactsService) @ObservationIgnored
     private var contactsService: any ContactsServiceProtocol
+    @Injected(\.pendingShareService) @ObservationIgnored
+    private var pendingShareService: any PendingShareServiceProtocol
+    @Injected(\.pendingShareStorage) @ObservationIgnored
+    private var pendingShareStorage: any PendingShareStorageProtocol
     @ObservationIgnored
     private var needSetup = true
     
@@ -151,7 +173,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         async let appActionsSub: () = startHandleAppActions()
         async let membershipSub: () = startHandleMembershipStatus()
         async let spaceInfoSub: () = startHandleSpaceInfo()
-        (_,_,_,_) = await (workspaceInfoSub, appActionsSub, membershipSub, spaceInfoSub)
+        async let shareRetrySub: () = startHandlePendingShareRetry()
+        (_,_,_,_,_) = await (workspaceInfoSub, appActionsSub, membershipSub, spaceInfoSub, shareRetrySub)
     }
     
     private func startHandleAppActions() async {
@@ -173,6 +196,33 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         for await spaces in participantSpacesStorage.activeParticipantSpacesPublisher.values {
             fallbackSpaceView = spaces.first?.spaceView
         }
+    }
+
+    private func startHandlePendingShareRetry() async {
+        guard FeatureFlags.fixChannelHomeBackNavigation else { return }
+        var innerTask: Task<Void, Never>?
+        for await info in activeSpaceManager.workspaceInfoStream {
+            innerTask?.cancel()
+            let spaceId = info?.accountSpaceId ?? ""
+            guard !spaceId.isEmpty,
+                  pendingShareStorage.pendingState(for: spaceId) != nil else {
+                innerTask = nil
+                continue
+            }
+            innerTask = Task { [weak self] in
+                guard let self else { return }
+                for await participantSpaceView in participantSpacesStorage
+                    .participantSpaceViewPublisher(spaceId: spaceId).values {
+                    guard !Task.isCancelled else { return }
+                    guard pendingShareStorage.pendingState(for: spaceId) != nil else { return }
+                    if participantSpaceView.spaceView.isActive {
+                        await pendingShareService.retryIfNeeded(spaceId: spaceId)
+                        if pendingShareStorage.pendingState(for: spaceId) == nil { return }
+                    }
+                }
+            }
+        }
+        innerTask?.cancel()
     }
     
     func startHandleMembershipStatus() async {

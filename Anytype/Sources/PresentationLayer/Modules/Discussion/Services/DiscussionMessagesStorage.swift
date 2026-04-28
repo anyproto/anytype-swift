@@ -20,6 +20,7 @@ protocol DiscussionMessagesStorageProtocol: AnyObject, Sendable {
     var updateStream: AnyAsyncSequence<[ChatUpdate]> { get }
     var fullMessages: [FullChatMessage]? { get async }
     var chatState: ChatState? { get async }
+    var messageCount: Int? { get async }
 }
 
 actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
@@ -62,6 +63,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     private var replies = [String: ChatMessage]()
     private(set) var fullMessages: [FullChatMessage]?
     private(set) var chatState: ChatState?
+    private(set) var messageCount: Int?
 
     private let syncStream = AsyncToManyStream<[ChatUpdate]>()
 
@@ -75,8 +77,11 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     }
 
     func updateVisibleRange(startMessageId: String, endMessageId: String) async {
-        let startMessageIndex = messages.index(messageId: startMessageId) ?? 0
-        let endMessageIndex = messages.index(messageId: endMessageId) ?? 0
+        // Bail on unresolved ids — defaulting to 0 would corrupt subscription anchors.
+        guard let startMessageIndex = messages.index(messageId: startMessageId),
+              let endMessageIndex = messages.index(messageId: endMessageId) else {
+            return
+        }
 
         let notFoundValue = Constants.subscriptionMessageIntervalForAttachments * -100
         let currentStartMessageIndex = subscriptionStartMessageId.map { messages.index(messageId: $0) ?? notFoundValue } ?? notFoundValue
@@ -108,6 +113,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
         let response = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, subId: subId, limit: Constants.pageSize)
 
         chatState = response.chatState
+        messageCount = Int(response.messageCount)
 
         lastMessages.add(response.messages)
 
@@ -287,6 +293,13 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
                 if messages.chatUpdateMessageSyncStatus(data) {
                     updates.insert(.messages)
                 }
+            case let .chatUpdateMessageCount(data):
+                guard data.subIds.contains(subId) else { break }
+                let newCount = Int(data.messageCount)
+                if messageCount != newCount {
+                    messageCount = newCount
+                    updates.insert(.messageCount)
+                }
             default:
                 break
             }
@@ -420,24 +433,32 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
 
         if chatState.messages.oldestOrderID.isNotEmpty,
             chatState.messages.oldestOrderID <= beforeOrderId {
-            try? await chatService.readMessages(
-                chatObjectId: chatObjectId,
-                afterOrderId: afterOrderId,
-                beforeOrderId: beforeOrderId,
-                type: .messages,
-                lastStateId: chatState.lastStateID
-            )
+            do {
+                try await chatService.readMessages(
+                    chatObjectId: chatObjectId,
+                    afterOrderId: afterOrderId,
+                    beforeOrderId: beforeOrderId,
+                    type: .messages,
+                    lastStateId: chatState.lastStateID
+                )
+            } catch {
+                anytypeAssertionFailure("Discussion mark-as-read failed (messages): \(error)")
+            }
         }
 
         if chatState.mentions.oldestOrderID.isNotEmpty,
            chatState.mentions.oldestOrderID <= beforeOrderId {
-            try? await chatService.readMessages(
-                chatObjectId: chatObjectId,
-                afterOrderId: afterOrderId,
-                beforeOrderId: beforeOrderId,
-                type: .mentions,
-                lastStateId: chatState.lastStateID
-            )
+            do {
+                try await chatService.readMessages(
+                    chatObjectId: chatObjectId,
+                    afterOrderId: afterOrderId,
+                    beforeOrderId: beforeOrderId,
+                    type: .mentions,
+                    lastStateId: chatState.lastStateID
+                )
+            } catch {
+                anytypeAssertionFailure("Discussion mark-as-read failed (mentions): \(error)")
+            }
         }
     }
 

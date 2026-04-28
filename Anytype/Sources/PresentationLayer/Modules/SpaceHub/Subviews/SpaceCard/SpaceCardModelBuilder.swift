@@ -1,3 +1,4 @@
+import Foundation
 import Services
 import AnytypeCore
 import Factory
@@ -63,11 +64,21 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             lastMessage = nil
         }
 
+        let unreadEntries: [SpaceCardUnreadEntries.Entry]
         let multichatCompactPreview: String?
         if !spaceView.isOneToOne {
-            multichatCompactPreview = await buildMultichatCompactPreview(unreadPreviews: spaceData.unreadPreviews)
+            unreadEntries = await buildUnreadEntries(
+                unreadPreviews: spaceData.unreadPreviews,
+                unreadDiscussionParents: spaceData.unreadDiscussionParents
+            )
+            multichatCompactPreview = SpaceCardUnreadEntries.formatCompactPreview(entries: unreadEntries)
         } else {
+            unreadEntries = []
             multichatCompactPreview = nil
+        }
+
+        let lastUnreadDateText = unreadEntries.first?.date.map {
+            chatPreviewDateFormatter.localizedDateString(for: $0, showTodayTime: true)
         }
 
         return SpaceCardModel(
@@ -95,28 +106,27 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             reactionStyle: spaceData.reactionStyle,
             hasCounters: spaceData.hasCounters,
             multichatCompactPreview: multichatCompactPreview,
+            lastUnreadDateText: lastUnreadDateText,
             wallpaper: wallpapers[spaceView.targetSpaceId] ?? .default
         )
     }
-    private func buildMultichatCompactPreview(unreadPreviews: [ChatMessagePreview]) async -> String? {
-        guard unreadPreviews.isNotEmpty else { return nil }
 
-        let maxVisible = 3
-        var names = [String]()
-        for preview in unreadPreviews.prefix(maxVisible) {
-            if let chatDetail = await chatDetailsStorage.chat(id: preview.chatId) {
-                names.append(chatDetail.name.withPlaceholder)
-            }
+    private func buildUnreadEntries(
+        unreadPreviews: [ChatMessagePreview],
+        unreadDiscussionParents: [DiscussionUnreadParent]
+    ) async -> [SpaceCardUnreadEntries.Entry] {
+        var chatEntries = [SpaceCardUnreadEntries.Entry]()
+        for preview in unreadPreviews {
+            guard let chatDetail = await chatDetailsStorage.chat(id: preview.chatId) else { continue }
+            chatEntries.append(SpaceCardUnreadEntries.Entry(
+                name: chatDetail.name.withPlaceholder,
+                date: preview.lastMessage?.createdAt
+            ))
         }
-
-        guard names.isNotEmpty else { return nil }
-
-        let remaining = unreadPreviews.count - maxVisible
-        if remaining > 0 {
-            return names.joined(separator: ", ") + " +\(remaining)"
-        } else {
-            return names.joined(separator: ", ")
-        }
+        return SpaceCardUnreadEntries.merge(
+            chatEntries: chatEntries,
+            discussionParents: unreadDiscussionParents
+        )
     }
 }
 

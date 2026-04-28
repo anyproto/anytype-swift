@@ -12,12 +12,11 @@ struct NewSpaceCardLabel: View {
     private let iconSize: CGFloat = 40
     private let verticalPadding: CGFloat = 16
     private let cellHeight: CGFloat = 72
-    private var showMessage: Bool {
-        guard model.lastMessage != nil else { return false }
-        // DMs, Chat, Stream: always show preview
-        if !model.supportsMultiChats { return true }
-        // Data: only show when has unread counters
-        return model.hasCounters
+    private var showCompactPreview: Bool {
+        model.supportsMultiChats && model.hasCounters && model.multichatCompactPreview != nil
+    }
+    private var showSingleChatMessage: Bool {
+        !model.supportsMultiChats && model.lastMessage != nil
     }
     private var previewTextColor: Color {
         (!model.supportsMultiChats && model.hasCounters) ? Color.Text.primary : Color.Text.transparentSecondary
@@ -58,12 +57,10 @@ struct NewSpaceCardLabel: View {
 
     @ViewBuilder
     private var mainContent: some View {
-        if showMessage, let message = model.lastMessage {
-            if model.supportsMultiChats, let preview = model.multichatCompactPreview {
-                compactMultichatContent(preview)
-            } else {
-                mainContentWithMessage(message)
-            }
+        if showCompactPreview, let preview = model.multichatCompactPreview {
+            compactMultichatContent(preview)
+        } else if showSingleChatMessage, let message = model.lastMessage {
+            mainContentWithMessage(message)
         } else {
             mainContentWithoutMessage
         }
@@ -151,10 +148,17 @@ struct NewSpaceCardLabel: View {
     
     @ViewBuilder
     private var lastMessageDate: some View {
-        if let lastMessage = model.lastMessage {
-            AnytypeText(lastMessage.chatPreviewDate, style: .relation2Regular)
+        if let dateText = compactPreviewDateText {
+            AnytypeText(dateText, style: .relation2Regular)
                 .foregroundStyle(Color.Control.transparentSecondary)
         }
+    }
+
+    private var compactPreviewDateText: String? {
+        if model.supportsMultiChats {
+            return model.lastUnreadDateText
+        }
+        return model.lastMessage?.chatPreviewDate
     }
 
     @ViewBuilder

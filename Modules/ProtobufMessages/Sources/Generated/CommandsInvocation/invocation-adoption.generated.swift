@@ -716,13 +716,18 @@ extension Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error: ResponseError 
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Debug.CleanupReport.Response: ResultWithError {}
+extension Anytype_Rpc.Debug.CleanupReport.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Debug.ExportLocalstore.Response: ResultWithError {}
 extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
-extension Anytype_Rpc.Debug.ExportLog.Response: ResultWithError {}
-extension Anytype_Rpc.Debug.ExportLog.Response.Error: ResponseError {
+extension Anytype_Rpc.Debug.ExportReport.Response: ResultWithError {}
+extension Anytype_Rpc.Debug.ExportReport.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

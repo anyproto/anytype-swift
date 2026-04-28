@@ -6,8 +6,8 @@ struct HomepageSettingsPickerView: View {
     @State private var model: HomepageSettingsPickerViewModel
     @Environment(\.dismiss) private var dismiss
 
-    init(spaceId: String) {
-        _model = State(initialValue: HomepageSettingsPickerViewModel(spaceId: spaceId))
+    init(spaceId: String, onHomepageSet: ((String, AnyHashable) -> Void)?) {
+        _model = State(initialValue: HomepageSettingsPickerViewModel(spaceId: spaceId, onHomepageSet: onHomepageSet))
     }
 
     var body: some View {
@@ -38,8 +38,13 @@ struct HomepageSettingsPickerView: View {
                         AnytypeDivider()
                     }
 
+                    if !model.objects.isEmpty {
+                        ListSectionHeaderView(title: Loc.SpaceSettings.HomePage.objects)
+                    }
+
                     ForEach(model.objects) { object in
                         objectRow(object)
+                            .newDivider()
                     }
                 }
                 .padding(.horizontal, 16)
@@ -91,7 +96,7 @@ struct HomepageSettingsPickerView: View {
                     .frame(width: 48, height: 48)
 
                 VStack(alignment: .leading, spacing: 2) {
-                    AnytypeText(details.name.withPlaceholder, style: .uxBodyRegular)
+                    AnytypeText(details.homePickerTitle, style: .uxBodyRegular)
                         .foregroundStyle(Color.Text.primary)
                         .lineLimit(1)
 
@@ -109,5 +114,14 @@ struct HomepageSettingsPickerView: View {
             }
             .padding(.vertical, 14)
         }
+    }
+}
+
+private extension ObjectDetails {
+    var homePickerTitle: String {
+        if resolvedLayoutValue == .objectType, !pluralName.isEmpty {
+            return pluralName
+        }
+        return name.withPlaceholder
     }
 }

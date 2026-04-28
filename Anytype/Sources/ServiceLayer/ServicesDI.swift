@@ -28,6 +28,10 @@ extension Container {
         self { ChatDetailsStorage() }.singleton
     }
 
+    var objectsWithUnreadDiscussionsSubscription: Factory<any ObjectsWithUnreadDiscussionsSubscriptionProtocol> {
+        self { ObjectsWithUnreadDiscussionsSubscription() }.singleton
+    }
+
     var singleObjectSubscriptionService: Factory<any SingleObjectSubscriptionServiceProtocol> {
         self { SingleObjectSubscriptionService() }
     }
@@ -94,6 +98,14 @@ extension Container {
     
     var pinnedSubscriptionService: Factory<any PinnedSubscriptionServiceProtocol> {
         self { PinnedSubscriptionService() }
+    }
+
+    var personalFavoritesService: Factory<any PersonalFavoritesServiceProtocol> {
+        self { PersonalFavoritesService() }.shared
+    }
+
+    var channelPinsService: Factory<any ChannelPinsServiceProtocol> {
+        self { ChannelPinsService() }.shared
     }
     
     var recentSubscriptionService: Factory<any RecentSubscriptionServiceProtocol> {
@@ -338,6 +350,10 @@ extension Container {
     
     var chatActionService: Factory<any ChatActionServiceProtocol> {
         self { ChatActionService() }
+    }
+
+    var discussionMessageCountObserver: Factory<any DiscussionMessageCountObserverProtocol> {
+        self { DiscussionMessageCountObserver() }
     }
 
 

@@ -25,9 +25,15 @@ enum ChatCollectionScrollOperation: Equatable {
 struct ChatCollectionScrollProxy: Equatable {
     private(set) var operationId = UUID()
     private(set) var scrollOperation: ChatCollectionScrollOperation?
-    
+    private(set) var refreshVisibleRangeOperationId: UUID?
+
     mutating func scrollTo(itemId: String, position: ChatCollectionScrollPosition = .center, animated: Bool = true) {
         operationId = UUID()
         scrollOperation = .scrollTo(itemId, position, animated)
+    }
+
+    /// One-shot re-emit of the current visible range — use after a programmatic scroll.
+    mutating func refreshVisibleRange() {
+        refreshVisibleRangeOperationId = UUID()
     }
 }

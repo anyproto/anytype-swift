@@ -18,6 +18,8 @@ public extension DetailsLayout {
     fileprivate static let widgetTypeLayoutsBase = listLayouts + editorLayouts + [.bookmark] + fileAndMediaLayouts
 
     private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFilesBase + [.objectType, .participant] + chatLayouts
+    // Kept separate from `editorLayouts` so the discussion whitelist can grow (e.g. files) without touching call sites.
+    static let supportedForDiscussion: [DetailsLayout] = editorLayouts
 
     private static let supportedForCreationInSetsBase: [DetailsLayout] = editorLayouts + [.bookmark] + listLayouts
     private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile, .objectType]
@@ -106,6 +108,7 @@ public extension DetailsLayout {
     var isFile: Bool { Self.fileLayouts.contains(self) }
     var isFileOrMedia: Bool { Self.fileAndMediaLayouts.contains(self) }
     var isSupportedForOpening: Bool { Self.supportedForOpening.contains(self) }
+    var isSupportedForDiscussion: Bool { Self.supportedForDiscussion.contains(self) }
     var haveIcon: Bool { Self.layoutsWithIcon.contains(self) }
     var haveCover: Bool { Self.layoutsWithCover.contains(self) }
 

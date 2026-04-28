@@ -29,8 +29,12 @@ final class HomepageSettingsPickerViewModel {
     @ObservationIgnored
     private let spaceId: String
 
-    init(spaceId: String) {
+    @ObservationIgnored
+    private let onHomepageSet: ((String, AnyHashable) -> Void)?
+
+    init(spaceId: String, onHomepageSet: ((String, AnyHashable) -> Void)?) {
         self.spaceId = spaceId
+        self.onHomepageSet = onHomepageSet
         let homepage = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)?.homepage ?? .empty
         switch homepage.displayValue {
         case .empty, .widgets, .graph:
@@ -43,7 +47,10 @@ final class HomepageSettingsPickerViewModel {
     func search() async {
         do {
             try await Task.sleep(for: .milliseconds(300))
-            let layouts: [DetailsLayout] = DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType)
+            let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
+            let layouts: [DetailsLayout] = FeatureFlags.fixChannelHomeBackNavigation
+                ? DetailsLayout.visibleLayouts(spaceType: spaceType) - [.bookmark]
+                : DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceType)
             objects = try await searchService.searchObjectsWithLayouts(
                 text: searchText,
                 layouts: layouts,
@@ -62,12 +69,16 @@ final class HomepageSettingsPickerViewModel {
     func onNoHomeSelected() async throws {
         try await homepagePickerService.setHomepage(spaceId: spaceId, homepage: .widgets)
         AnytypeAnalytics.instance().logChangeSpaceDashboard()
+        onHomepageSet?(spaceId, HomeWidgetData(spaceId: spaceId))
         dismiss = true
     }
 
     func onObjectSelected(_ details: ObjectDetails) async throws {
         try await homepagePickerService.setHomepage(spaceId: spaceId, homepage: .object(objectId: details.id))
         AnytypeAnalytics.instance().logChangeSpaceDashboard()
+        if let homeData = details.screenData().homeSlotValue {
+            onHomepageSet?(spaceId, homeData)
+        }
         dismiss = true
     }
 }

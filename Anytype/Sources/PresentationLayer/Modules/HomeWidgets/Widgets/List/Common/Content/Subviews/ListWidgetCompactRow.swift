@@ -10,7 +10,7 @@ struct ListWidgetCompactRow: View {
     @Environment(\.shouldHideChatBadges) private var shouldHideChatBadges
 
     private var titleColor: Color {
-        model.chatPreview?.titleColor ?? .Text.primary
+        model.chatPreview?.titleColor ?? model.parentBadge?.titleColor ?? .Text.primary
     }
 
     var body: some View {
@@ -43,6 +43,9 @@ struct ListWidgetCompactRow: View {
                         }
                     }
                     .opacity(shouldHideChatBadges ? 0 : 1)
+                } else if let parentBadge = model.parentBadge, parentBadge.hasVisibleCounters {
+                    ParentBadgesView(badge: parentBadge)
+                        .opacity(shouldHideChatBadges ? 0 : 1)
                 }
             }
             .padding(.horizontal, 16)

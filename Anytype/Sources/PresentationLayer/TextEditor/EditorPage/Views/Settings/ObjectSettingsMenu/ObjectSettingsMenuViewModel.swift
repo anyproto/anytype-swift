@@ -135,8 +135,10 @@ final class ObjectSettingsMenuViewModel {
             } else {
                 try? await viewModel.changeArchiveState()
             }
-        case let .pin(pinned):
-            try? await viewModel.changePinState(pinned)
+        case .pin:
+            try? await viewModel.changePinState()
+        case .favorite:
+            try? await viewModel.changeFavoriteState()
         case .locked:
             try? await viewModel.changeLockState()
         case .undoRedo:

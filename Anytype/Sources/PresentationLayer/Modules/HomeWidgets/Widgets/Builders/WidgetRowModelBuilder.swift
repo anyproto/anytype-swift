@@ -7,7 +7,8 @@ protocol WidgetRowModelBuilderProtocol: AnyObject, Sendable {
     func buildListRows(
         from configs: [SetContentViewItemConfiguration],
         spaceView: SpaceView?,
-        chatPreviews: [ChatMessagePreview]
+        chatPreviews: [ChatMessagePreview],
+        unreadParents: [DiscussionUnreadParent]
     ) -> [ListWidgetRowModel]
 
     func buildGalleryRows(
@@ -18,8 +19,9 @@ protocol WidgetRowModelBuilderProtocol: AnyObject, Sendable {
 @MainActor
 final class WidgetRowModelBuilder: WidgetRowModelBuilderProtocol, Sendable {
 
-    private let dateFormatter = ChatPreviewDateFormatter()
-    
+    private let chatPreviewBuilder: any WidgetChatPreviewBuilderProtocol = Container.shared.widgetChatPreviewBuilder()
+    private let parentBadgeBuilder: any ParentObjectUnreadBadgeBuilderProtocol = Container.shared.parentObjectUnreadBadgeBuilder()
+
     func buildGalleryRows(
         from configs: [SetContentViewItemConfiguration]
     ) -> [GalleryWidgetRowModel] {
@@ -29,49 +31,29 @@ final class WidgetRowModelBuilder: WidgetRowModelBuilderProtocol, Sendable {
     func buildListRows(
         from configs: [SetContentViewItemConfiguration],
         spaceView: SpaceView?,
-        chatPreviews: [ChatMessagePreview]
+        chatPreviews: [ChatMessagePreview],
+        unreadParents: [DiscussionUnreadParent]
     ) -> [ListWidgetRowModel] {
-        configs.map { config in
-            let chatPreview = buildChatPreview(
-                objectId: config.id,
-                spaceView: spaceView,
-                chatPreviews: chatPreviews
-            )
-            return ListWidgetRowModel(details: config, chatPreview: chatPreview)
-        }
-    }
-
-    private func buildChatPreview(
-        objectId: String,
-        spaceView: SpaceView?,
-        chatPreviews: [ChatMessagePreview]
-    ) -> MessagePreviewModel? {
-        guard let preview = chatPreviews.first(where: { $0.chatId == objectId }),
-              let lastMessage = preview.lastMessage else {
-            return nil
-        }
-
-        let attachments = lastMessage.attachments.prefix(3).map { objectDetails in
-            MessagePreviewModel.Attachment(
-                id: objectDetails.id,
-                icon: objectDetails.objectIconImage
-            )
-        }
-
-        let notificationMode = spaceView?.effectiveNotificationMode(for: objectId) ?? .all
-
-        return MessagePreviewModel(
-            creatorTitle: lastMessage.creator?.title,
-            text: lastMessage.text,
-            attachments: Array(attachments),
-            localizedAttachmentsText: lastMessage.localizedAttachmentsText,
-            chatPreviewDate: dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true),
-            unreadCounter: preview.unreadCounter,
-            mentionCounter: preview.mentionCounter,
-            hasUnreadReactions: preview.hasUnreadReactions,
-            notificationMode: notificationMode,
-            chatName: nil
+        let previewsByChatId = Dictionary(
+            chatPreviews.lazy.map { ($0.chatId, $0) },
+            uniquingKeysWith: { first, _ in first }
         )
+        let unreadParentsById = Dictionary(
+            unreadParents.lazy.map { ($0.id, $0) },
+            uniquingKeysWith: { first, _ in first }
+        )
+        return configs.map { config in
+            if let chatPreview = previewsByChatId[config.id].flatMap({
+                chatPreviewBuilder.build(chatPreview: $0, spaceView: spaceView)
+            }) {
+                return ListWidgetRowModel(details: config, chatPreview: chatPreview)
+            }
+            if let parent = unreadParentsById[config.id] {
+                let parentBadge = parentBadgeBuilder.build(parent: parent, spaceView: spaceView)
+                return ListWidgetRowModel(details: config, parentBadge: parentBadge)
+            }
+            return ListWidgetRowModel(details: config)
+        }
     }
 }
 

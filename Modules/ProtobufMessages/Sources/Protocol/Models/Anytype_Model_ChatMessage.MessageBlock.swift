@@ -43,6 +43,22 @@ extension Anytype_Model_ChatMessage {
       set {content = .embed(newValue)}
     }
 
+    public var editorQuote: Anytype_Model_ChatMessage.MessageBlockEditorQuote {
+      get {
+        if case .editorQuote(let v)? = content {return v}
+        return Anytype_Model_ChatMessage.MessageBlockEditorQuote()
+      }
+      set {content = .editorQuote(newValue)}
+    }
+
+    public var messageQuote: Anytype_Model_ChatMessage.MessageBlockMessageQuote {
+      get {
+        if case .messageQuote(let v)? = content {return v}
+        return Anytype_Model_ChatMessage.MessageBlockMessageQuote()
+      }
+      set {content = .messageQuote(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -51,7 +67,7 @@ extension Anytype_Model_ChatMessage {
 
 extension Anytype_Model_ChatMessage.MessageBlock: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_ChatMessage.protoMessageName + ".MessageBlock"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}text\0\u{1}link\0\u{1}embed\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}text\0\u{1}link\0\u{1}embed\0\u{1}editorQuote\0\u{1}messageQuote\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -98,6 +114,32 @@ extension Anytype_Model_ChatMessage.MessageBlock: SwiftProtobuf.Message, SwiftPr
           self.content = .embed(v)
         }
       }()
+      case 4: try {
+        var v: Anytype_Model_ChatMessage.MessageBlockEditorQuote?
+        var hadOneofValue = false
+        if let current = self.content {
+          hadOneofValue = true
+          if case .editorQuote(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.content = .editorQuote(v)
+        }
+      }()
+      case 5: try {
+        var v: Anytype_Model_ChatMessage.MessageBlockMessageQuote?
+        var hadOneofValue = false
+        if let current = self.content {
+          hadOneofValue = true
+          if case .messageQuote(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.content = .messageQuote(v)
+        }
+      }()
       default: break
       }
     }
@@ -120,6 +162,14 @@ extension Anytype_Model_ChatMessage.MessageBlock: SwiftProtobuf.Message, SwiftPr
     case .embed?: try {
       guard case .embed(let v)? = self.content else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }()
+    case .editorQuote?: try {
+      guard case .editorQuote(let v)? = self.content else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    }()
+    case .messageQuote?: try {
+      guard case .messageQuote(let v)? = self.content else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
     }()
     case nil: break
     }

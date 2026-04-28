@@ -829,6 +829,11 @@ extension ImageAsset {
       public static let list = ImageAsset.bundle(name: "x54/View/List")
     }
   }
+  public enum HomepagePicker {
+    public static let chatThumbnail = ImageAsset.bundle(name: "HomepagePicker/ChatThumbnail")
+    public static let collectionThumbnail = ImageAsset.bundle(name: "HomepagePicker/CollectionThumbnail")
+    public static let pageThumbnail = ImageAsset.bundle(name: "HomepagePicker/PageThumbnail")
+  }
   public enum Illustration {
     public static let exclamation = ImageAsset.bundle(name: "Illustration/Exclamation")
     public static let loading = ImageAsset.bundle(name: "Illustration/Loading")

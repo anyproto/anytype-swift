@@ -94,15 +94,31 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     }
 
     private var discussIsland: some View {
-        Button {
+        let hasCount = model.commentsCount > 0
+        return Button {
             model.onTapDiscuss()
         } label: {
-            Image(systemName: "message")
-                .foregroundStyle(Color.Control.primary)
-                .frame(width: 48, height: 48)
-                .contentShape(Circle())
+            HStack(spacing: 3) {
+                Image(systemName: model.discussButtonHasUnread ? "message.badge" : "message")
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(
+                        model.discussButtonHasUnread ? Color.Control.accent100 : Color.Control.primary,
+                        Color.Control.primary
+                    )
+                    .frame(width: 22, height: 22)
+                if hasCount {
+                    AnytypeText("\(model.commentsCount)", style: .previewTitle2Medium)
+                        .foregroundStyle(Color.Text.primary)
+                        .contentTransition(.numericText())
+                        .transition(.opacity.combined(with: .scale(scale: 0.5, anchor: .leading)))
+                }
+            }
+            .padding(.horizontal, 12)
+            .frame(minHeight: 48)
         }
-        .glassEffectInteractiveIOS26(in: Circle())
+        .glassEffectInteractiveIOS26(in: Capsule())
+        .animation(.snappy(duration: 0.35), value: hasCount)
+        .animation(.snappy(duration: 0.25), value: model.commentsCount)
     }
 
     @ViewBuilder
