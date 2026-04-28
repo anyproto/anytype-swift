@@ -28,6 +28,8 @@ extension Anytype_Rpc.MembershipV2 {
 
         public var isYearly: Bool = false
 
+        public var isLifetime: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -155,7 +157,7 @@ extension Anytype_Rpc.MembershipV2.CartUpdate: SwiftProtobuf.Message, SwiftProto
 
 extension Anytype_Rpc.MembershipV2.CartUpdate.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.MembershipV2.CartUpdate.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}productIds\0\u{1}isYearly\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}productIds\0\u{1}isYearly\0\u{1}isLifetime\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -165,6 +167,7 @@ extension Anytype_Rpc.MembershipV2.CartUpdate.Request: SwiftProtobuf.Message, Sw
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.productIds) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.isYearly) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.isLifetime) }()
       default: break
       }
     }
@@ -177,12 +180,16 @@ extension Anytype_Rpc.MembershipV2.CartUpdate.Request: SwiftProtobuf.Message, Sw
     if self.isYearly != false {
       try visitor.visitSingularBoolField(value: self.isYearly, fieldNumber: 2)
     }
+    if self.isLifetime != false {
+      try visitor.visitSingularBoolField(value: self.isLifetime, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.MembershipV2.CartUpdate.Request, rhs: Anytype_Rpc.MembershipV2.CartUpdate.Request) -> Bool {
     if lhs.productIds != rhs.productIds {return false}
     if lhs.isYearly != rhs.isYearly {return false}
+    if lhs.isLifetime != rhs.isLifetime {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
