@@ -89,7 +89,8 @@ final class MyFavoritesRowViewModel {
         async let chatPreviewsSub: () = startChatPreviewsSubscription()
         async let spaceViewSub: () = startSpaceViewSubscription()
         async let unreadDiscussionsSub: () = startUnreadDiscussionsSubscription()
-        _ = await (detailsSub, chatPreviewsSub, spaceViewSub, unreadDiscussionsSub)
+        async let menuSub: () = menuViewModel.startChannelSubscription()
+        _ = await (detailsSub, chatPreviewsSub, spaceViewSub, unreadDiscussionsSub, menuSub)
     }
 
     // MARK: - Private

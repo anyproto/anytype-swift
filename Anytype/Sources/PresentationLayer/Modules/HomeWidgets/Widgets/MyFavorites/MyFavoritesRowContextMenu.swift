@@ -15,7 +15,7 @@ struct MyFavoritesRowContextMenu: View {
         }
 
         if model.canManageChannelPins() {
-            let isPinnedToChannel = model.isPinnedToChannel()
+            let isPinnedToChannel = model.isPinnedToChannel
             Button {
                 DispatchQueue.main.asyncAfter(deadline: .now() + menuDismissAnimationDelay) {
                     model.onChannelPinTap()
