@@ -114,7 +114,9 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                         .transition(.opacity.combined(with: .scale(scale: 0.5, anchor: .leading)))
                 }
             }
-            .padding(8)
+            .padding(.leading, 8)
+            .padding(.vertical, 8)
+            .padding(.trailing, hasCount ? 12 : 8)
         }
         .glassEffectInteractiveIOS26(in: Capsule())
         .animation(.snappy(duration: 0.35), value: hasCount)
