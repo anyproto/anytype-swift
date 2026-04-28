@@ -98,7 +98,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         return Button {
             model.onTapDiscuss()
         } label: {
-            HStack(spacing: 3) {
+            HStack(spacing: 4) {
                 Image(systemName: model.discussButtonHasUnread ? "message.badge" : "message")
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(
@@ -113,7 +113,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                         .transition(.opacity.combined(with: .scale(scale: 0.5, anchor: .leading)))
                 }
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, 8)
             .frame(minHeight: 48)
         }
         .glassEffectInteractiveIOS26(in: Capsule())
