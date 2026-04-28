@@ -28,11 +28,12 @@ final class ChannelPinsService: ChannelPinsServiceProtocol {
         layout: BlockWidget.Layout,
         limit: Int
     ) async throws {
+        let position: WidgetPosition = channelWidgetsObject.children.first.map { .above(widgetId: $0.id) } ?? .end
         try await blockWidgetService.toggleWidgetBlock(
             contextId: channelWidgetsObject.objectId,
             targetObjectId: objectId,
             existingWidgetBlockId: channelWidgetsObject.widgetBlockIdFor(targetObjectId: objectId),
-            firstChildBlockId: channelWidgetsObject.children.first?.id,
+            position: position,
             layout: layout,
             limit: limit
         )

@@ -9,15 +9,17 @@ public protocol BlockWidgetServiceProtocol: Sendable {
     func setViewId(contextId: String, widgetBlockId: String, viewId: String) async throws
     /// Toggle a widget-block entry inside `contextId` for the given `targetObjectId`.
     /// If an existing widget block references the target, it is removed; otherwise a
-    /// new widget block is inserted via `.above(firstChildId)` with `.end` fallback.
-    /// Shared between channel-pin (IOS-5864 `WidgetActionsViewCommonMenuProvider`) and
-    /// personal-favorite (`PersonalFavoritesService`) toggle flows — they differ only
-    /// in `contextId`, `layout`, and `limit`.
+    /// new widget block is inserted at `position`. Shared between channel-pin
+    /// (IOS-5864 `WidgetActionsViewCommonMenuProvider`) and personal-favorite
+    /// (`PersonalFavoritesService`) toggle flows — they differ in `contextId`, `layout`,
+    /// `limit`, and the create-time `position` (channel pins use `.above(firstChild) ?? .end`,
+    /// personal favorites use `.innerFirst` so wrappers land at the doc root and not nested
+    /// inside `header`, see IOS-6124).
     func toggleWidgetBlock(
         contextId: String,
         targetObjectId: String,
         existingWidgetBlockId: String?,
-        firstChildBlockId: String?,
+        position: WidgetPosition,
         layout: BlockWidget.Layout,
         limit: Int
     ) async throws
@@ -71,14 +73,13 @@ final class BlockWidgetService: BlockWidgetServiceProtocol {
         contextId: String,
         targetObjectId: String,
         existingWidgetBlockId: String?,
-        firstChildBlockId: String?,
+        position: WidgetPosition,
         layout: BlockWidget.Layout,
         limit: Int
     ) async throws {
         if let existingWidgetBlockId {
             try await removeWidgetBlock(contextId: contextId, widgetBlockId: existingWidgetBlockId)
         } else {
-            let position: WidgetPosition = firstChildBlockId.map { .above(widgetId: $0) } ?? .end
             try await createWidgetBlock(
                 contextId: contextId,
                 sourceId: targetObjectId,
