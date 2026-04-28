@@ -6,13 +6,9 @@ import AnytypeCore
 @Observable
 final class MyFavoritesRowContextMenuViewModel {
 
-    @ObservationIgnored
     let objectId: String
-    @ObservationIgnored
     let spaceId: String
-    @ObservationIgnored
     let channelWidgetsObject: any BaseDocumentProtocol
-    @ObservationIgnored
     let personalWidgetsObject: any BaseDocumentProtocol
 
     @ObservationIgnored
@@ -23,6 +19,9 @@ final class MyFavoritesRowContextMenuViewModel {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
 
     private(set) var isPinnedToChannel: Bool
+
+    @ObservationIgnored
+    private var isSubscribing = false
 
     init(
         objectId: String,
@@ -58,6 +57,9 @@ final class MyFavoritesRowContextMenuViewModel {
     }
 
     func startChannelSubscription() async {
+        guard !isSubscribing else { return }
+        isSubscribing = true
+        defer { isSubscribing = false }
         for await _ in channelWidgetsObject.syncPublisher.values {
             let next = channelWidgetsObject.containsWidgetFor(objectId: objectId)
             guard isPinnedToChannel != next else { continue }
