@@ -231,12 +231,13 @@ final class HomeWidgetsViewModel {
 
         let typesPublisher = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)
         let objectsCreatedPublisher = objectTypesWithObjectsCreatedService.typeIdsWithObjectsCreatedPublisher
+        let alwaysVisibleKeys: Set<ObjectTypeUniqueKey> = [.page, .task, .collection]
 
         let stream = typesPublisher.combineLatest(objectsCreatedPublisher)
             .map { (types, typeIdsWithObjectsCreated) in
                 types
                     .filter { ($0.recommendedLayout.map { allowedLayouts.contains($0) } ?? false) && !$0.isTemplateType }
-                    .filter { typeIdsWithObjectsCreated.contains($0.id) }
+                    .filter { typeIdsWithObjectsCreated.contains($0.id) || alwaysVisibleKeys.contains($0.uniqueKey) }
                     .map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
             }
             .removeDuplicates()
