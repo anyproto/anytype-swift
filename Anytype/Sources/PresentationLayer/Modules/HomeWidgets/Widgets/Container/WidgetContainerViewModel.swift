@@ -12,9 +12,8 @@ final class WidgetContainerViewModel {
 
     let widgetBlockId: String
     let channelWidgetsObject: any BaseDocumentProtocol
-    // `nil` when the personalFavorites flag is off.
     @ObservationIgnored
-    let personalWidgetsObject: (any BaseDocumentProtocol)?
+    let personalWidgetsObject: any BaseDocumentProtocol
     @ObservationIgnored
     private let spaceId: String
     // `nil` for library widgets (Pinned / Recent / …).
@@ -37,7 +36,7 @@ final class WidgetContainerViewModel {
     @ObservationIgnored
     private let baseMenuItems: [WidgetMenuItem]
     var menuItems: [WidgetMenuItem] {
-        guard FeatureFlags.personalFavorites, targetObjectId != nil else {
+        guard targetObjectId != nil else {
             return baseMenuItems
         }
         var extras: [WidgetMenuItem] = [.favorite(isFavorited: isFavorited)]
@@ -53,7 +52,7 @@ final class WidgetContainerViewModel {
     private var isFavorited: Bool = false
     private var isPinnedToChannel: Bool = false
     private var canManageChannelPins: Bool {
-        guard FeatureFlags.personalFavorites, targetObjectId != nil else { return false }
+        guard targetObjectId != nil else { return false }
         return participantSpacesStorage
             .participantSpaceView(spaceId: spaceId)?
             .canManageChannelPins ?? false
@@ -65,7 +64,7 @@ final class WidgetContainerViewModel {
     init(
         widgetBlockId: String,
         channelWidgetsObject: some BaseDocumentProtocol,
-        personalWidgetsObject: (any BaseDocumentProtocol)?,
+        personalWidgetsObject: any BaseDocumentProtocol,
         spaceId: String,
         expectedMenuItems: [WidgetMenuItem],
         defaultExpanded: Bool = true,
@@ -93,10 +92,8 @@ final class WidgetContainerViewModel {
         let menuItems = numberOfWidgetLayouts > 1 ? expectedMenuItems : expectedMenuItems.filter { $0 != .changeType }
         if source?.isLibrary ?? false {
             self.baseMenuItems = menuItems.filter { $0 != .remove }
-        } else if FeatureFlags.personalFavorites {
-            self.baseMenuItems = menuItems.filter { $0 != .remove && $0 != .removeSystemWidget }
         } else {
-            self.baseMenuItems = menuItems.filter { $0 != .removeSystemWidget }
+            self.baseMenuItems = menuItems.filter { $0 != .remove && $0 != .removeSystemWidget }
         }
     }
 
@@ -107,7 +104,7 @@ final class WidgetContainerViewModel {
     }
 
     private func startPersonalSubscription() async {
-        guard let personalWidgetsObject, let targetObjectId else { return }
+        guard let targetObjectId else { return }
         for await _ in personalWidgetsObject.syncPublisher.values {
             let next = personalWidgetsObject.containsWidgetFor(objectId: targetObjectId)
             guard isFavorited != next else { continue }

@@ -10,7 +10,6 @@ import AsyncAlgorithms
 final class HomeWidgetsViewModel {
 
     private enum Constants {
-        static let pinnedSectionId = "HomePinnedSection"
         static let objectTypeSectionId = "HomeObjectTypeSection"
         static let unreadSectionId = "HomeUnreadSection"
         static let myFavoritesSectionId = "HomeMyFavoritesSection"
@@ -20,6 +19,7 @@ final class HomeWidgetsViewModel {
 
     let info: AccountInfo
     let channelWidgetsObject: any BaseDocumentProtocol
+    let personalWidgetsObject: any BaseDocumentProtocol
 
     @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
@@ -59,14 +59,13 @@ final class HomeWidgetsViewModel {
     var widgetsDataLoaded: Bool = false
     var objectTypesDataLoaded: Bool = false
     var wallpaper: SpaceWallpaperType = .default
-    var pinnedSectionIsExpanded: Bool = false
     var objectTypeSectionIsExpanded: Bool = false
     var canCreateObjectType: Bool = false
     var homeWidgetData: HomepageWidgetViewData?
     var unreadSectionIsExpanded: Bool = false
     var unreadItems: [UnreadSectionItem] = []
     var myFavoritesSectionIsExpanded: Bool = false
-    var myFavoritesListViewModel: MyFavoritesListViewModel?
+    var myFavoritesListViewModel: MyFavoritesListViewModel
     private var supportsMultiChats: Bool = false
 
     var spaceId: String { info.accountSpaceId }
@@ -87,23 +86,19 @@ final class HomeWidgetsViewModel {
         self.output = output
         let channelWidgetsObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
         self.channelWidgetsObject = channelWidgetsObject
-        if FeatureFlags.personalFavorites {
-            let personalWidgetsObject = documentService.document(
-                objectId: info.personalWidgetsId,
-                spaceId: info.accountSpaceId
-            )
-            self.myFavoritesListViewModel = MyFavoritesListViewModel(
-                spaceId: info.accountSpaceId,
-                personalWidgetsObject: personalWidgetsObject,
-                channelWidgetsObject: channelWidgetsObject,
-                onObjectSelected: { [weak output] details in
-                    output?.onObjectSelected(screenData: details.screenData())
-                }
-            )
-        } else {
-            self.myFavoritesListViewModel = nil
-        }
-        self.pinnedSectionIsExpanded = expandedService.isExpanded(id: Constants.pinnedSectionId, defaultValue: true)
+        let personalWidgetsObject = documentService.document(
+            objectId: info.personalWidgetsId,
+            spaceId: info.accountSpaceId
+        )
+        self.personalWidgetsObject = personalWidgetsObject
+        self.myFavoritesListViewModel = MyFavoritesListViewModel(
+            spaceId: info.accountSpaceId,
+            personalWidgetsObject: personalWidgetsObject,
+            channelWidgetsObject: channelWidgetsObject,
+            onObjectSelected: { [weak output] details in
+                output?.onObjectSelected(screenData: details.screenData())
+            }
+        )
         self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
         self.unreadSectionIsExpanded = expandedService.isExpanded(id: Constants.unreadSectionId, defaultValue: true)
         self.myFavoritesSectionIsExpanded = expandedService.isExpanded(id: Constants.myFavoritesSectionId, defaultValue: true)
@@ -156,13 +151,6 @@ final class HomeWidgetsViewModel {
         output?.onCreateObjectType()
     }
     
-    func onTapPinnedHeader() {
-        withAnimation {
-            pinnedSectionIsExpanded = !pinnedSectionIsExpanded
-        }
-        expandedService.setState(id: Constants.pinnedSectionId, isExpanded: pinnedSectionIsExpanded)
-    }
-    
     func onTapObjectTypeHeader() {
         withAnimation {
             objectTypeSectionIsExpanded = !objectTypeSectionIsExpanded
@@ -203,9 +191,6 @@ final class HomeWidgetsViewModel {
     }
 
     private func startMyFavoritesTask() async {
-        // Drives the `MyFavoritesListViewModel.rows` list — only spins up when the feature flag
-        // enabled the sub-viewmodel in `init`.
-        guard let myFavoritesListViewModel else { return }
         await myFavoritesListViewModel.startSubscriptions()
     }
 
