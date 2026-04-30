@@ -23,7 +23,7 @@ struct SpaceHubList: View {
     
     private var scrollView: some View {
         ScrollView(.vertical) {
-            VStack(spacing: 8) {
+            LazyVStack(spacing: 8) {
                 HomeUpdateSubmoduleView().padding(8)
 
                 ForEach(model.filteredSpaces) {
