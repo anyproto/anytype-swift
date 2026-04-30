@@ -52,20 +52,3 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-
-  slack-on-failure:
-    name: Slack notify (child failed)
-    needs: [resolve_version, call-child]
-    runs-on: ubuntu-latest
-    # run even if a dependency failed, but only notify when child actually failed or был отменён
-    if: ${{ always() && (needs.call-child.result == 'failure' || needs.call-child.result == 'cancelled') }}
-    steps:
-      - name: Send GitHub Action data to a Slack workflow
-        uses: slackapi/slack-github-action@v2
-        with:
-          webhook: ${{ secrets.SLACK_URL_BUILD_TESTS }}
-          webhook-type: incoming-webhook
-          payload: |
-            {
-              "text": ":x: *Update middleware nightly* failed.\n*Version:* ${{ needs.resolve_version.outputs.version }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-            }
