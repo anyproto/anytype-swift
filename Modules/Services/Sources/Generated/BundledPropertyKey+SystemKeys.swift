@@ -108,7 +108,5 @@ public extension BundledPropertyKey {
         .lastMessageDate,
         .notificationSubscribers,
         .templatePlaceholders,
-        .unreadMessageCount,
-        .unreadMentionCount,
     ]
 }
