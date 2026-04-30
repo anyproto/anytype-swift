@@ -10259,7 +10259,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "All New Replies"
+            "value" : "Todas las respuestas nuevas"
           }
         },
         "fa" : {
@@ -10283,7 +10283,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "All New Replies"
+            "value" : "Semua Balasan Baru"
           }
         },
         "it" : {
@@ -10349,7 +10349,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "All New Replies"
+            "value" : "Tüm Yeni Yanıtlar"
           }
         },
         "uk" : {
@@ -10414,7 +10414,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mentions Only"
+            "value" : "Solo menciones"
           }
         },
         "fa" : {
@@ -10438,7 +10438,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mentions Only"
+            "value" : "Sebutan Saja"
           }
         },
         "it" : {
@@ -10504,7 +10504,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mentions Only"
+            "value" : "Sadece Bahsetmeler"
           }
         },
         "uk" : {

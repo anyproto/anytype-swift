@@ -3,6 +3,7 @@ import Services
 import AnytypeCore
 
 @MainActor
+@Observable
 final class MyFavoritesRowContextMenuViewModel {
 
     let objectId: String
@@ -10,10 +11,17 @@ final class MyFavoritesRowContextMenuViewModel {
     let channelWidgetsObject: any BaseDocumentProtocol
     let personalWidgetsObject: any BaseDocumentProtocol
 
+    @ObservationIgnored
     @Injected(\.widgetActionsViewCommonMenuProvider)
     private var provider: any WidgetActionsViewCommonMenuProviderProtocol
+    @ObservationIgnored
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+
+    private(set) var isPinnedToChannel: Bool
+
+    @ObservationIgnored
+    private var isSubscribing = false
 
     init(
         objectId: String,
@@ -25,6 +33,7 @@ final class MyFavoritesRowContextMenuViewModel {
         self.spaceId = spaceId
         self.channelWidgetsObject = channelWidgetsObject
         self.personalWidgetsObject = personalWidgetsObject
+        self.isPinnedToChannel = channelWidgetsObject.containsWidgetFor(objectId: objectId)
     }
 
     func onFavoriteTap() {
@@ -47,12 +56,14 @@ final class MyFavoritesRowContextMenuViewModel {
             .canManageChannelPins ?? false
     }
 
-    func isPinnedToChannel() -> Bool {
-        for block in channelWidgetsObject.children where block.isWidget {
-            guard let info = channelWidgetsObject.widgetInfo(block: block),
-                  case let .object(details) = info.source else { continue }
-            if details.id == objectId { return true }
+    func startChannelSubscription() async {
+        guard !isSubscribing else { return }
+        isSubscribing = true
+        defer { isSubscribing = false }
+        for await _ in channelWidgetsObject.syncPublisher.values {
+            let next = channelWidgetsObject.containsWidgetFor(objectId: objectId)
+            guard isPinnedToChannel != next else { continue }
+            isPinnedToChannel = next
         }
-        return false
     }
 }
