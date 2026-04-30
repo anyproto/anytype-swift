@@ -7,7 +7,7 @@ struct HomeWidgetSubmoduleView: View {
 
     let widgetInfo: BlockWidgetInfo
     let channelWidgetsObject: any BaseDocumentProtocol
-    let personalWidgetsObject: (any BaseDocumentProtocol)?
+    let personalWidgetsObject: any BaseDocumentProtocol
     let workspaceInfo: AccountInfo
     @Binding var homeState: HomeWidgetsState
     let output: (any CommonWidgetModuleOutput)?
