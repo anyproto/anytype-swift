@@ -42,6 +42,7 @@ private struct HomeWidgetsCoordinatorInternalView: View {
 
     @State private var model: HomeWidgetsCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
+    @Environment(\.dismiss) private var dismiss
 
     let context: WidgetScreenContext
 
@@ -54,10 +55,19 @@ private struct HomeWidgetsCoordinatorInternalView: View {
         HomeWidgetsView(info: model.spaceInfo, context: context, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
-                model.onAppear()
+            }
+            .onChange(of: model.shouldDismissOverlay) {
+                if model.shouldDismissOverlay {
+                    dismiss()
+                }
             }
             .task {
-                await model.startPendingShareRetryTask()
+                if !FeatureFlags.fixChannelHomeBackNavigation {
+                    await model.startPendingShareRetryTask()
+                }
+            }
+            .task {
+                await model.startSpaceViewTask()
             }
             .sheet(item: $model.showChangeTypeData) {
                 WidgetTypeChangeView(data: $0)
@@ -77,11 +87,33 @@ private struct HomeWidgetsCoordinatorInternalView: View {
             .anytypeSheet(item: $model.qrCodeInviteData) {
                 QrCodeView(title: Loc.joinSpace, data: $0.value.absoluteString, analyticsType: .inviteSpace, route: .inviteLink)
             }
+            .sheet(isPresented: $model.showHomeChangePicker) {
+                HomepageSettingsPickerView(
+                    spaceId: model.spaceInfo.accountSpaceId,
+                    onHomepageSet: FeatureFlags.fixChannelHomeBackNavigation
+                        ? { spaceId, homeData in
+                            pageNavigation.replaceHome(spaceId, homeData)
+                            model.shouldDismissOverlay = true
+                        }
+                        : nil
+                )
+            }
             .sheet(isPresented: $model.showHomepagePicker) {
                 HomepageCreatePickerView(spaceId: model.spaceInfo.accountSpaceId) { result in
                     model.onHomepagePickerFinished(result: result)
                 }
                 .interactiveDismissDisabled(true)
+            }
+            .overlay {
+                if model.showHomepagePicker {
+                    Rectangle()
+                        .fill(.ultraThinMaterial)
+                        .ignoresSafeArea()
+                        .transition(.asymmetric(
+                            insertion: .identity,
+                            removal: .opacity.animation(.easeInOut(duration: 0.3))
+                        ))
+                }
             }
     }
 }

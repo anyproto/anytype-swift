@@ -51,8 +51,10 @@ final class ObjectSettingsViewModel {
     private var templatesService: any TemplatesServiceProtocol
     @Injected(\.documentsProvider) @ObservationIgnored
     private var documentsProvider: any DocumentsProviderProtocol
-    @Injected(\.blockWidgetService) @ObservationIgnored
-    private var blockWidgetService: any BlockWidgetServiceProtocol
+    @Injected(\.channelPinsService) @ObservationIgnored
+    private var channelPinsService: any ChannelPinsServiceProtocol
+    @Injected(\.personalFavoritesService) @ObservationIgnored
+    private var personalFavoritesService: any PersonalFavoritesServiceProtocol
     @Injected(\.spaceViewsStorage) @ObservationIgnored
     private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.universalLinkParser) @ObservationIgnored
@@ -61,7 +63,6 @@ final class ObjectSettingsViewModel {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-
     @ObservationIgnored
     private weak var output: (any ObjectSettingsModelOutput)?
 
@@ -77,6 +78,22 @@ final class ObjectSettingsViewModel {
             return nil
         }
         return openDocumentsProvider.document(objectId: info.widgetsId, spaceId: spaceId)
+    }()
+
+    // Uses per-space `AccountInfo` from `workspaceStorage` (not the global
+    // `accountManager.account.info`) because personal widgets are per-space and
+    // the global info can race app launch with `AccountData.empty`.
+    @ObservationIgnored
+    private lazy var personalWidgetsObject: (any BaseDocumentProtocol)? = {
+        guard FeatureFlags.personalFavorites else { return nil }
+        guard let info = workspaceStorage.spaceInfo(spaceId: spaceId) else {
+            anytypeAssertionFailure("info not found for personal widgets")
+            return nil
+        }
+        return openDocumentsProvider.document(
+            objectId: info.personalWidgetsId,
+            spaceId: spaceId
+        )
     }()
 
     @ObservationIgnored
@@ -95,6 +112,7 @@ final class ObjectSettingsViewModel {
     // MARK: - Actions State
 
     var objectActions: [ObjectAction] = []
+    private var canManageChannelPins: Bool = false
     private var isSpaceOwner: Bool = false
     private var chatNotificationMode: SpacePushNotificationsMode?
     var toastData: ToastBarData?
@@ -119,10 +137,11 @@ final class ObjectSettingsViewModel {
 
     func startDocumentTask() async {
         async let documentSub: () = startDocumentSubscription()
-        async let widgetSub: () = startWidgetObjectSubscription()
-        async let ownerSub: () = startOwnerStatusSubscription()
+        async let widgetSub: () = startWidgetDocSubscription(widgetObject)
+        async let personalWidgetSub: () = startWidgetDocSubscription(personalWidgetsObject)
+        async let participantSub: () = startParticipantSpaceViewSubscription()
         async let spaceViewSub: () = startSpaceViewSubscription()
-        _ = await (documentSub, widgetSub, ownerSub, spaceViewSub)
+        _ = await (documentSub, widgetSub, personalWidgetSub, participantSub, spaceViewSub)
     }
 
     private func startDocumentSubscription() async {
@@ -132,16 +151,19 @@ final class ObjectSettingsViewModel {
         }
     }
 
-    private func startWidgetObjectSubscription() async {
-        guard let widgetObject else { return }
-        for await _ in widgetObject.syncPublisher.values {
+    private func startWidgetDocSubscription(_ doc: (any BaseDocumentProtocol)?) async {
+        guard let doc else { return }
+        for await _ in doc.syncPublisher.values {
             updateActions()
         }
     }
 
-    private func startOwnerStatusSubscription() async {
+    private func startParticipantSpaceViewSubscription() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
-            isSpaceOwner = participantSpaceView.participant?.permission == .owner
+            canManageChannelPins = FeatureFlags.personalFavorites
+                ? participantSpaceView.canManageChannelPins
+                : true
+            isSpaceOwner = participantSpaceView.isOwner
             updateActions()
         }
     }
@@ -180,11 +202,16 @@ final class ObjectSettingsViewModel {
             return
         }
 
+        let isPinnedToWidgets = widgetObject?.widgetBlockIdFor(targetObjectId: objectId).isNotNil ?? false
+        let isFavorited = personalWidgetsObject?.containsWidgetFor(objectId: objectId) ?? false
+
         if FeatureFlags.createChannelFlow {
             objectActions = ObjectAction.buildActions(
                 details: details,
                 isLocked: document.isLocked,
-                isPinnedToWidgets: widgetObject?.widgetBlockIdFor(targetObjectId: objectId).isNotNil ?? false,
+                isPinnedToWidgets: isPinnedToWidgets,
+                isFavorited: isFavorited,
+                canManageChannelPins: canManageChannelPins,
                 permissions: document.permissions,
                 spaceType: spaceType,
                 isSpaceOwner: isSpaceOwner
@@ -193,14 +220,16 @@ final class ObjectSettingsViewModel {
             objectActions = ObjectAction.buildActions(
                 details: details,
                 isLocked: document.isLocked,
-                isPinnedToWidgets: widgetObject?.widgetBlockIdFor(targetObjectId: objectId).isNotNil ?? false,
+                isPinnedToWidgets: isPinnedToWidgets,
+                isFavorited: isFavorited,
+                canManageChannelPins: canManageChannelPins,
                 permissions: document.permissions,
                 spaceUxType: spaceUxType,
                 isSpaceOwner: isSpaceOwner
             )
         }
     }
-    
+
     func onTapIconPicker() {
         output?.showIconPicker(document: document)
     }
@@ -278,7 +307,10 @@ final class ObjectSettingsViewModel {
         }
     }
 
-    func changePinState(_ pinned: Bool) async throws {
+    func changePinState() async throws {
+        // TODO: IOS-5864 No dedicated pin/unpin analytics event exists today.
+        // Add `logPinObject` / `logUnpinObject` (or a unified `logChangePinState(pinned:)`)
+        // once product confirms the event shape. Reorder already has `logReorderWidget`.
         guard let widgetObject else {
             anytypeAssertionFailure("Widget object not found")
             return
@@ -289,32 +321,44 @@ final class ObjectSettingsViewModel {
             return
         }
 
-        if pinned {
-
-            guard let widgetBlockId = widgetObject.widgetBlockIdFor(targetObjectId: details.id) else {
-                anytypeAssertionFailure("Block not found")
-                return
-            }
-
-            try await blockWidgetService.removeWidgetBlock(contextId: widgetObject.objectId, widgetBlockId: widgetBlockId)
-
-        } else {
-            guard let layout = details.availableWidgetLayout.first else {
-                anytypeAssertionFailure("Default layout not found")
-                return
-            }
-
-            let first = widgetObject.children.first
-
-            try await blockWidgetService.createWidgetBlock(
-                contextId: widgetObject.objectId,
-                sourceId: details.id,
-                layout: layout,
-                limit: layout.limits.first ?? 0,
-                position: first.map { .above(widgetId: $0.id) } ?? .end
-            )
+        // Per-object-type layout: a Set pins as `.view` with limit 6, a regular page
+        // pins as `.link` with limit 0, etc. Preserved from the pre-IOS-5864 shape so
+        // Object Settings pin semantics stay richer than the widget-menu flow (which
+        // always uses `.link`/`0`).
+        guard let layout = details.availableWidgetLayout.first else {
+            anytypeAssertionFailure("Default layout not found")
+            return
         }
-        toastData = ToastBarData(pinned ? Loc.unpinned : Loc.pinned)
+
+        let wasPinned = widgetObject.widgetBlockIdFor(targetObjectId: details.id).isNotNil
+
+        try await channelPinsService.toggle(
+            objectId: details.id,
+            channelWidgetsObject: widgetObject,
+            layout: layout,
+            limit: layout.limits.first ?? 0
+        )
+
+        toastData = ToastBarData(wasPinned ? Loc.unpinned : Loc.pinned)
+        dismiss.toggle()
+    }
+
+    func changeFavoriteState() async throws {
+        // TODO: IOS-5864 No dedicated favorite/unfavorite analytics event exists today.
+        // Add `logFavoriteObject` / `logUnfavoriteObject` (or a unified
+        // `logChangeFavoriteState(favorited:)`) once product confirms the event shape.
+        // Reorder of My Favorites is already covered via `logReorderWidget(source: .personalFavorites)`.
+        guard let details = document.details else {
+            anytypeAssertionFailure("Details object not found")
+            return
+        }
+        guard let personalWidgetsObject else {
+            anytypeAssertionFailure("personalWidgetsObject not found for favorite toggle")
+            return
+        }
+        let wasFavorited = personalWidgetsObject.containsWidgetFor(objectId: details.id)
+        try await personalFavoritesService.toggle(objectId: details.id, personalWidgetsObject: personalWidgetsObject)
+        toastData = ToastBarData(wasFavorited ? Loc.unfavorited : Loc.favorited)
         dismiss.toggle()
     }
 

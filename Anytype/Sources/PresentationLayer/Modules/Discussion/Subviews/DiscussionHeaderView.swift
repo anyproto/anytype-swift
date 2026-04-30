@@ -5,7 +5,10 @@ struct DiscussionHeaderView: View {
     let objectName: String
     let commentsCount: Int
     let chatId: String?
+    let notificationMode: DiscussionNotificationMode
+    let canEdit: Bool
     let onTapCopyLink: () -> Void
+    let onNotificationModeChange: (DiscussionNotificationMode) async -> Void
 
     var body: some View {
         NavigationHeader(
@@ -19,7 +22,7 @@ struct DiscussionHeaderView: View {
 
     private var titleView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText(objectName.withPlaceholder, style: .caption1Regular)
+            AnytypeText(objectName.withPlaceholder, style: .caption1Medium)
                 .foregroundStyle(Color.Text.secondary)
                 .lineLimit(1)
             AnytypeText(commentsString, style: .uxTitle2Semibold)
@@ -38,6 +41,9 @@ struct DiscussionHeaderView: View {
     private var moreButton: some View {
         if chatId != nil {
             Menu {
+                if canEdit {
+                    DiscussionNotificationsMenu(currentMode: notificationMode, onModeChange: onNotificationModeChange)
+                }
                 Button {
                     onTapCopyLink()
                 } label: {

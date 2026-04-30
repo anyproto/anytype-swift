@@ -1,4 +1,5 @@
 import SwiftUI
+import DesignKit
 
 struct HomepagePickerThumbnailCard: View {
     let option: HomepagePickerOption
@@ -6,38 +7,31 @@ struct HomepagePickerThumbnailCard: View {
 
     var body: some View {
         VStack(spacing: 7) {
-            thumbnailContent
-                .frame(height: 176)
-                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .strokeBorder(
-                            isSelected ? Color.Control.accent50 : Color.Control.tertiary,
-                            lineWidth: isSelected ? 1.5 : 1
-                        )
-                )
+            Image(asset: option.thumbnailAsset)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 88, height: 176)
 
             AnytypeText(option.title, style: .caption1Medium)
-                .foregroundStyle(isSelected ? Color.Control.accent100 : Color.Control.secondary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
                 .truncationMode(.tail)
+
+            AnytypeCircleCheckbox(checked: isSelected, size: 20)
         }
         .frame(width: 88)
+        .contentShape(Rectangle())
     }
+}
 
-    @ViewBuilder
-    private var thumbnailContent: some View {
-        switch option {
-        case .widgets:
-            WidgetsThumbnail(isSelected: isSelected)
+private extension HomepagePickerOption {
+    var thumbnailAsset: ImageAsset {
+        switch self {
         case .object(let type):
             switch type {
-            case .chat:
-                ChatThumbnail(isSelected: isSelected)
-            case .page:
-                PageThumbnail(isSelected: isSelected)
-            case .collection:
-                CollectionThumbnail(isSelected: isSelected)
+            case .chat: return .HomepagePicker.chatThumbnail
+            case .page: return .HomepagePicker.pageThumbnail
+            case .collection: return .HomepagePicker.collectionThumbnail
             }
         }
     }

@@ -39,7 +39,7 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     
     init(data: WidgetSubmoduleData) {
         self.widgetBlockId = data.widgetBlockId
-        self.widgetObject = data.widgetObject
+        self.widgetObject = data.channelWidgetsObject
         self.output = data.output
     }
     

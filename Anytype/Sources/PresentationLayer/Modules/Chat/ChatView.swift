@@ -187,7 +187,8 @@ struct ChatView: View {
             bottomPanel: bottomPanel,
             emptyView: emptyView,
             showEmptyState: model.showEmptyState,
-            showSectionHeaders: true
+            showSectionHeaders: true,
+            topContentInset: NavigationHeaderConstants.height
         ) {
             cell(data: $0)
         } headerBuilder: {

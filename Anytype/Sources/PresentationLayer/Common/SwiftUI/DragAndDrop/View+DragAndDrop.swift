@@ -2,23 +2,42 @@ import Foundation
 import SwiftUI
 import UniformTypeIdentifiers
 
+private extension DragItemProvider {
+    static func anytypeProvider(
+        itemId: String,
+        state: Binding<DragState>,
+        pendingCommit: DragAndDropPendingCommit
+    ) -> DragItemProvider {
+        state.wrappedValue.dragInitiateId = itemId
+
+        let provider = DragItemProvider(object: "\(itemId)" as NSString)
+        provider.didEnd = {
+            let commit = pendingCommit.commit
+            pendingCommit.commit = nil
+            if let commit {
+                state.wrappedValue.resetState()
+                commit()
+            } else if !state.wrappedValue.dragInProgress {
+                state.wrappedValue.resetState()
+            }
+            // else: iOS can deallocate a transient drag provider while the actual drag
+            // session is still active. Resetting here would make SwiftUI treat the row
+            // as non-draggable mid-gesture (shows "not allowed" badge / row reappears).
+        }
+        return provider
+    }
+}
+
 struct AnytypeVerticalDragViewModifier: ViewModifier {
     let itemId: String
-    @Environment(\.anytypeDragState) @Binding var state: DragState
-    @Environment(\.anytypeDragAndDropFrames) var framesStorage
-    
+    @Environment(\.anytypeDragState) private var state: Binding<DragState>
+    @Environment(\.anytypeDragAndDropFrames) private var framesStorage
+    @Environment(\.anytypeDragAndDropPendingCommit) private var pendingCommit
+
     func body(content: Content) -> some View {
         content
             .onDrag {
-                state.dragInitiateId = itemId
-                
-                let provider = DragItemProvider(object: "\(itemId)" as NSString)
-
-                provider.didEnd = {
-                    state.resetState()
-                }
-                
-                return provider
+                DragItemProvider.anytypeProvider(itemId: itemId, state: state, pendingCommit: pendingCommit)
             }
             .readFrame(space: .named("anytypeDropSpace")) { frame in
                 framesStorage.frames[itemId] = frame
@@ -30,9 +49,38 @@ extension View {
     func anytypeVerticalDrag<Data: Identifiable<String>>(item: Data) -> some View {
         modifier(AnytypeVerticalDragViewModifier(itemId: item.id))
     }
-    
+
     func anytypeVerticalDrag(itemId: String) -> some View {
         modifier(AnytypeVerticalDragViewModifier(itemId: itemId))
+    }
+}
+
+struct AnytypeVerticalDragWithPreviewViewModifier<Preview: View>: ViewModifier {
+    let itemId: String
+    let preview: () -> Preview
+    @Environment(\.anytypeDragState) private var state: Binding<DragState>
+    @Environment(\.anytypeDragAndDropFrames) private var framesStorage
+    @Environment(\.anytypeDragAndDropPendingCommit) private var pendingCommit
+
+    func body(content: Content) -> some View {
+        content
+            .onDrag {
+                DragItemProvider.anytypeProvider(itemId: itemId, state: state, pendingCommit: pendingCommit)
+            } preview: {
+                preview()
+            }
+            .readFrame(space: .named("anytypeDropSpace")) { frame in
+                framesStorage.frames[itemId] = frame
+            }
+    }
+}
+
+extension View {
+    func anytypeVerticalDrag<Preview: View>(
+        itemId: String,
+        @ViewBuilder preview: @escaping () -> Preview
+    ) -> some View {
+        modifier(AnytypeVerticalDragWithPreviewViewModifier(itemId: itemId, preview: preview))
     }
 }
 
@@ -44,6 +92,7 @@ struct AnytypeVerticalDropViewModifier<Data>: ViewModifier where Data: Identifia
     
     @State private var dropState = DropState<Data>()
     @State private var framesStorage = DragAndDropFrames()
+    @State private var pendingCommit = DragAndDropPendingCommit()
     
     func body(content: Content) -> some View {
         content
@@ -54,6 +103,7 @@ struct AnytypeVerticalDropViewModifier<Data>: ViewModifier where Data: Identifia
                     dragState: $state,
                     dropState: $dropState,
                     framesStorage: framesStorage,
+                    pendingCommit: pendingCommit,
                     dropUpdate: dropUpdate,
                     dropFinish: dropFinish
                 )
@@ -61,6 +111,7 @@ struct AnytypeVerticalDropViewModifier<Data>: ViewModifier where Data: Identifia
             .coordinateSpace(name: "anytypeDropSpace")
             .environment(\.anytypeDragState, $state)
             .environment(\.anytypeDragAndDropFrames, framesStorage)
+            .environment(\.anytypeDragAndDropPendingCommit, pendingCommit)
     }
 }
 

@@ -53,6 +53,6 @@ extension SpacePermissions {
         canEditPermissions = isOwner && !isLocalMode
         canApproveRequests = isOwner
         canChangeUxType = isOwner
-        canSetHomepage = isOwner || spaceView.isOneToOne
+        canSetHomepage = isOwner && !spaceView.isOneToOne
     }
 }

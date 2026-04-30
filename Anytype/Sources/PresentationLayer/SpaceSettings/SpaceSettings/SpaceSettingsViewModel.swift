@@ -10,7 +10,7 @@ enum HomepageSettingsState {
     var buttonDecoration: RoundedButtonDecoration {
         switch self {
         case .empty:
-            return .chevron
+            return .caption(Loc.SpaceSettings.HomePage.noHome)
         case .object(let icon, let name):
             return .object(icon: icon, name: name)
         }
@@ -309,14 +309,14 @@ final class SpaceSettingsViewModel {
     }
 
     private func loadHomePageState(homepage: SpaceHomepage) async {
-        switch homepage {
+        switch homepage.displayValue {
         case .empty, .widgets, .graph:
             homePageState = .empty
         case .object(let objectId):
             let spaceId = workspaceInfo.accountSpaceId
             let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
             if let details, !details.isArchivedOrDeleted {
-                homePageState = .object(icon: details.objectIconImage, name: details.name)
+                homePageState = .object(icon: details.objectIconImage, name: details.name.withPlaceholder)
             } else {
                 homePageState = .empty
             }

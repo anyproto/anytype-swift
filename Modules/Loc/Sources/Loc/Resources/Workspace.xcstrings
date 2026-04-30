@@ -9802,7 +9802,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg comments"
+                      "value" : "%arg komentar"
                     }
                   }
                 }
@@ -10192,7 +10192,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%a 个合并评论"
+                      "value" : "%arg 条评论"
                     }
                   }
                 }
@@ -68061,7 +68061,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Sin Inicio "
+            "value" : "Sin Inicio"
           }
         },
         "fa" : {
@@ -68216,7 +68216,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Al entrar, se abre la navegación "
+            "value" : "Al entrar, se abre la navegación"
           }
         },
         "fa" : {

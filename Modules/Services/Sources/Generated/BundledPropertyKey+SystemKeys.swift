@@ -106,6 +106,7 @@ public extension BundledPropertyKey {
         .resolvedLayout,
         .pluralName,
         .lastMessageDate,
+        .notificationSubscribers,
         .templatePlaceholders,
     ]
 }

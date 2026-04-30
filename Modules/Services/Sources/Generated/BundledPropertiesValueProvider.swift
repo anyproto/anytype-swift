@@ -187,6 +187,9 @@ public protocol BundledPropertiesValueProvider {
     var widgetViewId: String { get }
     var isMainChat: Bool { get }
     var lastMessageDate: Date? { get }
+    var notificationSubscribers: [ObjectId] { get }
+    var unreadMessageCount: Int? { get }
+    var unreadMentionCount: Int? { get }
     var fileAvailableOffline: Bool { get }
     var analyticsChatId: String { get }
     var analyticsSpaceId: String { get }
@@ -883,6 +886,18 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Date of the last message in a chat
     var lastMessageDate: Date? {
         return value(for: BundledPropertyKey.lastMessageDate.rawValue)
+    }
+    /// Participants subscribed to notifications on this discussion
+    var notificationSubscribers: [ObjectId] {
+        return value(for: BundledPropertyKey.notificationSubscribers.rawValue)
+    }
+    /// Number of unread messages in a discussion for the current user
+    var unreadMessageCount: Int? {
+        return value(for: BundledPropertyKey.unreadMessageCount.rawValue)
+    }
+    /// Number of unread mentions in a discussion for the current user
+    var unreadMentionCount: Int? {
+        return value(for: BundledPropertyKey.unreadMentionCount.rawValue)
     }
     /// Is file available offline
     var fileAvailableOffline: Bool {

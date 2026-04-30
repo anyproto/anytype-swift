@@ -67,6 +67,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var chatStorage: (any DiscussionMessagesStorageProtocol)?
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private var discussionMessageBuilder: (any DiscussionMessageBuilderProtocol)?
+    private let threadGrouper = DiscussionThreadGrouper()
     private var chatObject: (any BaseDocumentProtocol)?
     private let initialMessageId: String?
 
@@ -76,6 +77,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     var dataLoaded = false
     var canEdit = false
+    var notificationMode: DiscussionNotificationMode = .mentionsOnly
     @ObservationIgnored
     var keyboardDismiss: KeyboardDismiss?
     @ObservationIgnored
@@ -123,6 +125,17 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private var firstUnreadMessageOrderId: String?
     @ObservationIgnored
     private var bottomVisibleOrderId: String?
+    // 250 ms debounced union-span accumulator; defuses lastStateID race on fast scroll.
+    @ObservationIgnored
+    private var pendingMarkAsReadTask: Task<Void, Never>?
+    @ObservationIgnored
+    private var minObservedTopMessageId: String?
+    @ObservationIgnored
+    private var minObservedTopOrderId: String?
+    @ObservationIgnored
+    private var maxObservedBottomMessageId: String?
+    @ObservationIgnored
+    private var maxObservedBottomOrderId: String?
     @ObservationIgnored
     private var bigDistanceToBottom: Bool = false
     @ObservationIgnored
@@ -240,8 +253,9 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         async let linkedObjectsSub: () = subscribeOnLinkedObjects()
         async let attachmentsDownloadingSub: () = subscribeOnAttachmentsDownloading()
         async let photosItemsTaskSub: () = subscribeOnPhotosItemsTask()
+        async let notificationModeSub: () = subscribeOnNotificationMode()
 
-        _ = await (permissionsSub, participantsSub, typesSub, spaceViewSub, linkedObjectsSub, attachmentsDownloadingSub, photosItemsTaskSub)
+        _ = await (permissionsSub, participantsSub, typesSub, spaceViewSub, linkedObjectsSub, attachmentsDownloadingSub, photosItemsTaskSub, notificationModeSub)
     }
 
     func subscribeOnMessages() async throws {
@@ -269,7 +283,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
                 let prevChatIsEmpty = self.messages.isEmpty
 
                 self.messages = messages
-                self.commentsCount = messages.count
                 if prevChatIsEmpty {
                     firstUnreadMessageOrderId = chatState?.messages.oldestOrderID
                 }
@@ -280,8 +293,11 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
                         try? await chatStorage.loadPagesTo(messageId: initialMessageId)
                         collectionViewScrollProxy.scrollTo(itemId: initialMessageId, position: .center, animated: false)
                         messageHiglightId = initialMessageId
+                        // Force recalc so the anchor gets marked read even without scroll.
+                        collectionViewScrollProxy.refreshVisibleRange()
                     } else if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
                         collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
+                        collectionViewScrollProxy.refreshVisibleRange()
                     } else if let message = messages.last {
                         collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
                     }
@@ -291,6 +307,10 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             if updates.contains(.state), let chatState {
                 self.chatState = chatState
                 updateActions()
+            }
+
+            if updates.contains(.messageCount) {
+                self.commentsCount = await chatStorage.messageCount ?? 0
             }
         }
     }
@@ -502,11 +522,68 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
-        Task {
-            bottomVisibleOrderId = to.messageOrderId
-            forceHiddenActionPanel = false
-            await chatStorage?.updateVisibleRange(startMessageId: from.messageId, endMessageId: to.messageId)
+        // Latch must flip on the first tick even when viewport edges are dividers.
+        forceHiddenActionPanel = false
+
+        // Outer visible cells can be dividers; their ids break lex compare and no-op markAsRead.
+        guard let resolved = resolveTrackedRange(from: from, to: to) else {
+            return
         }
+
+        bottomVisibleOrderId = resolved.toOrderId
+
+        // Lexorank min/max accumulator — String `<` matches storage's comparisons.
+        if minObservedTopOrderId.map({ resolved.fromOrderId < $0 }) ?? true {
+            minObservedTopMessageId = resolved.fromMessageId
+            minObservedTopOrderId = resolved.fromOrderId
+        }
+        if maxObservedBottomOrderId.map({ resolved.toOrderId > $0 }) ?? true {
+            maxObservedBottomMessageId = resolved.toMessageId
+            maxObservedBottomOrderId = resolved.toOrderId
+        }
+
+        pendingMarkAsReadTask?.cancel()
+        pendingMarkAsReadTask = Task { [weak self] in
+            try? await Task.sleep(for: .milliseconds(250))
+            guard !Task.isCancelled, let self else { return }
+            guard let topId = self.minObservedTopMessageId,
+                  let bottomId = self.maxObservedBottomMessageId else { return }
+            self.minObservedTopMessageId = nil
+            self.minObservedTopOrderId = nil
+            self.maxObservedBottomMessageId = nil
+            self.maxObservedBottomOrderId = nil
+            self.pendingMarkAsReadTask = nil
+            await self.chatStorage?.updateVisibleRange(startMessageId: topId, endMessageId: bottomId)
+        }
+    }
+
+    private func resolveTrackedRange(
+        from: MessageSectionItem,
+        to: MessageSectionItem
+    ) -> (fromMessageId: String, fromOrderId: String, toMessageId: String, toOrderId: String)? {
+        if let fromMessageId = from.trackedMessageId,
+           let fromOrderId = from.trackedOrderId,
+           let toMessageId = to.trackedMessageId,
+           let toOrderId = to.trackedOrderId {
+            return (fromMessageId, fromOrderId, toMessageId, toOrderId)
+        }
+
+        let allItems = mesageBlocks.flatMap(\.items)
+        guard let fromIdx = allItems.firstIndex(where: { $0.id == from.id }),
+              let toIdx = allItems.firstIndex(where: { $0.id == to.id }),
+              fromIdx <= toIdx else {
+            return nil
+        }
+        let slice = allItems[fromIdx...toIdx]
+        guard let innerFrom = slice.first(where: { $0.trackedMessageId != nil }),
+              let innerTo = slice.last(where: { $0.trackedMessageId != nil }),
+              let fromMessageId = innerFrom.trackedMessageId,
+              let fromOrderId = innerFrom.trackedOrderId,
+              let toMessageId = innerTo.trackedMessageId,
+              let toOrderId = innerTo.trackedOrderId else {
+            return nil
+        }
+        return (fromMessageId, fromOrderId, toMessageId, toOrderId)
     }
 
     func bigDistanceToTheBottomChanged(isBig: Bool) {
@@ -599,15 +676,20 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func didSelectReplyTo(message: MessageViewData) {
         AnytypeAnalytics.instance().logClickMessageMenuReply()
+        let rootParentId = resolveRootParentId(for: message.message)
         withAnimation {
             inputFocused = true
             replyToMessage = ChatInputReplyModel(
-                id: message.message.id,
+                id: rootParentId,
                 title: Loc.Chat.replyTo(message.authorName),
                 description: message.discussionBlocks.plainText,
                 icon: message.attachmentsDetails.first?.objectIconImage
             )
         }
+    }
+
+    private func resolveRootParentId(for message: ChatMessage) -> String {
+        threadGrouper.findRootParent(of: message, in: messages) ?? message.id
     }
 
     func didSelectReplyMessage(message: MessageViewData) {
@@ -661,6 +743,24 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         let link = universalLinkParser.createUrl(link: .object(objectId: objectId, spaceId: spaceId, cid: invite?.cid, key: invite?.fileKey))
         UIPasteboard.general.string = link?.absoluteString
         toastBarData = ToastBarData(Loc.copied)
+    }
+
+    func toggleNotificationMode(_ newMode: DiscussionNotificationMode) async {
+        guard newMode != notificationMode else { return }
+        guard let chatId else { return }
+        let participant = await accountParticipantsStorage.participantSequence(spaceId: spaceId).first(where: { _ in true })
+        guard let identity = participant?.identity else { return }
+        do {
+            switch newMode {
+            case .allNewReplies:
+                try await chatService.addNotificationSubscriber(chatObjectId: chatId, identity: identity)
+            case .mentionsOnly:
+                try await chatService.removeNotificationSubscriber(chatObjectId: chatId, identity: identity)
+            }
+            notificationMode = newMode
+        } catch {
+            toastBarData = ToastBarData(error.localizedDescription, type: .failure)
+        }
     }
 
     // MARK: - ChatActionProviderHandler
@@ -718,6 +818,25 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         } else {
             for await canEditMessages in permissionsSequence {
                 canEdit = canEditMessages
+            }
+        }
+    }
+
+    private func subscribeOnNotificationMode() async {
+        guard let chatObject else { return }
+        // notificationSubscribers stores participant object IDs (relations.json:
+        // "objectTypes": ["participant"]), not raw identity strings.
+        let participantIdSequence = accountParticipantsStorage.participantSequence(spaceId: spaceId)
+            .map(\.id)
+            .removeDuplicates()
+        let subscribersSequence = chatObject.detailsPublisher
+            .map(\.notificationSubscribers)
+            .removeDuplicates()
+            .values
+        for await (subscribers, participantId) in combineLatest(subscribersSequence, participantIdSequence) {
+            let newMode: DiscussionNotificationMode = subscribers.contains(participantId) ? .allNewReplies : .mentionsOnly
+            if notificationMode != newMode {
+                notificationMode = newMode
             }
         }
     }
@@ -829,7 +948,13 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             chatActionProviderBinding.wrappedValue.register(chatId: newChatId, handler: self)
         }
 
-        // Start deferred subscriptions
+        // Best-effort: register the message subscription with middleware before createMessage
+        // fires, so the first chatAdd event carries our subId instead of being filtered out in
+        // DiscussionMessagesStorage.handle(events:). If this throws (e.g. transient network
+        // error), swallow it — addDiscussion already succeeded and the user's first comment
+        // must still be sendable; startDeferredSubscriptions will retry on its own.
+        try? await chatStorage?.startSubscriptionIfNeeded()
+
         startDeferredSubscriptions()
 
         return newChatId
@@ -838,6 +963,12 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private func startDeferredSubscriptions() {
         Task { [weak self] in
             try? await self?.subscribeOnMessages()
+        }
+        Task { [weak self] in
+            // chatObject was nil on initial startSubscriptions() (first-comment case).
+            // Rebind now that createDiscussionIfNeeded assigned it, so the UI reflects
+            // the middleware-auto-subscribed creator state instead of the default.
+            await self?.subscribeOnNotificationMode()
         }
     }
 

@@ -35,6 +35,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
+    static let fixChannelHomeBackNavigation = FeatureDescription(
+        title: "Fix channel home back navigation - IOS-6067",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: true
+    )
+
     // should be disabled
     static let channelTypeSwitcher = FeatureDescription(
         title: "Channel type switcher - IOS-5378",
@@ -50,6 +56,12 @@ public extension FeatureDescription {
 
     static let muteAndHide = FeatureDescription(
         title: "Mute and hide notification setting - IOS-5809",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: true
+    )
+
+    static let personalFavorites = FeatureDescription(
+        title: "Personal Favorites - IOS-5864 (requires MW GO-6962)",
         category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
         defaultValue: true
     )

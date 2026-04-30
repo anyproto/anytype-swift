@@ -39,17 +39,27 @@ final class HomeBottomNavigationPanelViewModel {
     private var participantSpaceView: ParticipantSpaceViewData?
     @ObservationIgnored
     private var detailsSubscriptionTask: Task<Void, Never>?
+    @ObservationIgnored @Injected(\.discussionMessageCountObserver)
+    private var messageCountObserver: any DiscussionMessageCountObserverProtocol
+    @ObservationIgnored
+    private var observerCommandTask: Task<Void, Never>?
+    @ObservationIgnored
+    private var currentDiscussionId: String?
 
     // MARK: - Public properties
 
     var showDiscussButton: Bool = false
+    var discussButtonHasUnread: Bool = false
     var canCreateObject: Bool = false
+    var commentsCount: Int = 0
     var pageObjectType: ObjectType?
     var noteObjectType: ObjectType?
     var taskObjectType: ObjectType?
     var otherObjectTypes: [ObjectType] = []
     var newObjectPlusMenu: Bool = false
-    
+
+    var spaceId: String { info.accountSpaceId }
+
     init(
         info: AccountInfo,
         output: (any HomeBottomNavigationPanelModuleOutput)?
@@ -57,9 +67,13 @@ final class HomeBottomNavigationPanelViewModel {
         self.info = info
         self.output = output
     }
-    
+
     func onTapNewObject() {
         handleCreateObject()
+    }
+
+    func onLongPressNewObject(details: ObjectDetails) {
+        output?.onCreateObjectSelected(screenData: details.screenData())
     }
 
     func onTapSearch() {
@@ -88,8 +102,9 @@ final class HomeBottomNavigationPanelViewModel {
         async let participantSub: () = participantSubscription()
         async let typesSub: () = typesSubscription()
         async let featuresSub: () = featuresSubscription()
-        
-        _ = await (participantSub, typesSub, featuresSub)
+        async let messageCountSub: () = subscribeOnMessageCount()
+
+        _ = await (participantSub, typesSub, featuresSub, messageCountSub)
     }
     
     func updateVisibleScreen(data: AnyHashable) {
@@ -214,21 +229,65 @@ final class HomeBottomNavigationPanelViewModel {
     }
     
     private func updateState() {
-        guard let participantSpaceView else { return }
+        guard let participantSpaceView else {
+            discussButtonHasUnread = false
+            return
+        }
 
-        // Skip state update when navigating to discussion — panel will be hidden anyway,
-        // and updating would flicker the discuss button to search during push animation
+        // Don't stop observing — popping back from the discussion screen should preserve the count.
         if currentData is DiscussionCoordinatorData { return }
 
         canCreateObject = participantSpaceView.permissions.canEdit
         guard let editorData = currentData as? EditorScreenData,
               let objectId = editorData.objectId else {
             showDiscussButton = false
+            discussButtonHasUnread = false
+            clearDiscussionObservation()
             return
         }
         let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
-        let hasDiscussion = document.details?.discussionId.isNotEmpty == true
-        showDiscussButton = FeatureFlags.discussionButton && (canCreateObject || hasDiscussion)
+        let details = document.details
+        let discussionId = details?.discussionId
+        let hasDiscussion = discussionId?.isNotEmpty == true
+        let layoutSupportsDiscussion = details?.isSupportedForDiscussion ?? false
+        showDiscussButton = FeatureFlags.discussionButton && layoutSupportsDiscussion && (canCreateObject || hasDiscussion)
+        discussButtonHasUnread = showDiscussButton && (details?.unreadMessageCount ?? 0) > 0
+
+        guard hasDiscussion, let discussionId else {
+            clearDiscussionObservation()
+            return
+        }
+
+        guard currentDiscussionId != discussionId else { return }
+        currentDiscussionId = discussionId
+        commentsCount = 0
+        enqueueObserverCommand { await $0.startObserving(chatId: discussionId) }
+    }
+
+    private func clearDiscussionObservation() {
+        if commentsCount != 0 { commentsCount = 0 }
+        guard currentDiscussionId != nil else { return }
+        currentDiscussionId = nil
+        enqueueObserverCommand { await $0.stopObserving() }
+    }
+
+    private func subscribeOnMessageCount() async {
+        for await update in await messageCountObserver.messageCountStream {
+            guard update.chatId == currentDiscussionId else { continue }
+            commentsCount = update.count
+        }
+    }
+
+    // Actor method bodies are serialized, but the actor does not preserve Task enqueue
+    // order — a raw `Task { stop() }` followed by `Task { start(D) }` can run in reverse.
+    // Chaining through observerCommandTask forces FIFO.
+    private func enqueueObserverCommand(_ command: @Sendable @escaping (any DiscussionMessageCountObserverProtocol) async -> Void) {
+        let previous = observerCommandTask
+        let observer = messageCountObserver
+        observerCommandTask = Task {
+            await previous?.value
+            await command(observer)
+        }
     }
 
     private func handleCreateObject() {

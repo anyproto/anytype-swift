@@ -14,23 +14,9 @@ struct DiscussionView: View {
     }
 
     var body: some View {
-        ZStack {
-            Color.Background.primary
-            mainView
-                .ignoresSafeArea()
-        }
-        .messageReactionSelectedColor(Color.Control.accent100)
-        .messageReactionUnselectedColor(Color.Shape.transparentSecondary)
-        .overlay(alignment: .top) {
-            DiscussionHeaderView(
-                objectName: model.objectName,
-                commentsCount: model.commentsCount,
-                chatId: model.chatId,
-                onTapCopyLink: {
-                    Task { await model.copyObjectLink() }
-                }
-            )
-        }
+        contentView
+            .messageReactionSelectedColor(Color.Control.accent100)
+            .messageReactionUnselectedColor(Color.Shape.transparentSecondary)
         .onAppear {
             model.keyboardDismiss = keyboardDismiss
             model.configureProvider(chatActionProvider)
@@ -61,6 +47,91 @@ struct DiscussionView: View {
         }
         .snackbar(toastBarData: $model.toastBarData)
         .homeBottomPanelHidden(true)
+    }
+
+    // MARK: - iOS version-specific content
+
+    @ViewBuilder
+    private var contentView: some View {
+        if #available(iOS 26.0, *) {
+            ios26Content
+        } else {
+            legacyContent
+        }
+    }
+
+    @available(iOS 26.0, *)
+    private var ios26Content: some View {
+        NavigationStack {
+            ZStack {
+                Color.Background.primary
+                mainView(topContentInset: 0)
+                    .ignoresSafeArea()
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbarRole(.editor)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    PageNavigationBackButton(useExpandedTapArea: false)
+                        .buttonBorderShape(.circle)
+                }
+                ToolbarItem(placement: .title) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        AnytypeText(model.objectName.withPlaceholder, style: .caption1Medium)
+                            .foregroundStyle(Color.Text.secondary)
+                            .lineLimit(1)
+                        AnytypeText(Loc.Discussion.Header.comments(model.commentsCount), style: .uxTitle2Semibold)
+                            .foregroundStyle(Color.Text.primary)
+                            .lineLimit(1)
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    if model.chatId != nil {
+                        Menu {
+                            if model.canEdit {
+                                DiscussionNotificationsMenu(currentMode: model.notificationMode) { mode in
+                                    await model.toggleNotificationMode(mode)
+                                }
+                            }
+                            Button {
+                                Task { await model.copyObjectLink() }
+                            } label: {
+                                Label(Loc.copyLink, systemImage: "link")
+                            }
+                        } label: {
+                            Image(asset: .X24.more)
+                                .foregroundStyle(Color.Control.primary)
+                        }
+                        .buttonBorderShape(.circle)
+                    }
+                }
+            }
+            .scrollEdgeEffectStyle(.soft, for: .top)
+        }
+    }
+
+    private var legacyContent: some View {
+        ZStack {
+            Color.Background.primary
+            mainView(topContentInset: NavigationHeaderConstants.height)
+                .ignoresSafeArea()
+        }
+        .overlay(alignment: .top) {
+            DiscussionHeaderView(
+                objectName: model.objectName,
+                commentsCount: model.commentsCount,
+                chatId: model.chatId,
+                notificationMode: model.notificationMode,
+                canEdit: model.canEdit,
+                onTapCopyLink: {
+                    Task { await model.copyObjectLink() }
+                },
+                onNotificationModeChange: { mode in
+                    await model.toggleNotificationMode(mode)
+                }
+            )
+        }
     }
 
     @ViewBuilder
@@ -164,14 +235,15 @@ struct DiscussionView: View {
     }
 
     @ViewBuilder
-    private var mainView: some View {
+    private func mainView(topContentInset: CGFloat) -> some View {
         ChatCollectionView(
             items: model.mesageBlocks,
             scrollProxy: model.collectionViewScrollProxy,
             bottomPanel: bottomPanel,
             emptyView: emptyView,
             showEmptyState: model.showEmptyState,
-            showSectionHeaders: false
+            showSectionHeaders: false,
+            topContentInset: topContentInset
         ) {
             cell(data: $0)
         } headerBuilder: {

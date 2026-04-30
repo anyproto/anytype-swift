@@ -101,7 +101,69 @@ final class HomePathTests: XCTestCase {
         path.replaceLast("4")
         path.replaceLast("5")
         path.replaceLast("6")
-        
+
         XCTAssertEqual(path.path, ["1", "2", "6"])
+    }
+
+    func testCurrentHomeReturnsIndexOne() {
+        var twoElementPath = HomePath()
+        twoElementPath.push("root")
+        twoElementPath.push("home")
+
+        XCTAssertEqual(twoElementPath.currentHome, AnyHashable("home"))
+        XCTAssertEqual(twoElementPath.currentHome, twoElementPath.path[1])
+    }
+
+    func testCurrentHomeNilWhenPathEmpty() {
+        let emptyPath = HomePath()
+
+        XCTAssertNil(emptyPath.currentHome)
+    }
+
+    func testCurrentHomeNilWhenOnlyRoot() {
+        var rootOnly = HomePath()
+        rootOnly.push("root")
+
+        XCTAssertNil(rootOnly.currentHome)
+    }
+
+    func testReplaceHomeOnValidPath() {
+        var twoElementPath = HomePath()
+        twoElementPath.push("root")
+        twoElementPath.push("oldHome")
+
+        twoElementPath.replaceHome("newHome")
+
+        XCTAssertEqual(twoElementPath.path, ["root", "newHome"])
+
+        var threeElementPath = HomePath()
+        threeElementPath.push("root")
+        threeElementPath.push("oldHome")
+        threeElementPath.push("pushed")
+
+        threeElementPath.replaceHome("newHome")
+
+        XCTAssertEqual(threeElementPath.path, ["root", "newHome", "pushed"])
+    }
+
+    func testReplaceHomeSameValueNoOp() {
+        var samePath = HomePath()
+        samePath.push("root")
+        samePath.push("home")
+
+        samePath.replaceHome("home")
+
+        XCTAssertEqual(samePath.path, ["root", "home"])
+    }
+
+    func testReplaceHomeOnRootlessPath() {
+        var emptyPath = HomePath()
+        emptyPath.replaceHome("home")
+        XCTAssertEqual(emptyPath.path, [])
+
+        var rootOnlyPath = HomePath()
+        rootOnlyPath.push("root")
+        rootOnlyPath.replaceHome("home")
+        XCTAssertEqual(rootOnlyPath.path, ["root"])
     }
 }

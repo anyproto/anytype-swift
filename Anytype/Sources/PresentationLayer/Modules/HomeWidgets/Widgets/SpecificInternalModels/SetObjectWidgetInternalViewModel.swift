@@ -35,6 +35,8 @@ final class SetObjectWidgetInternalViewModel {
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
     @Injected(\.chatMessagesPreviewsStorage) @ObservationIgnored
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
+    @Injected(\.objectsWithUnreadDiscussionsSubscription) @ObservationIgnored
+    private var unreadDiscussionsSubscription: any ObjectsWithUnreadDiscussionsSubscriptionProtocol
     @Injected(\.widgetRowModelBuilder) @ObservationIgnored
     private var widgetRowModelBuilder: any WidgetRowModelBuilderProtocol
 
@@ -49,6 +51,8 @@ final class SetObjectWidgetInternalViewModel {
     private var canEditBlocks = true
     @ObservationIgnored
     private var chatPreviews: [ChatMessagePreview] = []
+    @ObservationIgnored
+    private var unreadDiscussionsBySpace: [String: SpaceDiscussionsUnreadInfo] = [:]
     
     var dragId: String? { widgetBlockId }
     
@@ -63,7 +67,7 @@ final class SetObjectWidgetInternalViewModel {
     init(data: WidgetSubmoduleData, style: SetObjecWidgetStyle) {
         self.widgetBlockId = data.widgetBlockId
         self.style = style
-        self.widgetObject = data.widgetObject
+        self.widgetObject = data.channelWidgetsObject
         self.output = data.output
         
         let storageProvider = Container.shared.subscriptionStorageProvider.resolve()
@@ -75,8 +79,9 @@ final class SetObjectWidgetInternalViewModel {
         async let startInfoTask: () = startInfoPublisher()
         async let targetDetailsTask: () = startTargetDetailsPublisher()
         async let chatPreviewsTask: () = startChatPreviewsSequence()
+        async let unreadDiscussionsTask: () = startUnreadDiscussionsSequence()
 
-        _ = await (permissionsTask, startInfoTask, targetDetailsTask, chatPreviewsTask)
+        _ = await (permissionsTask, startInfoTask, targetDetailsTask, chatPreviewsTask, unreadDiscussionsTask)
     }
     
     // MARK: - Actions
@@ -141,6 +146,13 @@ final class SetObjectWidgetInternalViewModel {
             await updateBodyState()
         }
     }
+
+    private func startUnreadDiscussionsSequence() async {
+        for await unreadBySpace in await unreadDiscussionsSubscription.unreadBySpaceSequence {
+            unreadDiscussionsBySpace = unreadBySpace
+            await updateBodyState()
+        }
+    }
     
     // MARK: - Private for view updates
     
@@ -180,7 +192,8 @@ final class SetObjectWidgetInternalViewModel {
         return widgetRowModelBuilder.buildListRows(
             from: configs,
             spaceView: spaceView,
-            chatPreviews: chatPreviews
+            chatPreviews: chatPreviews,
+            unreadParents: unreadDiscussionsBySpace[setDocument.spaceId]?.parents ?? []
         )
     }
     

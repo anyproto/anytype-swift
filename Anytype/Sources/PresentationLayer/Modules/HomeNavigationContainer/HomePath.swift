@@ -77,6 +77,22 @@ struct HomePath: Equatable, @unchecked Sendable {
     }
 }
 
+extension HomePath {
+    // Home slot is at index 1 (index 0 is SpaceHubNavigationItem).
+    var currentHome: AnyHashable? {
+        path[safe: 1]
+    }
+
+    mutating func replaceHome(_ newHome: AnyHashable) {
+        guard path.count >= 2 else {
+            anytypeAssertionFailure("Path has no home slot", info: ["count": "\(path.count)"])
+            return
+        }
+        guard path[1] != newHome else { return }
+        path[1] = newHome
+    }
+}
+
 extension AnytypeNavigationView {
 
     init(path homePath: Binding<HomePath>, pathChanging: Binding<Bool>, moduleSetup: @escaping (_ builder: AnytypeDestinationBuilderHolder) -> Void) {

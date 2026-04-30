@@ -2990,6 +2990,29 @@ extension Anytype_Rpc.Chat.AddMessage.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Chat.AddNotificationSubscriber.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Chat.AddNotificationSubscriber.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Chat.DeleteMessage.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -3170,6 +3193,29 @@ extension Anytype_Rpc.Chat.ReadReactions.Response.Error: LocalizedError {
                 return ""
             case .badInput:
                 return LocHelper.tr(table: "LocalizableError", key: "Chat.ReadReactions.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Chat.RemoveNotificationSubscriber.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Chat.RemoveNotificationSubscriber.badInput")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3406,6 +3452,29 @@ extension Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error: LocalizedError
     }
 }
 
+extension Anytype_Rpc.Debug.CleanupReport.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Debug.CleanupReport.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -3429,7 +3498,7 @@ extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.ExportLog.Response.Error: LocalizedError {
+extension Anytype_Rpc.Debug.ExportReport.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if !localizeError.isEmpty {
@@ -3445,9 +3514,9 @@ extension Anytype_Rpc.Debug.ExportLog.Response.Error: LocalizedError {
             case .unknownError:
                 return ""
             case .badInput:
-                return LocHelper.tr(table: "LocalizableError", key: "Debug.ExportLog.badInput")
+                return LocHelper.tr(table: "LocalizableError", key: "Debug.ExportReport.badInput")
             case .noFolder:
-                return LocHelper.tr(table: "LocalizableError", key: "Debug.ExportLog.noFolder")
+                return LocHelper.tr(table: "LocalizableError", key: "Debug.ExportReport.noFolder")
             case .UNRECOGNIZED:
                 return ""
         }

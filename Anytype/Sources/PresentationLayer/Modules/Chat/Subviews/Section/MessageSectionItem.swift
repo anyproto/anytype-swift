@@ -39,4 +39,28 @@ extension MessageSectionItem {
             return id
         }
     }
+
+    /// Real message id for read-tracking; nil for non-message cells (dividers).
+    var trackedMessageId: String? {
+        switch self {
+        case .message(let data):
+            return data.message.id
+        case .unread(_, let messageId, _):
+            return messageId
+        case .discussionDivider:
+            return nil
+        }
+    }
+
+    /// Real message orderID for read-tracking; nil for non-message cells (dividers).
+    var trackedOrderId: String? {
+        switch self {
+        case .message(let data):
+            return data.message.orderID
+        case .unread(_, _, let messageOrderId):
+            return messageOrderId
+        case .discussionDivider:
+            return nil
+        }
+    }
 }

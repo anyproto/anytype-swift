@@ -23,6 +23,8 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
     func readAllMessages() async throws
     func readReactions(chatObjectId: String, orderId: String) async throws
     func addDiscussion(objectId: String) async throws -> String
+    func addNotificationSubscriber(chatObjectId: String, identity: String) async throws
+    func removeNotificationSubscriber(chatObjectId: String, identity: String) async throws
 }
 
 public extension ChatServiceProtocol {
@@ -153,5 +155,19 @@ final class ChatService: ChatServiceProtocol {
             $0.objectID = objectId
         }).invoke()
         return result.discussionID
+    }
+
+    func addNotificationSubscriber(chatObjectId: String, identity: String) async throws {
+        try await ClientCommands.chatAddNotificationSubscriber(.with {
+            $0.chatObjectID = chatObjectId
+            $0.identity = identity
+        }).invoke()
+    }
+
+    func removeNotificationSubscriber(chatObjectId: String, identity: String) async throws {
+        try await ClientCommands.chatRemoveNotificationSubscriber(.with {
+            $0.chatObjectID = chatObjectId
+            $0.identity = identity
+        }).invoke()
     }
 }
