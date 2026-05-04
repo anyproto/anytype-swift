@@ -13,6 +13,7 @@ final class HomeWidgetsViewModel {
         static let objectTypeSectionId = "HomeObjectTypeSection"
         static let unreadSectionId = "HomeUnreadSection"
         static let myFavoritesSectionId = "HomeMyFavoritesSection"
+        static let recentlyEditedSectionId = "HomeRecentlyEditedSection"
     }
     
     // MARK: - DI
@@ -66,6 +67,8 @@ final class HomeWidgetsViewModel {
     var unreadItems: [UnreadSectionItem] = []
     var myFavoritesSectionIsExpanded: Bool = false
     var myFavoritesListViewModel: MyFavoritesListViewModel
+    var recentlyEditedSectionIsExpanded: Bool = false
+    var recentlyEditedListViewModel: RecentlyEditedListViewModel
     private var supportsMultiChats: Bool = false
 
     var spaceId: String { info.accountSpaceId }
@@ -99,20 +102,28 @@ final class HomeWidgetsViewModel {
                 output?.onObjectSelected(screenData: details.screenData())
             }
         )
+        self.recentlyEditedListViewModel = RecentlyEditedListViewModel(
+            spaceId: info.accountSpaceId,
+            onObjectSelected: { [weak output] details in
+                output?.onObjectSelected(screenData: details.screenData())
+            }
+        )
         self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
         self.unreadSectionIsExpanded = expandedService.isExpanded(id: Constants.unreadSectionId, defaultValue: true)
         self.myFavoritesSectionIsExpanded = expandedService.isExpanded(id: Constants.myFavoritesSectionId, defaultValue: true)
+        self.recentlyEditedSectionIsExpanded = expandedService.isExpanded(id: Constants.recentlyEditedSectionId, defaultValue: true)
     }
 
     func startSubscriptions() async {
         async let widgetObjectSub: () = startWidgetObjectTask()
         async let myFavoritesSub: () = startMyFavoritesTask()
+        async let recentlyEditedSub: () = startRecentlyEditedTask()
         async let canEditSub: () = startCanEditSubscription()
         async let objectTypesTask: () = startObjectTypesTask()
         async let spaceViewTask: () = startSpaceViewTask()
         async let unreadItemsTask: () = startUnreadItemsTask()
 
-        _ = await (widgetObjectSub, myFavoritesSub, canEditSub, objectTypesTask, spaceViewTask, unreadItemsTask)
+        _ = await (widgetObjectSub, myFavoritesSub, recentlyEditedSub, canEditSub, objectTypesTask, spaceViewTask, unreadItemsTask)
     }
 
     func onAppear() {
@@ -172,6 +183,13 @@ final class HomeWidgetsViewModel {
         expandedService.setState(id: Constants.myFavoritesSectionId, isExpanded: myFavoritesSectionIsExpanded)
     }
 
+    func onTapRecentlyEditedHeader() {
+        withAnimation {
+            recentlyEditedSectionIsExpanded = !recentlyEditedSectionIsExpanded
+        }
+        expandedService.setState(id: Constants.recentlyEditedSectionId, isExpanded: recentlyEditedSectionIsExpanded)
+    }
+
     // MARK: - Private
     
     private func startWidgetObjectTask() async {
@@ -192,6 +210,10 @@ final class HomeWidgetsViewModel {
 
     private func startMyFavoritesTask() async {
         await myFavoritesListViewModel.startSubscriptions()
+    }
+
+    private func startRecentlyEditedTask() async {
+        await recentlyEditedListViewModel.startSubscriptions()
     }
 
     private func startCanEditSubscription() async {

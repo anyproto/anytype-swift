@@ -34,6 +34,7 @@ private struct HomeWidgetsInternalView: View {
             content
                 .animation(.default, value: model.widgetBlocks.count)
                 .animation(.default, value: model.myFavoritesListViewModel.rows.count)
+                .animation(.default, value: model.recentlyEditedListViewModel.rows.count)
 
             if context.showEmbeddedBottomPanel {
                 HomeBottomNavigationPanelView(
@@ -86,6 +87,7 @@ private struct HomeWidgetsInternalView: View {
                 blockWidgets
                 unreadWidget
                 myFavoritesWidget
+                recentlyEditedWidget
                 objectTypeWidgets
                 binWidget
                 AnytypeNavigationSpacer(minHeight: context.showEmbeddedBottomPanel ? 72 : 0)
@@ -149,6 +151,18 @@ private struct HomeWidgetsInternalView: View {
             }
             if model.myFavoritesSectionIsExpanded {
                 MyFavoritesListView(model: model.myFavoritesListViewModel)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var recentlyEditedWidget: some View {
+        if model.recentlyEditedListViewModel.rows.isNotEmpty {
+            HomeWidgetsGroupView(title: Loc.Widgets.Library.RecentlyEdited.name) {
+                model.onTapRecentlyEditedHeader()
+            }
+            if model.recentlyEditedSectionIsExpanded {
+                RecentlyEditedListView(model: model.recentlyEditedListViewModel)
             }
         }
     }
