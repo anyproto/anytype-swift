@@ -68,7 +68,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters) {
         let contextualMenuView = EditorContextualMenuView(
-            options: [.pasteAsLink, .createBookmark, .pasteAsText],
+            options: inputParameters.options,
             optionTapHandler: { [weak self] option in
                 self?.navigationContext.dismissTopPresented(animated: false)
                 inputParameters.optionHandler(option)
@@ -86,6 +86,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             popoverPresentationController.sourceView = inputParameters.textView
             popoverPresentationController.delegate = self
             popoverPresentationController.permittedArrowDirections = [.up, .down]
+            // No backgroundColor override: on iOS 26 the popover chrome (including the arrow)
+            // automatically adopts Liquid Glass; on earlier iOS the system white background renders.
             navigationContext.present(hostViewController)
         }
     }

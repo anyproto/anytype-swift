@@ -253,7 +253,7 @@ extension Container {
     }
     
     var deepLinkParser: Factory<any DeepLinkParserProtocol> {
-        self { DeepLinkDI.shared.parser(targetType: CoreEnvironment.targetType) }
+        self { DeepLinkDI.shared.parser(targetType: CoreEnvironment.targetType) }.shared
     }
     
     var universalLinkParser: Factory<any UniversalLinkParserProtocol> {
