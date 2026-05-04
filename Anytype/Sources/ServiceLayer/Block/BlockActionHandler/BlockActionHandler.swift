@@ -144,19 +144,17 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         }
     }
     
-    func addLink(targetDetails: ObjectDetails, blockId: String, route: AnalyticsEventsRouteKind) {
-        Task {
-            let isBookmarkType = targetDetails.resolvedLayoutValue == .bookmark
-            AnytypeAnalytics.instance().logCreateLink(
-                objectType: targetDetails.objectType.analyticsType,
-                route: route
-            )
-            try await service.add(
-                info: isBookmarkType ? .bookmark(targetId: targetDetails.id) : .emptyLink(targetId: targetDetails.id),
-                targetBlockId: blockId,
-                position: .replace
-            )
-        }
+    func addLink(targetDetails: ObjectDetails, blockId: String, position: BlockPosition, route: AnalyticsEventsRouteKind) async throws {
+        let isBookmarkType = targetDetails.resolvedLayoutValue == .bookmark
+        AnytypeAnalytics.instance().logCreateLink(
+            objectType: targetDetails.objectType.analyticsType,
+            route: route
+        )
+        try await service.add(
+            info: isBookmarkType ? .bookmark(targetId: targetDetails.id) : .emptyLink(targetId: targetDetails.id),
+            targetBlockId: blockId,
+            position: position
+        )
     }
     
     func changeMarkup(blockIds: [String], markType: MarkupType, route: AnalyticsEventsRouteKind?) {
