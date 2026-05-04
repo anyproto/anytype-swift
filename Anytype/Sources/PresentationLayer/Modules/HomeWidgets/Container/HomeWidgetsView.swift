@@ -87,6 +87,7 @@ private struct HomeWidgetsInternalView: View {
                 unreadWidget
                 myFavoritesWidget
                 objectTypeWidgets
+                binWidget
                 AnytypeNavigationSpacer(minHeight: context.showEmbeddedBottomPanel ? 72 : 0)
             }
             .padding(.horizontal, 20)
@@ -158,15 +159,20 @@ private struct HomeWidgetsInternalView: View {
             model.onTapObjectTypeHeader()
         }, onCreate: nil)
         if model.objectTypeSectionIsExpanded {
-            VStack(spacing: 12) {
-                ObjectTypesUnifiedWidgetView(
-                    typeInfos: model.objectTypeWidgets,
-                    canCreateType: model.canCreateObjectType,
-                    onCreateType: { model.onCreateObjectType() },
-                    output: model.output
-                )
-                BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
-            }
+            ObjectTypesUnifiedWidgetView(
+                typeInfos: model.objectTypeWidgets,
+                canCreateType: model.canCreateObjectType,
+                onCreateType: { model.onCreateObjectType() },
+                output: model.output
+            )
+        }
+    }
+
+    @ViewBuilder
+    private var binWidget: some View {
+        if model.homeState.isReadWrite {
+            BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
+                .padding(.top, 24)
         }
     }
 }
