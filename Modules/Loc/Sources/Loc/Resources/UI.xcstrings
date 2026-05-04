@@ -12539,7 +12539,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "백링크 %d개"
+                  "value" : "역링크 %d개"
                 }
               }
             }
@@ -22666,7 +22666,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy Invite Link"
+            "value" : "초대 링크 복사"
           }
         },
         "nb" : {
@@ -34074,7 +34074,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Empty Name"
+            "value" : "빈 이름"
           }
         },
         "nb" : {
@@ -40625,7 +40625,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Off"
+            "value" : "끄기"
           }
         },
         "nb" : {
@@ -40780,7 +40780,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Offline access"
+            "value" : "오프라인 접근"
           }
         },
         "nb" : {
@@ -40935,7 +40935,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Auto sync files up to a selected size"
+            "value" : "설정한 크기까지 파일 자동 동기화"
           }
         },
         "nb" : {
@@ -41090,7 +41090,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Offline Downloads"
+            "value" : "오프라인 다운로드"
           }
         },
         "nb" : {
@@ -41400,7 +41400,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Use Cellular Data"
+            "value" : "모바일 데이터 사용"
           }
         },
         "nb" : {
@@ -51197,7 +51197,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Dark"
+            "value" : "Escuro"
           }
         },
         "ru" : {
@@ -51353,7 +51353,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Light"
+            "value" : "Claro"
           }
         },
         "ru" : {
@@ -51508,7 +51508,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "System"
+            "value" : "Sistema"
           }
         },
         "ru" : {
@@ -74325,7 +74325,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pre-Fill Name"
+            "value" : "기본 이름"
           }
         },
         "nb" : {
@@ -88618,7 +88618,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+            "value" : "Werde Mitglied, um deine ID für Personen lesbarer zu machen, damit andere dich leichter finden und kontaktieren können."
           }
         },
         "en" : {
@@ -88773,7 +88773,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This is your ANY ID"
+            "value" : "Das ist deine ANY-ID"
           }
         },
         "en" : {
@@ -102202,7 +102202,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Toggled heading"
+            "value" : "머릿글 토글"
           }
         },
         "nb" : {
@@ -102357,7 +102357,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Toggle subheading"
+            "value" : "부제목 토글"
           }
         },
         "nb" : {
@@ -102512,7 +102512,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Toggled title"
+            "value" : "제목 토글"
           }
         },
         "nb" : {
@@ -104319,7 +104319,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Try to find a new one"
+            "value" : "Versuche einen neuen zu finden"
           }
         },
         "en" : {
@@ -116568,7 +116568,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "System"
+            "value" : "Sistema"
           }
         },
         "ru" : {
@@ -120201,7 +120201,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pin to Channel"
+            "value" : "置顶"
           }
         },
         "zh-Hant" : {
@@ -120356,7 +120356,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unpin from Channel"
+            "value" : "取消置顶"
           }
         },
         "zh-Hant" : {
@@ -120511,7 +120511,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My Favorites"
+            "value" : "我的收藏夹"
           }
         },
         "zh-Hant" : {
