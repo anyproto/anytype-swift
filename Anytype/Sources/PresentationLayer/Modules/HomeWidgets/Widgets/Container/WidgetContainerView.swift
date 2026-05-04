@@ -21,7 +21,7 @@ struct WidgetContainerView<Content: View>: View {
     init(
         widgetBlockId: String,
         channelWidgetsObject: some BaseDocumentProtocol,
-        personalWidgetsObject: (any BaseDocumentProtocol)?,
+        personalWidgetsObject: any BaseDocumentProtocol,
         spaceId: String,
         homeState: Binding<HomeWidgetsState>,
         name: String,

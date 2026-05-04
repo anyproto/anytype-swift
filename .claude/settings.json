@@ -51,6 +51,7 @@
       "Bash(bash Scripts/:*)",
 
       "Bash(linctl:*)",
+      "Bash(sosumi:*)",
 
       "Skill(codeReview)",
       "Skill(cpp)",

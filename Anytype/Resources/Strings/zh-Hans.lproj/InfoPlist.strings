@@ -1,4 +1,4 @@
-"NSFaceIDUsageDescription" = "面容 ID 用于安全地检索存储在钥匙串中的密钥";
+"NSFaceIDUsageDescription" = "面容 ID 将用于读取安全存储在钥匙串中的密钥";
 "NSCameraUsageDescription" = "允许访问相机以进行扫码、拍照及上传附件";
 "NSLocalNetworkUsageDescription" = "允许访问本地网络，以便在附近的设备之间直接同步数据";
 "NSPhotoLibraryAddUsageDescription" = "需要访问权限，以便将所选图片保存至您的照片库";

@@ -41,7 +41,7 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.pin(isPinned: isPinnedToWidgets)
             }
 
-            if canCreateWidget && FeatureFlags.personalFavorites {
+            if canCreateWidget {
                 ObjectAction.favorite(isFavorited: isFavorited)
             }
 
@@ -113,7 +113,7 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.pin(isPinned: isPinnedToWidgets)
             }
 
-            if canCreateWidget && FeatureFlags.personalFavorites {
+            if canCreateWidget {
                 ObjectAction.favorite(isFavorited: isFavorited)
             }
 

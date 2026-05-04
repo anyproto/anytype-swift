@@ -44,7 +44,7 @@ This document provides an overview of GitHub workflows, custom actions, and auto
 #### `branch_build.yaml` - Manual TestFlight Upload
 **File:** `.github/workflows/branch_build.yaml`
 **Triggers:** Manual dispatch only
-**Purpose:** Builds the current branch and uploads to TestFlight with an optional comment. Sends Slack notification on completion.
+**Purpose:** Builds the current branch and uploads to TestFlight with an optional comment.
 **Inputs:** `tf_comment` (optional TestFlight comment)
 **Notable:** Does not cancel in-progress builds
 
@@ -108,7 +108,7 @@ This document provides an overview of GitHub workflows, custom actions, and auto
 #### `update_middleware_nightly.yaml` - Nightly Middleware Updates
 **File:** `.github/workflows/update_middleware_nightly.yaml`
 **Triggers:** Schedule (weekdays at 03:00 UTC), manual dispatch
-**Purpose:** Automatically updates to the latest nightly middleware build. Resolves latest nightly version via `Scripts/get-latest-nightly.sh`, then calls `update_middleware.yaml` as a reusable workflow. Sends Slack notification on failure.
+**Purpose:** Automatically updates to the latest nightly middleware build. Resolves latest nightly version via `Scripts/get-latest-nightly.sh`, then calls `update_middleware.yaml` as a reusable workflow.
 
 ---
 
@@ -190,15 +190,6 @@ Custom actions are reusable components located in `.github/actions/`. See indivi
 
 ---
 
-### `send-slack-message`
-**Location:** `.github/actions/send-slack-message`
-**Purpose:** Sends Slack direct messages to workflow initiators based on job status
-**Inputs:** success_message, error_message, status, slack_token, slack_map
-**Used by:** branch_build, dev_build, release_build
-**Configuration:** Add your GitHub username and work email to `SLACK_MAP` repository variable to receive notifications
-
----
-
 ### `license-checks`
 **Location:** `.github/actions/license-checks`
 **Purpose:** Validates dependency licenses against approved list from `anyproto/open` repository
@@ -263,23 +254,7 @@ The repository uses a **centralized auto-merge system** via the `automerge.yaml`
 | `SENTRY_AUTH_TOKEN` | Sentry authentication token for crash reporting | All build workflows |
 | `SENTRY_DSN` | Sentry DSN for crash reporting | All build workflows |
 | `AMPLITUDE_API_KEY` | Amplitude analytics API key | All build workflows |
-| `SLACK_BOT_TOKEN` | Slack bot token for notifications | send-slack-message action |
-| `SLACK_URL_BUILD_TESTS` | Slack webhook for build/test notifications | update_middleware_nightly |
 | `CLAUDE_CODE_OAUTH_TOKEN` | OAuth token for Claude Code API access | claude-code-review |
-
-### Variables
-
-| Variable | Purpose | Used By |
-|----------|---------|---------|
-| `SLACK_MAP` | JSON mapping of GitHub usernames to work emails | send-slack-message action |
-
-**Example SLACK_MAP:**
-```json
-{
-  "githubUsername1": "user1@anytype.io",
-  "githubUsername2": "user2@anytype.io"
-}
-```
 
 ---
 
@@ -375,9 +350,6 @@ jobs:
 
 **Issue:** Workflow run fails with "Resource not accessible by integration"
 - **Solution:** Check `permissions:` block in workflow, ensure necessary permissions are granted
-
-**Issue:** Slack notifications not received
-- **Solution:** Add your GitHub username and email to `SLACK_MAP` repository variable
 
 **Issue:** Auto-merge not working
 - **Solution:** Verify PR is from `any-association` account and all required checks pass

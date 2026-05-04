@@ -114,7 +114,7 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
             name: spaceName,
             iconOption: spaceIconOption,
             accessType: accessType,
-            useCase: .none,
+            useCase: .dataSpaceMobile,
             withChat: false,
             uxType: .data
         )

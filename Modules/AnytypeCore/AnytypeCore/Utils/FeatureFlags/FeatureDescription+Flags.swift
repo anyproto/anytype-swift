@@ -60,12 +60,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
-    static let personalFavorites = FeatureDescription(
-        title: "Personal Favorites - IOS-5864 (requires MW GO-6962)",
-        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
-        defaultValue: true
-    )
-
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(

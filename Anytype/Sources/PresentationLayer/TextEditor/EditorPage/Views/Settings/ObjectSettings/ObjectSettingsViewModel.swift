@@ -85,7 +85,6 @@ final class ObjectSettingsViewModel {
     // the global info can race app launch with `AccountData.empty`.
     @ObservationIgnored
     private lazy var personalWidgetsObject: (any BaseDocumentProtocol)? = {
-        guard FeatureFlags.personalFavorites else { return nil }
         guard let info = workspaceStorage.spaceInfo(spaceId: spaceId) else {
             anytypeAssertionFailure("info not found for personal widgets")
             return nil
@@ -160,9 +159,7 @@ final class ObjectSettingsViewModel {
 
     private func startParticipantSpaceViewSubscription() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
-            canManageChannelPins = FeatureFlags.personalFavorites
-                ? participantSpaceView.canManageChannelPins
-                : true
+            canManageChannelPins = participantSpaceView.canManageChannelPins
             isSpaceOwner = participantSpaceView.isOwner
             updateActions()
         }

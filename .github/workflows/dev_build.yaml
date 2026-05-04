@@ -49,7 +49,6 @@ jobs:
         run: bundle exec fastlane tests
         continue-on-error: true
         env:
-          SLACK_URL_BUILD_TESTS: ${{ secrets.SLACK_URL_BUILD_TESTS }}
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
       
