@@ -1046,11 +1046,6 @@ public enum Loc {
       public static let title = Loc.tr("UI", "LinkAppearance.ObjectType.Title", fallback: "Object type")
     }
   }
-  public enum LinkPaste {
-    public static let bookmark = Loc.tr("UI", "LinkPaste.bookmark", fallback: "Create bookmark")
-    public static let link = Loc.tr("UI", "LinkPaste.link", fallback: "Paste as link")
-    public static let text = Loc.tr("UI", "LinkPaste.text", fallback: "Paste as text")
-  }
   public enum LongTapCreateTip {
     public static let message = Loc.tr("UI", "LongTapCreateTip.Message", fallback: "Long tap on Create Object button to open menu with types")
     public static let title = Loc.tr("UI", "LongTapCreateTip.Title", fallback: "Create Objects with specific Type")
@@ -1063,6 +1058,13 @@ public enum Loc {
   public enum ObjectTypeDeleteAlert {
     public static let message = Loc.tr("UI", "ObjectTypeDeleteAlert.message", fallback: "Are you sure you want to delete this Type? All existing objects of this type will be preserved, but will no longer be associated with it.")
     public static let title = Loc.tr("UI", "ObjectTypeDeleteAlert.title", fallback: "Delete Object Type?")
+  }
+  public enum PasteMenu {
+    public static let bookmark = Loc.tr("UI", "PasteMenu.bookmark", fallback: "Bookmark")
+    public static let header = Loc.tr("UI", "PasteMenu.header", fallback: "Paste as")
+    public static let object = Loc.tr("UI", "PasteMenu.object", fallback: "Object")
+    public static let plainText = Loc.tr("UI", "PasteMenu.plainText", fallback: "Plain Text")
+    public static let url = Loc.tr("UI", "PasteMenu.url", fallback: "URL")
   }
   public enum Primitives {
     public enum LayoutConflict {
