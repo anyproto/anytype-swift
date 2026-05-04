@@ -10,8 +10,10 @@ protocol HomeSectionsStorageProtocol: Sendable {
 
 final class HomeSectionsStorage: HomeSectionsStorageProtocol, Sendable {
 
+    static let userDefaultsKey = "homeSectionsConfigurations"
+
     private let storage = UserDefaultStorage<[String: HomeSectionsConfiguration]>(
-        key: "homeSectionsConfigurations",
+        key: Self.userDefaultsKey,
         defaultValue: [:]
     )
     private let subject: CurrentValueSubject<[String: HomeSectionsConfiguration], Never>

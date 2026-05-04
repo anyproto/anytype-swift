@@ -6,16 +6,15 @@ import Combine
 @Suite(.serialized)
 final class HomeSectionsStorageTests {
 
-    private static let userDefaultsKey = "homeSectionsConfigurations"
     private let sut: HomeSectionsStorage
 
     init() {
-        UserDefaults.standard.removeObject(forKey: Self.userDefaultsKey)
+        UserDefaults.standard.removeObject(forKey: HomeSectionsStorage.userDefaultsKey)
         self.sut = HomeSectionsStorage()
     }
 
     deinit {
-        UserDefaults.standard.removeObject(forKey: Self.userDefaultsKey)
+        UserDefaults.standard.removeObject(forKey: HomeSectionsStorage.userDefaultsKey)
     }
 
     @Test func returnsDefaultWhenNoRecordExists() {
