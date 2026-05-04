@@ -1110,7 +1110,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select members"
+            "value" : "Mitglieder auswählen"
           }
         },
         "en" : {
@@ -1164,7 +1164,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select members"
+            "value" : "멤버 선택"
           }
         },
         "nb" : {
@@ -1575,7 +1575,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Manage Channels"
+            "value" : "Kanäle verwalten"
           }
         },
         "en" : {
@@ -1629,7 +1629,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Manage Channels"
+            "value" : "채널 관리"
           }
         },
         "nb" : {
@@ -25212,7 +25212,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Properties panel"
+            "value" : "Eigenschaften-Panel"
           }
         },
         "en" : {
@@ -25797,7 +25797,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Change Home"
+            "value" : "更改主页"
           }
         },
         "zh-Hant" : {
@@ -28868,7 +28868,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here."
+            "value" : "Olá equipa do Anytype! Gostaria de prolongar a minha adesão actual por mais (por favor, selecciona uma opção):\\n\n- Armazenamento remoto extra\\n\n- Mais editores de espaço\\n\n- Espaços partilhados adicionais\\n\nEspecificamente,\nPor favor, fornece aqui detalhes específicos sobre as tuas necessidades."
           }
         },
         "ru" : {
@@ -67859,7 +67859,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Channel home"
+            "value" : "频道主页"
           }
         },
         "zh-Hant" : {
@@ -68169,7 +68169,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No home"
+            "value" : "无主页"
           }
         },
         "zh-Hant" : {
