@@ -170,7 +170,9 @@ private struct HomeWidgetsInternalView: View {
 
     @ViewBuilder
     private var binWidget: some View {
-        BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
-            .padding(.top, 24)
+        if model.homeState.isReadWrite {
+            BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
+                .padding(.top, 24)
+        }
     }
 }
