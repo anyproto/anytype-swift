@@ -421,6 +421,7 @@ public enum Loc {
   public static let logOut = Loc.tr("UI", "Log out", fallback: "Log Out")
   public static let logoutAndClearData = Loc.tr("UI", "Logout and clear data", fallback: "Logout and clear data")
   public static let managePayment = Loc.tr("UI", "Manage payment", fallback: "Manage payment")
+  public static let manageSections = Loc.tr("UI", "Manage sections", fallback: "Manage sections")
   public static let media = Loc.tr("UI", "Media", fallback: "Media")
   public static func membersPlural(_ p1: Int) -> String {
     return Loc.tr("UI", "membersPlural", p1, fallback: "Plural format key: membersPlural")
@@ -546,6 +547,7 @@ public enum Loc {
   public static let qrCode = Loc.tr("UI", "QR Code", fallback: "QR Code")
   public static let random = Loc.tr("UI", "Random", fallback: "Random")
   public static let recent = Loc.tr("UI", "Recent", fallback: "Recent")
+  public static let recentlyEdited = Loc.tr("UI", "Recently edited", fallback: "Recently edited")
   public static let red = Loc.tr("UI", "Red", fallback: "Red")
   public static let redBackground = Loc.tr("UI", "Red background", fallback: "Red background")
   public static let redo = Loc.tr("UI", "Redo", fallback: "Redo")
