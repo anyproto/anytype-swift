@@ -36,19 +36,10 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
         update: @escaping @MainActor ([ObjectDetails], Int) -> Void
     ) async {
         
-        let allFilters: [DataviewFilter]
-        if FeatureFlags.createChannelFlow {
-            let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
-            allFilters = .builder {
-                SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceType), spaceType: spaceType)
-                filters
-            }
-        } else {
-            let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
-            allFilters = .builder {
-                SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType), spaceUxType: spaceUxType)
-                filters
-            }
+        let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
+        let allFilters: [DataviewFilter] = .builder {
+            SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceType), spaceType: spaceType)
+            filters
         }
         
         let keys = BundledPropertyKey.objectListKeys.map { $0.rawValue } + [ BundledPropertyKey.origin.rawValue ]

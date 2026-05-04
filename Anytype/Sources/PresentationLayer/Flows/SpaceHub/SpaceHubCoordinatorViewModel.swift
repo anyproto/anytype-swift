@@ -32,7 +32,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var chatCreateData: ChatCreateScreenData?
     var bookmarkCreateData: BookmarkCreateScreenData?
     var overlayWidgetsData: HomeWidgetData?
-    var showSpaceTypeForCreate = false
     var showGroupChannelCreate = false
     var shouldScanQrCode = false
     var showAppSettings = false
@@ -162,9 +161,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             needSetup = false
         }
 
-        if FeatureFlags.createChannelFlow {
-            Task { await contactsService.prefetch() }
-        }
+        Task { await contactsService.prefetch() }
         await startSubscriptions()
     }
     
@@ -242,29 +239,17 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         showScreenSync(data: .editor(data.editorScreenData))
     }
     
-    func onSpaceTypeSelected(_ type: SpaceUxType) {
-        Task {
-            // After dismiss spaceCreateData, alert will appear again. Fix it.
-            await dismissAllPresented?()
-            spaceCreateData = SpaceCreateData(spaceUxType: type)
-        }
-    }
-    
     func onSelectQrCodeScan() {
         Task {
             await dismissAllPresented?()
             shouldScanQrCode = true
         }
     }
-    
+
     // MARK: - SpaceHubModuleOutput
-    
-    func onSelectCreateObject() {
-        showSpaceTypeForCreate = true
-    }
 
     func onSelectCreatePersonalChannel() {
-        spaceCreateData = SpaceCreateData(spaceUxType: .data, channelType: .personal)
+        spaceCreateData = SpaceCreateData(channelType: .personal)
     }
 
     func onSelectCreateGroupChannel() {

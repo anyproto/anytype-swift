@@ -54,14 +54,8 @@ final class MentionsViewModel {
                 updatedMentions.append(.selectDate)
             }
 
-            let objectLayouts: [DetailsLayout]
-            if FeatureFlags.createChannelFlow {
-                let spaceType = spaceViewsStorage.spaceView(spaceId: document.spaceId)?.spaceType
-                objectLayouts = DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceType) - [.date]
-            } else {
-                let spaceUxType = spaceViewsStorage.spaceView(spaceId: document.spaceId)?.uxType
-                objectLayouts = DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType) - [.date]
-            }
+            let spaceType = spaceViewsStorage.spaceView(spaceId: document.spaceId)?.spaceType
+            let objectLayouts = DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceType) - [.date]
 
             let objectsMentions = try await mentionService.searchMentions(
                 spaceId: document.spaceId,

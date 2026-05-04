@@ -1477,11 +1477,7 @@ extension AnytypeAnalytics {
     func logClickVaultCreateMenuSpace() {
         logEvent("ClickVaultCreateMenuSpace")
     }
-    
-    func logScreenVaultCreateMenu() {
-        logEvent("ScreenVaultCreateMenu")
-    }
-    
+
     func logClickScrollToReply(chatId: String) {
         logEvent(
             "ClickScrollToReply",

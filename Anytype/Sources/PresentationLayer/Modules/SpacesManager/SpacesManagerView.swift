@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import AnytypeCore
 
 struct SpacesManagerView: View {
 
@@ -29,13 +28,6 @@ struct SpacesManagerView: View {
             .sheet(item: $model.exportSpaceUrl) { link in
                 ActivityView(activityItems: [link])
             }
-            .sheet(isPresented: $model.showSpaceTypeForCreate) {
-                SpaceCreateTypePickerView(onSelectSpaceType: { type in
-                    model.onSpaceTypeSelected(type)
-                }, onSelectQrCodeScan: {
-                    model.onSelectQrCodeScan()
-                })
-            }
             .qrCodeScanner(shouldScan: $model.shouldScanQrCode)
             .sheet(item: $model.spaceCreateData) {
                 SpaceCreateCoordinatorView(data: $0)
@@ -54,24 +46,12 @@ struct SpacesManagerView: View {
         }
     }
     
-    @ViewBuilder
     private var emptyState: some View {
-        if FeatureFlags.createChannelFlow {
-            CreateChannelEmptyStateView(
-                onTapPersonal: { model.onTapCreatePersonalChannel() },
-                onTapGroup: { model.onTapCreateGroupChannel() },
-                onTapJoinQR: { model.onSelectQrCodeScan() }
-            )
-        } else {
-            EmptyStateView(
-                title: Loc.thereAreNoSpacesYet,
-                subtitle: "",
-                style: .withImage,
-                buttonData: EmptyStateView.ButtonData(title: Loc.createSpace) {
-                    model.onTapCreateSpace()
-                }
-            )
-        }
+        CreateChannelEmptyStateView(
+            onTapPersonal: { model.onTapCreatePersonalChannel() },
+            onTapGroup: { model.onTapCreateGroupChannel() },
+            onTapJoinQR: { model.onSelectQrCodeScan() }
+        )
     }
     
     private var spaces: some View {

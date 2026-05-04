@@ -84,14 +84,6 @@ struct SpaceHubCoordinatorView: View {
                 BookmarkCreateView(data: data)
                     .pageNavigation(model.pageNavigation)
             }
-            .sheet(isPresented: $model.showSpaceTypeForCreate) {
-                SpaceCreateTypePickerView(onSelectSpaceType: { type in
-                    model.onSpaceTypeSelected(type)
-                }, onSelectQrCodeScan: {
-                    model.onSelectQrCodeScan()
-                })
-                .navigationZoomTransition(sourceID: "SpaceCreateTypePickerView", in: namespace)
-            }
             .qrCodeScanner(shouldScan: $model.shouldScanQrCode)
             .sheet(isPresented: $model.showSharingExtension) {
                 SharingExtensionCoordinatorView()
@@ -144,7 +136,7 @@ struct SpaceHubCoordinatorView: View {
                             EditorCoordinatorView(data: data)
                         }
                         builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
-                            SpaceHubView(output: model, namespace: namespace)
+                            SpaceHubView(output: model)
                         }
                         builder.appendBuilder(for: SpaceChatCoordinatorData.self) {
                             SpaceChatCoordinatorView(data: $0)

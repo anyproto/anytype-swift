@@ -1,19 +1,16 @@
 import SwiftUI
-import AnytypeCore
 
 struct SpaceHubToolbar: ToolbarContent {
 
     let profileIcon: Icon?
     let notificationsNotDetermined: Bool
     let hideCreateButton: Bool
-    let namespace: Namespace.ID
 
-    let onTapCreateSpace: () -> Void
     let onTapCreatePersonalChannel: () -> Void
     let onTapCreateGroupChannel: () -> Void
     let onTapJoinViaQrCode: () -> Void
     let onTapSettings: () -> Void
-    
+
     var body: some ToolbarContent {
         if #available(iOS 26.0, *) {
             ios26ToolbarItems
@@ -21,7 +18,7 @@ struct SpaceHubToolbar: ToolbarContent {
             legacyToolbarItems
         }
     }
-    
+
     @ToolbarContentBuilder
     private var legacyToolbarItems: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
@@ -39,11 +36,10 @@ struct SpaceHubToolbar: ToolbarContent {
                     .padding(.vertical, 8)
             }
         }
-        
+
         if !hideCreateButton {
             ToolbarItem(placement: .topBarTrailing) {
                 SpaceHubNewSpaceButton(
-                    onTap: { onTapCreateSpace() },
                     onTapPersonal: { onTapCreatePersonalChannel() },
                     onTapGroup: { onTapCreateGroupChannel() },
                     onTapJoinQR: { onTapJoinViaQrCode() }
@@ -51,7 +47,7 @@ struct SpaceHubToolbar: ToolbarContent {
             }
         }
     }
-    
+
     @available(iOS 26.0, *)
     @ToolbarContentBuilder
     private var ios26ToolbarItems: some ToolbarContent {
@@ -71,32 +67,24 @@ struct SpaceHubToolbar: ToolbarContent {
             }
         }
         .sharedBackgroundVisibility(.hidden)
-        
+
         if !hideCreateButton {
             DefaultToolbarItem(kind: .search, placement: .bottomBar)
-        
+
             ToolbarSpacer(placement: .bottomBar)
-        
+
             ToolbarItem(placement: .bottomBar) {
-                if FeatureFlags.createChannelFlow {
-                    Menu {
-                        CreateChannelMenuItems(
-                            onTapPersonal: { onTapCreatePersonalChannel() },
-                            onTapGroup: { onTapCreateGroupChannel() },
-                            onTapJoinQR: { onTapJoinViaQrCode() }
-                        )
-                    } label: {
-                        Image(systemName: "plus")
-                            .foregroundStyle(Color.Control.primary)
-                    }
-                } else {
-                    Button { onTapCreateSpace() } label: {
-                        Image(systemName: "plus")
-                            .foregroundStyle(Color.Control.primary)
-                    }
+                Menu {
+                    CreateChannelMenuItems(
+                        onTapPersonal: { onTapCreatePersonalChannel() },
+                        onTapGroup: { onTapCreateGroupChannel() },
+                        onTapJoinQR: { onTapJoinViaQrCode() }
+                    )
+                } label: {
+                    Image(systemName: "plus")
+                        .foregroundStyle(Color.Control.primary)
                 }
             }
-            .matchedTransitionSource(id: "SpaceCreateTypePickerView", in: namespace)
         }
     }
 

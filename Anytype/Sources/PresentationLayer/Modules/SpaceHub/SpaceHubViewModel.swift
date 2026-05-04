@@ -53,10 +53,6 @@ final class SpaceHubViewModel {
     func onTapSettings() {
         output?.onSelectAppSettings()
     }
-    
-    func onTapCreateSpace() {
-        output?.onSelectCreateObject()
-    }
 
     func onTapCreatePersonalChannel() {
         AnytypeAnalytics.instance().logClickVaultCreateMenuSpace()

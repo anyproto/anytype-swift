@@ -417,11 +417,6 @@ extension ImageAsset {
     public static let wine = ImageAsset.bundle(name: "CustomIcons/wine")
     public static let woman = ImageAsset.bundle(name: "CustomIcons/woman")
   }
-  public enum Channel {
-    public static let chat = ImageAsset.bundle(name: "Channel/Chat")
-    public static let space = ImageAsset.bundle(name: "Channel/Space")
-    public static let stream = ImageAsset.bundle(name: "Channel/Stream")
-  }
   public enum Chat {
     public enum SendMessage {
       public static let active = ImageAsset.bundle(name: "Chat/SendMessage/active")

@@ -567,30 +567,16 @@ final class EditorSetViewModel: ObservableObject {
         
         guard setDocument.canStartSubscription() else { return }
 
-        let subscriptionData: SetSubscriptionData
-        if FeatureFlags.createChannelFlow {
-            subscriptionData = SetSubscriptionData(
-                identifier: subscriptionId,
-                document: setDocument,
-                groupFilter: groupFilter,
-                currentPage: currentPage,
-                numberOfRowsPerPage: numberOfRowsPerPage,
-                collectionId: setDocument.isCollection() ? objectId : nil,
-                objectOrderIds: setDocument.objectOrderIds(for: subscriptionId),
-                spaceType: spaceView?.spaceType
-            )
-        } else {
-            subscriptionData = SetSubscriptionData(
-                identifier: subscriptionId,
-                document: setDocument,
-                groupFilter: groupFilter,
-                currentPage: currentPage,
-                numberOfRowsPerPage: numberOfRowsPerPage,
-                collectionId: setDocument.isCollection() ? objectId : nil,
-                objectOrderIds: setDocument.objectOrderIds(for: subscriptionId),
-                spaceUxType: spaceView?.uxType
-            )
-        }
+        let subscriptionData = SetSubscriptionData(
+            identifier: subscriptionId,
+            document: setDocument,
+            groupFilter: groupFilter,
+            currentPage: currentPage,
+            numberOfRowsPerPage: numberOfRowsPerPage,
+            collectionId: setDocument.isCollection() ? objectId : nil,
+            objectOrderIds: setDocument.objectOrderIds(for: subscriptionId),
+            spaceType: spaceView?.spaceType
+        )
         let data = setSubscriptionDataBuilder.set(subscriptionData)
         
         let subscription = subscriptionStorages[data.identifier] ?? subscriptionStorageProvider.createSubscriptionStorage(subId: data.identifier)

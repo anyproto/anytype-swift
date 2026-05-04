@@ -293,7 +293,6 @@ public enum Loc {
     return Loc.tr("UI", "Create relation", String(describing: p1), fallback: "Create property ‘%@’")
   }
   public static let createSet = Loc.tr("UI", "Create Set", fallback: "Create Query")
-  public static let createSpace = Loc.tr("UI", "Create Space", fallback: "Create Space")
   public static let createType = Loc.tr("UI", "Create type", fallback: "Create type")
   public static let current = Loc.tr("UI", "Current", fallback: "Current")
   public static let customizeURL = Loc.tr("UI", "Customize URL", fallback: "Customize URL")
@@ -2340,17 +2339,6 @@ public enum Loc {
       public static func title(_ p1: Int) -> String {
         return Loc.tr("Workspace", "Space limit.Shared spaces.Title", p1, fallback: "You've reached the limit of %lld shared spaces.")
       }
-    }
-  }
-  public enum SpaceCreate {
-    public enum Chat {
-      public static let title = Loc.tr("Workspace", "SpaceCreate.Chat.Title", fallback: "Create a chat")
-    }
-    public enum Space {
-      public static let title = Loc.tr("Workspace", "SpaceCreate.Space.Title", fallback: "Create a space")
-    }
-    public enum Stream {
-      public static let title = Loc.tr("Workspace", "SpaceCreate.Stream.Title", fallback: "Create a stream")
     }
   }
   public enum SpaceInvite {

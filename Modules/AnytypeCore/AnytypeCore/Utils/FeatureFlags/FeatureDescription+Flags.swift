@@ -29,12 +29,6 @@ public extension FeatureDescription {
         debugValue: true
     )
 
-    static let createChannelFlow = FeatureDescription(
-        title: "Create Channel Flow - IOS-5856",
-        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
-        defaultValue: true
-    )
-
     static let fixChannelHomeBackNavigation = FeatureDescription(
         title: "Fix channel home back navigation - IOS-6067",
         category: .productFeature(author: "k@anytype.io", targetRelease: "18"),

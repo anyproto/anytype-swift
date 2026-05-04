@@ -184,18 +184,10 @@ final class GlobalSearchViewModel {
     
     private func buildLayouts() -> [DetailsLayout] {
         return .builder {
-            if FeatureFlags.createChannelFlow {
-                if state.searchText.isEmpty {
-                    state.section.supportedLayouts(spaceType: spaceType).filter { $0 != .participant }
-                } else {
-                    state.section.supportedLayouts(spaceType: spaceType)
-                }
+            if state.searchText.isEmpty {
+                state.section.supportedLayouts(spaceType: spaceType).filter { $0 != .participant }
             } else {
-                if state.searchText.isEmpty {
-                    state.section.supportedLayouts(spaceUxType: spaceUxType).filter { $0 != .participant }
-                } else {
-                    state.section.supportedLayouts(spaceUxType: spaceUxType)
-                }
+                state.section.supportedLayouts(spaceType: spaceType)
             }
         }
     }
