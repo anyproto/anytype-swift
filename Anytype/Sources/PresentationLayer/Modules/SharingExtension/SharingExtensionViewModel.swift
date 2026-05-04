@@ -56,12 +56,7 @@ final class SharingExtensionViewModel {
     }
     
     func onTapSpace(_ space: SpaceView) {
-        let isDirectChat: Bool
-        if FeatureFlags.createChannelFlow {
-            isDirectChat = space.isOneToOne
-        } else {
-            isDirectChat = !space.uxType.supportsMultiChats
-        }
+        let isDirectChat = space.isOneToOne
 
         if isDirectChat {
             selectedSpace = space == selectedSpace ? nil : space
@@ -76,12 +71,7 @@ final class SharingExtensionViewModel {
         defer { sendInProgress = false }
 
         guard let selectedSpace else { return }
-        let shouldSendDirectly: Bool
-        if FeatureFlags.createChannelFlow {
-            shouldSendDirectly = selectedSpace.isOneToOne
-        } else {
-            shouldSendDirectly = !selectedSpace.uxType.supportsMultiChats
-        }
+        let shouldSendDirectly = selectedSpace.isOneToOne
         guard shouldSendDirectly else { return }
         
         let content = try await contentManager.getSharedContent()

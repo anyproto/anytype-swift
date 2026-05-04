@@ -40,24 +40,17 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
     private let spaceIconOption: Int
     @ObservationIgnored
     private weak var output: (any SpaceCreateModuleOutput)?
-    
+
     init(data: SpaceCreateData, output: (any SpaceCreateModuleOutput)?) {
         self.data = data
         self.output = output
         self.spaceIconOption = IconColorStorage.randomOption()
-        let isCircular = data.channelType == nil && data.spaceUxType.isChat
-        self.spaceIcon = .object(.space(.name(name: "", iconOption: spaceIconOption, circular: isCircular)))
+        self.spaceIcon = .object(.space(.name(name: "", iconOption: spaceIconOption, circular: false)))
         self.isConnected = networkStatusProvider.isConnected
     }
-    
-    func onTapCreate() async throws {
-        let spaceId: String
 
-        if let channelType = data.channelType {
-            spaceId = try await createChannel(channelType: channelType)
-        } else {
-            spaceId = try await createLegacySpace()
-        }
+    func onTapCreate() async throws {
+        let spaceId = try await createChannel(channelType: data.channelType)
 
         if let fileData {
             let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: fileData, origin: .none)
@@ -65,13 +58,13 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
         }
 
         UINotificationFeedbackGenerator().notificationOccurred(.success)
-        AnytypeAnalytics.instance().logCreateSpace(spaceId: spaceId, spaceUxType: data.spaceUxType, route: .navigation)
-        if let channelType = data.channelType, channelType == .group {
+        AnytypeAnalytics.instance().logCreateSpace(spaceId: spaceId, spaceUxType: .data, route: .navigation)
+        if data.channelType == .group {
             AnytypeAnalytics.instance().logAddMember(count: data.selectedContacts.count)
         }
         try await output?.onSpaceCreated(spaceId: spaceId)
     }
-    
+
     func onAppear() {
         isConnected = networkStatusProvider.isConnected
         AnytypeAnalytics.instance().logScreenSettingsSpaceCreate(status: isConnected ? .online : .offline)
@@ -82,26 +75,24 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
             isConnected = connected
         }
     }
-    
+
     func updateNameIconIfNeeded(_ name: String) {
         guard fileData.isNil else { return }
-        let isCircular = data.channelType == nil && data.spaceUxType.isChat
-        spaceIcon = .object(.space(.name(name: name, iconOption: spaceIconOption, circular: isCircular)))
+        spaceIcon = .object(.space(.name(name: name, iconOption: spaceIconOption, circular: false)))
     }
-    
+
     func onIconTapped() {
         output?.onIconPickerSelected(fileData: fileData, output: self)
     }
-    
+
     // MARK: - LocalObjectIconPickerOutput
 
     func localFileDataDidChanged(_ data: FileData?) {
         fileData = data
-        let isCircular = self.data.channelType == nil && self.data.spaceUxType.isChat
         if let path = fileData?.path {
-            spaceIcon = .object(.space(.localPath(path, circular: isCircular)))
+            spaceIcon = .object(.space(.localPath(path, circular: false)))
         } else {
-            spaceIcon = .object(.space(.name(name: spaceName, iconOption: spaceIconOption, circular: isCircular)))
+            spaceIcon = .object(.space(.name(name: spaceName, iconOption: spaceIconOption, circular: false)))
         }
     }
 
@@ -126,29 +117,6 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
                 PendingIdentity(identity: $0.identity, name: $0.name, globalName: $0.globalName, icon: $0.icon)
             }
             await pendingShareService.savePendingAndRunChain(spaceId: spaceId, identities: pendingIdentities)
-        }
-
-        return spaceId
-    }
-
-    private func createLegacySpace() async throws -> String {
-        let uxType = data.spaceUxType
-        let createResponse = try await workspaceService.createSpace(
-            name: spaceName,
-            iconOption: spaceIconOption,
-            accessType: .private,
-            useCase: uxType.useCase,
-            withChat: true,
-            uxType: uxType
-        )
-
-        let spaceId = createResponse.spaceID
-
-        if uxType.isChat {
-            do {
-                _ = try await workspaceService.makeSharable(spaceId: spaceId)
-                _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
-            } catch {}
         }
 
         return spaceId

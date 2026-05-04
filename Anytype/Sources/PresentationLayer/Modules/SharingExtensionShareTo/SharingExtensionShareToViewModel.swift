@@ -45,10 +45,7 @@ final class SharingExtensionShareToViewModel {
     var title: String { spaceView?.title ?? "" }
     var sendToChatSelected: Bool { selectedObjectId == spaceView?.chatId }
     private var isMultiChatSpace: Bool {
-        if FeatureFlags.createChannelFlow {
-            return spaceView.map { $0.spaceType != .oneToOne } ?? false
-        }
-        return spaceView?.uxType.supportsMultiChats ?? false
+        spaceView.map { $0.spaceType != .oneToOne } ?? false
     }
 
     // Returns the selected chat ID (either from generic chat row or from individual chat selection)
@@ -88,12 +85,7 @@ final class SharingExtensionShareToViewModel {
         await activeSpaceManager.prepareSpaceForPreview(spaceId: data.spaceId)
         
         do {
-            let layouts: [DetailsLayout]
-            if FeatureFlags.createChannelFlow {
-                layouts = DetailsLayout.supportedForSharingExtension(spaceType: spaceView?.spaceType)
-            } else {
-                layouts = DetailsLayout.supportedForSharingExtension(spaceUxType: spaceView?.uxType)
-            }
+            let layouts = DetailsLayout.supportedForSharingExtension(spaceType: spaceView?.spaceType)
             let result = try await searchService.searchObjectsWithLayouts(
                 text: searchText,
                 layouts: layouts,

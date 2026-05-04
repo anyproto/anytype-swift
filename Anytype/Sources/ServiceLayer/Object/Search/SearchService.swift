@@ -15,13 +15,8 @@ final class SearchService: SearchServiceProtocol, Sendable {
     // MARK: - SearchServiceProtocol
     
     func search(text: String, spaceId: String) async throws -> [ObjectDetails] {
-        if FeatureFlags.createChannelFlow {
-            let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
-            return try await searchObjectsWithLayouts(text: text, layouts: DetailsLayout.visibleLayouts(spaceType: spaceType), excludedIds: [], spaceId: spaceId)
-        } else {
-            let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
-            return try await searchObjectsWithLayouts(text: text, layouts: DetailsLayout.visibleLayouts(spaceUxType: spaceUxType), excludedIds: [], spaceId: spaceId)
-        }
+        let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
+        return try await searchObjectsWithLayouts(text: text, layouts: DetailsLayout.visibleLayouts(spaceType: spaceType), excludedIds: [], spaceId: spaceId)
     }
     
     func searchFiles(text: String, excludedFileIds: [String], spaceId: String) async throws -> [ObjectDetails] {
@@ -81,28 +76,14 @@ final class SearchService: SearchServiceProtocol, Sendable {
             type: .desc
         )
 
-        let filters: [DataviewFilter]
-        if FeatureFlags.createChannelFlow {
-            let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
-            filters = .builder {
-                SearchHelper.excludedIdsFilter(excludedObjectIds)
-                if typeIds.isEmpty {
-                    SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayouts(spaceType: spaceType), spaceType: spaceType)
-                } else {
-                    SearchFiltersBuilder.build(isArchived: false)
-                    SearchHelper.typeFilter(typeIds)
-                }
-            }
-        } else {
-            let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
-            filters = .builder {
-                SearchHelper.excludedIdsFilter(excludedObjectIds)
-                if typeIds.isEmpty {
-                    SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayouts(spaceUxType: spaceUxType), spaceUxType: spaceUxType)
-                } else {
-                    SearchFiltersBuilder.build(isArchived: false)
-                    SearchHelper.typeFilter(typeIds)
-                }
+        let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.excludedIdsFilter(excludedObjectIds)
+            if typeIds.isEmpty {
+                SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayouts(spaceType: spaceType), spaceType: spaceType)
+            } else {
+                SearchFiltersBuilder.build(isArchived: false)
+                SearchHelper.typeFilter(typeIds)
             }
         }
 
@@ -125,43 +106,23 @@ final class SearchService: SearchServiceProtocol, Sendable {
             type: .desc
         )
 
-        let filters: [DataviewFilter]
-        if FeatureFlags.createChannelFlow {
-            let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
-            filters = .builder {
-                SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceType), spaceType: spaceType)
-                SearchHelper.excludedIdsFilter(excludedObjectIds)
-                SearchHelper.excludedLayoutFilter(excludedLayouts)
-            }
-        } else {
-            let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
-            filters = .builder {
-                SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType), spaceUxType: spaceUxType)
-                SearchHelper.excludedIdsFilter(excludedObjectIds)
-                SearchHelper.excludedLayoutFilter(excludedLayouts)
-            }
+        let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
+        let filters: [DataviewFilter] = .builder {
+            SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceType), spaceType: spaceType)
+            SearchHelper.excludedIdsFilter(excludedObjectIds)
+            SearchHelper.excludedLayoutFilter(excludedLayouts)
         }
 
         return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
     }
 
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [PropertyOption] {
-        var filters: [DataviewFilter]
-        if FeatureFlags.createChannelFlow {
-            let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
-            filters = SearchFiltersBuilder.build(
-                isArchived: false,
-                layouts: [DetailsLayout.relationOption],
-                spaceType: spaceType
-            )
-        } else {
-            let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
-            filters = SearchFiltersBuilder.build(
-                isArchived: false,
-                layouts: [DetailsLayout.relationOption],
-                spaceUxType: spaceUxType
-            )
-        }
+        let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
+        var filters = SearchFiltersBuilder.build(
+            isArchived: false,
+            layouts: [DetailsLayout.relationOption],
+            spaceType: spaceType
+        )
         filters.append(SearchHelper.relationKey(relationKey))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
 
@@ -175,22 +136,12 @@ final class SearchService: SearchServiceProtocol, Sendable {
     }
 
     func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [PropertyOption] {
-        var filters: [DataviewFilter]
-        if FeatureFlags.createChannelFlow {
-            let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
-            filters = SearchFiltersBuilder.build(
-                isArchived: false,
-                layouts: [DetailsLayout.relationOption],
-                spaceType: spaceType
-            )
-        } else {
-            let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
-            filters = SearchFiltersBuilder.build(
-                isArchived: false,
-                layouts: [DetailsLayout.relationOption],
-                spaceUxType: spaceUxType
-            )
-        }
+        let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
+        var filters = SearchFiltersBuilder.build(
+            isArchived: false,
+            layouts: [DetailsLayout.relationOption],
+            spaceType: spaceType
+        )
         filters.append(SearchHelper.includeIdsFilter(optionIds))
 
         let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [], fullText: "")
@@ -203,23 +154,12 @@ final class SearchService: SearchServiceProtocol, Sendable {
             type: .desc
         )
 
-        let filters: [DataviewFilter]
-        if FeatureFlags.createChannelFlow {
-            let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
-            filters = .builder {
-                SearchFiltersBuilder.build(isArchived: false, layouts: [DetailsLayout.relation], spaceType: spaceType)
-                SearchHelper.relationReadonlyValue(false)
-                SearchHelper.excludedRelationKeys(BundledPropertyKey.internalKeys.map(\.rawValue))
-                SearchHelper.excludedIdsFilter(excludedIds)
-            }
-        } else {
-            let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
-            filters = .builder {
-                SearchFiltersBuilder.build(isArchived: false, layouts: [DetailsLayout.relation], spaceUxType: spaceUxType)
-                SearchHelper.relationReadonlyValue(false)
-                SearchHelper.excludedRelationKeys(BundledPropertyKey.internalKeys.map(\.rawValue))
-                SearchHelper.excludedIdsFilter(excludedIds)
-            }
+        let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
+        let filters: [DataviewFilter] = .builder {
+            SearchFiltersBuilder.build(isArchived: false, layouts: [DetailsLayout.relation], spaceType: spaceType)
+            SearchHelper.relationReadonlyValue(false)
+            SearchHelper.excludedRelationKeys(BundledPropertyKey.internalKeys.map(\.rawValue))
+            SearchHelper.excludedIdsFilter(excludedIds)
         }
 
         let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
@@ -256,19 +196,10 @@ final class SearchService: SearchServiceProtocol, Sendable {
             type: .desc
         )
 
-        let filters: [DataviewFilter]
-        if FeatureFlags.createChannelFlow {
-            let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
-            filters = .builder {
-                SearchFiltersBuilder.build(isArchived: false, layouts: layouts, spaceType: spaceType)
-                SearchHelper.excludedIdsFilter(excludedIds)
-            }
-        } else {
-            let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
-            filters = .builder {
-                SearchFiltersBuilder.build(isArchived: false, layouts: layouts, spaceUxType: spaceUxType)
-                SearchHelper.excludedIdsFilter(excludedIds)
-            }
+        let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
+        let filters: [DataviewFilter] = .builder {
+            SearchFiltersBuilder.build(isArchived: false, layouts: layouts, spaceType: spaceType)
+            SearchHelper.excludedIdsFilter(excludedIds)
         }
 
         return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)

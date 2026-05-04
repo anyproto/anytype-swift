@@ -50,6 +50,6 @@ final class GroupChannelCreateCoordinatorViewModel {
     }
     
     private func makeSpaceCreateData(contacts: [Contact]) -> SpaceCreateData {
-        return SpaceCreateData(spaceUxType: .data, selectedContacts: contacts, channelType: .group)
+        return SpaceCreateData(selectedContacts: contacts, channelType: .group)
     }
 }

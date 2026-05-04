@@ -225,16 +225,9 @@ final class HomeWidgetsViewModel {
     
     private func startObjectTypesTask() async {
         let spaceId = spaceId
-        let allowedLayouts: [DetailsLayout]
-        if FeatureFlags.createChannelFlow {
-            let spaceType = workspaceStorage.spaceView(spaceId: spaceId)?.spaceType
-            allowedLayouts = DetailsLayout.widgetTypeLayouts(spaceType: spaceType)
-            await objectTypesWithObjectsCreatedService.startSubscription(spaceId: spaceId, spaceType: spaceType)
-        } else {
-            let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
-            allowedLayouts = DetailsLayout.widgetTypeLayouts(spaceUxType: spaceUxType)
-            await objectTypesWithObjectsCreatedService.startSubscription(spaceId: spaceId, spaceUxType: spaceUxType)
-        }
+        let spaceType = workspaceStorage.spaceView(spaceId: spaceId)?.spaceType
+        let allowedLayouts = DetailsLayout.widgetTypeLayouts(spaceType: spaceType)
+        await objectTypesWithObjectsCreatedService.startSubscription(spaceId: spaceId, spaceType: spaceType)
 
         let typesPublisher = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)
         let objectsCreatedPublisher = objectTypesWithObjectsCreatedService.typeIdsWithObjectsCreatedPublisher
