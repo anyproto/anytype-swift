@@ -123,8 +123,11 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
         }
         
         if let position = configuration.initialBlockFocusPosition {
-            textView.textView.setFocus(position)
-        }        
+            // Defer: applyNewConfiguration runs during cell dequeue; synchronous becomeFirstResponder triggers delegate side effects that crash on iOS 26.
+            DispatchQueue.main.async { [weak self] in
+                self?.textView.textView.setFocus(position)
+            }
+        }
     }
     
     private func updateAllConstraint(configuration: TextBlockContentConfiguration) {

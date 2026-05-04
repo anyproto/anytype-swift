@@ -115,7 +115,10 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
                 reloadInputViews()
             }
         } else {
-            reloadInputViews()
+            // Defer: this can be reached from a UITextView delegate during cell dequeue; flushing layout there crashes on iOS 26.
+            DispatchQueue.main.async {
+                reloadInputViews()
+            }
         }
     }
     
