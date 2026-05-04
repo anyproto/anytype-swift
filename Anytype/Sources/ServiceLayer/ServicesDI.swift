@@ -192,6 +192,10 @@ extension Container {
         self { ExpandedService() }.shared
     }
 
+    var homeSectionsStorage: Factory<any HomeSectionsStorageProtocol> {
+        self { HomeSectionsStorage() }.shared
+    }
+
     var channelOnboardingStorage: Factory<any ChannelOnboardingStorageProtocol> {
         self { ChannelOnboardingStorage() }.shared
     }

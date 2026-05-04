@@ -57780,6 +57780,17 @@
         }
       }
     },
+    "Manage sections" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage sections"
+          }
+        }
+      }
+    },
     "Media" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -76880,6 +76891,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "最近存取"
+          }
+        }
+      }
+    },
+    "Recently edited" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recently edited"
           }
         }
       }
