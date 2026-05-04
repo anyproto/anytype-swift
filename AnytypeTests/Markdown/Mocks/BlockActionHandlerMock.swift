@@ -87,7 +87,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addLink(targetDetails: ObjectDetails, blockId: String, route: AnalyticsEventsRouteKind) {
+    func addLink(targetDetails: ObjectDetails, blockId: String, position: BlockPosition, route: AnalyticsEventsRouteKind) async throws {
         assertionFailure()
     }
     
