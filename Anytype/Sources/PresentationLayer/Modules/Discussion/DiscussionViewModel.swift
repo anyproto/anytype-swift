@@ -148,8 +148,6 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     @ObservationIgnored
     var isOneToOneSpace: Bool { participantSpaceView?.spaceView.isOneToOne ?? false }
     @ObservationIgnored
-    var spaceUxType: SpaceUxType { participantSpaceView?.spaceView.uxType ?? .data }
-    @ObservationIgnored
     var participantPermissions: ParticipantPermissions? { participantSpaceView?.participant?.permission }
 
     // Alerts

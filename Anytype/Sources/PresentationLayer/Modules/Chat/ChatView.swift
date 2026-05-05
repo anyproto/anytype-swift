@@ -86,7 +86,6 @@ struct ChatView: View {
                 disableAddButton: model.sendMessageTaskInProgress,
                 sendButtonIsLoading: model.sendButtonIsLoading,
                 createObjectTypes: model.typesForCreateObject,
-                spaceUxType: model.spaceUxType,
                 onTapAddObject: {
                     model.onTapAddObjectToMessage()
                 },
@@ -154,7 +153,6 @@ struct ChatView: View {
     
     private var emptyView: some View {
         ConversationEmptyStateView(
-            isStream: model.spaceUxType.isStream,
             isOneToOne: model.isOneToOneSpace,
             participantPermissions: model.participantPermissions,
             addMembersAction: {

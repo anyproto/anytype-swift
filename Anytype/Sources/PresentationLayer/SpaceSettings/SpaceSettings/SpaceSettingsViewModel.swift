@@ -414,20 +414,11 @@ final class SpaceSettingsViewModel {
         guard shareSection.isSharingAvailable else { return }
         guard !participantSpaceView.spaceView.isOneToOne else { return }
 
-        if participantSpaceView.spaceView.uxType.isStream {
-            let invite = try? await workspaceService.getGuestInvite(spaceId: workspaceInfo.accountSpaceId)
-            if let invite {
-                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-            } else {
-                inviteLink = nil
-            }
+        let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
+        if let invite {
+            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
         } else {
-            let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
-            if let invite {
-                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-            } else {
-                inviteLink = nil
-            }
+            inviteLink = nil
         }
     }
 }
