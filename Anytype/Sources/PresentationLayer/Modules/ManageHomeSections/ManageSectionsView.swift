@@ -40,6 +40,9 @@ struct ManageSectionsView: View {
             .environment(\.editMode, .constant(.active))
             .navigationTitle(Loc.manageSections)
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                AnytypeAnalytics.instance().logScreenManageSections()
+            }
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     if #available(iOS 26.0, *) {
