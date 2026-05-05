@@ -62,6 +62,9 @@ private struct HomeWidgetsInternalView: View {
                 },
                 onQrCodeSelected: { url in
                     model.onQrCodeSelected(url: url)
+                },
+                onManageSectionsSelected: {
+                    model.onManageSectionsSelected()
                 }
             )
         }
@@ -84,17 +87,26 @@ private struct HomeWidgetsInternalView: View {
                 SpaceInfoView(spaceId: model.spaceId)
                 InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
                 homeWidget
-                blockWidgets
-                unreadWidget
-                myFavoritesWidget
-                recentlyEditedWidget
-                objectTypeWidgets
-                binWidget
+                ForEach(model.sectionsConfiguration.visibleSections, id: \.self) { section in
+                    manageableSection(section)
+                }
                 AnytypeNavigationSpacer(minHeight: context.showEmbeddedBottomPanel ? 72 : 0)
             }
             .padding(.horizontal, 20)
             .fitIPadToReadableContentGuide()
             .shouldHideChatBadges(model.shouldHideChatBadges)
+        }
+    }
+
+    @ViewBuilder
+    private func manageableSection(_ section: HomeSection) -> some View {
+        switch section {
+        case .pinned: blockWidgets
+        case .unread: unreadWidget
+        case .myFavorites: myFavoritesWidget
+        case .recentlyEdited: recentlyEditedWidget
+        case .objects: objectTypeWidgets
+        case .bin: binWidget
         }
     }
 
