@@ -7,7 +7,7 @@ struct SpaceJoinView: View {
     @State private var model: SpaceJoinViewModel
     @Environment(\.dismiss) private var dismiss
 
-    init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void, onJoinedSpace: ((String, SpaceUxType) -> Void)? = nil) {
+    init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void, onJoinedSpace: ((String, SpaceType) -> Void)? = nil) {
         self._model = State(initialValue: SpaceJoinViewModel(data: data, onManageSpaces: onManageSpaces, onJoinedSpace: onJoinedSpace))
     }
     

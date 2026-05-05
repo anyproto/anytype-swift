@@ -82,8 +82,8 @@ final class ObjectTypesUnifiedRowViewModel {
         for await type in objectTypeProvider.objectTypePublisher(typeId: info.objectTypeId).values {
             typeIcon = .object(type.icon)
             typeName = type.pluralDisplayName
-            let spaceUxType = spaceViewsStorage.spaceView(spaceId: info.spaceId)?.uxType
-            typeCanBeCreated = type.recommendedLayout?.isSupportedForCreation(spaceUxType: spaceUxType) ?? false
+            let spaceType = spaceViewsStorage.spaceView(spaceId: info.spaceId)?.spaceType
+            typeCanBeCreated = type.recommendedLayout?.isSupportedForCreation(spaceType: spaceType) ?? false
             updateCanCreateObject()
         }
     }

@@ -84,7 +84,7 @@ final class SpaceSettingsViewModel {
     var allowRemoteStorage = false
     var canEdit = false
     var canSetHomepage = false
-    var uxTypeSettingsData: SpaceUxTypeSettingsData?
+    var uxTypeSettingsData: SpaceTypeSettingsData?
     var shareSection: SpaceSettingsShareSection = .personal
     var membershipUpgradeReason: MembershipUpgradeReason?
     var storageInfo = RemoteStorageSegmentInfo()
@@ -230,7 +230,7 @@ final class SpaceSettingsViewModel {
     }
     
     func onUxTypeTap() {
-        output?.onSpaceUxTypeSelected()
+        output?.onSpaceTypeSelected()
     }
     
     // MARK: - Subscriptions
@@ -354,7 +354,7 @@ final class SpaceSettingsViewModel {
         isOneToOne = spaceView.isOneToOne
         showNotificationsSection = !spaceView.isOneToOne
 
-        uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat && FeatureFlags.channelTypeSwitcher ? SpaceUxTypeSettingsData(uxType: spaceView.uxType) : nil
+        uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat && FeatureFlags.channelTypeSwitcher ? SpaceTypeSettingsData(spaceType: spaceView.spaceType) : nil
 
         updateOneToOneParticipant()
 
@@ -413,21 +413,12 @@ final class SpaceSettingsViewModel {
         guard let participantSpaceView else { return }
         guard shareSection.isSharingAvailable else { return }
         guard !participantSpaceView.spaceView.isOneToOne else { return }
-        
-        if participantSpaceView.spaceView.uxType.isStream {
-            let invite = try? await workspaceService.getGuestInvite(spaceId: workspaceInfo.accountSpaceId)
-            if let invite {
-                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-            } else {
-                inviteLink = nil
-            }
+
+        let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
+        if let invite {
+            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
         } else {
-            let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
-            if let invite {
-                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-            } else {
-                inviteLink = nil
-            }
+            inviteLink = nil
         }
     }
 }

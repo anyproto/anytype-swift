@@ -13,7 +13,7 @@ struct PublishToWebViewInternalData: Identifiable, Hashable {
     let status: PublishState?
     let objectDetails: ObjectDetails
     let spaceName: String
-    let spaceUxType: SpaceUxType
+    let spaceType: SpaceType
 
     var id: String { objectId + spaceId }
 }

@@ -153,7 +153,6 @@ struct DiscussionView: View {
                 disableAddButton: model.sendMessageTaskInProgress,
                 sendButtonIsLoading: model.sendButtonIsLoading,
                 createObjectTypes: model.typesForCreateObject,
-                spaceUxType: model.spaceUxType,
                 onTapAddObject: {
                     model.onTapAddObjectToMessage()
                 },

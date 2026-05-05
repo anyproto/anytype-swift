@@ -119,13 +119,20 @@ extension SpaceView {
         spaceType == .oneToOne
     }
 
+    // Sole reader of the deprecated `uxType` field. Used only to enforce
+    // owner-only-write on legacy stream spaces, which have no representation
+    // in the new `SpaceType` enum.
+    var isLegacyStream: Bool {
+        uxType == .stream
+    }
+
     var showsMessageAuthor: Bool {
-        !isOneToOne && uxType.showsMessageAuthor
+        spaceType.showsMessageAuthor
     }
 
     @available(*, deprecated, message: "Use homepage to determine initial screen")
     var initialScreenIsChat: Bool {
-        uxType.initialScreenIsChat
+        spaceType.initialScreenIsChat
     }
 
     @available(*, deprecated, message: "Will be reworked with homepage logic")
@@ -135,7 +142,7 @@ extension SpaceView {
 
     @available(*, deprecated, message: "Will be reworked with homepage logic")
     var canShowChatWidget: Bool {
-        !uxType.supportsMultiChats
+        !spaceType.supportsMultiChats
     }
 
     var hasChat: Bool {

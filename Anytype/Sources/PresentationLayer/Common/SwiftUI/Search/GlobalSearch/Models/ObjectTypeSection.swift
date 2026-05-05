@@ -34,24 +34,6 @@ enum ObjectTypeSection: String, CaseIterable, Codable {
         }
     }
     
-    @available(*, deprecated, message: "Use spaceType overload instead")
-    func supportedLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        switch self {
-        case .all:
-            DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType)
-        case .pages:
-            DetailsLayout.editorLayouts
-        case .lists:
-            DetailsLayout.listLayouts + [DetailsLayout.objectType]
-        case .files:
-            DetailsLayout.fileLayouts
-        case .media:
-            DetailsLayout.mediaLayouts
-        case .bookmarks:
-            [.bookmark]
-        }
-    }
-
     func supportedLayouts(spaceType: SpaceType?) -> [DetailsLayout] {
         switch self {
         case .all:

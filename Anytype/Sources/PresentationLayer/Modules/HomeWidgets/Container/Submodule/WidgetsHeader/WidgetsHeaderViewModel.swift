@@ -117,12 +117,7 @@ final class WidgetsHeaderViewModel {
         }
 
         do {
-            let invite: SpaceInvite
-            if spaceView.uxType.isStream {
-                invite = try await workspaceService.getGuestInvite(spaceId: accountSpaceId)
-            } else {
-                invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
-            }
+            let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
             inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
         } catch {
             inviteLink = nil

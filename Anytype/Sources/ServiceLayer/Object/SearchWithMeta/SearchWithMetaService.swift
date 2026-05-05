@@ -27,9 +27,9 @@ final class SearchWithMetaService: SearchWithMetaServiceProtocol, Sendable {
         excludedObjectIds: [String]
     ) async throws -> [SearchResultWithMeta] {
 
-        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
+        let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, layouts: layouts, spaceUxType: spaceUxType)
+            SearchFiltersBuilder.build(isArchived: false, layouts: layouts, spaceType: spaceType)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
         }
 

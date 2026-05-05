@@ -105,7 +105,6 @@ final class ObjectSettingsViewModel {
     var settings: [ObjectSetting] = []
     var showConflictAlert = false
     var isChat = false
-    let spaceUxType: SpaceUxType?
     let spaceType: SpaceType?
 
     // MARK: - Actions State
@@ -128,7 +127,6 @@ final class ObjectSettingsViewModel {
         self.output = output
 
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
-        spaceUxType = spaceView?.uxType
         spaceType = spaceView?.spaceType
     }
 

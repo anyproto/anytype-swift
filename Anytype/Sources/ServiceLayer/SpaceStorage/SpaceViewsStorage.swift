@@ -34,7 +34,7 @@ extension SpaceViewsStorageProtocol {
     }
 
     func oneToOneSpaceView(identity: String) -> SpaceView? {
-        allSpaceViews.first { $0.uxType == .oneToOne && $0.oneToOneIdentity == identity }
+        allSpaceViews.first { $0.spaceType == .oneToOne && $0.oneToOneIdentity == identity }
     }
 }
 

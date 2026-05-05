@@ -58,7 +58,7 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
         }
 
         UINotificationFeedbackGenerator().notificationOccurred(.success)
-        AnytypeAnalytics.instance().logCreateSpace(spaceId: spaceId, spaceUxType: .data, route: .navigation)
+        AnytypeAnalytics.instance().logCreateSpace(spaceId: spaceId, spaceType: .regular, route: .navigation)
         if data.channelType == .group {
             AnytypeAnalytics.instance().logAddMember(count: data.selectedContacts.count)
         }
@@ -107,7 +107,7 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
             accessType: accessType,
             useCase: .dataSpaceMobile,
             withChat: false,
-            uxType: .data
+            spaceType: .regular
         )
 
         let spaceId = createResponse.spaceID
