@@ -163,7 +163,7 @@ final class HomeWidgetsViewModel {
     }
 
     func onManageSectionsSelected() {
-        output?.onManageSectionsSelected(spaceId: info.accountSpaceId)
+        output?.onManageSectionsSelected()
     }
 
     func onCreateObjectType() {

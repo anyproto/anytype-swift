@@ -383,6 +383,7 @@ public enum Loc {
   public static let highlight = Loc.tr("UI", "Highlight", fallback: "Highlight")
   public static let history = Loc.tr("UI", "History", fallback: "History")
   public static let home = Loc.tr("UI", "Home", fallback: "Home")
+  public static let homeAndPinned = Loc.tr("UI", "Home and Pinned", fallback: "Home and Pinned")
   public static let icon = Loc.tr("UI", "Icon", fallback: "Icon")
   public static func image(_ p1: Int) -> String {
     return Loc.tr("UI", "Image", p1, fallback: "Plural format key: Image")

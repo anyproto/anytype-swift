@@ -49493,6 +49493,17 @@
         }
       }
     },
+    "Home and Pinned" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home and Pinned"
+          }
+        }
+      }
+    },
     "Home.Snackbar.Library" : {
       "comment" : "MARK: - Home",
       "extractionState" : "manual",
