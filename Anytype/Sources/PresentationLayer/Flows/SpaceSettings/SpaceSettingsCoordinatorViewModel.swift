@@ -84,7 +84,7 @@ final class SpaceSettingsCoordinatorViewModel: SpaceSettingsModuleOutput, Remote
         pageNavigation?.open(.editor(.bin(spaceId: spaceId)))
     }
     
-    func onSpaceUxTypeSelected() {
+    func onSpaceTypeSelected() {
         spaceTypeChangeData = SpaceTypeChangeData(spaceId: spaceId)
     }
     

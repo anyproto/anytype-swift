@@ -5,8 +5,6 @@ import AnytypeCore
 
 @MainActor
 protocol ObjectTypesWithObjectsCreatedServiceProtocol: AnyObject {
-    @available(*, deprecated, message: "Use spaceType overload instead")
-    func startSubscription(spaceId: String, spaceUxType: SpaceUxType?) async
     func startSubscription(spaceId: String, spaceType: SpaceType?) async
     func stopSubscription() async
     var typeIdsWithObjectsCreatedPublisher: AnyPublisher<Set<String>, Never> { get }
@@ -31,21 +29,6 @@ final class ObjectTypesWithObjectsCreatedService: ObjectTypesWithObjectsCreatedS
 
     var typeIdsWithObjectsCreatedPublisher: AnyPublisher<Set<String>, Never> {
         typeIdsSubject.eraseToAnyPublisher()
-    }
-
-    func startSubscription(spaceId: String, spaceUxType: SpaceUxType?) async {
-        guard subscriptionStorage == nil else { return }
-
-        let storage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
-        subscriptionStorage = storage
-
-        let filters: [DataviewFilter] = .builder {
-            SearchHelper.notHiddenFilters()
-            SearchHelper.layoutFilter(DetailsLayout.widgetTypeLayouts(spaceUxType: spaceUxType))
-            SearchHelper.templateScheme(include: false)
-        }
-
-        await startSubscriptionWithFilters(storage: storage, spaceId: spaceId, filters: filters)
     }
 
     func startSubscription(spaceId: String, spaceType: SpaceType?) async {

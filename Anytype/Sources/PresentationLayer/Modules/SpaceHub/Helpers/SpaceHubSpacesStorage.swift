@@ -64,7 +64,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                     let unreadPreviews = nonArchivedPreviews
                         .filter { preview in
                             guard preview.hasCounters else { return false }
-                            if FeatureFlags.muteAndHide && space.spaceView.uxType.supportsMultiChats {
+                            if FeatureFlags.muteAndHide && space.spaceView.spaceType.supportsMultiChats {
                                 let mode = space.spaceView.effectiveNotificationMode(for: preview.chatId)
                                 if mode == .nothing {
                                     return preview.mentionCounter > 0 || preview.hasUnreadReactions

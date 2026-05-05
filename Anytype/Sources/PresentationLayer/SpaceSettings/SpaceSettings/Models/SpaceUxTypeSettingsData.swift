@@ -1,19 +1,19 @@
 import Foundation
 import Services
 
-struct SpaceUxTypeSettingsData {
+struct SpaceTypeSettingsData {
     let icon: ImageAsset
     let typaName: String
 }
 
-extension SpaceUxTypeSettingsData {
-    init(uxType: SpaceUxType) {
-        switch uxType {
+extension SpaceTypeSettingsData {
+    init(spaceType: SpaceType) {
+        switch spaceType {
         case .oneToOne:
             icon = .X24.chat
-        case .chat, .data, .stream, .none, .UNRECOGNIZED:
+        case .chat, .regular, .tech, .unknown, .UNRECOGNIZED:
             icon = .X24.space
         }
-        typaName = uxType.name
+        typaName = spaceType.name
     }
 }

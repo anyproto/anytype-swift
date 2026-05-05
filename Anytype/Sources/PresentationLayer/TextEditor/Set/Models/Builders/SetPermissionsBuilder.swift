@@ -72,8 +72,8 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
             return false
         }
 
-        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
-        return layout.isSupportedForCreationInSets(spaceUxType: spaceUxType)
+        let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
+        return layout.isSupportedForCreationInSets(spaceType: spaceType)
     }
     
     private func canEditRelationValuesInView(setDocument: some SetDocumentProtocol) -> Bool {

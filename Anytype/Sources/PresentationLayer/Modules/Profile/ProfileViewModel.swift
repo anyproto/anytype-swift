@@ -59,7 +59,7 @@ final class ProfileViewModel {
             oneToOneIdentity: details.identity,
             metadataKey: details.oneToOneRequestMetadataKey
         )
-        AnytypeAnalytics.instance().logCreateSpace(spaceId: newSpaceId, spaceUxType: .oneToOne, route: .profile)
+        AnytypeAnalytics.instance().logCreateSpace(spaceId: newSpaceId, spaceType: .oneToOne, route: .profile)
         pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: newSpaceId)))
     }
 

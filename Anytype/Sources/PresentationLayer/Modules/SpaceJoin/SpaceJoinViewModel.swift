@@ -46,7 +46,7 @@ final class SpaceJoinViewModel {
 
     private var inviteView: SpaceInviteView?
     private var onManageSpaces: () -> Void
-    private var onJoinedSpace: ((String, SpaceUxType) -> Void)?
+    private var onJoinedSpace: ((String, SpaceType) -> Void)?
     private var callManageSpaces = false
     private var joinedSpaceId: String?
 
@@ -61,7 +61,7 @@ final class SpaceJoinViewModel {
     var joinTaskId: String?
     var dismiss = false
     
-    init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void, onJoinedSpace: ((String, SpaceUxType) -> Void)? = nil) {
+    init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void, onJoinedSpace: ((String, SpaceType) -> Void)? = nil) {
         self.data = data
         self.onManageSpaces = onManageSpaces
         self.onJoinedSpace = onJoinedSpace
@@ -132,7 +132,7 @@ final class SpaceJoinViewModel {
             onManageSpaces()
         }
         if let joinedSpaceId, let inviteView {
-            onJoinedSpace?(joinedSpaceId, inviteView.spaceUxType)
+            onJoinedSpace?(joinedSpaceId, inviteView.spaceType)
         }
     }
     

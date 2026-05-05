@@ -7,7 +7,7 @@ public struct SpaceInviteView: Sendable {
     public let spaceIconCid: String
     public let creatorName: String
     public let inviteType: InviteType
-    public let spaceUxType: SpaceUxType
+    public let spaceType: SpaceType
 }
 
 extension Anytype_Rpc.Space.InviteView.Response {
@@ -18,7 +18,7 @@ extension Anytype_Rpc.Space.InviteView.Response {
             spaceIconCid: spaceIconCid,
             creatorName: creatorName,
             inviteType: inviteType,
-            spaceUxType: SpaceUxType(rawValue: Int(spaceUxType)) ?? .data
+            spaceType: spaceType
         )
     }
 }
