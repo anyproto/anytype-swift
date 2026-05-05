@@ -6,5 +6,5 @@ protocol HomeWidgetsModuleOutput: AnyObject, CommonWidgetModuleOutput {
     func onCreateObjectType()
     func onChangeHome()
     func onHomeObjectSelected(screenData: ScreenData)
-    func onManageSectionsSelected(spaceId: String)
+    func onManageSectionsSelected()
 }

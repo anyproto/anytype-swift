@@ -20,6 +20,7 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     var qrCodeInviteData: URLIdentifiable?
     var showHomeChangePicker = false
     var showHomepagePicker = false
+    var showManageSections = false
     var shouldDismissOverlay = false
 
     @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
@@ -130,8 +131,8 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         qrCodeInviteData = url.identifiable
     }
 
-    func onManageSectionsSelected(spaceId: String) {
-        // TODO: IOS-6154 — present ManageSectionsView once the screen is merged.
+    func onManageSectionsSelected() {
+        showManageSections = true
     }
 
     // MARK: - SetObjectCreationCoordinatorOutput

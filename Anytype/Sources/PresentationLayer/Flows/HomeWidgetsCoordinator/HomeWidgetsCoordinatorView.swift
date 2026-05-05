@@ -87,6 +87,9 @@ private struct HomeWidgetsCoordinatorInternalView: View {
             .anytypeSheet(item: $model.qrCodeInviteData) {
                 QrCodeView(title: Loc.joinSpace, data: $0.value.absoluteString, analyticsType: .inviteSpace, route: .inviteLink)
             }
+            .sheet(isPresented: $model.showManageSections) {
+                ManageSectionsView(spaceId: model.spaceInfo.accountSpaceId)
+            }
             .sheet(isPresented: $model.showHomeChangePicker) {
                 HomepageSettingsPickerView(
                     spaceId: model.spaceInfo.accountSpaceId,
