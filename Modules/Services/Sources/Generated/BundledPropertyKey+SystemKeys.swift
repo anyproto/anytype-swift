@@ -108,5 +108,6 @@ public extension BundledPropertyKey {
         .lastMessageDate,
         .notificationSubscribers,
         .templatePlaceholders,
+        .createdInContext,
     ]
 }
