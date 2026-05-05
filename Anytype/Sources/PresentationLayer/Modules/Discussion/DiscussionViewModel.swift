@@ -802,7 +802,10 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     }
 
     private func subscribeOnPermissions() async {
-        let permissionsSequence = accountParticipantsStorage.canEditSequence(spaceId: spaceId)
+        let permissionsSequence = participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId)
+            .map(\.permissions.canEdit)
+            .removeDuplicates()
+            .values
         if let chatObject {
             let deletedOrArchivedSequence = chatObject.detailsPublisher
                 .map { !$0.isArchivedOrDeleted }

@@ -22,27 +22,27 @@ public extension SpaceType {
 
     var supportsMentions: Bool {
         switch self {
-        case .chat, .regular, .tech, .unknown, .UNRECOGNIZED:
+        case .chat, .regular:
             return true
-        case .oneToOne:
+        case .oneToOne, .tech, .unknown, .UNRECOGNIZED:
             return false
         }
     }
 
     var showsMessageAuthor: Bool {
         switch self {
-        case .chat, .regular, .tech, .unknown, .UNRECOGNIZED:
+        case .chat, .regular:
             return true
-        case .oneToOne:
+        case .oneToOne, .tech, .unknown, .UNRECOGNIZED:
             return false
         }
     }
 
     var supportsJoinSpaceButton: Bool {
         switch self {
-        case .chat, .regular, .tech, .unknown, .UNRECOGNIZED:
+        case .chat, .regular:
             return true
-        case .oneToOne:
+        case .oneToOne, .tech, .unknown, .UNRECOGNIZED:
             return false
         }
     }
