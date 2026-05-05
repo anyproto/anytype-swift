@@ -25,7 +25,9 @@ struct ManageSectionRowView: View {
         .contentShape(Rectangle())
         .onTapGesture {
             guard !isLocked else { return }
-            onToggle()
+            withAnimation {
+                onToggle()
+            }
         }
         .newDivider(leadingPadding: 16, trailingPadding: 16)
     }
