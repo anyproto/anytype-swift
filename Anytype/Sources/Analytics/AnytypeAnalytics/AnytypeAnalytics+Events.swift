@@ -633,7 +633,30 @@ extension AnytypeAnalytics {
             ]
         )
     }
-    
+
+    func logScreenManageSections() {
+        logEvent("ScreenManageSections")
+    }
+
+    func logReorderHomeSection(section: HomeSection) {
+        logEvent(
+            "ReorderHomeSection",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: section.analyticsId
+            ]
+        )
+    }
+
+    func logChangeHomeSectionVisibility(section: HomeSection, visible: Bool) {
+        logEvent(
+            "ChangeHomeSectionVisibility",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: section.analyticsId,
+                AnalyticsEventsPropertiesKey.visible: visible
+            ]
+        )
+    }
+
     func logOpenSidebarGroupToggle(source: AnalyticsWidgetSource) {
         logEvent(
             "OpenSidebarGroupToggle",

@@ -30,14 +30,22 @@ final class ManageSectionsViewModel {
     }
 
     func onMove(from: IndexSet, to: Int) {
+        let movedSection = from.first.map { rows[$0].section }
         rows.move(fromOffsets: from, toOffset: to)
         persist()
+        if let movedSection {
+            AnytypeAnalytics.instance().logReorderHomeSection(section: movedSection)
+        }
     }
 
     func onToggle(section: HomeSection) {
         guard let index = rows.firstIndex(where: { $0.section == section }) else { return }
         rows[index].visible.toggle()
         persist()
+        AnytypeAnalytics.instance().logChangeHomeSectionVisibility(
+            section: section,
+            visible: rows[index].visible
+        )
     }
 
     private func persist() {

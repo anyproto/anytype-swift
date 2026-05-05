@@ -7,6 +7,17 @@ enum HomeSection: String, CaseIterable, Codable, Sendable {
     case recentlyEdited
     case objects
     case bin
+
+    var analyticsId: String {
+        switch self {
+        case .unread: "Unread"
+        case .pinned: "Pinned"
+        case .myFavorites: "MyFavorites"
+        case .recentlyEdited: "RecentlyEdited"
+        case .objects: "Objects"
+        case .bin: "Bin"
+        }
+    }
 }
 
 struct HomeSectionsConfiguration: Codable, Equatable, Sendable {

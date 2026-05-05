@@ -59,6 +59,7 @@ enum AnalyticsEventsPropertiesKey {
     static let status = "status"
     static let uploadTime = "uploadTime"
     static let totalTime = "totalTime"
+    static let visible = "visible"
 }
 
 enum AnalyticsEventsTypeValues {
