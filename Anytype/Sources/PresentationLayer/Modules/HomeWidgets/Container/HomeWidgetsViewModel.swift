@@ -48,6 +48,8 @@ final class HomeWidgetsViewModel {
     private var chatDetailsStorage: any ChatDetailsStorageProtocol
     @Injected(\.objectsWithUnreadDiscussionsSubscription) @ObservationIgnored
     private var unreadDiscussionsSubscription: any ObjectsWithUnreadDiscussionsSubscriptionProtocol
+    @Injected(\.homeSectionsStorage) @ObservationIgnored
+    private var homeSectionsStorage: any HomeSectionsStorageProtocol
 
     @ObservationIgnored
     weak var output: (any HomeWidgetsModuleOutput)?
@@ -69,6 +71,7 @@ final class HomeWidgetsViewModel {
     var myFavoritesListViewModel: MyFavoritesListViewModel
     var recentlyEditedSectionIsExpanded: Bool = false
     var recentlyEditedListViewModel: RecentlyEditedListViewModel
+    var sectionsConfiguration: HomeSectionsConfiguration = .default
     private var supportsMultiChats: Bool = false
 
     var spaceId: String { info.accountSpaceId }
@@ -122,8 +125,9 @@ final class HomeWidgetsViewModel {
         async let objectTypesTask: () = startObjectTypesTask()
         async let spaceViewTask: () = startSpaceViewTask()
         async let unreadItemsTask: () = startUnreadItemsTask()
+        async let sectionsConfigurationTask: () = startSectionsConfigurationTask()
 
-        _ = await (widgetObjectSub, myFavoritesSub, recentlyEditedSub, canEditSub, objectTypesTask, spaceViewTask, unreadItemsTask)
+        _ = await (widgetObjectSub, myFavoritesSub, recentlyEditedSub, canEditSub, objectTypesTask, spaceViewTask, unreadItemsTask, sectionsConfigurationTask)
     }
 
     func onAppear() {
@@ -156,6 +160,10 @@ final class HomeWidgetsViewModel {
 
     func onQrCodeSelected(url: URL) {
         output?.onSpaceChatShowQrCodeSelected(url: url)
+    }
+
+    func onManageSectionsSelected() {
+        output?.onManageSectionsSelected(spaceId: info.accountSpaceId)
     }
 
     func onCreateObjectType() {
@@ -214,6 +222,12 @@ final class HomeWidgetsViewModel {
 
     private func startRecentlyEditedTask() async {
         await recentlyEditedListViewModel.startSubscriptions()
+    }
+
+    private func startSectionsConfigurationTask() async {
+        for await configuration in homeSectionsStorage.configurationPublisher(spaceId: info.accountSpaceId).values {
+            sectionsConfiguration = configuration
+        }
     }
 
     private func startCanEditSubscription() async {

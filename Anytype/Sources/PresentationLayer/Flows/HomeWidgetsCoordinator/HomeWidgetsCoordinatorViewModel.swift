@@ -130,6 +130,10 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         qrCodeInviteData = url.identifiable
     }
 
+    func onManageSectionsSelected(spaceId: String) {
+        // TODO: IOS-6154 — present ManageSectionsView once the screen is merged.
+    }
+
     // MARK: - SetObjectCreationCoordinatorOutput
 
     func showEditorScreen(data: ScreenData) {
