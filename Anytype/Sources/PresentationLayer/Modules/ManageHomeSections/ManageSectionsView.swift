@@ -11,11 +11,24 @@ struct ManageSectionsView: View {
     var body: some View {
         NavigationStack {
             List {
+                ForEach(model.lockedSections, id: \.self) { section in
+                    ManageSectionRowView(
+                        title: section.localizedTitle,
+                        isLocked: true,
+                        visible: true,
+                        onToggle: {}
+                    )
+                    .moveDisabled(true)
+                    .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    .listRowSeparator(.hidden)
+                }
                 ForEach(model.rows) { row in
-                    ManageSectionRowView(row: row) {
-                        model.onToggle(section: row.section)
-                    }
-                    .moveDisabled(row.isLocked)
+                    ManageSectionRowView(
+                        title: row.section.localizedTitle,
+                        isLocked: false,
+                        visible: row.visible,
+                        onToggle: { model.onToggle(section: row.section) }
+                    )
                     .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                     .listRowSeparator(.hidden)
                 }

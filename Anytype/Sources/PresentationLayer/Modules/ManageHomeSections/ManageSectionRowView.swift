@@ -2,17 +2,19 @@ import SwiftUI
 import DesignKit
 
 struct ManageSectionRowView: View {
-    let row: ManageSectionsViewModel.Row
+    let title: String
+    let isLocked: Bool
+    let visible: Bool
     let onToggle: () -> Void
 
     var body: some View {
         HStack(spacing: 12) {
-            if row.isLocked {
+            if isLocked {
                 Color.clear.frame(width: 24, height: 24)
             } else {
-                AnytypeCircleCheckbox(checked: row.visible)
+                AnytypeCircleCheckbox(checked: visible)
             }
-            AnytypeText(row.title, style: .uxBodyRegular)
+            AnytypeText(title, style: .uxBodyRegular)
                 .lineLimit(1)
                 .truncationMode(.tail)
                 .foregroundStyle(Color.Text.primary)
@@ -22,7 +24,7 @@ struct ManageSectionRowView: View {
         .padding(.horizontal, 16)
         .contentShape(Rectangle())
         .onTapGesture {
-            guard !row.isLocked else { return }
+            guard !isLocked else { return }
             onToggle()
         }
         .newDivider(leadingPadding: 16, trailingPadding: 16)

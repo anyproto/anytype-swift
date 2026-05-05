@@ -1,11 +1,10 @@
 import Foundation
 
 extension HomeSection {
+    static let lockedSections: [HomeSection] = [.pinned, .unread]
+
     var isLocked: Bool {
-        switch self {
-        case .pinned, .unread: return true
-        case .myFavorites, .recentlyEdited, .objects, .bin: return false
-        }
+        Self.lockedSections.contains(self)
     }
 
     var localizedTitle: String {
