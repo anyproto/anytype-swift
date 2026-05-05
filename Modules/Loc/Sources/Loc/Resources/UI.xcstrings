@@ -7212,7 +7212,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "링크되지 않은 객체는 그래프에서 다른 객체와의 직접적인 링크나 백링크가 없습니다."
+            "value" : "링크되지 않은 객체는 그래프에서 다른 객체와의 직접적인 링크나 역링크가 없습니다."
           }
         },
         "nb" : {
@@ -9775,7 +9775,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to delete %#@object@?"
+            "value" : "هل أنت متأكد أنك تريد حذف كائن %#@@؟"
           },
           "substitutions" : {
             "object" : {
@@ -10066,7 +10066,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yakin ingin menghapus %#@object@?"
+            "value" : "Apakah Anda yakin ingin menghapus objek %#@@?"
           },
           "substitutions" : {
             "object" : {
@@ -10135,7 +10135,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to delete %#@object@?"
+            "value" : "정말 %#@object@을(를) 삭제하시겠습니까?"
           },
           "substitutions" : {
             "object" : {
@@ -10456,7 +10456,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "您确定要删除  %#@object@ 吗？"
+            "value" : "您确定要删除 %#@ 个对象吗？"
           },
           "substitutions" : {
             "object" : {
@@ -11457,13 +11457,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "audio"
+                  "value" : "Audio"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld audios"
+                  "value" : "%lld Audios"
                 }
               }
             }
@@ -12539,7 +12539,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "백링크 %d개"
+                  "value" : "역링크 %d개"
                 }
               }
             }
@@ -22666,7 +22666,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy Invite Link"
+            "value" : "초대 링크 복사"
           }
         },
         "nb" : {
@@ -27130,7 +27130,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This vault will be deleted %#@days@"
+            "value" : "سيتم حذف هذه الخزنة خلال %#@ أيام"
           },
           "substitutions" : {
             "days" : {
@@ -27943,7 +27943,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "此保险库将于 %#@days@ 天后删除"
+            "value" : "此保险库将于 %#@ 天后删除"
           },
           "substitutions" : {
             "days" : {
@@ -30484,7 +30484,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@device@ connected"
+            "value" : "%#@ أجهزة متصلة"
           },
           "substitutions" : {
             "device" : {
@@ -30844,7 +30844,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@device@ connected"
+            "value" : "%#@개의 기기 연결됨"
           },
           "substitutions" : {
             "device" : {
@@ -31165,7 +31165,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@device@ 已连接"
+            "value" : "%#@ 设备已连接"
           },
           "substitutions" : {
             "device" : {
@@ -33919,7 +33919,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Empty Name"
+            "value" : "빈 이름"
           }
         },
         "nb" : {
@@ -40470,7 +40470,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Off"
+            "value" : "끄기"
           }
         },
         "nb" : {
@@ -40625,7 +40625,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Offline access"
+            "value" : "오프라인 접근"
           }
         },
         "nb" : {
@@ -40780,7 +40780,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Auto sync files up to a selected size"
+            "value" : "설정한 크기까지 파일 자동 동기화"
           }
         },
         "nb" : {
@@ -40935,7 +40935,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Offline Downloads"
+            "value" : "오프라인 다운로드"
           }
         },
         "nb" : {
@@ -41245,7 +41245,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Use Cellular Data"
+            "value" : "모바일 데이터 사용"
           }
         },
         "nb" : {
@@ -43809,7 +43809,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@ uploading"
+            "value" : "جارٍ رفع %#@ ملف"
           },
           "substitutions" : {
             "file" : {
@@ -44490,7 +44490,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@ 正在上传"
+            "value" : "%#@ 个文件正在上传"
           },
           "substitutions" : {
             "file" : {
@@ -51042,7 +51042,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Dark"
+            "value" : "Escuro"
           }
         },
         "ru" : {
@@ -51198,7 +51198,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Light"
+            "value" : "Claro"
           }
         },
         "ru" : {
@@ -51353,7 +51353,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "System"
+            "value" : "Sistema"
           }
         },
         "ru" : {
@@ -51555,7 +51555,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@ syncing..."
+            "value" : "%#@ عناصر تتم مزامنتها..."
           },
           "substitutions" : {
             "item" : {
@@ -51915,7 +51915,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@ syncing..."
+            "value" : "%#@개의 항목 동기화 중..."
           },
           "substitutions" : {
             "item" : {
@@ -52236,7 +52236,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@ 正在同步…"
+            "value" : "%#@ 个项正在同步…"
           },
           "substitutions" : {
             "item" : {
@@ -57162,9 +57162,153 @@
     "Manage sections" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "إدارة الأقسام"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bereiche verwalten"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Manage sections"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Gestionar secciones"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Gestisci le sezioni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "섹션 관리"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Gerenciar seções"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bölümleri yönet"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "管理分区"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Manage sections"
           }
         }
@@ -63571,7 +63715,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ selected"
+            "value" : "تم تحديد %#@ كائنات"
           },
           "substitutions" : {
             "object" : {
@@ -63931,7 +64075,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ selected"
+            "value" : "객체@ %#@개 선택됨"
           },
           "substitutions" : {
             "object" : {
@@ -64252,7 +64396,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ 已选择"
+            "value" : "已选择 %#@ 个对象"
           },
           "substitutions" : {
             "object" : {
@@ -69181,7 +69325,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@day@"
+            "value" : "لكل %#@ يومًا"
           },
           "substitutions" : {
             "day" : {
@@ -69862,7 +70006,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "每 %#@day@"
+            "value" : "每 %#@ 天"
           },
           "substitutions" : {
             "day" : {
@@ -69909,7 +70053,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@month@"
+            "value" : "لكل %#@ شهرًا"
           },
           "substitutions" : {
             "month" : {
@@ -70590,7 +70734,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "每 %#@month@"
+            "value" : "每 %#@ 月"
           },
           "substitutions" : {
             "month" : {
@@ -70637,7 +70781,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@week@"
+            "value" : "لكل %#@ أسبوعًا"
           },
           "substitutions" : {
             "week" : {
@@ -71318,7 +71462,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "每 %#@week@"
+            "value" : "每 %#@ 周"
           },
           "substitutions" : {
             "week" : {
@@ -71365,7 +71509,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@year@"
+            "value" : "لكل %#@ عامًا"
           },
           "substitutions" : {
             "year" : {
@@ -72046,7 +72190,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "每 %#@year@"
+            "value" : "每 %#@ 年"
           },
           "substitutions" : {
             "year" : {
@@ -73715,7 +73859,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pre-Fill Name"
+            "value" : "기본 이름"
           }
         },
         "nb" : {
@@ -76277,10 +76421,154 @@
     "Recently edited" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "تم تحريرها مؤخرًا"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Нядаўна адрэдагаваны"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Recently edited"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Zuletzt bearbeitet"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recently edited"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Editado recientemente"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Recently edited"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Viimeksi muokatut"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Récemment modifié"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Baru disunting"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Modificati di recente"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "最近編集された"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "최근에 수정함"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Nylig endret"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Onlangs bewerkt"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Recently edited"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ostatnio edytowane"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Editado recentemente"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Recently edited"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Недавно обновлено"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yakın zamanda düzenlenen"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Нещодавно відредаговані"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Được sửa gần đây"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "最近编辑的文档"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "最近編輯"
           }
         }
       }
@@ -88019,7 +88307,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+            "value" : "Werde Mitglied, um deine ID für Personen lesbarer zu machen, damit andere dich leichter finden und kontaktieren können."
           }
         },
         "en" : {
@@ -88174,7 +88462,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This is your ANY ID"
+            "value" : "Das ist deine ANY-ID"
           }
         },
         "en" : {
@@ -101603,7 +101891,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Toggled heading"
+            "value" : "머릿글 토글"
           }
         },
         "nb" : {
@@ -101758,7 +102046,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Toggle subheading"
+            "value" : "부제목 토글"
           }
         },
         "nb" : {
@@ -101913,7 +102201,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Toggled title"
+            "value" : "제목 토글"
           }
         },
         "nb" : {
@@ -103720,7 +104008,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Try to find a new one"
+            "value" : "Versuche einen neuen zu finden"
           }
         },
         "en" : {
@@ -111988,13 +112276,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "One object deleted"
+                  "value" : "Ett objekt slettet"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d objects deleted"
+                  "value" : "%d objekter slettet"
                 }
               },
               "zero" : {
@@ -115969,7 +116257,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "System"
+            "value" : "Sistema"
           }
         },
         "ru" : {
@@ -119602,7 +119890,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pin to Channel"
+            "value" : "置顶"
           }
         },
         "zh-Hant" : {
@@ -119757,7 +120045,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unpin from Channel"
+            "value" : "取消置顶"
           }
         },
         "zh-Hant" : {
@@ -119912,7 +120200,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My Favorites"
+            "value" : "我的收藏夹"
           }
         },
         "zh-Hant" : {
@@ -119926,10 +120214,154 @@
     "PasteMenu.bookmark" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "إشارة مرجعية"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Закладка"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bookmark"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Lesezeichen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Bookmark"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Marcador"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bookmark"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Kirjanmerkki"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Marque-page"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Markah"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Segnalibro"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "ブックマーク"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "북마크"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bokmerke"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bladwijzer"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bookmark"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Zakładka"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Marcador"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bookmark"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Закладка"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yer imi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Закладка"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Dấu trang"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "书签"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "書籤"
           }
         }
       }
@@ -119937,7 +120369,151 @@
     "PasteMenu.header" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
         "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pegar como"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Farklı yapıştır"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Paste as"
@@ -119948,10 +120524,154 @@
     "PasteMenu.object" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "كائن"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Аб'ект"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Object"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objekt"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Object"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objeto"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Object"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objekti"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objet"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objek"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oggetto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "オブジェクト"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "객체"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objekt"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Object"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "ଅବଜେକ୍ଟ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Obiekt"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objeto"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objeto"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Объект"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Nesne"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Об'єкт"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Đối tượng"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "对象"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "物件"
           }
         }
       }
@@ -119959,7 +120679,151 @@
     "PasteMenu.plainText" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
         "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Texto simple"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Düz Metin"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Plain Text"
@@ -119970,7 +120834,151 @@
     "PasteMenu.url" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "الرابط"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Link"
+          }
+        },
         "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Adres URL"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ссылка"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL网址"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "URL"
