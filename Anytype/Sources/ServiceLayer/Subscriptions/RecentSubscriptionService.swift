@@ -51,7 +51,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
             SearchHelper.templateScheme(include: false)
             makeDateFilter(type: type, spaceId: spaceId)
             if type == .recentEdit {
-                SearchHelper.excludedRecomendedLayoutFilter([.participant])
+                SearchHelper.excludedRecommendedLayoutFilter([.participant])
                 if let participantId = currentParticipantId(spaceId: spaceId) {
                     SearchHelper.lastModifiedByFilter(participantId)
                 }

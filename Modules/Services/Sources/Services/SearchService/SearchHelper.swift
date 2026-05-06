@@ -192,7 +192,7 @@ public class SearchHelper {
         return filter
     }
 
-    public static func excludedRecomendedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
+    public static func excludedRecommendedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn
         filter.value = layouts.map(\.rawValue).protobufValue
