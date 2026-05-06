@@ -192,6 +192,14 @@ public class SearchHelper {
         return filter
     }
 
+    public static func excludedRecommendedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notIn
+        filter.value = layouts.map(\.rawValue).protobufValue
+        filter.relationKey = BundledPropertyKey.recommendedLayout.rawValue
+        return filter
+    }
+
     // MARK: - Relation Filters
 
     public static func relationKey(_ relationKey: String) -> DataviewFilter {
@@ -233,6 +241,16 @@ public class SearchHelper {
         filter.condition = .greaterOrEqual
         filter.value = date.timeIntervalSince1970.protobufValue
         filter.relationKey = BundledPropertyKey.lastModifiedDate.rawValue
+        filter.format = .date
+        filter.includeTime = true
+        return filter
+    }
+
+    public static func lastModifiedByFilter(_ participantId: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = participantId.protobufValue
+        filter.relationKey = BundledPropertyKey.lastModifiedBy.rawValue
         return filter
     }
 
