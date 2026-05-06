@@ -55,9 +55,6 @@ fileprivate struct SpaceSettingInternalsCoordinator: View {
             .sheet(item: $model.spaceNotificationsSettingsModuleData) {
                 SpaceNotificationsSettingsView(data: $0)
             }
-            .sheet(item: $model.spaceTypeChangeData) {
-                SpaceTypeChangeView(data: $0)
-            }
             .sheet(item: $model.homePagePickerSpaceId) {
                 HomepageSettingsPickerView(
                     spaceId: $0.value,

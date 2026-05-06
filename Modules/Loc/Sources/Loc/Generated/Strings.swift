@@ -250,7 +250,6 @@ public enum Loc {
   public static let changeIcon = Loc.tr("UI", "Change icon", fallback: "Change icon")
   public static let changeType = Loc.tr("UI", "Change type", fallback: "Change type")
   public static let changeWallpaper = Loc.tr("UI", "Change wallpaper", fallback: "Change wallpaper")
-  public static let channelType = Loc.tr("UI", "ChannelType", fallback: "Channel Type")
   public static let chat = Loc.tr("UI", "Chat", fallback: "Chat")
   public static let chooseDefaultObjectType = Loc.tr("UI", "Choose default object type", fallback: "Choose default object type")
   public static let chooseLayoutType = Loc.tr("UI", "Choose layout type", fallback: "Choose layout type")
@@ -843,11 +842,6 @@ public enum Loc {
   }
   public enum CommonOpenErrorView {
     public static let message = Loc.tr("UI", "CommonOpenErrorView.Message", fallback: "No data found")
-  }
-  public enum ConvertChannelTypeAlert {
-    public static let confirm = Loc.tr("UI", "ConvertChannelTypeAlert.confirm", fallback: "Yes, convert")
-    public static let message = Loc.tr("UI", "ConvertChannelTypeAlert.message", fallback: "Switching between Space and Chat will significantly change the experience.")
-    public static let title = Loc.tr("UI", "ConvertChannelTypeAlert.title", fallback: "Convert Channel Type?")
   }
   public enum DataviewType {
     public static let calendar = Loc.tr("UI", "DataviewType.calendar", fallback: "Calendar")
@@ -2547,7 +2541,6 @@ public enum Loc {
     }
     public enum UxType {
       public enum Chat {
-        public static let changeDescription = Loc.tr("Workspace", "Spaces.UxType.Chat.ChangeDescription", fallback: "Group chat with shared data. Best for small groups or a single ongoing conversation.")
         public static let description = Loc.tr("Workspace", "Spaces.UxType.Chat.Description", fallback: "Group chat with content organization")
         public static let title = Loc.tr("Workspace", "Spaces.UxType.Chat.Title", fallback: "Chat")
       }
@@ -2555,7 +2548,6 @@ public enum Loc {
         public static let title = Loc.tr("Workspace", "Spaces.UxType.OneToOne.Title", fallback: "Direct channel")
       }
       public enum Space {
-        public static let changeDescription = Loc.tr("Workspace", "Spaces.UxType.Space.ChangeDescription", fallback: "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams.")
         public static let description = Loc.tr("Workspace", "Spaces.UxType.Space.Description", fallback: "Hub for advanced data management")
         public static let infoTitle = Loc.tr("Workspace", "Spaces.UxType.Space.InfoTitle", fallback: "Private Channel")
         public static let title = Loc.tr("Workspace", "Spaces.UxType.Space.Title", fallback: "Space")

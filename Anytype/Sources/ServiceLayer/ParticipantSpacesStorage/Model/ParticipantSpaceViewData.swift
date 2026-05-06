@@ -49,10 +49,6 @@ extension ParticipantSpaceViewData {
         isOwner
     }
     
-    var canChangeUxType: Bool {
-        permissions.canChangeUxType
-    }
-
     var canSetHomepage: Bool {
         permissions.canSetHomepage
     }
