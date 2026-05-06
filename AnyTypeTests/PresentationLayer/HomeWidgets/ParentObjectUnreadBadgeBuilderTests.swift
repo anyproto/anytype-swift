@@ -88,7 +88,6 @@ struct ParentObjectUnreadBadgeBuilderTests {
             writersLimit: nil,
             chatId: "",
             spaceOrder: "",
-            uxType: .data,
             spaceType: .regular,
             pushNotificationEncryptionKey: "",
             pushNotificationMode: pushMode,
