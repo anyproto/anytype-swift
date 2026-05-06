@@ -35,13 +35,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
-    // should be disabled
-    static let channelTypeSwitcher = FeatureDescription(
-        title: "Channel type switcher - IOS-5378",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "?"),
-        defaultValue: false
-    )
-
     static let fixAvatarTapFreeze = FeatureDescription(
         title: "Fix avatar tap freeze in chat - IOS-5998",
         category: .productFeature(author: "k@anytype.io", targetRelease: "18"),

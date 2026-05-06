@@ -12,5 +12,4 @@ protocol SpaceSettingsModuleOutput: AnyObject {
     func onSpaceShareSelected(_ completion: @escaping () -> Void)
     func onNotificationsSelected()
     func onBinSelected()
-    func onSpaceTypeSelected()
 }

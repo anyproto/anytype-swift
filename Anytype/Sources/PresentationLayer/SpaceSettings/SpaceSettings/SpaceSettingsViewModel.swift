@@ -84,7 +84,6 @@ final class SpaceSettingsViewModel {
     var allowRemoteStorage = false
     var canEdit = false
     var canSetHomepage = false
-    var uxTypeSettingsData: SpaceTypeSettingsData?
     var shareSection: SpaceSettingsShareSection = .personal
     var membershipUpgradeReason: MembershipUpgradeReason?
     var storageInfo = RemoteStorageSegmentInfo()
@@ -228,11 +227,7 @@ final class SpaceSettingsViewModel {
     func onBinTap() {
         output?.onBinSelected()
     }
-    
-    func onUxTypeTap() {
-        output?.onSpaceTypeSelected()
-    }
-    
+
     // MARK: - Subscriptions
     
     func startSubscriptions() async {
@@ -353,8 +348,6 @@ final class SpaceSettingsViewModel {
         canAddWriters = spaceView.canAddWriters(participants: participants)
         isOneToOne = spaceView.isOneToOne
         showNotificationsSection = !spaceView.isOneToOne
-
-        uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat && FeatureFlags.channelTypeSwitcher ? SpaceTypeSettingsData(spaceType: spaceView.spaceType) : nil
 
         updateOneToOneParticipant()
 

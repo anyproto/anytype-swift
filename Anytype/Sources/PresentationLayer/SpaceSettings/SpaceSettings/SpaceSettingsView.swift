@@ -228,9 +228,8 @@ struct SpaceSettingsView: View {
     private func collaborationSection(memberDecoration: RoundedButtonDecoration? = nil) -> some View {
         let showMembers = !model.isOneToOne
         let showNotifications = model.showNotificationsSection
-        let showUxType = model.uxTypeSettingsData != nil
 
-        if showMembers || showNotifications || showUxType {
+        if showMembers || showNotifications {
             VStack(spacing: 0) {
                 SectionHeaderView(title: Loc.collaboration)
                 SettingsSection {
@@ -240,7 +239,7 @@ struct SpaceSettingsView: View {
                             icon: .X24.member,
                             decoration: memberDecoration
                         ) { model.onMembersTap() }
-                        .settingsRow(showDivider: showNotifications || showUxType, leadingPadding: 48)
+                        .settingsRow(showDivider: showNotifications, leadingPadding: 48)
                     }
                     if showNotifications {
                         RoundedButton(
@@ -248,14 +247,6 @@ struct SpaceSettingsView: View {
                             icon: pushNotificationsSettingIcon(),
                             decoration: .caption(pushNotificationsSettingCaption())
                         ) { model.onNotificationsTap() }
-                        .settingsRow(showDivider: showUxType, leadingPadding: 48)
-                    }
-                    if let data = model.uxTypeSettingsData {
-                        RoundedButton(
-                            Loc.channelType,
-                            icon: data.icon,
-                            decoration: .caption(data.typaName)
-                        ) { model.onUxTypeTap() }
                         .settingsRow(showDivider: false, leadingPadding: 48)
                     }
                 }
