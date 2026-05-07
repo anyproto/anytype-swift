@@ -42,3 +42,15 @@ struct HomeSectionsConfiguration: Codable, Equatable, Sendable {
         visibleSections: [.pinned, .unread, .myFavorites, .recentlyEdited, .objects, .bin]
     )
 }
+
+extension ExpandedServiceProtocol {
+    func isExpanded(section: HomeSection, defaultValue: Bool) -> Bool {
+        guard let id = section.expandedStorageId else { return defaultValue }
+        return isExpanded(id: id, defaultValue: defaultValue)
+    }
+
+    func setState(section: HomeSection, isExpanded: Bool) {
+        guard let id = section.expandedStorageId else { return }
+        setState(id: id, isExpanded: isExpanded)
+    }
+}

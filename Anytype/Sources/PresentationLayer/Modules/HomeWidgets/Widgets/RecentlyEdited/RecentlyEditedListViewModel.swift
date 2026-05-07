@@ -49,6 +49,8 @@ final class RecentlyEditedListViewModel {
             update: { [weak self] details in
                 guard let self else { return }
                 let newRows = details.map { RecentlyEditedRowData(id: $0.id, details: $0) }
+                // Animate count change and rows update in the same transaction so the parent
+                // VStack reflow inherits the animation context.
                 let countChanged = self.rows.count != newRows.count
                 withAnimation(.default) {
                     if countChanged { self.onRowsCountChange?(newRows.count) }

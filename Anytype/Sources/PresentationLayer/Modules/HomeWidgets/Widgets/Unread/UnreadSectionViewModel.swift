@@ -43,8 +43,7 @@ final class UnreadSectionViewModel {
     init(spaceId: String, output: (any CommonWidgetModuleOutput)?) {
         self.spaceId = spaceId
         self.output = output
-        self.unreadSectionIsExpanded = HomeSection.unread.expandedStorageId
-            .map { expandedService.isExpanded(id: $0, defaultValue: true) } ?? true
+        self.unreadSectionIsExpanded = expandedService.isExpanded(section: .unread, defaultValue: true)
     }
 
     // MARK: - Subscriptions
@@ -59,9 +58,7 @@ final class UnreadSectionViewModel {
         withAnimation {
             unreadSectionIsExpanded = !unreadSectionIsExpanded
         }
-        if let id = HomeSection.unread.expandedStorageId {
-            expandedService.setState(id: id, isExpanded: unreadSectionIsExpanded)
-        }
+        expandedService.setState(section: .unread, isExpanded: unreadSectionIsExpanded)
     }
 
     private func startSpaceViewTask() async {

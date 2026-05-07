@@ -13,7 +13,7 @@ final class MyFavoritesSectionViewModel {
     @Injected(\.expandedService)
     private var expandedService: any ExpandedServiceProtocol
 
-    var isExpanded: Bool
+    var isExpanded: Bool = true
 
     init(
         spaceId: String,
@@ -32,8 +32,7 @@ final class MyFavoritesSectionViewModel {
             onRowsCountChange: onRowsCountChange
         )
         // Default to true so users without persisted state see the section open.
-        self.isExpanded = HomeSection.myFavorites.expandedStorageId
-            .map { expandedService.isExpanded(id: $0, defaultValue: true) } ?? true
+        self.isExpanded = expandedService.isExpanded(section: .myFavorites, defaultValue: true)
     }
 
     func startSubscriptions() async {
@@ -42,8 +41,6 @@ final class MyFavoritesSectionViewModel {
 
     func onTapHeader() {
         withAnimation { isExpanded.toggle() }
-        if let id = HomeSection.myFavorites.expandedStorageId {
-            expandedService.setState(id: id, isExpanded: isExpanded)
-        }
+        expandedService.setState(section: .myFavorites, isExpanded: isExpanded)
     }
 }

@@ -39,8 +39,7 @@ final class HomeWidgetsViewModel {
     var spaceId: String { info.accountSpaceId }
 
     // Bin is the only section whose visibility is gated by canEdit; filtering here keeps
-    // the Bin VM from instantiating for readonly users (PR 4 invariant: hidden sections
-    // do not start subscriptions).
+    // the Bin VM from instantiating for readonly users once `canEdit` resolves.
     var visibleSections: [HomeSection] {
         canEdit
             ? sectionsConfiguration.visibleSections

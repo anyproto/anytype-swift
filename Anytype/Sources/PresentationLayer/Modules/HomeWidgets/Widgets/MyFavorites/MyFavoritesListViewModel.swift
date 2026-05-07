@@ -74,7 +74,7 @@ final class MyFavoritesListViewModel {
             let newIds = newRows.map(\.id)
             guard sourceIds != newIds else { continue }
             // Animate count change and rows update in the same transaction so the parent
-            // VStack reflow inherits the animation context (lesson #2 of the master plan).
+            // VStack reflow inherits the animation context.
             let countChanged = rows.count != newRows.count
             withAnimation(.default) {
                 if countChanged { onRowsCountChange?(newRows.count) }

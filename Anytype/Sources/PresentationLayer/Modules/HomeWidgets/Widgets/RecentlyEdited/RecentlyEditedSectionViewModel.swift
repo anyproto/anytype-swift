@@ -13,7 +13,7 @@ final class RecentlyEditedSectionViewModel {
     @Injected(\.expandedService)
     private var expandedService: any ExpandedServiceProtocol
 
-    var isExpanded: Bool
+    var isExpanded: Bool = true
 
     init(
         spaceId: String,
@@ -28,8 +28,7 @@ final class RecentlyEditedSectionViewModel {
             onRowsCountChange: onRowsCountChange
         )
         // Default to true so users without persisted state see the section open.
-        self.isExpanded = HomeSection.recentlyEdited.expandedStorageId
-            .map { expandedService.isExpanded(id: $0, defaultValue: true) } ?? true
+        self.isExpanded = expandedService.isExpanded(section: .recentlyEdited, defaultValue: true)
     }
 
     func startSubscriptions() async {
@@ -38,8 +37,6 @@ final class RecentlyEditedSectionViewModel {
 
     func onTapHeader() {
         withAnimation { isExpanded.toggle() }
-        if let id = HomeSection.recentlyEdited.expandedStorageId {
-            expandedService.setState(id: id, isExpanded: isExpanded)
-        }
+        expandedService.setState(section: .recentlyEdited, isExpanded: isExpanded)
     }
 }
