@@ -72,11 +72,7 @@ private struct HomeWidgetsInternalView: View {
     }
     
     private var content: some View {
-        ZStack {
-            if model.objectTypesDataLoaded {
-                widgets
-            }
-        }
+        widgets
     }
     
     private var widgets: some View {
@@ -161,16 +157,18 @@ private struct HomeWidgetsInternalView: View {
 
     @ViewBuilder
     private var objectTypeWidgets: some View {
-        HomeWidgetsGroupView(title: Loc.types, onTap: {
-            model.onTapObjectTypeHeader()
-        }, onCreate: nil)
-        if model.objectTypeSectionIsExpanded {
-            ObjectTypesUnifiedWidgetView(
-                typeInfos: model.objectTypeWidgets,
-                canCreateType: model.canCreateObjectType,
-                onCreateType: { model.onCreateObjectType() },
-                output: model.output
-            )
+        if model.objectTypesDataLoaded {
+            HomeWidgetsGroupView(title: Loc.types, onTap: {
+                model.onTapObjectTypeHeader()
+            }, onCreate: nil)
+            if model.objectTypeSectionIsExpanded {
+                ObjectTypesUnifiedWidgetView(
+                    typeInfos: model.objectTypeWidgets,
+                    canCreateType: model.canCreateObjectType,
+                    onCreateType: { model.onCreateObjectType() },
+                    output: model.output
+                )
+            }
         }
     }
 

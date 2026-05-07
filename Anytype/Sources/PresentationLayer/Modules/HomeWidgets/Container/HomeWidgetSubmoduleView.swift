@@ -20,64 +20,66 @@ struct HomeWidgetSubmoduleView: View {
             viewForAnytypeWidgetId(anytypeWidgetId)
         }
     }
-    
+
     @ViewBuilder
     private func viewForAnytypeWidgetId(_ anytypeWidgetId: AnytypeWidgetId) -> some View {
         switch (anytypeWidgetId, widgetInfo.fixedLayout) {
         case (.pinned, .tree):
-            PinnedTreeWidgetsubmoduleView(data: widgetData)
+            PinnedTreeWidgetsubmoduleView(data: widgetData(prefetchedDetails: nil))
         case (.pinned, .list):
-            PinnedListWidgetSubmoduleView(data: widgetData)
+            PinnedListWidgetSubmoduleView(data: widgetData(prefetchedDetails: nil))
         case (.pinned, .compactList):
-            PinnedCompactListWidgetSubmoduleView(data: widgetData)
+            PinnedCompactListWidgetSubmoduleView(data: widgetData(prefetchedDetails: nil))
         case (.recent, .tree):
-            RecentEditTreeWidgetSubmoduleView(data: widgetData)
+            RecentEditTreeWidgetSubmoduleView(data: widgetData(prefetchedDetails: nil))
         case (.recent, .list):
-            RecentEditListWidgetSubmoduleView(data: widgetData)
+            RecentEditListWidgetSubmoduleView(data: widgetData(prefetchedDetails: nil))
         case (.recent, .compactList):
-            RecentEditCompactListWidgetSubmoduleView(data: widgetData)
+            RecentEditCompactListWidgetSubmoduleView(data: widgetData(prefetchedDetails: nil))
         case (.recentOpen, .tree):
-            RecentOpenTreeWidgetSubmoduleView(data: widgetData)
+            RecentOpenTreeWidgetSubmoduleView(data: widgetData(prefetchedDetails: nil))
         case (.recentOpen, .list):
-            RecentOpenListWidgetSubmoduleView(data: widgetData)
+            RecentOpenListWidgetSubmoduleView(data: widgetData(prefetchedDetails: nil))
         case (.recentOpen, .compactList):
-            RecentOpenCompactListWidgetSubmoduleView(data: widgetData)
+            RecentOpenCompactListWidgetSubmoduleView(data: widgetData(prefetchedDetails: nil))
         case _:
             EmptyView()
         }
     }
-        
+
     @ViewBuilder
     private func viewForObject(_ objectDetails: ObjectDetails) -> some View {
         if objectDetails.isNotDeletedAndArchived {
+            let data = widgetData(prefetchedDetails: objectDetails)
             switch (widgetInfo.fixedLayout, objectDetails.editorViewType) {
             case (.link, .page), (.link, .list), (.link, .type):
-                LinkWidgetView(data: widgetData)
+                LinkWidgetView(data: data)
             case (.tree, .page):
-                ObjectTreeWidgetSubmoduleView(data: widgetData)
+                ObjectTreeWidgetSubmoduleView(data: data)
             case (.view, .list), (.view, .type):
-                SetObjectViewWidgetSubmoduleView(data: widgetData)
+                SetObjectViewWidgetSubmoduleView(data: data)
             case (.list, .list), (.list, .type):
-                SetObjectListWidgetSubmoduleView(data: widgetData)
+                SetObjectListWidgetSubmoduleView(data: data)
             case (.compactList, .list), (.compactList, .type):
-                SetObjectCompactListWidgetSubmoduleView(data: widgetData)
+                SetObjectCompactListWidgetSubmoduleView(data: data)
             default:
                 // Fallback
-                LinkWidgetView(data: widgetData)
+                LinkWidgetView(data: data)
             }
         } else {
             EmptyView()
         }
     }
-    
-    private var widgetData: WidgetSubmoduleData {
+
+    private func widgetData(prefetchedDetails: ObjectDetails?) -> WidgetSubmoduleData {
         WidgetSubmoduleData(
             widgetBlockId: widgetInfo.id,
             channelWidgetsObject: channelWidgetsObject,
             personalWidgetsObject: personalWidgetsObject,
             homeState: $homeState,
             spaceInfo: workspaceInfo,
-            output: output
+            output: output,
+            prefetchedDetails: prefetchedDetails
         )
     }
 }

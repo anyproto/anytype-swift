@@ -69,9 +69,16 @@ final class SetObjectWidgetInternalViewModel {
         self.style = style
         self.widgetObject = data.channelWidgetsObject
         self.output = data.output
-        
+
         let storageProvider = Container.shared.subscriptionStorageProvider.resolve()
         self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: subscriptionId)
+
+        // Pre-seed name/icon synchronously when the parent already resolved details for an
+        // `.object`-source widget. Avoids a frame of empty-row before the per-row publisher ticks.
+        if let details = data.prefetchedDetails {
+            self.name = details.pluralTitle
+            self.icon = details.objectIconImage
+        }
     }
     
     func startSubscriptions() async {

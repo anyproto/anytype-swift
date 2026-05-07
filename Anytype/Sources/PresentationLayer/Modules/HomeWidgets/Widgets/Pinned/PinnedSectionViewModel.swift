@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import Services
 import AnytypeCore
 
@@ -54,7 +55,9 @@ final class PinnedSectionViewModel {
 
             guard widgetBlocks != newWidgetBlocks else { continue }
 
-            widgetBlocks = newWidgetBlocks
+            withAnimation(.default) {
+                widgetBlocks = newWidgetBlocks
+            }
         }
     }
 
@@ -67,7 +70,9 @@ final class PinnedSectionViewModel {
     // MARK: - Drag-and-drop
 
     func widgetsDropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
-        widgetBlocks.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
+        withAnimation(.default) {
+            widgetBlocks.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
+        }
     }
 
     func widgetsDropFinish(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {

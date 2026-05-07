@@ -66,7 +66,6 @@ private struct PinnedSectionViewInternal: View {
         } dropFinish: { from, to in
             model.widgetsDropFinish(from: from, to: to)
         }
-        .animation(.default, value: model.widgetBlocks.count)
         .task {
             await model.startSubscriptions()
         }
