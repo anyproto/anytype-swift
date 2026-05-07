@@ -11,10 +11,6 @@ final class ObjectTypesSectionViewModel {
 
     @ObservationIgnored
     let spaceId: String
-    @ObservationIgnored
-    weak var output: (any CommonWidgetModuleOutput)?
-    @ObservationIgnored
-    private let onCreateObjectTypeCallback: () -> Void
 
     @ObservationIgnored
     @Injected(\.expandedService)
@@ -36,20 +32,14 @@ final class ObjectTypesSectionViewModel {
 
     var objectTypeWidgets: [ObjectTypeWidgetInfo] = []
     var objectTypesDataLoaded: Bool = false
-    var isExpanded: Bool = false
+    var objectTypeSectionIsExpanded: Bool = false
     var canCreateObjectType: Bool = false
 
     private static let expandedStorageId = "HomeObjectTypeSection"
 
-    init(
-        spaceId: String,
-        output: (any CommonWidgetModuleOutput)?,
-        onCreateObjectType: @escaping () -> Void
-    ) {
+    init(spaceId: String) {
         self.spaceId = spaceId
-        self.output = output
-        self.onCreateObjectTypeCallback = onCreateObjectType
-        self.isExpanded = expandedService.isExpanded(id: Self.expandedStorageId, defaultValue: true)
+        self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Self.expandedStorageId, defaultValue: true)
     }
 
     // MARK: - Subscriptions
@@ -60,15 +50,11 @@ final class ObjectTypesSectionViewModel {
         _ = await (typesSub, canEditSub)
     }
 
-    func onTapHeader() {
+    func onTapObjectTypeHeader() {
         withAnimation {
-            isExpanded = !isExpanded
+            objectTypeSectionIsExpanded = !objectTypeSectionIsExpanded
         }
-        expandedService.setState(id: Self.expandedStorageId, isExpanded: isExpanded)
-    }
-
-    func onCreateObjectType() {
-        onCreateObjectTypeCallback()
+        expandedService.setState(id: Self.expandedStorageId, isExpanded: objectTypeSectionIsExpanded)
     }
 
     private func startObjectTypesTask() async {
@@ -92,7 +78,7 @@ final class ObjectTypesSectionViewModel {
             .values
 
         for await objectTypes in stream {
-            objectTypesDataLoaded = true
+            if !objectTypesDataLoaded { objectTypesDataLoaded = true }
             objectTypeWidgets = objectTypes
         }
     }

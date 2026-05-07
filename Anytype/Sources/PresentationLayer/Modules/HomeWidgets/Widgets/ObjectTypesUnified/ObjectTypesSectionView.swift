@@ -21,6 +21,7 @@ private struct ObjectTypesSectionViewInternal: View {
 
     @State private var model: ObjectTypesSectionViewModel
     weak var output: (any CommonWidgetModuleOutput)?
+    let onCreateObjectType: () -> Void
 
     init(
         spaceId: String,
@@ -28,13 +29,8 @@ private struct ObjectTypesSectionViewInternal: View {
         onCreateObjectType: @escaping () -> Void
     ) {
         self.output = output
-        self._model = State(
-            wrappedValue: ObjectTypesSectionViewModel(
-                spaceId: spaceId,
-                output: output,
-                onCreateObjectType: onCreateObjectType
-            )
-        )
+        self.onCreateObjectType = onCreateObjectType
+        self._model = State(wrappedValue: ObjectTypesSectionViewModel(spaceId: spaceId))
     }
 
     var body: some View {
@@ -42,13 +38,13 @@ private struct ObjectTypesSectionViewInternal: View {
         VStack(spacing: 0) {
             if model.objectTypesDataLoaded {
                 HomeWidgetsGroupView(title: Loc.types) {
-                    model.onTapHeader()
+                    model.onTapObjectTypeHeader()
                 }
-                if model.isExpanded {
+                if model.objectTypeSectionIsExpanded {
                     ObjectTypesUnifiedWidgetView(
                         typeInfos: model.objectTypeWidgets,
                         canCreateType: model.canCreateObjectType,
-                        onCreateType: { model.onCreateObjectType() },
+                        onCreateType: onCreateObjectType,
                         output: output
                     )
                 }
