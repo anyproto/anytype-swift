@@ -31,7 +31,7 @@ private struct HomeWidgetsInternalView: View {
         ZStack(alignment: .bottom) {
             HomeWallpaperView(spaceId: model.spaceId)
 
-            content
+            widgets
                 .animation(.default, value: pinnedWidgetsCount)
                 .animation(.default, value: model.myFavoritesListViewModel.rows.count)
                 .animation(.default, value: model.recentlyEditedListViewModel.rows.count)
@@ -71,10 +71,6 @@ private struct HomeWidgetsInternalView: View {
         .navigationBarHidden(true)
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .homeBottomPanelHidden(context.showEmbeddedBottomPanel)
-    }
-    
-    private var content: some View {
-        widgets
     }
     
     private var widgets: some View {
