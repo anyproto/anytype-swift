@@ -69,9 +69,11 @@ final class UnreadSectionViewModel {
 
     private func startUnreadItemsTask() async {
         let spaceId = spaceId
-        let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
-        guard !(spaceView?.isOneToOne ?? true) else { return }
-
+        // No early-exit on isOneToOne — we'd capture the space type once and never observe
+        // a 1:1 → multi-chat conversion. The combineLatest below re-fires on space-view
+        // changes and the section's own visibility is gated by `supportsMultiChats`
+        // (set in startSpaceViewTask), so 1:1 spaces simply pay the cost of a few
+        // combineLatest emissions whose result the section ignores.
         let previewsSequence = await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
         let chatsSequence = await chatDetailsStorage.allChatsSequence
         let spaceViewSequence = workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values

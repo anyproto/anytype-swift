@@ -32,14 +32,13 @@ final class HomeWidgetsViewModel {
     var homeWidgetData: HomepageWidgetViewData?
     var sectionsConfiguration: HomeSectionsConfiguration = .default
 
-    // Default true so editors (common case) see Bin on the first frame; readonly users
-    // briefly see Bin until the canEdit subscription fires.
-    private var canEdit: Bool = true
+    // Default false so readonly users never see (and can never tap) the Bin's empty-bin
+    // action before `canEdit` resolves. Editors briefly see no Bin section until then —
+    // matches pre-refactor `homeState = .readonly` default and `PinnedSectionViewModel`.
+    private var canEdit: Bool = false
 
     var spaceId: String { info.accountSpaceId }
 
-    // Bin is the only section whose visibility is gated by canEdit; filtering here keeps
-    // the Bin VM from instantiating for readonly users once `canEdit` resolves.
     var visibleSections: [HomeSection] {
         canEdit
             ? sectionsConfiguration.visibleSections
