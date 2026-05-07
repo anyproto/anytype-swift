@@ -133,7 +133,7 @@ Match a `Task`'s entry isolation to its **synchronous prefix** — everything fr
 - For delayed retries, timers, and backoff: separate the waiting from the UI mutation. The sleep usually belongs off-main even when the final state update belongs on-main.
 
 ```swift
-// ❌ Synchronous prefix is empty; first work hops away anyway
+// ❌ Called from @MainActor; synchronous prefix is empty, so the task starts on main then hops away
 Task {
     await fetchData()
 }
