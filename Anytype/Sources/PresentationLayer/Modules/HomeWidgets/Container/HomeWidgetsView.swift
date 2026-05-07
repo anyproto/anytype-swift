@@ -17,6 +17,7 @@ struct HomeWidgetsView: View {
 private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
     @State private var pinnedWidgetsCount: Int = 0
+    @State private var shouldHideChatBadges: Bool = false
 
     let context: WidgetScreenContext
     weak var panelOutput: (any HomeBottomNavigationPanelModuleOutput)?
@@ -86,7 +87,7 @@ private struct HomeWidgetsInternalView: View {
             }
             .padding(.horizontal, 20)
             .fitIPadToReadableContentGuide()
-            .shouldHideChatBadges(model.shouldHideChatBadges)
+            .shouldHideChatBadges(shouldHideChatBadges)
         }
     }
 
@@ -101,7 +102,12 @@ private struct HomeWidgetsInternalView: View {
                 output: model.output,
                 onWidgetsCountChange: { pinnedWidgetsCount = $0 }
             )
-        case .unread: unreadWidget
+        case .unread:
+            UnreadSectionView(
+                spaceId: model.spaceId,
+                output: model.output,
+                onShouldHideBadgesChange: { shouldHideChatBadges = $0 }
+            )
         case .myFavorites: myFavoritesWidget
         case .recentlyEdited: recentlyEditedWidget
         case .objects: objectTypeWidgets
@@ -115,18 +121,6 @@ private struct HomeWidgetsInternalView: View {
             HomeWidgetView(data: data)
                 .id("\(data.objectId)-\(data.canSetHomepage)")
                 .padding(.bottom, 8)
-        }
-    }
-
-    @ViewBuilder
-    private var unreadWidget: some View {
-        if model.shouldShowUnreadSection {
-            HomeWidgetsGroupView(title: Loc.unread) {
-                model.onTapUnreadHeader()
-            }
-            if model.unreadSectionIsExpanded {
-                UnreadItemsGroupedView(items: model.unreadItems)
-            }
         }
     }
 
