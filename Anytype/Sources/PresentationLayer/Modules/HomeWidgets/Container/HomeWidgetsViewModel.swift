@@ -10,7 +10,6 @@ import AsyncAlgorithms
 final class HomeWidgetsViewModel {
 
     private enum Constants {
-        static let objectTypeSectionId = "HomeObjectTypeSection"
         static let myFavoritesSectionId = "HomeMyFavoritesSection"
         static let recentlyEditedSectionId = "HomeRecentlyEditedSection"
     }
@@ -31,12 +30,8 @@ final class HomeWidgetsViewModel {
     private var accountParticipantStorage: any ParticipantsStorageProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.objectTypeProvider) @ObservationIgnored
-    private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.expandedService) @ObservationIgnored
     private var expandedService: any ExpandedServiceProtocol
-    @Injected(\.objectTypesWithObjectsCreatedService) @ObservationIgnored
-    private var objectTypesWithObjectsCreatedService: any ObjectTypesWithObjectsCreatedServiceProtocol
     @Injected(\.homeSectionsStorage) @ObservationIgnored
     private var homeSectionsStorage: any HomeSectionsStorageProtocol
 
@@ -45,12 +40,8 @@ final class HomeWidgetsViewModel {
     
     // MARK: - State
 
-    var objectTypeWidgets: [ObjectTypeWidgetInfo] = []
     var homeState: HomeWidgetsState = .readonly
-    var objectTypesDataLoaded: Bool = false
     var wallpaper: SpaceWallpaperType = .default
-    var objectTypeSectionIsExpanded: Bool = false
-    var canCreateObjectType: Bool = false
     var homeWidgetData: HomepageWidgetViewData?
     var myFavoritesSectionIsExpanded: Bool = false
     var myFavoritesListViewModel: MyFavoritesListViewModel
@@ -87,7 +78,6 @@ final class HomeWidgetsViewModel {
                 output?.onObjectSelected(screenData: details.screenData())
             }
         )
-        self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
         self.myFavoritesSectionIsExpanded = expandedService.isExpanded(id: Constants.myFavoritesSectionId, defaultValue: true)
         self.recentlyEditedSectionIsExpanded = expandedService.isExpanded(id: Constants.recentlyEditedSectionId, defaultValue: true)
     }
@@ -96,11 +86,10 @@ final class HomeWidgetsViewModel {
         async let myFavoritesSub: () = startMyFavoritesTask()
         async let recentlyEditedSub: () = startRecentlyEditedTask()
         async let canEditSub: () = startCanEditSubscription()
-        async let objectTypesTask: () = startObjectTypesTask()
         async let spaceViewTask: () = startSpaceViewTask()
         async let sectionsConfigurationTask: () = startSectionsConfigurationTask()
 
-        _ = await (myFavoritesSub, recentlyEditedSub, canEditSub, objectTypesTask, spaceViewTask, sectionsConfigurationTask)
+        _ = await (myFavoritesSub, recentlyEditedSub, canEditSub, spaceViewTask, sectionsConfigurationTask)
     }
 
     func onAppear() {
@@ -121,17 +110,6 @@ final class HomeWidgetsViewModel {
 
     func onManageSectionsSelected() {
         output?.onManageSectionsSelected()
-    }
-
-    func onCreateObjectType() {
-        output?.onCreateObjectType()
-    }
-    
-    func onTapObjectTypeHeader() {
-        withAnimation {
-            objectTypeSectionIsExpanded = !objectTypeSectionIsExpanded
-        }
-        expandedService.setState(id: Constants.objectTypeSectionId, isExpanded: objectTypeSectionIsExpanded)
     }
 
     func onTapMyFavoritesHeader() {
@@ -167,33 +145,6 @@ final class HomeWidgetsViewModel {
     private func startCanEditSubscription() async {
         for await canEdit in accountParticipantStorage.canEditSequence(spaceId: info.accountSpaceId) {
             homeState = canEdit ? .readwrite : .readonly
-            canCreateObjectType = canEdit
-        }
-    }
-    
-    private func startObjectTypesTask() async {
-        let spaceId = spaceId
-        let spaceType = workspaceStorage.spaceView(spaceId: spaceId)?.spaceType
-        let allowedLayouts = DetailsLayout.widgetTypeLayouts(spaceType: spaceType)
-        await objectTypesWithObjectsCreatedService.startSubscription(spaceId: spaceId, spaceType: spaceType)
-
-        let typesPublisher = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)
-        let objectsCreatedPublisher = objectTypesWithObjectsCreatedService.typeIdsWithObjectsCreatedPublisher
-        let alwaysVisibleKeys: Set<ObjectTypeUniqueKey> = [.page, .task, .collection]
-
-        let stream = typesPublisher.combineLatest(objectsCreatedPublisher)
-            .map { (types, typeIdsWithObjectsCreated) in
-                types
-                    .filter { ($0.recommendedLayout.map { allowedLayouts.contains($0) } ?? false) && !$0.isTemplateType }
-                    .filter { typeIdsWithObjectsCreated.contains($0.id) || alwaysVisibleKeys.contains($0.uniqueKey) }
-                    .map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
-            }
-            .removeDuplicates()
-            .values
-
-        for await objectTypes in stream {
-            objectTypesDataLoaded = true
-            objectTypeWidgets = objectTypes
         }
     }
 
