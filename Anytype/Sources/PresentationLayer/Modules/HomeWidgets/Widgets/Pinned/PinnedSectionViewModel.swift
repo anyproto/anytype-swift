@@ -60,9 +60,7 @@ final class PinnedSectionViewModel {
 
             guard widgetBlocks != newWidgetBlocks else { continue }
 
-            // Update container's count AND Pinned's blocks atomically within the same
-            // animation transaction so the parent VStack reflow animates in lockstep
-            // with the section's own appearance.
+            // Animate count change and block update in the same transaction so parent VStack reflows in lockstep.
             let countChanged = widgetBlocks.count != newWidgetBlocks.count
             withAnimation(.default) {
                 if countChanged {
