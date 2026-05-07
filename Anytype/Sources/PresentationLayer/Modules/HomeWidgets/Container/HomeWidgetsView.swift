@@ -5,12 +5,20 @@ import AnytypeCore
 
 struct HomeWidgetsView: View {
     let info: AccountInfo
+    let channelWidgetsObject: any BaseDocumentProtocol
+    let personalWidgetsObject: any BaseDocumentProtocol
     let context: WidgetScreenContext
     let output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?
 
     var body: some View {
-        HomeWidgetsInternalView(info: info, context: context, output: output)
-            .id(info.hashValue)
+        HomeWidgetsInternalView(
+            info: info,
+            channelWidgetsObject: channelWidgetsObject,
+            personalWidgetsObject: personalWidgetsObject,
+            context: context,
+            output: output
+        )
+        .id(info.hashValue)
     }
 }
 
@@ -24,8 +32,19 @@ private struct HomeWidgetsInternalView: View {
     let context: WidgetScreenContext
     weak var panelOutput: (any HomeBottomNavigationPanelModuleOutput)?
 
-    init(info: AccountInfo, context: WidgetScreenContext, output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?) {
-        self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
+    init(
+        info: AccountInfo,
+        channelWidgetsObject: any BaseDocumentProtocol,
+        personalWidgetsObject: any BaseDocumentProtocol,
+        context: WidgetScreenContext,
+        output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?
+    ) {
+        self._model = State(wrappedValue: HomeWidgetsViewModel(
+            info: info,
+            channelWidgetsObject: channelWidgetsObject,
+            personalWidgetsObject: personalWidgetsObject,
+            output: output
+        ))
         self.context = context
         self.panelOutput = output
     }

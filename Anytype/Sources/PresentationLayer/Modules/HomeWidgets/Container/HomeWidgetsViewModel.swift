@@ -14,7 +14,6 @@ final class HomeWidgetsViewModel {
     let channelWidgetsObject: any BaseDocumentProtocol
     let personalWidgetsObject: any BaseDocumentProtocol
 
-    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     @Injected(\.documentsProvider) @ObservationIgnored
     private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
@@ -47,15 +46,14 @@ final class HomeWidgetsViewModel {
 
     init(
         info: AccountInfo,
+        channelWidgetsObject: any BaseDocumentProtocol,
+        personalWidgetsObject: any BaseDocumentProtocol,
         output: (any HomeWidgetsModuleOutput)?
     ) {
         self.info = info
+        self.channelWidgetsObject = channelWidgetsObject
+        self.personalWidgetsObject = personalWidgetsObject
         self.output = output
-        self.channelWidgetsObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
-        self.personalWidgetsObject = documentService.document(
-            objectId: info.personalWidgetsId,
-            spaceId: info.accountSpaceId
-        )
     }
 
     func startSubscriptions() async {
