@@ -27,15 +27,16 @@ Expert guidance on Swift's concurrency system using the "Office Building" mental
 
 ## Project Settings Discovery
 
-When analyzing Swift projects for concurrency issues:
+Always confirm these before interpreting diagnostics or giving migration-sensitive guidance. Do not guess — if any are unknown, ask the developer.
 
-1. **Project Settings Discovery**
-   - Use `Read` on `Package.swift` for SwiftPM settings (tools version, strict concurrency flags, upcoming features)
-   - Use `Grep` for `SWIFT_STRICT_CONCURRENCY` or `SWIFT_DEFAULT_ACTOR_ISOLATION` in `.pbxproj` files
+| Setting | SwiftPM (`Package.swift`) | Xcode (`.pbxproj`) |
+|---|---|---|
+| Language mode | `swiftLanguageVersions` or `-swift-version` (`// swift-tools-version:` is not a reliable proxy) | `SWIFT_VERSION` |
+| Strict concurrency | `.enableExperimentalFeature("StrictConcurrency=targeted")` | `SWIFT_STRICT_CONCURRENCY` |
+| Default isolation | `.defaultIsolation(MainActor.self)` | `SWIFT_DEFAULT_ACTOR_ISOLATION` |
+| Upcoming features | `.enableUpcomingFeature("NonisolatedNonsendingByDefault")` | `SWIFT_UPCOMING_FEATURE_*` |
 
-2. **Manual checks**
-   - SwiftPM: Check `Package.swift` for `.enableExperimentalFeature("StrictConcurrency=targeted")` or similar
-   - Xcode projects: Search `project.pbxproj` for `SWIFT_DEFAULT_ACTOR_ISOLATION`, `SWIFT_STRICT_CONCURRENCY`
+Tools: `Read` on `Package.swift`, `Grep` on `.pbxproj`.
 
 ## Core Mental Model: The Office Building
 
@@ -120,6 +121,35 @@ return Profile(avatar: try await avatar, banner: try await banner)
 
 // Manual task (inherits actor context)
 Task { await saveProfile() }
+```
+
+### Task Entry Isolation (Swift 6.2)
+
+Match a `Task`'s entry isolation to its **synchronous prefix** — everything from `{` to the first `await`. Whatever runs in that prefix executes on the inherited actor.
+
+- If the prefix needs `@MainActor` (touches UI state, mutates `self.isLoading`, etc.), keep the inherited start.
+- If the prefix has nothing main-actor-bound, prefer `Task { @concurrent in ... }` and hop back via `MainActor.run { ... }` only for the UI mutation.
+- A trivial non-main statement (e.g. `print`) followed by main-actor work is **not** a reason to switch to `@concurrent` — the cheap line rides along.
+- For delayed retries, timers, and backoff: separate the waiting from the UI mutation. The sleep usually belongs off-main even when the final state update belongs on-main.
+
+```swift
+// ❌ Synchronous prefix is empty; first work hops away anyway
+Task {
+    await fetchData()
+}
+
+// ✅ Start off the main actor, hop back only for UI work
+Task { @concurrent in
+    let data = try await fetchData()
+    await MainActor.run { self.items = data }
+}
+
+// ✅ Prefix DOES need main actor — keep inheritance
+Task {
+    self.isLoading = true       // needs @MainActor, before any await
+    await fetchData()
+    self.isLoading = false
+}
 ```
 
 ### TaskGroup for Dynamic Parallel Work
@@ -328,6 +358,18 @@ Load these files as needed for specific topics:
   - Run tests, especially concurrency-sensitive ones (see `references/testing.md`).
   - If performance-related, verify with Instruments (see `references/performance.md`).
   - If lifetime-related, verify deinit/cancellation behavior (see `references/memory-management.md`).
+
+### Migration Validation Loop
+
+For Swift 6 / strict-concurrency migration, apply this cycle for each change:
+
+1. **Build** — surface new diagnostics
+2. **Fix** — address one category at a time (e.g., all Sendable issues first, then all isolation issues)
+3. **Rebuild** — confirm the fix compiles cleanly before moving on
+4. **Test** — run the suite to catch regressions
+5. **Only then** proceed to the next file/module
+
+Never batch unrelated fixes into one change. If a fix introduces new warnings, resolve them before continuing. Keep commits small and reviewable. See `references/migration.md` for detailed migration steps.
 
 ## Further Reading
 - [Fucking Approachable Swift Concurrency](https://fuckingapproachableswiftconcurrency.com) - Office Building mental model
