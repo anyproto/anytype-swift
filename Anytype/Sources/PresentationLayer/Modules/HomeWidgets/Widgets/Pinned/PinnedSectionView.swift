@@ -24,18 +24,23 @@ private struct PinnedSectionViewInternal: View {
     @State private var model: PinnedSectionViewModel
     @State private var dndState = DragState()
 
+    let info: AccountInfo
+    let personalWidgetsObject: any BaseDocumentProtocol
+    weak var output: (any HomeWidgetsModuleOutput)?
+
     init(
         info: AccountInfo,
         channelWidgetsObject: any BaseDocumentProtocol,
         personalWidgetsObject: any BaseDocumentProtocol,
         output: (any HomeWidgetsModuleOutput)?
     ) {
+        self.info = info
+        self.personalWidgetsObject = personalWidgetsObject
+        self.output = output
         self._model = State(
             wrappedValue: PinnedSectionViewModel(
-                info: info,
-                channelWidgetsObject: channelWidgetsObject,
-                personalWidgetsObject: personalWidgetsObject,
-                output: output
+                spaceId: info.accountSpaceId,
+                channelWidgetsObject: channelWidgetsObject
             )
         )
     }
@@ -56,10 +61,10 @@ private struct PinnedSectionViewInternal: View {
                     HomeWidgetSubmoduleView(
                         widgetInfo: widgetInfo,
                         channelWidgetsObject: model.channelWidgetsObject,
-                        personalWidgetsObject: model.personalWidgetsObject,
-                        workspaceInfo: model.info,
+                        personalWidgetsObject: personalWidgetsObject,
+                        workspaceInfo: info,
                         homeState: $model.homeState,
-                        output: model.output
+                        output: output
                     )
                 }
             }

@@ -9,14 +9,9 @@ final class PinnedSectionViewModel {
     // MARK: - DI
 
     @ObservationIgnored
-    let info: AccountInfo
+    let spaceId: String
     @ObservationIgnored
     let channelWidgetsObject: any BaseDocumentProtocol
-    @ObservationIgnored
-    let personalWidgetsObject: any BaseDocumentProtocol
-
-    @ObservationIgnored
-    weak var output: (any HomeWidgetsModuleOutput)?
 
     @ObservationIgnored
     @Injected(\.objectActionsService)
@@ -31,19 +26,14 @@ final class PinnedSectionViewModel {
     // MARK: - State
 
     var widgetBlocks: [BlockWidgetInfo] = []
-    var widgetsDataLoaded: Bool = false
     var homeState: HomeWidgetsState = .readonly
 
     init(
-        info: AccountInfo,
-        channelWidgetsObject: any BaseDocumentProtocol,
-        personalWidgetsObject: any BaseDocumentProtocol,
-        output: (any HomeWidgetsModuleOutput)?
+        spaceId: String,
+        channelWidgetsObject: any BaseDocumentProtocol
     ) {
-        self.info = info
+        self.spaceId = spaceId
         self.channelWidgetsObject = channelWidgetsObject
-        self.personalWidgetsObject = personalWidgetsObject
-        self.output = output
     }
 
     // MARK: - Subscriptions
@@ -56,8 +46,6 @@ final class PinnedSectionViewModel {
 
     private func startWidgetObjectTask() async {
         for await _ in channelWidgetsObject.syncPublisher.values {
-            widgetsDataLoaded = true
-
             let blocks = channelWidgetsObject.children.filter(\.isWidget)
             recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: channelWidgetsObject)
 
@@ -71,7 +59,7 @@ final class PinnedSectionViewModel {
     }
 
     private func startCanEditSubscription() async {
-        for await canEdit in participantsStorage.canEditSequence(spaceId: info.accountSpaceId) {
+        for await canEdit in participantsStorage.canEditSequence(spaceId: spaceId) {
             homeState = canEdit ? .readwrite : .readonly
         }
     }
