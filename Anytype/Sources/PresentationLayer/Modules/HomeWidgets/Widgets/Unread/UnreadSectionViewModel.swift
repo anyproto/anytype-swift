@@ -40,12 +40,11 @@ final class UnreadSectionViewModel {
     var shouldShowUnreadSection: Bool { supportsMultiChats && unreadItems.isNotEmpty }
     var shouldHideChatBadges: Bool { shouldShowUnreadSection && unreadSectionIsExpanded }
 
-    private static let expandedStorageId = "HomeUnreadSection"
-
     init(spaceId: String, output: (any CommonWidgetModuleOutput)?) {
         self.spaceId = spaceId
         self.output = output
-        self.unreadSectionIsExpanded = expandedService.isExpanded(id: Self.expandedStorageId, defaultValue: true)
+        self.unreadSectionIsExpanded = HomeSection.unread.expandedStorageId
+            .map { expandedService.isExpanded(id: $0, defaultValue: true) } ?? true
     }
 
     // MARK: - Subscriptions
@@ -60,7 +59,9 @@ final class UnreadSectionViewModel {
         withAnimation {
             unreadSectionIsExpanded = !unreadSectionIsExpanded
         }
-        expandedService.setState(id: Self.expandedStorageId, isExpanded: unreadSectionIsExpanded)
+        if let id = HomeSection.unread.expandedStorageId {
+            expandedService.setState(id: id, isExpanded: unreadSectionIsExpanded)
+        }
     }
 
     private func startSpaceViewTask() async {

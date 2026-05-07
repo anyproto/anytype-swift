@@ -3,53 +3,49 @@ import AnytypeCore
 import Services
 import Combine
 import SwiftUI
-import AsyncAlgorithms
 
 @MainActor
 @Observable
 final class HomeWidgetsViewModel {
 
-    private enum Constants {
-        static let myFavoritesSectionId = "HomeMyFavoritesSection"
-        static let recentlyEditedSectionId = "HomeRecentlyEditedSection"
-    }
-    
     // MARK: - DI
 
     let info: AccountInfo
     let channelWidgetsObject: any BaseDocumentProtocol
     let personalWidgetsObject: any BaseDocumentProtocol
 
-    @Injected(\.blockWidgetService) @ObservationIgnored
-    private var blockWidgetService: any BlockWidgetServiceProtocol
     private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
-    private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     @Injected(\.documentsProvider) @ObservationIgnored
     private var documentsProvider: any DocumentsProviderProtocol
-    @Injected(\.participantsStorage) @ObservationIgnored
-    private var accountParticipantStorage: any ParticipantsStorageProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.expandedService) @ObservationIgnored
-    private var expandedService: any ExpandedServiceProtocol
     @Injected(\.homeSectionsStorage) @ObservationIgnored
     private var homeSectionsStorage: any HomeSectionsStorageProtocol
+    @Injected(\.participantsStorage) @ObservationIgnored
+    private var accountParticipantStorage: any ParticipantsStorageProtocol
 
     @ObservationIgnored
     weak var output: (any HomeWidgetsModuleOutput)?
-    
+
     // MARK: - State
 
-    var homeState: HomeWidgetsState = .readonly
-    var wallpaper: SpaceWallpaperType = .default
     var homeWidgetData: HomepageWidgetViewData?
-    var myFavoritesSectionIsExpanded: Bool = false
-    var myFavoritesListViewModel: MyFavoritesListViewModel
-    var recentlyEditedSectionIsExpanded: Bool = false
-    var recentlyEditedListViewModel: RecentlyEditedListViewModel
     var sectionsConfiguration: HomeSectionsConfiguration = .default
 
+    // Default true so editors (common case) see Bin on the first frame; readonly users
+    // briefly see Bin until the canEdit subscription fires.
+    private var canEdit: Bool = true
+
     var spaceId: String { info.accountSpaceId }
+
+    // Bin is the only section whose visibility is gated by canEdit; filtering here keeps
+    // the Bin VM from instantiating for readonly users (PR 4 invariant: hidden sections
+    // do not start subscriptions).
+    var visibleSections: [HomeSection] {
+        canEdit
+            ? sectionsConfiguration.visibleSections
+            : sectionsConfiguration.visibleSections.filter { $0 != .bin }
+    }
 
     init(
         info: AccountInfo,
@@ -57,39 +53,19 @@ final class HomeWidgetsViewModel {
     ) {
         self.info = info
         self.output = output
-        let channelWidgetsObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
-        self.channelWidgetsObject = channelWidgetsObject
-        let personalWidgetsObject = documentService.document(
+        self.channelWidgetsObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
+        self.personalWidgetsObject = documentService.document(
             objectId: info.personalWidgetsId,
             spaceId: info.accountSpaceId
         )
-        self.personalWidgetsObject = personalWidgetsObject
-        self.myFavoritesListViewModel = MyFavoritesListViewModel(
-            spaceId: info.accountSpaceId,
-            personalWidgetsObject: personalWidgetsObject,
-            channelWidgetsObject: channelWidgetsObject,
-            onObjectSelected: { [weak output] details in
-                output?.onObjectSelected(screenData: details.screenData())
-            }
-        )
-        self.recentlyEditedListViewModel = RecentlyEditedListViewModel(
-            spaceId: info.accountSpaceId,
-            onObjectSelected: { [weak output] details in
-                output?.onObjectSelected(screenData: details.screenData())
-            }
-        )
-        self.myFavoritesSectionIsExpanded = expandedService.isExpanded(id: Constants.myFavoritesSectionId, defaultValue: true)
-        self.recentlyEditedSectionIsExpanded = expandedService.isExpanded(id: Constants.recentlyEditedSectionId, defaultValue: true)
     }
 
     func startSubscriptions() async {
-        async let myFavoritesSub: () = startMyFavoritesTask()
-        async let recentlyEditedSub: () = startRecentlyEditedTask()
-        async let canEditSub: () = startCanEditSubscription()
         async let spaceViewTask: () = startSpaceViewTask()
         async let sectionsConfigurationTask: () = startSectionsConfigurationTask()
+        async let canEditTask: () = startCanEditSubscription()
 
-        _ = await (myFavoritesSub, recentlyEditedSub, canEditSub, spaceViewTask, sectionsConfigurationTask)
+        _ = await (spaceViewTask, sectionsConfigurationTask, canEditTask)
     }
 
     func onAppear() {
@@ -112,29 +88,7 @@ final class HomeWidgetsViewModel {
         output?.onManageSectionsSelected()
     }
 
-    func onTapMyFavoritesHeader() {
-        withAnimation {
-            myFavoritesSectionIsExpanded = !myFavoritesSectionIsExpanded
-        }
-        expandedService.setState(id: Constants.myFavoritesSectionId, isExpanded: myFavoritesSectionIsExpanded)
-    }
-
-    func onTapRecentlyEditedHeader() {
-        withAnimation {
-            recentlyEditedSectionIsExpanded = !recentlyEditedSectionIsExpanded
-        }
-        expandedService.setState(id: Constants.recentlyEditedSectionId, isExpanded: recentlyEditedSectionIsExpanded)
-    }
-
     // MARK: - Private
-
-    private func startMyFavoritesTask() async {
-        await myFavoritesListViewModel.startSubscriptions()
-    }
-
-    private func startRecentlyEditedTask() async {
-        await recentlyEditedListViewModel.startSubscriptions()
-    }
 
     private func startSectionsConfigurationTask() async {
         for await configuration in homeSectionsStorage.configurationPublisher(spaceId: info.accountSpaceId).values {
@@ -144,7 +98,7 @@ final class HomeWidgetsViewModel {
 
     private func startCanEditSubscription() async {
         for await canEdit in accountParticipantStorage.canEditSequence(spaceId: info.accountSpaceId) {
-            homeState = canEdit ? .readwrite : .readonly
+            self.canEdit = canEdit
         }
     }
 

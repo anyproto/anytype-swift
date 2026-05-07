@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import Services
 import AnytypeCore
 
@@ -12,6 +13,8 @@ final class RecentlyEditedListViewModel {
     let spaceId: String
     @ObservationIgnored
     let onObjectSelected: (ObjectDetails) -> Void
+    @ObservationIgnored
+    private let onRowsCountChange: ((Int) -> Void)?
 
     @ObservationIgnored
     @Injected(\.recentSubscriptionService)
@@ -28,10 +31,12 @@ final class RecentlyEditedListViewModel {
 
     init(
         spaceId: String,
-        onObjectSelected: @escaping (ObjectDetails) -> Void
+        onObjectSelected: @escaping (ObjectDetails) -> Void,
+        onRowsCountChange: ((Int) -> Void)? = nil
     ) {
         self.spaceId = spaceId
         self.onObjectSelected = onObjectSelected
+        self.onRowsCountChange = onRowsCountChange
     }
 
     // MARK: - Subscriptions
@@ -42,7 +47,13 @@ final class RecentlyEditedListViewModel {
             type: .recentEdit,
             objectLimit: Constants.limit,
             update: { [weak self] details in
-                self?.rows = details.map { RecentlyEditedRowData(id: $0.id, details: $0) }
+                guard let self else { return }
+                let newRows = details.map { RecentlyEditedRowData(id: $0.id, details: $0) }
+                let countChanged = self.rows.count != newRows.count
+                withAnimation(.default) {
+                    if countChanged { self.onRowsCountChange?(newRows.count) }
+                    self.rows = newRows
+                }
             }
         )
     }
