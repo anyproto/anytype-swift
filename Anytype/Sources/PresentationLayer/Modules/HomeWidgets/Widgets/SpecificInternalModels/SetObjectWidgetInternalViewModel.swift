@@ -53,6 +53,8 @@ final class SetObjectWidgetInternalViewModel {
     private var chatPreviews: [ChatMessagePreview] = []
     @ObservationIgnored
     private var unreadDiscussionsBySpace: [String: SpaceDiscussionsUnreadInfo] = [:]
+    @ObservationIgnored
+    private var dataviewUpdateTask: Task<Void, Never>?
     
     var dragId: String? { widgetBlockId }
     
@@ -135,6 +137,7 @@ final class SetObjectWidgetInternalViewModel {
     }
     
     private func startTargetDetailsPublisher() async {
+        defer { dataviewUpdateTask?.cancel() }
         for await details in widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId).values {
             await updateSetDocument(objectId: details.id, spaceId: details.spaceId)
         }
@@ -240,6 +243,10 @@ final class SetObjectWidgetInternalViewModel {
         
         guard setDocument.canStartSubscription() else { return }
 
+        // Wait for dataView blocks to sync; otherwise view.sorts is empty and
+        // SetSubscriptionData falls back to createdDate.
+        guard setDocument.dataView.views.isNotEmpty else { return }
+
         let spaceType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.spaceType
         let setSubData = SetSubscriptionData(
             identifier: subscriptionId,
@@ -276,13 +283,24 @@ final class SetObjectWidgetInternalViewModel {
             await updateModelState()
             return
         }
-        
-        setDocument = documentsProvider.setDocument(objectId: objectId, spaceId: spaceId, mode: .preview)
-        try? await setDocument?.open()
-        
+
+        dataviewUpdateTask?.cancel()
+
+        let newSetDocument = documentsProvider.setDocument(objectId: objectId, spaceId: spaceId, mode: .preview)
+        setDocument = newSetDocument
+        try? await newSetDocument.open()
+
+        // dataView blocks may sync after open() returns; re-trigger updateBodyState when they do.
+        dataviewUpdateTask = Task { [weak self] in
+            for await update in newSetDocument.setUpdatePublisher.values {
+                guard case .dataviewUpdated = update else { continue }
+                await self?.updateBodyState()
+            }
+        }
+
         updateRows(rowDetails: nil)
         updateHeader(dataviewState: nil)
-        
+
         await updateModelState()
     }
     
