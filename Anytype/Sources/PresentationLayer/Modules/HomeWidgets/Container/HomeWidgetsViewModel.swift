@@ -24,8 +24,6 @@ final class HomeWidgetsViewModel {
 
     @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
-    @Injected(\.objectActionsService) @ObservationIgnored
-    private var objectActionService: any ObjectActionsServiceProtocol
     private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     @Injected(\.documentsProvider) @ObservationIgnored
@@ -34,8 +32,6 @@ final class HomeWidgetsViewModel {
     private var accountParticipantStorage: any ParticipantsStorageProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.homeWidgetsRecentStateManager) @ObservationIgnored
-    private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
     @Injected(\.objectTypeProvider) @ObservationIgnored
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.expandedService) @ObservationIgnored
@@ -55,11 +51,9 @@ final class HomeWidgetsViewModel {
     weak var output: (any HomeWidgetsModuleOutput)?
     
     // MARK: - State
-    
-    var widgetBlocks: [BlockWidgetInfo] = []
+
     var objectTypeWidgets: [ObjectTypeWidgetInfo] = []
     var homeState: HomeWidgetsState = .readonly
-    var widgetsDataLoaded: Bool = false
     var objectTypesDataLoaded: Bool = false
     var wallpaper: SpaceWallpaperType = .default
     var objectTypeSectionIsExpanded: Bool = false
@@ -118,7 +112,6 @@ final class HomeWidgetsViewModel {
     }
 
     func startSubscriptions() async {
-        async let widgetObjectSub: () = startWidgetObjectTask()
         async let myFavoritesSub: () = startMyFavoritesTask()
         async let recentlyEditedSub: () = startRecentlyEditedTask()
         async let canEditSub: () = startCanEditSubscription()
@@ -127,29 +120,13 @@ final class HomeWidgetsViewModel {
         async let unreadItemsTask: () = startUnreadItemsTask()
         async let sectionsConfigurationTask: () = startSectionsConfigurationTask()
 
-        _ = await (widgetObjectSub, myFavoritesSub, recentlyEditedSub, canEditSub, objectTypesTask, spaceViewTask, unreadItemsTask, sectionsConfigurationTask)
+        _ = await (myFavoritesSub, recentlyEditedSub, canEditSub, objectTypesTask, spaceViewTask, unreadItemsTask, sectionsConfigurationTask)
     }
 
     func onAppear() {
         AnytypeAnalytics.instance().logScreenWidget()
     }
 
-    func widgetsDropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
-        widgetBlocks.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
-    }
-    
-    func widgetsDropFinish(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
-        AnytypeAnalytics.instance().logReorderWidget(source: from.data.source.analyticsSource)
-        Task {
-            try? await objectActionService.move(
-                dashboadId: channelWidgetsObject.objectId,
-                blockId: from.data.id,
-                dropPositionblockId: to.data.id,
-                position: to.index > from.index ? .bottom : .top
-            )
-        }
-    }
-    
     func onSpaceSelected() {
         output?.onSpaceSelected()
     }
@@ -199,22 +176,6 @@ final class HomeWidgetsViewModel {
     }
 
     // MARK: - Private
-    
-    private func startWidgetObjectTask() async {
-        for await _ in channelWidgetsObject.syncPublisher.values {
-            widgetsDataLoaded = true
-
-            let blocks = channelWidgetsObject.children.filter(\.isWidget)
-            recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: channelWidgetsObject)
-
-            let newWidgetBlocks = blocks
-                .compactMap { channelWidgetsObject.widgetInfo(block: $0) }
-
-            guard widgetBlocks != newWidgetBlocks else { continue }
-
-            widgetBlocks = newWidgetBlocks
-        }
-    }
 
     private func startMyFavoritesTask() async {
         await myFavoritesListViewModel.startSubscriptions()

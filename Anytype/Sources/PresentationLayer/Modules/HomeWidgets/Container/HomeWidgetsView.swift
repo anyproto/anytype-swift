@@ -16,7 +16,6 @@ struct HomeWidgetsView: View {
 
 private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
-    @State var widgetsDndState = DragState()
 
     let context: WidgetScreenContext
     weak var panelOutput: (any HomeBottomNavigationPanelModuleOutput)?
@@ -32,7 +31,6 @@ private struct HomeWidgetsInternalView: View {
             HomeWallpaperView(spaceId: model.spaceId)
 
             content
-                .animation(.default, value: model.widgetBlocks.count)
                 .animation(.default, value: model.myFavoritesListViewModel.rows.count)
                 .animation(.default, value: model.recentlyEditedListViewModel.rows.count)
 
@@ -75,7 +73,7 @@ private struct HomeWidgetsInternalView: View {
     
     private var content: some View {
         ZStack {
-            if model.widgetsDataLoaded && model.objectTypesDataLoaded {
+            if model.objectTypesDataLoaded {
                 widgets
             }
         }
@@ -101,7 +99,13 @@ private struct HomeWidgetsInternalView: View {
     @ViewBuilder
     private func manageableSection(_ section: HomeSection) -> some View {
         switch section {
-        case .pinned: blockWidgets
+        case .pinned:
+            PinnedSectionView(
+                info: model.info,
+                channelWidgetsObject: model.channelWidgetsObject,
+                personalWidgetsObject: model.personalWidgetsObject,
+                output: model.output
+            )
         case .unread: unreadWidget
         case .myFavorites: myFavoritesWidget
         case .recentlyEdited: recentlyEditedWidget
@@ -127,30 +131,6 @@ private struct HomeWidgetsInternalView: View {
             }
             if model.unreadSectionIsExpanded {
                 UnreadItemsGroupedView(items: model.unreadItems)
-            }
-        }
-    }
-
-    @ViewBuilder
-    private var blockWidgets: some View {
-        if model.widgetBlocks.isNotEmpty {
-            VStack(spacing: 12) {
-                WidgetSwipeTipView()
-                ForEach(model.widgetBlocks) { widgetInfo in
-                    HomeWidgetSubmoduleView(
-                        widgetInfo: widgetInfo,
-                        channelWidgetsObject: model.channelWidgetsObject,
-                        personalWidgetsObject: model.personalWidgetsObject,
-                        workspaceInfo: model.info,
-                        homeState: $model.homeState,
-                        output: model.output
-                    )
-                }
-            }
-            .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
-                model.widgetsDropUpdate(from: from, to: to)
-            } dropFinish: { from, to in
-                model.widgetsDropFinish(from: from, to: to)
             }
         }
     }
