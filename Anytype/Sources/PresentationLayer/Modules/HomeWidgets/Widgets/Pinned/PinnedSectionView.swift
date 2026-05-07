@@ -46,16 +46,8 @@ private struct PinnedSectionViewInternal: View {
     }
 
     var body: some View {
-        content
-            .task {
-                await model.startSubscriptions()
-            }
-    }
-
-    @ViewBuilder
-    private var content: some View {
-        if model.widgetBlocks.isNotEmpty {
-            VStack(spacing: 12) {
+        VStack(spacing: 12) {
+            if model.widgetBlocks.isNotEmpty {
                 WidgetSwipeTipView()
                 ForEach(model.widgetBlocks) { widgetInfo in
                     HomeWidgetSubmoduleView(
@@ -68,11 +60,15 @@ private struct PinnedSectionViewInternal: View {
                     )
                 }
             }
-            .anytypeVerticalDrop(data: model.widgetBlocks, state: $dndState) { from, to in
-                model.widgetsDropUpdate(from: from, to: to)
-            } dropFinish: { from, to in
-                model.widgetsDropFinish(from: from, to: to)
-            }
+        }
+        .anytypeVerticalDrop(data: model.widgetBlocks, state: $dndState) { from, to in
+            model.widgetsDropUpdate(from: from, to: to)
+        } dropFinish: { from, to in
+            model.widgetsDropFinish(from: from, to: to)
+        }
+        .animation(.default, value: model.widgetBlocks.count)
+        .task {
+            await model.startSubscriptions()
         }
     }
 }
