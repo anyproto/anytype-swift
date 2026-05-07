@@ -46,7 +46,7 @@ private struct UnreadSectionViewInternal: View {
         .task {
             await model.startSubscriptions()
         }
-        .onChange(of: model.shouldHideChatBadges, initial: true) { _, newValue in
+        .onChange(of: model.shouldHideChatBadges) { _, newValue in
             onShouldHideBadgesChange(newValue)
         }
         .onDisappear {

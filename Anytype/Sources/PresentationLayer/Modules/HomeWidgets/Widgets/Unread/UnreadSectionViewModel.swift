@@ -27,13 +27,15 @@ final class UnreadSectionViewModel {
     @ObservationIgnored
     @Injected(\.objectsWithUnreadDiscussionsSubscription)
     private var unreadDiscussionsSubscription: any ObjectsWithUnreadDiscussionsSubscriptionProtocol
-    private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
+    @ObservationIgnored
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
 
     // MARK: - State
 
     var unreadItems: [UnreadSectionItem] = []
     var unreadSectionIsExpanded: Bool = false
-    var supportsMultiChats: Bool = false
+    private var supportsMultiChats: Bool = false
 
     var shouldShowUnreadSection: Bool { supportsMultiChats && unreadItems.isNotEmpty }
     var shouldHideChatBadges: Bool { shouldShowUnreadSection && unreadSectionIsExpanded }
