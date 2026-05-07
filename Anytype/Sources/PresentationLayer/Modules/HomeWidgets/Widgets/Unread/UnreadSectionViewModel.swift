@@ -55,9 +55,7 @@ final class UnreadSectionViewModel {
     }
 
     func onTapUnreadHeader() {
-        withAnimation {
-            unreadSectionIsExpanded = !unreadSectionIsExpanded
-        }
+        unreadSectionIsExpanded = !unreadSectionIsExpanded
         expandedService.setState(section: .unread, isExpanded: unreadSectionIsExpanded)
     }
 

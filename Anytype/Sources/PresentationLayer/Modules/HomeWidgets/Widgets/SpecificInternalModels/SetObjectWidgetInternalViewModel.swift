@@ -163,29 +163,27 @@ final class SetObjectWidgetInternalViewModel {
     // MARK: - Private for view updates
     
     private func updateRows(rowDetails: [SetContentViewItemConfiguration]?) {
-        withAnimation(rows.rowsIsNil ? nil : .default) {
-            showUnsupportedBanner = (style == .view) && !(setDocument?.activeView.type.isSupportedOnDevice ?? false)
-         
-            switch style {
-            case .list:
-                let listRows = buildListRows(from: rowDetails)
-                rows = .list(rows: listRows, id: activeViewId ?? "")
-            case .compactList:
-                let listRows = buildListRows(from: rowDetails)
-                rows = .compactList(rows: listRows, id: activeViewId ?? "")
-            case .view:
-                if isSetByImageType() {
+        showUnsupportedBanner = (style == .view) && !(setDocument?.activeView.type.isSupportedOnDevice ?? false)
+
+        switch style {
+        case .list:
+            let listRows = buildListRows(from: rowDetails)
+            rows = .list(rows: listRows, id: activeViewId ?? "")
+        case .compactList:
+            let listRows = buildListRows(from: rowDetails)
+            rows = .compactList(rows: listRows, id: activeViewId ?? "")
+        case .view:
+            if isSetByImageType() {
+                let galleryRows = rowDetails.map { widgetRowModelBuilder.buildGalleryRows(from: $0) }
+                rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
+            } else {
+                switch setDocument?.activeView.type {
+                case .table, .list, .kanban, .calendar, .graph, nil:
+                    let listRows = buildListRows(from: rowDetails)
+                    rows = .compactList(rows: listRows, id: activeViewId ?? "")
+                case .gallery:
                     let galleryRows = rowDetails.map { widgetRowModelBuilder.buildGalleryRows(from: $0) }
                     rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
-                } else {
-                    switch setDocument?.activeView.type {
-                    case .table, .list, .kanban, .calendar, .graph, nil:
-                        let listRows = buildListRows(from: rowDetails)
-                        rows = .compactList(rows: listRows, id: activeViewId ?? "")
-                    case .gallery:
-                        let galleryRows = rowDetails.map { widgetRowModelBuilder.buildGalleryRows(from: $0) }
-                        rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
-                    }
                 }
             }
         }
@@ -213,17 +211,15 @@ final class SetObjectWidgetInternalViewModel {
     }
     
     private func updateHeader(dataviewState: WidgetDataviewState?) {
-        withAnimation(headerItems.isNil ? nil : .default) {
-            headerItems = dataviewState?.dataview.map { dataView in
-                ViewWidgetTabsItemModel(
-                    dataviewId: dataView.id,
-                    title: dataView.nameWithPlaceholder,
-                    isSelected: dataView.id == dataviewState?.activeViewId,
-                    onTap: { [weak self] in
-                        self?.onActiveViewTap(dataView.id)
-                    }
-                )
-            }
+        headerItems = dataviewState?.dataview.map { dataView in
+            ViewWidgetTabsItemModel(
+                dataviewId: dataView.id,
+                title: dataView.nameWithPlaceholder,
+                isSelected: dataView.id == dataviewState?.activeViewId,
+                onTap: { [weak self] in
+                    self?.onActiveViewTap(dataView.id)
+                }
+            )
         }
     }
     

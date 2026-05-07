@@ -13,8 +13,6 @@ final class RecentlyEditedListViewModel {
     let spaceId: String
     @ObservationIgnored
     let onObjectSelected: (ObjectDetails) -> Void
-    @ObservationIgnored
-    private let onRowsCountChange: ((Int) -> Void)?
 
     @ObservationIgnored
     @Injected(\.recentSubscriptionService)
@@ -31,12 +29,10 @@ final class RecentlyEditedListViewModel {
 
     init(
         spaceId: String,
-        onObjectSelected: @escaping (ObjectDetails) -> Void,
-        onRowsCountChange: ((Int) -> Void)? = nil
+        onObjectSelected: @escaping (ObjectDetails) -> Void
     ) {
         self.spaceId = spaceId
         self.onObjectSelected = onObjectSelected
-        self.onRowsCountChange = onRowsCountChange
     }
 
     // MARK: - Subscriptions
@@ -48,14 +44,7 @@ final class RecentlyEditedListViewModel {
             objectLimit: Constants.limit,
             update: { [weak self] details in
                 guard let self else { return }
-                let newRows = details.map { RecentlyEditedRowData(id: $0.id, details: $0) }
-                // Animate count change and rows update in the same transaction so the parent
-                // VStack reflow inherits the animation context.
-                let countChanged = self.rows.count != newRows.count
-                withAnimation(.default) {
-                    if countChanged { self.onRowsCountChange?(newRows.count) }
-                    self.rows = newRows
-                }
+                self.rows = details.map { RecentlyEditedRowData(id: $0.id, details: $0) }
             }
         )
     }

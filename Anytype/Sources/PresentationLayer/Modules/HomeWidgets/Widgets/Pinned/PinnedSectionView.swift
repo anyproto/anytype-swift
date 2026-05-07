@@ -8,15 +8,13 @@ struct PinnedSectionView: View {
     let channelWidgetsObject: any BaseDocumentProtocol
     let personalWidgetsObject: any BaseDocumentProtocol
     weak var output: (any CommonWidgetModuleOutput)?
-    let onWidgetsCountChange: (Int) -> Void
 
     var body: some View {
         PinnedSectionViewInternal(
             info: info,
             channelWidgetsObject: channelWidgetsObject,
             personalWidgetsObject: personalWidgetsObject,
-            output: output,
-            onWidgetsCountChange: onWidgetsCountChange
+            output: output
         )
     }
 }
@@ -34,8 +32,7 @@ private struct PinnedSectionViewInternal: View {
         info: AccountInfo,
         channelWidgetsObject: any BaseDocumentProtocol,
         personalWidgetsObject: any BaseDocumentProtocol,
-        output: (any CommonWidgetModuleOutput)?,
-        onWidgetsCountChange: @escaping (Int) -> Void
+        output: (any CommonWidgetModuleOutput)?
     ) {
         self.info = info
         self.personalWidgetsObject = personalWidgetsObject
@@ -43,8 +40,7 @@ private struct PinnedSectionViewInternal: View {
         self._model = State(
             wrappedValue: PinnedSectionViewModel(
                 spaceId: info.accountSpaceId,
-                channelWidgetsObject: channelWidgetsObject,
-                onWidgetsCountChange: onWidgetsCountChange
+                channelWidgetsObject: channelWidgetsObject
             )
         )
     }
