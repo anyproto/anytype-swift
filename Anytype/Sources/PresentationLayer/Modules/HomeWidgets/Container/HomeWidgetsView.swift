@@ -16,6 +16,7 @@ struct HomeWidgetsView: View {
 
 private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
+    @State private var pinnedWidgetsCount: Int = 0
 
     let context: WidgetScreenContext
     weak var panelOutput: (any HomeBottomNavigationPanelModuleOutput)?
@@ -31,6 +32,7 @@ private struct HomeWidgetsInternalView: View {
             HomeWallpaperView(spaceId: model.spaceId)
 
             content
+                .animation(.default, value: pinnedWidgetsCount)
                 .animation(.default, value: model.myFavoritesListViewModel.rows.count)
                 .animation(.default, value: model.recentlyEditedListViewModel.rows.count)
 
@@ -100,7 +102,8 @@ private struct HomeWidgetsInternalView: View {
                 info: model.info,
                 channelWidgetsObject: model.channelWidgetsObject,
                 personalWidgetsObject: model.personalWidgetsObject,
-                output: model.output
+                output: model.output,
+                onWidgetsCountChange: { pinnedWidgetsCount = $0 }
             )
         case .unread: unreadWidget
         case .myFavorites: myFavoritesWidget

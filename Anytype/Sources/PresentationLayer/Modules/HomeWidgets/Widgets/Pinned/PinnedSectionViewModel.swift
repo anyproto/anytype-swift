@@ -29,12 +29,17 @@ final class PinnedSectionViewModel {
     var widgetBlocks: [BlockWidgetInfo] = []
     var homeState: HomeWidgetsState = .readonly
 
+    @ObservationIgnored
+    private let onWidgetsCountChange: ((Int) -> Void)?
+
     init(
         spaceId: String,
-        channelWidgetsObject: any BaseDocumentProtocol
+        channelWidgetsObject: any BaseDocumentProtocol,
+        onWidgetsCountChange: ((Int) -> Void)? = nil
     ) {
         self.spaceId = spaceId
         self.channelWidgetsObject = channelWidgetsObject
+        self.onWidgetsCountChange = onWidgetsCountChange
     }
 
     // MARK: - Subscriptions
@@ -55,7 +60,11 @@ final class PinnedSectionViewModel {
 
             guard widgetBlocks != newWidgetBlocks else { continue }
 
+            // Update container's count AND Pinned's blocks atomically within the same
+            // animation transaction so the parent VStack reflow animates in lockstep
+            // with the section's own appearance.
             withAnimation(.default) {
+                onWidgetsCountChange?(newWidgetBlocks.count)
                 widgetBlocks = newWidgetBlocks
             }
         }
