@@ -23,8 +23,7 @@ struct HomeWidgetsDocumentsLoaderView<Content: View>: View {
             if let documents = model.documents {
                 content(documents.channelWidgets, documents.personalWidgets)
             } else {
-                // Bridge frame between SpaceLoadingContainerView's loading state and content.
-                // Same wallpaper background, no icon — pulse already played in SpaceLoadingContainerView.
+                // No icon here — SpaceLoadingContainerView's pulse already played; replaying would feel jarring.
                 HomeWallpaperView(spaceId: info.accountSpaceId)
             }
         }
