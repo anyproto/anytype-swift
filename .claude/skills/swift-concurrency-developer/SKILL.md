@@ -31,7 +31,7 @@ Always confirm these before interpreting diagnostics or giving migration-sensiti
 
 | Setting | SwiftPM (`Package.swift`) | Xcode (`.pbxproj`) |
 |---|---|---|
-| Language mode | `swiftLanguageVersions` or `-swift-version` (`// swift-tools-version:` is not a reliable proxy) | `SWIFT_VERSION` |
+| Language mode | `.swiftLanguageMode(.v6)` per-target inside `swiftSettings` (NOT package-level `swiftLanguageVersions`, which only advertises compatibility) | `SWIFT_VERSION` |
 | Strict concurrency | `.enableExperimentalFeature("StrictConcurrency=targeted")` | `SWIFT_STRICT_CONCURRENCY` |
 | Default isolation | `.defaultIsolation(MainActor.self)` | `SWIFT_DEFAULT_ACTOR_ISOLATION` |
 | Upcoming features | `.enableUpcomingFeature("NonisolatedNonsendingByDefault")` | `SWIFT_UPCOMING_FEATURE_*` |
@@ -133,9 +133,10 @@ Match a `Task`'s entry isolation to its **synchronous prefix** — everything fr
 - For delayed retries, timers, and backoff: separate the waiting from the UI mutation. The sleep usually belongs off-main even when the final state update belongs on-main.
 
 ```swift
-// ❌ Called from @MainActor; synchronous prefix is empty, so the task starts on main then hops away
+// ❌ Called from @MainActor; fetchData() is nonisolated, so the task starts on main then hops away
+// (whether the hop happens depends on fetchData()'s declared isolation — nonisolated/@concurrent hop, @MainActor does not)
 Task {
-    await fetchData()
+    await fetchData()  // nonisolated async
 }
 
 // ✅ Start off the main actor, hop back only for UI work
