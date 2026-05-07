@@ -52,8 +52,7 @@ final class LinkWidgetViewModel {
         self.widgetBlockId = data.widgetBlockId
         self.widgetObject = data.channelWidgetsObject
         self.output = data.output
-        // Pre-seed name/icon synchronously when the parent already resolved details for an
-        // `.object`-source widget. Avoids a frame of empty-row before the per-row publisher ticks.
+        // Avoid a frame of empty row before `widgetTargetDetailsPublisher` first ticks.
         if let details = data.prefetchedDetails {
             self.linkedObjectDetails = details
             self.name = details.pluralTitle

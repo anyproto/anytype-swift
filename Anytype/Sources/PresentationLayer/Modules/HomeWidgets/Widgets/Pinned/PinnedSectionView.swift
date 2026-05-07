@@ -7,7 +7,7 @@ struct PinnedSectionView: View {
     let info: AccountInfo
     let channelWidgetsObject: any BaseDocumentProtocol
     let personalWidgetsObject: any BaseDocumentProtocol
-    weak var output: (any HomeWidgetsModuleOutput)?
+    weak var output: (any CommonWidgetModuleOutput)?
     let onWidgetsCountChange: (Int) -> Void
 
     var body: some View {
@@ -28,13 +28,13 @@ private struct PinnedSectionViewInternal: View {
 
     let info: AccountInfo
     let personalWidgetsObject: any BaseDocumentProtocol
-    weak var output: (any HomeWidgetsModuleOutput)?
+    weak var output: (any CommonWidgetModuleOutput)?
 
     init(
         info: AccountInfo,
         channelWidgetsObject: any BaseDocumentProtocol,
         personalWidgetsObject: any BaseDocumentProtocol,
-        output: (any HomeWidgetsModuleOutput)?,
+        output: (any CommonWidgetModuleOutput)?,
         onWidgetsCountChange: @escaping (Int) -> Void
     ) {
         self.info = info
