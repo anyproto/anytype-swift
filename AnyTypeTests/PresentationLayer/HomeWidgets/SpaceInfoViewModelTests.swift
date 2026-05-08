@@ -80,14 +80,13 @@ struct SpaceInfoViewModelTests {
         #expect(model.spaceName == "")
 
         let task = Task { await model.startSubscriptions() }
+        defer { task.cancel() }
 
         storage.subject.send([initial])
         try await waitForName("Initial", on: model)
 
         storage.subject.send([updated])
         try await waitForName("Updated", on: model)
-
-        task.cancel()
     }
 
     // MARK: - Helpers
