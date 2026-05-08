@@ -44,14 +44,15 @@ final class UnreadSectionViewModel {
         self.spaceId = spaceId
         self.output = output
         self.unreadSectionIsExpanded = expandedService.isExpanded(section: .unread, defaultValue: true)
+        // Default to multi-chat when spaceView isn't loaded yet — the section is also gated
+        // by `unreadItems.isNotEmpty`, so multi-chat-but-empty stays invisible.
+        self.supportsMultiChats = !(workspaceStorage.spaceView(spaceId: spaceId)?.isOneToOne ?? false)
     }
 
     // MARK: - Subscriptions
 
     func startSubscriptions() async {
-        async let unreadSub: () = startUnreadItemsTask()
-        async let spaceViewSub: () = startSpaceViewTask()
-        _ = await (unreadSub, spaceViewSub)
+        await startUnreadItemsTask()
     }
 
     func onTapUnreadHeader() {
@@ -67,19 +68,13 @@ final class UnreadSectionViewModel {
         output?.onObjectSelected(screenData: data.details.screenData())
     }
 
-    private func startSpaceViewTask() async {
-        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values {
-            supportsMultiChats = !spaceView.isOneToOne
-        }
-    }
-
     private func startUnreadItemsTask() async {
         let spaceId = spaceId
         // No early-exit on isOneToOne — we'd capture the space type once and never observe
         // a 1:1 → multi-chat conversion. The combineLatest below re-fires on space-view
         // changes and the section's own visibility is gated by `supportsMultiChats`
-        // (set in startSpaceViewTask), so 1:1 spaces simply pay the cost of a few
-        // combineLatest emissions whose result the section ignores.
+        // (re-derived from each tick's `currentSpaceView`), so 1:1 spaces simply pay the
+        // cost of a few combineLatest emissions whose result the section ignores.
         let previewsSequence = await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
         let chatsSequence = await chatDetailsStorage.allChatsSequence
         let spaceViewSequence = workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values
@@ -89,6 +84,9 @@ final class UnreadSectionViewModel {
         let chatTriple = combineLatest(previewsSequence, chatsSequence, spaceViewSequence)
         for await (triple, unreadBySpace) in combineLatest(chatTriple, unreadDiscussionsSequence) {
             let (previews, chatDetails, currentSpaceView) = triple
+
+            let nextSupportsMultiChats = !currentSpaceView.isOneToOne
+            if supportsMultiChats != nextSupportsMultiChats { supportsMultiChats = nextSupportsMultiChats }
 
             let chatItems: [UnreadSectionRowData] = previews.compactMap { preview in
                 guard preview.spaceId == spaceId else { return nil }

@@ -45,6 +45,7 @@ final class ObjectTypesSectionViewModel {
         self.spaceId = spaceId
         self.output = output
         self.objectTypeSectionIsExpanded = expandedService.isExpanded(section: .objects, defaultValue: true)
+        self.canCreateObjectType = participantsStorage.canEdit(spaceId: spaceId)
     }
 
     // MARK: - Subscriptions
