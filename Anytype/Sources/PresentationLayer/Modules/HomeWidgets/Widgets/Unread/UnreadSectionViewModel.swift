@@ -30,6 +30,9 @@ final class UnreadSectionViewModel {
     @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored
+    @Injected(\.parentObjectUnreadBadgeBuilder)
+    private var badgeBuilder: any ParentObjectUnreadBadgeBuilderProtocol
 
     // MARK: - State
 
@@ -59,6 +62,19 @@ final class UnreadSectionViewModel {
         expandedService.setState(section: .unread, isExpanded: unreadSectionIsExpanded)
     }
 
+    func onChatTap(data: UnreadChatRowData) {
+        AnytypeAnalytics.instance().logClickWidgetTitle(source: .chat, createType: .manual)
+        output?.onObjectSelected(screenData: .chat(ChatCoordinatorData(chatId: data.id, spaceId: data.spaceId)))
+    }
+
+    func onDiscussionParentTap(data: UnreadDiscussionParentRowData) {
+        AnytypeAnalytics.instance().logClickWidgetTitle(
+            source: .object(type: data.details.analyticsType),
+            createType: .manual
+        )
+        output?.onObjectSelected(screenData: data.details.screenData())
+    }
+
     private func startSpaceViewTask() async {
         for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values {
             supportsMultiChats = !spaceView.isOneToOne
@@ -85,21 +101,26 @@ final class UnreadSectionViewModel {
             let chatItems: [UnreadSectionItem] = previews.compactMap { preview in
                 guard preview.spaceId == spaceId else { return nil }
 
-                if FeatureFlags.muteAndHide {
-                    let mode = currentSpaceView.effectiveNotificationMode(for: preview.chatId)
-                    if mode == .nothing {
-                        guard preview.mentionCounter > 0 || preview.hasUnreadReactions else { return nil }
-                    }
+                let mode = currentSpaceView.effectiveNotificationMode(for: preview.chatId)
+                if FeatureFlags.muteAndHide && mode == .nothing {
+                    guard preview.mentionCounter > 0 || preview.hasUnreadReactions else { return nil }
                 }
 
                 guard preview.hasCounters else { return nil }
                 guard let chatDetail = chatDetails.first(where: { $0.id == preview.chatId }), !chatDetail.isArchivedOrDeleted else {
                     return nil
                 }
-                return .chat(
-                    UnreadChatWidgetData(id: preview.chatId, spaceId: spaceId, output: output),
+                return .chat(UnreadChatRowData(
+                    id: preview.chatId,
+                    spaceId: spaceId,
+                    name: chatDetail.pluralTitle,
+                    icon: chatDetail.objectIconImage,
+                    unreadCounter: preview.unreadCounter,
+                    mentionCounter: preview.mentionCounter,
+                    hasUnreadReactions: preview.hasUnreadReactions,
+                    notificationMode: mode,
                     lastMessageDate: preview.lastMessage?.createdAt
-                )
+                ))
             }
 
             let parentSource = FeatureFlags.discussionButton ? (unreadBySpace[spaceId]?.parents ?? []) : []
@@ -110,10 +131,11 @@ final class UnreadSectionViewModel {
                 // Aggregator admits any subscribed parent; drop fully-caught-up rows here so the section
                 // never shows a name with no badge. Mirrors the chat path's `hasCounters` guard.
                 guard parent.unreadMessageCount > 0 || parent.hasUnreadMention else { return nil }
-                return .discussionParent(
-                    UnreadDiscussionParentWidgetData(id: parent.id, spaceId: spaceId, output: output),
+                return .discussionParent(UnreadDiscussionParentRowData(
+                    details: parent.details,
+                    badge: badgeBuilder.build(parent: parent, spaceView: currentSpaceView),
                     lastMessageDate: parent.lastMessageDate
-                )
+                ))
             }
 
             let merged = (chatItems + parentItems).sorted { $0.sortDate > $1.sortDate }
