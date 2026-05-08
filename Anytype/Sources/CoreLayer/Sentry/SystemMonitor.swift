@@ -20,6 +20,8 @@ final class SystemMonitor {
         static let instantProfilerCooldown: TimeInterval = 30
     }
 
+    nonisolated init() {}
+
     func start() {
         subscribeToThermalState()
         subscribeToMemoryPressure()
@@ -49,12 +51,14 @@ final class SystemMonitor {
     private func subscribeToMemoryPressure() {
         let source = DispatchSource.makeMemoryPressureSource(eventMask: [.warning, .critical], queue: .main)
         source.setEventHandler { [weak self] in
-            guard let self else { return }
             let event = source.data
-            if event.contains(.critical) {
-                self.triggerProfiler(durationInSeconds: 0, reason: .memoryPressureCritical, desc: "iOS memory pressure: critical")
-            } else if event.contains(.warning) {
-                self.triggerProfiler(durationInSeconds: 0, reason: .memoryPressureWarn, desc: "iOS memory pressure: warning")
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+                if event.contains(.critical) {
+                    self.triggerProfiler(durationInSeconds: 0, reason: .memoryPressureCritical, desc: "iOS memory pressure: critical")
+                } else if event.contains(.warning) {
+                    self.triggerProfiler(durationInSeconds: 0, reason: .memoryPressureWarn, desc: "iOS memory pressure: warning")
+                }
             }
         }
         source.resume()
