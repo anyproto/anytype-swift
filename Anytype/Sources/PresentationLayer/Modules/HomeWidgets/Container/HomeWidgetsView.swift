@@ -110,7 +110,12 @@ private struct HomeWidgetsInternalView: View {
             )
         case .myFavorites: myFavoritesWidget
         case .recentlyEdited: recentlyEditedWidget
-        case .objects: objectTypeWidgets
+        case .objects:
+            ObjectTypesSectionView(
+                spaceId: model.spaceId,
+                output: model.output,
+                onCreateObjectType: { model.output?.onCreateObjectType() }
+            )
         case .bin: binWidget
         }
     }
@@ -144,23 +149,6 @@ private struct HomeWidgetsInternalView: View {
             }
             if model.recentlyEditedSectionIsExpanded {
                 RecentlyEditedListView(model: model.recentlyEditedListViewModel)
-            }
-        }
-    }
-
-    @ViewBuilder
-    private var objectTypeWidgets: some View {
-        if model.objectTypesDataLoaded {
-            HomeWidgetsGroupView(title: Loc.types, onTap: {
-                model.onTapObjectTypeHeader()
-            }, onCreate: nil)
-            if model.objectTypeSectionIsExpanded {
-                ObjectTypesUnifiedWidgetView(
-                    typeInfos: model.objectTypeWidgets,
-                    canCreateType: model.canCreateObjectType,
-                    onCreateType: { model.onCreateObjectType() },
-                    output: model.output
-                )
             }
         }
     }
