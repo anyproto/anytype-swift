@@ -1,8 +1,11 @@
 import Foundation
 
-struct ObjectTypeWidgetInfo: Equatable, Hashable, Identifiable {
+struct ObjectTypeWidgetInfo: Identifiable, Equatable, Hashable {
     let objectTypeId: String
     let spaceId: String
+    let name: String
+    let icon: Icon
+    let canCreateObject: Bool
 
     var id: String { objectTypeId }
 }
