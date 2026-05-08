@@ -53,7 +53,7 @@ private struct HomeWidgetsInternalView: View {
             }
         }
         .task {
-            await model.openDocuments()
+            await model.openWidgetObjects()
         }
         .task {
             await model.startSubscriptions()

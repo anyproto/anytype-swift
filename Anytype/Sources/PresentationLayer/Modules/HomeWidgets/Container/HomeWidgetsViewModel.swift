@@ -31,7 +31,7 @@ final class HomeWidgetsViewModel {
     private(set) var channelWidgetsObject: (any BaseDocumentProtocol)?
     private(set) var personalWidgetsObject: (any BaseDocumentProtocol)?
 
-    var documentsReady: Bool {
+    var isWidgetObjectsReady: Bool {
         channelWidgetsObject != nil && personalWidgetsObject != nil
     }
 
@@ -56,7 +56,7 @@ final class HomeWidgetsViewModel {
         self.output = output
     }
 
-    func openDocuments() async {
+    func openWidgetObjects() async {
         let channel = documentsProvider.document(
             objectId: info.widgetsId,
             spaceId: info.accountSpaceId,

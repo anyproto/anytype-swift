@@ -16,24 +16,24 @@ struct HomeWidgetsViewModelTests {
         self.documentsProvider = documentsProvider
     }
 
-    // MARK: - openDocuments
+    // MARK: - openWidgetObjects
 
-    @Test func openDocuments_bothSucceed_setsDocsAndDocumentsReadyTrue() async {
+    @Test func openWidgetObjects_bothSucceed_setsDocsAndIsWidgetObjectsReadyTrue() async {
         let info = makeAccountInfo(widgetsId: "channel-id", spaceId: "space-id")
         documentsProvider.register(objectId: info.widgetsId, doc: MockBaseDocument(objectId: info.widgetsId))
         documentsProvider.register(objectId: info.personalWidgetsId, doc: MockBaseDocument(objectId: info.personalWidgetsId))
         let model = HomeWidgetsViewModel(info: info, output: nil)
 
-        await model.openDocuments()
+        await model.openWidgetObjects()
 
         #expect(model.channelWidgetsObject?.objectId == info.widgetsId)
         #expect(model.personalWidgetsObject?.objectId == info.personalWidgetsId)
-        #expect(model.documentsReady)
+        #expect(model.isWidgetObjectsReady)
         #expect(documentsProvider.requestedObjectIds.contains(info.widgetsId))
         #expect(documentsProvider.requestedObjectIds.contains(info.personalWidgetsId))
     }
 
-    @Test func openDocuments_oneOpenThrows_stillSetsDocsAndFlipsGate() async {
+    @Test func openWidgetObjects_oneOpenThrows_stillSetsDocsAndFlipsGate() async {
         let info = makeAccountInfo(widgetsId: "channel-id", spaceId: "space-id")
         let channelDoc = MockBaseDocument(objectId: info.widgetsId)
         channelDoc.openHandler = { throw TestError.openFailed }
@@ -42,20 +42,20 @@ struct HomeWidgetsViewModelTests {
         documentsProvider.register(objectId: info.personalWidgetsId, doc: personalDoc)
         let model = HomeWidgetsViewModel(info: info, output: nil)
 
-        await model.openDocuments()
+        await model.openWidgetObjects()
 
         #expect(model.channelWidgetsObject?.objectId == info.widgetsId)
         #expect(model.personalWidgetsObject?.objectId == info.personalWidgetsId)
-        #expect(model.documentsReady)
+        #expect(model.isWidgetObjectsReady)
     }
 
-    @Test func documentsReady_isFalseBeforeOpenDocumentsResolves() {
+    @Test func isWidgetObjectsReady_isFalseBeforeOpenWidgetObjectsResolves() {
         let info = makeAccountInfo(widgetsId: "channel-id", spaceId: "space-id")
         let model = HomeWidgetsViewModel(info: info, output: nil)
 
         #expect(model.channelWidgetsObject == nil)
         #expect(model.personalWidgetsObject == nil)
-        #expect(!model.documentsReady)
+        #expect(!model.isWidgetObjectsReady)
     }
 
     // MARK: - Helpers
