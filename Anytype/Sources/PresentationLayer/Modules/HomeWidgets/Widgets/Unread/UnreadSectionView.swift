@@ -41,8 +41,7 @@ private struct UnreadSectionViewInternal: View {
                 if model.unreadSectionIsExpanded {
                     UnreadItemsGroupedView(
                         items: model.unreadItems,
-                        onChatTap: { model.onChatTap(data: $0) },
-                        onParentTap: { model.onDiscussionParentTap(data: $0) }
+                        onTap: { model.onRowTap(data: $0) }
                     )
                 }
             }
