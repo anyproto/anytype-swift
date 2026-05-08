@@ -42,6 +42,9 @@ final class MyFavoritesListViewModel {
         self.personalWidgetsObject = personalWidgetsObject
         self.channelWidgetsObject = channelWidgetsObject
         self.onObjectSelected = onObjectSelected
+        let seed = buildRows()
+        self.sourceIds = seed.map(\.id)
+        self.rows = seed
     }
 
     // MARK: - Subscriptions
@@ -50,23 +53,27 @@ final class MyFavoritesListViewModel {
         await startPersonalWidgetsSubscription()
     }
 
+    private func buildRows() -> [MyFavoritesRowData] {
+        let widgets = personalWidgetsObject.children.filter(\.isWidget)
+        return widgets.compactMap { block in
+            guard let info = personalWidgetsObject.widgetInfo(block: block),
+                  case let .object(details) = info.source,
+                  details.isNotDeletedAndSupportedForOpening else {
+                return nil
+            }
+            return MyFavoritesRowData(id: block.id, details: details)
+        }
+    }
+
     private func startPersonalWidgetsSubscription() async {
         for await _ in personalWidgetsObject.syncPublisher.values {
-            let widgets = personalWidgetsObject.children.filter(\.isWidget)
-            let newRows: [MyFavoritesRowData] = widgets.compactMap { block in
-                guard let info = personalWidgetsObject.widgetInfo(block: block),
-                      case let .object(details) = info.source,
-                      details.isNotDeletedAndSupportedForOpening else {
-                    return nil
-                }
-                return MyFavoritesRowData(id: block.id, details: details)
-            }
             // Dedup on STRUCTURAL changes only (block-id list), not on detail-only emissions.
             // - Compares against the persisted-order snapshot, not against `rows`, which `dropUpdate`
             //   mutates into the optimistic drag order — comparing against `rows` would snap the list
             //   back mid-drag on any unchanged-source emission.
             // - Detail-only updates (renames, icon changes) are handled by per-row VMs via
             //   `widgetTargetDetailsPublisher`, so the parent doesn't need to rebuild for those.
+            let newRows = buildRows()
             let newIds = newRows.map(\.id)
             guard sourceIds != newIds else { continue }
             sourceIds = newIds
