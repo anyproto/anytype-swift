@@ -315,38 +315,33 @@ extension EditorPageController: EditorPageViewInput {
     func reconfigure(items: [EditorItem]) {
         guard items.count > 0 else { return }
 
-        let snapshot = dataSource.snapshot()
-        let existingItems = items.filter { snapshot.itemIdentifiers.contains($0) }
+        var snapshot = dataSource.snapshot()
         let notExistingItems = items.filter { !snapshot.itemIdentifiers.contains($0) }
-
-        // Refresh visible cells directly to avoid racing dataSource.apply against
-        // an in-flight applyBlocksSectionSnapshot (UIKit deadlock detector trips).
-        // Off-screen cells pick up the new configuration via cellRegistration on dequeue.
-        existingItems.forEach { reloadCell(for: $0) }
-
-        // Identity swap (e.g. BlockFileViewModel -> BlockImageViewModel on upload)
-        // still requires a snapshot edit.
-        guard !notExistingItems.isEmpty else { return }
-
-        var swapSnapshot = snapshot
+        
+        // If we received an update for item not presented in a data source
+        // probably the new item is a new view model for an existing block. So we have to check by ID.
+        // Example: BlockFileViewModel -> BlockImageViewModel when uploading image into file block
         for item in notExistingItems {
-            guard let oldItem = swapSnapshot.itemIdentifiers.first(where: { $0.blockId == item.blockId }) else {
+            guard let oldItem = snapshot.itemIdentifiers.first(where: { $0.blockId == item.blockId }) else {
                 continue
             }
-            guard let index = swapSnapshot.indexOfItem(oldItem),
-                  let previousItem = swapSnapshot.itemIdentifiers[safe: index - 1] else {
+            guard let index = snapshot.indexOfItem(oldItem) else { continue }
+            guard let previousItem = snapshot.itemIdentifiers[safe: index - 1] else {
                 anytypeAssertionFailure(
                     "Not found previous item in snapshot",
                     info: ["oldItem": String(describing: oldItem)]
                 )
                 continue
             }
-
-            swapSnapshot.deleteItems([oldItem])
-            swapSnapshot.insertItems([item], afterItem: previousItem)
+            
+            snapshot.deleteItems([oldItem])
+            snapshot.insertItems([item], afterItem: previousItem)
         }
-
-        dataSource.apply(swapSnapshot, animatingDifferences: true)
+        
+        let existingItems = items.filter { snapshot.itemIdentifiers.contains($0) }
+        snapshot.reconfigureItems(existingItems)
+        
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 
     func update(
