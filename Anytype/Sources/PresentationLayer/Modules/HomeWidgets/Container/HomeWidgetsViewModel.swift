@@ -11,8 +11,6 @@ final class HomeWidgetsViewModel {
     // MARK: - DI
 
     let info: AccountInfo
-    let channelWidgetsObject: any BaseDocumentProtocol
-    let personalWidgetsObject: any BaseDocumentProtocol
 
     @Injected(\.documentsProvider) @ObservationIgnored
     private var documentsProvider: any DocumentsProviderProtocol
@@ -30,6 +28,8 @@ final class HomeWidgetsViewModel {
 
     var homeWidgetData: HomepageWidgetViewData?
     var sectionsConfiguration: HomeSectionsConfiguration = .default
+    private(set) var channelWidgetsObject: (any BaseDocumentProtocol)?
+    private(set) var personalWidgetsObject: (any BaseDocumentProtocol)?
 
     // Default false so readonly users never see (and can never tap) the Bin's empty-bin
     // action before `canEdit` resolves. Editors briefly see no Bin section until then —
@@ -46,14 +46,32 @@ final class HomeWidgetsViewModel {
 
     init(
         info: AccountInfo,
-        channelWidgetsObject: any BaseDocumentProtocol,
-        personalWidgetsObject: any BaseDocumentProtocol,
         output: (any HomeWidgetsModuleOutput)?
     ) {
         self.info = info
-        self.channelWidgetsObject = channelWidgetsObject
-        self.personalWidgetsObject = personalWidgetsObject
         self.output = output
+    }
+
+    func openWidgetObjects() async {
+        let channel = documentsProvider.document(
+            objectId: info.widgetsId,
+            spaceId: info.accountSpaceId,
+            mode: .handling
+        )
+        let personal = documentsProvider.document(
+            objectId: info.personalWidgetsId,
+            spaceId: info.accountSpaceId,
+            mode: .handling
+        )
+
+        await withTaskGroup(of: Void.self) { group in
+            group.addTask { try? await channel.open() }
+            group.addTask { try? await personal.open() }
+        }
+
+        guard !Task.isCancelled else { return }
+        channelWidgetsObject = channel
+        personalWidgetsObject = personal
     }
 
     func startSubscriptions() async {

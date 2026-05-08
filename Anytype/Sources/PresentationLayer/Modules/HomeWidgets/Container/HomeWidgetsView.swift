@@ -5,16 +5,12 @@ import AnytypeCore
 
 struct HomeWidgetsView: View {
     let info: AccountInfo
-    let channelWidgetsObject: any BaseDocumentProtocol
-    let personalWidgetsObject: any BaseDocumentProtocol
     let context: WidgetScreenContext
     let output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?
 
     var body: some View {
         HomeWidgetsInternalView(
             info: info,
-            channelWidgetsObject: channelWidgetsObject,
-            personalWidgetsObject: personalWidgetsObject,
             context: context,
             output: output
         )
@@ -31,15 +27,11 @@ private struct HomeWidgetsInternalView: View {
 
     init(
         info: AccountInfo,
-        channelWidgetsObject: any BaseDocumentProtocol,
-        personalWidgetsObject: any BaseDocumentProtocol,
         context: WidgetScreenContext,
         output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?
     ) {
         self._model = State(wrappedValue: HomeWidgetsViewModel(
             info: info,
-            channelWidgetsObject: channelWidgetsObject,
-            personalWidgetsObject: personalWidgetsObject,
             output: output
         ))
         self.context = context
@@ -59,6 +51,9 @@ private struct HomeWidgetsInternalView: View {
                     output: panelOutput
                 )
             }
+        }
+        .task {
+            await model.openWidgetObjects()
         }
         .task {
             await model.startSubscriptions()
@@ -95,8 +90,15 @@ private struct HomeWidgetsInternalView: View {
                 SpaceInfoView(spaceId: model.spaceId)
                 InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
                 homeWidget
-                ForEach(model.visibleSections, id: \.self) { section in
-                    manageableSection(section)
+                if let channelWidgetsObject = model.channelWidgetsObject,
+                   let personalWidgetsObject = model.personalWidgetsObject {
+                    ForEach(model.visibleSections, id: \.self) { section in
+                        manageableSection(
+                            section,
+                            channelWidgetsObject: channelWidgetsObject,
+                            personalWidgetsObject: personalWidgetsObject
+                        )
+                    }
                 }
                 AnytypeNavigationSpacer(minHeight: context.showEmbeddedBottomPanel ? 72 : 0)
             }
@@ -107,13 +109,17 @@ private struct HomeWidgetsInternalView: View {
     }
 
     @ViewBuilder
-    private func manageableSection(_ section: HomeSection) -> some View {
+    private func manageableSection(
+        _ section: HomeSection,
+        channelWidgetsObject: any BaseDocumentProtocol,
+        personalWidgetsObject: any BaseDocumentProtocol
+    ) -> some View {
         switch section {
         case .pinned:
             PinnedSectionView(
                 info: model.info,
-                channelWidgetsObject: model.channelWidgetsObject,
-                personalWidgetsObject: model.personalWidgetsObject,
+                channelWidgetsObject: channelWidgetsObject,
+                personalWidgetsObject: personalWidgetsObject,
                 output: model.output
             )
         case .unread:
@@ -125,8 +131,8 @@ private struct HomeWidgetsInternalView: View {
         case .myFavorites:
             MyFavoritesSectionView(
                 spaceId: model.spaceId,
-                personalWidgetsObject: model.personalWidgetsObject,
-                channelWidgetsObject: model.channelWidgetsObject,
+                personalWidgetsObject: personalWidgetsObject,
+                channelWidgetsObject: channelWidgetsObject,
                 output: model.output
             )
         case .recentlyEdited:
