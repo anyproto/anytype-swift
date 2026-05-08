@@ -23,6 +23,10 @@ final class ChatContainerCell<Item: Equatable & Hashable, Content: View>: UIColl
         guard let item, let builder, configuredItem != item else { return }
         configuredItem = item
 
+        // Builder is intentionally reused across SwiftUI update cycles for equal
+        // items. Any dynamic state it reads must be captured by reference (class)
+        // or via observation, never by value — otherwise the gate above will
+        // serve stale data.
         contentConfiguration = UIHostingConfiguration { [item, builder] in
             builder(item)
         }
