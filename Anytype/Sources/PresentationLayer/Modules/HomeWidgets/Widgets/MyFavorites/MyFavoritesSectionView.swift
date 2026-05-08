@@ -8,15 +8,13 @@ struct MyFavoritesSectionView: View {
     let personalWidgetsObject: any BaseDocumentProtocol
     let channelWidgetsObject: any BaseDocumentProtocol
     weak var output: (any CommonWidgetModuleOutput)?
-    let onRowsCountChange: (Int) -> Void
 
     var body: some View {
         MyFavoritesSectionViewInternal(
             spaceId: spaceId,
             personalWidgetsObject: personalWidgetsObject,
             channelWidgetsObject: channelWidgetsObject,
-            output: output,
-            onRowsCountChange: onRowsCountChange
+            output: output
         )
     }
 }
@@ -29,16 +27,14 @@ private struct MyFavoritesSectionViewInternal: View {
         spaceId: String,
         personalWidgetsObject: any BaseDocumentProtocol,
         channelWidgetsObject: any BaseDocumentProtocol,
-        output: (any CommonWidgetModuleOutput)?,
-        onRowsCountChange: @escaping (Int) -> Void
+        output: (any CommonWidgetModuleOutput)?
     ) {
         self._model = State(
             wrappedValue: MyFavoritesSectionViewModel(
                 spaceId: spaceId,
                 personalWidgetsObject: personalWidgetsObject,
                 channelWidgetsObject: channelWidgetsObject,
-                output: output,
-                onRowsCountChange: onRowsCountChange
+                output: output
             )
         )
     }

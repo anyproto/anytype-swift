@@ -6,13 +6,11 @@ struct RecentlyEditedSectionView: View {
 
     let spaceId: String
     weak var output: (any CommonWidgetModuleOutput)?
-    let onRowsCountChange: (Int) -> Void
 
     var body: some View {
         RecentlyEditedSectionViewInternal(
             spaceId: spaceId,
-            output: output,
-            onRowsCountChange: onRowsCountChange
+            output: output
         )
     }
 }
@@ -23,14 +21,12 @@ private struct RecentlyEditedSectionViewInternal: View {
 
     init(
         spaceId: String,
-        output: (any CommonWidgetModuleOutput)?,
-        onRowsCountChange: @escaping (Int) -> Void
+        output: (any CommonWidgetModuleOutput)?
     ) {
         self._model = State(
             wrappedValue: RecentlyEditedSectionViewModel(
                 spaceId: spaceId,
-                output: output,
-                onRowsCountChange: onRowsCountChange
+                output: output
             )
         )
     }

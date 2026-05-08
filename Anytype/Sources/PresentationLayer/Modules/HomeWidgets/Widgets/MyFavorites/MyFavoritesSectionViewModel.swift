@@ -19,8 +19,7 @@ final class MyFavoritesSectionViewModel {
         spaceId: String,
         personalWidgetsObject: any BaseDocumentProtocol,
         channelWidgetsObject: any BaseDocumentProtocol,
-        output: (any CommonWidgetModuleOutput)?,
-        onRowsCountChange: @escaping (Int) -> Void
+        output: (any CommonWidgetModuleOutput)?
     ) {
         self.listModel = MyFavoritesListViewModel(
             spaceId: spaceId,
@@ -28,8 +27,7 @@ final class MyFavoritesSectionViewModel {
             channelWidgetsObject: channelWidgetsObject,
             onObjectSelected: { [weak output] details in
                 output?.onObjectSelected(screenData: details.screenData())
-            },
-            onRowsCountChange: onRowsCountChange
+            }
         )
         // Default to true so users without persisted state see the section open.
         self.isExpanded = expandedService.isExpanded(section: .myFavorites, defaultValue: true)
@@ -40,7 +38,7 @@ final class MyFavoritesSectionViewModel {
     }
 
     func onTapHeader() {
-        withAnimation { isExpanded.toggle() }
+        isExpanded.toggle()
         expandedService.setState(section: .myFavorites, isExpanded: isExpanded)
     }
 }

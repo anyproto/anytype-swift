@@ -24,9 +24,6 @@ struct HomeWidgetsView: View {
 
 private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
-    @State private var pinnedWidgetsCount: Int = 0
-    @State private var myFavoritesRowsCount: Int = 0
-    @State private var recentlyEditedRowsCount: Int = 0
     @State private var shouldHideChatBadges: Bool = false
 
     let context: WidgetScreenContext
@@ -54,9 +51,6 @@ private struct HomeWidgetsInternalView: View {
             HomeWallpaperView(spaceId: model.spaceId)
 
             widgets
-                .animation(.default, value: pinnedWidgetsCount)
-                .animation(.default, value: myFavoritesRowsCount)
-                .animation(.default, value: recentlyEditedRowsCount)
 
             if context.showEmbeddedBottomPanel {
                 HomeBottomNavigationPanelView(
@@ -120,8 +114,7 @@ private struct HomeWidgetsInternalView: View {
                 info: model.info,
                 channelWidgetsObject: model.channelWidgetsObject,
                 personalWidgetsObject: model.personalWidgetsObject,
-                output: model.output,
-                onWidgetsCountChange: { pinnedWidgetsCount = $0 }
+                output: model.output
             )
         case .unread:
             UnreadSectionView(
@@ -134,14 +127,12 @@ private struct HomeWidgetsInternalView: View {
                 spaceId: model.spaceId,
                 personalWidgetsObject: model.personalWidgetsObject,
                 channelWidgetsObject: model.channelWidgetsObject,
-                output: model.output,
-                onRowsCountChange: { myFavoritesRowsCount = $0 }
+                output: model.output
             )
         case .recentlyEdited:
             RecentlyEditedSectionView(
                 spaceId: model.spaceId,
-                output: model.output,
-                onRowsCountChange: { recentlyEditedRowsCount = $0 }
+                output: model.output
             )
         case .objects:
             ObjectTypesSectionView(

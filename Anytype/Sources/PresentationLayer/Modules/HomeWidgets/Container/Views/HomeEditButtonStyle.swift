@@ -21,6 +21,5 @@ struct HomeEditButton: View {
         .background(.thinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         .setZeroOpacity(!homeState.isReadWrite)
-        .animation(.default, value: homeState)
     }
 }

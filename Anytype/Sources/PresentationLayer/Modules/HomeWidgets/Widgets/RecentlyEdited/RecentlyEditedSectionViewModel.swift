@@ -17,15 +17,13 @@ final class RecentlyEditedSectionViewModel {
 
     init(
         spaceId: String,
-        output: (any CommonWidgetModuleOutput)?,
-        onRowsCountChange: @escaping (Int) -> Void
+        output: (any CommonWidgetModuleOutput)?
     ) {
         self.listModel = RecentlyEditedListViewModel(
             spaceId: spaceId,
             onObjectSelected: { [weak output] details in
                 output?.onObjectSelected(screenData: details.screenData())
-            },
-            onRowsCountChange: onRowsCountChange
+            }
         )
         // Default to true so users without persisted state see the section open.
         self.isExpanded = expandedService.isExpanded(section: .recentlyEdited, defaultValue: true)
@@ -36,7 +34,7 @@ final class RecentlyEditedSectionViewModel {
     }
 
     func onTapHeader() {
-        withAnimation { isExpanded.toggle() }
+        isExpanded.toggle()
         expandedService.setState(section: .recentlyEdited, isExpanded: isExpanded)
     }
 }

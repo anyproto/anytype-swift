@@ -18,10 +18,8 @@ struct HomeUpdateView: View, Animatable {
                 .padding(.horizontal, 16)
         }
         .onAppear {
-            withAnimation(.easeInOut(duration: 4).delay(0.5)) {
-                // Two times. 200%
-                gradientPercent = 2
-            }
+            // Two times. 200%
+            gradientPercent = 2
         }
         .background {
             HomeUpdateGradient(percent: gradientPercent)

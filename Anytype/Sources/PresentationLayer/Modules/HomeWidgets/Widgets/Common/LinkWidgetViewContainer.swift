@@ -58,7 +58,6 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
                 }
             }
         }
-        .animation(.default, value: homeState)
         .setZeroOpacity(isDragging())
         .if(homeState.isReadWrite && allowContextMenuItems) {
             $0.contextMenu {
@@ -85,9 +84,7 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
     private var arrowButton: some View {
         if allowContent {
             Button {
-                withAnimation {
-                    isExpanded = !isExpanded
-                }
+                isExpanded = !isExpanded
             } label: {
                 Image(asset: .X18.Disclosure.right)
                     .foregroundStyle(Color.Text.primary)

@@ -29,17 +29,12 @@ final class PinnedSectionViewModel {
     var widgetBlocks: [BlockWidgetInfo] = []
     var homeState: HomeWidgetsState = .readonly
 
-    @ObservationIgnored
-    private let onWidgetsCountChange: ((Int) -> Void)?
-
     init(
         spaceId: String,
-        channelWidgetsObject: any BaseDocumentProtocol,
-        onWidgetsCountChange: ((Int) -> Void)? = nil
+        channelWidgetsObject: any BaseDocumentProtocol
     ) {
         self.spaceId = spaceId
         self.channelWidgetsObject = channelWidgetsObject
-        self.onWidgetsCountChange = onWidgetsCountChange
     }
 
     // MARK: - Subscriptions
@@ -59,15 +54,7 @@ final class PinnedSectionViewModel {
                 .compactMap { channelWidgetsObject.widgetInfo(block: $0) }
 
             guard widgetBlocks != newWidgetBlocks else { continue }
-
-            // Animate count change and block update in the same transaction so parent VStack reflows in lockstep.
-            let countChanged = widgetBlocks.count != newWidgetBlocks.count
-            withAnimation(.default) {
-                if countChanged {
-                    onWidgetsCountChange?(newWidgetBlocks.count)
-                }
-                widgetBlocks = newWidgetBlocks
-            }
+            widgetBlocks = newWidgetBlocks
         }
     }
 
@@ -80,9 +67,7 @@ final class PinnedSectionViewModel {
     // MARK: - Drag-and-drop
 
     func widgetsDropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
-        withAnimation(.default) {
-            widgetBlocks.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
-        }
+        widgetBlocks.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
     }
 
     func widgetsDropFinish(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
