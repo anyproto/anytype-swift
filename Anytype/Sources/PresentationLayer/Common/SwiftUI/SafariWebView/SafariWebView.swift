@@ -3,18 +3,37 @@ import SafariServices
 
 extension View {
     func safariFullScreen(url: Binding<URL?>) -> some View {
-        self.fullScreenCover(item: url) {
-            SafariWebView(url: $0)
-                .ignoresSafeArea()
-        }
+        self
+            .onChange(of: url.wrappedValue) { _, newValue in
+                guard let value = newValue, !value.containsHttpProtocol else { return }
+                url.wrappedValue = nil
+                UIApplication.shared.open(value)
+            }
+            .fullScreenCover(item: safariOnlyBinding(url)) {
+                SafariWebView(url: $0)
+                    .ignoresSafeArea()
+            }
     }
-    
+
     func safariSheet(url: Binding<URL?>) -> some View {
-        self.sheet(item: url) {
-            SafariWebView(url: $0)
-                .ignoresSafeArea()
-        }
+        self
+            .onChange(of: url.wrappedValue) { _, newValue in
+                guard let value = newValue, !value.containsHttpProtocol else { return }
+                url.wrappedValue = nil
+                UIApplication.shared.open(value)
+            }
+            .sheet(item: safariOnlyBinding(url)) {
+                SafariWebView(url: $0)
+                    .ignoresSafeArea()
+            }
     }
+}
+
+private func safariOnlyBinding(_ url: Binding<URL?>) -> Binding<URL?> {
+    Binding(
+        get: { url.wrappedValue?.containsHttpProtocol == true ? url.wrappedValue : nil },
+        set: { url.wrappedValue = $0 }
+    )
 }
 
 struct SafariWebView: UIViewControllerRepresentable {
