@@ -103,7 +103,7 @@ struct MyFavoritesListViewModelTests {
         let task = Task { await model.startSubscriptions() }
         defer { task.cancel() }
 
-        appendObject(to: doc, id: "obj-b", layout: .basic, suffix: "1")
+        install(target: .object(id: "obj-b", layout: .basic), in: doc, suffix: "1")
         doc.simulateUpdate([.general])
         try await waitForRows(count: 2, on: model)
 
@@ -123,7 +123,6 @@ struct MyFavoritesListViewModelTests {
         let task = Task { await model.startSubscriptions() }
         defer { task.cancel() }
 
-        // Direct mutation models the optimistic state independent of `Array.move` semantics.
         model.rows = [model.rows[1], model.rows[0]]
         #expect(model.rows.map(\.details.id) == ["obj-b", "obj-a"])
 
@@ -138,6 +137,13 @@ struct MyFavoritesListViewModelTests {
     private enum WidgetTarget {
         case object(id: String, layout: DetailsLayout?, isDeleted: Bool = false, isArchived: Bool = false)
         case library(id: String)
+
+        var id: String {
+            switch self {
+            case let .object(id, _, _, _): return id
+            case let .library(id): return id
+            }
+        }
     }
 
     private func makeModel(personalDoc: MockBaseDocument) -> MyFavoritesListViewModel {
@@ -151,43 +157,16 @@ struct MyFavoritesListViewModelTests {
 
     private func makeDoc(targets: [WidgetTarget]) -> MockBaseDocument {
         let doc = MockBaseDocument(objectId: "personal-widgets-doc")
-        let infoContainer = doc.mockInfoContainer as! InfoContainerMock
-
         for (index, target) in targets.enumerated() {
-            let suffix = "\(index)"
-            let (widgetBlock, linkBlock, targetId) = makeWidgetAndLink(target: target, suffix: suffix)
-            doc.mockChildren.append(widgetBlock)
-            infoContainer.getReturnInfo[linkBlock.id] = linkBlock
-            if case let .object(_, layout, isDeleted, isArchived) = target {
-                doc.mockDetailsStorage.add(details: makeDetails(
-                    id: targetId,
-                    layout: layout,
-                    isDeleted: isDeleted,
-                    isArchived: isArchived
-                ))
-            }
+            install(target: target, in: doc, suffix: "\(index)")
         }
-
         return doc
     }
 
-    private func appendObject(to doc: MockBaseDocument, id: String, layout: DetailsLayout, suffix: String) {
+    private func install(target: WidgetTarget, in doc: MockBaseDocument, suffix: String) {
         let infoContainer = doc.mockInfoContainer as! InfoContainerMock
-        let (widgetBlock, linkBlock, _) = makeWidgetAndLink(target: .object(id: id, layout: layout), suffix: suffix)
-        doc.mockChildren.append(widgetBlock)
-        infoContainer.getReturnInfo[linkBlock.id] = linkBlock
-        doc.mockDetailsStorage.add(details: makeDetails(id: id, layout: layout, isDeleted: false, isArchived: false))
-    }
-
-    private func makeWidgetAndLink(target: WidgetTarget, suffix: String) -> (BlockInformation, BlockInformation, String) {
         let widgetId = "widget-\(suffix)"
         let linkId = "link-\(suffix)"
-        let targetId: String = {
-            switch target {
-            case let .object(id, _, _, _): return id
-            case let .library(id): return id
-            }
-        }()
 
         let widgetBlock = BlockInformation(
             id: widgetId,
@@ -201,7 +180,7 @@ struct MyFavoritesListViewModelTests {
 
         let linkBlock = BlockInformation(
             id: linkId,
-            content: .link(BlockLink.empty(targetBlockID: targetId)),
+            content: .link(BlockLink.empty(targetBlockID: target.id)),
             backgroundColor: nil,
             horizontalAlignment: .left,
             childrenIds: [],
@@ -209,7 +188,17 @@ struct MyFavoritesListViewModelTests {
             fields: [:]
         )
 
-        return (widgetBlock, linkBlock, targetId)
+        doc.mockChildren.append(widgetBlock)
+        infoContainer.getReturnInfo[linkId] = linkBlock
+
+        if case let .object(id, layout, isDeleted, isArchived) = target {
+            doc.mockDetailsStorage.add(details: makeDetails(
+                id: id,
+                layout: layout,
+                isDeleted: isDeleted,
+                isArchived: isArchived
+            ))
+        }
     }
 
     private func makeDetails(
