@@ -36,6 +36,10 @@ final class PinnedSectionViewModel {
         self.spaceId = spaceId
         self.channelWidgetsObject = channelWidgetsObject
         self.widgetBlocks = buildWidgetBlocks()
+        let canEdit = participantsStorage.participants
+            .first { $0.spaceId == spaceId }?
+            .canEdit ?? false
+        self.homeState = canEdit ? .readwrite : .readonly
     }
 
     // MARK: - Subscriptions
@@ -62,7 +66,9 @@ final class PinnedSectionViewModel {
 
     private func startCanEditSubscription() async {
         for await canEdit in participantsStorage.canEditSequence(spaceId: spaceId) {
-            homeState = canEdit ? .readwrite : .readonly
+            let next: HomeWidgetsState = canEdit ? .readwrite : .readonly
+            guard homeState != next else { continue }
+            homeState = next
         }
     }
 

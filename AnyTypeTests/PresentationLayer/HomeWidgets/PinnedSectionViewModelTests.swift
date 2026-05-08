@@ -57,6 +57,23 @@ struct PinnedSectionViewModelTests {
         #expect(recentStateManager.setupCallCount == 1)
     }
 
+    @Test func init_whenParticipantCanEdit_seedsReadwrite() {
+        participantsStorage.participants = [.mock(spaceId: "space-1", permission: .writer)]
+        let doc = makeDoc(widgetTargets: [])
+
+        let model = PinnedSectionViewModel(spaceId: "space-1", channelWidgetsObject: doc)
+
+        #expect(model.homeState == .readwrite)
+    }
+
+    @Test func init_whenNoParticipantForSpace_seedsReadonly() {
+        let doc = makeDoc(widgetTargets: [])
+
+        let model = PinnedSectionViewModel(spaceId: "space-1", channelWidgetsObject: doc)
+
+        #expect(model.homeState == .readonly)
+    }
+
     // MARK: - subscription path
 
     @Test func subscription_emittingSameState_keepsWidgetBlocksEqual() async throws {
@@ -156,7 +173,7 @@ private final class TestRecentStateManager: HomeWidgetsRecentStateManagerProtoco
 }
 
 private final class TestParticipantsStorage: ParticipantsStorageProtocol, @unchecked Sendable {
-    var participants: [Participant] { [] }
+    var participants: [Participant] = []
 
     var participantsSequence: AnyAsyncSequence<[Participant]> {
         AsyncStream<[Participant]> { _ in }.eraseToAnyAsyncSequence()
