@@ -40,9 +40,7 @@ private struct HomeWidgetsInternalView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            // DEBUG IOS-5812: blue = HomeWidgetsView (post-loading-container, while docs open + sections mount)
-            Color.blue
-                .ignoresSafeArea()
+            HomeWallpaperView(spaceId: model.spaceId)
 
             widgets
 
@@ -92,8 +90,7 @@ private struct HomeWidgetsInternalView: View {
                 SpaceInfoView(spaceId: model.spaceId)
                 InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
                 homeWidget
-                if model.documentsReady,
-                   let channelDoc = model.channelWidgetsObject,
+                if let channelDoc = model.channelWidgetsObject,
                    let personalDoc = model.personalWidgetsObject {
                     ForEach(model.visibleSections, id: \.self) { section in
                         manageableSection(section, channelDoc: channelDoc, personalDoc: personalDoc)
