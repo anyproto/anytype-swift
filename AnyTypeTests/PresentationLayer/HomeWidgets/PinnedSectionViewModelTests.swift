@@ -58,7 +58,7 @@ struct PinnedSectionViewModelTests {
     }
 
     @Test func init_whenParticipantCanEdit_seedsReadwrite() {
-        participantsStorage.participants = [.mock(spaceId: "space-1", permission: .writer)]
+        participantsStorage.participants = [.mock(id: "p-1", permission: .writer, spaceId: "space-1")]
         let doc = makeDoc(widgetTargets: [])
 
         let model = PinnedSectionViewModel(spaceId: "space-1", channelWidgetsObject: doc)
