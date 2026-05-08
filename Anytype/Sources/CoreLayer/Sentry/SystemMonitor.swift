@@ -16,7 +16,7 @@ final class SystemMonitor {
     private var lastInstantProfilerDate: Date?
 
     private enum Constants {
-        static let timedProfilerCooldown: TimeInterval = 5 * 60
+        static let timedProfilerCooldown: TimeInterval = 2 * 60
         static let instantProfilerCooldown: TimeInterval = 30
     }
 
