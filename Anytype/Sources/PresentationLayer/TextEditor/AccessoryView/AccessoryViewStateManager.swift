@@ -301,10 +301,17 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         
         let startPosition = configuration.textView.offsetFromBegining(newMentionPosition)
         let caretOffsetFromStart = configuration.textView.offset(from: newMentionPosition, to: caretPosition)
-        
+
         let mutableString = NSMutableAttributedString(attributedString: configuration.textView.attributedText)
+
+        guard startPosition >= 0,
+              caretOffsetFromStart >= 0,
+              startPosition + caretOffsetFromStart <= mutableString.length else {
+            return nil
+        }
+
         mutableString.replaceCharacters(in: .init(location: startPosition, length: caretOffsetFromStart), with: "")
-        
+
         return (mutableString, startPosition)
     }
 }
