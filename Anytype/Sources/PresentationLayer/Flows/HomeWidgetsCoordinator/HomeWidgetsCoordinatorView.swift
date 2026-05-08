@@ -32,8 +32,15 @@ struct HomeWidgetsCoordinatorView: View {
     let context: WidgetScreenContext
 
     var body: some View {
-        SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) {
-            HomeWidgetsCoordinatorInternalView(info: $0, context: context)
+        SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) { info in
+            HomeWidgetsDocumentsLoaderView(info: info) { channelDoc, personalDoc in
+                HomeWidgetsCoordinatorInternalView(
+                    info: info,
+                    channelWidgetsObject: channelDoc,
+                    personalWidgetsObject: personalDoc,
+                    context: context
+                )
+            }
         }
     }
 }
@@ -44,15 +51,30 @@ private struct HomeWidgetsCoordinatorInternalView: View {
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.dismiss) private var dismiss
 
+    let channelWidgetsObject: any BaseDocumentProtocol
+    let personalWidgetsObject: any BaseDocumentProtocol
     let context: WidgetScreenContext
 
-    init(info: AccountInfo, context: WidgetScreenContext) {
+    init(
+        info: AccountInfo,
+        channelWidgetsObject: any BaseDocumentProtocol,
+        personalWidgetsObject: any BaseDocumentProtocol,
+        context: WidgetScreenContext
+    ) {
         self._model = State(wrappedValue: HomeWidgetsCoordinatorViewModel(info: info))
+        self.channelWidgetsObject = channelWidgetsObject
+        self.personalWidgetsObject = personalWidgetsObject
         self.context = context
     }
 
     var body: some View {
-        HomeWidgetsView(info: model.spaceInfo, context: context, output: model)
+        HomeWidgetsView(
+            info: model.spaceInfo,
+            channelWidgetsObject: channelWidgetsObject,
+            personalWidgetsObject: personalWidgetsObject,
+            context: context,
+            output: model
+        )
             .onAppear {
                 model.pageNavigation = pageNavigation
             }
