@@ -250,10 +250,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     
     private func setup() {
         guard subscriptions.isEmpty else { return }
-        // Seed participant before any updateData() runs, otherwise the first
-        // setPermissions build sees the stale `false` default and consumers
-        // observe a brief permission-denied flicker before the canEditSequence
-        // Task yields.
+        // Seed before first updateData(); canEditSequence yields async and would flicker setPermissions.
         participantIsEditor = accountParticipantsStorage.canEdit(spaceId: spaceId)
         document.syncPublisher.receiveOnMain().sink { [weak self] update in
             self?.updateData()

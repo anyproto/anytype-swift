@@ -292,16 +292,15 @@ final class SetObjectWidgetInternalViewModel {
         setDocument = newSetDocument
         try? await newSetDocument.open()
 
-        // dataView blocks and participant permissions may sync after open() returns;
-        // re-pull body state and create-permission when SetDocument re-emits.
+        // dataView blocks and permissions sync after open(); re-pull on emit.
         dataviewUpdateTask = Task { [weak self] in
             for await update in newSetDocument.setUpdatePublisher.values {
                 guard case .dataviewUpdated = update else { continue }
-                await self?.updateBodyState()
                 guard let self else { continue }
+                await updateBodyState()
                 let nextAllowCreate = newSetDocument.setPermissions.canCreateObject
-                if self.allowCreateObject != nextAllowCreate {
-                    self.allowCreateObject = nextAllowCreate
+                if allowCreateObject != nextAllowCreate {
+                    allowCreateObject = nextAllowCreate
                 }
             }
         }
@@ -314,11 +313,7 @@ final class SetObjectWidgetInternalViewModel {
     
     private func updateModelState() async {
         await updateBodyState()
-
-        // Don't read setPermissions here: it's only assigned inside SetDocument.updateData(),
-        // which is dispatched async via syncPublisher.receiveOnMain(). At this point we'd see
-        // the all-false SetPermissions() default. The dataviewUpdated subscription below
-        // catches the real value as soon as updateData() runs.
+        // setPermissions is assigned async by SetDocument.updateData(); read it in dataviewUpdateTask.
         guard let setDocument, let details = setDocument.details else { return }
         name = details.pluralTitle
         icon = details.objectIconImage
