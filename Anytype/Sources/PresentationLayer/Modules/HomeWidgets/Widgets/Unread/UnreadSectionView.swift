@@ -49,12 +49,8 @@ private struct UnreadSectionViewInternal: View {
         .task {
             await model.startSubscriptions()
         }
-        .onChange(of: model.shouldHideChatBadges) { _, newValue in
+        .onChange(of: model.shouldHideChatBadges, initial: true) { _, newValue in
             onShouldHideBadgesChange(newValue)
-        }
-        .onDisappear {
-            // Section toggled off via Manage Sections — reset so chat badges aren't stuck hidden in sibling sections.
-            onShouldHideBadgesChange(false)
         }
     }
 }

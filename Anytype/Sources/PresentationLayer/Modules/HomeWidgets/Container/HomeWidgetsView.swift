@@ -20,7 +20,8 @@ struct HomeWidgetsView: View {
 
 private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
-    @State private var shouldHideChatBadges: Bool = false
+    // Hide pinned-widget badges by default; UnreadSectionViewModel releases them on first tick.
+    @State private var shouldHideChatBadges: Bool = true
 
     let context: WidgetScreenContext
     weak var panelOutput: (any HomeBottomNavigationPanelModuleOutput)?
@@ -104,7 +105,7 @@ private struct HomeWidgetsInternalView: View {
             }
             .padding(.horizontal, 20)
             .fitIPadToReadableContentGuide()
-            .shouldHideChatBadges(shouldHideChatBadges)
+            .shouldHideChatBadges(model.visibleSections.contains(.unread) && shouldHideChatBadges)
         }
     }
 

@@ -36,9 +36,14 @@ final class UnreadSectionViewModel {
     var unreadItems: [UnreadSectionRowData] = []
     var unreadSectionIsExpanded: Bool = false
     private var supportsMultiChats: Bool = false
+    // Pessimistic until the aggregator's first tick — see `shouldHideChatBadges`.
+    private var didLoadInitial: Bool = false
 
     var shouldShowUnreadSection: Bool { supportsMultiChats && unreadItems.isNotEmpty }
-    var shouldHideChatBadges: Bool { shouldShowUnreadSection && unreadSectionIsExpanded }
+    var shouldHideChatBadges: Bool {
+        guard didLoadInitial else { return true }
+        return shouldShowUnreadSection && unreadSectionIsExpanded
+    }
 
     init(spaceId: String, output: (any CommonWidgetModuleOutput)?) {
         self.spaceId = spaceId
@@ -84,6 +89,9 @@ final class UnreadSectionViewModel {
         let chatTriple = combineLatest(previewsSequence, chatsSequence, spaceViewSequence)
         for await (triple, unreadBySpace) in combineLatest(chatTriple, unreadDiscussionsSequence) {
             let (previews, chatDetails, currentSpaceView) = triple
+
+            // Flip even when the dedupe `guard` below skips the row diff — we now know the real state.
+            if !didLoadInitial { didLoadInitial = true }
 
             let nextSupportsMultiChats = !currentSpaceView.isOneToOne
             if supportsMultiChats != nextSupportsMultiChats { supportsMultiChats = nextSupportsMultiChats }
