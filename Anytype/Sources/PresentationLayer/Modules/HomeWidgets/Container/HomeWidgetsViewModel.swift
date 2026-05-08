@@ -44,6 +44,10 @@ final class HomeWidgetsViewModel {
             : sectionsConfiguration.visibleSections.filter { $0 != .bin }
     }
 
+    var hasUnreadSection: Bool {
+        sectionsConfiguration.visibleSections.contains(.unread)
+    }
+
     init(
         info: AccountInfo,
         output: (any HomeWidgetsModuleOutput)?

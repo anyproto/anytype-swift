@@ -105,7 +105,7 @@ private struct HomeWidgetsInternalView: View {
             }
             .padding(.horizontal, 20)
             .fitIPadToReadableContentGuide()
-            .shouldHideChatBadges(model.visibleSections.contains(.unread) && shouldHideChatBadges)
+            .shouldHideChatBadges(model.hasUnreadSection && shouldHideChatBadges)
         }
     }
 
