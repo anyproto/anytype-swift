@@ -92,6 +92,15 @@ final class PublicDebugMenuViewModel: ObservableObject {
     func debugStat() async throws {
         shareUrlFile = try await debugService.debugStat()
     }
+
+    func generateReport(full: Bool) async throws {
+        try await localAuthWithContinuation(reason: "Generate debug report") { [weak self] in
+            guard let self else { return }
+            let dir = FileManager.default.createTempDirectory().path
+            let result = try await debugService.exportReport(dir: dir, full: full)
+            shareUrlFile = URL(fileURLWithPath: result.path)
+        }
+    }
     
     private func localAuthWithContinuation(reason: String, continuation: @escaping () async throws -> Void) async throws {
         do {
