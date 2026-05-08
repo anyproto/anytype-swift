@@ -71,9 +71,15 @@ final class SetObjectWidgetInternalViewModel {
         self.style = style
         self.widgetObject = data.channelWidgetsObject
         self.output = data.output
-        
+
         let storageProvider = Container.shared.subscriptionStorageProvider.resolve()
         self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: subscriptionId)
+
+        // Avoid a frame of empty row before `targetDetailsPublisher` first ticks.
+        if let details = data.prefetchedDetails {
+            self.name = details.pluralTitle
+            self.icon = details.objectIconImage
+        }
     }
     
     func startSubscriptions() async {

@@ -16,7 +16,7 @@ struct HomeWidgetsView: View {
 
 private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
-    @State var widgetsDndState = DragState()
+    @State private var pinnedWidgetsCount: Int = 0
 
     let context: WidgetScreenContext
     weak var panelOutput: (any HomeBottomNavigationPanelModuleOutput)?
@@ -31,8 +31,8 @@ private struct HomeWidgetsInternalView: View {
         ZStack(alignment: .bottom) {
             HomeWallpaperView(spaceId: model.spaceId)
 
-            content
-                .animation(.default, value: model.widgetBlocks.count)
+            widgets
+                .animation(.default, value: pinnedWidgetsCount)
                 .animation(.default, value: model.myFavoritesListViewModel.rows.count)
                 .animation(.default, value: model.recentlyEditedListViewModel.rows.count)
 
@@ -73,14 +73,6 @@ private struct HomeWidgetsInternalView: View {
         .homeBottomPanelHidden(context.showEmbeddedBottomPanel)
     }
     
-    private var content: some View {
-        ZStack {
-            if model.widgetsDataLoaded && model.objectTypesDataLoaded {
-                widgets
-            }
-        }
-    }
-    
     private var widgets: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -101,7 +93,14 @@ private struct HomeWidgetsInternalView: View {
     @ViewBuilder
     private func manageableSection(_ section: HomeSection) -> some View {
         switch section {
-        case .pinned: blockWidgets
+        case .pinned:
+            PinnedSectionView(
+                info: model.info,
+                channelWidgetsObject: model.channelWidgetsObject,
+                personalWidgetsObject: model.personalWidgetsObject,
+                output: model.output,
+                onWidgetsCountChange: { pinnedWidgetsCount = $0 }
+            )
         case .unread: unreadWidget
         case .myFavorites: myFavoritesWidget
         case .recentlyEdited: recentlyEditedWidget
@@ -132,30 +131,6 @@ private struct HomeWidgetsInternalView: View {
     }
 
     @ViewBuilder
-    private var blockWidgets: some View {
-        if model.widgetBlocks.isNotEmpty {
-            VStack(spacing: 12) {
-                WidgetSwipeTipView()
-                ForEach(model.widgetBlocks) { widgetInfo in
-                    HomeWidgetSubmoduleView(
-                        widgetInfo: widgetInfo,
-                        channelWidgetsObject: model.channelWidgetsObject,
-                        personalWidgetsObject: model.personalWidgetsObject,
-                        workspaceInfo: model.info,
-                        homeState: $model.homeState,
-                        output: model.output
-                    )
-                }
-            }
-            .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
-                model.widgetsDropUpdate(from: from, to: to)
-            } dropFinish: { from, to in
-                model.widgetsDropFinish(from: from, to: to)
-            }
-        }
-    }
-
-    @ViewBuilder
     private var myFavoritesWidget: some View {
         if model.myFavoritesListViewModel.rows.isNotEmpty {
             HomeWidgetsGroupView(title: Loc.myFavorites) {
@@ -181,16 +156,18 @@ private struct HomeWidgetsInternalView: View {
 
     @ViewBuilder
     private var objectTypeWidgets: some View {
-        HomeWidgetsGroupView(title: Loc.types, onTap: {
-            model.onTapObjectTypeHeader()
-        }, onCreate: nil)
-        if model.objectTypeSectionIsExpanded {
-            ObjectTypesUnifiedWidgetView(
-                typeInfos: model.objectTypeWidgets,
-                canCreateType: model.canCreateObjectType,
-                onCreateType: { model.onCreateObjectType() },
-                output: model.output
-            )
+        if model.objectTypesDataLoaded {
+            HomeWidgetsGroupView(title: Loc.types, onTap: {
+                model.onTapObjectTypeHeader()
+            }, onCreate: nil)
+            if model.objectTypeSectionIsExpanded {
+                ObjectTypesUnifiedWidgetView(
+                    typeInfos: model.objectTypeWidgets,
+                    canCreateType: model.canCreateObjectType,
+                    onCreateType: { model.onCreateObjectType() },
+                    output: model.output
+                )
+            }
         }
     }
 

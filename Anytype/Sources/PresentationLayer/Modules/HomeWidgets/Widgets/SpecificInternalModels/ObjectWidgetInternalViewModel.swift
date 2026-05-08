@@ -41,6 +41,13 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
         self.widgetBlockId = data.widgetBlockId
         self.widgetObject = data.channelWidgetsObject
         self.output = data.output
+        // Avoid a frame of empty row before `widgetTargetDetailsPublisher` first ticks.
+        if let details = data.prefetchedDetails {
+            self.linkedObjectDetails = details
+            self.name = details.title
+            self.icon = details.objectIconImage
+            self.allowCreateObject = details.permissions(participantCanEdit: true).canEditBlocks
+        }
     }
     
     func startHeaderSubscription() {}

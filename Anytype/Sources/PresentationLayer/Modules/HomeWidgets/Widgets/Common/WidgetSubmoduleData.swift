@@ -13,4 +13,6 @@ struct WidgetSubmoduleData {
     let homeState: Binding<HomeWidgetsState>
     let spaceInfo: AccountInfo
     let output: (any CommonWidgetModuleOutput)?
+    /// Pre-seeded object details for `.object`-source widgets, enabling synchronous first-render without an empty frame.
+    let prefetchedDetails: ObjectDetails?
 }
