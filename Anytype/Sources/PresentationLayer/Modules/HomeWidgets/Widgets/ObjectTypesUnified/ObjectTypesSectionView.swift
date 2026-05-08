@@ -20,7 +20,6 @@ struct ObjectTypesSectionView: View {
 private struct ObjectTypesSectionViewInternal: View {
 
     @State private var model: ObjectTypesSectionViewModel
-    weak var output: (any CommonWidgetModuleOutput)?
     let onCreateObjectType: () -> Void
 
     init(
@@ -28,9 +27,8 @@ private struct ObjectTypesSectionViewInternal: View {
         output: (any CommonWidgetModuleOutput)?,
         onCreateObjectType: @escaping () -> Void
     ) {
-        self.output = output
         self.onCreateObjectType = onCreateObjectType
-        self._model = State(wrappedValue: ObjectTypesSectionViewModel(spaceId: spaceId))
+        self._model = State(wrappedValue: ObjectTypesSectionViewModel(spaceId: spaceId, output: output))
     }
 
     var body: some View {
@@ -45,7 +43,8 @@ private struct ObjectTypesSectionViewInternal: View {
                         typeInfos: model.objectTypeWidgets,
                         canCreateType: model.canCreateObjectType,
                         onCreateType: onCreateObjectType,
-                        output: output
+                        onTap: { model.onTypeTap(info: $0) },
+                        onCreate: { try await model.onCreateObject(info: $0) }
                     )
                 }
             }
