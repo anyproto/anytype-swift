@@ -396,8 +396,11 @@ extension EditorPageController: EditorPageViewInput {
 
     func itemDidChangeFrame(item: EditorItem) {
         DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            dataSource.apply(dataSource.snapshot(), animatingDifferences: true)
+            guard let self,
+                  let indexPath = dataSource.indexPath(for: item) else { return }
+            collectionView.collectionViewLayout.invalidateLayout(
+                with: CustomInvalidation(indexPaths: [indexPath])
+            )
         }
     }
 
