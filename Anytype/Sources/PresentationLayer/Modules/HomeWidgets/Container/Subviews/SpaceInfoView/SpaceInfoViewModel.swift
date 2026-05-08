@@ -36,6 +36,7 @@ final class SpaceInfoViewModel {
 
     init(spaceId: String) {
         self.spaceId = spaceId
+        applySpaceView(workspaceStorage.spaceView(spaceId: spaceId))
     }
 
     func startSubscriptions() async {
@@ -54,14 +55,18 @@ final class SpaceInfoViewModel {
 
     private func startSpaceTask() async {
         for await spaces in workspaceStorage.activeSpaceViewsPublisher.values {
-            guard let space = spaces.first(where: { $0.targetSpaceId == spaceId }) else { continue }
-            spaceName = space.title
-            spaceIcon = space.objectIconImage
-            sharedSpace = space.isShared
-            isOneToOne = space.isOneToOne
-            oneToOneIdentity = space.oneToOneIdentity
-            updateOneToOneParticipant()
+            applySpaceView(spaces.first(where: { $0.targetSpaceId == spaceId }))
         }
+    }
+
+    private func applySpaceView(_ space: SpaceView?) {
+        guard let space else { return }
+        spaceName = space.title
+        spaceIcon = space.objectIconImage
+        sharedSpace = space.isShared
+        isOneToOne = space.isOneToOne
+        oneToOneIdentity = space.oneToOneIdentity
+        updateOneToOneParticipant()
     }
 
     private func startOneToOneParticipantTask() async {
