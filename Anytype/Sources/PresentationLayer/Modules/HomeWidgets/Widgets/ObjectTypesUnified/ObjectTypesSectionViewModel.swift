@@ -112,21 +112,19 @@ final class ObjectTypesSectionViewModel {
         let alwaysVisibleKeys: Set<ObjectTypeUniqueKey> = [.page, .task, .collection]
 
         for await (types, typeIdsWithObjectsCreated, canEdit) in combineLatest(typesSequence, objectsCreatedSequence, canEditSequence) {
-            canCreateObjectType = canEdit
+            if canCreateObjectType != canEdit { canCreateObjectType = canEdit }
 
-            let widgets: [ObjectTypeWidgetInfo] = types
-                .filter { ($0.recommendedLayout.map { allowedLayouts.contains($0) } ?? false) && !$0.isTemplateType }
-                .filter { typeIdsWithObjectsCreated.contains($0.id) || alwaysVisibleKeys.contains($0.uniqueKey) }
-                .map { type in
-                    let typeCanBeCreated = type.recommendedLayout?.isSupportedForCreation(spaceType: spaceType) ?? false
-                    return ObjectTypeWidgetInfo(
-                        objectTypeId: type.id,
-                        spaceId: spaceId,
-                        name: type.pluralDisplayName,
-                        icon: .object(type.icon),
-                        canCreateObject: typeCanBeCreated && canEdit
-                    )
-                }
+            let widgets: [ObjectTypeWidgetInfo] = types.compactMap { type in
+                guard let layout = type.recommendedLayout, allowedLayouts.contains(layout), !type.isTemplateType else { return nil }
+                guard typeIdsWithObjectsCreated.contains(type.id) || alwaysVisibleKeys.contains(type.uniqueKey) else { return nil }
+                return ObjectTypeWidgetInfo(
+                    objectTypeId: type.id,
+                    spaceId: spaceId,
+                    name: type.pluralDisplayName,
+                    icon: type.icon,
+                    canCreateObject: layout.isSupportedForCreation(spaceType: spaceType) && canEdit
+                )
+            }
 
             if !objectTypesDataLoaded { objectTypesDataLoaded = true }
             guard objectTypeWidgets != widgets else { continue }

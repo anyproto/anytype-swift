@@ -12,7 +12,7 @@ struct ObjectTypesUnifiedRowView: View {
             onTap(info)
         } label: {
             HStack(spacing: 12) {
-                IconView(icon: info.icon)
+                IconView(icon: .object(info.icon))
                     .frame(width: 20, height: 20)
 
                 AnytypeText(info.name, style: .bodySemibold)
