@@ -36,7 +36,7 @@ final class SpaceInfoViewModel {
 
     init(spaceId: String) {
         self.spaceId = spaceId
-        applySpaceView(workspaceStorage.spaceView(spaceId: spaceId))
+        applySpaceView(workspaceStorage.activeSpaceViews.first(where: { $0.targetSpaceId == spaceId }))
     }
 
     func startSubscriptions() async {
