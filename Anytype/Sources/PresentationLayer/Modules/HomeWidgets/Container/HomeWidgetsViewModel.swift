@@ -11,7 +11,6 @@ final class HomeWidgetsViewModel {
 
     private enum Constants {
         static let objectTypeSectionId = "HomeObjectTypeSection"
-        static let unreadSectionId = "HomeUnreadSection"
         static let myFavoritesSectionId = "HomeMyFavoritesSection"
         static let recentlyEditedSectionId = "HomeRecentlyEditedSection"
     }
@@ -36,14 +35,8 @@ final class HomeWidgetsViewModel {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.expandedService) @ObservationIgnored
     private var expandedService: any ExpandedServiceProtocol
-    @Injected(\.chatMessagesPreviewsStorage) @ObservationIgnored
-    private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
     @Injected(\.objectTypesWithObjectsCreatedService) @ObservationIgnored
     private var objectTypesWithObjectsCreatedService: any ObjectTypesWithObjectsCreatedServiceProtocol
-    @Injected(\.chatDetailsStorage) @ObservationIgnored
-    private var chatDetailsStorage: any ChatDetailsStorageProtocol
-    @Injected(\.objectsWithUnreadDiscussionsSubscription) @ObservationIgnored
-    private var unreadDiscussionsSubscription: any ObjectsWithUnreadDiscussionsSubscriptionProtocol
     @Injected(\.homeSectionsStorage) @ObservationIgnored
     private var homeSectionsStorage: any HomeSectionsStorageProtocol
 
@@ -59,24 +52,13 @@ final class HomeWidgetsViewModel {
     var objectTypeSectionIsExpanded: Bool = false
     var canCreateObjectType: Bool = false
     var homeWidgetData: HomepageWidgetViewData?
-    var unreadSectionIsExpanded: Bool = false
-    var unreadItems: [UnreadSectionItem] = []
     var myFavoritesSectionIsExpanded: Bool = false
     var myFavoritesListViewModel: MyFavoritesListViewModel
     var recentlyEditedSectionIsExpanded: Bool = false
     var recentlyEditedListViewModel: RecentlyEditedListViewModel
     var sectionsConfiguration: HomeSectionsConfiguration = .default
-    private var supportsMultiChats: Bool = false
 
     var spaceId: String { info.accountSpaceId }
-
-    var shouldShowUnreadSection: Bool {
-        supportsMultiChats && unreadItems.isNotEmpty
-    }
-
-    var shouldHideChatBadges: Bool {
-        shouldShowUnreadSection && unreadSectionIsExpanded
-    }
 
     init(
         info: AccountInfo,
@@ -106,7 +88,6 @@ final class HomeWidgetsViewModel {
             }
         )
         self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
-        self.unreadSectionIsExpanded = expandedService.isExpanded(id: Constants.unreadSectionId, defaultValue: true)
         self.myFavoritesSectionIsExpanded = expandedService.isExpanded(id: Constants.myFavoritesSectionId, defaultValue: true)
         self.recentlyEditedSectionIsExpanded = expandedService.isExpanded(id: Constants.recentlyEditedSectionId, defaultValue: true)
     }
@@ -117,10 +98,9 @@ final class HomeWidgetsViewModel {
         async let canEditSub: () = startCanEditSubscription()
         async let objectTypesTask: () = startObjectTypesTask()
         async let spaceViewTask: () = startSpaceViewTask()
-        async let unreadItemsTask: () = startUnreadItemsTask()
         async let sectionsConfigurationTask: () = startSectionsConfigurationTask()
 
-        _ = await (myFavoritesSub, recentlyEditedSub, canEditSub, objectTypesTask, spaceViewTask, unreadItemsTask, sectionsConfigurationTask)
+        _ = await (myFavoritesSub, recentlyEditedSub, canEditSub, objectTypesTask, spaceViewTask, sectionsConfigurationTask)
     }
 
     func onAppear() {
@@ -152,13 +132,6 @@ final class HomeWidgetsViewModel {
             objectTypeSectionIsExpanded = !objectTypeSectionIsExpanded
         }
         expandedService.setState(id: Constants.objectTypeSectionId, isExpanded: objectTypeSectionIsExpanded)
-    }
-
-    func onTapUnreadHeader() {
-        withAnimation {
-            unreadSectionIsExpanded = !unreadSectionIsExpanded
-        }
-        expandedService.setState(id: Constants.unreadSectionId, isExpanded: unreadSectionIsExpanded)
     }
 
     func onTapMyFavoritesHeader() {
@@ -236,7 +209,6 @@ final class HomeWidgetsViewModel {
 
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             let spaceView = participantSpaceView.spaceView
-            supportsMultiChats = !spaceView.isOneToOne
 
             // Home widget renders whichever object is set as homepage (Chat / Page / Collection).
             // 1-on-1 channels always home on Chat; `SpaceView.homepage` is unreliable there
@@ -300,58 +272,4 @@ final class HomeWidgetsViewModel {
         }
     }
 
-    private func startUnreadItemsTask() async {
-        let spaceId = spaceId
-        let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
-        guard !(spaceView?.isOneToOne ?? true) else { return }
-
-        let previewsSequence = await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
-        let chatsSequence = await chatDetailsStorage.allChatsSequence
-        let spaceViewSequence = workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values
-        let unreadDiscussionsSequence = await unreadDiscussionsSubscription.unreadBySpaceSequence
-
-        // combineLatest is max-arity 3 — nest two pairs.
-        let chatTriple = combineLatest(previewsSequence, chatsSequence, spaceViewSequence)
-        for await (triple, unreadBySpace) in combineLatest(chatTriple, unreadDiscussionsSequence) {
-            let (previews, chatDetails, currentSpaceView) = triple
-
-            let chatItems: [UnreadSectionItem] = previews.compactMap { preview in
-                guard preview.spaceId == spaceId else { return nil }
-
-                if FeatureFlags.muteAndHide {
-                    let mode = currentSpaceView.effectiveNotificationMode(for: preview.chatId)
-                    if mode == .nothing {
-                        guard preview.mentionCounter > 0 || preview.hasUnreadReactions else { return nil }
-                    }
-                }
-
-                guard preview.hasCounters else { return nil }
-                guard let chatDetail = chatDetails.first(where: { $0.id == preview.chatId }), !chatDetail.isArchivedOrDeleted else {
-                    return nil
-                }
-                return .chat(
-                    UnreadChatWidgetData(id: preview.chatId, spaceId: spaceId, output: output),
-                    lastMessageDate: preview.lastMessage?.createdAt
-                )
-            }
-
-            let parentSource = FeatureFlags.discussionButton ? (unreadBySpace[spaceId]?.parents ?? []) : []
-            let parentItems: [UnreadSectionItem] = parentSource.compactMap { parent in
-                if FeatureFlags.muteAndHide && currentSpaceView.pushNotificationMode == .nothing {
-                    guard parent.hasUnreadMention else { return nil }
-                }
-                // Aggregator admits any subscribed parent; drop fully-caught-up rows here so the section
-                // never shows a name with no badge. Mirrors the chat path's `hasCounters` guard.
-                guard parent.unreadMessageCount > 0 || parent.hasUnreadMention else { return nil }
-                return .discussionParent(
-                    UnreadDiscussionParentWidgetData(id: parent.id, spaceId: spaceId, output: output),
-                    lastMessageDate: parent.lastMessageDate
-                )
-            }
-
-            let merged = (chatItems + parentItems).sorted { $0.sortDate > $1.sortDate }
-            guard unreadItems != merged else { continue }
-            unreadItems = merged
-        }
-    }
 }
