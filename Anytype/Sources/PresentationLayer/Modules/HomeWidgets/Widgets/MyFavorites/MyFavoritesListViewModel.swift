@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import Services
 import AnytypeCore
 
@@ -14,6 +15,8 @@ final class MyFavoritesListViewModel {
     let channelWidgetsObject: any BaseDocumentProtocol
     @ObservationIgnored
     let onObjectSelected: (ObjectDetails) -> Void
+    @ObservationIgnored
+    private let onRowsCountChange: ((Int) -> Void)?
 
     @ObservationIgnored
     let spaceId: String
@@ -35,12 +38,14 @@ final class MyFavoritesListViewModel {
         spaceId: String,
         personalWidgetsObject: any BaseDocumentProtocol,
         channelWidgetsObject: any BaseDocumentProtocol,
-        onObjectSelected: @escaping (ObjectDetails) -> Void
+        onObjectSelected: @escaping (ObjectDetails) -> Void,
+        onRowsCountChange: ((Int) -> Void)? = nil
     ) {
         self.spaceId = spaceId
         self.personalWidgetsObject = personalWidgetsObject
         self.channelWidgetsObject = channelWidgetsObject
         self.onObjectSelected = onObjectSelected
+        self.onRowsCountChange = onRowsCountChange
     }
 
     // MARK: - Subscriptions
@@ -68,8 +73,14 @@ final class MyFavoritesListViewModel {
             //   `widgetTargetDetailsPublisher`, so the parent doesn't need to rebuild for those.
             let newIds = newRows.map(\.id)
             guard sourceIds != newIds else { continue }
-            sourceIds = newIds
-            rows = newRows
+            // Animate count change and rows update in the same transaction so the parent
+            // VStack reflow inherits the animation context.
+            let countChanged = rows.count != newRows.count
+            withAnimation(.default) {
+                if countChanged { onRowsCountChange?(newRows.count) }
+                sourceIds = newIds
+                rows = newRows
+            }
         }
     }
 

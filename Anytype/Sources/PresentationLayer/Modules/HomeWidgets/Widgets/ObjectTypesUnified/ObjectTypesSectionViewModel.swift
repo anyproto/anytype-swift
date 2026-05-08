@@ -35,11 +35,9 @@ final class ObjectTypesSectionViewModel {
     var objectTypeSectionIsExpanded: Bool = false
     var canCreateObjectType: Bool = false
 
-    private static let expandedStorageId = "HomeObjectTypeSection"
-
     init(spaceId: String) {
         self.spaceId = spaceId
-        self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Self.expandedStorageId, defaultValue: true)
+        self.objectTypeSectionIsExpanded = expandedService.isExpanded(section: .objects, defaultValue: true)
     }
 
     // MARK: - Subscriptions
@@ -54,7 +52,7 @@ final class ObjectTypesSectionViewModel {
         withAnimation {
             objectTypeSectionIsExpanded = !objectTypeSectionIsExpanded
         }
-        expandedService.setState(id: Self.expandedStorageId, isExpanded: objectTypeSectionIsExpanded)
+        expandedService.setState(section: .objects, isExpanded: objectTypeSectionIsExpanded)
     }
 
     private func startObjectTypesTask() async {

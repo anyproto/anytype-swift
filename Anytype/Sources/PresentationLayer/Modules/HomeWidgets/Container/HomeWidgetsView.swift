@@ -17,6 +17,8 @@ struct HomeWidgetsView: View {
 private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
     @State private var pinnedWidgetsCount: Int = 0
+    @State private var myFavoritesRowsCount: Int = 0
+    @State private var recentlyEditedRowsCount: Int = 0
     @State private var shouldHideChatBadges: Bool = false
 
     let context: WidgetScreenContext
@@ -34,8 +36,8 @@ private struct HomeWidgetsInternalView: View {
 
             widgets
                 .animation(.default, value: pinnedWidgetsCount)
-                .animation(.default, value: model.myFavoritesListViewModel.rows.count)
-                .animation(.default, value: model.recentlyEditedListViewModel.rows.count)
+                .animation(.default, value: myFavoritesRowsCount)
+                .animation(.default, value: recentlyEditedRowsCount)
 
             if context.showEmbeddedBottomPanel {
                 HomeBottomNavigationPanelView(
@@ -80,7 +82,7 @@ private struct HomeWidgetsInternalView: View {
                 SpaceInfoView(spaceId: model.spaceId)
                 InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
                 homeWidget
-                ForEach(model.sectionsConfiguration.visibleSections, id: \.self) { section in
+                ForEach(model.visibleSections, id: \.self) { section in
                     manageableSection(section)
                 }
                 AnytypeNavigationSpacer(minHeight: context.showEmbeddedBottomPanel ? 72 : 0)
@@ -108,15 +110,29 @@ private struct HomeWidgetsInternalView: View {
                 output: model.output,
                 onShouldHideBadgesChange: { shouldHideChatBadges = $0 }
             )
-        case .myFavorites: myFavoritesWidget
-        case .recentlyEdited: recentlyEditedWidget
+        case .myFavorites:
+            MyFavoritesSectionView(
+                spaceId: model.spaceId,
+                personalWidgetsObject: model.personalWidgetsObject,
+                channelWidgetsObject: model.channelWidgetsObject,
+                output: model.output,
+                onRowsCountChange: { myFavoritesRowsCount = $0 }
+            )
+        case .recentlyEdited:
+            RecentlyEditedSectionView(
+                spaceId: model.spaceId,
+                output: model.output,
+                onRowsCountChange: { recentlyEditedRowsCount = $0 }
+            )
         case .objects:
             ObjectTypesSectionView(
                 spaceId: model.spaceId,
                 output: model.output,
                 onCreateObjectType: { model.output?.onCreateObjectType() }
             )
-        case .bin: binWidget
+        case .bin:
+            BinLinkWidgetView(spaceId: model.spaceId, output: model.output)
+                .padding(.top, 24)
         }
     }
 
@@ -126,38 +142,6 @@ private struct HomeWidgetsInternalView: View {
             HomeWidgetView(data: data)
                 .id("\(data.objectId)-\(data.canSetHomepage)")
                 .padding(.bottom, 8)
-        }
-    }
-
-    @ViewBuilder
-    private var myFavoritesWidget: some View {
-        if model.myFavoritesListViewModel.rows.isNotEmpty {
-            HomeWidgetsGroupView(title: Loc.myFavorites) {
-                model.onTapMyFavoritesHeader()
-            }
-            if model.myFavoritesSectionIsExpanded {
-                MyFavoritesListView(model: model.myFavoritesListViewModel)
-            }
-        }
-    }
-
-    @ViewBuilder
-    private var recentlyEditedWidget: some View {
-        if model.recentlyEditedListViewModel.rows.isNotEmpty {
-            HomeWidgetsGroupView(title: Loc.Widgets.Library.RecentlyEdited.name) {
-                model.onTapRecentlyEditedHeader()
-            }
-            if model.recentlyEditedSectionIsExpanded {
-                RecentlyEditedListView(model: model.recentlyEditedListViewModel)
-            }
-        }
-    }
-
-    @ViewBuilder
-    private var binWidget: some View {
-        if model.homeState.isReadWrite {
-            BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
-                .padding(.top, 24)
         }
     }
 }
