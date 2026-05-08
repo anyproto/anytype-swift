@@ -5,16 +5,12 @@ import AnytypeCore
 
 struct HomeWidgetsView: View {
     let info: AccountInfo
-    let channelWidgetsObject: any BaseDocumentProtocol
-    let personalWidgetsObject: any BaseDocumentProtocol
     let context: WidgetScreenContext
     let output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?
 
     var body: some View {
         HomeWidgetsInternalView(
             info: info,
-            channelWidgetsObject: channelWidgetsObject,
-            personalWidgetsObject: personalWidgetsObject,
             context: context,
             output: output
         )
@@ -31,15 +27,11 @@ private struct HomeWidgetsInternalView: View {
 
     init(
         info: AccountInfo,
-        channelWidgetsObject: any BaseDocumentProtocol,
-        personalWidgetsObject: any BaseDocumentProtocol,
         context: WidgetScreenContext,
         output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?
     ) {
         self._model = State(wrappedValue: HomeWidgetsViewModel(
             info: info,
-            channelWidgetsObject: channelWidgetsObject,
-            personalWidgetsObject: personalWidgetsObject,
             output: output
         ))
         self.context = context
@@ -48,7 +40,9 @@ private struct HomeWidgetsInternalView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            HomeWallpaperView(spaceId: model.spaceId)
+            // DEBUG IOS-5812: blue = HomeWidgetsView (post-loading-container, while docs open + sections mount)
+            Color.blue
+                .ignoresSafeArea()
 
             widgets
 
@@ -59,6 +53,9 @@ private struct HomeWidgetsInternalView: View {
                     output: panelOutput
                 )
             }
+        }
+        .task {
+            await model.openDocuments()
         }
         .task {
             await model.startSubscriptions()
@@ -95,8 +92,12 @@ private struct HomeWidgetsInternalView: View {
                 SpaceInfoView(spaceId: model.spaceId)
                 InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
                 homeWidget
-                ForEach(model.visibleSections, id: \.self) { section in
-                    manageableSection(section)
+                if model.documentsReady,
+                   let channelDoc = model.channelWidgetsObject,
+                   let personalDoc = model.personalWidgetsObject {
+                    ForEach(model.visibleSections, id: \.self) { section in
+                        manageableSection(section, channelDoc: channelDoc, personalDoc: personalDoc)
+                    }
                 }
                 AnytypeNavigationSpacer(minHeight: context.showEmbeddedBottomPanel ? 72 : 0)
             }
@@ -107,13 +108,17 @@ private struct HomeWidgetsInternalView: View {
     }
 
     @ViewBuilder
-    private func manageableSection(_ section: HomeSection) -> some View {
+    private func manageableSection(
+        _ section: HomeSection,
+        channelDoc: any BaseDocumentProtocol,
+        personalDoc: any BaseDocumentProtocol
+    ) -> some View {
         switch section {
         case .pinned:
             PinnedSectionView(
                 info: model.info,
-                channelWidgetsObject: model.channelWidgetsObject,
-                personalWidgetsObject: model.personalWidgetsObject,
+                channelWidgetsObject: channelDoc,
+                personalWidgetsObject: personalDoc,
                 output: model.output
             )
         case .unread:
@@ -125,8 +130,8 @@ private struct HomeWidgetsInternalView: View {
         case .myFavorites:
             MyFavoritesSectionView(
                 spaceId: model.spaceId,
-                personalWidgetsObject: model.personalWidgetsObject,
-                channelWidgetsObject: model.channelWidgetsObject,
+                personalWidgetsObject: personalDoc,
+                channelWidgetsObject: channelDoc,
                 output: model.output
             )
         case .recentlyEdited:

@@ -44,11 +44,9 @@ struct SpaceLoadingContainerView<Content: View>: View {
     
     private var loadingState: some View {
         ZStack {
-            if model.showBackground {
-                HomeWallpaperView(spaceId: model.spaceId)
-            } else {
-                Color.Background.primary
-            }
+            // DEBUG IOS-5812: red = SpaceLoadingContainerView loading state
+            Color.red
+                .ignoresSafeArea()
             VStack(spacing: 0) {
                 NavigationHeader(title: "")
                 Spacer()
