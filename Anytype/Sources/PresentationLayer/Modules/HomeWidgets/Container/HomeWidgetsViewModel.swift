@@ -69,6 +69,7 @@ final class HomeWidgetsViewModel {
             group.addTask { try? await personal.open() }
         }
 
+        guard !Task.isCancelled else { return }
         channelWidgetsObject = channel
         personalWidgetsObject = personal
     }
