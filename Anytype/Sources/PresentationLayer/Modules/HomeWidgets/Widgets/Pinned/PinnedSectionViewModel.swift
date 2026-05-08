@@ -35,6 +35,7 @@ final class PinnedSectionViewModel {
     ) {
         self.spaceId = spaceId
         self.channelWidgetsObject = channelWidgetsObject
+        self.widgetBlocks = buildWidgetBlocks()
     }
 
     // MARK: - Subscriptions
@@ -45,16 +46,17 @@ final class PinnedSectionViewModel {
         _ = await (widgetObjectSub, canEditSub)
     }
 
+    private func buildWidgetBlocks() -> [BlockWidgetInfo] {
+        let blocks = channelWidgetsObject.children.filter(\.isWidget)
+        recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: channelWidgetsObject)
+        return blocks.compactMap { channelWidgetsObject.widgetInfo(block: $0) }
+    }
+
     private func startWidgetObjectTask() async {
         for await _ in channelWidgetsObject.syncPublisher.values {
-            let blocks = channelWidgetsObject.children.filter(\.isWidget)
-            recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: channelWidgetsObject)
-
-            let newWidgetBlocks = blocks
-                .compactMap { channelWidgetsObject.widgetInfo(block: $0) }
-
-            guard widgetBlocks != newWidgetBlocks else { continue }
-            widgetBlocks = newWidgetBlocks
+            let next = buildWidgetBlocks()
+            guard widgetBlocks != next else { continue }
+            widgetBlocks = next
         }
     }
 
