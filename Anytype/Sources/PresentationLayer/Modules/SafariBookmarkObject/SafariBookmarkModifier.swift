@@ -12,6 +12,7 @@ extension View {
 
 struct SafariBookmarkModifier: ViewModifier {
 
+    @Environment(\.openURL) private var openURL
     @Binding var screenData: BookmarkScreenData?
     var onOpenBookmarkAsObject: (_ data: BookmarkScreenData) -> Void
 
@@ -20,7 +21,7 @@ struct SafariBookmarkModifier: ViewModifier {
             .onChange(of: screenData) { _, newValue in
                 guard let url = newValue?.url, !url.containsHttpProtocol else { return }
                 screenData = nil
-                UIApplication.shared.open(url)
+                openURL(url)
             }
             .sheet(item: safariBinding) { data in
                 SafariBookmarkView(url: data.url) {
