@@ -250,6 +250,8 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     
     private func setup() {
         guard subscriptions.isEmpty else { return }
+        // Seed before first updateData(); canEditSequence yields async and would flicker setPermissions.
+        participantIsEditor = accountParticipantsStorage.canEdit(spaceId: spaceId)
         document.syncPublisher.receiveOnMain().sink { [weak self] update in
             self?.updateData()
         }
@@ -291,7 +293,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         let shouldClearState = shouldClearState(prevActiveView: prevActiveView)
         updateSubject.send(.dataviewUpdated(clearState: shouldClearState))
         setPermissions = permissionsBuilder.build(setDocument: self, participantCanEdit: participantIsEditor)
-        
+
         triggerSync()
     }
     
