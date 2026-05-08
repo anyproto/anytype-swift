@@ -34,13 +34,12 @@ struct UnreadRowView: View {
     }
 
     private var titleColor: Color {
-        data.notificationMode == .nothing ? .Text.secondary : .Text.primary
+        data.notificationMode.unreadRowTitleColor
     }
 
-    @ViewBuilder
     private var accessory: some View {
         let mode = data.notificationMode
-        HStack(spacing: 4) {
+        return HStack(spacing: 4) {
             if data.hasUnreadReactions {
                 HeartBadge(style: mode.reactionCounterStyle)
             }
