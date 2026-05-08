@@ -31,10 +31,6 @@ final class HomeWidgetsViewModel {
     private(set) var channelWidgetsObject: (any BaseDocumentProtocol)?
     private(set) var personalWidgetsObject: (any BaseDocumentProtocol)?
 
-    var isWidgetObjectsReady: Bool {
-        channelWidgetsObject != nil && personalWidgetsObject != nil
-    }
-
     // Default false so readonly users never see (and can never tap) the Bin's empty-bin
     // action before `canEdit` resolves. Editors briefly see no Bin section until then —
     // matches pre-refactor `homeState = .readonly` default and `PinnedSectionViewModel`.

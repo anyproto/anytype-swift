@@ -90,10 +90,14 @@ private struct HomeWidgetsInternalView: View {
                 SpaceInfoView(spaceId: model.spaceId)
                 InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
                 homeWidget
-                if let channelDoc = model.channelWidgetsObject,
-                   let personalDoc = model.personalWidgetsObject {
+                if let channelWidgetsObject = model.channelWidgetsObject,
+                   let personalWidgetsObject = model.personalWidgetsObject {
                     ForEach(model.visibleSections, id: \.self) { section in
-                        manageableSection(section, channelDoc: channelDoc, personalDoc: personalDoc)
+                        manageableSection(
+                            section,
+                            channelWidgetsObject: channelWidgetsObject,
+                            personalWidgetsObject: personalWidgetsObject
+                        )
                     }
                 }
                 AnytypeNavigationSpacer(minHeight: context.showEmbeddedBottomPanel ? 72 : 0)
@@ -107,15 +111,15 @@ private struct HomeWidgetsInternalView: View {
     @ViewBuilder
     private func manageableSection(
         _ section: HomeSection,
-        channelDoc: any BaseDocumentProtocol,
-        personalDoc: any BaseDocumentProtocol
+        channelWidgetsObject: any BaseDocumentProtocol,
+        personalWidgetsObject: any BaseDocumentProtocol
     ) -> some View {
         switch section {
         case .pinned:
             PinnedSectionView(
                 info: model.info,
-                channelWidgetsObject: channelDoc,
-                personalWidgetsObject: personalDoc,
+                channelWidgetsObject: channelWidgetsObject,
+                personalWidgetsObject: personalWidgetsObject,
                 output: model.output
             )
         case .unread:
@@ -127,8 +131,8 @@ private struct HomeWidgetsInternalView: View {
         case .myFavorites:
             MyFavoritesSectionView(
                 spaceId: model.spaceId,
-                personalWidgetsObject: personalDoc,
-                channelWidgetsObject: channelDoc,
+                personalWidgetsObject: personalWidgetsObject,
+                channelWidgetsObject: channelWidgetsObject,
                 output: model.output
             )
         case .recentlyEdited:

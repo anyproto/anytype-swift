@@ -18,7 +18,7 @@ struct HomeWidgetsViewModelTests {
 
     // MARK: - openWidgetObjects
 
-    @Test func openWidgetObjects_bothSucceed_setsDocsAndIsWidgetObjectsReadyTrue() async {
+    @Test func openWidgetObjects_bothSucceed_setsBothObjects() async {
         let info = makeAccountInfo(widgetsId: "channel-id", spaceId: "space-id")
         documentsProvider.register(objectId: info.widgetsId, doc: MockBaseDocument(objectId: info.widgetsId))
         documentsProvider.register(objectId: info.personalWidgetsId, doc: MockBaseDocument(objectId: info.personalWidgetsId))
@@ -28,12 +28,11 @@ struct HomeWidgetsViewModelTests {
 
         #expect(model.channelWidgetsObject?.objectId == info.widgetsId)
         #expect(model.personalWidgetsObject?.objectId == info.personalWidgetsId)
-        #expect(model.isWidgetObjectsReady)
         #expect(documentsProvider.requestedObjectIds.contains(info.widgetsId))
         #expect(documentsProvider.requestedObjectIds.contains(info.personalWidgetsId))
     }
 
-    @Test func openWidgetObjects_oneOpenThrows_stillSetsDocsAndFlipsGate() async {
+    @Test func openWidgetObjects_oneOpenThrows_stillSetsBothObjects() async {
         let info = makeAccountInfo(widgetsId: "channel-id", spaceId: "space-id")
         let channelDoc = MockBaseDocument(objectId: info.widgetsId)
         channelDoc.openHandler = { throw TestError.openFailed }
@@ -46,16 +45,14 @@ struct HomeWidgetsViewModelTests {
 
         #expect(model.channelWidgetsObject?.objectId == info.widgetsId)
         #expect(model.personalWidgetsObject?.objectId == info.personalWidgetsId)
-        #expect(model.isWidgetObjectsReady)
     }
 
-    @Test func isWidgetObjectsReady_isFalseBeforeOpenWidgetObjectsResolves() {
+    @Test func widgetObjects_areNilBeforeOpenWidgetObjectsResolves() {
         let info = makeAccountInfo(widgetsId: "channel-id", spaceId: "space-id")
         let model = HomeWidgetsViewModel(info: info, output: nil)
 
         #expect(model.channelWidgetsObject == nil)
         #expect(model.personalWidgetsObject == nil)
-        #expect(!model.isWidgetObjectsReady)
     }
 
     // MARK: - Helpers
