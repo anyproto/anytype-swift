@@ -10,6 +10,20 @@ public enum DebugRunProfilerState: Codable {
     case done(url: URL)
 }
 
+public enum DebugProfilerReason: Sendable {
+    case userRequest
+    case memoryPressureWarn
+    case memoryPressureCritical
+    case thermalSerious
+    case thermalCritical
+}
+
+public struct DebugReportResult: Sendable {
+    public let path: String
+    public let summary: String
+    public let lastModifiedTs: Int64
+}
+
 public protocol DebugServiceProtocol: AnyObject, Sendable {
     func exportLocalStore() async throws -> String
     func exportStackGoroutines() async throws -> String
@@ -22,6 +36,10 @@ public protocol DebugServiceProtocol: AnyObject, Sendable {
 
     @MainActor var debugRunProfilerData: AnyPublisher<DebugRunProfilerState, Never> { get }
     func startDebugRunProfiler()
+
+    func runProfiler(durationInSeconds: Int32, reason: DebugProfilerReason, reasonDesc: String) async
+    func exportReport(dir: String, full: Bool) async throws -> DebugReportResult
+    func cleanupReport(ts: Int64) async
 }
 
 final class DebugService: ObservableObject, DebugServiceProtocol {
@@ -133,13 +151,52 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     func startDebugRunProfiler() {
         Task {
             await storage.setDebugRunProfilerData(.inProgress)
-            
+
             let path = try await ClientCommands.debugRunProfiler(.with {
                 $0.durationInSeconds = 60
+                $0.reason = .userRequest
             }).invoke().path
 
             let url = URL(fileURLWithPath: path)
             await storage.setDebugRunProfilerData(.done(url: url))
+        }
+    }
+
+    func runProfiler(durationInSeconds: Int32, reason: DebugProfilerReason, reasonDesc: String) async {
+        try? await ClientCommands.debugRunProfiler(.with {
+            $0.durationInSeconds = durationInSeconds
+            $0.reason = reason.protoReason
+            $0.reasonDesc = reasonDesc
+        }).invoke()
+    }
+
+    func exportReport(dir: String, full: Bool) async throws -> DebugReportResult {
+        let response = try await ClientCommands.debugExportReport(.with {
+            $0.dir = dir
+            $0.full = full
+        }).invoke()
+        return DebugReportResult(
+            path: response.path,
+            summary: response.summary,
+            lastModifiedTs: response.lastModifiedTs
+        )
+    }
+
+    func cleanupReport(ts: Int64) async {
+        try? await ClientCommands.debugCleanupReport(.with {
+            $0.ts = ts
+        }).invoke()
+    }
+}
+
+private extension DebugProfilerReason {
+    var protoReason: Anytype_Rpc.Debug.RunProfiler.Request.Reason {
+        switch self {
+        case .userRequest: return .userRequest
+        case .memoryPressureWarn: return .memoryPressureWarn
+        case .memoryPressureCritical: return .memoryPressureCritical
+        case .thermalSerious: return .thermalSerious
+        case .thermalCritical: return .thermalCritical
         }
     }
 }
