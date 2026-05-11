@@ -306,11 +306,9 @@ final class HomeWidgetsViewModel {
 
             // Mirror `TreeSubscriptionManager`'s publisher composition: filter to
             // openable objects, sort by parent `.links` order, then apply the limit.
-            let filtered = items.filter(\.isNotDeletedAndSupportedForOpening)
-            let sorted = filtered.sorted { a, b in
-                (linkedObjectDetails.links.firstIndex(of: a.id) ?? 0)
-                    < (linkedObjectDetails.links.firstIndex(of: b.id) ?? 0)
-            }
+            let sorted = items
+                .filter(\.isNotDeletedAndSupportedForOpening)
+                .reordered(by: linkedObjectDetails.links, transform: { $0.id })
             return PrefetchedTreeChildren(childDetails: Array(sorted.prefix(widgetInfo.fixedLimit)))
         }
     }
