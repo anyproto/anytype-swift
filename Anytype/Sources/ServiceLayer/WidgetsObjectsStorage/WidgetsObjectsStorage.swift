@@ -2,7 +2,7 @@ import Foundation
 import Services
 
 @MainActor
-protocol WidgetsObjectsStorageProtocol: Sendable {
+protocol WidgetsObjectsStorageProtocol: AnyObject, Sendable {
     func prepare(info: AccountInfo)
     func waitForReady(spaceId: String) async
     func widgetsObjects(spaceId: String) -> (channel: any BaseDocumentProtocol, personal: any BaseDocumentProtocol)?
