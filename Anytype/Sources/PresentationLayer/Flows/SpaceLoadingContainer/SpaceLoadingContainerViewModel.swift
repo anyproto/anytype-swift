@@ -28,7 +28,7 @@ final class SpaceLoadingContainerViewModel {
         let activeSpaceInfo = activeSpaceManager.workspaceInfo
         if let activeSpaceInfo, activeSpaceInfo.accountSpaceId == spaceId {
             info = activeSpaceInfo
-            Task { [activeSpaceManager] in
+            Task(priority: .high) { [activeSpaceManager] in
                 await activeSpaceManager.prepareWidgets(info: activeSpaceInfo)
             }
         } else {
