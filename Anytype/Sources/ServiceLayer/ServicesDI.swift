@@ -187,7 +187,11 @@ extension Container {
     var documentsProvider: Factory<any DocumentsProviderProtocol> {
         self { DocumentsProvider() }.singleton
     }
-    
+
+    var widgetsObjectsStorage: Factory<any WidgetsObjectsStorageProtocol> {
+        self { WidgetsObjectsStorage() }.singleton
+    }
+
     var expandedService: Factory<any ExpandedServiceProtocol> {
         self { ExpandedService() }.shared
     }

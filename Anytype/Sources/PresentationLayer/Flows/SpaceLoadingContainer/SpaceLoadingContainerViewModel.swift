@@ -9,6 +9,9 @@ final class SpaceLoadingContainerViewModel {
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
     @ObservationIgnored
+    @Injected(\.widgetsObjectsStorage)
+    private var widgetsObjectsStorage: any WidgetsObjectsStorageProtocol
+    @ObservationIgnored
     private let workspacesStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
 
     let spaceId: String
@@ -26,8 +29,9 @@ final class SpaceLoadingContainerViewModel {
         self.spaceId = spaceId
         self.showBackground = showBackground
         let activeSpaceInfo = activeSpaceManager.workspaceInfo
-        if activeSpaceInfo?.accountSpaceId == spaceId {
+        if let activeSpaceInfo, activeSpaceInfo.accountSpaceId == spaceId {
             info = activeSpaceInfo
+            widgetsObjectsStorage.prepare(info: activeSpaceInfo)
         } else {
             // Open space as fast as possible
             openSpace()
@@ -46,11 +50,15 @@ final class SpaceLoadingContainerViewModel {
     }
     
     private func openSpace() {
-        task = Task { [activeSpaceManager, weak self, spaceId] in
+        task = Task(priority: .high) { [activeSpaceManager, weak self, spaceId] in
             self?.errorText = nil
             self?.info = nil
             do {
-                self?.info = try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+                let info = try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+                self?.info = info
+                if let info {
+                    self?.widgetsObjectsStorage.prepare(info: info)
+                }
             } catch {
                 self?.errorText = error.localizedDescription
             }
