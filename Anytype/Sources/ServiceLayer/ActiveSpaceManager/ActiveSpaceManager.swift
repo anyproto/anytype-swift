@@ -9,7 +9,7 @@ protocol ActiveSpaceManagerProtocol: AnyObject, Sendable {
     @discardableResult
     func setActiveSpace(spaceId: String?) async throws -> AccountInfo?
     func prepareSpaceForPreview(spaceId: String) async
-    func prepareWidgets(info: AccountInfo) async
+    func prepareWidgets() async
     func startSubscription() async
     func stopSubscription() async
 }
@@ -64,7 +64,8 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
                 do {
                     let info = try await workspaceService.workspaceOpen(spaceId: spaceId, withChat: true)
                     workspaceStorage.addSpaceInfo(spaceId: spaceId, info: info)
-                    // Kick off widget-doc open in parallel with the two subscription startups.
+                    // prepare spawns its own Task — placing it here lets the widget-doc
+                    // open race with the two subscription startups below.
                     await widgetsObjectsStorage.prepare(info: info)
                     await objectTypeProvider.startSubscription(spaceId: spaceId)
                     await propertyDetailsStorage.startSubscription(spaceId: spaceId)
@@ -109,7 +110,8 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
         await propertyDetailsStorage.prepareData(spaceId: spaceId)
     }
 
-    func prepareWidgets(info: AccountInfo) async {
+    func prepareWidgets() async {
+        guard let info = workspaceInfoStorage.value else { return }
         await widgetsObjectsStorage.prepare(info: info)
     }
     

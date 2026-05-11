@@ -90,6 +90,7 @@ struct WidgetsObjectsStorageTests {
         sut.prepare(info: info)
         await sut.waitForReady(spaceId: info.accountSpaceId)
         let firstChannelCount = documentsProvider.callCount(objectId: info.widgetsId)
+        let firstPersonalCount = documentsProvider.callCount(objectId: info.personalWidgetsId)
         sut.clear()
 
         #expect(sut.widgetsObjects(spaceId: info.accountSpaceId) == nil)
@@ -97,6 +98,7 @@ struct WidgetsObjectsStorageTests {
         sut.prepare(info: info)
         await sut.waitForReady(spaceId: info.accountSpaceId)
         #expect(documentsProvider.callCount(objectId: info.widgetsId) == firstChannelCount + 1)
+        #expect(documentsProvider.callCount(objectId: info.personalWidgetsId) == firstPersonalCount + 1)
     }
 
     @Test func prepare_openThrows_stillExposesDocs() async {
