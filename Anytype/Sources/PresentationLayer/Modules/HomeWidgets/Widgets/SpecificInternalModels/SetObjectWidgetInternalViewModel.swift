@@ -270,18 +270,12 @@ final class SetObjectWidgetInternalViewModel {
         // SetSubscriptionData falls back to createdDate.
         guard setDocument.dataView.views.isNotEmpty else { return }
 
-        let spaceType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.spaceType
-        let setSubData = SetSubscriptionData(
+        let subscriptionData = setSubscriptionDataBuilder.widgetSubscriptionData(
+            widgetInfo: widgetInfo,
+            setDocument: setDocument,
             identifier: subscriptionId,
-            document: setDocument,
-            groupFilter: nil,
-            currentPage: 0,
-            numberOfRowsPerPage: widgetInfo.fixedLimit,
-            collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
-            objectOrderIds: setDocument.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId),
-            spaceType: spaceType
+            spaceType: spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.spaceType
         )
-        let subscriptionData = setSubscriptionDataBuilder.set(setSubData)
 
         try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
             await self?.updateRowDetails(data: data)

@@ -250,11 +250,13 @@ final class HomeWidgetsViewModel {
             do { try await setDocument.open() } catch { return nil }
 
             // `setDocument.updateData()` runs on the next main-queue tick after open()
-            // returns (syncPublisher replays via `receiveOnMain`). Check first in case
-            // it already populated; otherwise await the `.dataviewUpdated` emission.
+            // returns (syncPublisher replays via `receiveOnMain`). Check the actual
+            // state on every emission — `setUpdatePublisher` can emit `.syncStatus`
+            // before `.dataviewUpdated`, and we'd loop without progress if we only
+            // matched on the event variant.
             if !setDocument.dataView.views.isNotEmpty {
-                for await update in setDocument.setUpdatePublisher.values {
-                    if case .dataviewUpdated = update { break }
+                for await _ in setDocument.setUpdatePublisher.values {
+                    if setDocument.dataView.views.isNotEmpty { break }
                 }
             }
 
@@ -293,19 +295,12 @@ final class HomeWidgetsViewModel {
         widgetInfo: BlockWidgetInfo,
         setDocument: any SetDocumentProtocol
     ) -> SubscriptionData {
-        let identifier = "SetWidget-\(UUID().uuidString)"
-        let spaceType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.spaceType
-        let setSubData = SetSubscriptionData(
-            identifier: identifier,
-            document: setDocument,
-            groupFilter: nil,
-            currentPage: 0,
-            numberOfRowsPerPage: widgetInfo.fixedLimit,
-            collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
-            objectOrderIds: setDocument.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId),
-            spaceType: spaceType
+        setSubscriptionDataBuilder.widgetSubscriptionData(
+            widgetInfo: widgetInfo,
+            setDocument: setDocument,
+            identifier: "SetWidget-\(UUID().uuidString)",
+            spaceType: spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.spaceType
         )
-        return setSubscriptionDataBuilder.set(setSubData)
     }
 
     private func withTimeout<T: Sendable>(
