@@ -12,6 +12,14 @@ struct PrefetchedSetSubscription: Sendable {
     let state: SubscriptionStorageState
 }
 
+/// Pre-warmed first-level child rows for expanded `(.tree, .page)` Object Tree widgets.
+/// Pure data — no live storage handoff. The VM seeds `details` synchronously in `init`,
+/// then its own `treeSubscriptionManager` starts a fresh live subscription on mount.
+struct PrefetchedTreeChildren: Sendable {
+    /// First-level children, sorted by parent `.links` order, already limited to `widgetInfo.fixedLimit`.
+    let childDetails: [ObjectDetails]
+}
+
 struct WidgetSubmoduleData {
     let widgetBlockId: String
     /// Shared channel widgets document (`info.widgetsId`) — holds pinned widgets
@@ -27,4 +35,6 @@ struct WidgetSubmoduleData {
     let prefetchedDetails: ObjectDetails?
     /// Pre-warmed set subscription bundle for Set/Type widgets — see `PrefetchedSetSubscription`.
     let prefetchedSetSubscription: PrefetchedSetSubscription?
+    /// Pre-warmed first-level children for Object Tree widgets — see `PrefetchedTreeChildren`.
+    let prefetchedTreeChildren: PrefetchedTreeChildren?
 }

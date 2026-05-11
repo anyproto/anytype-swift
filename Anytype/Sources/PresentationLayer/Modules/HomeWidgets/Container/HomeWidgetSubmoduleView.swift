@@ -11,6 +11,7 @@ struct HomeWidgetSubmoduleView: View {
     let workspaceInfo: AccountInfo
     @Binding var homeState: HomeWidgetsState
     let prefetchedSetSubscription: PrefetchedSetSubscription?
+    let prefetchedTreeChildren: PrefetchedTreeChildren?
     let output: (any CommonWidgetModuleOutput)?
 
     var body: some View {
@@ -81,7 +82,8 @@ struct HomeWidgetSubmoduleView: View {
             spaceInfo: workspaceInfo,
             output: output,
             prefetchedDetails: prefetchedDetails,
-            prefetchedSetSubscription: prefetchedSetSubscription
+            prefetchedSetSubscription: prefetchedSetSubscription,
+            prefetchedTreeChildren: prefetchedTreeChildren
         )
     }
 }
