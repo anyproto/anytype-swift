@@ -53,7 +53,7 @@ private struct HomeWidgetsInternalView: View {
                 )
             }
         }
-        .task {
+        .task(priority: .high) {
             await model.openWidgetObjects()
         }
         .task {
@@ -87,7 +87,7 @@ private struct HomeWidgetsInternalView: View {
     
     private var widgets: some View {
         ScrollView {
-            VStack(spacing: 0) {
+            LazyVStack(spacing: 0) {
                 SpaceInfoView(spaceId: model.spaceId)
                 InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
                 if let channelWidgetsObject = model.channelWidgetsObject,
