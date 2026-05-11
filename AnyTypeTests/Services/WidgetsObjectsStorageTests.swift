@@ -34,8 +34,9 @@ struct WidgetsObjectsStorageTests {
 
         #expect(channelOpened)
         #expect(personalOpened)
-        #expect(sut.channelWidgetsObject(spaceId: info.accountSpaceId)?.objectId == info.widgetsId)
-        #expect(sut.personalWidgetsObject(spaceId: info.accountSpaceId)?.objectId == info.personalWidgetsId)
+        let docs = sut.widgetsObjects(spaceId: info.accountSpaceId)
+        #expect(docs?.channel.objectId == info.widgetsId)
+        #expect(docs?.personal.objectId == info.personalWidgetsId)
     }
 
     @Test func prepare_sameSpaceTwice_doesNotReopen() async {
@@ -68,15 +69,15 @@ struct WidgetsObjectsStorageTests {
         sut.prepare(info: infoB)
         await sut.waitForReady(spaceId: infoB.accountSpaceId)
 
-        #expect(sut.channelWidgetsObject(spaceId: infoA.accountSpaceId) == nil)
-        #expect(sut.personalWidgetsObject(spaceId: infoA.accountSpaceId) == nil)
-        #expect(sut.channelWidgetsObject(spaceId: infoB.accountSpaceId)?.objectId == infoB.widgetsId)
-        #expect(sut.personalWidgetsObject(spaceId: infoB.accountSpaceId)?.objectId == infoB.personalWidgetsId)
+        #expect(sut.widgetsObjects(spaceId: infoA.accountSpaceId) == nil)
+        let docsB = sut.widgetsObjects(spaceId: infoB.accountSpaceId)
+        #expect(docsB?.channel.objectId == infoB.widgetsId)
+        #expect(docsB?.personal.objectId == infoB.personalWidgetsId)
     }
 
     @Test func waitForReady_unknownSpace_returnsImmediately() async {
         await sut.waitForReady(spaceId: "never-prepared")
-        #expect(sut.channelWidgetsObject(spaceId: "never-prepared") == nil)
+        #expect(sut.widgetsObjects(spaceId: "never-prepared") == nil)
     }
 
     @Test func prepare_openThrows_stillExposesDocs() async {
@@ -90,8 +91,7 @@ struct WidgetsObjectsStorageTests {
         sut.prepare(info: info)
         await sut.waitForReady(spaceId: info.accountSpaceId)
 
-        #expect(sut.channelWidgetsObject(spaceId: info.accountSpaceId) != nil)
-        #expect(sut.personalWidgetsObject(spaceId: info.accountSpaceId) != nil)
+        #expect(sut.widgetsObjects(spaceId: info.accountSpaceId) != nil)
     }
 
     // MARK: - Helpers

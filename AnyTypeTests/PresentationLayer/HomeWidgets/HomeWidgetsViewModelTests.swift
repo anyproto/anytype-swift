@@ -34,7 +34,7 @@ struct HomeWidgetsViewModelTests {
         #expect(model.personalWidgetsObject?.objectId == info.personalWidgetsId)
     }
 
-    @Test func openWidgetObjects_storageReturnsNil_leavesObjectsNil() async {
+    @Test func openWidgetObjects_storageNotPreloaded_leavesObjectsNil() async {
         let info = makeAccountInfo(widgetsId: "channel-id", spaceId: "space-id")
         let model = HomeWidgetsViewModel(info: info, output: nil)
 
@@ -44,7 +44,7 @@ struct HomeWidgetsViewModelTests {
         #expect(model.personalWidgetsObject == nil)
     }
 
-    @Test func widgetObjects_areNilBeforeOpenWidgetObjectsResolves() {
+    @Test func widgetObjects_areNilOnInit() {
         let info = makeAccountInfo(widgetsId: "channel-id", spaceId: "space-id")
         let model = HomeWidgetsViewModel(info: info, output: nil)
 
@@ -91,14 +91,9 @@ private final class TestWidgetsObjectsStorage: WidgetsObjectsStorageProtocol {
     func prepare(info: AccountInfo) {}
     func waitForReady(spaceId: String) async {}
 
-    func channelWidgetsObject(spaceId: String) -> (any BaseDocumentProtocol)? {
-        guard self.spaceId == spaceId else { return nil }
-        return channel
-    }
-
-    func personalWidgetsObject(spaceId: String) -> (any BaseDocumentProtocol)? {
-        guard self.spaceId == spaceId else { return nil }
-        return personal
+    func widgetsObjects(spaceId: String) -> (channel: any BaseDocumentProtocol, personal: any BaseDocumentProtocol)? {
+        guard self.spaceId == spaceId, let channel, let personal else { return nil }
+        return (channel, personal)
     }
 }
 

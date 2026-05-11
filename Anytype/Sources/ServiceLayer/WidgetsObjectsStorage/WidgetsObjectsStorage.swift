@@ -5,8 +5,7 @@ import Services
 protocol WidgetsObjectsStorageProtocol: Sendable {
     func prepare(info: AccountInfo)
     func waitForReady(spaceId: String) async
-    func channelWidgetsObject(spaceId: String) -> (any BaseDocumentProtocol)?
-    func personalWidgetsObject(spaceId: String) -> (any BaseDocumentProtocol)?
+    func widgetsObjects(spaceId: String) -> (channel: any BaseDocumentProtocol, personal: any BaseDocumentProtocol)?
 }
 
 @MainActor
@@ -23,8 +22,7 @@ final class WidgetsObjectsStorage: WidgetsObjectsStorageProtocol {
     nonisolated init() {}
 
     func prepare(info: AccountInfo) {
-        if info.accountSpaceId == currentSpaceId,
-           openTask != nil || (channelDoc != nil && personalDoc != nil) {
+        if info.accountSpaceId == currentSpaceId, openTask != nil {
             return
         }
 
@@ -64,13 +62,8 @@ final class WidgetsObjectsStorage: WidgetsObjectsStorageProtocol {
         await task.value
     }
 
-    func channelWidgetsObject(spaceId: String) -> (any BaseDocumentProtocol)? {
-        guard currentSpaceId == spaceId else { return nil }
-        return channelDoc
-    }
-
-    func personalWidgetsObject(spaceId: String) -> (any BaseDocumentProtocol)? {
-        guard currentSpaceId == spaceId else { return nil }
-        return personalDoc
+    func widgetsObjects(spaceId: String) -> (channel: any BaseDocumentProtocol, personal: any BaseDocumentProtocol)? {
+        guard currentSpaceId == spaceId, let channelDoc, let personalDoc else { return nil }
+        return (channelDoc, personalDoc)
     }
 }

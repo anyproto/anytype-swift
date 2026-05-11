@@ -76,11 +76,11 @@ final class HomeWidgetsViewModel {
     }
 
     func openWidgetObjects() async {
-        // Widget container docs are opened upstream in SpaceLoadingContainerViewModel.
+        // Docs may still be opening (kicked off upstream in SpaceLoadingContainerViewModel);
+        // wait so prewarm sees a live channel doc.
         await widgetsObjectsStorage.waitForReady(spaceId: info.accountSpaceId)
         guard !Task.isCancelled,
-              let channel = widgetsObjectsStorage.channelWidgetsObject(spaceId: info.accountSpaceId),
-              let personal = widgetsObjectsStorage.personalWidgetsObject(spaceId: info.accountSpaceId)
+              let (channel, personal) = widgetsObjectsStorage.widgetsObjects(spaceId: info.accountSpaceId)
         else { return }
 
         // Pre-warm before flipping the section gate so Set/Type and expanded Tree
