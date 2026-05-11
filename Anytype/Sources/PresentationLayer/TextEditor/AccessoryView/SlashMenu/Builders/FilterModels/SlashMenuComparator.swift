@@ -13,27 +13,27 @@ struct SlashMenuComparator {
     @MainActor
     static func match(slashAction: SlashAction, string: String, isSingleAction: Bool = false) -> SlashActionFilterMatch? {
         let data = slashAction.displayData
-        let lowecasedTitle = data.title?.lowercased()
+        let title = data.title
         let comparators = [
             SlashMenuComparator(
-                predicate: { lowecasedTitle == $0 },
+                predicate: { title?.compare($0, options: [.caseInsensitive, .diacriticInsensitive], locale: .current) == .orderedSame },
                 result: isSingleAction ? .singleActionFullTitle : .fullTitle
             ),
             SlashMenuComparator(
-                predicate: { lowecasedTitle?.contains($0) ?? false },
+                predicate: { title?.localizedStandardContains($0) ?? false },
                 result: isSingleAction ? .singleActionTitleSubstring : .titleSubstring
             ),
             SlashMenuComparator(
-                predicate: { search in data.titleSynonyms?.contains { $0.lowercased().contains(search) } ?? false },
+                predicate: { search in data.titleSynonyms?.contains { $0.localizedStandardContains(search) } ?? false },
                 result: .titleSynonymsSubstring
             ),
             SlashMenuComparator(
-                predicate: { search in data.aliases?.contains { $0.contains(search) } ?? false },
+                predicate: { search in data.aliases?.contains { $0.localizedStandardContains(search) } ?? false },
                 result: .aliaseSubstring
             ),
         ]
 
-        guard let result = comparators.first(where: { $0.predicate(string.lowercased()) })?.result else {
+        guard let result = comparators.first(where: { $0.predicate(string) })?.result else {
             return nil
         }
 

@@ -255,7 +255,7 @@ final class SpaceHubViewModel {
             spacesToFilter = spaces
         } else {
             spacesToFilter = spaces.filter { space in
-                space.spaceView.name.localizedCaseInsensitiveContains(searchText)
+                space.spaceView.name.localizedStandardContains(searchText)
             }
         }
 
