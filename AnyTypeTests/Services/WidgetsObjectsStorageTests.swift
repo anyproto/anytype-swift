@@ -48,12 +48,14 @@ struct WidgetsObjectsStorageTests {
 
         sut.prepare(info: info)
         await sut.waitForReady(spaceId: info.accountSpaceId)
-        let firstCallCount = documentsProvider.callCount(objectId: info.widgetsId)
+        let firstChannelCount = documentsProvider.callCount(objectId: info.widgetsId)
+        let firstPersonalCount = documentsProvider.callCount(objectId: info.personalWidgetsId)
 
         sut.prepare(info: info)
         await sut.waitForReady(spaceId: info.accountSpaceId)
 
-        #expect(documentsProvider.callCount(objectId: info.widgetsId) == firstCallCount)
+        #expect(documentsProvider.callCount(objectId: info.widgetsId) == firstChannelCount)
+        #expect(documentsProvider.callCount(objectId: info.personalWidgetsId) == firstPersonalCount)
     }
 
     @Test func prepare_differentSpace_dropsPreviousAndOpensNew() async {
