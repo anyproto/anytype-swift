@@ -34,6 +34,13 @@ final class HomeWidgetViewModel {
 
     init(data: HomepageWidgetViewData) {
         self.data = data
+        // Parent gates `homeWidgetData` on `document.details != nil`, so the header can
+        // render fully formed on the first frame instead of flashing empty until the
+        // child's `.task` subscription replays.
+        if let details = data.document.details {
+            self.title = details.pluralTitle
+            self.icon = details.objectIconImage
+        }
     }
 
     func onHeaderTap() {
