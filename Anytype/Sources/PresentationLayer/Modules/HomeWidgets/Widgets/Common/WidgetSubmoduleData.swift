@@ -20,10 +20,7 @@ struct PrefetchedTreeChildren: Sendable {
     let childDetails: [ObjectDetails]
 }
 
-/// Pre-warmed merge of the Unread section so the section header + rows render on the first
-/// frame of the widget surface, instead of popping in after `combineLatest` produces its
-/// first emission. The VM seeds `unreadItems` from `rows` and treats `didLoadInitial = true`,
-/// then its own live subscription takes over on subsequent emits.
+/// Pre-warmed Unread rows; seeds `unreadItems` + `didLoadInitial` before live subscription takes over.
 struct PrefetchedUnreadSection: Sendable {
     let rows: [UnreadSectionRowData]
     let supportsMultiChats: Bool

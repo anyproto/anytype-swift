@@ -241,9 +241,7 @@ final class HomeWidgetsViewModel {
         }
     }
 
-    /// No timeout — the three backing storages are global `.shared` actors started by login,
-    /// so reads are in-memory snapshots. Cold-start aggregator returns `[:]` and the live
-    /// subscription fills parent rows in on the next tick.
+    /// In-memory snapshots — no timeout; cold-start aggregator returns `[:]` and the live subscription fills gaps.
     private func prewarmUnreadSection() async -> PrefetchedUnreadSection? {
         let spaceView = spaceViewsStorage.spaceView(spaceId: spaceId)
         let supportsMultiChats = !(spaceView?.isOneToOne ?? false)

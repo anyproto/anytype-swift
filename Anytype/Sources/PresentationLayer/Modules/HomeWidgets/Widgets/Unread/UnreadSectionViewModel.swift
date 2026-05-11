@@ -53,8 +53,7 @@ final class UnreadSectionViewModel {
         if let prefetched {
             self.unreadItems = prefetched.rows
             self.supportsMultiChats = prefetched.supportsMultiChats
-            // Releases `shouldHideChatBadges` from its pessimistic `true` default so first-frame
-            // pinned chat badges render with their real visibility instead of flashing hidden→visible.
+            // Release `shouldHideChatBadges` from its pessimistic `true` default.
             self.didLoadInitial = true
         } else {
             // Default to multi-chat when spaceView isn't loaded yet — the section is also gated
