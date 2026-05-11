@@ -46,7 +46,7 @@ final class WidgetsObjectsStorage: WidgetsObjectsStorageProtocol {
 
         // Don't reset openTask in the body — a switch A→B that races with A's tail
         // would clobber B's task. A completed Task still resolves waitForReady via .value.
-        openTask = Task {
+        openTask = Task(priority: .high) {
             // `async let` starts personal.open() concurrently with channel.open() so the
             // two opens overlap instead of running sequentially. The trailing await on
             // `personalOpen` keeps the Task body alive until personal also finishes, so
