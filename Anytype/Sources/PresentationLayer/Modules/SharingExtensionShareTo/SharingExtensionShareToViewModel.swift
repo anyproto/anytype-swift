@@ -166,7 +166,7 @@ final class SharingExtensionShareToViewModel {
             chatDisplayMode = chatRows.isEmpty ? nil : .individualChats(chatRows)
         } else {
             let canShowSendToChat = spaceView?.canAddChatWidget ?? false
-            let matchesSearch = searchText.isEmpty || sendToChatTitle.lowercased().contains(searchText.lowercased())
+            let matchesSearch = searchText.isEmpty || sendToChatTitle.localizedStandardContains(searchText)
             if canShowSendToChat && matchesSearch {
                 chatDisplayMode = .sendToChat(SharingExtensionsChatRowData(title: sendToChatTitle, selected: sendToChatSelected))
             } else {

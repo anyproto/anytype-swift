@@ -32,7 +32,7 @@ final class SlashMenuCellDataBuilder {
             }
             return nil
         case .multi(let type, let children):
-            if type.title.localizedCaseInsensitiveContains(filter) {
+            if type.title.localizedStandardContains(filter) {
                 return SlashMenuFilteredItem(title: type.title, topMatch: .groupName, actions: children)
             } else {
                 return filterItemContent(item: item, filter: filter)

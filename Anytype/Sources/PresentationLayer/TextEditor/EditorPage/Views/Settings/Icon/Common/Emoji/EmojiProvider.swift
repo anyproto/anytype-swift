@@ -18,13 +18,11 @@ final class EmojiProvider: @unchecked Sendable {
         defer { lock.unlock() }
         
         guard !keyword.isEmpty else { return emojiGroups }
-        
-        let lowercasedKeyword = keyword.lowercased()
-        
+
         let filteredGroups: [EmojiGroup] = emojiGroups.compactMap { group in
             let filteredEmoji: [EmojiData] = group.emojis.filter { emoji in
                 emoji.searchTerms.first { searchTerm in
-                    searchTerm.lowercased().range(of: lowercasedKeyword).isNotNil
+                    searchTerm.localizedStandardContains(keyword)
                 }.isNotNil
             }
             

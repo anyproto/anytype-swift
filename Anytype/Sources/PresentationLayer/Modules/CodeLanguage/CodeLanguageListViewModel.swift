@@ -48,7 +48,7 @@ final class CodeLanguageListViewModel {
         
         let languages = searchText.isEmpty
             ? CodeLanguage.allCases
-            : CodeLanguage.allCases.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+            : CodeLanguage.allCases.filter { $0.title.localizedStandardContains(searchText) }
         
         rows = languages.map { language in
             CodeLanguageRowModel(
