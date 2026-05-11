@@ -16,7 +16,7 @@ struct SlashMenuComparator {
         let title = data.title
         let comparators = [
             SlashMenuComparator(
-                predicate: { title?.localizedStandardCompare($0) == .orderedSame },
+                predicate: { title?.compare($0, options: [.caseInsensitive, .diacriticInsensitive], locale: .current) == .orderedSame },
                 result: isSingleAction ? .singleActionFullTitle : .fullTitle
             ),
             SlashMenuComparator(
