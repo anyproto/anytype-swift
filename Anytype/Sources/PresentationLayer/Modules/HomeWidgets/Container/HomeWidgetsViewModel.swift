@@ -14,6 +14,8 @@ final class HomeWidgetsViewModel {
 
     @Injected(\.documentsProvider) @ObservationIgnored
     private var documentsProvider: any DocumentsProviderProtocol
+    @Injected(\.widgetsObjectsStorage) @ObservationIgnored
+    private var widgetsObjectsStorage: any WidgetsObjectsStorageProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.homeSectionsStorage) @ObservationIgnored
@@ -74,24 +76,12 @@ final class HomeWidgetsViewModel {
     }
 
     func openWidgetObjects() async {
-        let channel = documentsProvider.document(
-            objectId: info.widgetsId,
-            spaceId: info.accountSpaceId,
-            mode: .handling
-        )
-        let personal = documentsProvider.document(
-            objectId: info.personalWidgetsId,
-            spaceId: info.accountSpaceId,
-            mode: .handling
-        )
-
-        // Personal opens independently of pre-warm (set widgets live in channel only),
-        // so we start it now and only await it before the final gate flip — letting it
-        // overlap with both channel.open() and the per-widget pre-warm work.
-        async let personalOpen: Void? = try? await personal.open()
-        try? await channel.open()
-
-        guard !Task.isCancelled else { return }
+        // Docs may still be opening (kicked off upstream in SpaceLoadingContainerViewModel);
+        // wait so prewarm sees a live channel doc.
+        await widgetsObjectsStorage.waitForReady(spaceId: info.accountSpaceId)
+        guard !Task.isCancelled,
+              let (channel, personal) = widgetsObjectsStorage.widgetsObjects(spaceId: info.accountSpaceId)
+        else { return }
 
         // Pre-warm before flipping the section gate so Set/Type and expanded Tree
         // widgets render rows on the first frame. We accept the loader extension in
@@ -100,7 +90,6 @@ final class HomeWidgetsViewModel {
         async let prefetchedSet = prewarmSetWidgetSubscriptions(channelWidgetsObject: channel)
         async let prefetchedTree = prewarmTreeWidgetChildren(channelWidgetsObject: channel)
         async let prefetchedUnread = prewarmUnreadSection()
-        _ = await personalOpen
         let (setMap, treeMap, unread) = await (prefetchedSet, prefetchedTree, prefetchedUnread)
 
         guard !Task.isCancelled else { return }
