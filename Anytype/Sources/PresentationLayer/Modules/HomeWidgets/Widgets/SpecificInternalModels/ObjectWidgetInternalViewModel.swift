@@ -48,6 +48,11 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
             self.icon = details.objectIconImage
             self.allowCreateObject = details.permissions(participantCanEdit: true).canEditBlocks
         }
+        // Seed limit early: without it, the first emission of `startTreeSubscription`
+        // runs `limitDetails()` against limit=0, emits `details = []` via `detailsPublisher`,
+        // and clobbers `TreeWidgetViewModel.firstLevelSubscriptionData` until
+        // `startInfoSubscription` races in. Cold path benefits too.
+        self.limit = widgetObject.widgetInfo(blockId: widgetBlockId)?.fixedLimit ?? 0
     }
     
     func startHeaderSubscription() {}

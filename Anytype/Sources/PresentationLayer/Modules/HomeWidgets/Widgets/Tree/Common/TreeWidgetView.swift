@@ -17,6 +17,7 @@ struct TreeWidgetView: View {
                 widgetBlockId: data.widgetBlockId,
                 widgetObject: data.channelWidgetsObject,
                 internalModel: internalModel,
+                prefetchedFirstLevel: data.prefetchedTreeChildren?.childDetails,
                 output: data.output
             )
         )

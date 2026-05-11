@@ -50,12 +50,21 @@ final class TreeWidgetViewModel: ObservableObject {
         widgetBlockId: String,
         widgetObject: any BaseDocumentProtocol,
         internalModel: any WidgetInternalViewModelProtocol,
+        prefetchedFirstLevel: [ObjectDetails]?,
         output: (any CommonWidgetModuleOutput)?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.internalModel = internalModel
         self.output = output
+        // Seed rows synchronously when available — `internalModel.detailsPublisher`
+        // is delivered via `receiveOnMain()`, so even an init-time seed in the inner
+        // VM reaches the sink one main-tick later. Without this, the content area
+        // animates from 0pt (rows == nil) to the empty-state placeholder (rows == []).
+        if let prefetchedFirstLevel {
+            self.firstLevelSubscriptionData = prefetchedFirstLevel
+            updateTree()
+        }
         startHeaderSubscription()
         startContentSubscription()
     }
