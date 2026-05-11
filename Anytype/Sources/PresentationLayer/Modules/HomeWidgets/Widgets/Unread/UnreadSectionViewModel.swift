@@ -45,13 +45,21 @@ final class UnreadSectionViewModel {
         return shouldShowUnreadSection && unreadSectionIsExpanded
     }
 
-    init(spaceId: String, output: (any CommonWidgetModuleOutput)?) {
+    init(spaceId: String, prefetched: PrefetchedUnreadSection?, output: (any CommonWidgetModuleOutput)?) {
         self.spaceId = spaceId
         self.output = output
         self.unreadSectionIsExpanded = expandedService.isExpanded(section: .unread, defaultValue: true)
-        // Default to multi-chat when spaceView isn't loaded yet — the section is also gated
-        // by `unreadItems.isNotEmpty`, so multi-chat-but-empty stays invisible.
-        self.supportsMultiChats = !(workspaceStorage.spaceView(spaceId: spaceId)?.isOneToOne ?? false)
+
+        if let prefetched {
+            self.unreadItems = prefetched.rows
+            self.supportsMultiChats = prefetched.supportsMultiChats
+            // Release `shouldHideChatBadges` from its pessimistic `true` default.
+            self.didLoadInitial = true
+        } else {
+            // Default to multi-chat when spaceView isn't loaded yet — the section is also gated
+            // by `unreadItems.isNotEmpty`, so multi-chat-but-empty stays invisible.
+            self.supportsMultiChats = !(workspaceStorage.spaceView(spaceId: spaceId)?.isOneToOne ?? false)
+        }
     }
 
     // MARK: - Subscriptions
@@ -96,55 +104,71 @@ final class UnreadSectionViewModel {
             let nextSupportsMultiChats = !currentSpaceView.isOneToOne
             if supportsMultiChats != nextSupportsMultiChats { supportsMultiChats = nextSupportsMultiChats }
 
-            let chatItems: [UnreadSectionRowData] = previews.compactMap { preview in
-                guard preview.spaceId == spaceId else { return nil }
-
-                let mode = currentSpaceView.effectiveNotificationMode(for: preview.chatId)
-                if FeatureFlags.muteAndHide && mode == .nothing {
-                    guard preview.mentionCounter > 0 || preview.hasUnreadReactions else { return nil }
-                }
-
-                guard preview.hasCounters else { return nil }
-                guard let chatDetail = chatDetails.first(where: { $0.id == preview.chatId }), !chatDetail.isArchivedOrDeleted else {
-                    return nil
-                }
-                return UnreadSectionRowData(
-                    id: chatDetail.id,
-                    details: chatDetail,
-                    notificationMode: mode,
-                    unreadMessageCount: preview.unreadCounter,
-                    unreadMentionCount: preview.mentionCounter,
-                    hasUnreadReactions: preview.hasUnreadReactions,
-                    isSubscribed: true,
-                    lastMessageDate: preview.lastMessage?.createdAt
-                )
-            }
-
-            let parentSource = FeatureFlags.discussionButton ? (unreadBySpace[spaceId]?.parents ?? []) : []
-            let parentMode = currentSpaceView.pushNotificationMode
-            let parentItems: [UnreadSectionRowData] = parentSource.compactMap { parent in
-                if FeatureFlags.muteAndHide && parentMode == .nothing {
-                    guard parent.hasUnreadMention else { return nil }
-                }
-                // Aggregator admits any subscribed parent; drop fully-caught-up rows here so the section
-                // never shows a name with no badge. Mirrors the chat path's `hasCounters` guard.
-                guard parent.unreadMessageCount > 0 || parent.hasUnreadMention else { return nil }
-                return UnreadSectionRowData(
-                    id: parent.id,
-                    details: parent.details,
-                    notificationMode: parentMode,
-                    unreadMessageCount: parent.unreadMessageCount,
-                    unreadMentionCount: parent.unreadMentionCount,
-                    hasUnreadReactions: false,
-                    isSubscribed: parent.isSubscribed,
-                    lastMessageDate: parent.lastMessageDate
-                )
-            }
-
-            let merged = (chatItems + parentItems)
-                .sorted { ($0.lastMessageDate ?? .distantPast) > ($1.lastMessageDate ?? .distantPast) }
+            let merged = Self.mergeUnreadRows(
+                previews: previews,
+                chatDetails: chatDetails,
+                spaceView: currentSpaceView,
+                unreadBySpace: unreadBySpace,
+                spaceId: spaceId
+            )
             guard unreadItems != merged else { continue }
             unreadItems = merged
         }
+    }
+
+    static func mergeUnreadRows(
+        previews: [ChatMessagePreview],
+        chatDetails: [ObjectDetails],
+        spaceView: SpaceView,
+        unreadBySpace: [String: SpaceDiscussionsUnreadInfo],
+        spaceId: String
+    ) -> [UnreadSectionRowData] {
+        let chatItems: [UnreadSectionRowData] = previews.compactMap { preview in
+            guard preview.spaceId == spaceId else { return nil }
+
+            let mode = spaceView.effectiveNotificationMode(for: preview.chatId)
+            if FeatureFlags.muteAndHide && mode == .nothing {
+                guard preview.mentionCounter > 0 || preview.hasUnreadReactions else { return nil }
+            }
+
+            guard preview.hasCounters else { return nil }
+            guard let chatDetail = chatDetails.first(where: { $0.id == preview.chatId }), !chatDetail.isArchivedOrDeleted else {
+                return nil
+            }
+            return UnreadSectionRowData(
+                id: chatDetail.id,
+                details: chatDetail,
+                notificationMode: mode,
+                unreadMessageCount: preview.unreadCounter,
+                unreadMentionCount: preview.mentionCounter,
+                hasUnreadReactions: preview.hasUnreadReactions,
+                isSubscribed: true,
+                lastMessageDate: preview.lastMessage?.createdAt
+            )
+        }
+
+        let parentSource = FeatureFlags.discussionButton ? (unreadBySpace[spaceId]?.parents ?? []) : []
+        let parentMode = spaceView.pushNotificationMode
+        let parentItems: [UnreadSectionRowData] = parentSource.compactMap { parent in
+            if FeatureFlags.muteAndHide && parentMode == .nothing {
+                guard parent.hasUnreadMention else { return nil }
+            }
+            // Aggregator admits any subscribed parent; drop fully-caught-up rows here so the section
+            // never shows a name with no badge. Mirrors the chat path's `hasCounters` guard.
+            guard parent.unreadMessageCount > 0 || parent.hasUnreadMention else { return nil }
+            return UnreadSectionRowData(
+                id: parent.id,
+                details: parent.details,
+                notificationMode: parentMode,
+                unreadMessageCount: parent.unreadMessageCount,
+                unreadMentionCount: parent.unreadMentionCount,
+                hasUnreadReactions: false,
+                isSubscribed: parent.isSubscribed,
+                lastMessageDate: parent.lastMessageDate
+            )
+        }
+
+        return (chatItems + parentItems)
+            .sorted { ($0.lastMessageDate ?? .distantPast) > ($1.lastMessageDate ?? .distantPast) }
     }
 }

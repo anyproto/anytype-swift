@@ -20,6 +20,12 @@ struct PrefetchedTreeChildren: Sendable {
     let childDetails: [ObjectDetails]
 }
 
+/// Pre-warmed Unread rows; seeds `unreadItems` + `didLoadInitial` before live subscription takes over.
+struct PrefetchedUnreadSection: Sendable {
+    let rows: [UnreadSectionRowData]
+    let supportsMultiChats: Bool
+}
+
 struct WidgetSubmoduleData {
     let widgetBlockId: String
     /// Shared channel widgets document (`info.widgetsId`) — holds pinned widgets
