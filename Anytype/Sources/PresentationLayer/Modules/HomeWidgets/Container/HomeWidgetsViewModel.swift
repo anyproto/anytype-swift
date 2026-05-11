@@ -77,22 +77,25 @@ final class HomeWidgetsViewModel {
             mode: .handling
         )
 
-        await withTaskGroup(of: Void.self) { group in
-            group.addTask { try? await channel.open() }
-            group.addTask { try? await personal.open() }
-        }
+        // Personal opens independently of pre-warm (set widgets live in channel only),
+        // so we start it now and only await it before the final gate flip — letting it
+        // overlap with both channel.open() and the per-widget pre-warm work.
+        async let personalOpen: Void? = try? await personal.open()
+        try? await channel.open()
 
         guard !Task.isCancelled else { return }
 
         // Pre-warm before flipping the section gate so Set/Type widgets render rows
         // on the first frame. We accept the loader extension in every context — a
         // visible row-pop is worse than a small delay regardless of presentation.
-        let prefetched = await prewarmSetWidgetSubscriptions(channelWidgetsObject: channel)
+        async let prefetched = prewarmSetWidgetSubscriptions(channelWidgetsObject: channel)
+        _ = await personalOpen
+        let result = await prefetched
 
         guard !Task.isCancelled else { return }
         channelWidgetsObject = channel
         personalWidgetsObject = personal
-        prefetchedSetSubscriptions = prefetched
+        prefetchedSetSubscriptions = result
     }
 
     func startSubscriptions() async {
@@ -315,9 +318,9 @@ final class HomeWidgetsViewModel {
                 try? await Task.sleep(for: .seconds(seconds))
                 return nil
             }
-            let first = await group.next() ?? nil
-            group.cancelAll()
-            return first
+            defer { group.cancelAll() }
+            // `next()` returns Element? = T??; the `?? nil` flattens to T?.
+            return await group.next() ?? nil
         }
     }
 
