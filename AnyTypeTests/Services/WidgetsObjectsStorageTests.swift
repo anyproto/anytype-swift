@@ -82,6 +82,23 @@ struct WidgetsObjectsStorageTests {
         #expect(sut.widgetsObjects(spaceId: "never-prepared") == nil)
     }
 
+    @Test func clear_dropsCurrentStateAndAllowsReopen() async {
+        let info = makeInfo(spaceId: "A")
+        documentsProvider.register(objectId: info.widgetsId, doc: MockBaseDocument(objectId: info.widgetsId))
+        documentsProvider.register(objectId: info.personalWidgetsId, doc: MockBaseDocument(objectId: info.personalWidgetsId))
+
+        sut.prepare(info: info)
+        await sut.waitForReady(spaceId: info.accountSpaceId)
+        let firstChannelCount = documentsProvider.callCount(objectId: info.widgetsId)
+        sut.clear()
+
+        #expect(sut.widgetsObjects(spaceId: info.accountSpaceId) == nil)
+
+        sut.prepare(info: info)
+        await sut.waitForReady(spaceId: info.accountSpaceId)
+        #expect(documentsProvider.callCount(objectId: info.widgetsId) == firstChannelCount + 1)
+    }
+
     @Test func prepare_openThrows_stillExposesDocs() async {
         let info = makeInfo(spaceId: "A")
         let channel = MockBaseDocument(objectId: info.widgetsId)

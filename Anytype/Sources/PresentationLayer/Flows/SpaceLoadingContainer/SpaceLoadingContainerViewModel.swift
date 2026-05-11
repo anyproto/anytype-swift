@@ -54,11 +54,7 @@ final class SpaceLoadingContainerViewModel {
             self?.errorText = nil
             self?.info = nil
             do {
-                let info = try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-                self?.info = info
-                if let info {
-                    self?.widgetsObjectsStorage.prepare(info: info)
-                }
+                self?.info = try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
             } catch {
                 self?.errorText = error.localizedDescription
             }

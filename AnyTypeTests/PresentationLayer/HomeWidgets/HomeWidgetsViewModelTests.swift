@@ -90,6 +90,7 @@ private final class TestWidgetsObjectsStorage: WidgetsObjectsStorageProtocol {
 
     func prepare(info: AccountInfo) {}
     func waitForReady(spaceId: String) async {}
+    func clear() {}
 
     func widgetsObjects(spaceId: String) -> (channel: any BaseDocumentProtocol, personal: any BaseDocumentProtocol)? {
         guard self.spaceId == spaceId, let channel, let personal else { return nil }

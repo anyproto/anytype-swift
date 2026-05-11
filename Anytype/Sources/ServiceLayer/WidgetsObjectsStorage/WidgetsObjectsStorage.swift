@@ -6,6 +6,7 @@ protocol WidgetsObjectsStorageProtocol: AnyObject, Sendable {
     func prepare(info: AccountInfo)
     func waitForReady(spaceId: String) async
     func widgetsObjects(spaceId: String) -> (channel: any BaseDocumentProtocol, personal: any BaseDocumentProtocol)?
+    func clear()
 }
 
 @MainActor
@@ -65,5 +66,13 @@ final class WidgetsObjectsStorage: WidgetsObjectsStorageProtocol {
     func widgetsObjects(spaceId: String) -> (channel: any BaseDocumentProtocol, personal: any BaseDocumentProtocol)? {
         guard currentSpaceId == spaceId, let channelDoc, let personalDoc else { return nil }
         return (channelDoc, personalDoc)
+    }
+
+    func clear() {
+        openTask?.cancel()
+        openTask = nil
+        currentSpaceId = nil
+        channelDoc = nil
+        personalDoc = nil
     }
 }

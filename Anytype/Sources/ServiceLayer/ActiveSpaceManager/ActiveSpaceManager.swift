@@ -34,6 +34,8 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
+    @Injected(\.widgetsObjectsStorage)
+    private var widgetsObjectsStorage: any WidgetsObjectsStorageProtocol
     
     init() {}
     
@@ -61,6 +63,8 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
                 do {
                     let info = try await workspaceService.workspaceOpen(spaceId: spaceId, withChat: true)
                     workspaceStorage.addSpaceInfo(spaceId: spaceId, info: info)
+                    // Kick off widget-doc open in parallel with the two subscription startups.
+                    await widgetsObjectsStorage.prepare(info: info)
                     await objectTypeProvider.startSubscription(spaceId: spaceId)
                     await propertyDetailsStorage.startSubscription(spaceId: spaceId)
                     
@@ -133,6 +137,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
         workspaceInfoStreamInternal.send(nil)
         workspaceInfoStorage.value = nil
         activeSpaceId = nil
+        await widgetsObjectsStorage.clear()
         await objectTypeProvider.stopSubscription()
         await propertyDetailsStorage.stopSubscription()
     }
