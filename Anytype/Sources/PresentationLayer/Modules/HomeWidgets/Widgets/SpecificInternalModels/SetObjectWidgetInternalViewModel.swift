@@ -19,8 +19,8 @@ final class SetObjectWidgetInternalViewModel {
     private let subscriptionStorage: any SubscriptionStorageProtocol
     @ObservationIgnored
     private weak var output: (any CommonWidgetModuleOutput)?
-    private let subscriptionId = "SetWidget-\(UUID().uuidString)"
-    
+    private let subscriptionId: String
+
     @Injected(\.documentsProvider) @ObservationIgnored
     private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.blockWidgetService) @ObservationIgnored
@@ -55,7 +55,16 @@ final class SetObjectWidgetInternalViewModel {
     private var unreadDiscussionsBySpace: [String: SpaceDiscussionsUnreadInfo] = [:]
     @ObservationIgnored
     private var dataviewUpdateTask: Task<Void, Never>?
-    
+    /// `widgetTargetDetailsPublisher` emits both the initial replay (channelWidgets'
+    /// syncPublisher fires `[.general]` on subscribe) AND subsequent change events.
+    /// The initial replay is redundant — `setDocument` was just opened (pre-warm or
+    /// our own `newSetDocument.open()`) so its data is already fresh. Subsequent
+    /// emissions are real change events from other devices; `.preview` mode docs
+    /// don't get live events, so `setDocument.update()` is the only path that picks
+    /// up remote dataView edits (filter/sort/view changes).
+    @ObservationIgnored
+    private var setDocumentJustOpened = false
+
     var dragId: String? { widgetBlockId }
     
     var name: String = ""
@@ -72,13 +81,32 @@ final class SetObjectWidgetInternalViewModel {
         self.widgetObject = data.channelWidgetsObject
         self.output = data.output
 
-        let storageProvider = Container.shared.subscriptionStorageProvider.resolve()
-        self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: subscriptionId)
+        if let prefetched = data.prefetchedSetSubscription {
+            // Reuse the loader's storage so subsequent `updateViewSubscription` calls with
+            // matching data short-circuit at `SubscriptionStorage.startOrUpdateSubscription`'s
+            // `self.data != data` guard — no duplicate ObjectSearchSubscribe.
+            self.subscriptionStorage = prefetched.subscriptionStorage
+            self.subscriptionId = prefetched.subscriptionStorage.subId
+            self.setDocument = prefetched.setDocument
+            self.activeViewId = prefetched.setDocument.activeView.id
+            self.setDocumentJustOpened = true
+        } else {
+            let id = "SetWidget-\(UUID().uuidString)"
+            self.subscriptionId = id
+            let storageProvider = Container.shared.subscriptionStorageProvider.resolve()
+            self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: id)
+        }
 
         // Avoid a frame of empty row before `targetDetailsPublisher` first ticks.
         if let details = data.prefetchedDetails {
             self.name = details.pluralTitle
             self.icon = details.objectIconImage
+        }
+
+        // Synchronous first-frame seed: render rows from the pre-warmed subscription state.
+        // Requires setDocument + activeViewId, both already assigned above when prefetched.
+        if let prefetched = data.prefetchedSetSubscription {
+            updateRowDetails(data: prefetched.state)
         }
     }
     
@@ -261,7 +289,7 @@ final class SetObjectWidgetInternalViewModel {
             spaceType: spaceType
         )
         let subscriptionData = setSubscriptionDataBuilder.set(setSubData)
-        
+
         try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
             await self?.updateRowDetails(data: data)
         }
@@ -281,7 +309,17 @@ final class SetObjectWidgetInternalViewModel {
     
     private func updateSetDocument(objectId: String, spaceId: String) async {
         guard objectId != setDocument?.objectId, spaceId != setDocument?.spaceId else {
-            try? await setDocument?.update()
+            // Same target re-emitted. The first emission after a fresh open is the
+            // publisher's initial replay — skip `update()` then (the doc is already
+            // fresh, an ObjectShow would be wasted). Subsequent emissions are real
+            // remote change events; `.preview` mode docs don't subscribe to live
+            // events, so `update()` is the only way to pick up dataView edits
+            // (filter / sort / view changes) made on another device.
+            if setDocumentJustOpened {
+                setDocumentJustOpened = false
+            } else {
+                try? await setDocument?.update()
+            }
             await updateModelState()
             return
         }
@@ -291,6 +329,8 @@ final class SetObjectWidgetInternalViewModel {
         let newSetDocument = documentsProvider.setDocument(objectId: objectId, spaceId: spaceId, mode: .preview)
         setDocument = newSetDocument
         try? await newSetDocument.open()
+        // Doc is fresh — next same-target emission is the redundant replay; skip `update()` then.
+        setDocumentJustOpened = true
 
         // dataView blocks and permissions sync after open(); re-pull on emit.
         dataviewUpdateTask = Task { [weak self] in

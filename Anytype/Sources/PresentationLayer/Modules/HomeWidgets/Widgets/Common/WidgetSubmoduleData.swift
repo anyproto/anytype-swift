@@ -2,6 +2,17 @@ import Foundation
 import SwiftUI
 import Services
 
+/// Pre-warmed dataview subscription bundle for Set/Type widgets.
+/// Populated by `HomeWidgetsViewModel.openWidgetObjects()` before flipping the section gate
+/// so the widget renders rows on first frame (no header-then-rows pop during transition).
+struct PrefetchedSetSubscription: @unchecked Sendable {
+    let setDocument: any SetDocumentProtocol
+    let subscriptionStorage: any SubscriptionStorageProtocol
+    /// Snapshot captured at pre-warm time. The widget VM seeds rows synchronously from this
+    /// in `init`; the live storage takes over on subsequent emits.
+    let state: SubscriptionStorageState
+}
+
 struct WidgetSubmoduleData {
     let widgetBlockId: String
     /// Shared channel widgets document (`info.widgetsId`) — holds pinned widgets
@@ -15,4 +26,6 @@ struct WidgetSubmoduleData {
     let output: (any CommonWidgetModuleOutput)?
     /// Pre-seeded object details for `.object`-source widgets, enabling synchronous first-render without an empty frame.
     let prefetchedDetails: ObjectDetails?
+    /// Pre-warmed set subscription bundle for Set/Type widgets — see `PrefetchedSetSubscription`.
+    let prefetchedSetSubscription: PrefetchedSetSubscription?
 }
