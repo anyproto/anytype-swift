@@ -9,9 +9,6 @@ final class SpaceLoadingContainerViewModel {
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
     @ObservationIgnored
-    @Injected(\.widgetsObjectsStorage)
-    private var widgetsObjectsStorage: any WidgetsObjectsStorageProtocol
-    @ObservationIgnored
     private let workspacesStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
 
     let spaceId: String
@@ -31,7 +28,9 @@ final class SpaceLoadingContainerViewModel {
         let activeSpaceInfo = activeSpaceManager.workspaceInfo
         if let activeSpaceInfo, activeSpaceInfo.accountSpaceId == spaceId {
             info = activeSpaceInfo
-            widgetsObjectsStorage.prepare(info: activeSpaceInfo)
+            Task { [activeSpaceManager] in
+                await activeSpaceManager.prepareWidgets(info: activeSpaceInfo)
+            }
         } else {
             // Open space as fast as possible
             openSpace()

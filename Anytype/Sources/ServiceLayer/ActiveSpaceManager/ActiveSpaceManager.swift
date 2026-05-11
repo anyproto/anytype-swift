@@ -9,6 +9,7 @@ protocol ActiveSpaceManagerProtocol: AnyObject, Sendable {
     @discardableResult
     func setActiveSpace(spaceId: String?) async throws -> AccountInfo?
     func prepareSpaceForPreview(spaceId: String) async
+    func prepareWidgets(info: AccountInfo) async
     func startSubscription() async
     func stopSubscription() async
 }
@@ -106,6 +107,10 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     func prepareSpaceForPreview(spaceId: String) async {
         await objectTypeProvider.prepareData(spaceId: spaceId)
         await propertyDetailsStorage.prepareData(spaceId: spaceId)
+    }
+
+    func prepareWidgets(info: AccountInfo) async {
+        await widgetsObjectsStorage.prepare(info: info)
     }
     
     // MARK: - Private
