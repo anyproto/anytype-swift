@@ -53,7 +53,7 @@ private struct HomeWidgetsInternalView: View {
                 )
             }
         }
-        .task {
+        .task(priority: .high) {
             await model.openWidgetObjects()
         }
         .task {

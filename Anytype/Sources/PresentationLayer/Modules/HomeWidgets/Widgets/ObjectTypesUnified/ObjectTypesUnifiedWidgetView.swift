@@ -8,7 +8,7 @@ struct ObjectTypesUnifiedWidgetView: View {
     let onCreate: (ObjectTypeWidgetInfo) async throws -> Void
 
     var body: some View {
-        VStack(spacing: 0) {
+        LazyVStack(spacing: 0) {
             ForEach(Array(typeInfos.enumerated()), id: \.element.id) { index, info in
                 ObjectTypesUnifiedRowView(
                     info: info,
