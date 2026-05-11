@@ -38,8 +38,6 @@ final class HomeWidgetsViewModel {
     var sectionsConfiguration: HomeSectionsConfiguration = .default
     private(set) var channelWidgetsObject: (any BaseDocumentProtocol)?
     private(set) var personalWidgetsObject: (any BaseDocumentProtocol)?
-    /// Pre-warmed Set/Type widget subscriptions keyed by widgetBlockId, populated in `openWidgetObjects`.
-    /// Allows Set/Type widgets to render rows on first frame and avoids the mid-transition row pop.
     private(set) var prefetchedSetSubscriptions: [String: PrefetchedSetSubscription] = [:]
 
     // Default false so readonly users never see (and can never tap) the Bin's empty-bin
@@ -86,10 +84,9 @@ final class HomeWidgetsViewModel {
 
         guard !Task.isCancelled else { return }
 
-        // Pre-warm Set/Type widget subscriptions before flipping the section gate.
-        // Rows are ready on first frame — no mid-transition row-pop jump. Runs in
-        // every context (slide-in and overlay) because a visible jump is worse
-        // than a small loader delay regardless of how the screen was presented.
+        // Pre-warm before flipping the section gate so Set/Type widgets render rows
+        // on the first frame. We accept the loader extension in every context — a
+        // visible row-pop is worse than a small delay regardless of presentation.
         let prefetched = await prewarmSetWidgetSubscriptions(channelWidgetsObject: channel)
 
         guard !Task.isCancelled else { return }
@@ -191,19 +188,21 @@ final class HomeWidgetsViewModel {
 
     // MARK: - Set/Type widget pre-warm
 
-    /// Maximum time we hold the gate waiting for any single widget's subscription
-    /// to first-emit. If a widget exceeds this, that one widget falls back to today's
-    /// behavior (header first, rows later) while the rest of the screen renders clean.
+    /// Per-widget budget. A slow widget falls back to its own mount-time open
+    /// (header first, rows later) instead of stalling the whole gate.
     private static let prewarmTimeout: TimeInterval = 0.6
 
     private func prewarmSetWidgetSubscriptions(
         channelWidgetsObject: any BaseDocumentProtocol
     ) async -> [String: PrefetchedSetSubscription] {
-        let setWidgets = channelWidgetsObject.children
-            .filter(\.isWidget)
-            .compactMap { channelWidgetsObject.widgetInfo(block: $0) }
-            .filter { Self.isSetTypeWidget(widgetInfo: $0) }
-            .filter { expandedService.isExpanded(id: $0.id, defaultValue: true) }
+        let setWidgets = channelWidgetsObject.children.compactMap { child -> BlockWidgetInfo? in
+            guard child.isWidget,
+                  let info = channelWidgetsObject.widgetInfo(block: child),
+                  Self.isSetTypeWidget(widgetInfo: info),
+                  expandedService.isExpanded(id: info.id, defaultValue: true)
+            else { return nil }
+            return info
+        }
 
         guard setWidgets.isNotEmpty else { return [:] }
 
@@ -226,9 +225,8 @@ final class HomeWidgetsViewModel {
         }
     }
 
-    /// Matches `HomeWidgetSubmoduleView`'s Set/Type routing: `.list`/`.type` objects shown
-    /// as `.view` / `.list` / `.compactList` layouts. Tree widgets (`.tree` + `.page`) are
-    /// not pre-warmed — their `ObjectSubscribeIds` already settles in single-digit ms.
+    /// Matches `HomeWidgetSubmoduleView`'s Set/Type routing — Tree widgets aren't
+    /// pre-warmed because their `ObjectSubscribeIds` settles in single-digit ms.
     private static func isSetTypeWidget(widgetInfo: BlockWidgetInfo) -> Bool {
         guard case let .object(details) = widgetInfo.source else { return false }
         let validViewType = details.editorViewType == .list || details.editorViewType == .type
@@ -248,10 +246,9 @@ final class HomeWidgetsViewModel {
 
             do { try await setDocument.open() } catch { return nil }
 
-            // After `open()` returns, `setDocument.updateData()` runs on the next main-queue tick
-            // (BaseDocument's `syncPublisher` replays `[.general]` via `receiveOnMain`). Subscribe
-            // to `setUpdatePublisher` to catch that first `.dataviewUpdated` event; check the
-            // populated state first in case it raced us.
+            // `setDocument.updateData()` runs on the next main-queue tick after open()
+            // returns (syncPublisher replays via `receiveOnMain`). Check first in case
+            // it already populated; otherwise await the `.dataviewUpdated` emission.
             if !setDocument.dataView.views.isNotEmpty {
                 for await update in setDocument.setUpdatePublisher.values {
                     if case .dataviewUpdated = update { break }
@@ -276,8 +273,8 @@ final class HomeWidgetsViewModel {
                 return nil
             }
 
-            // `statePublisher` is built from CurrentValueSubject, so a subscribe AFTER the
-            // start-or-update call replays the current state synchronously through the filter.
+            // `statePublisher` is backed by CurrentValueSubject, so subscribing after
+            // `startOrUpdateSubscription` returns replays the current state immediately.
             for await state in storage.statePublisher.values {
                 return PrefetchedSetSubscription(
                     setDocument: setDocument,
