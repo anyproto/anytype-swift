@@ -165,6 +165,7 @@ final class EditorPageController: UIViewController {
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
+        guard isEditing != editing else { return }
         super.setEditing(editing, animated: animated)
         collectionView.isEditing = editing
         bottomNavigationManager.multiselectActive(!editing)
@@ -435,8 +436,6 @@ extension EditorPageController: EditorPageViewInput {
         case .header, .system:
             return
         }
-
-        handleState(state: viewModel.blocksStateManager.editingState)
     }
     
     func isAllSelected() -> Bool {
