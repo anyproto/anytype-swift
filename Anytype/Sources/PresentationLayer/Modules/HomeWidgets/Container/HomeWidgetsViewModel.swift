@@ -241,12 +241,9 @@ final class HomeWidgetsViewModel {
         }
     }
 
-    /// Snapshot the four sources backing the Unread section and run the same merge the live
-    /// subscription would run, so `UnreadSectionViewModel` can seed `unreadItems` on first
-    /// frame and the section header + rows render without the one-frame pop-in. No timeout —
-    /// all three storages are global `.shared` actors started by login time, so reads are
-    /// in-memory snapshots; cold-start aggregator returns `[:]` and the live subscription
-    /// fills parent rows in on the next tick.
+    /// No timeout — the three backing storages are global `.shared` actors started by login,
+    /// so reads are in-memory snapshots. Cold-start aggregator returns `[:]` and the live
+    /// subscription fills parent rows in on the next tick.
     private func prewarmUnreadSection() async -> PrefetchedUnreadSection? {
         let spaceView = spaceViewsStorage.spaceView(spaceId: spaceId)
         let supportsMultiChats = !(spaceView?.isOneToOne ?? false)

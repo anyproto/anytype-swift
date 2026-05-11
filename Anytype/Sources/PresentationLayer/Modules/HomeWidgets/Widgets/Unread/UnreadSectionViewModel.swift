@@ -51,11 +51,10 @@ final class UnreadSectionViewModel {
         self.unreadSectionIsExpanded = expandedService.isExpanded(section: .unread, defaultValue: true)
 
         if let prefetched {
-            // Seed first-frame state: rows already merged, multi-chat decided, aggregator
-            // treated as having ticked so `shouldHideChatBadges` reports its real value
-            // immediately instead of the pessimistic `true` default.
             self.unreadItems = prefetched.rows
             self.supportsMultiChats = prefetched.supportsMultiChats
+            // Releases `shouldHideChatBadges` from its pessimistic `true` default so first-frame
+            // pinned chat badges render with their real visibility instead of flashing hidden→visible.
             self.didLoadInitial = true
         } else {
             // Default to multi-chat when spaceView isn't loaded yet — the section is also gated
