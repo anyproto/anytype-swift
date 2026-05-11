@@ -128,6 +128,7 @@ private struct HomeWidgetsInternalView: View {
         case .unread:
             UnreadSectionView(
                 spaceId: model.spaceId,
+                prefetched: model.prefetchedUnreadSection,
                 output: model.output,
                 onShouldHideBadgesChange: { shouldHideChatBadges = $0 }
             )

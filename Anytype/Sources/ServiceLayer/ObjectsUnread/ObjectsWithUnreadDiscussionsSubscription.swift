@@ -4,6 +4,7 @@ import AsyncTools
 
 protocol ObjectsWithUnreadDiscussionsSubscriptionProtocol: AnyObject, Sendable {
     var unreadBySpaceSequence: AnyAsyncSequence<[String: SpaceDiscussionsUnreadInfo]> { get async }
+    var snapshot: [String: SpaceDiscussionsUnreadInfo] { get async }
     func startSubscription() async
     func stopSubscription() async
 }
@@ -29,6 +30,10 @@ actor ObjectsWithUnreadDiscussionsSubscription: ObjectsWithUnreadDiscussionsSubs
 
     var unreadBySpaceSequence: AnyAsyncSequence<[String: SpaceDiscussionsUnreadInfo]> {
         unreadBySpaceStream.subscribe([:]).eraseToAnyAsyncSequence()
+    }
+
+    var snapshot: [String: SpaceDiscussionsUnreadInfo] {
+        lastEmittedAggregate ?? [:]
     }
 
     func startSubscription() async {

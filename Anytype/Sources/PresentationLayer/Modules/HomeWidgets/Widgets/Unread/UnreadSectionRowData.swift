@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-struct UnreadSectionRowData: Identifiable, Equatable {
+struct UnreadSectionRowData: Identifiable, Equatable, Sendable {
     let id: String
     let details: ObjectDetails
     let notificationMode: SpacePushNotificationsMode

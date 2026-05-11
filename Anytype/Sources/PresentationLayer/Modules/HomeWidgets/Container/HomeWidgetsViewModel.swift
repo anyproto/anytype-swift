@@ -28,6 +28,12 @@ final class HomeWidgetsViewModel {
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     @Injected(\.spaceViewsStorage) @ObservationIgnored
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
+    @Injected(\.chatMessagesPreviewsStorage) @ObservationIgnored
+    private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
+    @Injected(\.chatDetailsStorage) @ObservationIgnored
+    private var chatDetailsStorage: any ChatDetailsStorageProtocol
+    @Injected(\.objectsWithUnreadDiscussionsSubscription) @ObservationIgnored
+    private var unreadDiscussionsSubscription: any ObjectsWithUnreadDiscussionsSubscriptionProtocol
 
     @ObservationIgnored
     weak var output: (any HomeWidgetsModuleOutput)?
@@ -40,6 +46,7 @@ final class HomeWidgetsViewModel {
     private(set) var personalWidgetsObject: (any BaseDocumentProtocol)?
     private(set) var prefetchedSetSubscriptions: [String: PrefetchedSetSubscription] = [:]
     private(set) var prefetchedTreeChildren: [String: PrefetchedTreeChildren] = [:]
+    private(set) var prefetchedUnreadSection: PrefetchedUnreadSection?
 
     // Default false so readonly users never see (and can never tap) the Bin's empty-bin
     // action before `canEdit` resolves. Editors briefly see no Bin section until then —
@@ -92,14 +99,16 @@ final class HomeWidgetsViewModel {
         // of presentation.
         async let prefetchedSet = prewarmSetWidgetSubscriptions(channelWidgetsObject: channel)
         async let prefetchedTree = prewarmTreeWidgetChildren(channelWidgetsObject: channel)
+        async let prefetchedUnread = prewarmUnreadSection()
         _ = await personalOpen
-        let (setMap, treeMap) = await (prefetchedSet, prefetchedTree)
+        let (setMap, treeMap, unread) = await (prefetchedSet, prefetchedTree, prefetchedUnread)
 
         guard !Task.isCancelled else { return }
         channelWidgetsObject = channel
         personalWidgetsObject = personal
         prefetchedSetSubscriptions = setMap
         prefetchedTreeChildren = treeMap
+        prefetchedUnreadSection = unread
     }
 
     func startSubscriptions() async {
@@ -230,6 +239,34 @@ final class HomeWidgetsViewModel {
             }
             return result
         }
+    }
+
+    /// Snapshot the four sources backing the Unread section and run the same merge the live
+    /// subscription would run, so `UnreadSectionViewModel` can seed `unreadItems` on first
+    /// frame and the section header + rows render without the one-frame pop-in. No timeout —
+    /// all three storages are global `.shared` actors started by login time, so reads are
+    /// in-memory snapshots; cold-start aggregator returns `[:]` and the live subscription
+    /// fills parent rows in on the next tick.
+    private func prewarmUnreadSection() async -> PrefetchedUnreadSection? {
+        let spaceView = spaceViewsStorage.spaceView(spaceId: spaceId)
+        let supportsMultiChats = !(spaceView?.isOneToOne ?? false)
+        guard supportsMultiChats else { return nil }
+
+        async let previews = chatMessagesPreviewsStorage.previews()
+        async let chats = chatDetailsStorage.allChats()
+        async let unreadBySpace = unreadDiscussionsSubscription.snapshot
+
+        let (p, c, u) = await (previews, chats, unreadBySpace)
+        guard let spaceView else { return PrefetchedUnreadSection(rows: [], supportsMultiChats: true) }
+
+        let rows = UnreadSectionViewModel.mergeUnreadRows(
+            previews: p,
+            chatDetails: c,
+            spaceView: spaceView,
+            unreadBySpace: u,
+            spaceId: spaceId
+        )
+        return PrefetchedUnreadSection(rows: rows, supportsMultiChats: true)
     }
 
     private func prewarmTreeWidgetChildren(
