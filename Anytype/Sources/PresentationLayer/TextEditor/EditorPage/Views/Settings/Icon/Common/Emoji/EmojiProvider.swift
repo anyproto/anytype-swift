@@ -21,9 +21,7 @@ final class EmojiProvider: @unchecked Sendable {
 
         let filteredGroups: [EmojiGroup] = emojiGroups.compactMap { group in
             let filteredEmoji: [EmojiData] = group.emojis.filter { emoji in
-                emoji.searchTerms.first { searchTerm in
-                    searchTerm.localizedStandardContains(keyword)
-                }.isNotNil
+                emoji.searchTerms.contains { $0.localizedStandardContains(keyword) }
             }
             
             guard !filteredEmoji.isEmpty else { return nil }
