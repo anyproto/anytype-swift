@@ -121,6 +121,7 @@ private struct HomeWidgetsInternalView: View {
                 info: model.info,
                 channelWidgetsObject: channelWidgetsObject,
                 personalWidgetsObject: personalWidgetsObject,
+                prefetchedSetSubscriptions: model.prefetchedSetSubscriptions,
                 output: model.output
             )
         case .unread:
