@@ -351,6 +351,14 @@ extension Container {
     var p2pStatusStorage: Factory< any P2PStatusStorageProtocol> {
         self { P2PStatusStorage() }.singleton
     }
+
+    var thermalProfilerTrigger: Factory<any ThermalProfilerTriggerProtocol> {
+        self { ThermalProfilerTrigger() }.singleton
+    }
+
+    var memoryPressureProfilerTrigger: Factory<any MemoryPressureProfilerTriggerProtocol> {
+        self { MemoryPressureProfilerTrigger() }.singleton
+    }
     
     var participantSubscriptionProvider: Factory<any ParticipantsSubscriptionProviderProtocol> {
         self { ParticipantsSubscriptionProvider() }.singleton

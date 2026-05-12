@@ -1,0 +1,62 @@
+import Foundation
+import Services
+import AnytypeCore
+import Logger
+
+protocol MemoryPressureProfilerTriggerProtocol: AnyObject, Sendable {
+    func startSubscription() async
+    func stopSubscriptionAndClean() async
+}
+
+actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
+
+    private static let log = EventLogger(category: "MemoryPressureProfilerTrigger")
+
+    private static let cooldown: Duration = .seconds(30)
+
+    @Injected(\.debugService)
+    private var debugService: any DebugServiceProtocol
+
+    private let now: @Sendable () -> ContinuousClock.Instant
+    private var source: DispatchSourceMemoryPressure?
+    private var lastTrigger: ContinuousClock.Instant?
+
+    init(now: @escaping @Sendable () -> ContinuousClock.Instant = { ContinuousClock.now }) {
+        self.now = now
+    }
+
+    func startSubscription() async {
+        let source = DispatchSource.makeMemoryPressureSource(eventMask: [.warning, .critical], queue: .main)
+        source.setEventHandler { [weak self, weak source] in
+            let data = source?.data ?? []
+            Task { await self?.handle(data: data) }
+        }
+        source.resume()
+        self.source = source
+    }
+
+    func stopSubscriptionAndClean() async {
+        source?.cancel()
+        source = nil
+        lastTrigger = nil
+    }
+
+    func handle(data: DispatchSource.MemoryPressureEvent) async {
+        if data.contains(.critical) {
+            await trigger(reason: .memoryPressureCritical, desc: "iOS memory pressure: critical")
+        } else if data.contains(.warning) {
+            await trigger(reason: .memoryPressureWarn, desc: "iOS memory pressure: warning")
+        }
+    }
+
+    private func trigger(reason: DebugProfilerReason, desc: String) async {
+        let instant = now()
+        if let lastTrigger, lastTrigger.duration(to: instant) < Self.cooldown {
+            Self.log.debug("Profiler skipped (cooldown): \(reason)")
+            return
+        }
+        lastTrigger = instant
+        Self.log.debug("Profiler triggered: \(reason)")
+        await debugService.runProfiler(durationInSeconds: 0, reason: reason, reasonDesc: desc)
+    }
+}
