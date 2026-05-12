@@ -18,6 +18,20 @@ enum HomeSection: String, CaseIterable, Codable, Sendable {
         case .bin: "Bin"
         }
     }
+
+    // UserDefaults key for the section's expand/collapse state. `nil` for sections
+    // without a persistent expand state (Pinned and Bin). String values must stay
+    // stable so existing user state survives.
+    var expandedStorageId: String? {
+        switch self {
+        case .unread:         "HomeUnreadSection"
+        case .pinned:          nil
+        case .myFavorites:    "HomeMyFavoritesSection"
+        case .recentlyEdited: "HomeRecentlyEditedSection"
+        case .objects:        "HomeObjectTypeSection"
+        case .bin:             nil
+        }
+    }
 }
 
 struct HomeSectionsConfiguration: Codable, Equatable, Sendable {
@@ -27,4 +41,16 @@ struct HomeSectionsConfiguration: Codable, Equatable, Sendable {
     static let `default` = HomeSectionsConfiguration(
         visibleSections: [.pinned, .unread, .myFavorites, .recentlyEdited, .objects, .bin]
     )
+}
+
+extension ExpandedServiceProtocol {
+    func isExpanded(section: HomeSection, defaultValue: Bool) -> Bool {
+        guard let id = section.expandedStorageId else { return defaultValue }
+        return isExpanded(id: id, defaultValue: defaultValue)
+    }
+
+    func setState(section: HomeSection, isExpanded: Bool) {
+        guard let id = section.expandedStorageId else { return }
+        setState(id: id, isExpanded: isExpanded)
+    }
 }

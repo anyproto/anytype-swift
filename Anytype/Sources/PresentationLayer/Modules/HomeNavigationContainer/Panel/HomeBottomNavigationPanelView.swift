@@ -38,14 +38,14 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         VStack(spacing: 0) {
             GlassEffectContainerIOS26(spacing: 20) {
                 HStack {
+                    searchButton
+                        .glassEffectIDIOS26("search", in: glassNamespace)
+                    Spacer()
                     if model.showDiscussButton {
                         discussIsland
                             .glassEffectIDIOS26("discussIsland", in: glassNamespace)
-                    } else {
-                        searchButton
-                            .glassEffectIDIOS26("search", in: glassNamespace)
+                        Spacer()
                     }
-                    Spacer()
                     if model.canCreateObject {
                         createButton
                             .glassEffectIDIOS26("create", in: glassNamespace)
@@ -98,15 +98,15 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         return Button {
             model.onTapDiscuss()
         } label: {
-            HStack(spacing: 4) {
+            HStack(spacing: 6) {
                 Image(systemName: model.discussButtonHasUnread ? "message.badge" : "message")
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(
                         model.discussButtonHasUnread ? Color.Control.accent100 : Color.Control.primary,
                         Color.Control.primary
                     )
-                    .font(.system(size: 20))
-                    .frame(width: 32, height: 32)
+                    .font(.system(size: 17))
+                    .frame(width: 24, height: 24)
                 if hasCount {
                     AnytypeText("\(model.commentsCount)", style: .previewTitle2Medium)
                         .foregroundStyle(Color.Text.primary)
@@ -114,9 +114,8 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                         .transition(.opacity.combined(with: .scale(scale: 0.5, anchor: .leading)))
                 }
             }
-            .padding(.leading, 8)
-            .padding(.vertical, 8)
-            .padding(.trailing, hasCount ? 12 : 8)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
         }
         .glassEffectInteractiveIOS26(in: Capsule())
         .animation(.snappy(duration: 0.35), value: hasCount)

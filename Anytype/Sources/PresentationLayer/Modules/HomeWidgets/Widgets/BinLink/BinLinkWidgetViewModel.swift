@@ -21,17 +21,17 @@ final class BinLinkWidgetViewModel {
 
     var toastData: ToastBarData?
     var binAlertData: BinConfirmationAlertData? = nil
-    
+
     init(spaceId: String, output: (any CommonWidgetModuleOutput)?) {
         self.spaceId = spaceId
         self.output = output
     }
-    
+
     func onHeaderTap() {
         AnytypeAnalytics.instance().logClickWidgetTitle(source: .bin, createType: .manual)
         output?.onObjectSelected(screenData: .editor(.bin(spaceId: spaceId)))
     }
-    
+
     func onEmptyBinTap() async throws {
         let binIds = try await searchService.searchArchiveObjectIds(spaceId: spaceId)
         guard binIds.isNotEmpty else {

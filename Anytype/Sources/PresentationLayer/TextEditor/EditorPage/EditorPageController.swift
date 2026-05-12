@@ -165,6 +165,7 @@ final class EditorPageController: UIViewController {
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
+        guard isEditing != editing else { return }
         super.setEditing(editing, animated: animated)
         collectionView.isEditing = editing
         bottomNavigationManager.multiselectActive(!editing)
@@ -396,8 +397,11 @@ extension EditorPageController: EditorPageViewInput {
 
     func itemDidChangeFrame(item: EditorItem) {
         DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            dataSource.apply(dataSource.snapshot(), animatingDifferences: true)
+            guard let self,
+                  let indexPath = dataSource.indexPath(for: item) else { return }
+            collectionView.collectionViewLayout.invalidateLayout(
+                with: CustomInvalidation(indexPaths: [indexPath])
+            )
         }
     }
 
@@ -432,8 +436,6 @@ extension EditorPageController: EditorPageViewInput {
         case .header, .system:
             return
         }
-
-        handleState(state: viewModel.blocksStateManager.editingState)
     }
     
     func isAllSelected() -> Bool {

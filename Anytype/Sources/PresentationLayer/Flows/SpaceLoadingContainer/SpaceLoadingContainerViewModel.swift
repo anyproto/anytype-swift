@@ -26,8 +26,11 @@ final class SpaceLoadingContainerViewModel {
         self.spaceId = spaceId
         self.showBackground = showBackground
         let activeSpaceInfo = activeSpaceManager.workspaceInfo
-        if activeSpaceInfo?.accountSpaceId == spaceId {
+        if let activeSpaceInfo, activeSpaceInfo.accountSpaceId == spaceId {
             info = activeSpaceInfo
+            task = Task(priority: .high) { [activeSpaceManager] in
+                await activeSpaceManager.prepareWidgets()
+            }
         } else {
             // Open space as fast as possible
             openSpace()
@@ -46,7 +49,7 @@ final class SpaceLoadingContainerViewModel {
     }
     
     private func openSpace() {
-        task = Task { [activeSpaceManager, weak self, spaceId] in
+        task = Task(priority: .high) { [activeSpaceManager, weak self, spaceId] in
             self?.errorText = nil
             self?.info = nil
             do {

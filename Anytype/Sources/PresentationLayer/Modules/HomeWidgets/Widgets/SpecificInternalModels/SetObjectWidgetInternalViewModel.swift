@@ -19,8 +19,8 @@ final class SetObjectWidgetInternalViewModel {
     private let subscriptionStorage: any SubscriptionStorageProtocol
     @ObservationIgnored
     private weak var output: (any CommonWidgetModuleOutput)?
-    private let subscriptionId = "SetWidget-\(UUID().uuidString)"
-    
+    private let subscriptionId: String
+
     @Injected(\.documentsProvider) @ObservationIgnored
     private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.blockWidgetService) @ObservationIgnored
@@ -55,7 +55,12 @@ final class SetObjectWidgetInternalViewModel {
     private var unreadDiscussionsBySpace: [String: SpaceDiscussionsUnreadInfo] = [:]
     @ObservationIgnored
     private var dataviewUpdateTask: Task<Void, Never>?
-    
+    /// Skip the very first `setDocument.update()` after a fresh open: that emission
+    /// is the publisher's initial replay, not a real change event. Subsequent emissions
+    /// are remote edits — `.preview` mode docs need explicit `update()` to refresh.
+    @ObservationIgnored
+    private var setDocumentJustOpened = false
+
     var dragId: String? { widgetBlockId }
     
     var name: String = ""
@@ -71,9 +76,31 @@ final class SetObjectWidgetInternalViewModel {
         self.style = style
         self.widgetObject = data.channelWidgetsObject
         self.output = data.output
-        
-        let storageProvider = Container.shared.subscriptionStorageProvider.resolve()
-        self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: subscriptionId)
+
+        if let prefetched = data.prefetchedSetSubscription {
+            // Reuse the loader's storage so the VM's later `startOrUpdateSubscription`
+            // with matching data short-circuits — no duplicate ObjectSearchSubscribe.
+            self.subscriptionStorage = prefetched.subscriptionStorage
+            self.subscriptionId = prefetched.subscriptionStorage.subId
+            self.setDocument = prefetched.setDocument
+            self.activeViewId = prefetched.setDocument.activeView.id
+            self.setDocumentJustOpened = true
+        } else {
+            let id = "SetWidget-\(UUID().uuidString)"
+            self.subscriptionId = id
+            let storageProvider = Container.shared.subscriptionStorageProvider.resolve()
+            self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: id)
+        }
+
+        // Avoid a frame of empty row before `targetDetailsPublisher` first ticks.
+        if let details = data.prefetchedDetails {
+            self.name = details.pluralTitle
+            self.icon = details.objectIconImage
+        }
+
+        if let prefetched = data.prefetchedSetSubscription {
+            updateRowDetails(data: prefetched.state)
+        }
     }
     
     func startSubscriptions() async {
@@ -160,29 +187,27 @@ final class SetObjectWidgetInternalViewModel {
     // MARK: - Private for view updates
     
     private func updateRows(rowDetails: [SetContentViewItemConfiguration]?) {
-        withAnimation(rows.rowsIsNil ? nil : .default) {
-            showUnsupportedBanner = (style == .view) && !(setDocument?.activeView.type.isSupportedOnDevice ?? false)
-         
-            switch style {
-            case .list:
-                let listRows = buildListRows(from: rowDetails)
-                rows = .list(rows: listRows, id: activeViewId ?? "")
-            case .compactList:
-                let listRows = buildListRows(from: rowDetails)
-                rows = .compactList(rows: listRows, id: activeViewId ?? "")
-            case .view:
-                if isSetByImageType() {
+        showUnsupportedBanner = (style == .view) && !(setDocument?.activeView.type.isSupportedOnDevice ?? false)
+
+        switch style {
+        case .list:
+            let listRows = buildListRows(from: rowDetails)
+            rows = .list(rows: listRows, id: activeViewId ?? "")
+        case .compactList:
+            let listRows = buildListRows(from: rowDetails)
+            rows = .compactList(rows: listRows, id: activeViewId ?? "")
+        case .view:
+            if isSetByImageType() {
+                let galleryRows = rowDetails.map { widgetRowModelBuilder.buildGalleryRows(from: $0) }
+                rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
+            } else {
+                switch setDocument?.activeView.type {
+                case .table, .list, .kanban, .calendar, .graph, nil:
+                    let listRows = buildListRows(from: rowDetails)
+                    rows = .compactList(rows: listRows, id: activeViewId ?? "")
+                case .gallery:
                     let galleryRows = rowDetails.map { widgetRowModelBuilder.buildGalleryRows(from: $0) }
                     rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
-                } else {
-                    switch setDocument?.activeView.type {
-                    case .table, .list, .kanban, .calendar, .graph, nil:
-                        let listRows = buildListRows(from: rowDetails)
-                        rows = .compactList(rows: listRows, id: activeViewId ?? "")
-                    case .gallery:
-                        let galleryRows = rowDetails.map { widgetRowModelBuilder.buildGalleryRows(from: $0) }
-                        rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
-                    }
                 }
             }
         }
@@ -210,17 +235,15 @@ final class SetObjectWidgetInternalViewModel {
     }
     
     private func updateHeader(dataviewState: WidgetDataviewState?) {
-        withAnimation(headerItems.isNil ? nil : .default) {
-            headerItems = dataviewState?.dataview.map { dataView in
-                ViewWidgetTabsItemModel(
-                    dataviewId: dataView.id,
-                    title: dataView.nameWithPlaceholder,
-                    isSelected: dataView.id == dataviewState?.activeViewId,
-                    onTap: { [weak self] in
-                        self?.onActiveViewTap(dataView.id)
-                    }
-                )
-            }
+        headerItems = dataviewState?.dataview.map { dataView in
+            ViewWidgetTabsItemModel(
+                dataviewId: dataView.id,
+                title: dataView.nameWithPlaceholder,
+                isSelected: dataView.id == dataviewState?.activeViewId,
+                onTap: { [weak self] in
+                    self?.onActiveViewTap(dataView.id)
+                }
+            )
         }
     }
     
@@ -247,19 +270,13 @@ final class SetObjectWidgetInternalViewModel {
         // SetSubscriptionData falls back to createdDate.
         guard setDocument.dataView.views.isNotEmpty else { return }
 
-        let spaceType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.spaceType
-        let setSubData = SetSubscriptionData(
+        let subscriptionData = setSubscriptionDataBuilder.widgetSubscriptionData(
+            widgetInfo: widgetInfo,
+            setDocument: setDocument,
             identifier: subscriptionId,
-            document: setDocument,
-            groupFilter: nil,
-            currentPage: 0,
-            numberOfRowsPerPage: widgetInfo.fixedLimit,
-            collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
-            objectOrderIds: setDocument.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId),
-            spaceType: spaceType
+            spaceType: spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.spaceType
         )
-        let subscriptionData = setSubscriptionDataBuilder.set(setSubData)
-        
+
         try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
             await self?.updateRowDetails(data: data)
         }
@@ -279,7 +296,11 @@ final class SetObjectWidgetInternalViewModel {
     
     private func updateSetDocument(objectId: String, spaceId: String) async {
         guard objectId != setDocument?.objectId, spaceId != setDocument?.spaceId else {
-            try? await setDocument?.update()
+            if setDocumentJustOpened {
+                setDocumentJustOpened = false
+            } else {
+                try? await setDocument?.update()
+            }
             await updateModelState()
             return
         }
@@ -289,12 +310,18 @@ final class SetObjectWidgetInternalViewModel {
         let newSetDocument = documentsProvider.setDocument(objectId: objectId, spaceId: spaceId, mode: .preview)
         setDocument = newSetDocument
         try? await newSetDocument.open()
+        setDocumentJustOpened = true
 
-        // dataView blocks may sync after open() returns; re-trigger updateBodyState when they do.
+        // dataView blocks and permissions sync after open(); re-pull on emit.
         dataviewUpdateTask = Task { [weak self] in
             for await update in newSetDocument.setUpdatePublisher.values {
                 guard case .dataviewUpdated = update else { continue }
-                await self?.updateBodyState()
+                guard let self else { continue }
+                await updateBodyState()
+                let nextAllowCreate = newSetDocument.setPermissions.canCreateObject
+                if allowCreateObject != nextAllowCreate {
+                    allowCreateObject = nextAllowCreate
+                }
             }
         }
 
@@ -306,11 +333,8 @@ final class SetObjectWidgetInternalViewModel {
     
     private func updateModelState() async {
         await updateBodyState()
-    
-        guard let setDocument else { return }
-        allowCreateObject = setDocument.setPermissions.canCreateObject
-        
-        guard let details = setDocument.details else { return }
+        // setPermissions is assigned async by SetDocument.updateData(); read it in dataviewUpdateTask.
+        guard let setDocument, let details = setDocument.details else { return }
         name = details.pluralTitle
         icon = details.objectIconImage
     }

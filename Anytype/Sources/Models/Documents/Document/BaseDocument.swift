@@ -204,7 +204,23 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         guard let model = infoContainer.get(id: objectId) else {
             return children
         }
-        return model.flatChildrenTree(container: infoContainer)
+        let flat = model.flatChildrenTree(container: infoContainer)
+        var seen = Set<String>()
+        seen.reserveCapacity(flat.count)
+        var unique = [BlockInformation]()
+        unique.reserveCapacity(flat.count)
+        for info in flat {
+            if seen.insert(info.id).inserted {
+                unique.append(info)
+            }
+        }
+        if unique.count != flat.count {
+            anytypeAssertionFailure(
+                "Duplicate block ids in flat children tree",
+                info: ["objectId": objectId, "duplicates": "\(flat.count - unique.count)"]
+            )
+        }
+        return unique
     }
     
     private func triggerSync(updates: [DocumentUpdate]) {

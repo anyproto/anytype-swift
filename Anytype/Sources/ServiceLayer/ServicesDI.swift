@@ -187,7 +187,23 @@ extension Container {
     var documentsProvider: Factory<any DocumentsProviderProtocol> {
         self { DocumentsProvider() }.singleton
     }
-    
+
+    var widgetsObjectsStorage: Factory<any WidgetsObjectsStorageProtocol> {
+        self { WidgetsObjectsStorage() }.singleton
+    }
+
+    var setWidgetsPrewarmer: Factory<any SetWidgetsPrewarmerProtocol> {
+        self { SetWidgetsPrewarmer() }.singleton
+    }
+
+    var treeWidgetsPrewarmer: Factory<any TreeWidgetsPrewarmerProtocol> {
+        self { TreeWidgetsPrewarmer() }.singleton
+    }
+
+    var unreadSectionPrewarmer: Factory<any UnreadSectionPrewarmerProtocol> {
+        self { UnreadSectionPrewarmer() }.singleton
+    }
+
     var expandedService: Factory<any ExpandedServiceProtocol> {
         self { ExpandedService() }.shared
     }

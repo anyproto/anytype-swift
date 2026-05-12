@@ -2,32 +2,28 @@ import SwiftUI
 import Services
 
 struct ObjectTypesUnifiedRowView: View {
+    let info: ObjectTypeWidgetInfo
     let showDivider: Bool
-
-    @State private var model: ObjectTypesUnifiedRowViewModel
-
-    init(info: ObjectTypeWidgetInfo, showDivider: Bool, output: (any CommonWidgetModuleOutput)?) {
-        self.showDivider = showDivider
-        self._model = State(wrappedValue: ObjectTypesUnifiedRowViewModel(info: info, output: output))
-    }
+    let onTap: (ObjectTypeWidgetInfo) -> Void
+    let onCreate: (ObjectTypeWidgetInfo) async throws -> Void
 
     var body: some View {
         Button {
-            model.onTapType()
+            onTap(info)
         } label: {
             HStack(spacing: 12) {
-                IconView(icon: model.typeIcon)
+                IconView(icon: .object(info.icon))
                     .frame(width: 20, height: 20)
 
-                AnytypeText(model.typeName, style: .bodySemibold)
+                AnytypeText(info.name, style: .bodySemibold)
                     .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
 
                 Spacer()
 
-                if model.canCreateObject {
+                if info.canCreateObject {
                     AsyncButton {
-                        try await model.onCreateObject()
+                        try await onCreate(info)
                     } label: {
                         Image(asset: .X18.plus)
                             .foregroundStyle(Color.Text.secondary)
@@ -41,9 +37,6 @@ struct ObjectTypesUnifiedRowView: View {
         .padding(.vertical, 12)
         .if(showDivider) {
             $0.newDivider(leadingPadding: 16, trailingPadding: 16, color: .Widget.divider)
-        }
-        .task(priority: .low) {
-            await model.startSubscriptions()
         }
     }
 }

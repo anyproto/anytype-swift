@@ -105,7 +105,7 @@ extension SetFiltersListViewModel {
         rows = activeFilters.enumerated().map { index, filter in
             let isAdvanced = filter.isAdvanced
             return SetFilterRowConfiguration(
-                id: "\(filter.relationDetails.id)_\(index)",
+                id: filter.filter.id,
                 title: isAdvanced ? Loc.EditSet.Popup.Filter.Advanced.title : filter.relationDetails.name,
                 subtitle: isAdvanced ? Loc.EditSet.Popup.Filter.Advanced.subtitle : filter.conditionString,
                 iconAsset: isAdvanced ? .X24.lock : filter.relationDetails.format.iconAsset,

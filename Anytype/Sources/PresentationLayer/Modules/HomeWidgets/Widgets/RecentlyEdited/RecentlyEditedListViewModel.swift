@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import Services
 import AnytypeCore
 
@@ -42,7 +43,8 @@ final class RecentlyEditedListViewModel {
             type: .recentEdit,
             objectLimit: Constants.limit,
             update: { [weak self] details in
-                self?.rows = details.map { RecentlyEditedRowData(id: $0.id, details: $0) }
+                guard let self else { return }
+                self.rows = details.map { RecentlyEditedRowData(id: $0.id, details: $0) }
             }
         )
     }

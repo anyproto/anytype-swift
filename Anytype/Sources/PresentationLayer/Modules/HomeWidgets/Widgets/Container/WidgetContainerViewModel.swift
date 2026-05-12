@@ -121,18 +121,11 @@ final class WidgetContainerViewModel {
         }
     }
 
-    func updateExpanded(contentState: WidgetContentState, animated: Bool = true) {
+    func updateExpanded(contentState: WidgetContentState) {
         guard contentState != .loading else { return }
         guard !expandedService.hasUserOverride(id: widgetBlockId) else { return }
-        let shouldExpand = contentState == .hasData
         isAutoExpanding = true
-        if animated {
-            withAnimation {
-                isExpanded = shouldExpand
-            }
-        } else {
-            isExpanded = shouldExpand
-        }
+        isExpanded = contentState == .hasData
         isAutoExpanding = false
     }
 

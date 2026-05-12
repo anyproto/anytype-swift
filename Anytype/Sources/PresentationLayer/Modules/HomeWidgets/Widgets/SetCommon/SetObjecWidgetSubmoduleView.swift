@@ -54,7 +54,6 @@ private struct SetObjectWidgetSubmoduleInternalView: View {
                     .padding(.horizontal, 14)
             }
             rows
-                .transition(.opacity)
         }
     }
     

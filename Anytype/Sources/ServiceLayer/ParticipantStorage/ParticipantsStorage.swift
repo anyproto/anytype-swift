@@ -24,6 +24,10 @@ extension ParticipantsStorageProtocol {
     func canEditSequence(spaceId: String) -> AnyAsyncSequence<Bool> {
         participantSequence(spaceId: spaceId).map(\.permission.canEdit).removeDuplicates().eraseToAnyAsyncSequence()
     }
+
+    func canEdit(spaceId: String) -> Bool {
+        participants.first { $0.spaceId == spaceId }?.canEdit ?? false
+    }
 }
 
 actor ParticipantsStorage: ParticipantsStorageProtocol, Sendable {
