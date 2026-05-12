@@ -34,7 +34,9 @@ final class RecentlyEditedSectionViewModel {
     }
 
     func onTapHeader() {
-        isExpanded.toggle()
+        withAnimation(.disclosure) {
+            isExpanded.toggle()
+        }
         expandedService.setState(section: .recentlyEdited, isExpanded: isExpanded)
     }
 }

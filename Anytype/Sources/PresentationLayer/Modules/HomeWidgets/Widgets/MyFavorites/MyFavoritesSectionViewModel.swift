@@ -38,7 +38,9 @@ final class MyFavoritesSectionViewModel {
     }
 
     func onTapHeader() {
-        isExpanded.toggle()
+        withAnimation(.disclosure) {
+            isExpanded.toggle()
+        }
         expandedService.setState(section: .myFavorites, isExpanded: isExpanded)
     }
 }

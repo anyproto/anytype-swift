@@ -40,12 +40,15 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
     var body: some View {
         ZStack(alignment: .topLeading) {
             VStack(spacing: 0) {
-                Spacer.fixedHeight(4)
                 headerContainer
+                    .padding(.top, 4)
+                    .background(Color.Background.widget)
+                    .zIndex(1)
                 if !isExpanded || !allowContent {
                     Spacer.fixedHeight(4)
                 } else {
                     content
+                        .transition(.move(edge: .top).combined(with: .opacity))
                 }
             }
             .background(Color.Background.widget)
@@ -84,7 +87,9 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
     private var arrowButton: some View {
         if allowContent {
             Button {
-                isExpanded = !isExpanded
+                withAnimation(.disclosure) {
+                    isExpanded.toggle()
+                }
             } label: {
                 Image(asset: .X18.Disclosure.right)
                     .foregroundStyle(Color.Text.primary)

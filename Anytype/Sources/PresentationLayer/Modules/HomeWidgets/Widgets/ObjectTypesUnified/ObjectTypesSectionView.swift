@@ -46,6 +46,7 @@ private struct ObjectTypesSectionViewInternal: View {
                         onTap: { model.onTypeTap(info: $0) },
                         onCreate: { try await model.onCreateObject(info: $0) }
                     )
+                    .transition(.sectionBody)
                 }
             }
         }

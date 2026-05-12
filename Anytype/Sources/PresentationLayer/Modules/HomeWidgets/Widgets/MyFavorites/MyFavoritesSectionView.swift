@@ -48,6 +48,7 @@ private struct MyFavoritesSectionViewInternal: View {
                 }
                 if model.isExpanded {
                     MyFavoritesListView(model: model.listModel)
+                        .transition(.sectionBody)
                 }
             }
         }
