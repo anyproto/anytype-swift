@@ -16,29 +16,32 @@ struct HomeWidgetsViewModelTests {
         // VM still injects documentsProvider for set/homepage docs; provide a no-op stub
         // so test resolution doesn't pick up a stale registration from another suite.
         Container.shared.documentsProvider.register { TestDocumentsProvider() }
+        Container.shared.setWidgetsPrewarmer.register { TestSetWidgetsPrewarmer() }
+        Container.shared.treeWidgetsPrewarmer.register { TestTreeWidgetsPrewarmer() }
+        Container.shared.unreadSectionPrewarmer.register { TestUnreadSectionPrewarmer() }
         self.widgetsStorage = widgetsStorage
     }
 
-    // MARK: - openWidgetObjects
+    // MARK: - awaitPrewarm
 
-    @Test func openWidgetObjects_storageHasBothDocs_setsBothObjects() async {
+    @Test func awaitPrewarm_storageHasBothDocs_setsBothObjects() async {
         let info = makeAccountInfo(widgetsId: "channel-id", spaceId: "space-id")
         let channel = MockBaseDocument(objectId: info.widgetsId)
         let personal = MockBaseDocument(objectId: info.personalWidgetsId)
         widgetsStorage.preload(spaceId: info.accountSpaceId, channel: channel, personal: personal)
         let model = HomeWidgetsViewModel(info: info, output: nil)
 
-        await model.openWidgetObjects()
+        await model.awaitPrewarm()
 
         #expect(model.channelWidgetsObject?.objectId == info.widgetsId)
         #expect(model.personalWidgetsObject?.objectId == info.personalWidgetsId)
     }
 
-    @Test func openWidgetObjects_storageNotPreloaded_leavesObjectsNil() async {
+    @Test func awaitPrewarm_storageNotPreloaded_leavesObjectsNil() async {
         let info = makeAccountInfo(widgetsId: "channel-id", spaceId: "space-id")
         let model = HomeWidgetsViewModel(info: info, output: nil)
 
-        await model.openWidgetObjects()
+        await model.awaitPrewarm()
 
         #expect(model.channelWidgetsObject == nil)
         #expect(model.personalWidgetsObject == nil)
@@ -110,5 +113,26 @@ private final class TestDocumentsProvider: DocumentsProviderProtocol, @unchecked
         inlineParameters: EditorInlineSetObject?
     ) -> any SetDocumentProtocol {
         fatalError("setDocument not used by HomeWidgetsViewModelTests")
+    }
+}
+
+@MainActor
+private final class TestSetWidgetsPrewarmer: SetWidgetsPrewarmerProtocol {
+    func prewarm(channelDoc: any BaseDocumentProtocol) async -> [String: PrefetchedSetSubscription] {
+        [:]
+    }
+}
+
+@MainActor
+private final class TestTreeWidgetsPrewarmer: TreeWidgetsPrewarmerProtocol {
+    func prewarm(channelDoc: any BaseDocumentProtocol) async -> [String: PrefetchedTreeChildren] {
+        [:]
+    }
+}
+
+@MainActor
+private final class TestUnreadSectionPrewarmer: UnreadSectionPrewarmerProtocol {
+    func prewarm(spaceId: String) async -> PrefetchedUnreadSection? {
+        nil
     }
 }

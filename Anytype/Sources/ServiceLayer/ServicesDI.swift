@@ -192,6 +192,18 @@ extension Container {
         self { WidgetsObjectsStorage() }.singleton
     }
 
+    var setWidgetsPrewarmer: Factory<any SetWidgetsPrewarmerProtocol> {
+        self { SetWidgetsPrewarmer() }.singleton
+    }
+
+    var treeWidgetsPrewarmer: Factory<any TreeWidgetsPrewarmerProtocol> {
+        self { TreeWidgetsPrewarmer() }.singleton
+    }
+
+    var unreadSectionPrewarmer: Factory<any UnreadSectionPrewarmerProtocol> {
+        self { UnreadSectionPrewarmer() }.singleton
+    }
+
     var expandedService: Factory<any ExpandedServiceProtocol> {
         self { ExpandedService() }.shared
     }
