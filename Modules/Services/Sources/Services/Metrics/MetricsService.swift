@@ -2,16 +2,17 @@ import ProtobufMessages
 import Combine
 
 public protocol MetricsServiceProtocol: Sendable {
-    func setInitialParameters(platform: String, version: String) async throws
+    func setInitialParameters(platform: String, version: String, workdir: String) async throws
 }
 
 final class MetricsService: MetricsServiceProtocol {
-    
-    public func setInitialParameters(platform: String, version: String) async throws {
+
+    public func setInitialParameters(platform: String, version: String, workdir: String) async throws {
         try await ClientCommands.initialSetParameters(.with {
             $0.platform = platform
             $0.version = version
+            $0.workdir = workdir
         }).invoke()
     }
-    
+
 }

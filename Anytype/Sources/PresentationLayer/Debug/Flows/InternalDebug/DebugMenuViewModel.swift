@@ -120,6 +120,15 @@ final class DebugMenuViewModel: ObservableObject {
     func debugStat() async throws {
         shareUrlFile = try await debugService.debugStat()
     }
+
+    func generateReport(full: Bool) async throws {
+        try await localAuthWithContinuation(reason: "Generate debug report") { [weak self] in
+            guard let self else { return }
+            let dir = FileManager.default.createTempDirectory().path
+            let result = try await debugService.exportReport(dir: dir, full: full)
+            shareUrlFile = URL(fileURLWithPath: result.path)
+        }
+    }
     
     func getFirebaseNotificationToken() {
         Messaging.messaging().token { [weak self] token, error in

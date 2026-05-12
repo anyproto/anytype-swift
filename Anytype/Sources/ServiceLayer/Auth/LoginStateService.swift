@@ -46,6 +46,9 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let spaceIconForNotificationsHandler: any SpaceIconForNotificationsHandlerProtocol = Container.shared.spaceIconForNotificationsHandler()
     private let spaceFileUploadService: any SpaceFileUploadServiceProtocol = Container.shared.spaceFileUploadService()
     private let appIconBadgeService: any AppIconBadgeServiceProtocol = Container.shared.appIconBadgeService()
+    private let thermalProfilerTrigger: any ThermalProfilerTriggerProtocol = Container.shared.thermalProfilerTrigger()
+    private let memoryPressureProfilerTrigger: any MemoryPressureProfilerTriggerProtocol = Container.shared.memoryPressureProfilerTrigger()
+    private let debugProfileEventHandler: any DebugProfileEventHandlerProtocol = Container.shared.debugProfileEventHandler()
         
     // MARK: - LoginStateServiceProtocol
     
@@ -99,6 +102,9 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await spaceIconForNotificationsHandler.startUpdating()
 
         await appIconBadgeService.startUpdating()
+        await thermalProfilerTrigger.startSubscription()
+        await memoryPressureProfilerTrigger.startSubscription()
+        await debugProfileEventHandler.startSubscription()
 
         Task {
             await membershipStatusStorage.startSubscription()
@@ -122,5 +128,8 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await activeSpaceManager.stopSubscription()
         await spaceIconForNotificationsHandler.stopUpdatingAndClearData()
         await appIconBadgeService.stopUpdatingAndClearBadge()
+        await thermalProfilerTrigger.stopSubscriptionAndClean()
+        await memoryPressureProfilerTrigger.stopSubscriptionAndClean()
+        await debugProfileEventHandler.stopSubscriptionAndClean()
     }
 }

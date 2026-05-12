@@ -176,7 +176,17 @@ struct DebugMenuView: View {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 try await model.debugStat()
             }
-            
+
+            AsyncStandardButton("Generate report 📦", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                try await model.generateReport(full: false)
+            }
+
+            AsyncStandardButton("Generate full report 📦💪", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                try await model.generateReport(full: true)
+            }
+
             AsyncStandardButton("Export full directory 🤐", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 try await model.zipWorkingDirectory()
