@@ -17,8 +17,6 @@ final class GlobalServicesConfiguration: AppConfiguratorProtocol {
     @Injected(\.debugService)
     private var debugService: any DebugServiceProtocol
 
-    private let debugProfileEventHandler = DebugProfileEventHandler()
-
     func configure() {
         // Global listeners
         eventListener.startListening()
@@ -29,6 +27,5 @@ final class GlobalServicesConfiguration: AppConfiguratorProtocol {
         deviceSceneStateListener.start()
         appVersionUpdateService.prepareData()
         debugService.startDebugRunProfilerOnStartupIfNeeded()
-        debugProfileEventHandler.start()
     }
 }

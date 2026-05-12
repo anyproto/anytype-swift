@@ -5,26 +5,32 @@ import ProtobufMessages
 import Combine
 import Logger
 
-private let log = EventLogger(category: "DebugProfileEventHandler")
+protocol DebugProfileEventHandlerProtocol: AnyObject, Sendable {
+    func startSubscription() async
+    func stopSubscriptionAndClean() async
+}
 
-@MainActor
-final class DebugProfileEventHandler {
+actor DebugProfileEventHandler: DebugProfileEventHandlerProtocol {
 
     // WORKAROUND: Force linker to retain Anytype_Event.Debug metadata.
     // Mirrors MembershipStatusStorage workaround — nested type metadata can be
     // stripped in Release builds when never referenced directly.
     private static let _forceParentTypeRetention: Anytype_Event.Debug.Type = Anytype_Event.Debug.self
 
+    private static let log = EventLogger(category: "DebugProfileEventHandler")
+
     private var subscription: AnyCancellable?
 
-    nonisolated init() {}
+    init() {}
 
-    func start() {
+    func startSubscription() async {
         subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
-            Task { @MainActor [weak self] in
-                self?.handle(events: events)
-            }
+            await self?.handle(events: events)
         }
+    }
+
+    func stopSubscriptionAndClean() async {
+        subscription = nil
     }
 
     private func handle(events: EventsBunch) {
@@ -37,7 +43,7 @@ final class DebugProfileEventHandler {
 
     private func forwardToSentry(_ profile: Anytype_Event.Debug.ProfileCreated) {
         let reason = profile.reason.isEmpty ? "Unknown" : profile.reason
-        log.debug("DebugProfileCreated: reason=\(reason), path=\(profile.path), full=\(profile.full)")
+        Self.log.debug("DebugProfileCreated: reason=\(reason), path=\(profile.path), full=\(profile.full)")
 
         let event = Event(level: .info)
         event.message = SentryMessage(formatted: "MW_\(reason)")
@@ -57,18 +63,20 @@ final class DebugProfileEventHandler {
                 scope.addAttachment(Attachment(
                     path: profile.path,
                     filename: url.lastPathComponent,
-                    contentType: contentType(for: url)
+                    contentType: url.debugProfileContentType
                 ))
             }
         }
     }
 }
 
-private func contentType(for url: URL) -> String {
-    switch url.pathExtension.lowercased() {
-    case "zip": return "application/zip"
-    case "json": return "application/json"
-    case "log", "txt": return "text/plain"
-    default: return "application/octet-stream"
+private extension URL {
+    var debugProfileContentType: String {
+        switch pathExtension.lowercased() {
+        case "zip": return "application/zip"
+        case "json": return "application/json"
+        case "log", "txt": return "text/plain"
+        default: return "application/octet-stream"
+        }
     }
 }

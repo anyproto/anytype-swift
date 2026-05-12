@@ -359,6 +359,10 @@ extension Container {
     var memoryPressureProfilerTrigger: Factory<any MemoryPressureProfilerTriggerProtocol> {
         self { MemoryPressureProfilerTrigger() }.singleton
     }
+
+    var debugProfileEventHandler: Factory<any DebugProfileEventHandlerProtocol> {
+        self { DebugProfileEventHandler() }.singleton
+    }
     
     var participantSubscriptionProvider: Factory<any ParticipantsSubscriptionProviderProtocol> {
         self { ParticipantsSubscriptionProvider() }.singleton
