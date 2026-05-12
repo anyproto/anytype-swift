@@ -4,10 +4,7 @@ import AnytypeCore
 
 @MainActor
 protocol TreeWidgetsPrewarmerProtocol: AnyObject, Sendable {
-    func prewarm(
-        channelDoc: any BaseDocumentProtocol,
-        spaceId: String
-    ) async -> [String: PrefetchedTreeChildren]
+    func prewarm(channelDoc: any BaseDocumentProtocol) async -> [String: PrefetchedTreeChildren]
 }
 
 @MainActor
@@ -24,10 +21,8 @@ final class TreeWidgetsPrewarmer: TreeWidgetsPrewarmerProtocol {
 
     nonisolated init() {}
 
-    func prewarm(
-        channelDoc: any BaseDocumentProtocol,
-        spaceId: String
-    ) async -> [String: PrefetchedTreeChildren] {
+    func prewarm(channelDoc: any BaseDocumentProtocol) async -> [String: PrefetchedTreeChildren] {
+        let spaceId = channelDoc.spaceId
         let treeWidgets = channelDoc.children.compactMap { child -> BlockWidgetInfo? in
             guard child.isWidget,
                   let info = channelDoc.widgetInfo(block: child),

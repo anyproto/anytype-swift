@@ -68,9 +68,8 @@ final class HomeWidgetsViewModel {
     ) {
         self.info = info
         self.output = output
-        // Spawn pre-warm in init so it overlaps the space-transition animation,
-        // not from `.task` on view appear. Observation propagates the Prefetched*
-        // results to the view once `runPrewarm` populates state.
+        // Spawn pre-warm in init so it overlaps the space-transition animation
+        // instead of waiting for view appear.
         prewarmTask = Task(priority: .high) { [weak self] in
             await self?.runPrewarm()
         }
@@ -80,8 +79,7 @@ final class HomeWidgetsViewModel {
         prewarmTask?.cancel()
     }
 
-    /// Test synchronization hook — awaits the init-spawned pre-warm Task.
-    /// Not called from production code; the view reads state via Observation.
+    /// Test-only synchronization hook for the init-spawned pre-warm Task.
     func awaitPrewarm() async {
         await prewarmTask?.value
     }
@@ -117,18 +115,16 @@ final class HomeWidgetsViewModel {
     // MARK: - Private
 
     private func runPrewarm() async {
-        // Docs may still be opening (kicked off upstream in ActiveSpaceManager);
-        // wait so prewarm sees a live channel doc.
+        // Channel doc may still be opening; wait for it before reading children.
         await widgetsObjectsStorage.waitForReady(spaceId: info.accountSpaceId)
         guard !Task.isCancelled,
               let (channel, personal) = widgetsObjectsStorage.widgetsObjects(spaceId: info.accountSpaceId)
         else { return }
 
-        // Pre-warm before flipping the section gate so Set/Type and expanded Tree
-        // widgets render rows on the first frame. The view body guards on
-        // `channelWidgetsObject != nil`; Observation re-renders once we assign below.
-        async let prefetchedSet = setWidgetsPrewarmer.prewarm(channelDoc: channel, spaceId: info.accountSpaceId)
-        async let prefetchedTree = treeWidgetsPrewarmer.prewarm(channelDoc: channel, spaceId: info.accountSpaceId)
+        // Pre-warm before flipping the `channelWidgetsObject` gate so Set/Type and
+        // expanded Tree widgets render rows on the first frame.
+        async let prefetchedSet = setWidgetsPrewarmer.prewarm(channelDoc: channel)
+        async let prefetchedTree = treeWidgetsPrewarmer.prewarm(channelDoc: channel)
         async let prefetchedUnread = unreadSectionPrewarmer.prewarm(spaceId: info.accountSpaceId)
         let (setMap, treeMap, unread) = await (prefetchedSet, prefetchedTree, prefetchedUnread)
 

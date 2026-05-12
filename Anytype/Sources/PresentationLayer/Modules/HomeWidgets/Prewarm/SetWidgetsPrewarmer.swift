@@ -4,10 +4,7 @@ import AnytypeCore
 
 @MainActor
 protocol SetWidgetsPrewarmerProtocol: AnyObject, Sendable {
-    func prewarm(
-        channelDoc: any BaseDocumentProtocol,
-        spaceId: String
-    ) async -> [String: PrefetchedSetSubscription]
+    func prewarm(channelDoc: any BaseDocumentProtocol) async -> [String: PrefetchedSetSubscription]
 }
 
 @MainActor
@@ -30,10 +27,8 @@ final class SetWidgetsPrewarmer: SetWidgetsPrewarmerProtocol {
 
     nonisolated init() {}
 
-    func prewarm(
-        channelDoc: any BaseDocumentProtocol,
-        spaceId: String
-    ) async -> [String: PrefetchedSetSubscription] {
+    func prewarm(channelDoc: any BaseDocumentProtocol) async -> [String: PrefetchedSetSubscription] {
+        let spaceId = channelDoc.spaceId
         let setWidgets = channelDoc.children.compactMap { child -> BlockWidgetInfo? in
             guard child.isWidget,
                   let info = channelDoc.widgetInfo(block: child),

@@ -118,20 +118,14 @@ private final class TestDocumentsProvider: DocumentsProviderProtocol, @unchecked
 
 @MainActor
 private final class TestSetWidgetsPrewarmer: SetWidgetsPrewarmerProtocol {
-    func prewarm(
-        channelDoc: any BaseDocumentProtocol,
-        spaceId: String
-    ) async -> [String: PrefetchedSetSubscription] {
+    func prewarm(channelDoc: any BaseDocumentProtocol) async -> [String: PrefetchedSetSubscription] {
         [:]
     }
 }
 
 @MainActor
 private final class TestTreeWidgetsPrewarmer: TreeWidgetsPrewarmerProtocol {
-    func prewarm(
-        channelDoc: any BaseDocumentProtocol,
-        spaceId: String
-    ) async -> [String: PrefetchedTreeChildren] {
+    func prewarm(channelDoc: any BaseDocumentProtocol) async -> [String: PrefetchedTreeChildren] {
         [:]
     }
 }
