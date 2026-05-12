@@ -17,7 +17,7 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
     @Injected(\.debugService)
     private var debugService: any DebugServiceProtocol
 
-    private var source: DispatchSourceMemoryPressure?
+    private var source: (any DispatchSourceMemoryPressure)?
     private var lastTrigger: ContinuousClock.Instant?
 
     init() {}
@@ -27,9 +27,10 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
             eventMask: [.warning, .critical],
             queue: .global(qos: .utility)
         )
-        source.setEventHandler { [weak self, weak source] in
-            let data = source?.data ?? []
-            Task { await self?.handle(data: data) }
+        source.setEventHandler { [weak self] in
+            Task { [weak self] in
+                await self?.handleEventFire()
+            }
         }
         source.resume()
         self.source = source
@@ -41,7 +42,8 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
         lastTrigger = nil
     }
 
-    func handle(data: DispatchSource.MemoryPressureEvent) async {
+    private func handleEventFire() async {
+        guard let data = source?.data else { return }
         if data.contains(.critical) {
             await trigger(reason: .memoryPressure(.critical))
         } else if data.contains(.warning) {
