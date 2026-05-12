@@ -28,6 +28,7 @@ final class PinnedSectionViewModel {
 
     var widgetBlocks: [BlockWidgetInfo] = []
     var homeState: HomeWidgetsState = .readonly
+    private var didInitWidgets: Bool = false
 
     init(
         spaceId: String,
@@ -37,6 +38,7 @@ final class PinnedSectionViewModel {
         self.channelWidgetsObject = channelWidgetsObject
         self.widgetBlocks = buildWidgetBlocks()
         self.homeState = participantsStorage.canEdit(spaceId: spaceId) ? .readwrite : .readonly
+        self.didInitWidgets = true
     }
 
     // MARK: - Subscriptions
@@ -57,7 +59,9 @@ final class PinnedSectionViewModel {
         for await _ in channelWidgetsObject.syncPublisher.values {
             let next = buildWidgetBlocks()
             guard widgetBlocks != next else { continue }
-            widgetBlocks = next
+            withAnimation(didInitWidgets ? .widgetTile : nil) {
+                widgetBlocks = next
+            }
         }
     }
 

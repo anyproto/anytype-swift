@@ -70,6 +70,7 @@ private struct PinnedSectionViewInternal: View {
                         prefetchedTreeChildren: prefetchedTreeChildren[widgetInfo.id],
                         output: output
                     )
+                    .transition(.scale(scale: 0.94, anchor: .center).combined(with: .opacity))
                 }
             }
         }
