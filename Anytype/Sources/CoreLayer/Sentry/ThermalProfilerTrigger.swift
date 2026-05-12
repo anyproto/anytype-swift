@@ -17,6 +17,8 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
 
     @Injected(\.debugService)
     private var debugService: any DebugServiceProtocol
+    @Injected(\.debugProfileSentryReporter)
+    private var sentryReporter: any DebugProfileSentryReporterProtocol
 
     private var observer: NotificationCancellable?
     private var lastTrigger: ContinuousClock.Instant?
@@ -59,6 +61,10 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
         }
         lastTrigger = instant
         Self.log.debug("Profiler triggered: \(reason)")
-        await debugService.runProfiler(durationInSeconds: Self.profileDuration, reason: reason)
+        guard let path = await debugService.runProfiler(durationInSeconds: Self.profileDuration, reason: reason),
+              CoreEnvironment.targetType.isDebug else {
+            return
+        }
+        sentryReporter.report(path: path, reasonTag: reason.tag, jsonInfo: nil)
     }
 }

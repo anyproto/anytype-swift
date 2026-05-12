@@ -34,6 +34,16 @@ public enum DebugProfilerReason: Sendable {
         case .memoryPressure(.critical): return "iOS memory pressure: critical"
         }
     }
+
+    public var tag: String {
+        switch self {
+        case .userRequest: return "user_request"
+        case .thermalState(.serious): return "thermal_serious"
+        case .thermalState(.critical): return "thermal_critical"
+        case .memoryPressure(.warning): return "memory_pressure_warn"
+        case .memoryPressure(.critical): return "memory_pressure_critical"
+        }
+    }
 }
 
 public struct DebugReportResult: Sendable {
@@ -61,7 +71,7 @@ public protocol DebugServiceProtocol: AnyObject, Sendable {
     @MainActor var debugRunProfilerData: AnyPublisher<DebugRunProfilerState, Never> { get }
     func startDebugRunProfiler()
 
-    func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async
+    func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async -> String?
     func exportReport(dir: String, full: Bool) async throws -> DebugReportResult
     func cleanupReport(ts: Int) async
 }
@@ -186,12 +196,12 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
         }
     }
 
-    func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async {
-        _ = try? await ClientCommands.debugRunProfiler(.with {
+    func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async -> String? {
+        try? await ClientCommands.debugRunProfiler(.with {
             $0.durationInSeconds = Int32(durationInSeconds)
             $0.reason = reason.protoReason
             $0.reasonDesc = reason.desc
-        }).invoke()
+        }).invoke().path
     }
 
     func exportReport(dir: String, full: Bool) async throws -> DebugReportResult {

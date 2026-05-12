@@ -363,6 +363,10 @@ extension Container {
     var debugProfileEventHandler: Factory<any DebugProfileEventHandlerProtocol> {
         self { DebugProfileEventHandler() }.singleton
     }
+
+    var debugProfileSentryReporter: Factory<any DebugProfileSentryReporterProtocol> {
+        self { DebugProfileSentryReporter() }.singleton
+    }
     
     var participantSubscriptionProvider: Factory<any ParticipantsSubscriptionProviderProtocol> {
         self { ParticipantsSubscriptionProvider() }.singleton
