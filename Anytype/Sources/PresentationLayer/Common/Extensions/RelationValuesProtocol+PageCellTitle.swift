@@ -28,7 +28,11 @@ extension BundledPropertiesValueProvider {
             return Loc.nonExistentObject
         }
 
-        return pluralName.isNotEmpty ? pluralName : title
+        // pluralName is meaningful only on type objects; middleware also denormalizes it onto instance details.
+        if resolvedLayoutValue == .objectType, pluralName.isNotEmpty {
+            return pluralName
+        }
+        return title
     }
 
     var subtitle: String {
