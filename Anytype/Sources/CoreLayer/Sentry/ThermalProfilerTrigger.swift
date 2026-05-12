@@ -48,15 +48,15 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
         let state = ProcessInfo.processInfo.thermalState
         switch state {
         case .serious:
-            await trigger(reason: .thermalSerious, desc: "iOS thermal state: serious")
+            await trigger(reason: .thermalState(.serious))
         case .critical:
-            await trigger(reason: .thermalCritical, desc: "iOS thermal state: critical")
+            await trigger(reason: .thermalState(.critical))
         default:
             break
         }
     }
 
-    private func trigger(reason: DebugProfilerReason, desc: String) async {
+    private func trigger(reason: DebugProfilerReason) async {
         let instant = now()
         if let lastTrigger, lastTrigger.duration(to: instant) < Self.cooldown {
             Self.log.debug("Profiler skipped (cooldown): \(reason)")
@@ -64,6 +64,6 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
         }
         lastTrigger = instant
         Self.log.debug("Profiler triggered: \(reason)")
-        await debugService.runProfiler(durationInSeconds: Int32(Self.profileDuration), reason: reason, reasonDesc: desc)
+        await debugService.runProfiler(durationInSeconds: Self.profileDuration, reason: reason)
     }
 }

@@ -12,16 +12,40 @@ public enum DebugRunProfilerState: Codable {
 
 public enum DebugProfilerReason: Sendable {
     case userRequest
-    case memoryPressureWarn
-    case memoryPressureCritical
-    case thermalSerious
-    case thermalCritical
+    case thermalState(ThermalSeverity)
+    case memoryPressure(MemorySeverity)
+
+    public enum ThermalSeverity: Sendable {
+        case serious
+        case critical
+    }
+
+    public enum MemorySeverity: Sendable {
+        case warning
+        case critical
+    }
+
+    var desc: String {
+        switch self {
+        case .userRequest: return "User request"
+        case .thermalState(.serious): return "iOS thermal state: serious"
+        case .thermalState(.critical): return "iOS thermal state: critical"
+        case .memoryPressure(.warning): return "iOS memory pressure: warning"
+        case .memoryPressure(.critical): return "iOS memory pressure: critical"
+        }
+    }
 }
 
 public struct DebugReportResult: Sendable {
     public let path: String
     public let summary: String
-    public let lastModifiedTs: Int64
+    public let lastModifiedTs: Int
+
+    public init(path: String, summary: String, lastModifiedTs: Int) {
+        self.path = path
+        self.summary = summary
+        self.lastModifiedTs = lastModifiedTs
+    }
 }
 
 public protocol DebugServiceProtocol: AnyObject, Sendable {
@@ -37,9 +61,9 @@ public protocol DebugServiceProtocol: AnyObject, Sendable {
     @MainActor var debugRunProfilerData: AnyPublisher<DebugRunProfilerState, Never> { get }
     func startDebugRunProfiler()
 
-    func runProfiler(durationInSeconds: Int32, reason: DebugProfilerReason, reasonDesc: String) async
+    func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async
     func exportReport(dir: String, full: Bool) async throws -> DebugReportResult
-    func cleanupReport(ts: Int64) async
+    func cleanupReport(ts: Int) async
 }
 
 final class DebugService: ObservableObject, DebugServiceProtocol {
@@ -162,11 +186,11 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
         }
     }
 
-    func runProfiler(durationInSeconds: Int32, reason: DebugProfilerReason, reasonDesc: String) async {
+    func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async {
         try? await ClientCommands.debugRunProfiler(.with {
-            $0.durationInSeconds = durationInSeconds
+            $0.durationInSeconds = Int32(durationInSeconds)
             $0.reason = reason.protoReason
-            $0.reasonDesc = reasonDesc
+            $0.reasonDesc = reason.desc
         }).invoke()
     }
 
@@ -178,13 +202,13 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
         return DebugReportResult(
             path: response.path,
             summary: response.summary,
-            lastModifiedTs: response.lastModifiedTs
+            lastModifiedTs: Int(response.lastModifiedTs)
         )
     }
 
-    func cleanupReport(ts: Int64) async {
+    func cleanupReport(ts: Int) async {
         try? await ClientCommands.debugCleanupReport(.with {
-            $0.ts = ts
+            $0.ts = Int64(ts)
         }).invoke()
     }
 }
@@ -193,10 +217,10 @@ private extension DebugProfilerReason {
     var protoReason: Anytype_Rpc.Debug.RunProfiler.Request.Reason {
         switch self {
         case .userRequest: return .userRequest
-        case .memoryPressureWarn: return .memoryPressureWarn
-        case .memoryPressureCritical: return .memoryPressureCritical
-        case .thermalSerious: return .thermalSerious
-        case .thermalCritical: return .thermalCritical
+        case .thermalState(.serious): return .thermalSerious
+        case .thermalState(.critical): return .thermalCritical
+        case .memoryPressure(.warning): return .memoryPressureWarn
+        case .memoryPressure(.critical): return .memoryPressureCritical
         }
     }
 }

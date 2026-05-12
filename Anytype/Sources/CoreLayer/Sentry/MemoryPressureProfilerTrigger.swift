@@ -43,13 +43,13 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
 
     func handle(data: DispatchSource.MemoryPressureEvent) async {
         if data.contains(.critical) {
-            await trigger(reason: .memoryPressureCritical, desc: "iOS memory pressure: critical")
+            await trigger(reason: .memoryPressure(.critical))
         } else if data.contains(.warning) {
-            await trigger(reason: .memoryPressureWarn, desc: "iOS memory pressure: warning")
+            await trigger(reason: .memoryPressure(.warning))
         }
     }
 
-    private func trigger(reason: DebugProfilerReason, desc: String) async {
+    private func trigger(reason: DebugProfilerReason) async {
         let instant = now()
         if let lastTrigger, lastTrigger.duration(to: instant) < Self.cooldown {
             Self.log.debug("Profiler skipped (cooldown): \(reason)")
@@ -57,6 +57,6 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
         }
         lastTrigger = instant
         Self.log.debug("Profiler triggered: \(reason)")
-        await debugService.runProfiler(durationInSeconds: 0, reason: reason, reasonDesc: desc)
+        await debugService.runProfiler(durationInSeconds: 0, reason: reason)
     }
 }
