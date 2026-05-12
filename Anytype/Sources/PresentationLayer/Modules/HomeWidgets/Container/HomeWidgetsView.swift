@@ -53,9 +53,6 @@ private struct HomeWidgetsInternalView: View {
                 )
             }
         }
-        .task(priority: .high) {
-            await model.openWidgetObjects()
-        }
         .task {
             await model.startSubscriptions()
         }
