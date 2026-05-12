@@ -18,12 +18,61 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     var showGlobalSearchData: GlobalSearchModuleData?
     var spaceShareData: SpaceShareData?
     var qrCodeInviteData: URLIdentifiable?
+    var showHomeChangePicker = false
+    var showHomepagePicker = false
+    var shouldDismissOverlay = false
 
     @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
+    @Injected(\.pendingShareService) @ObservationIgnored
+    private var pendingShareService: any PendingShareServiceProtocol
+    @Injected(\.participantSpacesStorage) @ObservationIgnored
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @Injected(\.pendingShareStorage) @ObservationIgnored
+    private var pendingShareStorage: any PendingShareStorageProtocol
 
     init(info: AccountInfo) {
         self.spaceInfo = info
+    }
+
+    func startSpaceViewTask() async {
+        guard FeatureFlags.createChannelFlow else { return }
+        let spaceId = spaceInfo.accountSpaceId
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
+            let spaceView = participantSpaceView.spaceView
+            let homepageNotSet = spaceView.homepage == .empty
+            let canSetHomepage = participantSpaceView.canSetHomepage
+            // 1-on-1 spaces have their homepage set by middleware; never prompt the picker.
+            if homepageNotSet, canSetHomepage, !spaceView.isOneToOne, !showHomepagePicker {
+                showHomepagePicker = true
+            }
+        }
+    }
+
+    func onHomepagePickerFinished(result: HomepagePickerResult) {
+        showHomepagePicker = false
+        guard case .homepageSet(let value) = result, case .object(let details) = value else { return }
+        if FeatureFlags.fixChannelHomeBackNavigation {
+            if let homeData = details.screenData().homeSlotValue {
+                pageNavigation?.replaceHome(spaceInfo.accountSpaceId, homeData)
+            }
+        } else {
+            pageNavigation?.open(details.screenData())
+        }
+    }
+
+    func startPendingShareRetryTask() async {
+        let spaceId = spaceInfo.accountSpaceId
+        guard pendingShareStorage.pendingState(for: spaceId) != nil else { return }
+
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
+            guard pendingShareStorage.pendingState(for: spaceId) != nil else { return }
+
+            if participantSpaceView.spaceView.isActive {
+                await pendingShareService.retryIfNeeded(spaceId: spaceId)
+                if pendingShareStorage.pendingState(for: spaceId) == nil { return }
+            }
+        }
     }
 
     // MARK: - HomeWidgetsModuleOutput
@@ -34,6 +83,15 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
 
     func onCreateObjectType() {
         createTypeData = CreateObjectTypeData(spaceId: spaceInfo.accountSpaceId, name: "", route: .screenWidget)
+    }
+
+    func onChangeHome() {
+        showHomeChangePicker = true
+    }
+
+    func onHomeObjectSelected(screenData: ScreenData) {
+        shouldDismissOverlay = true
+        pageNavigation?.popToFirstInSpace()
     }
 
     func onObjectSelected(screenData: ScreenData) {

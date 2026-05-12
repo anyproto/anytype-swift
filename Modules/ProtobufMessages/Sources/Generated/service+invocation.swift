@@ -224,6 +224,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func workspaceSetHomepage(
+        _ request: Anytype_Rpc.Workspace.SetHomepage.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Workspace.SetHomepage.Request, Anytype_Rpc.Workspace.SetHomepage.Response> {
+        return Invocation(messageName: "WorkspaceSetHomepage", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceWorkspaceSetHomepage(requestData) ?? Data()
+            return try Anytype_Rpc.Workspace.SetHomepage.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func workspaceExport(
         _ request: Anytype_Rpc.Workspace.Export.Request = .init()
     ) -> Invocation<Anytype_Rpc.Workspace.Export.Request, Anytype_Rpc.Workspace.Export.Response> {
@@ -574,6 +584,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func spaceParticipantsAddList(
+        _ request: Anytype_Rpc.Space.ParticipantsAddList.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.ParticipantsAddList.Request, Anytype_Rpc.Space.ParticipantsAddList.Response> {
+        return Invocation(messageName: "SpaceParticipantsAddList", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceParticipantsAddList(requestData) ?? Data()
+            return try Anytype_Rpc.Space.ParticipantsAddList.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func publishingCreate(
         _ request: Anytype_Rpc.Publishing.Create.Request = .init()
     ) -> Invocation<Anytype_Rpc.Publishing.Create.Request, Anytype_Rpc.Publishing.Create.Response> {
@@ -871,16 +891,6 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSetSource(requestData) ?? Data()
             return try Anytype_Rpc.Object.SetSource.Response(serializedBytes: responseData)
-        }
-    }
-
-    public static func objectWorkspaceSetDashboard(
-        _ request: Anytype_Rpc.Object.WorkspaceSetDashboard.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Object.WorkspaceSetDashboard.Request, Anytype_Rpc.Object.WorkspaceSetDashboard.Response> {
-        return Invocation(messageName: "ObjectWorkspaceSetDashboard", request: request) { request in
-            let requestData = try request.serializedData()
-            let responseData = Lib.ServiceObjectWorkspaceSetDashboard(requestData) ?? Data()
-            return try Anytype_Rpc.Object.WorkspaceSetDashboard.Response(serializedBytes: responseData)
         }
     }
 
@@ -1541,6 +1551,36 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceTemplateExportAll(requestData) ?? Data()
             return try Anytype_Rpc.Template.ExportAll.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func templateSetPlaceholders(
+        _ request: Anytype_Rpc.Template.SetPlaceholders.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Template.SetPlaceholders.Request, Anytype_Rpc.Template.SetPlaceholders.Response> {
+        return Invocation(messageName: "TemplateSetPlaceholders", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceTemplateSetPlaceholders(requestData) ?? Data()
+            return try Anytype_Rpc.Template.SetPlaceholders.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func templateGetPlaceholders(
+        _ request: Anytype_Rpc.Template.GetPlaceholders.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Template.GetPlaceholders.Request, Anytype_Rpc.Template.GetPlaceholders.Response> {
+        return Invocation(messageName: "TemplateGetPlaceholders", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceTemplateGetPlaceholders(requestData) ?? Data()
+            return try Anytype_Rpc.Template.GetPlaceholders.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func templateDeletePlaceholders(
+        _ request: Anytype_Rpc.Template.DeletePlaceholders.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Template.DeletePlaceholders.Request, Anytype_Rpc.Template.DeletePlaceholders.Response> {
+        return Invocation(messageName: "TemplateDeletePlaceholders", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceTemplateDeletePlaceholders(requestData) ?? Data()
+            return try Anytype_Rpc.Template.DeletePlaceholders.Response(serializedBytes: responseData)
         }
     }
 
@@ -2664,13 +2704,23 @@ public struct ClientCommands {
         }
     }
 
-    public static func debugExportLog(
-        _ request: Anytype_Rpc.Debug.ExportLog.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Debug.ExportLog.Request, Anytype_Rpc.Debug.ExportLog.Response> {
-        return Invocation(messageName: "DebugExportLog", request: request) { request in
+    public static func debugExportReport(
+        _ request: Anytype_Rpc.Debug.ExportReport.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.ExportReport.Request, Anytype_Rpc.Debug.ExportReport.Response> {
+        return Invocation(messageName: "DebugExportReport", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServiceDebugExportLog(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.ExportLog.Response(serializedBytes: responseData)
+            let responseData = Lib.ServiceDebugExportReport(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.ExportReport.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func debugCleanupReport(
+        _ request: Anytype_Rpc.Debug.CleanupReport.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.CleanupReport.Request, Anytype_Rpc.Debug.CleanupReport.Response> {
+        return Invocation(messageName: "DebugCleanupReport", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDebugCleanupReport(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.CleanupReport.Response(serializedBytes: responseData)
         }
     }
 
@@ -3171,6 +3221,26 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatGetPinnedMessages(requestData) ?? Data()
             return try Anytype_Rpc.Chat.GetPinnedMessages.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func chatAddNotificationSubscriber(
+        _ request: Anytype_Rpc.Chat.AddNotificationSubscriber.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.AddNotificationSubscriber.Request, Anytype_Rpc.Chat.AddNotificationSubscriber.Response> {
+        return Invocation(messageName: "ChatAddNotificationSubscriber", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatAddNotificationSubscriber(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.AddNotificationSubscriber.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func chatRemoveNotificationSubscriber(
+        _ request: Anytype_Rpc.Chat.RemoveNotificationSubscriber.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.RemoveNotificationSubscriber.Request, Anytype_Rpc.Chat.RemoveNotificationSubscriber.Response> {
+        return Invocation(messageName: "ChatRemoveNotificationSubscriber", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatRemoveNotificationSubscriber(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.RemoveNotificationSubscriber.Response(serializedBytes: responseData)
         }
     }
 

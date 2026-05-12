@@ -67,6 +67,9 @@ extension Anytype_Rpc.Chat {
         /// Clears the value of `chatState`. Subsequent reads from it will return its default value.
         public mutating func clearChatState() {self._chatState = nil}
 
+        /// Total number of non-deleted messages in the chat
+        public var messageCount: Int32 = 0
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -194,7 +197,7 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Request: SwiftProtobuf.Message,
 
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Chat.SubscribeLastMessages.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}messages\0\u{1}numMessagesBefore\0\u{1}chatState\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}messages\0\u{1}numMessagesBefore\0\u{1}chatState\0\u{1}messageCount\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -206,6 +209,7 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.messages) }()
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.numMessagesBefore) }()
       case 4: try { try decoder.decodeSingularMessageField(value: &self._chatState) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.messageCount) }()
       default: break
       }
     }
@@ -228,6 +232,9 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message
     try { if let v = self._chatState {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
     } }()
+    if self.messageCount != 0 {
+      try visitor.visitSingularInt32Field(value: self.messageCount, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -236,6 +243,7 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message
     if lhs.messages != rhs.messages {return false}
     if lhs.numMessagesBefore != rhs.numMessagesBefore {return false}
     if lhs._chatState != rhs._chatState {return false}
+    if lhs.messageCount != rhs.messageCount {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

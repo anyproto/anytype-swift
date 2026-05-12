@@ -1,3 +1,5 @@
+import ProtobufMessages
+
 public extension DetailsLayout {
     
     static let editorLayouts: [DetailsLayout] = [ .note, .basic, .profile, .todo ]
@@ -16,6 +18,8 @@ public extension DetailsLayout {
     fileprivate static let widgetTypeLayoutsBase = listLayouts + editorLayouts + [.bookmark] + fileAndMediaLayouts
 
     private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFilesBase + [.objectType, .participant] + chatLayouts
+    // Kept separate from `editorLayouts` so the discussion whitelist can grow (e.g. files) without touching call sites.
+    static let supportedForDiscussion: [DetailsLayout] = editorLayouts
 
     private static let supportedForCreationInSetsBase: [DetailsLayout] = editorLayouts + [.bookmark] + listLayouts
     private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile, .objectType]
@@ -23,36 +27,76 @@ public extension DetailsLayout {
     private static let chatLayouts: [DetailsLayout] = [.chatDerived]
 }
 
-// MARK: - Space-aware filtering
+// MARK: - Space-aware filtering (SpaceUxType) — deprecated
 
 public extension DetailsLayout {
+    @available(*, deprecated, message: "Use spaceType overload instead")
     static func visibleLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
         guard spaceUxType.supportsMultiChats else { return visibleLayoutsBase }
         return visibleLayoutsBase + chatLayouts
     }
 
+    @available(*, deprecated, message: "Use spaceType overload instead")
     static func visibleLayoutsWithFiles(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
         guard spaceUxType.supportsMultiChats else { return visibleLayoutsWithFilesBase }
         return visibleLayoutsWithFilesBase + chatLayouts
     }
 
+    @available(*, deprecated, message: "Use spaceType overload instead")
     static func supportedForCreation(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
         guard spaceUxType.supportsMultiChats else { return supportedForCreationBase }
         return supportedForCreationBase + chatLayouts
     }
 
+    @available(*, deprecated, message: "Use spaceType overload instead")
     static func supportedForCreationInSets(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
         guard spaceUxType.supportsMultiChats else { return supportedForCreationInSetsBase }
         return supportedForCreationInSetsBase + chatLayouts
     }
 
+    @available(*, deprecated, message: "Use spaceType overload instead")
     static func widgetTypeLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
         guard spaceUxType.supportsMultiChats else { return widgetTypeLayoutsBase }
         return widgetTypeLayoutsBase + chatLayouts
     }
 
+    @available(*, deprecated, message: "Use spaceType overload instead")
     static func supportedForSharingExtension(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
         guard spaceUxType.supportsMultiChats else { return supportedForSharingExtensionBase }
+        return supportedForSharingExtensionBase + chatLayouts
+    }
+}
+
+// MARK: - Space-aware filtering (SpaceType)
+
+public extension DetailsLayout {
+    static func visibleLayouts(spaceType: SpaceType?) -> [DetailsLayout] {
+        guard spaceType != .oneToOne else { return visibleLayoutsBase }
+        return visibleLayoutsBase + chatLayouts
+    }
+
+    static func visibleLayoutsWithFiles(spaceType: SpaceType?) -> [DetailsLayout] {
+        guard spaceType != .oneToOne else { return visibleLayoutsWithFilesBase }
+        return visibleLayoutsWithFilesBase + chatLayouts
+    }
+
+    static func supportedForCreation(spaceType: SpaceType?) -> [DetailsLayout] {
+        guard spaceType != .oneToOne else { return supportedForCreationBase }
+        return supportedForCreationBase + chatLayouts
+    }
+
+    static func supportedForCreationInSets(spaceType: SpaceType?) -> [DetailsLayout] {
+        guard spaceType != .oneToOne else { return supportedForCreationInSetsBase }
+        return supportedForCreationInSetsBase + chatLayouts
+    }
+
+    static func widgetTypeLayouts(spaceType: SpaceType?) -> [DetailsLayout] {
+        guard spaceType != .oneToOne else { return widgetTypeLayoutsBase }
+        return widgetTypeLayoutsBase + chatLayouts
+    }
+
+    static func supportedForSharingExtension(spaceType: SpaceType?) -> [DetailsLayout] {
+        guard spaceType != .oneToOne else { return supportedForSharingExtensionBase }
         return supportedForSharingExtensionBase + chatLayouts
     }
 }
@@ -64,6 +108,7 @@ public extension DetailsLayout {
     var isFile: Bool { Self.fileLayouts.contains(self) }
     var isFileOrMedia: Bool { Self.fileAndMediaLayouts.contains(self) }
     var isSupportedForOpening: Bool { Self.supportedForOpening.contains(self) }
+    var isSupportedForDiscussion: Bool { Self.supportedForDiscussion.contains(self) }
     var haveIcon: Bool { Self.layoutsWithIcon.contains(self) }
     var haveCover: Bool { Self.layoutsWithCover.contains(self) }
 
@@ -79,17 +124,36 @@ public extension DetailsLayout {
 
     var isObjectType: Bool { self == .objectType }
     var isChat: Bool { Self.chatLayouts.contains(self) }
+
+    var blockLinkType: Anytype_Model_ChatMessage.MessageBlockLink.LinkType {
+        switch self {
+        case .image: return .image
+        case .file, .pdf, .audio, .video: return .file
+        case .bookmark: return .bookmark
+        default: return .object
+        }
+    }
 }
 
 // MARK: - Instance functions
 
 public extension DetailsLayout {
+    @available(*, deprecated, message: "Use spaceType overload instead")
     func isSupportedForCreation(spaceUxType: SpaceUxType?) -> Bool {
         Self.supportedForCreation(spaceUxType: spaceUxType).contains(self)
     }
 
+    @available(*, deprecated, message: "Use spaceType overload instead")
     func isSupportedForCreationInSets(spaceUxType: SpaceUxType?) -> Bool {
         Self.supportedForCreationInSets(spaceUxType: spaceUxType).contains(self)
+    }
+
+    func isSupportedForCreation(spaceType: SpaceType?) -> Bool {
+        Self.supportedForCreation(spaceType: spaceType).contains(self)
+    }
+
+    func isSupportedForCreationInSets(spaceType: SpaceType?) -> Bool {
+        Self.supportedForCreationInSets(spaceType: spaceType).contains(self)
     }
 }
 

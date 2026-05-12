@@ -38,6 +38,9 @@ extension BlockText {
         case .bulleted: return ".bulleted"
         case .numbered: return ".numbered"
         case .toggle: return ".toggle"
+        case .toggleHeader: return ".toggleHeader"
+        case .toggleHeader2: return ".toggleHeader2"
+        case .toggleHeader3: return ".toggleHeader3"
         case .code: return ".code"
         case .callout: return ".callout"
         }

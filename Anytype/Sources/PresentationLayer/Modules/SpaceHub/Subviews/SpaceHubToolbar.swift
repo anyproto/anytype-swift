@@ -1,12 +1,17 @@
 import SwiftUI
+import AnytypeCore
 
 struct SpaceHubToolbar: ToolbarContent {
 
     let profileIcon: Icon?
     let notificationsNotDetermined: Bool
+    let hideCreateButton: Bool
     let namespace: Namespace.ID
 
     let onTapCreateSpace: () -> Void
+    let onTapCreatePersonalChannel: () -> Void
+    let onTapCreateGroupChannel: () -> Void
+    let onTapJoinViaQrCode: () -> Void
     let onTapSettings: () -> Void
     
     var body: some ToolbarContent {
@@ -35,9 +40,14 @@ struct SpaceHubToolbar: ToolbarContent {
             }
         }
         
-        ToolbarItem(placement: .topBarTrailing) {
-            SpaceHubNewSpaceButton {
-                onTapCreateSpace()
+        if !hideCreateButton {
+            ToolbarItem(placement: .topBarTrailing) {
+                SpaceHubNewSpaceButton(
+                    onTap: { onTapCreateSpace() },
+                    onTapPersonal: { onTapCreatePersonalChannel() },
+                    onTapGroup: { onTapCreateGroupChannel() },
+                    onTapJoinQR: { onTapJoinViaQrCode() }
+                )
             }
         }
     }
@@ -62,17 +72,32 @@ struct SpaceHubToolbar: ToolbarContent {
         }
         .sharedBackgroundVisibility(.hidden)
         
-        DefaultToolbarItem(kind: .search, placement: .bottomBar)
+        if !hideCreateButton {
+            DefaultToolbarItem(kind: .search, placement: .bottomBar)
         
-        ToolbarSpacer(placement: .bottomBar)
-
-        ToolbarItem(placement: .bottomBar) {
-            Button { onTapCreateSpace() } label: {
-                Image(systemName: "plus")
-                    .foregroundStyle(Color.Control.primary)
+            ToolbarSpacer(placement: .bottomBar)
+        
+            ToolbarItem(placement: .bottomBar) {
+                if FeatureFlags.createChannelFlow {
+                    Menu {
+                        CreateChannelMenuItems(
+                            onTapPersonal: { onTapCreatePersonalChannel() },
+                            onTapGroup: { onTapCreateGroupChannel() },
+                            onTapJoinQR: { onTapJoinViaQrCode() }
+                        )
+                    } label: {
+                        Image(systemName: "plus")
+                            .foregroundStyle(Color.Control.primary)
+                    }
+                } else {
+                    Button { onTapCreateSpace() } label: {
+                        Image(systemName: "plus")
+                            .foregroundStyle(Color.Control.primary)
+                    }
+                }
             }
+            .matchedTransitionSource(id: "SpaceCreateTypePickerView", in: namespace)
         }
-        .matchedTransitionSource(id: "SpaceCreateTypePickerView", in: namespace)
     }
 
     private var attentionDotView: some View {

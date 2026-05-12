@@ -4,15 +4,29 @@ import SwiftUI
 @MainActor
 protocol ChatActionProviderHandler: AnyObject {
     func addAttachment(_ attachment: ChatLinkObject, clearInput: Bool)
+    func scrollToMessage(messageId: String)
 }
 
 struct ChatActionProvider {
-    
-    weak var handler: (any ChatActionProviderHandler)?
-        
+
+    private var handlers = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+
+    func register(chatId: String, handler: any ChatActionProviderHandler) {
+        handlers.setObject(handler as AnyObject, forKey: chatId as NSString)
+    }
+
+    private func handler(for chatId: String) -> (any ChatActionProviderHandler)? {
+        handlers.object(forKey: chatId as NSString) as? any ChatActionProviderHandler
+    }
+
     @MainActor
-    func addAttachment(_ attachment: ChatLinkObject, clearInput: Bool) {
-        handler?.addAttachment(attachment, clearInput: clearInput)
+    func addAttachment(chatId: String, _ attachment: ChatLinkObject, clearInput: Bool) {
+        handler(for: chatId)?.addAttachment(attachment, clearInput: clearInput)
+    }
+
+    @MainActor
+    func scrollToMessage(chatId: String, messageId: String) {
+        handler(for: chatId)?.scrollToMessage(messageId: messageId)
     }
 }
 

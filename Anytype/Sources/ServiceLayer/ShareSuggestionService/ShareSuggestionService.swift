@@ -50,12 +50,11 @@ final class ShareSuggestionService: ShareSuggestionServiceProtocol, Sendable {
     }
     
     private func displayIcon(spaceView: SpaceView, chatDetails: ObjectDetails) async -> INImage? {
-        switch spaceView.uxType {
-        case .chat, .oneToOne:
+        if spaceView.isOneToOne {
             return spaceIconStorage.iconLocalUrl(forSpaceId: spaceView.targetSpaceId)
                 .flatMap { try? Data(contentsOf: $0) }
                 .flatMap { INImage(imageData: $0) }
-        case .data, .stream, .none, .UNRECOGNIZED:
+        } else {
             guard let url = chatDetails.objectIcon?.imageId
                 .flatMap({ ImageMetadata(id: $0, side: .width(50)).contentUrl }) else { return nil }
             return await AnytypeImageDownloader.retrieveImage(with: url)
@@ -63,21 +62,19 @@ final class ShareSuggestionService: ShareSuggestionServiceProtocol, Sendable {
                 .flatMap { INImage(imageData: $0) }
         }
     }
-    
+
     private func displayName(spaceView: SpaceView, chatDetails: ObjectDetails) -> String {
-        switch spaceView.uxType {
-        case .chat, .oneToOne:
+        if spaceView.isOneToOne {
             return spaceView.title
-        case .data, .stream, .none, .UNRECOGNIZED:
+        } else {
             return chatDetails.name
         }
     }
 
     private func conversationIdentifier(spaceView: SpaceView, chatDetails: ObjectDetails) -> String? {
-        switch spaceView.uxType {
-        case .chat, .oneToOne:
+        if spaceView.isOneToOne {
             ConversationIdentifier(spaceId: spaceView.targetSpaceId, chatId: nil).encoded()
-        case .data, .stream, .none, .UNRECOGNIZED:
+        } else {
             ConversationIdentifier(spaceId: spaceView.targetSpaceId, chatId: chatDetails.id).encoded()
         }
     }

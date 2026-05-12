@@ -92,9 +92,9 @@ extension TextBlockContentConfiguration {
             return .init(top: 0, left: 20, bottom: 0, right: 20)
         case .description:
             return .init(top: 8, left: 20, bottom: 0, right: 20)
-        case .header:
+        case .header, .toggleHeader:
             return .init(top: 24, left: 20, bottom: 2, right: 20)
-        case .header2, .header3:
+        case .header2, .header3, .toggleHeader2, .toggleHeader3:
             return .init(top: 16, left: 20, bottom: 2, right: 20)
         default:
             return .init(top: 0, left: 20, bottom: 2, right: 20)

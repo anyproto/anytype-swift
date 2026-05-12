@@ -56,6 +56,12 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum, Swift.CaseIterable
 
   /// Any-store based object for discussion
   case discussionObject // = 546
+
+  /// Any-store based object in tech space for cross-device sync
+  case techSpaceObject // = 547
+
+  /// Per-space virtual object backed by a tech space CRDT document
+  case techSpaceVirtualObject // = 548
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -93,6 +99,8 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum, Swift.CaseIterable
     case 544: self = .chatDerivedObject
     case 545: self = .accountObject
     case 546: self = .discussionObject
+    case 547: self = .techSpaceObject
+    case 548: self = .techSpaceVirtualObject
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -128,6 +136,8 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum, Swift.CaseIterable
     case .chatDerivedObject: return 544
     case .accountObject: return 545
     case .discussionObject: return 546
+    case .techSpaceObject: return 547
+    case .techSpaceVirtualObject: return 548
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -163,12 +173,14 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum, Swift.CaseIterable
     .chatDerivedObject,
     .accountObject,
     .discussionObject,
+    .techSpaceObject,
+    .techSpaceVirtualObject,
   ]
 
 }
 
 extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0AccountOld\0\u{2}\u{10}Page\0\u{1}ProfilePage\0\u{2}\u{f}Home\0\u{2}\u{10}Archive\0\u{2}@\u{1}Widget\0\u{2}P\u{2}File\0\u{2} Template\0\u{1}BundledTemplate\0\u{2}_\u{3}BundledRelation\0\u{1}SubObject\0\u{1}BundledObjectType\0\u{1}AnytypeProfile\0\u{1}Date\0\u{2}\u{2}Workspace\0\u{1}MissingObject\0\u{2}\u{2}STRelation\0\u{2}\u{7}STType\0\u{1}STRelationOption\0\u{1}SpaceView\0\u{2}\u{2}Identity\0\u{1}FileObject\0\u{1}Participant\0\u{1}NotificationObject\0\u{1}DevicesObject\0\u{1}ChatObjectDeprecated\0\u{2}\u{7}ChatDerivedObject\0\u{1}AccountObject\0\u{1}DiscussionObject\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0AccountOld\0\u{2}\u{10}Page\0\u{1}ProfilePage\0\u{2}\u{f}Home\0\u{2}\u{10}Archive\0\u{2}@\u{1}Widget\0\u{2}P\u{2}File\0\u{2} Template\0\u{1}BundledTemplate\0\u{2}_\u{3}BundledRelation\0\u{1}SubObject\0\u{1}BundledObjectType\0\u{1}AnytypeProfile\0\u{1}Date\0\u{2}\u{2}Workspace\0\u{1}MissingObject\0\u{2}\u{2}STRelation\0\u{2}\u{7}STType\0\u{1}STRelationOption\0\u{1}SpaceView\0\u{2}\u{2}Identity\0\u{1}FileObject\0\u{1}Participant\0\u{1}NotificationObject\0\u{1}DevicesObject\0\u{1}ChatObjectDeprecated\0\u{2}\u{7}ChatDerivedObject\0\u{1}AccountObject\0\u{1}DiscussionObject\0\u{1}TechSpaceObject\0\u{1}TechSpaceVirtualObject\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

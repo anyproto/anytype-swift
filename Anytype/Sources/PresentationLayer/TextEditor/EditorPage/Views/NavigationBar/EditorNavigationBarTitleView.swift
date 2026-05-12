@@ -17,8 +17,9 @@ final class EditorNavigationBarTitleView: UIView {
     private let titleLabel = AnytypeLabel(style: .uxCalloutRegular)
     private let lockImageView = UIImageView()
     private let arrowImageView = UIImageView()
-    
+
     private var mode: Mode?
+    private var stackViewLeadingConstraint: NSLayoutConstraint?
     
     init() {
         super.init(frame: .zero)
@@ -71,18 +72,21 @@ extension EditorNavigationBarTitleView: ConfigurableView {
             iconImageView.isHidden = titleModel.icon.isNil
             iconImageView.icon = titleModel.icon
             arrowImageView.isHidden = true
+            stackViewLeadingConstraint?.constant = 6
         case let .modeTitle(text):
             titleLabel.setText(text, style: .uxTitle1Semibold)
             titleLabel.isUserInteractionEnabled = false
+            stackView.isUserInteractionEnabled = false
             iconImageView.isHidden = true
             arrowImageView.isHidden = true
+            stackViewLeadingConstraint?.constant = 6
         case let .templates(model):
             titleLabel.setText(Loc.TemplateSelection.Header.title, style: .caption1Medium)
-            titleLabel.isUserInteractionEnabled = true
-            titleLabel.addTapGesture { _ in model.onTap() }
+            stackView.isUserInteractionEnabled = true
+            stackView.addTapGesture { _ in model.onTap() }
             arrowImageView.isHidden = false
-            arrowImageView.addTapGesture { _ in model.onTap() }
             iconImageView.isHidden = true
+            stackViewLeadingConstraint?.constant = 12
         }
         mode = model
     }
@@ -141,8 +145,13 @@ private extension EditorNavigationBarTitleView {
         }
 
         glassBackground.glassContentView.addSubview(stackView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6))
+            $0.pinToSuperview(excluding: [.left], insets: UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 6))
         }
+        stackViewLeadingConstraint = stackView.leadingAnchor.constraint(
+            equalTo: glassBackground.glassContentView.leadingAnchor,
+            constant: 6
+        )
+        stackViewLeadingConstraint?.isActive = true
 
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(titleLabel)

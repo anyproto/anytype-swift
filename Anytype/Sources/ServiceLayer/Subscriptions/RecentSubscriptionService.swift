@@ -41,13 +41,24 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     ) async {
         
         let sort = makeSort(type: type)
-        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
 
-        let filters: [DataviewFilter] = .builder {
-            SearchHelper.notHiddenFilters()
-            SearchHelper.layoutFilter(DetailsLayout.visibleLayouts(spaceUxType: spaceUxType))
-            SearchHelper.templateScheme(include: false)
-            makeDateFilter(type: type, spaceId: spaceId)
+        let filters: [DataviewFilter]
+        if FeatureFlags.createChannelFlow {
+            let spaceType = workspaceStorage.spaceView(spaceId: spaceId)?.spaceType
+            filters = .builder {
+                SearchHelper.notHiddenFilters()
+                SearchHelper.layoutFilter(DetailsLayout.visibleLayouts(spaceType: spaceType))
+                SearchHelper.templateScheme(include: false)
+                makeDateFilter(type: type, spaceId: spaceId)
+            }
+        } else {
+            let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
+            filters = .builder {
+                SearchHelper.notHiddenFilters()
+                SearchHelper.layoutFilter(DetailsLayout.visibleLayouts(spaceUxType: spaceUxType))
+                SearchHelper.templateScheme(include: false)
+                makeDateFilter(type: type, spaceId: spaceId)
+            }
         }
         
         let keys: [BundledPropertyKey] = .builder {

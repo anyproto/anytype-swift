@@ -1,0 +1,65 @@
+import SwiftUI
+
+struct DiscussionCoordinatorView: View {
+
+    @State private var model: DiscussionCoordinatorViewModel
+    @Environment(\.pageNavigation) private var pageNavigation
+
+    init(data: DiscussionCoordinatorData) {
+        self._model = State(wrappedValue: DiscussionCoordinatorViewModel(data: data))
+    }
+
+    var body: some View {
+        content
+    }
+
+    private var content: some View {
+        DiscussionView(
+            spaceId: model.spaceId,
+            objectId: model.objectId,
+            objectName: model.objectName,
+            discussionId: model.discussionId,
+            messageId: model.messageId,
+            output: model
+        )
+            .onAppear {
+                model.pageNavigation = pageNavigation
+            }
+            .sheet(item: $model.objectToMessageSearchData) {
+                ObjectSearchWithMetaCoordinatorView(data: $0)
+            }
+            .sheet(item: $model.showEmojiData) {
+                MessageReactionPickerView(data: $0)
+            }
+            .sheet(item: $model.linkToObjectData) {
+                LinkToObjectSearchView(data: $0, showEditorScreen: { _ in })
+            }
+            .sheet(item: $model.participantsReactionData) {
+                MessageParticipantsReactionView(data: $0)
+            }
+            .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)
+            .fileImporter(
+                isPresented: $model.showFilesPicker,
+                allowedContentTypes: [.data],
+                allowsMultipleSelection: true
+            ) { result in
+                model.fileImporterFinished(result: result)
+            }
+            .safariSheet(url: $model.safariUrl)
+            .cameraAccessFullScreenCover(item: $model.cameraData) {
+                SimpleCameraView(data: $0)
+            }
+            .sheet(item: $model.newLinkedObject) {
+                ChatCreateObjectCoordinatorView(data: $0, chatId: model.discussionId)
+            }
+            .anytypeSheet(item: $model.pushNotificationsAlertData) {
+                PushNotificationsAlertView(data: $0)
+            }
+            .anytypeSheet(isPresented: $model.showDisabledPushNotificationsAlert){
+                DisabledPushNotificationsAlertView()
+            }
+            .onChange(of: model.photosItems) {
+                model.photosPickerFinished()
+            }
+    }
+}

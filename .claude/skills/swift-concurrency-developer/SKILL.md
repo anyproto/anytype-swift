@@ -175,6 +175,7 @@ Task.detached(priority: .userInitiated) {
     await MainActor.run { updateUI(result) }
 }
 ```
+> **Production impact**: Apps get rejected for "became unresponsive." See `references/production-pitfalls.md` section 2.
 
 ### 2. Creating too many actors
 Most things can live on MainActor. Only create actors when you have shared mutable state that can't be on MainActor.
@@ -240,6 +241,18 @@ await MainActor.run {
 }
 ```
 
+### 8. Async for loops silently losing data
+Using `try?` or empty `catch {}` in async loops swallows failures. Users lose data with zero indication. Acceptable for fire-and-forget (cache warming, analytics), dangerous for uploads/sync/migration. See `references/production-pitfalls.md` section 1.
+
+### 9. Ignoring Task cancellation in long-running loops
+`for await` under `.task` modifier is safe (structured concurrency propagates cancellation). But `for await` or `while` loops in stored `Task { }` properties need explicit `Task.isCancelled` checks. See `references/production-pitfalls.md` section 3.
+
+### 10. Manual migration pitfalls (@preconcurrency + DispatchQueue mixing)
+`@preconcurrency` and `nonisolated(unsafe)` hide real data races. Mixing `DispatchQueue` with `async/await` creates confusing execution contexts. Always document safety invariants and plan removal. See `references/production-pitfalls.md` section 4.
+
+### 11. Task inside onAppear instead of .task modifier
+`Task { }` in `.onAppear` is unstructured: not cancelled on disappear, fires on every re-appear. Use `.task { }` for async work tied to view lifecycle, `.onAppear` for sync-only setup. See `references/production-pitfalls.md` section 5.
+
 ## Quick Reference
 
 | Keyword | Purpose |
@@ -288,6 +301,7 @@ Load these files as needed for specific topics:
 - **`testing.md`** - XCTest async patterns, Swift Testing, concurrency testing utilities
 - **`migration.md`** - Swift 6 migration strategy, closure-to-async conversion, @preconcurrency
 - **`linting.md`** - Concurrency-focused lint rules and SwiftLint async_without_await
+- **`production-pitfalls.md`** - Silent data loss, cancellation gaps, migration bridges, .task vs onAppear
 
 ### Project-Specific References (Anytype)
 - **`approachable-concurrency.md`** - Approachable concurrency quick guide

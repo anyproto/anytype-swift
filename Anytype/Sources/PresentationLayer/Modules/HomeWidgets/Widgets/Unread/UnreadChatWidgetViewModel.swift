@@ -25,7 +25,13 @@ final class UnreadChatWidgetViewModel {
     private(set) var icon: Icon?
     private(set) var unreadCounter: Int = 0
     private(set) var hasMentions: Bool = false
-    private(set) var muted: Bool = false
+    private(set) var hasUnreadReactions: Bool = false
+    private(set) var notificationMode: SpacePushNotificationsMode = .all
+    var muted: Bool { notificationMode != .all }
+
+    var shouldShowUnreadCounter: Bool {
+        notificationMode.shouldShowUnreadCounter(unreadCount: unreadCounter)
+    }
 
     init(data: UnreadChatWidgetData) {
         self.data = data
@@ -54,7 +60,7 @@ final class UnreadChatWidgetViewModel {
 
     private func startMutedSubscription() async {
         for await spaceView in spaceViewsStorage.spaceViewPublisher(spaceId: data.spaceId).values {
-            muted = spaceView.effectiveNotificationMode(for: data.id) != .all
+            notificationMode = spaceView.effectiveNotificationMode(for: data.id)
         }
     }
 
@@ -68,6 +74,7 @@ final class UnreadChatWidgetViewModel {
             }
             unreadCounter = preview.unreadCounter
             hasMentions = preview.mentionCounter > 0
+            hasUnreadReactions = preview.hasUnreadReactions
         }
     }
 }

@@ -10,7 +10,7 @@ struct ListWidgetCompactRow: View {
     @Environment(\.shouldHideChatBadges) private var shouldHideChatBadges
 
     private var titleColor: Color {
-        model.chatPreview?.titleColor ?? .Text.primary
+        model.chatPreview?.titleColor ?? model.parentBadge?.titleColor ?? .Text.primary
     }
 
     var body: some View {
@@ -27,12 +27,15 @@ struct ListWidgetCompactRow: View {
 
                 Spacer()
 
-                if let chatPreview = model.chatPreview, chatPreview.hasCounters {
+                if let chatPreview = model.chatPreview, chatPreview.hasVisibleCounters {
                     HStack(spacing: 4) {
+                        if chatPreview.hasUnreadReactions {
+                            HeartBadge(style: chatPreview.reactionStyle)
+                        }
                         if chatPreview.mentionCounter > 0 {
                             MentionBadge(style: chatPreview.mentionCounterStyle)
                         }
-                        if chatPreview.unreadCounter > 0 {
+                        if chatPreview.shouldShowUnreadCounter {
                             CounterView(
                                 count: chatPreview.unreadCounter,
                                 style: chatPreview.unreadCounterStyle
@@ -40,6 +43,9 @@ struct ListWidgetCompactRow: View {
                         }
                     }
                     .opacity(shouldHideChatBadges ? 0 : 1)
+                } else if let parentBadge = model.parentBadge, parentBadge.hasVisibleCounters {
+                    ParentBadgesView(badge: parentBadge)
+                        .opacity(shouldHideChatBadges ? 0 : 1)
                 }
             }
             .padding(.horizontal, 16)

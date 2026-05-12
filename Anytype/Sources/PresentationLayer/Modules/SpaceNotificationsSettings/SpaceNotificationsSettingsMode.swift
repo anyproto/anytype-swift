@@ -1,4 +1,5 @@
 import Services
+import AnytypeCore
 
 extension SpacePushNotificationsMode {
 
@@ -8,16 +9,16 @@ extension SpacePushNotificationsMode {
 
     var title: String {
         switch self {
-        case .all: return Loc.Space.Notifications.Settings.State.all
+        case .all: return Loc.Space.Notifications.Settings.State.enable
         case .mentions: return Loc.Space.Notifications.Settings.State.mentions
-        case .nothing, .UNRECOGNIZED: return Loc.Space.Notifications.Settings.State.disabled
+        case .nothing, .UNRECOGNIZED: return Loc.disabled
         }
     }
 
     var titleShort: String {
         switch self {
-        case .all: return Loc.all
-        case .mentions: return Loc.mentions
+        case .all: return Loc.Space.Notifications.Settings.State.enable
+        case .mentions: return Loc.Space.Notifications.Settings.State.mentions
         case .nothing, .UNRECOGNIZED: return Loc.disabled
         }
     }
@@ -34,6 +35,11 @@ extension SpacePushNotificationsMode {
         self == .all
     }
 
+    func toggled(isOneToOne: Bool) -> SpacePushNotificationsMode {
+        guard isUnmutedAll else { return .all }
+        return isOneToOne ? .nothing : .mentions
+    }
+
     var unreadCounterStyle: CounterViewStyle {
         switch self {
         case .all:
@@ -43,11 +49,28 @@ extension SpacePushNotificationsMode {
         }
     }
 
-    var mentionCounterStyle: MentionBadgeStyle {
+    var mentionCounterStyle: BadgeStyle {
         switch self {
         case .all, .mentions:
             return .highlighted
         case .nothing, .UNRECOGNIZED:
+            return .muted
+        }
+    }
+
+    /// Hidden in `.nothing` mode when `FeatureFlags.muteAndHide` is on.
+    /// Mention-only (unsubscribed) parents pass `isSubscribed: false` to drop the counter regardless of mode.
+    func shouldShowUnreadCounter(unreadCount: Int, isSubscribed: Bool = true) -> Bool {
+        guard isSubscribed, unreadCount > 0 else { return false }
+        guard FeatureFlags.muteAndHide else { return true }
+        return self != .nothing
+    }
+
+    var reactionCounterStyle: BadgeStyle {
+        switch self {
+        case .all:
+            return .highlighted
+        case .mentions, .nothing, .UNRECOGNIZED:
             return .muted
         }
     }

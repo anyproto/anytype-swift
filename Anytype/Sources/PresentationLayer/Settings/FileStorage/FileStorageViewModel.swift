@@ -9,6 +9,10 @@ final class FileStorageViewModel {
 
     @ObservationIgnored @Injected(\.fileLimitsStorage)
     private var fileLimitsStorage: any FileLimitsStorageProtocol
+    @ObservationIgnored @Injected(\.fileService)
+    private var fileService: any FileServiceProtocol
+    @ObservationIgnored @Injected(\.userDefaultsStorage)
+    private var userDefaultsStorage: any UserDefaultsStorageProtocol
 
     @ObservationIgnored
     private let byteCountFormatter = ByteCountFormatter.fileFormatter
@@ -20,16 +24,38 @@ final class FileStorageViewModel {
     var contentLoaded: Bool = false
     var showClearCacheAlert = false
 
+    var autoDownloadSizeLimit: AutoDownloadSizeLimit = .off
+    var autoDownloadUseCellular: Bool = false
+    var showSizeLimitPicker = false
+
     init() {
         setupPlaceholderState()
     }
-    
+
     func onTapOffloadFiles() {
         showClearCacheAlert = true
     }
-    
+
     func onAppear() {
         AnytypeAnalytics.instance().logScreenSettingsStorageIndex()
+        loadAutoDownloadSettings()
+    }
+
+    func onSizeLimitSelected(_ limit: AutoDownloadSizeLimit) {
+        autoDownloadSizeLimit = limit
+        userDefaultsStorage.autoDownloadSizeLimitRawValue = limit.rawValue
+        if !limit.isEnabled {
+            autoDownloadUseCellular = false
+            userDefaultsStorage.autoDownloadUseCellular = false
+        }
+        showSizeLimitPicker = false
+        Task { await syncAutoDownloadToMiddleware() }
+    }
+
+    func onUseCellularToggled(_ value: Bool) {
+        autoDownloadUseCellular = value
+        userDefaultsStorage.autoDownloadUseCellular = value
+        Task { await syncAutoDownloadToMiddleware() }
     }
 
     // MARK: - Private
@@ -45,14 +71,33 @@ final class FileStorageViewModel {
             updateView(nodeUsage: nodeUsage)
         }
     }
-    
+
     private func setupPlaceholderState() {
         updateView(nodeUsage: .placeholder)
     }
-    
+
     private func updateView(nodeUsage: NodeUsageInfo) {
         let localBytesUsage = nodeUsage.node.localBytesUsage
         let local = byteCountFormatter.string(fromByteCount: localBytesUsage)
         locaUsed = Loc.FileStorage.Local.used(local)
+    }
+
+    private func loadAutoDownloadSettings() {
+        let rawValue = userDefaultsStorage.autoDownloadSizeLimitRawValue
+        autoDownloadSizeLimit = AutoDownloadSizeLimit(rawValue: rawValue) ?? .off
+        autoDownloadUseCellular = userDefaultsStorage.autoDownloadUseCellular
+    }
+
+    private func syncAutoDownloadToMiddleware() async {
+        let enabled = autoDownloadSizeLimit.isEnabled
+        let wifiOnly = !autoDownloadUseCellular
+        do {
+            try await fileService.setAutoDownload(enabled: enabled, wifiOnly: wifiOnly)
+            if enabled {
+                try await fileService.setAutoDownloadSizeLimit(mebibytes: autoDownloadSizeLimit.middlewareSizeLimitMebibytes)
+            }
+        } catch {
+            anytypeAssertionFailure("Failed to sync auto download settings", info: ["error": error.localizedDescription])
+        }
     }
 }

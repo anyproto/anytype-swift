@@ -14,7 +14,7 @@ private struct MessageBottomInfoViewBuilder {
     let synced: Bool
     let edited: Bool
     let showSyncIndicator: Bool
-    let createDate: String
+    let timestampLabel: String
     
     var body: Text {
         infoText
@@ -23,7 +23,7 @@ private struct MessageBottomInfoViewBuilder {
     
     private var infoText: Text {
         let editText = edited ? Loc.Message.edited + " " : ""
-        return Text("  ") + syncIndicator + Text(editText + createDate)
+        return Text("  ") + syncIndicator + Text(editText + timestampLabel)
     }
     
     private var syncIndicator: Text {
@@ -51,7 +51,7 @@ private extension MessageBottomInfoViewBuilder {
             synced: data.message.synced,
             edited: data.message.modifiedAtDate != nil,
             showSyncIndicator: data.showMessageSyncIndicator,
-            createDate: data.createDate
+            timestampLabel: data.timestampLabel
         )
     }
 }

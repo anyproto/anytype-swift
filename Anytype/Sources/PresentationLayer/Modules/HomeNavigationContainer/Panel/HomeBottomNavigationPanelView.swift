@@ -21,6 +21,8 @@ private struct HomeBottomNavigationPanelViewInternal: View {
 
     let homePath: HomePath
     @State private var model: HomeBottomNavigationPanelViewModel
+    @State private var showTypeSearch = false
+    @Environment(\.pageNavigation) private var pageNavigation
 
     init(homePath: HomePath, info: AccountInfo, output: (any HomeBottomNavigationPanelModuleOutput)?) {
         self.homePath = homePath
@@ -36,11 +38,18 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         VStack(spacing: 0) {
             GlassEffectContainerIOS26(spacing: 20) {
                 HStack {
-                    searchButton
-                        .glassEffectIDIOS26("search", in: glassNamespace)
+                    if model.showDiscussButton {
+                        discussIsland
+                            .glassEffectIDIOS26("discussIsland", in: glassNamespace)
+                    } else {
+                        searchButton
+                            .glassEffectIDIOS26("search", in: glassNamespace)
+                    }
                     Spacer()
-                    createButton
-                        .glassEffectIDIOS26("create", in: glassNamespace)
+                    if model.canCreateObject {
+                        createButton
+                            .glassEffectIDIOS26("create", in: glassNamespace)
+                    }
                 }
             }
             .padding(.horizontal, 24)
@@ -82,6 +91,37 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         }
         .frame(width: 48, height: 48)
         .glassEffectInteractiveIOS26(in: Circle())
+    }
+
+    private var discussIsland: some View {
+        let hasCount = model.commentsCount > 0
+        return Button {
+            model.onTapDiscuss()
+        } label: {
+            HStack(spacing: 4) {
+                Image(systemName: model.discussButtonHasUnread ? "message.badge" : "message")
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(
+                        model.discussButtonHasUnread ? Color.Control.accent100 : Color.Control.primary,
+                        Color.Control.primary
+                    )
+                    .font(.system(size: 20))
+                    .frame(width: 32, height: 32)
+                if hasCount {
+                    AnytypeText("\(model.commentsCount)", style: .previewTitle2Medium)
+                        .foregroundStyle(Color.Text.primary)
+                        .contentTransition(.numericText())
+                        .transition(.opacity.combined(with: .scale(scale: 0.5, anchor: .leading)))
+                }
+            }
+            .padding(.leading, 8)
+            .padding(.vertical, 8)
+            .padding(.trailing, hasCount ? 12 : 8)
+        }
+        .glassEffectInteractiveIOS26(in: Capsule())
+        .animation(.snappy(duration: 0.35), value: hasCount)
+        .animation(.snappy(duration: 0.25), value: model.commentsCount)
+        .animation(.snappy(duration: 0.25), value: model.discussButtonHasUnread)
     }
 
     @ViewBuilder
@@ -144,18 +184,25 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             .frame(width: 48, height: 48)
             .glassEffectInteractiveIOS26(in: Circle())
             .menuOrder(.fixed)
-            .disabled(!model.canCreateObject)
         } else {
-            Button {
-                model.onTapNewObject()
-            } label: {
-                Image(asset: .X32.Island.create)
-                    .renderingMode(.template)
-                    .foregroundStyle(Color.Control.primary)
-            }
-            .frame(width: 48, height: 48)
-            .glassEffectInteractiveIOS26(in: Circle())
-            .disabled(!model.canCreateObject)
+            Image(asset: .X32.Island.create)
+                .renderingMode(.template)
+                .foregroundStyle(Color.Control.primary)
+                .frame(width: 48, height: 48)
+                .contentShape(Circle())
+                .glassEffectInteractiveIOS26(in: Circle())
+                .onTapGesture {
+                    model.onTapNewObject()
+                }
+                .onLongPressGesture(minimumDuration: 0.3) {
+                    showTypeSearch = true
+                }
+                .sheet(isPresented: $showTypeSearch) {
+                    TypeSearchForNewObjectCoordinatorView(spaceId: model.spaceId) { details in
+                        model.onLongPressNewObject(details: details)
+                    }
+                    .pageNavigation(pageNavigation)
+                }
         }
     }
 }

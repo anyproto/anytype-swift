@@ -21,6 +21,8 @@ struct ListWidgetRow: View {
 
                 if let chatPreview = model.chatPreview {
                     chatContent(chatPreview: chatPreview)
+                } else if let parentBadge = model.parentBadge, parentBadge.hasVisibleCounters {
+                    parentContent(badge: parentBadge)
                 } else {
                     regularContent
                 }
@@ -54,6 +56,28 @@ struct ListWidgetRow: View {
     }
 
     @ViewBuilder
+    private func parentContent(badge: ParentObjectUnreadBadge) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 0) {
+                AnytypeText(model.title, style: .previewTitle2Medium)
+                    .foregroundStyle(badge.titleColor)
+                    .lineLimit(1)
+
+                Spacer()
+
+                ParentBadgesView(badge: badge)
+                    .opacity(shouldHideChatBadges ? 0 : 1)
+            }
+            if let description = model.description, description.isNotEmpty {
+                Spacer.fixedHeight(1)
+                AnytypeText(description, style: .relation3Regular)
+                    .foregroundStyle(Color.Widget.secondary)
+                    .lineLimit(1)
+            }
+        }
+    }
+
+    @ViewBuilder
     private func chatContent(chatPreview: MessagePreviewModel) -> some View {
         VStack(alignment: .leading, spacing: 1) {
             HStack(spacing: 0) {
@@ -75,12 +99,15 @@ struct ListWidgetRow: View {
 
                 Spacer()
 
-                if chatPreview.hasCounters {
+                if chatPreview.hasVisibleCounters {
                     HStack(spacing: 4) {
+                        if chatPreview.hasUnreadReactions {
+                            HeartBadge(style: chatPreview.reactionStyle)
+                        }
                         if chatPreview.mentionCounter > 0 {
                             MentionBadge(style: chatPreview.mentionCounterStyle)
                         }
-                        if chatPreview.unreadCounter > 0 {
+                        if chatPreview.shouldShowUnreadCounter {
                             CounterView(
                                 count: chatPreview.unreadCounter,
                                 style: chatPreview.unreadCounterStyle

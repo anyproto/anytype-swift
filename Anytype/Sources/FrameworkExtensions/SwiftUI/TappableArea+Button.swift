@@ -1,13 +1,17 @@
 import SwiftUI
 
+enum ExpandedTapAreaButtonConstants {
+    static let defaultInsets = EdgeInsets(side: 15)
+}
+
 struct ExpandedTapAreaButton<Label: View>: View {
-    
+
     let action: @MainActor () -> Void
     let insets: EdgeInsets
     @ViewBuilder
     let label: Label
-    
-    init(action: @escaping @MainActor () -> Void, insets: EdgeInsets = EdgeInsets(side: 15), @ViewBuilder label: () -> Label) {
+
+    init(insets: EdgeInsets = ExpandedTapAreaButtonConstants.defaultInsets, action: @escaping @MainActor () -> Void, @ViewBuilder label: () -> Label) {
         self.action = action
         self.insets = insets
         self.label = label()

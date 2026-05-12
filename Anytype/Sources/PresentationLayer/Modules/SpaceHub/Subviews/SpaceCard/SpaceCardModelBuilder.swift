@@ -1,3 +1,4 @@
+import Foundation
 import Services
 import AnytypeCore
 import Factory
@@ -55,11 +56,29 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
                 chatPreviewDate: chatPreviewDateFormatter.localizedDateString(for: lastMessagePreview.createdAt, showTodayTime: true),
                 unreadCounter: 0, // unsupported in space hub
                 mentionCounter: 0, // unsupported in space hub
+                hasUnreadReactions: false, // unsupported in space hub
                 notificationMode: .all, // unsupported in space hub
                 chatName: chatName
             )
         } else {
             lastMessage = nil
+        }
+
+        let unreadEntries: [SpaceCardUnreadEntries.Entry]
+        let multichatCompactPreview: String?
+        if !spaceView.isOneToOne {
+            unreadEntries = await buildUnreadEntries(
+                unreadPreviews: spaceData.unreadPreviews,
+                unreadDiscussionParents: spaceData.unreadDiscussionParents
+            )
+            multichatCompactPreview = SpaceCardUnreadEntries.formatCompactPreview(entries: unreadEntries)
+        } else {
+            unreadEntries = []
+            multichatCompactPreview = nil
+        }
+
+        let lastUnreadDateText = unreadEntries.first?.date.map {
+            chatPreviewDateFormatter.localizedDateString(for: $0, showTodayTime: true)
         }
 
         return SpaceCardModel(
@@ -71,16 +90,42 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             isLoading: spaceView.isLoading,
             isShared: spaceView.isShared,
             isMuted: !spaceView.pushNotificationMode.isUnmutedAll,
+            canBeDeleted: spaceData.space.canBeDeleted,
+            canLeave: spaceData.space.canLeave,
             uxTypeName: spaceView.uxType.name,
-            supportsMultiChats: spaceView.uxType.supportsMultiChats,
-            showsMessageAuthor: spaceView.uxType.showsMessageAuthor,
+            supportsMultiChats: !spaceView.isOneToOne,
+            isOneToOne: spaceView.isOneToOne,
+            currentNotificationMode: spaceView.pushNotificationMode,
+            showsMessageAuthor: spaceView.showsMessageAuthor,
             lastMessage: lastMessage,
             unreadCounter: spaceData.totalUnreadCounter,
             mentionCounter: spaceData.totalMentionCounter,
+            hasUnreadReactions: spaceData.hasUnreadReactions,
             unreadCounterStyle: spaceData.unreadCounterStyle,
             mentionCounterStyle: spaceData.mentionCounterStyle,
+            reactionStyle: spaceData.reactionStyle,
             hasCounters: spaceData.hasCounters,
+            multichatCompactPreview: multichatCompactPreview,
+            lastUnreadDateText: lastUnreadDateText,
             wallpaper: wallpapers[spaceView.targetSpaceId] ?? .default
+        )
+    }
+
+    private func buildUnreadEntries(
+        unreadPreviews: [ChatMessagePreview],
+        unreadDiscussionParents: [DiscussionUnreadParent]
+    ) async -> [SpaceCardUnreadEntries.Entry] {
+        var chatEntries = [SpaceCardUnreadEntries.Entry]()
+        for preview in unreadPreviews {
+            guard let chatDetail = await chatDetailsStorage.chat(id: preview.chatId) else { continue }
+            chatEntries.append(SpaceCardUnreadEntries.Entry(
+                name: chatDetail.name.withPlaceholder,
+                date: preview.lastMessage?.createdAt
+            ))
+        }
+        return SpaceCardUnreadEntries.merge(
+            chatEntries: chatEntries,
+            discussionParents: unreadDiscussionParents
         )
     }
 }

@@ -1,3 +1,4 @@
+import AnytypeCore
 import Foundation
 import Services
 
@@ -35,10 +36,19 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
         update: @escaping @MainActor ([ObjectDetails], Int) -> Void
     ) async {
         
-        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
-        let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType), spaceUxType: spaceUxType)
-            filters
+        let allFilters: [DataviewFilter]
+        if FeatureFlags.createChannelFlow {
+            let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
+            allFilters = .builder {
+                SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceType), spaceType: spaceType)
+                filters
+            }
+        } else {
+            let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
+            allFilters = .builder {
+                SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType), spaceUxType: spaceUxType)
+                filters
+            }
         }
         
         let keys = BundledPropertyKey.objectListKeys.map { $0.rawValue } + [ BundledPropertyKey.origin.rawValue ]
@@ -48,7 +58,7 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
                 identifier: subscriptionId,
                 spaceId: spaceId,
                 sorts: [sort],
-                filters: filters,
+                filters: allFilters,
                 limit: limit,
                 offset: 0,
                 keys: keys

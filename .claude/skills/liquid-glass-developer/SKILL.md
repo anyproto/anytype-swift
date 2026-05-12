@@ -42,8 +42,8 @@ GlassEffectContainerIOS26(spacing: 20) {
 // Morphing transition ID
 .glassEffectIDIOS26("buttonId", in: glassNamespace)
 
-// Glass button style (legacy, prefer glassEffectInteractiveIOS26)
-.buttonStyleGlassIOS26()
+// Circle glass button style (for Button views — handles full-frame hit testing)
+.buttonStyleCircleGlassIOS26()
 ```
 
 ### Complete Pattern Example

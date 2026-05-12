@@ -7,6 +7,7 @@ struct DragAndDropVerticalDelegate<Data>: DropDelegate where Data: Identifiable<
     @Binding var dragState: DragState
     @Binding var dropState: DropState<Data>
     let framesStorage: DragAndDropFrames
+    let pendingCommit: DragAndDropPendingCommit
     let dropUpdate: (_ from: DropDataElement<Data>, _ to: DropDataElement<Data>) -> Void
     let dropFinish: (_ from: DropDataElement<Data>, _ to: DropDataElement<Data>) -> Void
     
@@ -48,6 +49,9 @@ struct DragAndDropVerticalDelegate<Data>: DropDelegate where Data: Identifiable<
         
         dropState.fromElement = fromElement
         dropState.toElement = toElement
+        pendingCommit.commit = { [dropFinish] in
+            dropFinish(fromElement, toElement)
+        }
         
         withAnimation {
             dropUpdate(fromElement, toElement)
@@ -57,29 +61,36 @@ struct DragAndDropVerticalDelegate<Data>: DropDelegate where Data: Identifiable<
     }
     
     func dropExited(info: DropInfo) {
-        guard let fromElement = dropState.fromElement,
-              let toElement = dropState.toElement else {
-            return
-        }
-        
         dropState.resetState()
-
-        dropFinish(fromElement, toElement)
+        // Keep `dragInProgress` while a pending commit exists. Edge drops often leave
+        // the drop zone before the drag provider ends; clearing the active state here
+        // makes the source row reappear and can switch the preview to "not allowed".
+        if pendingCommit.commit == nil {
+            dragState.dragInProgress = false
+        }
     }
     
     func performDrop(info: DropInfo) -> Bool {
         guard let fromElement = dropState.fromElement,
               let toElement = dropState.toElement else {
+            let commit = pendingCommit.commit
+            pendingCommit.commit = nil
+            // `performDrop` can arrive after `dropExited` has reset `dropState`,
+            // while `pendingCommit` still contains the last valid in-zone reorder.
+            // Treat that as an accepted edge-drop; returning `false` makes iOS show
+            // the "not allowed" badge and can snap the source row back.
             withAnimation {
                 fullClear()
+                commit?()
             }
-            return false
+            return commit.isNotNil
         }
 
         withAnimation {
             fullClear()
             dropFinish(fromElement, toElement)
         }
+        pendingCommit.commit = nil
 
         return true
     }

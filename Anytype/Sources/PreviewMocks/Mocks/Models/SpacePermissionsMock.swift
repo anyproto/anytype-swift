@@ -13,7 +13,8 @@ extension SpacePermissions {
             canDeleteLink: Bool.random(),
             canEditPermissions: Bool.random(),
             canApproveRequests: Bool.random(),
-            canChangeUxType: Bool.random()
+            canChangeUxType: Bool.random(),
+            canSetHomepage: Bool.random()
         )
     }
 }

@@ -20,6 +20,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     private let onShowStyleMenu: (BlockInformation) -> Void
     private let onEnterSelectionMode: (BlockInformation) -> Void
     private let onSelectUndoRedo: () -> Void
+    private let onDeleteBlock: (BlockInformation) -> Void
+    private let onIndentLeft: (BlockInformation) -> Void
+    private let onIndentRight: (BlockInformation) -> Void
     let showTextIconPicker: () -> Void
     let resetSubject = PassthroughSubject<NSAttributedString?, Never>()
     let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
@@ -61,6 +64,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         onShowStyleMenu: @escaping (BlockInformation) -> Void,
         onEnterSelectionMode: @escaping (BlockInformation) -> Void,
         onSelectUndoRedo: @escaping () -> Void,
+        onDeleteBlock: @escaping (BlockInformation) -> Void,
+        onIndentLeft: @escaping (BlockInformation) -> Void,
+        onIndentRight: @escaping (BlockInformation) -> Void,
         showTextIconPicker: @escaping () -> Void,
         showWaitingView: @escaping (String) -> Void,
         hideWaitingView: @escaping () -> Void,
@@ -84,6 +90,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         self.onShowStyleMenu = onShowStyleMenu
         self.onEnterSelectionMode = onEnterSelectionMode
         self.onSelectUndoRedo = onSelectUndoRedo
+        self.onDeleteBlock = onDeleteBlock
+        self.onIndentLeft = onIndentLeft
+        self.onIndentRight = onIndentRight
         self.showTextIconPicker = showTextIconPicker
         self.showWaitingView = showWaitingView
         self.hideWaitingView = hideWaitingView
@@ -439,6 +448,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     private func toggleDropdownView() {
         info.toggle()
         actionHandler.toggle(blockId: info.id)
+        viewModel.map { collectionController.reconfigure(items: [.block($0)]) }
     }
 }
 
@@ -538,7 +548,19 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     func didSelectUndoRedo() {
         onSelectUndoRedo()
     }
-    
+
+    func didSelectDeleteBlock() {
+        onDeleteBlock(info)
+    }
+
+    func didSelectIndentLeft() {
+        onIndentLeft(info)
+    }
+
+    func didSelectIndentRight() {
+        onIndentRight(info)
+    }
+
     private func setNewTextSync(attributedString: NSAttributedString) {
         Task { try await setNewText(attributedString: attributedString.sendable()) }
     }

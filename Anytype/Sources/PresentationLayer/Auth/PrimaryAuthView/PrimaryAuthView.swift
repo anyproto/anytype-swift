@@ -81,7 +81,7 @@ struct PrimaryAuthView: View {
                     .foregroundStyle(Color.Control.secondary)
             }
             .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
-            .glassEffectInteractiveIOS26(in: Circle())
+            .buttonStyleCircleGlassIOS26()
             .disabled(model.inProgress)
         }
     }

@@ -52,10 +52,13 @@ enum AnalyticsEventsPropertiesKey {
     static let relationKey = "relationKey"
     static let unreadMessageCount = "unreadMessageCount"
     static let hasMention = "hasMention"
+    static let hasAttachments = "hasAttachments"
     static let chatId = "chatId"
     static let size = "size"
     static let time = "time"
     static let status = "status"
+    static let uploadTime = "uploadTime"
+    static let totalTime = "totalTime"
 }
 
 enum AnalyticsEventsTypeValues {
@@ -113,8 +116,9 @@ enum AnalyticsWidgetSource {
     case recentOpen
     case bin
     case chat
+    case personalFavorites
     case object(type: AnalyticsObjectType)
-    
+
     var analyticsId: String {
         switch self {
         case .pinned:
@@ -127,6 +131,8 @@ enum AnalyticsWidgetSource {
             return "Bin"
         case .chat:
             return "Chat"
+        case .personalFavorites:
+            return "PersonalFavorites"
         case .object(let type):
             return type.analyticsId
         }
@@ -521,4 +527,16 @@ enum ClickNavBarAddMenuType: String {
 enum ScreenChatImageStatus: String {
     case success = "Success"
     case failure = "Failure"
+}
+
+enum ScreenSettingsSpaceCreateStatus: String {
+    case online = "Online"
+    case offline = "Offline"
+}
+
+enum CreateHomePageType: String {
+    case chat = "Chat"
+    case page = "Page"
+    case collection = "Collection"
+    case empty = "Empty"
 }

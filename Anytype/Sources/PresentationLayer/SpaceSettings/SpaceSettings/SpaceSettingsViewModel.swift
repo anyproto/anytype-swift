@@ -3,14 +3,14 @@ import Services
 import UIKit
 import AnytypeCore
 
-enum HomePageState {
-    case `default`(String)
+enum HomepageSettingsState {
+    case empty
     case object(icon: Icon?, name: String)
 
     var buttonDecoration: RoundedButtonDecoration {
         switch self {
-        case .default(let title):
-            return .caption(title)
+        case .empty:
+            return .caption(Loc.SpaceSettings.HomePage.noHome)
         case .object(let icon, let name):
             return .object(icon: icon, name: name)
         }
@@ -82,12 +82,14 @@ final class SpaceSettingsViewModel {
     var allowDelete = false
     var allowLeave = false
     var allowRemoteStorage = false
+    var canEdit = false
+    var canSetHomepage = false
     var uxTypeSettingsData: SpaceUxTypeSettingsData?
     var shareSection: SpaceSettingsShareSection = .personal
     var membershipUpgradeReason: MembershipUpgradeReason?
     var storageInfo = RemoteStorageSegmentInfo()
     var defaultObjectType: ObjectType?
-    var homePageState: HomePageState = .default("")
+    var homePageState: HomepageSettingsState = .empty
     var showIconPickerSpaceId: StringIdentifiable?
     var editingData: SettingsInfoEditingViewData?
     var pushNotificationsSettingsMode: SpacePushNotificationsMode = .all
@@ -99,6 +101,7 @@ final class SpaceSettingsViewModel {
     var canAddWriters = true
     var joiningCount: Int = 0
     var isOneToOne = false
+    var showNotificationsSection = false
     var wallpaper: SpaceWallpaperType = .default
     var membership: MembershipStatus = .empty
     var hasMembership = false
@@ -288,8 +291,8 @@ final class SpaceSettingsViewModel {
     }
 
     private func startHomeObjectTask() async {
-        for await _ in userDefaults.homeObjectIdPublisher(spaceId: workspaceInfo.accountSpaceId).values {
-            await loadHomePageState()
+        for await spaceView in spaceViewsStorage.spaceViewPublisher(spaceId: workspaceInfo.accountSpaceId).values {
+            await loadHomePageState(homepage: spaceView.homepage)
         }
     }
 
@@ -305,26 +308,18 @@ final class SpaceSettingsViewModel {
         }
     }
 
-    private func loadHomePageState() async {
-        let spaceId = workspaceInfo.accountSpaceId
-        guard let objectId = userDefaults.homeObjectId(spaceId: spaceId) else {
-            homePageState = .default(defaultHomePageTitle(spaceId: spaceId))
-            return
-        }
-
-        let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
-        if let details, !details.isArchivedOrDeleted {
-            homePageState = .object(icon: details.objectIconImage, name: details.name)
-        } else {
-            homePageState = .default(defaultHomePageTitle(spaceId: spaceId))
-        }
-    }
-
-    private func defaultHomePageTitle(spaceId: String) -> String {
-        if let spaceView = spaceViewsStorage.spaceView(spaceId: spaceId), spaceView.initialScreenIsChat {
-            return Loc.chat
-        } else {
-            return Loc.SpaceSettings.HomePage.widgets
+    private func loadHomePageState(homepage: SpaceHomepage) async {
+        switch homepage.displayValue {
+        case .empty, .widgets, .graph:
+            homePageState = .empty
+        case .object(let objectId):
+            let spaceId = workspaceInfo.accountSpaceId
+            let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
+            if let details, !details.isArchivedOrDeleted {
+                homePageState = .object(icon: details.objectIconImage, name: details.name.withPlaceholder)
+            } else {
+                homePageState = .empty
+            }
         }
     }
     
@@ -350,11 +345,14 @@ final class SpaceSettingsViewModel {
         let spaceView = participantSpaceView.spaceView
 
         spaceIcon = spaceView.objectIconImage
+        canEdit = participantSpaceView.canEdit
+        canSetHomepage = participantSpaceView.canSetHomepage
         allowDelete = participantSpaceView.canBeDeleted
         allowLeave = participantSpaceView.canLeave
         allowRemoteStorage = participantSpaceView.isOwner
         canAddWriters = spaceView.canAddWriters(participants: participants)
-        isOneToOne = spaceView.uxType.isOneToOne
+        isOneToOne = spaceView.isOneToOne
+        showNotificationsSection = !spaceView.isOneToOne
 
         uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat && FeatureFlags.channelTypeSwitcher ? SpaceUxTypeSettingsData(uxType: spaceView.uxType) : nil
 
@@ -414,7 +412,7 @@ final class SpaceSettingsViewModel {
     private func updateInviteIfNeeded() async throws {
         guard let participantSpaceView else { return }
         guard shareSection.isSharingAvailable else { return }
-        guard !participantSpaceView.spaceView.uxType.isOneToOne else { return }
+        guard !participantSpaceView.spaceView.isOneToOne else { return }
         
         if participantSpaceView.spaceView.uxType.isStream {
             let invite = try? await workspaceService.getGuestInvite(spaceId: workspaceInfo.accountSpaceId)

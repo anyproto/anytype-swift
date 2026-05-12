@@ -48,7 +48,11 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
     private var pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
-    
+    @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+
     func saveObjects(
         spaceId: String,
         content: SharedContent,
@@ -57,19 +61,34 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         comment: String
     ) async throws {
         await objectTypeProvider.prepareData(spaceId: spaceId)
-        
+
+        // For 1-1 spaces, the workspace must be opened with chat support before sending messages.
+        // SpaceView.chatId may be empty until the workspace is opened (see SpaceChatCoordinatorView).
+        let resolvedChatId = try await resolveOneToOneChatId(spaceId: spaceId, chatId: chatId)
+
         // Create objects for media & bookmarks
-        let contentItems = try await createObjectsFromSharedContent(spaceId: spaceId, content: content)
-        
+        let contentItems = try await createObjectsFromSharedContent(spaceId: spaceId, content: content, chatId: resolvedChatId)
+
         try await linkToObjectFlow(spaceId: spaceId, content: content, savedContent: contentItems, linkToObjects: linkToObjects)
-        
-        if let chatId {
-            try await createMessageToChatFlow(spaceId: spaceId, content: content, savedContent: contentItems, chatId: chatId, comment: comment)
+
+        if let resolvedChatId {
+            try await createMessageToChatFlow(spaceId: spaceId, content: content, savedContent: contentItems, chatId: resolvedChatId, comment: comment)
         }
     }
     
     // MARK: - Private
-    
+
+    private func resolveOneToOneChatId(spaceId: String, chatId: String?) async throws -> String? {
+        guard chatId != nil else { return nil }
+
+        let isOneToOne = spaceViewsStorage.spaceView(spaceId: spaceId)?.isOneToOne ?? false
+        guard isOneToOne else { return chatId }
+
+        let info = try await workspaceService.workspaceOpen(spaceId: spaceId, withChat: true)
+        let resolvedId = info.spaceChatId
+        return resolvedId.isEmpty ? nil : resolvedId
+    }
+
     private func linkToObjectFlow(
         spaceId: String,
         content: SharedContent,
@@ -184,35 +203,38 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
     
     private func createObjectsFromSharedContent(
         spaceId: String,
-        content: SharedContent
+        content: SharedContent,
+        chatId: String?
     ) async throws -> [SharedSavedContentItem] {
         var details = [SharedSavedContentItem]()
-        
+
         for contentItem in content.items {
             switch contentItem {
             case let .text(text):
                 details.append(.text(text))
             case let .url(url):
-                let objectDetails = try await createBookmarkObject(url: AnytypeURL(url: url), spaceId: spaceId)
+                let objectDetails = try await createBookmarkObject(url: AnytypeURL(url: url), spaceId: spaceId, createdInContext: chatId ?? "")
                 details.append(.bookmark(objectDetails))
             case let .file(url):
-                let objectDetails = try await createFileObject(url: url, spaceId: spaceId)
+                let objectDetails = try await createFileObject(url: url, spaceId: spaceId, createdInContext: chatId ?? "")
                 details.append(.file(objectDetails))
             }
         }
-        
+
         return details
     }
     
     
-    private func createBookmarkObject(url: AnytypeURL, spaceId: String) async throws -> ObjectDetails {
+    private func createBookmarkObject(url: AnytypeURL, spaceId: String, createdInContext: String) async throws -> ObjectDetails {
         let type = try? objectTypeProvider.objectType(uniqueKey: ObjectTypeUniqueKey.bookmark, spaceId: spaceId)
-        
+
         let newBookmark = try await bookmarkService.createBookmarkObject(
             spaceId: spaceId,
             url: url,
             templateId: type?.defaultTemplateId,
-            origin: .sharingExtension
+            origin: .sharingExtension,
+            createdInContext: createdInContext,
+            createdInContextRef: ""
         )
         try await bookmarkService.fetchBookmarkContent(bookmarkId: newBookmark.id, url: url)
         
@@ -224,10 +246,10 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         return newBookmark
     }
     
-    private func createFileObject(url: URL, spaceId: String) async throws -> FileDetails {
+    private func createFileObject(url: URL, spaceId: String, createdInContext: String) async throws -> FileDetails {
         let resources = try url.resourceValues(forKeys: [.fileSizeKey])
         let data = FileData(path: url.relativePath, type: .data, sizeInBytes: resources.fileSize, isTemporary: false)
-        let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension)
+        let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension, createdInContext: createdInContext, createdInContextRef: "")
         
         AnytypeAnalytics.instance().logCreateObject(
             objectType: details.analyticsType,

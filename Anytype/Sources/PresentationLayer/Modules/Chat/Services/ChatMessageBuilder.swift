@@ -38,9 +38,9 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         limits: any ChatMessageLimitsProtocol
     ) async -> [MessageSectionData] {
 
-        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
-        let showsMessageAuthor = spaceUxType?.showsMessageAuthor ?? true
-        let positionsYourMessageOnRight = spaceUxType?.positionsYourMessageOnRight ?? true
+        let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
+        let showsMessageAuthor = spaceView?.showsMessageAuthor ?? true
+        let positionsYourMessageOnRight = spaceView?.uxType.positionsYourMessageOnRight ?? true
         let participant = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
         let chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
         let isChatDeletedOrArchived = (chatObject.details?.isDeleted ?? false) || (chatObject.details?.isArchived ?? false)
@@ -83,8 +83,9 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 authorName: authorParticipant?.title ?? "",
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
                 authorId: authorParticipant?.id,
-                createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
+                timestampLabel: message.createdAtDate.formatted(date: .omitted, time: .shortened),
                 messageString: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position),
+                discussionBlocks: [],
                 replyModel: mapReply(
                     fullMessage: fullMessage,
                     participants: participants,
@@ -100,6 +101,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                     position: position
                 ),
                 canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
+                canToggleReaction: canEdit,
                 canReply: canEdit,
                 nextSpacing: (lastInSection || nextIsUnread) ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
                 authorIconMode: (isYourMessage || !showsMessageAuthor) ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
@@ -107,6 +109,9 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 canDelete: isYourMessage && canEdit,
                 canEdit: isYourMessage && canEdit,
                 showMessageSyncIndicator: isYourMessage,
+                isMember: false,
+                isReply: false,
+                isLastReply: false,
                 message: message,
                 attachmentsDetails: fullMessage.attachments,
                 reply: fullMessage.reply

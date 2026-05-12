@@ -24,12 +24,14 @@ final class TypesPinStorage: TypesPinStorageProtocol, Sendable {
             }
         }
         
-        let page = try typeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
-        let note = try typeProvider.objectType(uniqueKey: .note, spaceId: spaceId)
-        let task = try typeProvider.objectType(uniqueKey: .task, spaceId: spaceId)
-        let defaultPins = [ note, page, task ]
-        
-        setPins(defaultPins, spaceId: spaceId)
+        let allTypes = typeProvider.objectTypes(spaceId: spaceId)
+        let defaultPins: [ObjectType] = [ObjectTypeUniqueKey.note, .page, .task].compactMap { key in
+            allTypes.first { $0.uniqueKey == key }
+        }
+
+        if defaultPins.isNotEmpty {
+            setPins(defaultPins, spaceId: spaceId)
+        }
         return defaultPins
     }
     

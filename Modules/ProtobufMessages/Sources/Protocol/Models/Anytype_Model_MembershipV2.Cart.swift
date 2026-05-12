@@ -44,6 +44,8 @@ extension Anytype_Model_MembershipV2 {
 
     public var nextInvoiceDate: UInt64 = 0
 
+    public var appliedPromocodes: [String] = []
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -55,7 +57,7 @@ extension Anytype_Model_MembershipV2 {
 
 extension Anytype_Model_MembershipV2.Cart: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_MembershipV2.protoMessageName + ".Cart"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}products\0\u{1}total\0\u{1}totalNextInvoice\0\u{1}nextInvoiceDate\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}products\0\u{1}total\0\u{1}totalNextInvoice\0\u{1}nextInvoiceDate\0\u{1}appliedPromocodes\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -67,6 +69,7 @@ extension Anytype_Model_MembershipV2.Cart: SwiftProtobuf.Message, SwiftProtobuf.
       case 2: try { try decoder.decodeSingularMessageField(value: &self._total) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._totalNextInvoice) }()
       case 4: try { try decoder.decodeSingularUInt64Field(value: &self.nextInvoiceDate) }()
+      case 5: try { try decoder.decodeRepeatedStringField(value: &self.appliedPromocodes) }()
       default: break
       }
     }
@@ -89,6 +92,9 @@ extension Anytype_Model_MembershipV2.Cart: SwiftProtobuf.Message, SwiftProtobuf.
     if self.nextInvoiceDate != 0 {
       try visitor.visitSingularUInt64Field(value: self.nextInvoiceDate, fieldNumber: 4)
     }
+    if !self.appliedPromocodes.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.appliedPromocodes, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -97,6 +103,7 @@ extension Anytype_Model_MembershipV2.Cart: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs._total != rhs._total {return false}
     if lhs._totalNextInvoice != rhs._totalNextInvoice {return false}
     if lhs.nextInvoiceDate != rhs.nextInvoiceDate {return false}
+    if lhs.appliedPromocodes != rhs.appliedPromocodes {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

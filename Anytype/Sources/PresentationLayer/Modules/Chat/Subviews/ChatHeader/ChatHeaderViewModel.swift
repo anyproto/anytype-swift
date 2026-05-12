@@ -26,6 +26,7 @@ final class ChatHeaderViewModel {
     var chatLoading = false
     var spaceLoading = false
     var muted = false
+    var isArchived = false
     var toastBarData: ToastBarData?
     private(set) var notificationMode: SpacePushNotificationsMode = .all
     private(set) var isMultiChatSpace: Bool = false
@@ -87,6 +88,10 @@ final class ChatHeaderViewModel {
 
     func tapOpenSpaceSettings() { onTapOpenSpaceSettings() }
 
+    func toggleMute() async {
+        await changeNotificationMode(notificationMode.toggled(isOneToOne: isOneToOne))
+    }
+
     func changeNotificationMode(_ mode: SpacePushNotificationsMode) async {
         do {
             try await workspaceService.pushNotificationSetSpaceMode(
@@ -108,9 +113,9 @@ final class ChatHeaderViewModel {
     private func subscribeOnSpaceView() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             let spaceView = participantSpaceView.spaceView
-            spaceSupportsMultiChats = spaceView.uxType.supportsMultiChats
+            spaceSupportsMultiChats = !spaceView.isOneToOne
             isMultiChatSpace = spaceSupportsMultiChats
-            isOneToOne = spaceView.uxType.isOneToOne
+            isOneToOne = spaceView.isOneToOne
             oneToOneIdentity = spaceView.oneToOneIdentity
             spaceTitle = spaceView.title
             spaceIcon = spaceView.objectIconImage
@@ -184,6 +189,7 @@ final class ChatHeaderViewModel {
     }
 
     private func updateHeaderDisplay() {
+        isArchived = chatDetails?.isArchivedOrDeleted ?? false
         if spaceSupportsMultiChats {
             if let chatDetails {
                 title = chatDetails.name.withPlaceholder

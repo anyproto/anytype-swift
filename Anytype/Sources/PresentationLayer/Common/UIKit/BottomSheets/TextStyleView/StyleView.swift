@@ -15,6 +15,7 @@ private extension StyleView {
         let kind: BlockText.Style
         let text: String
         let font: UIFont
+        let isToggle: Bool
 
         private let identifier = UUID()
 
@@ -22,10 +23,13 @@ private extension StyleView {
             let title: BlockText.Style = selectedStyle == .title ? .title : .header
 
             return [
-                Item(kind: title, text: Loc.TextStyle.Title.title, font: .title),
-                Item(kind: .header2, text: Loc.TextStyle.Heading.title, font: .heading),
-                Item(kind: .header3, text: Loc.TextStyle.Subheading.title, font: .subheading),
-                Item(kind: .text, text: Loc.TextStyle.Text.title, font: UIFont.bodyRegular)
+                Item(kind: title, text: Loc.TextStyle.Title.title, font: .title, isToggle: false),
+                Item(kind: .header2, text: Loc.TextStyle.Heading.title, font: .heading, isToggle: false),
+                Item(kind: .header3, text: Loc.TextStyle.Subheading.title, font: .subheading, isToggle: false),
+                Item(kind: .text, text: Loc.TextStyle.Text.title, font: UIFont.bodyRegular, isToggle: false),
+                Item(kind: .toggleHeader, text: Loc.TextStyle.Title.title, font: .title, isToggle: true),
+                Item(kind: .toggleHeader2, text: Loc.TextStyle.Heading.title, font: .heading, isToggle: true),
+                Item(kind: .toggleHeader3, text: Loc.TextStyle.Subheading.title, font: .subheading, isToggle: true),
             ]
         }
     }
@@ -335,6 +339,7 @@ final class StyleView: UIView {
             var content = StyleCellContentConfiguration()
             content.text = item.text
             content.font = item.font
+            content.isToggle = item.isToggle
 
             if item.kind != self?.style {
                 let isDisabled = !(self?.restrictions.turnIntoStyles.contains(.text(item.kind)) ?? false)

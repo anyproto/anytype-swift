@@ -812,6 +812,9 @@ extension ImageAsset {
     public static let text = ImageAsset.bundle(name: "x40/Text")
     public static let title = ImageAsset.bundle(name: "x40/Title")
     public static let toggle = ImageAsset.bundle(name: "x40/Toggle")
+    public static let toggleHeading = ImageAsset.bundle(name: "x40/ToggleHeading")
+    public static let toggleSubheading = ImageAsset.bundle(name: "x40/ToggleSubheading")
+    public static let toggleTitle = ImageAsset.bundle(name: "x40/ToggleTitle")
     public static let underline = ImageAsset.bundle(name: "x40/Underline")
   }
   public enum X54 {
@@ -825,6 +828,11 @@ extension ImageAsset {
       public static let listSelected = ImageAsset.bundle(name: "x54/View/List.Selected")
       public static let list = ImageAsset.bundle(name: "x54/View/List")
     }
+  }
+  public enum HomepagePicker {
+    public static let chatThumbnail = ImageAsset.bundle(name: "HomepagePicker/ChatThumbnail")
+    public static let collectionThumbnail = ImageAsset.bundle(name: "HomepagePicker/CollectionThumbnail")
+    public static let pageThumbnail = ImageAsset.bundle(name: "HomepagePicker/PageThumbnail")
   }
   public enum Illustration {
     public static let exclamation = ImageAsset.bundle(name: "Illustration/Exclamation")

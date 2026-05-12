@@ -1,5 +1,5 @@
 "NSFaceIDUsageDescription" = "Face ID zostało użyte do bezpiecznego uzyskania klucza";
-"NSCameraUsageDescription" = "Allow camera access to scan QR codes, capture photos, and attach them to messages";
+"NSCameraUsageDescription" = "Zezwalaj kamerze na dostęp do skanowania kodów QR, zrób zdjęcia i dołącz je do wiadomości";
 "NSLocalNetworkUsageDescription" = "Dostęp do sieci lokalnej jest używany do bezpośredniej synchronizacji danych pomiędzy Twoimi pobliskimi urządzeniami";
 "NSPhotoLibraryAddUsageDescription" = "Potrzebny jest dostęp, aby zapisać wybrane obrazy do twojej biblioteki";
 "NSMicrophoneUsageDescription" = "Allow microphone access to record videos and attach them to messages";

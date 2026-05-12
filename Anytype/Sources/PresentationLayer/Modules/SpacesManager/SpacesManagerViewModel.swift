@@ -21,6 +21,7 @@ final class SpacesManagerViewModel {
     var spaceCreateData: SpaceCreateData?
     var exportSpaceUrl: URL?
     var showSpaceTypeForCreate = false
+    var showGroupChannelCreate = false
     var shouldScanQrCode = false
     
     func onAppear() {
@@ -72,6 +73,14 @@ final class SpacesManagerViewModel {
     
     func onSpaceTypeSelected(_ type: SpaceUxType) {
             spaceCreateData = SpaceCreateData(spaceUxType: type)
+    }
+
+    func onTapCreatePersonalChannel() {
+        spaceCreateData = SpaceCreateData(spaceUxType: .data, channelType: .personal)
+    }
+
+    func onTapCreateGroupChannel() {
+        showGroupChannelCreate = true
     }
 }
 

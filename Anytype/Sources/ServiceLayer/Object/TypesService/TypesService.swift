@@ -1,7 +1,7 @@
+import AnytypeCore
 import ProtobufMessages
 import SwiftProtobuf
 import Services
-import AnytypeCore
 
 
 final class TypesService: TypesServiceProtocol, Sendable {
@@ -56,10 +56,18 @@ final class TypesService: TypesServiceProtocol, Sendable {
     ) async throws -> [ObjectDetails] {
         let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
 
-        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
-        let sort = SearchHelper.defaultObjectTypeSort(spaceUxType: spaceUxType)
+        let sort: [DataviewSort]
+        var layouts: [DetailsLayout]
 
-        var layouts = includeFiles ? DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType) : DetailsLayout.visibleLayouts(spaceUxType: spaceUxType)
+        if FeatureFlags.createChannelFlow {
+            let spaceType = workspaceStorage.spaceView(spaceId: spaceId)?.spaceType
+            sort = SearchHelper.defaultObjectTypeSort(spaceType: spaceType)
+            layouts = includeFiles ? DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceType) : DetailsLayout.visibleLayouts(spaceType: spaceType)
+        } else {
+            let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
+            sort = SearchHelper.defaultObjectTypeSort(spaceUxType: spaceUxType)
+            layouts = includeFiles ? DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType) : DetailsLayout.visibleLayouts(spaceUxType: spaceUxType)
+        }
 
         if !includeLists {
             layouts.removeAll(where: { $0.isList })
@@ -101,8 +109,14 @@ final class TypesService: TypesServiceProtocol, Sendable {
     ) async throws -> [ObjectType] {
         let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
 
-        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
-        let sort = SearchHelper.defaultObjectTypeSort(spaceUxType: spaceUxType)
+        let sort: [DataviewSort]
+        if FeatureFlags.createChannelFlow {
+            let spaceType = workspaceStorage.spaceView(spaceId: spaceId)?.spaceType
+            sort = SearchHelper.defaultObjectTypeSort(spaceType: spaceType)
+        } else {
+            let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
+            sort = SearchHelper.defaultObjectTypeSort(spaceUxType: spaceUxType)
+        }
 
         let filters: [DataviewFilter] = .builder {
             SearchFiltersBuilder.build(isArchived: false)
@@ -110,20 +124,29 @@ final class TypesService: TypesServiceProtocol, Sendable {
             SearchHelper.recomendedLayoutFilter(DetailsLayout.listLayouts)
             SearchHelper.excludedIdsFilter(excludedTypeIds)
         }
-        
+
         return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: sort, fullText: text)
             .map { ObjectType(details: $0) }
     }
-    
+
     func searchLibraryObjectTypes(text: String, includeInstalledTypes: Bool, spaceId: String) async throws -> [ObjectDetails] {
         let excludedIds = includeInstalledTypes ? [] : typeProvider.objectTypes(spaceId: spaceId).map(\.sourceObject)
 
-        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
-        let sort = SearchHelper.defaultObjectTypeSort(spaceUxType: spaceUxType)
+        let sort: [DataviewSort]
+        let layoutsForFilter: [DetailsLayout]
+        if FeatureFlags.createChannelFlow {
+            let spaceType = workspaceStorage.spaceView(spaceId: spaceId)?.spaceType
+            sort = SearchHelper.defaultObjectTypeSort(spaceType: spaceType)
+            layoutsForFilter = DetailsLayout.visibleLayouts(spaceType: spaceType)
+        } else {
+            let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
+            sort = SearchHelper.defaultObjectTypeSort(spaceUxType: spaceUxType)
+            layoutsForFilter = DetailsLayout.visibleLayouts(spaceUxType: spaceUxType)
+        }
 
         let filters = Array.builder {
             SearchHelper.layoutFilter([DetailsLayout.objectType])
-            SearchHelper.recomendedLayoutFilter(DetailsLayout.visibleLayouts(spaceUxType: spaceUxType))
+            SearchHelper.recomendedLayoutFilter(layoutsForFilter)
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         

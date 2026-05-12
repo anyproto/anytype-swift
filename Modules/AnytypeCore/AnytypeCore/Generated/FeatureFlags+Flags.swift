@@ -14,12 +14,36 @@ public extension FeatureFlags {
         value(for: .homePage)
     }
 
+    static var discussionButton: Bool {
+        value(for: .discussionButton)
+    }
+
     static var qrCodeCircularText: Bool {
         value(for: .qrCodeCircularText)
     }
 
+    static var createChannelFlow: Bool {
+        value(for: .createChannelFlow)
+    }
+
+    static var fixChannelHomeBackNavigation: Bool {
+        value(for: .fixChannelHomeBackNavigation)
+    }
+
     static var channelTypeSwitcher: Bool {
         value(for: .channelTypeSwitcher)
+    }
+
+    static var fixAvatarTapFreeze: Bool {
+        value(for: .fixAvatarTapFreeze)
+    }
+
+    static var muteAndHide: Bool {
+        value(for: .muteAndHide)
+    }
+
+    static var personalFavorites: Bool {
+        value(for: .personalFavorites)
     }
 
     static var setKanbanView: Bool {
@@ -106,8 +130,14 @@ public extension FeatureFlags {
     static let features: [FeatureDescription] = [
         .showUploadStatusIndicator,
         .homePage,
+        .discussionButton,
         .qrCodeCircularText,
+        .createChannelFlow,
+        .fixChannelHomeBackNavigation,
         .channelTypeSwitcher,
+        .fixAvatarTapFreeze,
+        .muteAndHide,
+        .personalFavorites,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

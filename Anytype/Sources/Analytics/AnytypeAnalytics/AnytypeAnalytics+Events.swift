@@ -965,8 +965,10 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logScreenSettingsSpaceCreate() {
-        logEvent("ScreenSettingsSpaceCreate")
+    func logScreenSettingsSpaceCreate(status: ScreenSettingsSpaceCreateStatus) {
+        logEvent("ScreenSettingsSpaceCreate", withEventProperties: [
+            AnalyticsEventsPropertiesKey.status: status.rawValue
+        ])
     }
     
     func logCreateSpace(spaceId: String, spaceUxType: SpaceUxType, route: CreateSpaceRoute) {
@@ -1498,6 +1500,15 @@ extension AnytypeAnalytics {
         )
     }
 
+    func logClickScrollToReaction(chatId: String) {
+        logEvent(
+            "ClickScrollToReaction",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.chatId: chatId
+            ]
+        )
+    }
+
     func logClickScrollToBottom(chatId: String) {
         logEvent(
             "ClickScrollToBottom",
@@ -1529,7 +1540,11 @@ extension AnytypeAnalytics {
     func logClickMessageMenuCopy() {
         logEvent("ClickMessageMenuCopy")
     }
-    
+
+    func logClickMessageMenuCopyLink() {
+        logEvent("ClickMessageMenuCopyLink")
+    }
+
     func logClickMessageMenuReaction() {
         logEvent("ClickMessageMenuReaction")
     }
@@ -1604,6 +1619,36 @@ extension AnytypeAnalytics {
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type.rawValue,
                 AnalyticsEventsPropertiesKey.chatId: chatId
+            ]
+        )
+    }
+
+    func logStartDiscussion(hasMention: Bool, hasAttachments: Bool) {
+        logEvent(
+            "StartDiscussion",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.hasMention: hasMention,
+                AnalyticsEventsPropertiesKey.hasAttachments: hasAttachments
+            ]
+        )
+    }
+
+    func logPostDiscussion(hasMention: Bool, hasAttachments: Bool) {
+        logEvent(
+            "PostDiscussion",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.hasMention: hasMention,
+                AnalyticsEventsPropertiesKey.hasAttachments: hasAttachments
+            ]
+        )
+    }
+
+    func logReplyDiscussion(hasMention: Bool, hasAttachments: Bool) {
+        logEvent(
+            "ReplyDiscussion",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.hasMention: hasMention,
+                AnalyticsEventsPropertiesKey.hasAttachments: hasAttachments
             ]
         )
     }
@@ -1802,7 +1847,7 @@ extension AnytypeAnalytics {
         ].compactMapValues { $0 })
     }
     
-    func logScreenChatImage(time: Int, status: ScreenChatImageStatus, size: Int?) {
+    func logScreenChatImage(time: Int, status: ScreenChatImageStatus, size: Int?, uploadTime: Int? = nil, totalTime: Int? = nil) {
         logEvent("ScreenChatImage", withEventProperties: .builder {
             [
                 AnalyticsEventsPropertiesKey.time: time,
@@ -1811,10 +1856,48 @@ extension AnytypeAnalytics {
             if let size {
                 [AnalyticsEventsPropertiesKey.size: size]
             }
+            if let uploadTime {
+                [AnalyticsEventsPropertiesKey.uploadTime: uploadTime]
+            }
+            if let totalTime {
+                [AnalyticsEventsPropertiesKey.totalTime: totalTime]
+            }
         })
     }
 
     func logClickNavigationScreenHome() {
         logEvent("ClickNavigationScreenHome")
+    }
+
+    func logClickVaultCreateMenuJoin() {
+        logEvent("ClickVaultCreateMenuJoin")
+    }
+
+    func logChangeSpaceDashboard() {
+        logEvent("ChangeSpaceDashboard")
+    }
+
+    func logMemberSearchInput() {
+        logEvent("MemberSearchInput")
+    }
+
+    func logScreenAddMember() {
+        logEvent("ScreenAddMember")
+    }
+
+    func logAddMember(count: Int) {
+        logEvent("AddMember", withEventProperties: [
+            AnalyticsEventsPropertiesKey.count: count
+        ])
+    }
+
+    func logCreateHomePage(type: CreateHomePageType) {
+        logEvent("CreateHomePage", withEventProperties: [
+            AnalyticsEventsPropertiesKey.type: type.rawValue
+        ])
+    }
+
+    func logScreenHitShareSpaceLimit() {
+        logEvent("ScreenHitShareSpaceLimit")
     }
 }

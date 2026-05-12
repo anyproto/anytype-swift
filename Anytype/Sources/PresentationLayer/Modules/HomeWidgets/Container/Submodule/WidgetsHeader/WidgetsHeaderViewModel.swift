@@ -50,7 +50,11 @@ final class WidgetsHeaderViewModel {
     }
 
     var isOneToOneSpace: Bool {
-        spaceView?.uxType.isOneToOne == true
+        spaceView?.isOneToOne == true
+    }
+
+    var supportsNotificationModeMenu: Bool {
+        !(spaceView?.isOneToOne ?? true)
     }
 
     var hasInviteLink: Bool {
@@ -59,6 +63,10 @@ final class WidgetsHeaderViewModel {
 
     var currentNotificationMode: SpacePushNotificationsMode {
         spaceView?.pushNotificationMode ?? .all
+    }
+
+    var isMuted: Bool {
+        !currentNotificationMode.isUnmutedAll
     }
 
     init(
@@ -99,7 +107,7 @@ final class WidgetsHeaderViewModel {
             inviteLink = nil
             return
         }
-        guard let spaceView, !spaceView.uxType.isOneToOne else {
+        guard let spaceView, !spaceView.isOneToOne else {
             inviteLink = nil
             return
         }
@@ -129,6 +137,10 @@ final class WidgetsHeaderViewModel {
 
     func onInviteMembersTap() {
         onMembersSelected(accountSpaceId, .navigation)
+    }
+
+    func toggleMute() async {
+        await onNotificationModeChanged(currentNotificationMode.toggled(isOneToOne: isOneToOneSpace))
     }
 
     func onNotificationModeChanged(_ mode: SpacePushNotificationsMode) async {

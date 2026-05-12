@@ -80,7 +80,7 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onChannelSettingsTap()
         } label: {
-            Label(Loc.Chat.channelSettings, systemImage: "gear")
+            Label(Loc.Chat.channelSettings, systemImage: "gearshape")
         }
     }
 
@@ -88,24 +88,29 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onMembersTap()
         } label: {
-            Label(Loc.members, systemImage: "person.2.fill")
+            Label(Loc.members, systemImage: "person.2")
         }
     }
 
+    @ViewBuilder
     private var notificationsMenu: some View {
-        NotificationModeMenu(
-            currentMode: model.currentNotificationMode,
-            onModeChange: { mode in
-                await model.onNotificationModeChanged(mode)
+        if model.supportsNotificationModeMenu {
+            NotificationModeMenu(
+                currentMode: model.currentNotificationMode,
+                onModeChange: { await model.onNotificationModeChanged($0) }
+            )
+        } else {
+            MuteToggleMenuButton(isMuted: model.isMuted) {
+                await model.toggleMute()
             }
-        )
+        }
     }
 
     private var inviteMembersButton: some View {
         Button {
             model.onInviteMembersTap()
         } label: {
-            Label(Loc.Chat.inviteMembers, systemImage: "person.fill.badge.plus")
+            Label(Loc.Chat.inviteMembers, systemImage: "person.badge.plus")
         }
     }
 
@@ -121,7 +126,7 @@ private struct WidgetsHeaderMenuContent: View {
         Button {
             model.onCopyInviteLinkTap()
         } label: {
-            Label(Loc.copyInviteLink, systemImage: "document.on.document.fill")
+            Label(Loc.copyInviteLink, systemImage: "document.on.document")
         }
     }
 }

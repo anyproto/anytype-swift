@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import AnytypeCore
 
 final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View, ActionView: View>: UIViewController {
     
@@ -154,6 +155,9 @@ final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View, Acti
     }
     
     private func updateKeyboardHeight(event: KeyboardEvent) {
+        if FeatureFlags.fixAvatarTapFreeze {
+            guard view.window != nil else { return }
+        }
         let canHandleKeyboard = presentedViewController.map { $0.isBeingDismissed } ?? true
         guard canHandleKeyboard else { return }
         event.animate { [weak self] in

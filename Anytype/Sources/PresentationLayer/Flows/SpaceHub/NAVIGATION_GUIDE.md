@@ -202,11 +202,10 @@ Stored in UserDefaults via `homeObjectId(spaceId:)`:
 - Falls back to default if invalid
 - Changed via **Space Settings → Home Page**
 
-### HomePagePicker
+### HomepageSettingsPicker
 
-The `HomePagePickerView` allows users to customize their home screen for a space:
-- For **data spaces**: Shows "Widgets" as default option
-- For **chat spaces**: Shows "Chat" as default option
+The `HomepageSettingsPickerView` allows users to customize their home screen for a space:
+- Shows "Empty" as default option (resets homepage to widgets)
 - Users can select any valid object to open instead
 
 ---
@@ -336,8 +335,8 @@ enum ScreenData: Hashable, Identifiable, Sendable {
 | `AnytypeDestinationBuilderHolder.swift` | Type → View builder registry using reflection |
 | `ScreenData.swift` | High-level screen enum for navigation requests |
 | `UserDefaultsStorage.swift` | homeObjectId persistence |
-| `HomePagePickerView.swift` | UI for selecting custom home screen per space |
-| `HomePagePickerViewModel.swift` | Home screen selection logic |
+| `HomepageSettingsPickerView.swift` | UI for selecting custom home screen per space |
+| `HomepageSettingsPickerViewModel.swift` | Home screen selection logic |
 
 ### Builder Registration Location
 

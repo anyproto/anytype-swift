@@ -23,16 +23,19 @@ struct UnreadChatRowView: View {
                     .frame(width: 20, height: 20)
 
                 AnytypeText(model.name, style: .bodySemibold)
-                    .foregroundStyle(Color.Text.primary)
+                    .foregroundStyle(model.notificationMode == .nothing ? Color.Text.secondary : Color.Text.primary)
                     .lineLimit(1)
 
                 Spacer()
 
                 HStack(spacing: 4) {
+                    if model.hasUnreadReactions {
+                        HeartBadge(style: model.muted ? .muted : .highlighted)
+                    }
                     if model.hasMentions {
                         MentionBadge(style: model.muted ? .muted : .highlighted)
                     }
-                    if model.unreadCounter > 0 {
+                    if model.shouldShowUnreadCounter {
                         CounterView(count: model.unreadCounter, style: model.muted ? .muted : .highlighted)
                     }
                 }

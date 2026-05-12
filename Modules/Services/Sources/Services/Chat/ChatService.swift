@@ -21,6 +21,10 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
     ) async throws
     func unreadMessage(chatObjectId: String, afterOrderId: String, type: ChatUnreadReadType) async throws
     func readAllMessages() async throws
+    func readReactions(chatObjectId: String, orderId: String) async throws
+    func addDiscussion(objectId: String) async throws -> String
+    func addNotificationSubscriber(chatObjectId: String, identity: String) async throws
+    func removeNotificationSubscriber(chatObjectId: String, identity: String) async throws
 }
 
 public extension ChatServiceProtocol {
@@ -137,5 +141,33 @@ final class ChatService: ChatServiceProtocol {
     
     func readAllMessages() async throws {
         try await ClientCommands.chatReadAll().invoke()
+    }
+
+    func readReactions(chatObjectId: String, orderId: String) async throws {
+        try await ClientCommands.chatReadReactions(.with {
+            $0.chatObjectID = chatObjectId
+            $0.orderID = orderId
+        }).invoke()
+    }
+
+    func addDiscussion(objectId: String) async throws -> String {
+        let result = try await ClientCommands.objectAddDiscussion(.with {
+            $0.objectID = objectId
+        }).invoke()
+        return result.discussionID
+    }
+
+    func addNotificationSubscriber(chatObjectId: String, identity: String) async throws {
+        try await ClientCommands.chatAddNotificationSubscriber(.with {
+            $0.chatObjectID = chatObjectId
+            $0.identity = identity
+        }).invoke()
+    }
+
+    func removeNotificationSubscriber(chatObjectId: String, identity: String) async throws {
+        try await ClientCommands.chatRemoveNotificationSubscriber(.with {
+            $0.chatObjectID = chatObjectId
+            $0.identity = identity
+        }).invoke()
     }
 }

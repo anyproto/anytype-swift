@@ -3,6 +3,7 @@ import AnytypeCore
 
 protocol ExpandedServiceProtocol: AnyObject, Sendable {
     func isExpanded(id: String, defaultValue: Bool) -> Bool
+    func hasUserOverride(id: String) -> Bool
     func setState(id: String, isExpanded: Bool)
     func clearData()
 }
@@ -16,7 +17,11 @@ final class ExpandedService: ExpandedServiceProtocol, Sendable {
     func isExpanded(id: String, defaultValue: Bool) -> Bool {
         return expandedStorage.value[id] ?? defaultValue
     }
-    
+
+    func hasUserOverride(id: String) -> Bool {
+        expandedStorage.value[id] != nil
+    }
+
     func setState(id: String, isExpanded: Bool) {
         expandedStorage.value[id] = isExpanded
     }

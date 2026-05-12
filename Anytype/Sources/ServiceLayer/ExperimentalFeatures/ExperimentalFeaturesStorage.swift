@@ -8,13 +8,13 @@ protocol ExperimentalFeaturesStorageProtocol: AnyObject, Sendable {
 }
 
 final class ExperimentalFeaturesStorage: ExperimentalFeaturesStorageProtocol, Sendable {
-    
+
     private let newObjectCreationMenuStorage = FeatureStorage(key: "ExperimentalFeaturesStorage.newObjectCreationMenu", defaultValue: true)
-    
+
     var newObjectCreationMenuSequence: AnyAsyncSequence<Bool> {
         newObjectCreationMenuStorage.sequence
     }
-    
+
     var newObjectCreationMenu: Bool {
         get { newObjectCreationMenuStorage.value }
         set { newObjectCreationMenuStorage.value = newValue }

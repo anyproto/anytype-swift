@@ -20,8 +20,16 @@ extension Container {
         self { SpaceViewsStorage() }.singleton
     }
 
+    var contactsService: Factory<any ContactsServiceProtocol> {
+        self { ContactsService() }.singleton
+    }
+
     var chatDetailsStorage: Factory<any ChatDetailsStorageProtocol> {
         self { ChatDetailsStorage() }.singleton
+    }
+
+    var objectsWithUnreadDiscussionsSubscription: Factory<any ObjectsWithUnreadDiscussionsSubscriptionProtocol> {
+        self { ObjectsWithUnreadDiscussionsSubscription() }.singleton
     }
 
     var singleObjectSubscriptionService: Factory<any SingleObjectSubscriptionServiceProtocol> {
@@ -90,6 +98,14 @@ extension Container {
     
     var pinnedSubscriptionService: Factory<any PinnedSubscriptionServiceProtocol> {
         self { PinnedSubscriptionService() }
+    }
+
+    var personalFavoritesService: Factory<any PersonalFavoritesServiceProtocol> {
+        self { PersonalFavoritesService() }.shared
+    }
+
+    var channelPinsService: Factory<any ChannelPinsServiceProtocol> {
+        self { ChannelPinsService() }.shared
     }
     
     var recentSubscriptionService: Factory<any RecentSubscriptionServiceProtocol> {
@@ -175,7 +191,11 @@ extension Container {
     var expandedService: Factory<any ExpandedServiceProtocol> {
         self { ExpandedService() }.shared
     }
-    
+
+    var channelOnboardingStorage: Factory<any ChannelOnboardingStorageProtocol> {
+        self { ChannelOnboardingStorage() }.shared
+    }
+
 //    var objectTypeWidgetExpandedService: Factory<any ObjectTypeWidgetExpandedServiceProtocol> {
 //        self { ObjectTypeWidgetExpandedService() }.shared
 //    }
@@ -267,6 +287,18 @@ extension Container {
     var membershipStatusStorage: Factory<any MembershipStatusStorageProtocol> {
         self { MembershipStatusStorage() }.singleton
     }
+
+    var pendingShareStorage: Factory<any PendingShareStorageProtocol> {
+        self { PendingShareStorage() }.singleton
+    }
+
+    var networkStatusProvider: Factory<any NetworkStatusProviderProtocol> {
+        self { NetworkStatusProvider() }.singleton
+    }
+
+    var pendingShareService: Factory<any PendingShareServiceProtocol> {
+        self { PendingShareService() }.singleton
+    }
     
     var membershipMetadataProvider: Factory<any MembershipMetadataProviderProtocol> {
         self { MembershipMetadataProvider() }.shared
@@ -320,6 +352,11 @@ extension Container {
         self { ChatActionService() }
     }
 
+    var discussionMessageCountObserver: Factory<any DiscussionMessageCountObserverProtocol> {
+        self { DiscussionMessageCountObserver() }
+    }
+
+
     var shareSuggestionService: Factory<any ShareSuggestionServiceProtocol> {
         self { ShareSuggestionService() }
     }
@@ -346,6 +383,10 @@ extension Container {
     
     var profileStorage: Factory<any ProfileStorageProtocol> {
         self { ProfileStorage() }.singleton
+    }
+
+    var homepagePickerService: Factory<any HomepagePickerServiceProtocol> {
+        self { HomepagePickerService() }.shared
     }
 
     var iconColorService: Factory<any IconColorServiceProtocol> {
@@ -410,5 +451,9 @@ extension Container {
 
     var mediaCacheHeatingService: Factory<any MediaCacheHeatingServiceProtocol> {
         self { MediaCacheHeatingService() }
+    }
+
+    var appIconBadgeService: Factory<any AppIconBadgeServiceProtocol> {
+        self { AppIconBadgeService() }.singleton
     }
 }

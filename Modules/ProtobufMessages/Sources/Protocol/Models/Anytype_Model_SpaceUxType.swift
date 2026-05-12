@@ -23,7 +23,7 @@ public enum Anytype_Model_SpaceUxType: SwiftProtobuf.Enum, Swift.CaseIterable {
   /// stream UX (chat with limited amount of owners)
   case stream // = 2
 
-  /// chat UX
+  /// chat UX, deprecated
   case chat // = 3
 
   /// onetoone UX (space with chat and immutable ACL between two participants)

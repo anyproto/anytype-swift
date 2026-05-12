@@ -616,6 +616,11 @@ extension Anytype_Rpc.Chat.AddMessage.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Chat.AddNotificationSubscriber.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.AddNotificationSubscriber.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Chat.DeleteMessage.Response: ResultWithError {}
 extension Anytype_Rpc.Chat.DeleteMessage.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -653,6 +658,11 @@ extension Anytype_Rpc.Chat.ReadMessages.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Chat.ReadReactions.Response: ResultWithError {}
 extension Anytype_Rpc.Chat.ReadReactions.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Chat.RemoveNotificationSubscriber.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.RemoveNotificationSubscriber.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
@@ -706,13 +716,18 @@ extension Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error: ResponseError 
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Debug.CleanupReport.Response: ResultWithError {}
+extension Anytype_Rpc.Debug.CleanupReport.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Debug.ExportLocalstore.Response: ResultWithError {}
 extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
-extension Anytype_Rpc.Debug.ExportLog.Response: ResultWithError {}
-extension Anytype_Rpc.Debug.ExportLog.Response.Error: ResponseError {
+extension Anytype_Rpc.Debug.ExportReport.Response: ResultWithError {}
+extension Anytype_Rpc.Debug.ExportReport.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
@@ -1315,11 +1330,6 @@ extension Anytype_Rpc.Object.Undo.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
-extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response: ResultWithError {}
-extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
 extension Anytype_Rpc.ObjectCollection.Add.Response: ResultWithError {}
 extension Anytype_Rpc.ObjectCollection.Add.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1550,6 +1560,11 @@ extension Anytype_Rpc.Space.ParticipantRemove.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Space.ParticipantsAddList.Response: ResultWithError {}
+extension Anytype_Rpc.Space.ParticipantsAddList.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Space.RequestApprove.Response: ResultWithError {}
 extension Anytype_Rpc.Space.RequestApprove.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1585,8 +1600,23 @@ extension Anytype_Rpc.Template.CreateFromObject.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Template.DeletePlaceholders.Response: ResultWithError {}
+extension Anytype_Rpc.Template.DeletePlaceholders.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Template.ExportAll.Response: ResultWithError {}
 extension Anytype_Rpc.Template.ExportAll.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Template.GetPlaceholders.Response: ResultWithError {}
+extension Anytype_Rpc.Template.GetPlaceholders.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Template.SetPlaceholders.Response: ResultWithError {}
+extension Anytype_Rpc.Template.SetPlaceholders.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
@@ -1667,6 +1697,11 @@ extension Anytype_Rpc.Workspace.Open.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Workspace.Select.Response: ResultWithError {}
 extension Anytype_Rpc.Workspace.Select.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Workspace.SetHomepage.Response: ResultWithError {}
+extension Anytype_Rpc.Workspace.SetHomepage.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

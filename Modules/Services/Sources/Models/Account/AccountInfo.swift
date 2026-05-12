@@ -17,6 +17,37 @@ public struct AccountInfo: Equatable, Hashable, Sendable, Identifiable, Codable 
     public let spaceChatId: String
     public let metadataKey: String
 
+    public init(
+        homeObjectID: String,
+        archiveObjectID: String,
+        profileObjectID: String,
+        gatewayURL: String,
+        accountSpaceId: String,
+        spaceViewId: String,
+        widgetsId: String,
+        analyticsId: String,
+        deviceId: String,
+        networkId: String,
+        techSpaceId: String,
+        ethereumAddress: String,
+        spaceChatId: String,
+        metadataKey: String
+    ) {
+        self.homeObjectID = homeObjectID
+        self.archiveObjectID = archiveObjectID
+        self.profileObjectID = profileObjectID
+        self.gatewayURL = gatewayURL
+        self.accountSpaceId = accountSpaceId
+        self.spaceViewId = spaceViewId
+        self.widgetsId = widgetsId
+        self.analyticsId = analyticsId
+        self.deviceId = deviceId
+        self.networkId = networkId
+        self.techSpaceId = techSpaceId
+        self.ethereumAddress = ethereumAddress
+        self.spaceChatId = spaceChatId
+        self.metadataKey = metadataKey
+    }
 
     public var id: Int { hashValue }
 }

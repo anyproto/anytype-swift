@@ -10,7 +10,8 @@ enum ScreenType {
     case mediaFile
     case bookmark
     case chat
-    
+    case discussion
+
     var isMediaFile: Bool {
         self == .mediaFile
     }
@@ -26,7 +27,8 @@ enum ScreenData: Hashable, Identifiable, Sendable {
     case chat(ChatCoordinatorData)
     case spaceChat(SpaceChatCoordinatorData)
     case widget(HomeWidgetData)
-    
+    case discussion(DiscussionCoordinatorData)
+
     var id: Int { hashValue }
 }
 
@@ -39,6 +41,8 @@ extension ScreenData {
             return alertScreenData.objectId
         case .bookmark(let data):
             return data.editorScreenData.objectId
+        case .discussion(let data):
+            return data.objectId
         case .preview, .spaceInfo, .chat, .widget, .spaceChat:
             return nil
         }
@@ -62,6 +66,8 @@ extension ScreenData {
             data.spaceId
         case .spaceChat(let data):
             data.spaceId
+        case .discussion(let data):
+            data.spaceId
         }
     }
     
@@ -70,6 +76,17 @@ extension ScreenData {
         case .editor(let editorScreenData):
             return editorScreenData
         default:
+            return nil
+        }
+    }
+}
+
+extension ScreenData {
+    var homeSlotValue: AnyHashable? {
+        switch self {
+        case .editor(let data):  return data
+        case .chat(let data):    return data
+        case .alert, .preview, .bookmark, .spaceInfo, .spaceChat, .widget, .discussion:
             return nil
         }
     }

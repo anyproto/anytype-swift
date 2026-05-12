@@ -12,11 +12,18 @@ struct MessageAttachmentDetails: Equatable, Identifiable, Hashable {
     let syncStatus: SyncStatus?
     let syncError: SyncError?
     let downloadingState: Bool
+    let uploadTimeMs: Int?
 }
 
 extension MessageAttachmentDetails {
     init(details: ObjectDetails) {
         let source = details.source?.url.host() ?? details.source?.absoluteString
+
+        var uploadTimeMs: Int? = nil
+        if let addedDate = details.addedDate, let syncDate = details.syncDate, syncDate > addedDate {
+            uploadTimeMs = Int(syncDate.timeIntervalSince(addedDate) * 1000)
+        }
+
         self = MessageAttachmentDetails(
             id: details.id,
             title: details.title,
@@ -27,7 +34,8 @@ extension MessageAttachmentDetails {
             source: source,
             syncStatus: details.syncStatusValue,
             syncError: details.syncErrorValue,
-            downloadingState: false
+            downloadingState: false,
+            uploadTimeMs: uploadTimeMs
         )
     }
     
@@ -42,7 +50,8 @@ extension MessageAttachmentDetails {
             source: nil,
             syncStatus: nil,
             syncError: nil,
-            downloadingState: true
+            downloadingState: true,
+            uploadTimeMs: nil
         )
     }
 }

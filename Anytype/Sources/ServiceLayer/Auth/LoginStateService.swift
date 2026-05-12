@@ -32,6 +32,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let workspacesStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     private let chatDetailsStorage: any ChatDetailsStorageProtocol = Container.shared.chatDetailsStorage()
     private let accountParticipantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
+    private let objectsWithUnreadDiscussionsSubscription: any ObjectsWithUnreadDiscussionsSubscriptionProtocol = Container.shared.objectsWithUnreadDiscussionsSubscription()
     private let participantSpacesStorage: any ParticipantSpacesStorageProtocol = Container.shared.participantSpacesStorage()
     private let storeKitService: any StoreKitServiceProtocol = Container.shared.storeKitService()
     private let syncStatusStorage: any SyncStatusStorageProtocol = Container.shared.syncStatusStorage()
@@ -44,6 +45,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol = Container.shared.pushNotificationsPermissionService()
     private let spaceIconForNotificationsHandler: any SpaceIconForNotificationsHandlerProtocol = Container.shared.spaceIconForNotificationsHandler()
     private let spaceFileUploadService: any SpaceFileUploadServiceProtocol = Container.shared.spaceFileUploadService()
+    private let appIconBadgeService: any AppIconBadgeServiceProtocol = Container.shared.appIconBadgeService()
         
     // MARK: - LoginStateServiceProtocol
     
@@ -88,13 +90,16 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await workspacesStorage.startSubscription()
         await chatDetailsStorage.startSubscription()
         await accountParticipantsStorage.startSubscription()
+        await objectsWithUnreadDiscussionsSubscription.startSubscription()
         await participantSpacesStorage.startSubscription()
         await networkConnectionStatusDaemon.start()
         await storeKitService.startListenForTransactions()
         await profileStorage.startSubscription()
         await activeSpaceManager.startSubscription()
         await spaceIconForNotificationsHandler.startUpdating()
-        
+
+        await appIconBadgeService.startUpdating()
+
         Task {
             await membershipStatusStorage.startSubscription()
         }
@@ -106,6 +111,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await propertyDetailsStorage.stopSubscription()
         await objectTypeProvider.stopSubscription()
         await accountParticipantsStorage.stopSubscription()
+        await objectsWithUnreadDiscussionsSubscription.stopSubscription()
         await participantSpacesStorage.stopSubscription()
         await membershipStatusStorage.stopSubscriptionAndClean()
         await syncStatusStorage.stopSubscriptionAndClean()
@@ -115,5 +121,6 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await profileStorage.stopSubscription()
         await activeSpaceManager.stopSubscription()
         await spaceIconForNotificationsHandler.stopUpdatingAndClearData()
+        await appIconBadgeService.stopUpdatingAndClearBadge()
     }
 }

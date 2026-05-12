@@ -8,6 +8,7 @@ import UIKit
 import NotificationsCore
 import ProtobufMessages
 import AsyncAlgorithms
+import DeepLinks
 @preconcurrency import Combine
 
 @MainActor
@@ -18,6 +19,8 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     
     let spaceId: String
     let chatId: String
+    @ObservationIgnored
+    let useBlocksFormat: Bool
     @ObservationIgnored
     private weak var output: (any ChatModuleOutput)?
     
@@ -59,13 +62,16 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     private var universalLinkParser: any UniversalLinkParserProtocol
     @Injected(\.shareSuggestionService) @ObservationIgnored
     private var shareSuggestionService: any ShareSuggestionServiceProtocol
+    @Injected(\.deepLinkParser) @ObservationIgnored
+    private var deepLinkParser: any DeepLinkParserProtocol
 
     private let participantSubscription: any ParticipantsSubscriptionProtocol
     private let chatStorage: any ChatMessagesStorageProtocol
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private let chatMessageBuilder: any ChatMessageBuilderProtocol
     private let chatObject: any BaseDocumentProtocol
-    
+    private let initialMessageId: String?
+
     // MARK: - State
     
     // Global
@@ -128,6 +134,8 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     @ObservationIgnored
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     @ObservationIgnored
+    var isOneToOneSpace: Bool { participantSpaceView?.spaceView.isOneToOne ?? false }
+    @ObservationIgnored
     var spaceUxType: SpaceUxType { participantSpaceView?.spaceView.uxType ?? .data }
     @ObservationIgnored
     var participantPermissions: ParticipantPermissions? { participantSpaceView?.participant?.permission }
@@ -138,16 +146,18 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     var showSendLimitAlert = false
     var toastBarData: ToastBarData?
     
-    init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
+    init(spaceId: String, chatId: String, messageId: String? = nil, useBlocksFormat: Bool = false, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
         self.chatId = chatId
+        self.initialMessageId = messageId
+        self.useBlocksFormat = useBlocksFormat
         self.output = output
         self.chatStorage = Container.shared.chatMessageStorage((spaceId, chatId))
         self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
         self.participantSubscription = Container.shared.participantSubscription(spaceId)
         // Open object. Middleware will know that we are using the object and will be make a refresh after open from background
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
-        self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId, chatId: chatId)
+        self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId)
     }
     
     func onAppear() {
@@ -163,6 +173,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 guard let self else { return }
                 do {
                     try attachmentHandler.addUploadedObject(MessageAttachmentDetails(details: details))
+                    AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: self.chatId)
                 } catch {
                     handleAttachmentError(error)
                 }
@@ -178,6 +189,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             guard let self else { return }
             do {
                 try attachmentHandler.setPhotosItems(result)
+                AnytypeAnalytics.instance().logAttachItemChat(type: .photo, chatId: self.chatId)
             } catch {
                 handleAttachmentError(error)
             }
@@ -191,6 +203,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             guard let self else { return }
             do {
                 try attachmentHandler.handleFilePicker(result: result)
+                AnytypeAnalytics.instance().logAttachItemChat(type: .file, chatId: self.chatId)
             } catch {
                 handleAttachmentError(error)
             }
@@ -204,6 +217,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             guard let self else { return }
             do {
                 try attachmentHandler.handleCameraMedia(media)
+                AnytypeAnalytics.instance().logAttachItemChat(type: .camera, chatId: self.chatId)
             } catch {
                 handleAttachmentError(error)
             }
@@ -268,7 +282,11 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 await updateMessages()
                 self.dataLoaded = true
                 if prevChatIsEmpty {
-                    if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
+                    if let initialMessageId {
+                        try? await chatStorage.loadPagesTo(messageId: initialMessageId)
+                        collectionViewScrollProxy.scrollTo(itemId: initialMessageId, position: .center, animated: false)
+                        messageHiglightId = initialMessageId
+                    } else if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
                         collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
                     } else if let message = messages.last {
                         collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
@@ -289,6 +307,10 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     
     func sendMessageTask() async throws {
         guard sendMessageTaskInProgress else { return }
+        guard message.string.trimmingCharacters(in: .whitespacesAndNewlines).isNotEmpty || linkedObjects.isNotEmpty else {
+            sendMessageTaskInProgress = false
+            return
+        }
         let loadingTask = Task {
             try await Task.sleep(seconds: 0.3)
             try Task.checkCancellation()
@@ -302,7 +324,8 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 messageId: editMessage.id,
                 message: message.sendable(),
                 linkedObjects: linkedObjects,
-                replyToMessageId: replyToMessage?.id
+                replyToMessageId: replyToMessage?.id,
+                useBlocksFormat: useBlocksFormat
             )
             clearInput()
         } else if chatMessageLimits.canSendMessage() {
@@ -311,7 +334,8 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 spaceId: spaceId,
                 message: message.sendable(),
                 linkedObjects: linkedObjects,
-                replyToMessageId: replyToMessage?.id
+                replyToMessageId: replyToMessage?.id,
+                useBlocksFormat: useBlocksFormat
             )
             let type: SentMessageType = linkedObjects.isNotEmpty ? (message.string.isNotEmpty ? .mixed : .attachment) : .text
             AnytypeAnalytics.instance().logSentMessage(type: type, chatId: chatId)
@@ -332,6 +356,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         withAnimation {
             attachmentHandler.removeLinkedObject(linkedObject)
         }
+        AnytypeAnalytics.instance().logDetachItemChat(chatId: chatId)
     }
     
     func scrollToTop() async {
@@ -343,7 +368,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     func updateMentionState() async throws {
-        guard spaceUxType.supportsMentions else {
+        guard !isOneToOneSpace else {
             mentionObjectsModels = []
             return
         }
@@ -413,13 +438,17 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     func onLinkAdded(link: URL) {
-        attachmentHandler.handleLinkAdded(link: link)
+        attachmentHandler.handleLinkAdded(link: link) { [weak self] in
+            guard let self else { return }
+            AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: chatId)
+        }
     }
-    
+
     func onPasteAttachmentsFromBuffer(items: [NSItemProvider]) {
         Task {
             do {
                 try await attachmentHandler.handlePasteAttachmentsFromBuffer(items: items)
+                AnytypeAnalytics.instance().logAttachItemChat(type: .file, chatId: chatId)
             } catch {
                 handleAttachmentError(error)
             }
@@ -451,7 +480,15 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
         Task {
             bottomVisibleOrderId = to.messageOrderId
-            forceHiddenActionPanel = false // Without update panel. Waiting middleware event.
+            // updateActions() is normally triggered by .state middleware events,
+            // but those arrive before forceHiddenActionPanel resets to false,
+            // so action buttons (e.g. scroll-to-reaction) would never appear.
+            // Trigger once when the panel becomes visible for the first time.
+            let wasForceHidden = forceHiddenActionPanel
+            forceHiddenActionPanel = false
+            if wasForceHidden {
+                updateActions()
+            }
             await chatStorage.updateVisibleRange(startMessageId: from.messageId, endMessageId: to.messageId)
         }
     }
@@ -467,7 +504,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     func configureProvider(_ provider: Binding<ChatActionProvider>) {
-        provider.wrappedValue.handler = self
+        provider.wrappedValue.register(chatId: chatId, handler: self)
     }
     
     private func handleAttachmentError(_ error: any Error) {
@@ -512,6 +549,16 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         AnytypeAnalytics.instance().logClickScrollToMention(chatId: chatId)
         Task {
             let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
+            collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
+            messageHiglightId = message.id
+        }
+    }
+
+    func onTapReaction() {
+        guard let chatState, chatState.unreadReactionOrderID.isNotEmpty else { return }
+        AnytypeAnalytics.instance().logClickScrollToReaction(chatId: chatId)
+        Task {
+            let message = try await chatStorage.loadPagesTo(orderId: chatState.unreadReactionOrderID)
             collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
             messageHiglightId = message.id
         }
@@ -570,11 +617,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     func didSelectReplyMessage(message: MessageViewData) {
         guard let reply = message.reply else { return }
         AnytypeAnalytics.instance().logClickScrollToReply(chatId: message.chatId)
-        Task {
-            try await chatStorage.loadPagesTo(messageId: reply.id)
-            collectionViewScrollProxy.scrollTo(itemId: reply.id)
-            messageHiglightId = reply.id
-        }
+        scrollToMessage(messageId: reply.id)
     }
     
     func didSelectDeleteMessage(message: MessageViewData) {
@@ -605,9 +648,27 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         AnytypeAnalytics.instance().logClickMessageMenuCopy()
         UIPasteboard.general.string = NSAttributedString(message.messageString).string
     }
-    
+
+    func didSelectCopyLink(message: MessageViewData) {
+        AnytypeAnalytics.instance().logClickMessageMenuCopyLink()
+        let link = deepLinkParser.createUrl(
+            deepLink: .chatMessage(chatObjectId: chatId, spaceId: spaceId, messageId: message.message.id),
+            scheme: .main
+        )
+        UIPasteboard.general.string = link?.absoluteString
+        toastBarData = ToastBarData(Loc.copied)
+    }
+
     // MARK: - ChatActionProviderHandler
-    
+
+    func scrollToMessage(messageId: String) {
+        Task {
+            try? await chatStorage.loadPagesTo(messageId: messageId)
+            collectionViewScrollProxy.scrollTo(itemId: messageId)
+            messageHiglightId = messageId
+        }
+    }
+
     func addAttachment(_ attachment: ChatLinkObject, clearInput needsClearInput: Bool) {
         Task {
             let results = try await searchService.searchObjects(spaceId: attachment.spaceId, objectIds: [attachment.objectId])
@@ -618,6 +679,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             if attachmentHandler.canAddOneAttachment() {
                 do {
                     try attachmentHandler.addUploadedObject(MessageAttachmentDetails(details: first))
+                    AnytypeAnalytics.instance().logAttachItemChat(type: .object, chatId: chatId)
                     // Waiting pop transaction and open keyboard.
                     try await Task.sleep(seconds: 1.0)
                     inputFocused = true
@@ -731,8 +793,9 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     
     private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
         if attachment.resolvedLayoutValue.isFileOrMedia {
+            let fileAndMediaAttachments = attachments.filter { $0.resolvedLayoutValue.isFileOrMedia }
             output?.onObjectSelected(screenData: .preview(
-                MediaFileScreenData(selectedItem: attachment, allItems: attachments, route: .chat)
+                MediaFileScreenData(selectedItem: attachment, allItems: fileAndMediaAttachments, route: .chat)
             ))
         } else {
             output?.onObjectSelected(screenData: attachment.screenData())
@@ -750,14 +813,16 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 showScrollToBottom: chatState.messages.counter > 0 || bigDistanceToBottom,
                 srollToBottomCounter: Int(chatState.messages.counter),
                 showMentions: chatState.mentions.counter > 0,
-                mentionsCounter: Int(chatState.mentions.counter)
+                mentionsCounter: Int(chatState.mentions.counter),
+                showReactions: chatState.unreadReactionOrderID.isNotEmpty
             )
         } else {
             actionModel = ChatActionPanelModel(
                 showScrollToBottom: bigDistanceToBottom,
                 srollToBottomCounter: 0,
                 showMentions: false,
-                mentionsCounter: 0
+                mentionsCounter: 0,
+                showReactions: false
             )
         }
     }

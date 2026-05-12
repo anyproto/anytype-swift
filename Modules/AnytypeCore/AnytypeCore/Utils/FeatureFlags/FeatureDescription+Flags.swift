@@ -6,28 +6,64 @@ public extension FeatureDescription {
 
     static let showUploadStatusIndicator = FeatureDescription(
         title: "Show visual indicator for uploading files - IOS-5054",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "?"),
         defaultValue: false
     )
     
     static let homePage = FeatureDescription(
         title: "Home Page",
         category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
-        defaultValue: false
+        defaultValue: true
+    )
+
+    static let discussionButton = FeatureDescription(
+        title: "Discussion button in bottom navigation - IOS-5913",
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
+        defaultValue: true
     )
 
     static let qrCodeCircularText = FeatureDescription(
         title: "QR Code Circular Text - IOS-5580",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "?"),
         defaultValue: false,
         debugValue: true
     )
-    
+
+    static let createChannelFlow = FeatureDescription(
+        title: "Create Channel Flow - IOS-5856",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: true
+    )
+
+    static let fixChannelHomeBackNavigation = FeatureDescription(
+        title: "Fix channel home back navigation - IOS-6067",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: true
+    )
+
     // should be disabled
     static let channelTypeSwitcher = FeatureDescription(
         title: "Channel type switcher - IOS-5378",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "18"),
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "?"),
         defaultValue: false
+    )
+
+    static let fixAvatarTapFreeze = FeatureDescription(
+        title: "Fix avatar tap freeze in chat - IOS-5998",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: true
+    )
+
+    static let muteAndHide = FeatureDescription(
+        title: "Mute and hide notification setting - IOS-5809",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: true
+    )
+
+    static let personalFavorites = FeatureDescription(
+        title: "Personal Favorites - IOS-5864 (requires MW GO-6962)",
+        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: true
     )
 
     // MARK: - Experemental

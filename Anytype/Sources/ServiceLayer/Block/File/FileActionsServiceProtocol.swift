@@ -25,15 +25,30 @@ protocol FileActionsServiceProtocol: Sendable {
     func createFileData(fileUrl: URL) throws -> FileData
 
     func uploadDataAt(data: FileData, contextID: String, blockID: String) async throws
-    func uploadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails
-    func preloadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> String
-    func uploadPreloadedFileObject(fileId: String, spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails
+    func uploadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> FileDetails
+    func preloadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> String
+    func uploadPreloadedFileObject(fileId: String, spaceId: String, data: FileData, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> FileDetails
     func discardPreloadFile(fileId: String, spaceId: String) async throws
 
     func uploadDataAt(source: FileUploadingSource, contextID: String, blockID: String) async throws
-    func uploadImage(spaceId: String, source: FileUploadingSource, origin: ObjectOrigin) async throws -> FileDetails
+    func uploadImage(spaceId: String, source: FileUploadingSource, origin: ObjectOrigin, createdInContext: String, createdInContextRef: String) async throws -> FileDetails
 
     func nodeUsage() async throws -> NodeUsageInfo
 
     func clearCache() async throws
+}
+
+extension FileActionsServiceProtocol {
+    func uploadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails {
+        try await uploadFileObject(spaceId: spaceId, data: data, origin: origin, createdInContext: "", createdInContextRef: "")
+    }
+    func preloadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> String {
+        try await preloadFileObject(spaceId: spaceId, data: data, origin: origin, createdInContext: "", createdInContextRef: "")
+    }
+    func uploadPreloadedFileObject(fileId: String, spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails {
+        try await uploadPreloadedFileObject(fileId: fileId, spaceId: spaceId, data: data, origin: origin, createdInContext: "", createdInContextRef: "")
+    }
+    func uploadImage(spaceId: String, source: FileUploadingSource, origin: ObjectOrigin) async throws -> FileDetails {
+        try await uploadImage(spaceId: spaceId, source: source, origin: origin, createdInContext: "", createdInContextRef: "")
+    }
 }

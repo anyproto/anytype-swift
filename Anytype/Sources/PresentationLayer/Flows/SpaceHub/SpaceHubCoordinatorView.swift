@@ -42,6 +42,8 @@ struct SpaceHubCoordinatorView: View {
             .anytypeSheet(item: $model.spaceJoinData) {
                 SpaceJoinView(data: $0, onManageSpaces: {
                     model.onManageSpacesSelected()
+                }, onJoinedSpace: { spaceId, spaceUxType in
+                    model.onSpaceJoined(spaceId: spaceId, spaceUxType: spaceUxType)
                 })
             }
             .anytypeSheet(item: $model.userWarningAlert, dismissOnBackgroundView: false) {
@@ -63,6 +65,17 @@ struct SpaceHubCoordinatorView: View {
             .sheet(item: $model.spaceCreateData) {
                 SpaceCreateCoordinatorView(data: $0)
             }
+            .sheet(isPresented: $model.showGroupChannelCreate) {
+                GroupChannelCreateCoordinatorView()
+            }
+            .anytypeSheet(isPresented: $model.showSharedChannelLimit) {
+                SharedChannelLimitView(
+                    sharedSpacesLimit: model.sharedChannelLimit,
+                    onUpgrade: { model.onSharedChannelLimitUpgrade() },
+                    onManageChannels: { model.onSharedChannelLimitManageChannels() }
+                )
+            }
+            .membershipUpgrade(reason: $model.membershipUpgradeReason)
             .sheet(item: $model.chatCreateData) { data in
                 ChatCreateView(data: data)
                     .pageNavigation(model.pageNavigation)
@@ -141,6 +154,11 @@ struct SpaceHubCoordinatorView: View {
                         builder.appendBuilder(for: ChatCoordinatorData.self) { data in
                             SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) { _ in
                                 ChatCoordinatorView(data: data)
+                            }
+                        }
+                        builder.appendBuilder(for: DiscussionCoordinatorData.self) { data in
+                            SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) { _ in
+                                DiscussionCoordinatorView(data: data)
                             }
                         }
                         builder.appendBuilder(for: SpaceInfoScreenData.self) { data in

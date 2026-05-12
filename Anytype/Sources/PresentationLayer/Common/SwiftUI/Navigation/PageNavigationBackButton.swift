@@ -1,12 +1,18 @@
 import SwiftUI
 
 struct PageNavigationBackButton: View {
-    
+
+    private let useExpandedTapArea: Bool
+
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.pageNavigationHiddenBackButton) private var pageNavigationHiddenBackButton
-    
+
+    init(useExpandedTapArea: Bool = true) {
+        self.useExpandedTapArea = useExpandedTapArea
+    }
+
     var body: some View {
-        ExpandedTapAreaButton {
+        ExpandedTapAreaButton(insets: useExpandedTapArea ? ExpandedTapAreaButtonConstants.defaultInsets : EdgeInsets()) {
             pageNavigation.pop()
         } label: {
             Image(asset: .X24.back)

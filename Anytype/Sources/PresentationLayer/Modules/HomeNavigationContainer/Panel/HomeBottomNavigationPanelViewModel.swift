@@ -27,6 +27,8 @@ final class HomeBottomNavigationPanelViewModel {
     private var experimentalFeaturesStorage: any ExperimentalFeaturesStorageProtocol
     @ObservationIgnored @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored @Injected(\.documentsProvider)
+    private var documentsProvider: any DocumentsProviderProtocol
 
     @ObservationIgnored
     private weak var output: (any HomeBottomNavigationPanelModuleOutput)?
@@ -35,16 +37,29 @@ final class HomeBottomNavigationPanelViewModel {
     private var currentData: AnyHashable?
     @ObservationIgnored
     private var participantSpaceView: ParticipantSpaceViewData?
+    @ObservationIgnored
+    private var detailsSubscriptionTask: Task<Void, Never>?
+    @ObservationIgnored @Injected(\.discussionMessageCountObserver)
+    private var messageCountObserver: any DiscussionMessageCountObserverProtocol
+    @ObservationIgnored
+    private var observerCommandTask: Task<Void, Never>?
+    @ObservationIgnored
+    private var currentDiscussionId: String?
 
     // MARK: - Public properties
 
+    var showDiscussButton: Bool = false
+    var discussButtonHasUnread: Bool = false
     var canCreateObject: Bool = false
+    var commentsCount: Int = 0
     var pageObjectType: ObjectType?
     var noteObjectType: ObjectType?
     var taskObjectType: ObjectType?
     var otherObjectTypes: [ObjectType] = []
     var newObjectPlusMenu: Bool = false
-    
+
+    var spaceId: String { info.accountSpaceId }
+
     init(
         info: AccountInfo,
         output: (any HomeBottomNavigationPanelModuleOutput)?
@@ -52,26 +67,50 @@ final class HomeBottomNavigationPanelViewModel {
         self.info = info
         self.output = output
     }
-    
+
     func onTapNewObject() {
         handleCreateObject()
     }
-    
+
+    func onLongPressNewObject(details: ObjectDetails) {
+        output?.onCreateObjectSelected(screenData: details.screenData())
+    }
+
     func onTapSearch() {
         output?.onSearchSelected()
+    }
+    
+    func onTapDiscuss() {
+        guard let editorData = currentData as? EditorScreenData,
+              let objectId = editorData.objectId else {
+            anytypeAssertionFailure("Discuss button tapped but no editor data available")
+            return
+        }
+        let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
+        let objectName = document.details?.name ?? ""
+        let discussionId = document.details?.discussionId
+        let screenData = ScreenData.discussion(DiscussionCoordinatorData(
+            discussionId: discussionId?.isEmpty == false ? discussionId : nil,
+            objectId: objectId,
+            objectName: objectName,
+            spaceId: editorData.spaceId
+        ))
+        output?.onCreateObjectSelected(screenData: screenData)
     }
 
     func startSubscriptions() async {
         async let participantSub: () = participantSubscription()
         async let typesSub: () = typesSubscription()
         async let featuresSub: () = featuresSubscription()
-        
-        _ = await (participantSub, typesSub, featuresSub)
+        async let messageCountSub: () = subscribeOnMessageCount()
+
+        _ = await (participantSub, typesSub, featuresSub, messageCountSub)
     }
     
     func updateVisibleScreen(data: AnyHashable) {
         currentData = data
         updateState()
+        subscribeToDetailsChanges(from: data)
     }
 
     func onTapCreateObject(type: ObjectType) {
@@ -131,7 +170,21 @@ final class HomeBottomNavigationPanelViewModel {
     }
     
     // MARK: - Private
-    
+
+    private func subscribeToDetailsChanges(from data: AnyHashable) {
+        detailsSubscriptionTask?.cancel()
+        detailsSubscriptionTask = nil
+        guard let editorData = data as? EditorScreenData,
+              let objectId = editorData.objectId else { return }
+        let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
+        detailsSubscriptionTask = Task { [weak self] in
+            for await _ in document.detailsPublisher.values {
+                guard !Task.isCancelled else { return }
+                self?.updateState()
+            }
+        }
+    }
+
     private func participantSubscription() async {
         for await data in participantSpacesStorage.participantSpaceViewPublisher(spaceId: info.accountSpaceId).values {
             participantSpaceView = data
@@ -141,8 +194,14 @@ final class HomeBottomNavigationPanelViewModel {
     
     private func typesSubscription() async {
         for await types in objectTypeProvider.objectTypesPublisher(spaceId: info.accountSpaceId).values {
-            let spaceUxType = spaceViewsStorage.spaceView(spaceId: info.accountSpaceId)?.uxType
-            let supportedLayouts = DetailsLayout.supportedForCreation(spaceUxType: spaceUxType)
+            let supportedLayouts: [DetailsLayout]
+            if FeatureFlags.createChannelFlow {
+                let spaceType = spaceViewsStorage.spaceView(spaceId: info.accountSpaceId)?.spaceType
+                supportedLayouts = DetailsLayout.supportedForCreation(spaceType: spaceType)
+            } else {
+                let spaceUxType = spaceViewsStorage.spaceView(spaceId: info.accountSpaceId)?.uxType
+                supportedLayouts = DetailsLayout.supportedForCreation(spaceUxType: spaceUxType)
+            }
             let types = types.filter { type in
                 supportedLayouts.contains { $0 == type.recommendedLayout }
                 && !type.isTemplateType
@@ -170,8 +229,65 @@ final class HomeBottomNavigationPanelViewModel {
     }
     
     private func updateState() {
-        guard let participantSpaceView else { return }
+        guard let participantSpaceView else {
+            discussButtonHasUnread = false
+            return
+        }
+
+        // Don't stop observing — popping back from the discussion screen should preserve the count.
+        if currentData is DiscussionCoordinatorData { return }
+
         canCreateObject = participantSpaceView.permissions.canEdit
+        guard let editorData = currentData as? EditorScreenData,
+              let objectId = editorData.objectId else {
+            showDiscussButton = false
+            discussButtonHasUnread = false
+            clearDiscussionObservation()
+            return
+        }
+        let document = documentsProvider.document(objectId: objectId, spaceId: editorData.spaceId)
+        let details = document.details
+        let discussionId = details?.discussionId
+        let hasDiscussion = discussionId?.isNotEmpty == true
+        let layoutSupportsDiscussion = details?.isSupportedForDiscussion ?? false
+        showDiscussButton = FeatureFlags.discussionButton && layoutSupportsDiscussion && (canCreateObject || hasDiscussion)
+        discussButtonHasUnread = showDiscussButton && (details?.unreadMessageCount ?? 0) > 0
+
+        guard hasDiscussion, let discussionId else {
+            clearDiscussionObservation()
+            return
+        }
+
+        guard currentDiscussionId != discussionId else { return }
+        currentDiscussionId = discussionId
+        commentsCount = 0
+        enqueueObserverCommand { await $0.startObserving(chatId: discussionId) }
+    }
+
+    private func clearDiscussionObservation() {
+        if commentsCount != 0 { commentsCount = 0 }
+        guard currentDiscussionId != nil else { return }
+        currentDiscussionId = nil
+        enqueueObserverCommand { await $0.stopObserving() }
+    }
+
+    private func subscribeOnMessageCount() async {
+        for await update in await messageCountObserver.messageCountStream {
+            guard update.chatId == currentDiscussionId else { continue }
+            commentsCount = update.count
+        }
+    }
+
+    // Actor method bodies are serialized, but the actor does not preserve Task enqueue
+    // order — a raw `Task { stop() }` followed by `Task { start(D) }` can run in reverse.
+    // Chaining through observerCommandTask forces FIFO.
+    private func enqueueObserverCommand(_ command: @Sendable @escaping (any DiscussionMessageCountObserverProtocol) async -> Void) {
+        let previous = observerCommandTask
+        let observer = messageCountObserver
+        observerCommandTask = Task {
+            await previous?.value
+            await command(observer)
+        }
     }
 
     private func handleCreateObject() {

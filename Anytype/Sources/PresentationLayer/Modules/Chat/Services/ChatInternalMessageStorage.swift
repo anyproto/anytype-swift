@@ -38,7 +38,7 @@ struct ChatInternalMessageStorage: Sendable {
         allMessages.values.first(where: { $0.orderID == orderId })
     }
     
-    mutating func cleaLast(maxCache: Int) {
+    mutating func cleanLast(maxCache: Int) {
         if allMessages.count > maxCache {
             allMessages.removeLast(allMessages.count - maxCache)
         }

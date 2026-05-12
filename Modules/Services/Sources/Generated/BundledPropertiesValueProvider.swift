@@ -187,12 +187,19 @@ public protocol BundledPropertiesValueProvider {
     var widgetViewId: String { get }
     var isMainChat: Bool { get }
     var lastMessageDate: Date? { get }
+    var notificationSubscribers: [ObjectId] { get }
+    var unreadMessageCount: Int? { get }
+    var unreadMentionCount: Int? { get }
     var fileAvailableOffline: Bool { get }
     var analyticsChatId: String { get }
     var analyticsSpaceId: String { get }
     var score: Int? { get }
+    var finalScore: Int? { get }
     var migrationObjectContext: Int? { get }
     var templateNamePrefillType: Int? { get }
+    var spaceType: Int? { get }
+    var homepage: String { get }
+    var templatePlaceholders: [String: [RelationPlaceholder]]? { get }
 } 
 
 public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
@@ -880,6 +887,18 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     var lastMessageDate: Date? {
         return value(for: BundledPropertyKey.lastMessageDate.rawValue)
     }
+    /// Participants subscribed to notifications on this discussion
+    var notificationSubscribers: [ObjectId] {
+        return value(for: BundledPropertyKey.notificationSubscribers.rawValue)
+    }
+    /// Number of unread messages in a discussion for the current user
+    var unreadMessageCount: Int? {
+        return value(for: BundledPropertyKey.unreadMessageCount.rawValue)
+    }
+    /// Number of unread mentions in a discussion for the current user
+    var unreadMentionCount: Int? {
+        return value(for: BundledPropertyKey.unreadMentionCount.rawValue)
+    }
     /// Is file available offline
     var fileAvailableOffline: Bool {
         return value(for: BundledPropertyKey.fileAvailableOffline.rawValue)
@@ -896,6 +915,10 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     var score: Int? {
         return value(for: BundledPropertyKey.score.rawValue)
     }
+    /// Fulltext search final score (BM25 + recency + name boost)
+    var finalScore: Int? {
+        return value(for: BundledPropertyKey.finalScore.rawValue)
+    }
     /// Version of file context migration completed for this space
     var migrationObjectContext: Int? {
         return value(for: BundledPropertyKey.migrationObjectContext.rawValue)
@@ -903,5 +926,17 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Controls whether a template's name should be applied to newly created objects
     var templateNamePrefillType: Int? {
         return value(for: BundledPropertyKey.templateNamePrefillType.rawValue)
+    }
+    /// Space type derived from space header, see spacedomain.SpaceType
+    var spaceType: Int? {
+        return value(for: BundledPropertyKey.spaceType.rawValue)
+    }
+    /// Homepage of regular spaces. Could handle either object id or special constant
+    var homepage: String {
+        return value(for: BundledPropertyKey.homepage.rawValue)
+    }
+    /// Dynamic placeholder mappings for template relation default values
+    var templatePlaceholders: [String: [RelationPlaceholder]]? {
+        return value(for: BundledPropertyKey.templatePlaceholders.rawValue)
     }
 }

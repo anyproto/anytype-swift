@@ -45,7 +45,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
     
     func turnInto(_ style: BlockText.Style, blockId: String, route: AnalyticsEventsRouteKind?) async throws {
         switch style {
-        case .toggle:
+        case .toggle, .toggleHeader, .toggleHeader2, .toggleHeader3:
             if let blockInformation = document.infoContainer.get(id: blockId),
                blockInformation.childrenIds.count > 0, !blockInformation.isToggled {
                 blockInformation.toggle()

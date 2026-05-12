@@ -170,17 +170,26 @@ final class DataviewService: DataviewServiceProtocol {
         typeUniqueKey: ObjectTypeUniqueKey?,
         templateId: String,
         spaceId: String,
-        details: ObjectDetails
+        details: ObjectDetails,
+        createdInContext: String,
+        createdInContextRef: String
     ) async throws -> ObjectDetails {
-        
+
         let internalFlags: [Anytype_Model_InternalFlag] = .builder {
             Anytype_Model_InternalFlag.with { $0.value = .editorSelectTemplate }
         }
 
-        let details: Google_Protobuf_Struct = .init(fields: details.values)
+        var fields = details.values
+        if !createdInContext.isEmpty {
+            fields[BundledPropertyKey.createdInContext.rawValue] = createdInContext.protobufValue
+        }
+        if !createdInContextRef.isEmpty {
+            fields[BundledPropertyKey.createdInContextRef.rawValue] = createdInContextRef.protobufValue
+        }
+        let detailsStruct: Google_Protobuf_Struct = .init(fields: fields)
 
         let response = try await ClientCommands.objectCreate(.with {
-            $0.details = details
+            $0.details = detailsStruct
             $0.internalFlags = internalFlags
             $0.templateID = templateId
             $0.spaceID = spaceId

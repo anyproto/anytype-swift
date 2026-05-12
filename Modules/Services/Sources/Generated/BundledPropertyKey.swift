@@ -511,6 +511,15 @@ public enum BundledPropertyKey: String, Sendable {
     /// Date of the last message in a chat
     case lastMessageDate = "lastMessageDate"
 
+    /// Participants subscribed to notifications on this discussion
+    case notificationSubscribers = "notificationSubscribers"
+
+    /// Number of unread messages in a discussion for the current user
+    case unreadMessageCount = "unreadMessageCount"
+
+    /// Number of unread mentions in a discussion for the current user
+    case unreadMentionCount = "unreadMentionCount"
+
     /// Is file available offline
     case fileAvailableOffline = "fileAvailableOffline"
 
@@ -523,9 +532,21 @@ public enum BundledPropertyKey: String, Sendable {
     /// Fulltext search score
     case score = "_score"
 
+    /// Fulltext search final score (BM25 + recency + name boost)
+    case finalScore = "_final_score"
+
     /// Version of file context migration completed for this space
     case migrationObjectContext = "migrationObjectContext"
 
     /// Controls whether a template's name should be applied to newly created objects
     case templateNamePrefillType = "templateNamePrefillType"
+
+    /// Space type derived from space header, see spacedomain.SpaceType
+    case spaceType = "spaceType"
+
+    /// Homepage of regular spaces. Could handle either object id or special constant
+    case homepage = "homepage"
+
+    /// Dynamic placeholder mappings for template relation default values
+    case templatePlaceholders = "templatePlaceholders"
 }

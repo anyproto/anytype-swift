@@ -39,18 +39,20 @@ final class KeyPhraseViewModel {
         } else {
             AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .showAndCopy)
             keyShown = true
-            copy()
         }
     }
-    
+
     func onSecondaryButtonTap() {
         AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .checkLater)
         output?.onNext()
     }
-    
+
     func onPhraseTap() {
-        keyShown = true
-        copy()
+        if keyShown {
+            copy()
+        } else {
+            keyShown = true
+        }
     }
     
     func keyPhraseMoreInfo() -> AnyView? {

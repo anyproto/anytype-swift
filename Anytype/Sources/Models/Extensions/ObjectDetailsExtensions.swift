@@ -79,7 +79,7 @@ extension BundledPropertiesValueProvider {
         case .chatDeprecated, .chatDerived:
             return .chat
         case .discussion:
-            return .chat
+            return .discussion
         }
     }
     
@@ -100,6 +100,11 @@ extension BundledPropertiesValueProvider {
     }
     
     var isTemplate: Bool { objectType.isTemplateType }
+
+    var isTemplateNamePrefilled: Bool {
+        (templateNamePrefillType ?? 0) != 0
+    }
+
     var isTemplateType: Bool { uniqueKey == ObjectTypeUniqueKey.template.value }
     
     var canMakeTemplate: Bool {
@@ -130,8 +135,15 @@ extension BundledPropertiesValueProvider {
     
     var isSupportedForOpening: Bool { resolvedLayoutValue.isSupportedForOpening }
 
+    var isSupportedForDiscussion: Bool { resolvedLayoutValue.isSupportedForDiscussion }
+
+    @available(*, deprecated, message: "Use spaceType overload instead")
     func isVisibleLayout(spaceUxType: SpaceUxType?) -> Bool {
         DetailsLayout.visibleLayouts(spaceUxType: spaceUxType).contains(resolvedLayoutValue)
+    }
+
+    func isVisibleLayout(spaceType: SpaceType?) -> Bool {
+        DetailsLayout.visibleLayouts(spaceType: spaceType).contains(resolvedLayoutValue)
     }
 
     var displayName: String {

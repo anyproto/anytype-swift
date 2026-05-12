@@ -1,4 +1,5 @@
 ---
+description: Review local code changes against base branch
 allowed-tools: Bash(git branch:*), Bash(git diff:*), Bash(git fetch:*)
 ---
 

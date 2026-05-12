@@ -24,9 +24,79 @@ extension Anytype_Rpc.Debug {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
+        /// 0 = save heap snapshot only; >0 = run full profiler (CPU, heap, trace, goroutines) for this many seconds
         public var durationInSeconds: Int32 = 0
 
+        public var reason: Anytype_Rpc.Debug.RunProfiler.Request.Reason = .unknown
+
+        /// Optional free-form description to attach to the profile
+        public var reasonDesc: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public enum Reason: SwiftProtobuf.Enum, Swift.CaseIterable {
+          public typealias RawValue = Int
+          case unknown // = 0
+
+          /// Triggered explicitly by the user
+          case userRequest // = 1
+
+          /// iOS: DISPATCH_MEMORYPRESSURE_WARN
+          /// Android: onTrimMemory(RUNNING_LOW)
+          case memoryPressureWarn // = 2
+
+          /// iOS: DISPATCH_MEMORYPRESSURE_CRITICAL / applicationDidReceiveMemoryWarning
+          /// Android: onTrimMemory(RUNNING_CRITICAL)
+          case memoryPressureCritical // = 3
+
+          /// iOS: ProcessInfo.thermalState == .serious
+          /// Android: THERMAL_STATUS_SEVERE
+          case thermalSerious // = 4
+
+          /// iOS: ProcessInfo.thermalState == .critical
+          /// Android: THERMAL_STATUS_CRITICAL or higher
+          case thermalCritical // = 5
+          case UNRECOGNIZED(Int)
+
+          public init() {
+            self = .unknown
+          }
+
+          public init?(rawValue: Int) {
+            switch rawValue {
+            case 0: self = .unknown
+            case 1: self = .userRequest
+            case 2: self = .memoryPressureWarn
+            case 3: self = .memoryPressureCritical
+            case 4: self = .thermalSerious
+            case 5: self = .thermalCritical
+            default: self = .UNRECOGNIZED(rawValue)
+            }
+          }
+
+          public var rawValue: Int {
+            switch self {
+            case .unknown: return 0
+            case .userRequest: return 1
+            case .memoryPressureWarn: return 2
+            case .memoryPressureCritical: return 3
+            case .thermalSerious: return 4
+            case .thermalCritical: return 5
+            case .UNRECOGNIZED(let i): return i
+            }
+          }
+
+          // The compiler won't synthesize support with the UNRECOGNIZED case.
+          public static let allCases: [Anytype_Rpc.Debug.RunProfiler.Request.Reason] = [
+            .unknown,
+            .userRequest,
+            .memoryPressureWarn,
+            .memoryPressureCritical,
+            .thermalSerious,
+            .thermalCritical,
+          ]
+
+        }
 
         public init() {}
       }
@@ -131,7 +201,7 @@ extension Anytype_Rpc.Debug.RunProfiler: SwiftProtobuf.Message, SwiftProtobuf._M
 
 extension Anytype_Rpc.Debug.RunProfiler.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Debug.RunProfiler.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}durationInSeconds\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}durationInSeconds\0\u{1}reason\0\u{1}reasonDesc\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -140,6 +210,8 @@ extension Anytype_Rpc.Debug.RunProfiler.Request: SwiftProtobuf.Message, SwiftPro
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularInt32Field(value: &self.durationInSeconds) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.reason) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.reasonDesc) }()
       default: break
       }
     }
@@ -149,14 +221,26 @@ extension Anytype_Rpc.Debug.RunProfiler.Request: SwiftProtobuf.Message, SwiftPro
     if self.durationInSeconds != 0 {
       try visitor.visitSingularInt32Field(value: self.durationInSeconds, fieldNumber: 1)
     }
+    if self.reason != .unknown {
+      try visitor.visitSingularEnumField(value: self.reason, fieldNumber: 2)
+    }
+    if !self.reasonDesc.isEmpty {
+      try visitor.visitSingularStringField(value: self.reasonDesc, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Debug.RunProfiler.Request, rhs: Anytype_Rpc.Debug.RunProfiler.Request) -> Bool {
     if lhs.durationInSeconds != rhs.durationInSeconds {return false}
+    if lhs.reason != rhs.reason {return false}
+    if lhs.reasonDesc != rhs.reasonDesc {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Rpc.Debug.RunProfiler.Request.Reason: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0UNKNOWN\0\u{1}USER_REQUEST\0\u{1}MEMORY_PRESSURE_WARN\0\u{1}MEMORY_PRESSURE_CRITICAL\0\u{1}THERMAL_SERIOUS\0\u{1}THERMAL_CRITICAL\0")
 }
 
 extension Anytype_Rpc.Debug.RunProfiler.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

@@ -25,11 +25,14 @@ struct LinkWidgetInternalView: View {
     var body: some View {
         WidgetContainerView(
             widgetBlockId: data.widgetBlockId,
-            widgetObject: data.widgetObject,
+            channelWidgetsObject: data.channelWidgetsObject,
+            personalWidgetsObject: data.personalWidgetsObject,
+            spaceId: data.spaceInfo.accountSpaceId,
             homeState: data.homeState,
             name: model.name,
             icon: model.icon,
             badgeModel: model.badgeModel,
+            parentBadge: model.parentBadge,
             dragId: model.dragId,
             onCreateObjectTap: nil,
             onHeaderTap: {

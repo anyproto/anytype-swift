@@ -87,8 +87,7 @@ final class ObjectSettingsMenuViewModel {
     private func rebuildMenu() {
         menuConfig = ObjectMenuBuilder.buildMenu(
             settings: viewModel.settings,
-            actions: viewModel.objectActions,
-            isChat: viewModel.isChat
+            actions: viewModel.objectActions
         )
     }
 
@@ -117,6 +116,8 @@ final class ObjectSettingsMenuViewModel {
             viewModel.onTapResolveConflict()
         case .webPublishing:
             viewModel.onTapPublishing()
+        case .prefillName:
+            try? await viewModel.onTapPrefillName()
         case .notifications:
             break // Handled by submenu
         }
@@ -134,8 +135,10 @@ final class ObjectSettingsMenuViewModel {
             } else {
                 try? await viewModel.changeArchiveState()
             }
-        case let .pin(pinned):
-            try? await viewModel.changePinState(pinned)
+        case .pin:
+            try? await viewModel.changePinState()
+        case .favorite:
+            try? await viewModel.changeFavoriteState()
         case .locked:
             try? await viewModel.changeLockState()
         case .undoRedo:

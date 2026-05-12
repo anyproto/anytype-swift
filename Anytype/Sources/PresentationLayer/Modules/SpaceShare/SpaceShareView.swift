@@ -94,6 +94,9 @@ struct SpaceShareView: View {
 
             ScrollView {
                 VStack(spacing: 0) {
+                    if model.showOfflineBanner {
+                        OfflineMembersBannerView()
+                    }
                     if let bannerData = model.limitBannerData {
                         SpaceLimitBannerView(
                             limitType: bannerData,
@@ -114,5 +117,8 @@ struct SpaceShareView: View {
             }
         }
         .background(Color.Background.primary)
+        .task {
+            await model.startNetworkObservation()
+        }
     }
 }

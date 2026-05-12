@@ -1,4 +1,6 @@
 ---
+description: Comprehensive impact report combining git and Linear analysis
+model: opus
 allowed-tools:
 ---
 

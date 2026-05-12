@@ -32,6 +32,8 @@ extension Anytype_Model_MembershipV2 {
 
     public var paymentProvider: Anytype_Model_MembershipV2.PaymentProvider = .none
 
+    public var appliedPromocodes: [String] = []
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -42,7 +44,7 @@ extension Anytype_Model_MembershipV2 {
 
 extension Anytype_Model_MembershipV2.DataMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_MembershipV2.protoMessageName + ".Data"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}products\0\u{1}nextInvoice\0\u{1}teamOwnerID\0\u{1}paymentProvider\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}products\0\u{1}nextInvoice\0\u{1}teamOwnerID\0\u{1}paymentProvider\0\u{1}appliedPromocodes\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -54,6 +56,7 @@ extension Anytype_Model_MembershipV2.DataMessage: SwiftProtobuf.Message, SwiftPr
       case 2: try { try decoder.decodeSingularMessageField(value: &self._nextInvoice) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.teamOwnerID) }()
       case 4: try { try decoder.decodeSingularEnumField(value: &self.paymentProvider) }()
+      case 5: try { try decoder.decodeRepeatedStringField(value: &self.appliedPromocodes) }()
       default: break
       }
     }
@@ -76,6 +79,9 @@ extension Anytype_Model_MembershipV2.DataMessage: SwiftProtobuf.Message, SwiftPr
     if self.paymentProvider != .none {
       try visitor.visitSingularEnumField(value: self.paymentProvider, fieldNumber: 4)
     }
+    if !self.appliedPromocodes.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.appliedPromocodes, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -84,6 +90,7 @@ extension Anytype_Model_MembershipV2.DataMessage: SwiftProtobuf.Message, SwiftPr
     if lhs._nextInvoice != rhs._nextInvoice {return false}
     if lhs.teamOwnerID != rhs.teamOwnerID {return false}
     if lhs.paymentProvider != rhs.paymentProvider {return false}
+    if lhs.appliedPromocodes != rhs.appliedPromocodes {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

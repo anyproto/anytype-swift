@@ -49,7 +49,7 @@ extension ObjectDetails {
            return [.tree, .link]
         case .list, .type:
             return [.view, .compactList, .list, .link]
-        case .date, .chat:
+        case .date, .chat, .discussion:
             return [.link]
         case .participant, .mediaFile:
             return []

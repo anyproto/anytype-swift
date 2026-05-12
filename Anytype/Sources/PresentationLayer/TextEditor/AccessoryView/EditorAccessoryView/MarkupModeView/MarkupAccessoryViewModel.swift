@@ -79,8 +79,8 @@ final class MarkupAccessoryViewModel: ObservableObject {
     }
     
     func backgroundColorState() -> UIColor {
-        guard let configuration else { return UIColor.VeryLight.default }
-        return configuration.textView.attributedText.backgroundColor(range: configuration.textView.selectedRange) ?? UIColor.VeryLight.default
+        guard let configuration else { return UIColor.Light.default }
+        return configuration.textView.attributedText.backgroundColor(range: configuration.textView.selectedRange) ?? UIColor.Light.default
     }
 
     private func attributeState(for markup: MarkupKind) -> AttributeState {

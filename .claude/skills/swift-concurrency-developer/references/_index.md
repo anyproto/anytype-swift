@@ -35,6 +35,7 @@ Quick navigation for Swift Concurrency topics.
 | `migration.md` | Swift 6 migration strategy, @preconcurrency |
 | `testing.md` | XCTest async patterns, Swift Testing |
 | `linting.md` | SwiftLint rules, warning suppression strategies |
+| `production-pitfalls.md` | Silent data loss, cancellation gaps, migration bridges, .task vs onAppear |
 
 ## Quick Links by Problem
 
@@ -51,6 +52,7 @@ Quick navigation for Swift Concurrency topics.
 - **Migrate to Swift 6** → `migration.md`
 - **Test async code** → `testing.md`
 - **Optimize performance** → `performance.md`
+- **Avoid production concurrency bugs** → `production-pitfalls.md`
 
 ### "I'm getting an error about..."
 
@@ -80,5 +82,6 @@ Quick navigation for Swift Concurrency topics.
 | `core-data.md` | ~535 | NSManagedObjectID |
 | `threading.md` | ~450 | Isolation domains |
 | `async-await-basics.md` | ~250 | URLSession patterns |
+| `production-pitfalls.md` | ~280 | Silent data loss, cancellation, migration, .task |
 | `linting.md` | ~200 | SwiftLint config |
 | `glossary.md` | ~130 | Term definitions |

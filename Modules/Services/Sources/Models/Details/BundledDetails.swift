@@ -16,6 +16,7 @@ public enum BundledDetails: Sendable {
     case description(String)
     case recommendedLayout(Int)
     case lastUsedDate(Date)
+    case templateNamePrefillType(Int)
 }
 
 extension BundledDetails {
@@ -34,9 +35,10 @@ extension BundledDetails {
         case .description: BundledPropertyKey.description.rawValue
         case .recommendedLayout: BundledPropertyKey.recommendedLayout.rawValue
         case .lastUsedDate: BundledPropertyKey.lastUsedDate.rawValue
+        case .templateNamePrefillType: BundledPropertyKey.templateNamePrefillType.rawValue
         }
     }
-    
+
     var value: Google_Protobuf_Value {
         switch self {
         case .name(let string): string.protobufValue
@@ -51,6 +53,7 @@ extension BundledDetails {
         case .description(let string): string.protobufValue
         case .recommendedLayout(let layout): layout.protobufValue
         case .lastUsedDate(let date): date.protobufValue
+        case .templateNamePrefillType(let int): int.protobufValue
         }
     }
 

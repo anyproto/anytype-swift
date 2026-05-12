@@ -4,4 +4,6 @@ import Foundation
 protocol HomeWidgetsModuleOutput: AnyObject, CommonWidgetModuleOutput {
     func onSpaceSelected()
     func onCreateObjectType()
+    func onChangeHome()
+    func onHomeObjectSelected(screenData: ScreenData)
 }

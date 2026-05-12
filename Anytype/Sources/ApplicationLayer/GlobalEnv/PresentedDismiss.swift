@@ -1,18 +1,20 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct DismissAllPresented: Equatable {
-    
+
     private weak var window: UIWindow?
-    
+
     init(window: UIWindow?) {
         self.window = window
     }
-    
+
     func callAsFunction(animated: Bool = true) async {
         await withCheckedContinuation { continuation in
             Task { @MainActor [weak window] in
-                if let root = window?.rootViewController {
+                if let root = window?.rootViewController,
+                   !FeatureFlags.fixAvatarTapFreeze || root.presentedViewController != nil {
                     root.dismiss(animated: animated, completion: {
                         continuation.resume()
                     })

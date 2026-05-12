@@ -13,7 +13,7 @@ extension ObjectMenuSectionType {
         switch setting {
         case .icon, .cover, .relations:
             return .horizontal
-        case .description:
+        case .description, .prefillName:
             return .descriptionSection
         case .resolveConflict, .webPublishing, .notifications:
             return .mainSettings
@@ -22,12 +22,12 @@ extension ObjectMenuSectionType {
         }
     }
 
-    static func section(for action: ObjectAction, isChat: Bool) -> ObjectMenuSectionType {
+    static func section(for action: ObjectAction) -> ObjectMenuSectionType {
         switch action {
         case .editInfo:
             return .horizontal
-        case .pin:
-            return isChat ? .horizontal : .mainSettings
+        case .pin, .favorite:
+            return .mainSettings
         case .undoRedo, .copyLink, .inviteMembers:
             return .mainSettings
         case .linkItself, .locked, .makeAsTemplate:

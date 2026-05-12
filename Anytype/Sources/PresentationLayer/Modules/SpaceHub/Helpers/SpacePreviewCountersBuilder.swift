@@ -1,70 +1,114 @@
 import Services
+import AnytypeCore
 
 struct SpacePreviewCountersData: Equatable {
     let totalUnread: Int
     let totalMentions: Int
+    let hasUnreadReactions: Bool
     let unreadStyle: CounterViewStyle
-    let mentionStyle: MentionBadgeStyle
+    let mentionStyle: BadgeStyle
+    let reactionStyle: BadgeStyle
 }
 
 enum SpacePreviewCountersBuilder {
 
     static func build(
         spaceView: SpaceView,
-        previews: [ChatMessagePreview]
+        previews: [ChatMessagePreview],
+        discussionUnread: SpaceDiscussionsUnreadInfo?
     ) -> SpacePreviewCountersData {
-        let counters = aggregateCounters(spaceView: spaceView, previews: previews)
+        let counters = aggregateCounters(
+            spaceView: spaceView,
+            previews: previews,
+            discussionUnread: discussionUnread
+        )
         let styles = determineStyles(spaceView: spaceView, counters: counters)
 
         return SpacePreviewCountersData(
             totalUnread: counters.totalUnread,
             totalMentions: counters.totalMentions,
+            hasUnreadReactions: counters.hasUnreadReactions,
             unreadStyle: styles.unread,
-            mentionStyle: styles.mention
+            mentionStyle: styles.mention,
+            reactionStyle: styles.reaction
         )
     }
 
     // MARK: - Aggregation
 
     private struct AggregatedCounters {
-        let totalUnread: Int
-        let totalMentions: Int
-        let hasHighlightedUnread: Bool
-        let hasHighlightedMention: Bool
+        var totalUnread = 0
+        var totalMentions = 0
+        var hasUnreadReactions = false
+        var hasHighlightedUnread = false
+        var hasHighlightedMention = false
+        var hasHighlightedReaction = false
     }
 
     private static func aggregateCounters(
         spaceView: SpaceView,
-        previews: [ChatMessagePreview]
+        previews: [ChatMessagePreview],
+        discussionUnread: SpaceDiscussionsUnreadInfo?
     ) -> AggregatedCounters {
-        var totalUnread = 0
-        var totalMentions = 0
-        var hasHighlightedUnread = false
-        var hasHighlightedMention = false
+        var counters = AggregatedCounters()
+        let supportsMentions = !spaceView.isOneToOne
 
         for preview in previews {
-            let effectiveMode = spaceView.effectiveNotificationMode(for: preview.chatId)
-
-            totalUnread += preview.unreadCounter
-            // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
-            if spaceView.uxType.supportsMentions {
-                totalMentions += preview.mentionCounter
-            }
-
-            if preview.unreadCounter > 0 && effectiveMode == .all {
-                hasHighlightedUnread = true
-            }
-            if preview.mentionCounter > 0 && (effectiveMode == .all || effectiveMode == .mentions) {
-                hasHighlightedMention = true
+            let mode = spaceView.effectiveNotificationMode(for: preview.chatId)
+            counters = contribute(
+                unreadCount: preview.unreadCounter,
+                mentionCount: preview.mentionCounter,
+                mode: mode,
+                spaceView: spaceView,
+                supportsMentions: supportsMentions,
+                counters: counters
+            )
+            if preview.hasUnreadReactions {
+                counters.hasUnreadReactions = true
+                if mode == .all {
+                    counters.hasHighlightedReaction = true
+                }
             }
         }
 
-        return AggregatedCounters(
-            totalUnread: totalUnread,
-            totalMentions: totalMentions,
-            hasHighlightedUnread: hasHighlightedUnread,
-            hasHighlightedMention: hasHighlightedMention
-        )
+        if let discussionUnread {
+            counters = contribute(
+                unreadCount: discussionUnread.unreadMessageCount,
+                mentionCount: discussionUnread.totalMentionCount,
+                mode: spaceView.pushNotificationMode,
+                spaceView: spaceView,
+                supportsMentions: supportsMentions,
+                counters: counters
+            )
+        }
+
+        return counters
+    }
+
+    private static func contribute(
+        unreadCount: Int,
+        mentionCount: Int,
+        mode: SpacePushNotificationsMode,
+        spaceView: SpaceView,
+        supportsMentions: Bool,
+        counters: AggregatedCounters
+    ) -> AggregatedCounters {
+        var counters = counters
+        let hideUnread = FeatureFlags.muteAndHide && !spaceView.isOneToOne && mode == .nothing
+        if !hideUnread {
+            counters.totalUnread += unreadCount
+        }
+        // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
+        if supportsMentions {
+            counters.totalMentions += mentionCount
+        }
+        if unreadCount > 0 && mode == .all {
+            counters.hasHighlightedUnread = true
+        }
+        if mentionCount > 0 && (mode == .all || mode == .mentions) {
+            counters.hasHighlightedMention = true
+        }
+        return counters
     }
 
     // MARK: - Style Determination
@@ -72,7 +116,7 @@ enum SpacePreviewCountersBuilder {
     private static func determineStyles(
         spaceView: SpaceView,
         counters: AggregatedCounters
-    ) -> (unread: CounterViewStyle, mention: MentionBadgeStyle) {
+    ) -> (unread: CounterViewStyle, mention: BadgeStyle, reaction: BadgeStyle) {
         let hasCustomOverrides = spaceView.forceAllIds.isNotEmpty ||
                                  spaceView.forceMuteIds.isNotEmpty ||
                                  spaceView.forceMentionIds.isNotEmpty
@@ -80,17 +124,18 @@ enum SpacePreviewCountersBuilder {
         if hasCustomOverrides {
             return (
                 unread: counters.hasHighlightedUnread ? .highlighted : .muted,
-                mention: counters.hasHighlightedMention ? .highlighted : .muted
+                mention: counters.hasHighlightedMention ? .highlighted : .muted,
+                reaction: counters.hasHighlightedReaction ? .highlighted : .muted
             )
         }
 
         switch spaceView.pushNotificationMode {
         case .all:
-            return (unread: .highlighted, mention: .highlighted)
+            return (unread: .highlighted, mention: .highlighted, reaction: .highlighted)
         case .mentions:
-            return (unread: .muted, mention: .highlighted)
+            return (unread: .muted, mention: .highlighted, reaction: .muted)
         case .nothing, .UNRECOGNIZED:
-            return (unread: .muted, mention: .muted)
+            return (unread: .muted, mention: .muted, reaction: .muted)
         }
     }
 }

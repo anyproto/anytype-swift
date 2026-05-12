@@ -22,6 +22,8 @@ public typealias ObjectId = String
     Emoji
   {%- elif type == "date" -%}
     Date
+  {%- elif type == "map" -%}
+    [String: [RelationPlaceholder]]
   {%- else -%}
     {{type}}
   {%- endif -%}

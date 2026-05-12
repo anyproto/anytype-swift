@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Assets
 
 
 final class StyleCellContentView: UIView, UIContentView {
@@ -30,15 +31,30 @@ final class StyleCellContentView: UIView, UIContentView {
     }
 
     private let label = UILabel()
+    private let toggleImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(asset: .X18.Disclosure.down))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    private var labelLeadingConstraint: NSLayoutConstraint!
 
     private func setupInternalViews() {
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
 
+        addSubview(toggleImageView)
         addSubview(label)
 
+        labelLeadingConstraint = label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            toggleImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+            toggleImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            toggleImageView.widthAnchor.constraint(equalToConstant: 18),
+            toggleImageView.heightAnchor.constraint(equalToConstant: 18),
+
+            labelLeadingConstraint,
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             label.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
@@ -53,6 +69,11 @@ final class StyleCellContentView: UIView, UIContentView {
         label.text = configuration.text
         label.font = configuration.font
 
-        label.textColor = configuration.isDisabled ? .Control.tertiary : .Text.primary
+        let textColor: UIColor = configuration.isDisabled ? .Control.tertiary : .Text.primary
+        label.textColor = textColor
+        toggleImageView.tintColor = textColor
+
+        toggleImageView.isHidden = !configuration.isToggle
+        labelLeadingConstraint.constant = configuration.isToggle ? 22 : 10
     }
 }

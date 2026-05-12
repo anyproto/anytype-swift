@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct EmbedContentData {
+struct EmbedContentData: Equatable, Hashable {
     let icon: ImageAsset
     let processorName: String
     let hasContent: Bool

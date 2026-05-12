@@ -18,6 +18,7 @@ final class DebugMenuViewModel: ObservableObject {
     @Published var sectionExpanded: [String: Bool] = [:]
     @Published var searchText = ""
     @Published var secureAlertData: SecureAlertData?
+    @Published var debugServerURL: String?
     
     @Injected(\.userDefaultsStorage)
     var userDefaults: any UserDefaultsStorageProtocol
@@ -135,6 +136,11 @@ final class DebugMenuViewModel: ObservableObject {
     
     func readAllMessages() async throws {
         try await chatService.readAllMessages()
+    }
+
+    func startDebugServer() {
+        guard debugServerURL == nil else { return }
+        debugServerURL = debugService.runDebugServer()
     }
     
     // MARK: - Private

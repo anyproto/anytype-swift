@@ -12,15 +12,13 @@ protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
     var rowsPerPageInSet: Int { get set }
     var rowsPerPageInGroupedSet: Int { get set }
     var userInterfaceStyle: UIUserInterfaceStyle { get set }
+    var autoDownloadSizeLimitRawValue: Int { get set }
+    var autoDownloadUseCellular: Bool { get set }
 
     func wallpaperPublisher(spaceId: String) -> AnyPublisher<SpaceWallpaperType, Never>
     func wallpapersPublisher() -> AnyPublisher<[String: SpaceWallpaperType], Never>
     func wallpaper(spaceId: String) -> SpaceWallpaperType
     func setWallpaper(spaceId: String, wallpaper: SpaceWallpaperType)
-
-    func homeObjectId(spaceId: String) -> String?
-    func setHomeObjectId(spaceId: String, objectId: String?)
-    func homeObjectIdPublisher(spaceId: String) -> AnyPublisher<String?, Never>
 
     func cleanStateAfterLogout()
 }
@@ -51,6 +49,13 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
     @UserDefault("serverConfig", defaultValue: .anytype)
     private var serverConfig: NetworkServerConfig
     
+    // MARK: - Auto Download
+    @UserDefault("UserData.AutoDownloadSizeLimitRawValue", defaultValue: -1)
+    var autoDownloadSizeLimitRawValue: Int
+
+    @UserDefault("UserData.AutoDownloadUseCellular", defaultValue: false)
+    var autoDownloadUseCellular: Bool
+
     // MARK: - UserInterfaceStyle
     @UserDefault("UserData.UserInterfaceStyle", defaultValue: UIUserInterfaceStyle.unspecified.rawValue)
     private var _userInterfaceStyleRawValue: Int
@@ -92,33 +97,11 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
         _wallpapers[spaceId] = wallpaper
     }
 
-    // MARK: - Home Object
-    @UserDefault("UserData.HomeObjects", defaultValue: [:])
-    private var _homeObjects: [String: String] {
-        didSet { homeObjectsSubject.send(_homeObjects) }
-    }
-
-    private lazy var homeObjectsSubject = CurrentValueSubject<[String: String], Never>(_homeObjects)
-
-    func homeObjectId(spaceId: String) -> String? {
-        _homeObjects[spaceId]
-    }
-
-    func setHomeObjectId(spaceId: String, objectId: String?) {
-        _homeObjects[spaceId] = objectId
-    }
-
-    func homeObjectIdPublisher(spaceId: String) -> AnyPublisher<String?, Never> {
-        homeObjectsSubject
-            .map { $0[spaceId] }
-            .removeDuplicates()
-            .eraseToAnyPublisher()
-    }
-
     // MARK: - Cleanup
     func cleanStateAfterLogout() {
         showUnstableMiddlewareError = true
-        _homeObjects = [:]
+        autoDownloadSizeLimitRawValue = -1
+        autoDownloadUseCellular = false
     }
     
 }

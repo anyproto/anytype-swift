@@ -16,7 +16,7 @@ struct ChatCoordinatorView: View {
     }
     
     private var content: some View {
-        ChatView(spaceId: model.spaceId, chatId: model.chatId, output: model, settingsOutput: model)
+        ChatView(spaceId: model.spaceId, chatId: model.chatId, messageId: model.messageId, useBlocksFormat: model.useBlocksFormat, output: model, settingsOutput: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
             }
@@ -54,7 +54,7 @@ struct ChatCoordinatorView: View {
                 SimpleCameraView(data: $0)
             }
             .sheet(item: $model.newLinkedObject) {
-                ChatCreateObjectCoordinatorView(data: $0)
+                ChatCreateObjectCoordinatorView(data: $0, chatId: model.chatId)
             }
             .anytypeSheet(item: $model.pushNotificationsAlertData) {
                 PushNotificationsAlertView(data: $0)

@@ -43,8 +43,17 @@ extension ParticipantSpaceViewData {
     var isOwner: Bool {
         participant?.isOwner ?? false
     }
+
+    // Owner-only today. Separate from `isOwner` so a future Admin role widens here.
+    var canManageChannelPins: Bool {
+        isOwner
+    }
     
     var canChangeUxType: Bool {
         permissions.canChangeUxType
+    }
+
+    var canSetHomepage: Bool {
+        permissions.canSetHomepage
     }
 }

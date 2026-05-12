@@ -9,6 +9,7 @@ struct MessagePreviewModel: Equatable, Hashable {
     let chatPreviewDate: String
     let unreadCounter: Int
     let mentionCounter: Int
+    let hasUnreadReactions: Bool
     let notificationMode: SpacePushNotificationsMode
     let chatName: String?
 }
