@@ -40,6 +40,7 @@ private struct RecentlyEditedSectionViewInternal: View {
                 }
                 if model.isExpanded {
                     RecentlyEditedListView(model: model.listModel)
+                        .transition(.sectionBody)
                 }
             }
         }

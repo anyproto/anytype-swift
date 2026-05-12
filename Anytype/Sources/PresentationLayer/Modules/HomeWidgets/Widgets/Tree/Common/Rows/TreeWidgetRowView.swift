@@ -63,10 +63,12 @@ struct TreeWidgetRowView: View {
                 Image(asset: .X18.Disclosure.right)
                     .rotationEffect(.degrees(expanded ? 90 : 0))
                     .increaseTapGesture(EdgeInsets(side: 10)) {
-                        if expanded {
-                            model.tapCollapse(model)
-                        } else {
-                            model.tapExpand(model)
+                        withAnimation(.snappy(duration: 0.22)) {
+                            if expanded {
+                                model.tapCollapse(model)
+                            } else {
+                                model.tapExpand(model)
+                            }
                         }
                     }
             }

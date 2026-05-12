@@ -167,7 +167,11 @@ final class TreeWidgetViewModel: ObservableObject {
     private func updateTree() {
         guard let firstLevelSubscriptionData else { return }
         let links = firstLevelSubscriptionData.map { $0.id }
-        rows = buildRows(links: links, idPrefix: "", level: 0)
+        // First-paint mounts must NOT animate (would re-introduce the loading flash
+        // IOS-5812 fixed). Only subsequent rebuilds — from expand/collapse — animate.
+        withAnimation(rows == nil ? nil : .snappy(duration: 0.22)) {
+            rows = buildRows(links: links, idPrefix: "", level: 0)
+        }
     }
     
     private func buildRows(links: [String], idPrefix: String, level: Int) -> [TreeWidgetRowViewModel] {

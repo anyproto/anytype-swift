@@ -46,6 +46,7 @@ private struct UnreadSectionViewInternal: View {
                         items: model.unreadItems,
                         onTap: { model.onRowTap(data: $0) }
                     )
+                    .transition(.sectionBody)
                 }
             }
         }
