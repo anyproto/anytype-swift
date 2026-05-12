@@ -187,7 +187,7 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     }
 
     func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async {
-        try? await ClientCommands.debugRunProfiler(.with {
+        _ = try? await ClientCommands.debugRunProfiler(.with {
             $0.durationInSeconds = Int32(durationInSeconds)
             $0.reason = reason.protoReason
             $0.reasonDesc = reason.desc
@@ -207,7 +207,7 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     }
 
     func cleanupReport(ts: Int) async {
-        try? await ClientCommands.debugCleanupReport(.with {
+        _ = try? await ClientCommands.debugCleanupReport(.with {
             $0.ts = Int64(ts)
         }).invoke()
     }
