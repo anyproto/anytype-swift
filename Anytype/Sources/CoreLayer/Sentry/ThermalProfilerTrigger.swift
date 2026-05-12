@@ -18,28 +18,23 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
     @Injected(\.debugService)
     private var debugService: any DebugServiceProtocol
 
-    private let now: @Sendable () -> ContinuousClock.Instant
-    private var observer: NSObjectProtocol?
+    private var observer: NotificationCancellable?
     private var lastTrigger: ContinuousClock.Instant?
 
-    init(now: @escaping @Sendable () -> ContinuousClock.Instant = { ContinuousClock.now }) {
-        self.now = now
-    }
+    init() {}
 
     func startSubscription() async {
-        observer = NotificationCenter.default.addObserver(
+        let token = NotificationCenter.default.addObserver(
             forName: ProcessInfo.thermalStateDidChangeNotification,
             object: nil,
             queue: nil
         ) { [weak self] _ in
             Task { await self?.handleThermalChange() }
         }
+        observer = token.notificationCancellable()
     }
 
     func stopSubscriptionAndClean() async {
-        if let observer {
-            NotificationCenter.default.removeObserver(observer)
-        }
         observer = nil
         lastTrigger = nil
     }
@@ -57,7 +52,7 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
     }
 
     private func trigger(reason: DebugProfilerReason) async {
-        let instant = now()
+        let instant = ContinuousClock.now
         if let lastTrigger, lastTrigger.duration(to: instant) < Self.cooldown {
             Self.log.debug("Profiler skipped (cooldown): \(reason)")
             return

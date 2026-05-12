@@ -17,16 +17,16 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
     @Injected(\.debugService)
     private var debugService: any DebugServiceProtocol
 
-    private let now: @Sendable () -> ContinuousClock.Instant
     private var source: DispatchSourceMemoryPressure?
     private var lastTrigger: ContinuousClock.Instant?
 
-    init(now: @escaping @Sendable () -> ContinuousClock.Instant = { ContinuousClock.now }) {
-        self.now = now
-    }
+    init() {}
 
     func startSubscription() async {
-        let source = DispatchSource.makeMemoryPressureSource(eventMask: [.warning, .critical], queue: .main)
+        let source = DispatchSource.makeMemoryPressureSource(
+            eventMask: [.warning, .critical],
+            queue: .global(qos: .utility)
+        )
         source.setEventHandler { [weak self, weak source] in
             let data = source?.data ?? []
             Task { await self?.handle(data: data) }
@@ -50,7 +50,7 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
     }
 
     private func trigger(reason: DebugProfilerReason) async {
-        let instant = now()
+        let instant = ContinuousClock.now
         if let lastTrigger, lastTrigger.duration(to: instant) < Self.cooldown {
             Self.log.debug("Profiler skipped (cooldown): \(reason)")
             return
