@@ -26,6 +26,7 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
     init() {}
 
     func startSubscription() async {
+        guard CoreEnvironment.targetType.isDebug else { return }
         let token = NotificationCenter.default.addObserver(
             forName: ProcessInfo.thermalStateDidChangeNotification,
             object: nil,
@@ -61,8 +62,7 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
         }
         lastTrigger = instant
         Self.log.debug("Profiler triggered: \(reason)")
-        guard let path = await debugService.runProfiler(durationInSeconds: Self.profileDuration, reason: reason),
-              CoreEnvironment.targetType.isDebug else {
+        guard let path = await debugService.runProfiler(durationInSeconds: Self.profileDuration, reason: reason) else {
             return
         }
         sentryReporter.report(path: path, reasonTag: reason.tag, jsonInfo: nil)

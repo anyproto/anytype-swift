@@ -25,6 +25,7 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
     init() {}
 
     func startSubscription() async {
+        guard CoreEnvironment.targetType.isDebug else { return }
         let source = DispatchSource.makeMemoryPressureSource(
             eventMask: [.warning, .critical],
             queue: .global(qos: .utility)
@@ -61,8 +62,7 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
         }
         lastTrigger = instant
         Self.log.debug("Profiler triggered: \(reason)")
-        guard let path = await debugService.runProfiler(durationInSeconds: 0, reason: reason),
-              CoreEnvironment.targetType.isDebug else {
+        guard let path = await debugService.runProfiler(durationInSeconds: 0, reason: reason) else {
             return
         }
         sentryReporter.report(path: path, reasonTag: reason.tag, jsonInfo: nil)

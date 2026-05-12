@@ -6,7 +6,7 @@ protocol DebugProfileSentryReporterProtocol: Sendable {
 }
 
 final class DebugProfileSentryReporter: DebugProfileSentryReporterProtocol {
-    func report(path: String, reasonTag: String, jsonInfo: String? = nil) {
+    func report(path: String, reasonTag: String, jsonInfo: String?) {
         let event = Event(level: .info)
         event.message = SentryMessage(formatted: "MW_\(reasonTag)")
         event.tags = ["report": "mw_profile", "reason": reasonTag]
