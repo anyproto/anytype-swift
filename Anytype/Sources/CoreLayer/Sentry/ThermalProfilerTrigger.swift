@@ -39,7 +39,7 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
         lastTrigger = nil
     }
 
-    func handleThermalChange() async {
+    private func handleThermalChange() async {
         let state = ProcessInfo.processInfo.thermalState
         switch state {
         case .serious:
