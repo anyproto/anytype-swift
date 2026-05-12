@@ -55,7 +55,7 @@ final class ObjectTypesSectionViewModel {
     }
 
     func onTapObjectTypeHeader() {
-        withAnimation(.snappy(duration: 0.28, extraBounce: 0.05)) {
+        withAnimation(.disclosure) {
             objectTypeSectionIsExpanded.toggle()
         }
         expandedService.setState(section: .objects, isExpanded: objectTypeSectionIsExpanded)

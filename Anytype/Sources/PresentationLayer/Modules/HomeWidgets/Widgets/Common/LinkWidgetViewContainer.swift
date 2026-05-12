@@ -87,7 +87,7 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
     private var arrowButton: some View {
         if allowContent {
             Button {
-                withAnimation(.snappy(duration: 0.28, extraBounce: 0.05)) {
+                withAnimation(.disclosure) {
                     isExpanded.toggle()
                 }
             } label: {
