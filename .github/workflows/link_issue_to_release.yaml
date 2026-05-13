@@ -29,6 +29,8 @@ jobs:
     name: Link issue to release
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    env:
+      PIPELINE_NAME: Anytype iOS
     steps:
       - name: Extract Linear issue identifier from branch
         id: extract
@@ -36,7 +38,8 @@ jobs:
         env:
           HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          if [[ "$HEAD_REF" =~ ^[Ii][Oo][Ss]-([0-9]+) ]]; then
+          set -euo pipefail
+          if [[ "$HEAD_REF" =~ ^ios-([0-9]+) ]]; then
             IDENTIFIER="IOS-${BASH_REMATCH[1]}"
             echo "Found Linear identifier: $IDENTIFIER"
             echo "identifier=$IDENTIFIER" >> "$GITHUB_OUTPUT"
@@ -52,6 +55,7 @@ jobs:
         env:
           BASE_REF: ${{ github.event.pull_request.base.ref }}
         run: |
+          set -euo pipefail
           if [[ "$BASE_REF" == "release" ]]; then
             PREF='["Beta"]'
           else
@@ -60,19 +64,30 @@ jobs:
           echo "Base branch '$BASE_REF' → stage preference: $PREF"
           echo "preference=$PREF" >> "$GITHUB_OUTPUT"
 
-      - name: Fetch Linear issue and check existing release
-        id: issue
+      - name: Fetch issue and candidate releases
+        id: fetch
         if: steps.extract.outputs.identifier != ''
         shell: bash
         env:
           LINEAR_TOKEN: ${{ secrets.LINEAR_TOKEN }}
           IDENTIFIER: ${{ steps.extract.outputs.identifier }}
+          PREFERENCE: ${{ steps.stages.outputs.preference }}
         run: |
-          QUERY='query($id: String!) { issue(id: $id) { id identifier releases { nodes { id name } } } }'
-          PAYLOAD=$(jq -n --arg q "$QUERY" --arg id "$IDENTIFIER" \
-            '{query: $q, variables: { id: $id }}')
+          set -euo pipefail
+          QUERY='query($id: String!, $pipeline: String!, $stages: [String!]!) {
+            issue(id: $id) { id identifier releases { nodes { id name } } }
+            releases(filter: { pipeline: { name: { eq: $pipeline } }, stage: { name: { in: $stages } } }) {
+              nodes { id name stage { name } }
+            }
+          }'
+          PAYLOAD=$(jq -n \
+            --arg q "$QUERY" \
+            --arg id "$IDENTIFIER" \
+            --arg pipeline "$PIPELINE_NAME" \
+            --argjson stages "$PREFERENCE" \
+            '{query: $q, variables: { id: $id, pipeline: $pipeline, stages: $stages }}')
 
-          RESP=$(curl -s -X POST https://api.linear.app/graphql \
+          RESP=$(curl -fsS -X POST https://api.linear.app/graphql \
             -H "Authorization: $LINEAR_TOKEN" \
             -H "Content-Type: application/json" \
             -d "$PAYLOAD")
@@ -92,33 +107,24 @@ jobs:
             exit 0
           fi
 
+          RELEASES=$(echo "$RESP" | jq -c '.data.releases.nodes')
           echo "issueUuid=$UUID" >> "$GITHUB_OUTPUT"
+          echo "releases=$RELEASES" >> "$GITHUB_OUTPUT"
           echo "skip=false" >> "$GITHUB_OUTPUT"
 
       - name: Pick target release
         id: pick
-        if: steps.issue.outputs.skip == 'false'
+        if: steps.fetch.outputs.skip == 'false'
         shell: bash
         env:
-          LINEAR_TOKEN: ${{ secrets.LINEAR_TOKEN }}
+          RELEASES: ${{ steps.fetch.outputs.releases }}
           PREFERENCE: ${{ steps.stages.outputs.preference }}
         run: |
-          QUERY='query($stages: [String!]!) { releases(filter: { pipeline: { name: { eq: "Anytype iOS" } }, stage: { name: { in: $stages } } }) { nodes { id name stage { name } } } }'
-          STAGES=$(echo "$PREFERENCE" | jq -c '.')
-          PAYLOAD=$(jq -n --arg q "$QUERY" --argjson stages "$STAGES" \
-            '{query: $q, variables: { stages: $stages }}')
-
-          RESP=$(curl -s -X POST https://api.linear.app/graphql \
-            -H "Authorization: $LINEAR_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d "$PAYLOAD")
-
-          echo "Releases response: $RESP"
-
+          set -euo pipefail
           # Walk preference order; first stage with any candidate wins.
-          # Among those, pick lowest semver by splitting name on '.' and comparing as ints.
-          PICKED=$(echo "$RESP" | jq -c --argjson pref "$PREFERENCE" '
-            .data.releases.nodes as $all
+          # Lowest semver by splitting name on '.' and comparing component-wise as ints.
+          PICKED=$(echo "$RELEASES" | jq -c --argjson pref "$PREFERENCE" '
+            . as $all
             | ($pref | map(. as $s | $all | map(select(.stage.name == $s))) | map(select(length > 0)) | first // [])
             | sort_by(.name | split(".") | map(tonumber? // 0))
             | first
@@ -143,21 +149,20 @@ jobs:
         shell: bash
         env:
           LINEAR_TOKEN: ${{ secrets.LINEAR_TOKEN }}
-          ISSUE_UUID: ${{ steps.issue.outputs.issueUuid }}
+          ISSUE_UUID: ${{ steps.fetch.outputs.issueUuid }}
           IDENTIFIER: ${{ steps.extract.outputs.identifier }}
           RELEASE_ID: ${{ steps.pick.outputs.releaseId }}
           RELEASE_NAME: ${{ steps.pick.outputs.releaseName }}
         run: |
+          set -euo pipefail
           MUTATION='mutation($input: IssueToReleaseCreateInput!) { issueToReleaseCreate(input: $input) { success } }'
           PAYLOAD=$(jq -n --arg q "$MUTATION" --arg iid "$ISSUE_UUID" --arg rid "$RELEASE_ID" \
             '{query: $q, variables: { input: { issueId: $iid, releaseId: $rid } }}')
 
-          RESP=$(curl -s -X POST https://api.linear.app/graphql \
+          RESP=$(curl -fsS -X POST https://api.linear.app/graphql \
             -H "Authorization: $LINEAR_TOKEN" \
             -H "Content-Type: application/json" \
             -d "$PAYLOAD")
-
-          echo "Mutation response: $RESP"
 
           SUCCESS=$(echo "$RESP" | jq -r '.data.issueToReleaseCreate.success // false')
           if [[ "$SUCCESS" != "true" ]]; then
@@ -173,21 +178,22 @@ jobs:
         shell: bash
         env:
           LINEAR_TOKEN: ${{ secrets.LINEAR_TOKEN }}
-          ISSUE_UUID: ${{ steps.issue.outputs.issueUuid }}
+          ISSUE_UUID: ${{ steps.fetch.outputs.issueUuid }}
           IDENTIFIER: ${{ steps.extract.outputs.identifier }}
           PREFERENCE: ${{ steps.stages.outputs.preference }}
           BASE_REF: ${{ github.event.pull_request.base.ref }}
           PR_URL: ${{ github.event.pull_request.html_url }}
         run: |
+          set -euo pipefail
           STAGE_LIST=$(echo "$PREFERENCE" | jq -r '. | join(" / ")')
-          BODY=$(printf 'Automation could not assign this issue to a release.\n\nPR %s was merged to `%s`, expected to find a release in the "Anytype iOS" pipeline with stage: **%s**, but none matched.\n\nPlease assign the release manually and verify the pipeline stages.' \
-            "$PR_URL" "$BASE_REF" "$STAGE_LIST")
+          BODY=$(printf 'Automation could not assign this issue to a release.\n\nPR %s was merged to `%s`, expected to find a release in the "%s" pipeline with stage: **%s**, but none matched.\n\nPlease assign the release manually and verify the pipeline stages.' \
+            "$PR_URL" "$BASE_REF" "$PIPELINE_NAME" "$STAGE_LIST")
 
           MUTATION='mutation($input: CommentCreateInput!) { commentCreate(input: $input) { success } }'
           PAYLOAD=$(jq -n --arg q "$MUTATION" --arg iid "$ISSUE_UUID" --arg body "$BODY" \
             '{query: $q, variables: { input: { issueId: $iid, body: $body } }}')
 
-          curl -s -X POST https://api.linear.app/graphql \
+          curl -fsS -X POST https://api.linear.app/graphql \
             -H "Authorization: $LINEAR_TOKEN" \
             -H "Content-Type: application/json" \
             -d "$PAYLOAD" | jq .
