@@ -430,9 +430,9 @@ extension AccessoryViewStateManagerImpl {
         case .keyboardDismiss:
             UIApplication.shared.hideKeyboard()
         case .mention:
-            configuration.map {
-                $0.textView.insertStringAfterCaret(
-                    TextTriggerSymbols.mention(prependSpace: shouldPrependSpace(textView: $0.textView))
+            if let textView = configuration?.textView {
+                textView.insertStringAfterCaret(
+                    TextTriggerSymbols.mention(prependSpace: shouldPrependSpace(textView: textView))
                 )
             }
             showMentionsView()
