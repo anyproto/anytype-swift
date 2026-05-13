@@ -15,28 +15,34 @@ platform :ios do
   # Generate Debug
 
   lane :generate_dev_debug_profiles do
+    set_api_key
     match(force_for_new_devices: true)
   end
 
   lane :generate_anytype_debug_profiles do
+    set_api_key
     match(force_for_new_devices: true)
   end
 
   # Generate Release
 
   lane :generate_appstore_profiles_for_nightly do
+    set_api_key
     match(force: true)
   end
 
   lane :generate_appstore_profiles_for_anytype do
+    set_api_key
     match(force: true)
   end
 
   lane :delete_dev_certs do
+    set_api_key
     match_nuke()
   end
 
   lane :delete_appstore_certs do
+    set_api_key
     match_nuke()
   end
 end
