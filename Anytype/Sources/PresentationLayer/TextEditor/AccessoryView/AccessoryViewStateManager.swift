@@ -429,6 +429,14 @@ extension AccessoryViewStateManagerImpl {
             configuration?.output?.didSelectShowStyleMenu()
         case .keyboardDismiss:
             UIApplication.shared.hideKeyboard()
+        case .mention:
+            configuration.map {
+                $0.textView.insertStringAfterCaret(
+                    TextTriggerSymbols.mention(prependSpace: shouldPrependSpace(textView: $0.textView))
+                )
+            }
+            showMentionsView()
+            configuration?.output?.accessoryState = .search
         case .slashMenu:
             configuration?.textView.insertStringAfterCaret(TextTriggerSymbols.slashMenu)
             showSlashMenuView()
@@ -466,12 +474,18 @@ extension AccessoryViewStateManagerImpl {
             AnytypeAnalytics.instance().logKeyboardBarHideKeyboardMenu()
         case .showStyleMenu:
             AnytypeAnalytics.instance().logKeyboardBarStyleMenu()
+        case .mention:
+            AnytypeAnalytics.instance().logKeyboardBarMentionMenu()
         case .editingMode:
             AnytypeAnalytics.instance().logKeyboardBarSelectionMenu()
         case .undoRedo:
             AnytypeAnalytics.instance().logKeyboardBarUndoMenu()
-        case .deleteBlock, .indentLeft, .indentRight:
-            break
+        case .deleteBlock:
+            AnytypeAnalytics.instance().logKeyboardBarDeleteBlockMenu()
+        case .indentLeft:
+            AnytypeAnalytics.instance().logKeyboardBarIndentLeftMenu()
+        case .indentRight:
+            AnytypeAnalytics.instance().logKeyboardBarIndentRightMenu()
         }
     }
 }
