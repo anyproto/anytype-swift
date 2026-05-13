@@ -6,6 +6,7 @@ import Logger
 protocol ThermalProfilerTriggerProtocol: AnyObject, Sendable {
     func startSubscription() async
     func stopSubscriptionAndClean() async
+    func triggerManually(severity: DebugProfilerReason.ThermalSeverity) async
 }
 
 actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
@@ -40,6 +41,11 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
     func stopSubscriptionAndClean() async {
         observer = nil
         lastTrigger = nil
+    }
+
+    func triggerManually(severity: DebugProfilerReason.ThermalSeverity) async {
+        lastTrigger = nil
+        await trigger(reason: .thermalState(severity))
     }
 
     private func handleThermalChange() async {

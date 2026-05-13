@@ -39,6 +39,10 @@ final class DebugMenuViewModel: ObservableObject {
     private var applePushNotificationService: any ApplePushNotificationServiceProtocol
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
+    @Injected(\.thermalProfilerTrigger)
+    private var thermalProfilerTrigger: any ThermalProfilerTriggerProtocol
+    @Injected(\.memoryPressureProfilerTrigger)
+    private var memoryPressureProfilerTrigger: any MemoryPressureProfilerTriggerProtocol
     
     var shouldRunDebugProfilerOnNextStartup: Bool {
         get {
@@ -111,6 +115,14 @@ final class DebugMenuViewModel: ObservableObject {
     
     func onDebugRunProfiler() {
         debugService.startDebugRunProfiler()
+    }
+
+    func triggerThermalProfile() async {
+        await thermalProfilerTrigger.triggerManually(severity: .critical)
+    }
+
+    func triggerMemoryPressureProfile() async {
+        await memoryPressureProfilerTrigger.triggerManually(severity: .critical)
     }
     
     func shareUrlContent(url: URL) {
