@@ -6,6 +6,7 @@ import Logger
 protocol MemoryPressureProfilerTriggerProtocol: AnyObject, Sendable {
     func startSubscription() async
     func stopSubscriptionAndClean() async
+    func triggerManually(severity: DebugProfilerReason.MemorySeverity) async
 }
 
 actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
@@ -43,6 +44,11 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
         source?.cancel()
         source = nil
         lastTrigger = nil
+    }
+
+    func triggerManually(severity: DebugProfilerReason.MemorySeverity) async {
+        lastTrigger = nil
+        await trigger(reason: .memoryPressure(severity))
     }
 
     private func handleEventFire() async {
