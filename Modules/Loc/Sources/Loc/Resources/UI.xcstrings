@@ -9775,7 +9775,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "هل أنت متأكد أنك تريد حذف كائن %#@@؟"
+            "value" : "Are you sure you want to delete %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -10066,7 +10066,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Apakah Anda yakin ingin menghapus objek %#@@?"
+            "value" : "Are you sure you want to delete %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -10135,7 +10135,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "정말 %#@object@을(를) 삭제하시겠습니까?"
+            "value" : "Are you sure you want to delete %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -10456,7 +10456,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "您确定要删除 %#@ 个对象吗？"
+            "value" : "Are you sure you want to delete %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -26510,7 +26510,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "سيتم حذف هذه الخزنة خلال %#@ أيام"
+            "value" : "This vault will be deleted %#@days@"
           },
           "substitutions" : {
             "days" : {
@@ -27323,7 +27323,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "此保险库将于 %#@ 天后删除"
+            "value" : "This vault will be deleted %#@days@"
           },
           "substitutions" : {
             "days" : {
@@ -29864,7 +29864,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@ أجهزة متصلة"
+            "value" : "%#@device@ connected"
           },
           "substitutions" : {
             "device" : {
@@ -30224,7 +30224,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@개의 기기 연결됨"
+            "value" : "%#@device@ connected"
           },
           "substitutions" : {
             "device" : {
@@ -30545,7 +30545,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@ 设备已连接"
+            "value" : "%#@device@ connected"
           },
           "substitutions" : {
             "device" : {
@@ -43189,7 +43189,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "جارٍ رفع %#@ ملف"
+            "value" : "%#@file@ uploading"
           },
           "substitutions" : {
             "file" : {
@@ -43870,7 +43870,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@ 个文件正在上传"
+            "value" : "%#@file@ uploading"
           },
           "substitutions" : {
             "file" : {
@@ -51090,7 +51090,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@ عناصر تتم مزامنتها..."
+            "value" : "%#@item@ syncing..."
           },
           "substitutions" : {
             "item" : {
@@ -51450,7 +51450,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@개의 항목 동기화 중..."
+            "value" : "%#@item@ syncing..."
           },
           "substitutions" : {
             "item" : {
@@ -51771,7 +51771,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@ 个项正在同步…"
+            "value" : "%#@item@ syncing..."
           },
           "substitutions" : {
             "item" : {
@@ -63250,7 +63250,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "تم تحديد %#@ كائنات"
+            "value" : "%#@object@ selected"
           },
           "substitutions" : {
             "object" : {
@@ -63610,7 +63610,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "객체@ %#@개 선택됨"
+            "value" : "%#@object@ selected"
           },
           "substitutions" : {
             "object" : {
@@ -63931,7 +63931,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "已选择 %#@ 个对象"
+            "value" : "%#@object@ selected"
           },
           "substitutions" : {
             "object" : {
@@ -68860,7 +68860,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "لكل %#@ يومًا"
+            "value" : "per %#@day@"
           },
           "substitutions" : {
             "day" : {
@@ -69541,7 +69541,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "每 %#@ 天"
+            "value" : "per %#@day@"
           },
           "substitutions" : {
             "day" : {
@@ -69588,7 +69588,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "لكل %#@ شهرًا"
+            "value" : "per %#@month@"
           },
           "substitutions" : {
             "month" : {
@@ -70269,7 +70269,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "每 %#@ 月"
+            "value" : "per %#@month@"
           },
           "substitutions" : {
             "month" : {
@@ -70316,7 +70316,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "لكل %#@ أسبوعًا"
+            "value" : "per %#@week@"
           },
           "substitutions" : {
             "week" : {
@@ -70997,7 +70997,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "每 %#@ 周"
+            "value" : "per %#@week@"
           },
           "substitutions" : {
             "week" : {
@@ -71044,7 +71044,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "لكل %#@ عامًا"
+            "value" : "per %#@year@"
           },
           "substitutions" : {
             "year" : {
@@ -71725,7 +71725,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "每 %#@ 年"
+            "value" : "per %#@year@"
           },
           "substitutions" : {
             "year" : {
@@ -111811,13 +111811,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Ett objekt slettet"
+                  "value" : "One object deleted"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d objekter slettet"
+                  "value" : "%d objects deleted"
                 }
               },
               "zero" : {

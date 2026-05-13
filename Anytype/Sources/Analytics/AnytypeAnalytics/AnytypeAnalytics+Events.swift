@@ -1312,6 +1312,18 @@ extension AnytypeAnalytics {
     func logKeyboardBarHideKeyboardMenu() {
         logEvent("KeyboardBarHideKeyboardMenu")
     }
+
+    func logKeyboardBarDeleteBlockMenu() {
+        logEvent("KeyboardBarDeleteBlockMenu")
+    }
+
+    func logKeyboardBarIndentLeftMenu() {
+        logEvent("KeyboardBarIndentLeftMenu")
+    }
+
+    func logKeyboardBarIndentRightMenu() {
+        logEvent("KeyboardBarIndentRightMenu")
+    }
     
     func logScreenHistory() {
         logEvent("ScreenHistory")
