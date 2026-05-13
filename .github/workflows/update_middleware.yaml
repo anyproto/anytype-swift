@@ -158,9 +158,16 @@ jobs:
           git add .
           git commit -m "$COMMIT_MESSAGE" --no-verify
 
-          # Export branch name and commit message for later steps
-          echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
-          echo "commit_message=$COMMIT_MESSAGE" >> "$GITHUB_OUTPUT"
+          # Export branch name and commit message for later steps.
+          # Heredoc form guards against newline injection in the value.
+          {
+            echo "branch_name<<__GH_OUTPUT_EOF__"
+            echo "$BRANCH_NAME"
+            echo "__GH_OUTPUT_EOF__"
+            echo "commit_message<<__GH_OUTPUT_EOF__"
+            echo "$COMMIT_MESSAGE"
+            echo "__GH_OUTPUT_EOF__"
+          } >> "$GITHUB_OUTPUT"
 
       # Build to verify compilation with new middleware
       - name: Build for testing
