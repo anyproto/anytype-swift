@@ -1,0 +1,196 @@
+name: Link merged PR to Linear release
+
+# Automatically assigns the Linear issue referenced by a merged PR to the
+# appropriate release in the "Anytype iOS" pipeline.
+#
+# Mapping:
+#   PR merged to `release` → release with stage name "Beta"
+#   PR merged to `develop` → release with stage name "In Progress" (preferred), else "Planned"
+#
+# Behavior:
+#   - Branch name must start with `ios-XXXX`; otherwise the run exits silently.
+#   - If the issue already has any release assigned, the run exits silently.
+#   - If multiple releases share the target stage, the lowest semver name wins.
+#   - If no release matches the target stage(s), a comment is posted on the
+#     Linear issue and the workflow fails.
+#
+# Required secrets:
+#   - LINEAR_TOKEN: Linear API token with write access to issues and releases.
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - develop
+      - release
+
+jobs:
+  link:
+    name: Link issue to release
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract Linear issue identifier from branch
+        id: extract
+        shell: bash
+        env:
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          if [[ "$HEAD_REF" =~ ^[Ii][Oo][Ss]-([0-9]+) ]]; then
+            IDENTIFIER="IOS-${BASH_REMATCH[1]}"
+            echo "Found Linear identifier: $IDENTIFIER"
+            echo "identifier=$IDENTIFIER" >> "$GITHUB_OUTPUT"
+          else
+            echo "Branch '$HEAD_REF' has no ios-XXXX prefix, nothing to link."
+            echo "identifier=" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Determine target stage preference
+        id: stages
+        if: steps.extract.outputs.identifier != ''
+        shell: bash
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          if [[ "$BASE_REF" == "release" ]]; then
+            PREF='["Beta"]'
+          else
+            PREF='["In Progress","Planned"]'
+          fi
+          echo "Base branch '$BASE_REF' → stage preference: $PREF"
+          echo "preference=$PREF" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch Linear issue and check existing release
+        id: issue
+        if: steps.extract.outputs.identifier != ''
+        shell: bash
+        env:
+          LINEAR_TOKEN: ${{ secrets.LINEAR_TOKEN }}
+          IDENTIFIER: ${{ steps.extract.outputs.identifier }}
+        run: |
+          QUERY='query($id: String!) { issue(id: $id) { id identifier releases { nodes { id name } } } }'
+          PAYLOAD=$(jq -n --arg q "$QUERY" --arg id "$IDENTIFIER" \
+            '{query: $q, variables: { id: $id }}')
+
+          RESP=$(curl -s -X POST https://api.linear.app/graphql \
+            -H "Authorization: $LINEAR_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD")
+
+          UUID=$(echo "$RESP" | jq -r '.data.issue.id // empty')
+          if [[ -z "$UUID" ]]; then
+            echo "Issue $IDENTIFIER not found in Linear, skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          EXISTING=$(echo "$RESP" | jq -r '.data.issue.releases.nodes | length')
+          if [[ "$EXISTING" -gt 0 ]]; then
+            NAMES=$(echo "$RESP" | jq -r '[.data.issue.releases.nodes[].name] | join(", ")')
+            echo "Issue $IDENTIFIER already on release(s): $NAMES — skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "issueUuid=$UUID" >> "$GITHUB_OUTPUT"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+
+      - name: Pick target release
+        id: pick
+        if: steps.issue.outputs.skip == 'false'
+        shell: bash
+        env:
+          LINEAR_TOKEN: ${{ secrets.LINEAR_TOKEN }}
+          PREFERENCE: ${{ steps.stages.outputs.preference }}
+        run: |
+          QUERY='query($stages: [String!]!) { releases(filter: { pipeline: { name: { eq: "Anytype iOS" } }, stage: { name: { in: $stages } } }) { nodes { id name stage { name } } } }'
+          STAGES=$(echo "$PREFERENCE" | jq -c '.')
+          PAYLOAD=$(jq -n --arg q "$QUERY" --argjson stages "$STAGES" \
+            '{query: $q, variables: { stages: $stages }}')
+
+          RESP=$(curl -s -X POST https://api.linear.app/graphql \
+            -H "Authorization: $LINEAR_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD")
+
+          echo "Releases response: $RESP"
+
+          # Walk preference order; first stage with any candidate wins.
+          # Among those, pick lowest semver by splitting name on '.' and comparing as ints.
+          PICKED=$(echo "$RESP" | jq -c --argjson pref "$PREFERENCE" '
+            .data.releases.nodes as $all
+            | ($pref | map(. as $s | $all | map(select(.stage.name == $s))) | map(select(length > 0)) | first // [])
+            | sort_by(.name | split(".") | map(tonumber? // 0))
+            | first
+          ')
+
+          if [[ "$PICKED" == "null" || -z "$PICKED" ]]; then
+            echo "No release found in stages $PREFERENCE."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          RELEASE_ID=$(echo "$PICKED" | jq -r '.id')
+          RELEASE_NAME=$(echo "$PICKED" | jq -r '.name')
+          RELEASE_STAGE=$(echo "$PICKED" | jq -r '.stage.name')
+          echo "Picked release: $RELEASE_NAME (stage: $RELEASE_STAGE, id: $RELEASE_ID)"
+          echo "found=true" >> "$GITHUB_OUTPUT"
+          echo "releaseId=$RELEASE_ID" >> "$GITHUB_OUTPUT"
+          echo "releaseName=$RELEASE_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Assign issue to release
+        if: steps.pick.outputs.found == 'true'
+        shell: bash
+        env:
+          LINEAR_TOKEN: ${{ secrets.LINEAR_TOKEN }}
+          ISSUE_UUID: ${{ steps.issue.outputs.issueUuid }}
+          IDENTIFIER: ${{ steps.extract.outputs.identifier }}
+          RELEASE_ID: ${{ steps.pick.outputs.releaseId }}
+          RELEASE_NAME: ${{ steps.pick.outputs.releaseName }}
+        run: |
+          MUTATION='mutation($input: IssueToReleaseCreateInput!) { issueToReleaseCreate(input: $input) { success } }'
+          PAYLOAD=$(jq -n --arg q "$MUTATION" --arg iid "$ISSUE_UUID" --arg rid "$RELEASE_ID" \
+            '{query: $q, variables: { input: { issueId: $iid, releaseId: $rid } }}')
+
+          RESP=$(curl -s -X POST https://api.linear.app/graphql \
+            -H "Authorization: $LINEAR_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD")
+
+          echo "Mutation response: $RESP"
+
+          SUCCESS=$(echo "$RESP" | jq -r '.data.issueToReleaseCreate.success // false')
+          if [[ "$SUCCESS" != "true" ]]; then
+            echo "::error::Failed to assign $IDENTIFIER to release $RELEASE_NAME"
+            echo "$RESP" | jq -r '.errors // empty'
+            exit 1
+          fi
+
+          echo "::notice::Assigned $IDENTIFIER to release $RELEASE_NAME"
+
+      - name: Comment on issue when no release matched
+        if: steps.pick.outputs.found == 'false'
+        shell: bash
+        env:
+          LINEAR_TOKEN: ${{ secrets.LINEAR_TOKEN }}
+          ISSUE_UUID: ${{ steps.issue.outputs.issueUuid }}
+          IDENTIFIER: ${{ steps.extract.outputs.identifier }}
+          PREFERENCE: ${{ steps.stages.outputs.preference }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          STAGE_LIST=$(echo "$PREFERENCE" | jq -r '. | join(" / ")')
+          BODY=$(printf 'Automation could not assign this issue to a release.\n\nPR %s was merged to `%s`, expected to find a release in the "Anytype iOS" pipeline with stage: **%s**, but none matched.\n\nPlease assign the release manually and verify the pipeline stages.' \
+            "$PR_URL" "$BASE_REF" "$STAGE_LIST")
+
+          MUTATION='mutation($input: CommentCreateInput!) { commentCreate(input: $input) { success } }'
+          PAYLOAD=$(jq -n --arg q "$MUTATION" --arg iid "$ISSUE_UUID" --arg body "$BODY" \
+            '{query: $q, variables: { input: { issueId: $iid, body: $body } }}')
+
+          curl -s -X POST https://api.linear.app/graphql \
+            -H "Authorization: $LINEAR_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD" | jq .
+
+          echo "::error::No release found in stage(s) $STAGE_LIST for $IDENTIFIER (base=$BASE_REF); comment posted."
+          exit 1
