@@ -490,7 +490,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We’d love to share tips, tricks and product updates with you. Your email is never linked to your identity. We won’t share your data. Ever."
+            "value" : "Wir würden gerne Tipps, Tricks und Produktneuigkeiten mit dir teilen. Deine E-Mail wird niemals mit deiner Identität verknüpft. Wir geben deine Daten nicht weiter. Niemals."
           }
         },
         "en" : {
@@ -10003,7 +10003,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy key"
+            "value" : "키 복사"
           }
         },
         "nb" : {
@@ -11655,7 +11655,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format."
+            "value" : "Während dieser Aktualisierung bleiben Ihre Daten vollkommen sicher. Die Aktualisierung wird direkt auf Ihrem Gerät durchgeführt und Ihre synchronisierten Daten bleiben davon unberührt. Wir kopieren es einfach in ein neues Format, und ein lokales Backup wird auf Ihrem Gerät erstellt, das alle Ihre Daten im vorherigen Format enthält."
           }
         },
         "en" : {
