@@ -199,7 +199,7 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     }
 
     func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async -> String? {
-        let acquired = profilerRunning.withLock { running -> Bool in
+        let acquired = profilerRunning.withLock { running in
             guard !running else { return false }
             running = true
             return true
