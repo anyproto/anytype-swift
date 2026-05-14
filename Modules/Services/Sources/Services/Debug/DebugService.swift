@@ -2,6 +2,7 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 import Combine
+import os
 
 
 public enum DebugRunProfilerState: Codable {
@@ -94,7 +95,8 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     }
     
     private let storage = Storage()
-    
+    private let profilerRunning = OSAllocatedUnfairLock(initialState: false)
+
     public func exportLocalStore() async throws -> String {
         let tempDirString = FileManager.default.createTempDirectory().path
         
@@ -197,7 +199,15 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     }
 
     func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async -> String? {
-        try? await ClientCommands.debugRunProfiler(.with {
+        let acquired = profilerRunning.withLock { running in
+            guard !running else { return false }
+            running = true
+            return true
+        }
+        guard acquired else { return nil }
+        defer { profilerRunning.withLock { $0 = false } }
+
+        return try? await ClientCommands.debugRunProfiler(.with {
             $0.durationInSeconds = Int32(durationInSeconds)
             $0.reason = reason.protoReason
             $0.reasonDesc = reason.desc

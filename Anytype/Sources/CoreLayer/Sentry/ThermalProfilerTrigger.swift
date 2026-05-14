@@ -72,5 +72,6 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
             return
         }
         sentryReporter.report(path: path, reasonTag: reason.tag, jsonInfo: nil)
+        await debugService.cleanupReport(ts: Int(Date().timeIntervalSince1970))
     }
 }
