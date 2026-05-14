@@ -17,7 +17,7 @@ final class ObjectLifecycleService: ObjectLifecycleServiceProtocol {
                 $0.contextID = contextId
                 $0.objectID = contextId
                 $0.spaceID = spaceId
-            }).invoke(ignoreLogErrors: .objectDeleted)
+            }).invoke(qos: .userInitiated, ignoreLogErrors: .objectDeleted)
             return result.objectView
         } catch let error as Anytype_Rpc.Object.Open.Response.Error {
             throw ObjectOpenError(error: error)
@@ -29,7 +29,7 @@ final class ObjectLifecycleService: ObjectLifecycleServiceProtocol {
             $0.contextID = contextId
             $0.objectID = contextId
             $0.spaceID = spaceId
-        }).invoke(ignoreLogErrors: .objectDeleted)
+        }).invoke(qos: .userInitiated, ignoreLogErrors: .objectDeleted)
         return result.objectView
     }
     

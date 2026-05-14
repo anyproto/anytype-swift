@@ -50,7 +50,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.templateID = templateId ?? ""
             $0.spaceID = spaceId
             $0.objectTypeUniqueKey = typeUniqueKey.value
-        }).invoke()
+        }).invoke(qos: .userInitiated)
         
         return try response.details.toDetails()
     }
@@ -105,8 +105,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     public func duplicate(objectId: String) async throws -> String {
         let result = try await ClientCommands.objectDuplicate(.with {
             $0.contextID = objectId
-        }).invoke()
-        
+        }).invoke(qos: .userInitiated)
+
         return result.id
     }
 
@@ -246,6 +246,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.source = [setOfObjectType]
             $0.spaceID = spaceId
             $0.withChat = false
-        }).invoke().details.toDetails()
+        }).invoke(qos: .userInitiated).details.toDetails()
     }
 }

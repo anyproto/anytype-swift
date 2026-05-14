@@ -31,7 +31,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
         let result = try await ClientCommands.objectCreateObjectType(.with {
             $0.details = details
             $0.spaceID = spaceId
-        }).invoke()
+        }).invoke(qos: .userInitiated)
         
         let objectDetails = try ObjectDetails(protobufStruct: result.details)
         return ObjectType(details: objectDetails)

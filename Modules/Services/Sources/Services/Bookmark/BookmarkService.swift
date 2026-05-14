@@ -49,7 +49,7 @@ final class BookmarkService: BookmarkServiceProtocol {
             $0.details = details
             $0.spaceID = spaceId
             $0.templateID = templateId ?? ""
-        }).invoke()
+        }).invoke(qos: .userInitiated)
         return try result.details.toDetails()
     }
     

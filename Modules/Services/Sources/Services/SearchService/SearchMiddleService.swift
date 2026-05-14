@@ -30,7 +30,7 @@ final class SearchMiddleService: SearchMiddleServiceProtocol {
             $0.fullText = data.fullText
             $0.limit = Int32(data.limit)
             $0.keys = data.keys
-        }).invoke()
+        }).invoke(qos: .userInitiated)
         
         return response.records.asDetais
     }
