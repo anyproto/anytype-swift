@@ -21,6 +21,8 @@ actor DebugProfileEventHandler: DebugProfileEventHandlerProtocol {
 
     @Injected(\.debugProfileSentryReporter)
     private var reporter: any DebugProfileSentryReporterProtocol
+    @Injected(\.debugService)
+    private var debugService: any DebugServiceProtocol
 
     private var subscription: AnyCancellable?
 
@@ -47,6 +49,10 @@ actor DebugProfileEventHandler: DebugProfileEventHandlerProtocol {
     private func forwardToSentry(_ profile: Anytype_Event.Debug.ProfileCreated) {
         let reason = profile.reason.isEmpty ? "Unknown" : profile.reason
         Self.log.debug("DebugProfileCreated: reason=\(reason), path=\(profile.path), full=\(profile.full)")
-        reporter.report(path: profile.path, reasonTag: reason, jsonInfo: profile.jsonInfo)
+        reporter.report(path: profile.path, reasonTag: reason, jsonInfo: profile.jsonInfo) { [debugService] in
+            Task {
+                await debugService.cleanupReport(ts: Int(Date().timeIntervalSince1970))
+            }
+        }
     }
 }

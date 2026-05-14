@@ -2,11 +2,11 @@ import Foundation
 import Sentry
 
 protocol DebugProfileSentryReporterProtocol: Sendable {
-    func report(path: String, reasonTag: String, jsonInfo: String?)
+    func report(path: String, reasonTag: String, jsonInfo: String?, onCaptured: @Sendable () -> Void)
 }
 
 final class DebugProfileSentryReporter: DebugProfileSentryReporterProtocol {
-    func report(path: String, reasonTag: String, jsonInfo: String?) {
+    func report(path: String, reasonTag: String, jsonInfo: String?, onCaptured: @Sendable () -> Void) {
         let event = Event(level: .info)
         event.message = SentryMessage(formatted: "MW_\(reasonTag)")
         event.tags = ["report": "mw_profile", "reason": reasonTag]
@@ -21,15 +21,18 @@ final class DebugProfileSentryReporter: DebugProfileSentryReporterProtocol {
                     scope.setExtra(value: jsonInfo, key: "info")
                 }
             }
-            if !path.isEmpty {
+            if !path.isEmpty,
+               let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
                 let url = URL(fileURLWithPath: path)
                 scope.addAttachment(Attachment(
-                    path: path,
+                    data: data,
                     filename: url.lastPathComponent,
                     contentType: url.debugProfileContentType
                 ))
             }
         }
+
+        onCaptured()
     }
 }
 
