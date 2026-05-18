@@ -490,7 +490,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New channel"
+            "value" : "Neuer Kanal"
           }
         },
         "en" : {
@@ -1265,7 +1265,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%lld/%lld Viewers"
+            "value" : "%lld/%lld Zuschauer"
           }
         },
         "en" : {
@@ -3008,7 +3008,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Channel Settings"
+            "value" : "Kanaleinstellungen"
           }
         },
         "en" : {
@@ -3163,7 +3163,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete channel"
+            "value" : "Kanal löschen"
           }
         },
         "en" : {
@@ -3318,7 +3318,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Leave channel"
+            "value" : "Kanal verlassen"
           }
         },
         "en" : {
@@ -3473,7 +3473,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat Name"
+            "value" : "Chatname"
           }
         },
         "en" : {
@@ -9640,13 +9640,13 @@
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg comment"
+                      "value" : "%arg Kommentar"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg comments"
+                      "value" : "%arg Kommentare"
                     }
                   }
                 }
@@ -10247,7 +10247,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "All New Replies"
+            "value" : "Alle neuen Antworten"
           }
         },
         "en" : {
@@ -10402,7 +10402,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mentions Only"
+            "value" : "Nur Erwähnungen"
           }
         },
         "en" : {
@@ -44589,7 +44589,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create “%@”"
+            "value" : "„%@“ erstellen"
           }
         },
         "en" : {
@@ -55447,7 +55447,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ is checked"
+            "value" : "%@ ist ausgewählt"
           }
         },
         "en" : {
@@ -55758,7 +55758,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ is unchecked"
+            "value" : "%@ ist nicht ausgewählt"
           }
         },
         "en" : {
@@ -57464,7 +57464,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%d applied"
+            "value" : "%d angewendet"
           }
         },
         "en" : {
@@ -63396,7 +63396,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mute and hide"
+            "value" : "Stummschalten und ausblenden"
           }
         },
         "en" : {
@@ -74126,7 +74126,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join %@"
+            "value" : "%@ beitreten"
           }
         },
         "en" : {
@@ -82381,7 +82381,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private Channel"
+            "value" : "Privater Kanal"
           }
         },
         "en" : {
