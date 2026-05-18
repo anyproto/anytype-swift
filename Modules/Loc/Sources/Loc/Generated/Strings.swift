@@ -1798,9 +1798,6 @@ public enum Loc {
       public static let title3 = Loc.tr("Workspace", "Membership.Banner.Title3", fallback: "Support Digital Independence")
       public static let title4 = Loc.tr("Workspace", "Membership.Banner.Title4", fallback: "Invest in Connectivity")
     }
-    public enum Email {
-      public static let body = Loc.tr("Workspace", "Membership.Email.Body", fallback: "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here.")
-    }
     public enum EmailForm {
       public static let subtitle = Loc.tr("Workspace", "Membership.EmailForm.Subtitle", fallback: "It is not linked to your account in any way.")
       public static let title = Loc.tr("Workspace", "Membership.EmailForm.Title", fallback: "Get updates and enjoy free perks!")
@@ -1858,15 +1855,12 @@ public enum Loc {
       }
     }
     public enum Upgrade {
-      public static let button = Loc.tr("Workspace", "Membership.Upgrade.Button", fallback: "Contact Anytype Team")
       public static let moreMembers = Loc.tr("Workspace", "Membership.Upgrade.MoreMembers", fallback: "Upgrade to add more members")
       public static let moreSpaces = Loc.tr("Workspace", "Membership.Upgrade.MoreSpaces", fallback: "Upgrade to add more spaces.")
       public static let noMoreEditors = Loc.tr("Workspace", "Membership.Upgrade.NoMoreEditors", fallback: "You can’t add more editors")
       public static func spacesLimit(_ p1: Int) -> String {
         return Loc.tr("Workspace", "Membership.Upgrade.SpacesLimit", p1, fallback: "Plural format key: Membership.Upgrade.SpacesLimit")
       }
-      public static let text = Loc.tr("Workspace", "Membership.Upgrade.Text", fallback: "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.")
-      public static let title = Loc.tr("Workspace", "Membership.Upgrade.Title", fallback: "Membership upgrade")
     }
   }
   public enum MembershipServiceError {
