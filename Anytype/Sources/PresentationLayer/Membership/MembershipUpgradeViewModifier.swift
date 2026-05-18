@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 @MainActor
 final class MembershipUpgradeViewModifierModel: ObservableObject {
     @Published var showMembershipScreen = false
@@ -40,7 +39,6 @@ struct MembershipUpgradeViewModifier: ViewModifier {
             }
     }
 }
-
 
 extension View {
     func membershipUpgrade(reason: Binding<MembershipUpgradeReason?>) -> some View {
