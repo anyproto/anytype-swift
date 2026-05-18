@@ -26,5 +26,4 @@ enum AboutApp {
     
     static let supportMailTo = "support@anytype.io"
     static let licenseMailTo = "license@anytype.io"
-    static let membershipUpgradeMailTo = "membership-upgrade@anytype.io"
 }

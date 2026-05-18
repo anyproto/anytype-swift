@@ -22,9 +22,6 @@ final class SpaceShareViewModel {
     @Injected(\.membershipStatusStorage)
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @ObservationIgnored
-    @Injected(\.mailUrlBuilder)
-    private var mailUrlBuilder: any MailUrlBuilderProtocol
-    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspacesStorage: any SpaceViewsStorageProtocol
     @ObservationIgnored

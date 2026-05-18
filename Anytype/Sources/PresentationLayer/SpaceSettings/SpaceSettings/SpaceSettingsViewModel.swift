@@ -33,8 +33,6 @@ final class SpaceSettingsViewModel {
     private var accountManager: any AccountManagerProtocol
     @ObservationIgnored @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @ObservationIgnored @Injected(\.mailUrlBuilder)
-    private var mailUrlBuilder: any MailUrlBuilderProtocol
     @ObservationIgnored @Injected(\.universalLinkParser)
     private var universalLinkParser: any UniversalLinkParserProtocol
     @ObservationIgnored @Injected(\.fileLimitsStorage)
