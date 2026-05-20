@@ -34,6 +34,15 @@ extension ParticipantPermissions {
             return true
         }
     }
+
+    var isModerator: Bool {
+        switch self {
+        case .owner, .admin:
+            return true
+        case .reader, .writer, .noPermissions, .UNRECOGNIZED:
+            return false
+        }
+    }
 }
 
 extension Participant {

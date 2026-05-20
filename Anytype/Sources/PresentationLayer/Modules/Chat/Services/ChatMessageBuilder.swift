@@ -44,7 +44,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         let chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
         let isChatDeletedOrArchived = (chatObject.details?.isDeleted ?? false) || (chatObject.details?.isArchived ?? false)
         let canEdit = (participant?.canEdit ?? false) && !isChatDeletedOrArchived
-        let isModerator = participant?.permission == .owner || participant?.permission == .admin
+        let isModerator = participant?.permission.isModerator ?? false
         let yourProfileIdentity = participant?.identity
         
         var currentSectionData: MessageSectionData?

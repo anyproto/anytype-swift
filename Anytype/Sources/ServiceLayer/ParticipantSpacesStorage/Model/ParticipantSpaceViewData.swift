@@ -45,7 +45,7 @@ extension ParticipantSpaceViewData {
     }
 
     var canManageChannelPins: Bool {
-        actorPermission == .owner || actorPermission == .admin
+        actorPermission.isModerator
     }
 
     var canSetHomepage: Bool {
