@@ -17,7 +17,7 @@ struct ConversationEmptyStateView: View {
                 addMembersAction: isOneToOne ? nil : addMembersAction,
                 qrCodeAction: isOneToOne ? nil : qrCodeAction
             )
-        case .writer, .reader, .noPermissions, .UNRECOGNIZED, nil:
+        case .writer, .reader, .admin, .noPermissions, .UNRECOGNIZED, nil:
             emptyStateView(
                 title: Loc.Chat.Empty.title,
                 addMembersAction: nil,
