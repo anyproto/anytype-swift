@@ -85,9 +85,9 @@ struct ProfileView: View {
                     } label: {
                         Image(asset: .X24.more)
                             .foregroundStyle(Color.Control.primary)
-                            .frame(width: 32, height: 32)
-                            .glassEffectInteractiveIOS26(in: Circle())
+                            .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
                     }
+                    .glassEffectInteractiveIOS26(in: Circle())
                 }
             }
         } else {
