@@ -31,7 +31,7 @@ final class SearchWithMetaMiddleService: SearchWithMetaMiddleServiceProtocol {
             $0.limit = Int32(data.limit)
             $0.keys = data.keys
             $0.returnMeta = true
-        }).invoke()
+        }).invoke(qos: .userInitiated)
         
         return response.results.asResults
     }

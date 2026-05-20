@@ -6,6 +6,7 @@ import Logger
 protocol ThermalProfilerTriggerProtocol: AnyObject, Sendable {
     func startSubscription() async
     func stopSubscriptionAndClean() async
+    func triggerManually(severity: DebugProfilerReason.ThermalSeverity) async
 }
 
 actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
@@ -42,6 +43,11 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
         lastTrigger = nil
     }
 
+    func triggerManually(severity: DebugProfilerReason.ThermalSeverity) async {
+        lastTrigger = nil
+        await trigger(reason: .thermalState(severity))
+    }
+
     private func handleThermalChange() async {
         let state = ProcessInfo.processInfo.thermalState
         switch state {
@@ -65,6 +71,10 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
         guard let path = await debugService.runProfiler(durationInSeconds: Self.profileDuration, reason: reason) else {
             return
         }
-        sentryReporter.report(path: path, reasonTag: reason.tag, jsonInfo: nil)
+        sentryReporter.report(path: path, reasonTag: reason.tag, jsonInfo: nil) { [debugService] in
+            Task {
+                await debugService.cleanupReport(ts: Int(Date().timeIntervalSince1970))
+            }
+        }
     }
 }

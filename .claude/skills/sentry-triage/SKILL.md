@@ -1,13 +1,15 @@
 ---
 name: sentry-triage
-description: Triage Sentry crashes for an iOS release. Pulls unresolved fatal events from sentry.anytype.io, investigates each fingerprint cluster against the source, creates one Linear ticket per cluster with a root-cause hypothesis and proposed fix, then archives the Sentry issue (status `ignored`) so it stops cluttering the inbox. Activate on "triage Sentry crashes", "triage fatal errors", "investigate crashes in release", "fatal errors in 0.X.Y", or any time the user wants to turn a release's Sentry inbox into actionable Linear tickets. The slash entry is `/do-sentry-triage`.
+description: Triage Sentry crashes for an iOS release. Pulls unresolved fatal events from sentry.anytype.io, investigates each fingerprint cluster against the source, creates one Linear ticket per cluster with a root-cause hypothesis (no proposed fix - the implementer figures that out with full context), then archives the Sentry issue (status `ignored`) so it stops cluttering the inbox. Activate on "triage Sentry crashes", "triage fatal errors", "investigate crashes in release", "fatal errors in 0.X.Y", or any time the user wants to turn a release's Sentry inbox into actionable Linear tickets. The slash entry is `/do-sentry-triage`.
 user-invocable: false
 ---
 
 # Sentry Triage
 
 ## Purpose
-Turn a release's unresolved Sentry crashes into actionable Linear tickets in one pass. The user ships a release, opens this skill, and gets back a list of Linear tickets - one per crash fingerprint - each carrying enough context (stack trace, suspect code, hypothesis from source reading, proposed fix, Sentry permalink, resolve footer) that picking up the fix is a single regular PR.
+Turn a release's unresolved Sentry crashes into actionable Linear tickets in one pass. The user ships a release, opens this skill, and gets back a list of Linear tickets - one per crash fingerprint - each carrying enough context (stack trace, suspect code, root-cause hypothesis from source reading, Sentry permalink, resolve footer) that picking up the fix is a single regular PR.
+
+**No proposed fix in the ticket.** Triage is a fast survey across many clusters; the triager does not have enough implementation context to propose a fix that's actually right. Empirically the proposed-fix block in older versions of this skill was wrong nearly every time and biased the eventual implementer toward the wrong approach. The implementer reads the hypothesis + stack + source themselves and decides the fix with full context.
 
 ## When to Use
 - After a TestFlight or production release where Sentry shows fatal events
@@ -109,16 +111,14 @@ For each cluster:
 2. **Classify** by where the crash happened:
    - **Swift / iOS-side**: top frames in `Anytype/Sources/` or `Modules/`. Proceed to read source.
    - **Middleware / Go-side**: stack is entirely `github.com/anyproto/anytype-heart/...`. Skip source-reading; the ticket exists to route to the middleware team.
-   - **Watchdog / no-stack**: `mechanism: watchdog_termination` or `Stacktrace: No stacktrace available`. No specific code site; ticket describes symptom and recommends profiling.
+   - **Watchdog / no-stack**: `mechanism: watchdog_termination` or `Stacktrace: No stacktrace available`. No specific code site; ticket describes the symptom only.
    - **Symbolication failure**: hex addresses instead of names. Note dSYM upload status, recommend re-upload.
 
 3. **For Swift-side clusters**: read source at the top app frame's `file:line` (skip `Pods/`, system frameworks, `<compiler-generated>` - walk up to the first app frame). Read ~30 lines for context. Walk up the stack as needed to follow the call chain.
 
 4. **Form your hypothesis** in one or two sentences. Be honest about uncertainty: "likely a force-unwrap when X is nil after Y" beats "the bug is on line 42".
 
-5. **Propose a fix** - concrete, with `file:line` refs and a corrected snippet when confident. For uncertain cases, propose a diagnostic step.
-
-Don't write code. The skill creates triage tickets, not fixes.
+Stop at the hypothesis. Do **not** write a proposed fix, a corrected snippet, or "the fix is to do X" guidance into the ticket. Triage is a fast survey; you don't have the implementation context to propose a fix that's actually correct, and a wrong proposal anchors the implementer toward the wrong approach (this was observed across ~15 fixes - the proposed-fix block was wrong nearly every time). The hypothesis + stack + source links are enough; the implementer reads them with full context and decides the fix themselves.
 
 ### Step 5: Create the Linear ticket
 
@@ -171,10 +171,7 @@ Always include a final line summarizing skips: clusters already triaged (Linear 
 
 ```markdown
 ## Summary
-<one or two sentence root-cause hypothesis>
-
-## Proposed fix
-<concrete change, with file:line refs and a corrected snippet when possible>
+<one or two sentence root-cause hypothesis - what likely went wrong, not how to fix it>
 
 ## Sentry data
 - Issue: <permalink>
@@ -196,17 +193,14 @@ Always include a final line summarizing skips: clusters already triaged (Linear 
 **Resolve on merge**: include `Fixes <shortId>` in the fix commit. Sentry CI auto-resolves on the next release containing the commit.
 ```
 
-**Body for middleware / Go-side bugs** - prepend a Routing block, swap "Proposed fix" for middleware-team guidance:
+**Body for middleware / Go-side bugs** - prepend a Routing block:
 
 ```markdown
 ## Routing
 **This crash is in Go middleware (`anytype-heart` v<X.Y.Z>), not iOS Swift code.** Please route to the middleware team.
 
 ## Summary
-<symptom + Go-side hypothesis>
-
-## Proposed fix (middleware team)
-<what to investigate in anytype-heart at the file/line referenced in the stack>
+<symptom + Go-side hypothesis - what likely went wrong, not how to fix it>
 
 ## Sentry data
 ... (same fields as Swift template)
@@ -224,10 +218,7 @@ github.com/anyproto/anytype-heart/<...>:line
 
 ```markdown
 ## Summary
-<symptom - OOM, hang, etc.>. No stack available; this is a profiling task, not a code-fix task.
-
-## Proposed fix
-<recommended profiling / instrumentation steps>
+<symptom - OOM, hang, etc.>. No stack available; this is a profiling task, not a code-fix task. The implementer will need to instrument and reproduce to find the underlying pressure source.
 
 ## Sentry data
 ... (same fields)
@@ -250,7 +241,7 @@ Re-running the skill on the same release is safe:
 ## Edge cases
 
 - **Crash inside Go middleware**: stack is entirely `github.com/anyproto/anytype-heart/...`. Use the `[Sentry][Middleware]` title prefix and the routing block. Don't read iOS source.
-- **WatchdogTermination / no stack**: use the watchdog body template. Don't fabricate a fix; recommend profiling.
+- **WatchdogTermination / no stack**: use the watchdog body template. Describe the symptom only - don't fabricate a fix or prescribe specific instrumentation steps.
 - **Symbolication failure**: hex addresses instead of names. Mention dSYM upload status in the ticket.
 - **Same fingerprint, different versions**: Sentry groups by fingerprint across releases. The release filter narrows to the current one, but `firstSeen` may predate it. Call that out so the user knows it's recurring, not a regression.
 - **Top frame in `<compiler-generated>`**: Swift trap from `Array._checkIndex`, `range`, `Optional.unsafelyUnwrapped`. Walk up the stack to the first app frame; that's the call site.

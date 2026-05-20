@@ -6,6 +6,7 @@ import Logger
 protocol MemoryPressureProfilerTriggerProtocol: AnyObject, Sendable {
     func startSubscription() async
     func stopSubscriptionAndClean() async
+    func triggerManually(severity: DebugProfilerReason.MemorySeverity) async
 }
 
 actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
@@ -45,6 +46,11 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
         lastTrigger = nil
     }
 
+    func triggerManually(severity: DebugProfilerReason.MemorySeverity) async {
+        lastTrigger = nil
+        await trigger(reason: .memoryPressure(severity))
+    }
+
     private func handleEventFire() async {
         guard let data = source?.data else { return }
         if data.contains(.critical) {
@@ -65,6 +71,10 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
         guard let path = await debugService.runProfiler(durationInSeconds: 0, reason: reason) else {
             return
         }
-        sentryReporter.report(path: path, reasonTag: reason.tag, jsonInfo: nil)
+        sentryReporter.report(path: path, reasonTag: reason.tag, jsonInfo: nil) { [debugService] in
+            Task {
+                await debugService.cleanupReport(ts: Int(Date().timeIntervalSince1970))
+            }
+        }
     }
 }

@@ -10,6 +10,8 @@ enum CursorModeAccessoryViewAction {
     case keyboardDismiss
     /// Show bottom sheet style menu
     case showStyleMenu
+    /// Show mention menu
+    case mention
     /// Enter editing mode
     case editingMode
     /// Show undo / redo mode
@@ -35,9 +37,9 @@ final class CursorModeAccessoryViewModel {
         } else {
             switch configuration.usecase {
             case .editor:
-                actions = [.slash, .style, .actions, .undoRedo, .deleteBlock, .indentRight, .indentLeft]
+                actions = [.slash, .style, .actions, .mention, .undoRedo, .deleteBlock, .indentRight, .indentLeft]
             case .simpleTable:
-                actions = [.style, .actions, .undoRedo]
+                actions = [.style, .actions, .mention, .undoRedo]
             }
         }
 
