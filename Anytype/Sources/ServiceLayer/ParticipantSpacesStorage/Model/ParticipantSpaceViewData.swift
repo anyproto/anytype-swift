@@ -44,12 +44,52 @@ extension ParticipantSpaceViewData {
         participant?.isOwner ?? false
     }
 
-    // Owner-only today. Separate from `isOwner` so a future Admin role widens here.
     var canManageChannelPins: Bool {
-        isOwner
+        actorPermission == .owner || actorPermission == .admin
     }
-    
+
     var canSetHomepage: Bool {
         permissions.canSetHomepage
+    }
+}
+
+extension ParticipantSpaceViewData {
+    private var actorPermission: ParticipantPermissions {
+        participant?.permission ?? .noPermissions
+    }
+
+    func canShowRoleMenu(target: Participant) -> Bool {
+        guard target.permission != .owner else { return false }
+        guard target.identity != participant?.identity else { return false }
+        switch actorPermission {
+        case .owner: return true
+        case .admin: return target.permission != .admin
+        default:     return false
+        }
+    }
+
+    func canPromoteToAdmin(target: Participant) -> Bool {
+        actorPermission == .owner
+            && target.permission != .admin
+            && target.permission != .owner
+    }
+
+    func canChangeRole(target: Participant) -> Bool {
+        guard target.permission != .owner else { return false }
+        switch actorPermission {
+        case .owner: return true
+        case .admin: return target.permission == .reader || target.permission == .writer
+        default:     return false
+        }
+    }
+
+    func canRemove(target: Participant) -> Bool {
+        guard target.permission != .owner else { return false }
+        guard target.identity != participant?.identity else { return false }
+        switch actorPermission {
+        case .owner: return true
+        case .admin: return target.permission != .admin
+        default:     return false
+        }
     }
 }
