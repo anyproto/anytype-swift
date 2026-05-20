@@ -78021,6 +78021,17 @@
         }
       }
     },
+    "SpaceShare.RemoveMember.SheetTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove the member from this channel?"
+          }
+        }
+      }
+    },
     "SpaceShare.RemoveMember.Title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -78051,7 +78062,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Remove the member from this channel?"
+            "value" : "Remove member"
           }
         },
         "es" : {

@@ -2499,7 +2499,8 @@ public enum Loc {
     }
     public enum RemoveMember {
       public static let message = Loc.tr("Workspace", "SpaceShare.RemoveMember.Message", fallback: "They'll lose access immediately. Depending on your invite settings, they may be able to rejoin or request to rejoin.")
-      public static let title = Loc.tr("Workspace", "SpaceShare.RemoveMember.Title", fallback: "Remove the member from this channel?")
+      public static let sheetTitle = Loc.tr("Workspace", "SpaceShare.RemoveMember.SheetTitle", fallback: "Remove the member from this channel?")
+      public static let title = Loc.tr("Workspace", "SpaceShare.RemoveMember.Title", fallback: "Remove member")
     }
     public enum Share {
       public static let link = Loc.tr("Workspace", "SpaceShare.Share.link", fallback: "Share link")
