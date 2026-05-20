@@ -76737,6 +76737,17 @@
         }
       }
     },
+    "SpaceShare.Permissions.Admin" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Admin"
+          }
+        }
+      }
+    },
     "SpaceShare.Permissions.Grand.Edit" : {
       "extractionState" : "manual",
       "localizations" : {

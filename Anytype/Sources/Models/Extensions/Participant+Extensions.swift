@@ -10,7 +10,9 @@ extension ParticipantPermissions {
             return Loc.SpaceShare.Permissions.writer
         case .owner:
             return Loc.SpaceShare.Permissions.owner
-        case .admin, .noPermissions, .UNRECOGNIZED:
+        case .admin:
+            return Loc.SpaceShare.Permissions.admin
+        case .noPermissions, .UNRECOGNIZED:
             return rawValue.description
         }
     }

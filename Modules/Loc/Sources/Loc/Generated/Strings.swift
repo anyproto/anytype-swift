@@ -2479,6 +2479,7 @@ public enum Loc {
       public static let toast = Loc.tr("Workspace", "SpaceShare.MakePrivate.Toast", fallback: "You can make the space private after removing all members")
     }
     public enum Permissions {
+      public static let admin = Loc.tr("Workspace", "SpaceShare.Permissions.Admin", fallback: "Admin")
       public static let owner = Loc.tr("Workspace", "SpaceShare.Permissions.Owner", fallback: "Owner")
       public static let reader = Loc.tr("Workspace", "SpaceShare.Permissions.Reader", fallback: "Viewer")
       public static let writer = Loc.tr("Workspace", "SpaceShare.Permissions.Writer", fallback: "Editor")
