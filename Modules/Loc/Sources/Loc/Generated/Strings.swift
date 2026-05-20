@@ -2471,6 +2471,11 @@ public enum Loc {
       public static let message = Loc.tr("Workspace", "SpaceShare.JoinConfirmation.Message", fallback: "You will receive a notification when the space owner will approve your request.")
       public static let title = Loc.tr("Workspace", "SpaceShare.JoinConfirmation.Title", fallback: "Request sent")
     }
+    public enum MakeAdmin {
+      public static let button = Loc.tr("Workspace", "SpaceShare.MakeAdmin.Button", fallback: "Make Admin")
+      public static let message = Loc.tr("Workspace", "SpaceShare.MakeAdmin.Message", fallback: "Admins can delete messages, remove members, and permanently delete objects from Bin.")
+      public static let title = Loc.tr("Workspace", "SpaceShare.MakeAdmin.Title", fallback: "Make the member an admin?")
+    }
     public enum MakePrivate {
       public static let action = Loc.tr("Workspace", "SpaceShare.MakePrivate.Action", fallback: "Make Private")
       public static let confirm = Loc.tr("Workspace", "SpaceShare.MakePrivate.Confirm", fallback: "Confirm")
@@ -2493,10 +2498,8 @@ public enum Loc {
       public static let title = Loc.tr("Workspace", "SpaceShare.QR.Title", fallback: "QR code for joining a Space")
     }
     public enum RemoveMember {
-      public static func message(_ p1: Any) -> String {
-        return Loc.tr("Workspace", "SpaceShare.RemoveMember.Message", String(describing: p1), fallback: "%@ will be removed from the space.")
-      }
-      public static let title = Loc.tr("Workspace", "SpaceShare.RemoveMember.Title", fallback: "Remove member")
+      public static let message = Loc.tr("Workspace", "SpaceShare.RemoveMember.Message", fallback: "They'll lose access immediately. Depending on your invite settings, they may be able to rejoin or request to rejoin.")
+      public static let title = Loc.tr("Workspace", "SpaceShare.RemoveMember.Title", fallback: "Remove the member from this channel?")
     }
     public enum Share {
       public static let link = Loc.tr("Workspace", "SpaceShare.Share.link", fallback: "Share link")
