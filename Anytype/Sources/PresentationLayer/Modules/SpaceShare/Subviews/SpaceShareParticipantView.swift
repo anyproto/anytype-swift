@@ -25,7 +25,6 @@ struct SpaceShareParticipantViewModel: Identifiable {
     struct ContextAction: Identifiable {
         let id = UUID()
         let title: String
-        let icon: ImageAsset?
         let isSelected: Bool
         let destructive: Bool
         let enabled: Bool
@@ -125,8 +124,6 @@ struct SpaceShareParticipantView: View {
                             Spacer()
                             if action.isSelected {
                                 Image(asset: .X24.tick)
-                            } else if let icon = action.icon {
-                                Image(asset: icon)
                             }
                         }
                     }

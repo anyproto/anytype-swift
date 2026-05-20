@@ -279,7 +279,6 @@ final class SpaceShareViewModel {
             if isOwnerActor {
                 actions.append(SpaceShareParticipantViewModel.ContextAction(
                     title: Loc.SpaceShare.Permissions.admin,
-                    icon: .CustomIcons.flash,
                     isSelected: participant.permission == .admin,
                     destructive: false,
                     enabled: canPromote && (canChangeReaderToWriter || participant.permission == .writer),
@@ -291,7 +290,6 @@ final class SpaceShareViewModel {
 
             actions.append(SpaceShareParticipantViewModel.ContextAction(
                 title: Loc.SpaceShare.Permissions.writer,
-                icon: .CustomIcons.pencil,
                 isSelected: participant.permission == .writer,
                 destructive: false,
                 enabled: canChangeRole && (canChangeReaderToWriter || participant.permission == .writer),
@@ -302,7 +300,6 @@ final class SpaceShareViewModel {
 
             actions.append(SpaceShareParticipantViewModel.ContextAction(
                 title: Loc.SpaceShare.Permissions.reader,
-                icon: .CustomIcons.eye,
                 isSelected: participant.permission == .reader,
                 destructive: false,
                 enabled: canChangeRole && (canChangeWriterToReader || participant.permission == .reader),
@@ -314,7 +311,6 @@ final class SpaceShareViewModel {
             if canRemove {
                 actions.append(SpaceShareParticipantViewModel.ContextAction(
                     title: Loc.SpaceShare.RemoveMember.title,
-                    icon: .X24.close,
                     isSelected: false,
                     destructive: true,
                     enabled: true,
@@ -328,7 +324,6 @@ final class SpaceShareViewModel {
         case .joining:
             return canApproveRequests ? [SpaceShareParticipantViewModel.ContextAction(
                 title: Loc.SpaceShare.Action.viewRequest,
-                icon: nil,
                 isSelected: false,
                 destructive: false,
                 enabled: canApproveRequests,
@@ -340,7 +335,6 @@ final class SpaceShareViewModel {
             return canApproveRequests ? [
                 SpaceShareParticipantViewModel.ContextAction(
                     title: Loc.SpaceShare.Action.approve,
-                    icon: nil,
                     isSelected: false,
                     destructive: false,
                     enabled: canApproveRequests,
