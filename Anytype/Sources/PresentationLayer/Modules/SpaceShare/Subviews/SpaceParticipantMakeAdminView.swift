@@ -1,24 +1,24 @@
 import Foundation
 import SwiftUI
 
-struct SpaceParticipantRemoveViewModel: Identifiable {
+struct SpaceParticipantMakeAdminViewModel: Identifiable {
     let id = UUID()
     let onConfirm: () async throws -> Void
 }
 
-struct SpaceParticipantRemoveView: View {
+struct SpaceParticipantMakeAdminView: View {
 
-    let model: SpaceParticipantRemoveViewModel
+    let model: SpaceParticipantMakeAdminViewModel
 
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         BottomAlertView(
-            title: Loc.SpaceShare.RemoveMember.sheetTitle,
-            message: Loc.SpaceShare.RemoveMember.message,
-            icon: .Dialog.removeMember
+            title: Loc.SpaceShare.MakeAdmin.title,
+            message: Loc.SpaceShare.MakeAdmin.message,
+            icon: .Dialog.makeAdmin
         ) {
-            BottomAlertButton(text: Loc.remove, style: .warning) {
+            BottomAlertButton(text: Loc.SpaceShare.MakeAdmin.button, style: .warning) {
                 try await model.onConfirm()
                 dismiss()
             }

@@ -30,6 +30,9 @@ struct SpaceShareView: View {
             .anytypeSheet(item: $model.removeParticipantAlertModel) { model in
                 SpaceParticipantRemoveView(model: model)
             }
+            .anytypeSheet(item: $model.makeAdminAlertModel) { model in
+                SpaceParticipantMakeAdminView(model: model)
+            }
             .anytypeSheet(isPresented: $model.showStopSharingAlert) {
                 StopSharingAlert(spaceId: model.spaceId) {}
             }

@@ -75497,6 +75497,39 @@
         }
       }
     },
+    "SpaceShare.MakeAdmin.Button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make Admin"
+          }
+        }
+      }
+    },
+    "SpaceShare.MakeAdmin.Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        }
+      }
+    },
+    "SpaceShare.MakeAdmin.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make the member an admin?"
+          }
+        }
+      }
+    },
     "SpaceShare.MakePrivate.Action" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -77863,7 +77896,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ will be removed from the space."
+            "value" : "They'll lose access immediately. Depending on your invite settings, they may be able to rejoin or request to rejoin."
           }
         },
         "es" : {
@@ -77984,6 +78017,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%@ will be removed from the space."
+          }
+        }
+      }
+    },
+    "SpaceShare.RemoveMember.SheetTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove the member from this channel?"
           }
         }
       }
