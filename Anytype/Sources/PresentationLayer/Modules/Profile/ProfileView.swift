@@ -10,17 +10,23 @@ struct ProfileView: View {
         _model = State(initialValue: ProfileViewModel(info: info))
     }
 
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         mainContent
             .onAppear {
-            model.pageNavigation = pageNavigation
-        }
-        .task {
-            await model.setupSubscriptions()
-        }
-        .sheet(isPresented: $model.showSettings) {
-            SettingsCoordinatorView()
-        }
+                model.pageNavigation = pageNavigation
+                model.onParticipantRemoved = { dismiss() }
+            }
+            .task {
+                await model.setupSubscriptions()
+            }
+            .sheet(isPresented: $model.showSettings) {
+                SettingsCoordinatorView()
+            }
+            .anytypeSheet(item: $model.removeAlertModel) { model in
+                SpaceParticipantRemoveView(model: model)
+            }
     }
 
     @ViewBuilder
@@ -53,20 +59,36 @@ struct ProfileView: View {
         .background(Color.Background.secondary)
     }
     
+    @ViewBuilder
     private var actionRow: some View {
-        Group {
-            if model.isOwner {
-                HStack(spacing: 12) {
-                    Spacer()
+        if model.isOwner || model.canRemoveMember {
+            HStack(spacing: 12) {
+                Spacer()
+                if model.isOwner {
                     Button {
                         model.showSettings.toggle()
                     } label: {
                         IconView(asset: .X32.edit).frame(width: 32, height: 32)
                     }
                 }
-            } else {
-                Spacer.fixedHeight(32)
+                if model.canRemoveMember {
+                    Menu {
+                        Button(role: .destructive) {
+                            model.onRemoveMember()
+                        } label: {
+                            HStack {
+                                AnytypeText(Loc.SpaceShare.RemoveMember.title, style: .uxCalloutRegular)
+                                Spacer()
+                                Image(asset: .X24.close)
+                            }
+                        }
+                    } label: {
+                        IconView(asset: .X32.more).frame(width: 32, height: 32)
+                    }
+                }
             }
+        } else {
+            Spacer.fixedHeight(32)
         }
     }
     
