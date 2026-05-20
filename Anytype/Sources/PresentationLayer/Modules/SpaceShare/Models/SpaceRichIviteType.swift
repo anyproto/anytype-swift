@@ -45,7 +45,7 @@ extension SpaceInvite {
                 .viewer
             case .writer:
                 .editor
-            case .owner, .noPermissions, .UNRECOGNIZED, .none:
+            case .owner, .admin, .noPermissions, .UNRECOGNIZED, .none:
                 nil
             }
         case .guest, .UNRECOGNIZED:

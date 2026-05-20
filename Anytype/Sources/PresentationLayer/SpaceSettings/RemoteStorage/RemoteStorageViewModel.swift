@@ -14,8 +14,6 @@ final class RemoteStorageViewModel {
     private var fileLimitsStorage: any FileLimitsStorageProtocol
     @ObservationIgnored @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @ObservationIgnored @Injected(\.mailUrlBuilder)
-    private var mailUrlBuilder: any MailUrlBuilderProtocol
     @ObservationIgnored @Injected(\.serverConfigurationStorage)
     private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
 

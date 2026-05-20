@@ -222,7 +222,7 @@ extension SpaceView {
     }
 
     private func activeWriters(participants: [Participant]) -> Int {
-        participants.filter { $0.permission == .writer || $0.permission == .owner }.count
+        participants.filter { $0.permission == .writer || $0.permission == .owner || $0.permission == .admin }.count
     }
 
     func effectiveNotificationMode(for chatId: String) -> SpacePushNotificationsMode {

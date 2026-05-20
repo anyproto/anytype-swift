@@ -309,6 +309,7 @@ enum PermissionAnalyticsType: String {
     case read = "Reader"
     case write = "Writer"
     case owner = "Owner"
+    case admin = "Admin"
     case noPermissions = "NoPermissions"
     case unrecognized = "Unrecognized"
 }

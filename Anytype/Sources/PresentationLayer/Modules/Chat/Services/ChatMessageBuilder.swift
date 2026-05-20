@@ -44,6 +44,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         let chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
         let isChatDeletedOrArchived = (chatObject.details?.isDeleted ?? false) || (chatObject.details?.isArchived ?? false)
         let canEdit = (participant?.canEdit ?? false) && !isChatDeletedOrArchived
+        let isModerator = participant?.permission.isModerator ?? false
         let yourProfileIdentity = participant?.identity
         
         var currentSectionData: MessageSectionData?
@@ -105,7 +106,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 nextSpacing: (lastInSection || nextIsUnread) ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
                 authorIconMode: (isYourMessage || !showsMessageAuthor) ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
                 showAuthorName: (firstForCurrentUser || prevDateIntervalIsBig) && !isYourMessage && showsMessageAuthor,
-                canDelete: isYourMessage && canEdit,
+                canDelete: (isYourMessage || isModerator) && canEdit,
                 canEdit: isYourMessage && canEdit,
                 showMessageSyncIndicator: isYourMessage,
                 isMember: false,

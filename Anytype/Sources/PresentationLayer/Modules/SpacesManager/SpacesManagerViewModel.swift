@@ -81,23 +81,27 @@ private extension ParticipantSpaceViewData {
         if spaceView.accountStatus == .spaceRemoving {
             return 1
         }
-        
+
         if spaceView.accountStatus == .spaceJoining {
+            return 6
+        }
+
+        if participant?.permission == .owner {
             return 5
         }
-        
-        if participant?.permission == .owner {
+
+        if participant?.permission == .admin {
             return 4
         }
-        
+
         if participant?.permission == .writer {
             return 3
         }
-        
+
         if participant?.permission == .reader {
             return 2
         }
-        
+
         return 0
     }
 }

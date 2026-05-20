@@ -10,6 +10,8 @@ extension ParticipantPermissions {
             return .owner
         case .reader:
             return .read
+        case .admin:
+            return .admin
         case .noPermissions:
             return .noPermissions
         case .UNRECOGNIZED:

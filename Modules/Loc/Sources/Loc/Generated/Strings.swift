@@ -1798,9 +1798,6 @@ public enum Loc {
       public static let title3 = Loc.tr("Workspace", "Membership.Banner.Title3", fallback: "Support Digital Independence")
       public static let title4 = Loc.tr("Workspace", "Membership.Banner.Title4", fallback: "Invest in Connectivity")
     }
-    public enum Email {
-      public static let body = Loc.tr("Workspace", "Membership.Email.Body", fallback: "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here.")
-    }
     public enum EmailForm {
       public static let subtitle = Loc.tr("Workspace", "Membership.EmailForm.Subtitle", fallback: "It is not linked to your account in any way.")
       public static let title = Loc.tr("Workspace", "Membership.EmailForm.Title", fallback: "Get updates and enjoy free perks!")
@@ -1858,15 +1855,12 @@ public enum Loc {
       }
     }
     public enum Upgrade {
-      public static let button = Loc.tr("Workspace", "Membership.Upgrade.Button", fallback: "Contact Anytype Team")
       public static let moreMembers = Loc.tr("Workspace", "Membership.Upgrade.MoreMembers", fallback: "Upgrade to add more members")
       public static let moreSpaces = Loc.tr("Workspace", "Membership.Upgrade.MoreSpaces", fallback: "Upgrade to add more spaces.")
       public static let noMoreEditors = Loc.tr("Workspace", "Membership.Upgrade.NoMoreEditors", fallback: "You can’t add more editors")
       public static func spacesLimit(_ p1: Int) -> String {
         return Loc.tr("Workspace", "Membership.Upgrade.SpacesLimit", p1, fallback: "Plural format key: Membership.Upgrade.SpacesLimit")
       }
-      public static let text = Loc.tr("Workspace", "Membership.Upgrade.Text", fallback: "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.")
-      public static let title = Loc.tr("Workspace", "Membership.Upgrade.Title", fallback: "Membership upgrade")
     }
   }
   public enum MembershipServiceError {
@@ -2477,6 +2471,11 @@ public enum Loc {
       public static let message = Loc.tr("Workspace", "SpaceShare.JoinConfirmation.Message", fallback: "You will receive a notification when the space owner will approve your request.")
       public static let title = Loc.tr("Workspace", "SpaceShare.JoinConfirmation.Title", fallback: "Request sent")
     }
+    public enum MakeAdmin {
+      public static let button = Loc.tr("Workspace", "SpaceShare.MakeAdmin.Button", fallback: "Make Admin")
+      public static let message = Loc.tr("Workspace", "SpaceShare.MakeAdmin.Message", fallback: "Admins can delete messages, remove members, and permanently delete objects from Bin.")
+      public static let title = Loc.tr("Workspace", "SpaceShare.MakeAdmin.Title", fallback: "Make the member an admin?")
+    }
     public enum MakePrivate {
       public static let action = Loc.tr("Workspace", "SpaceShare.MakePrivate.Action", fallback: "Make Private")
       public static let confirm = Loc.tr("Workspace", "SpaceShare.MakePrivate.Confirm", fallback: "Confirm")
@@ -2485,6 +2484,7 @@ public enum Loc {
       public static let toast = Loc.tr("Workspace", "SpaceShare.MakePrivate.Toast", fallback: "You can make the space private after removing all members")
     }
     public enum Permissions {
+      public static let admin = Loc.tr("Workspace", "SpaceShare.Permissions.Admin", fallback: "Admin")
       public static let owner = Loc.tr("Workspace", "SpaceShare.Permissions.Owner", fallback: "Owner")
       public static let reader = Loc.tr("Workspace", "SpaceShare.Permissions.Reader", fallback: "Viewer")
       public static let writer = Loc.tr("Workspace", "SpaceShare.Permissions.Writer", fallback: "Editor")
@@ -2498,9 +2498,8 @@ public enum Loc {
       public static let title = Loc.tr("Workspace", "SpaceShare.QR.Title", fallback: "QR code for joining a Space")
     }
     public enum RemoveMember {
-      public static func message(_ p1: Any) -> String {
-        return Loc.tr("Workspace", "SpaceShare.RemoveMember.Message", String(describing: p1), fallback: "%@ will be removed from the space.")
-      }
+      public static let message = Loc.tr("Workspace", "SpaceShare.RemoveMember.Message", fallback: "They'll lose access immediately. Depending on your invite settings, they may be able to rejoin or request to rejoin.")
+      public static let sheetTitle = Loc.tr("Workspace", "SpaceShare.RemoveMember.SheetTitle", fallback: "Remove the member from this channel?")
       public static let title = Loc.tr("Workspace", "SpaceShare.RemoveMember.Title", fallback: "Remove member")
     }
     public enum Share {
