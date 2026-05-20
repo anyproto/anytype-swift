@@ -16,7 +16,7 @@ struct SpaceParticipantRemoveView: View {
         BottomAlertView(
             title: Loc.SpaceShare.RemoveMember.sheetTitle,
             message: Loc.SpaceShare.RemoveMember.message,
-            icon: .Dialog.exclamation
+            icon: .Dialog.removeMember
         ) {
             BottomAlertButton(text: Loc.remove, style: .warning) {
                 try await model.onConfirm()
