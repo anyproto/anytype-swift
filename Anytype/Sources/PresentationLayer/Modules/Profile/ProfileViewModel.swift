@@ -51,11 +51,11 @@ final class ProfileViewModel {
     }
 
     func setupSubscriptions() async {
-        async let detailsSubscription: () = subscribe()
-        async let spaceViewSubscription: () = startSpaceViewTask()
-        async let participantsSubscription: () = startParticipantsTask()
+        async let detailsTask: () = subscribe()
+        async let spaceViewTask: () = startSpaceViewTask()
+        async let participantsTask: () = startParticipantsTask()
 
-        (_, _, _) = await (detailsSubscription, spaceViewSubscription, participantsSubscription)
+        (_, _, _) = await (detailsTask, spaceViewTask, participantsTask)
     }
 
     func onConnect() async throws {
