@@ -83,7 +83,10 @@ struct ProfileView: View {
                             }
                         }
                     } label: {
-                        IconView(asset: .X32.more).frame(width: 32, height: 32)
+                        Image(asset: .X24.more)
+                            .foregroundStyle(Color.Control.primary)
+                            .frame(width: 32, height: 32)
+                            .glassEffectInteractiveIOS26(in: Circle())
                     }
                 }
             }
