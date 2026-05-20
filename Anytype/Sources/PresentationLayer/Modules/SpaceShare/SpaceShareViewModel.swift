@@ -373,23 +373,27 @@ private extension Participant {
         if permission == .owner {
             return 1000
         }
-        
+
+        if permission == .admin {
+            return 500
+        }
+
         if status == .joining {
             return 30
         }
-        
+
         if status == .removing {
             return 20
         }
-        
+
         if permission == .writer {
             return 5
         }
-        
+
         if permission == .reader {
             return 4
         }
-        
+
         return 1
     }
 }
