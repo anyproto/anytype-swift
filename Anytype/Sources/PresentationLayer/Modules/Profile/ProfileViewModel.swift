@@ -121,11 +121,14 @@ final class ProfileViewModel {
     }
 
     private func updateRemoveCapability() {
-        guard let actorSpaceView, let target = targetParticipant else {
-            canRemoveMember = false
-            return
+        let newValue: Bool
+        if let actorSpaceView, let target = targetParticipant {
+            newValue = actorSpaceView.canRemove(target: target)
+        } else {
+            newValue = false
         }
-        canRemoveMember = actorSpaceView.canRemove(target: target)
+        guard newValue != canRemoveMember else { return }
+        canRemoveMember = newValue
     }
 
     private func handleProfileDetails(_ details: ObjectDetails) async {
