@@ -1,12 +1,18 @@
 import Foundation
 import Sentry
+import Logger
 
 protocol DebugProfileSentryReporterProtocol: Sendable {
     func report(path: String, reasonTag: String, jsonInfo: String?, onCaptured: @Sendable () -> Void)
 }
 
 final class DebugProfileSentryReporter: DebugProfileSentryReporterProtocol {
+
+    private static let log = EventLogger(category: "DebugProfileSentryReporter")
+
     func report(path: String, reasonTag: String, jsonInfo: String?, onCaptured: @Sendable () -> Void) {
+        let fileSize = (try? FileManager.default.attributesOfItem(atPath: path)[.size]) as? Int ?? 0
+        Self.log.debug("[MW_PROFILE] Report queued: reason=\(reasonTag), bytes=\(fileSize)")
         let event = Event(level: .info)
         event.message = SentryMessage(formatted: "MW_\(reasonTag)")
         event.tags = ["report": "mw_profile", "reason": reasonTag]

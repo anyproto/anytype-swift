@@ -27,7 +27,15 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
     init() {}
 
     func startSubscription() async {
-        guard CoreEnvironment.targetType.isDebug else { return }
+        guard CoreEnvironment.targetType.isDebug else {
+            Self.log.debug("[MW_PROFILE] Thermal subscription skipped: not a debug-class build")
+            return
+        }
+        // Apple requires reading `thermalState` before registering the observer,
+        // otherwise `thermalStateDidChangeNotification` is never delivered.
+        // https://developer.apple.com/documentation/foundation/processinfo/thermalstatedidchangenotification
+        let initialState = ProcessInfo.processInfo.thermalState
+        Self.log.debug("[MW_PROFILE] Thermal subscription started, initial state: \(String(describing: initialState))")
         let token = NotificationCenter.default.addObserver(
             forName: ProcessInfo.thermalStateDidChangeNotification,
             object: nil,
@@ -50,6 +58,7 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
 
     private func handleThermalChange() async {
         let state = ProcessInfo.processInfo.thermalState
+        Self.log.debug("[MW_PROFILE] Thermal state changed: \(String(describing: state))")
         switch state {
         case .serious:
             await trigger(reason: .thermalState(.serious))
@@ -63,16 +72,19 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
     private func trigger(reason: DebugProfilerReason) async {
         let instant = ContinuousClock.now
         if let lastTrigger, lastTrigger.duration(to: instant) < Self.cooldown {
-            Self.log.debug("Profiler skipped (cooldown): \(reason)")
+            Self.log.debug("[MW_PROFILE] Thermal profiler skipped (cooldown): \(reason)")
             return
         }
         lastTrigger = instant
-        Self.log.debug("Profiler triggered: \(reason)")
+        Self.log.debug("[MW_PROFILE] Thermal profiler triggered: \(reason)")
         guard let path = await debugService.runProfiler(durationInSeconds: Self.profileDuration, reason: reason) else {
+            Self.log.debug("[MW_PROFILE] Thermal runProfiler returned nil for reason: \(reason)")
             return
         }
+        Self.log.debug("[MW_PROFILE] Thermal runProfiler returned non-nil path for reason: \(reason)")
         sentryReporter.report(path: path, reasonTag: reason.tag, jsonInfo: nil) { [debugService] in
             Task {
+                Self.log.debug("[MW_PROFILE] Thermal report handed to Sentry, cleaning up source files")
                 await debugService.cleanupReport(ts: Int(Date().timeIntervalSince1970))
             }
         }
