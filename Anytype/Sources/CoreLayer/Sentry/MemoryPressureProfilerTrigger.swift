@@ -65,6 +65,8 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
             await trigger(reason: .memoryPressure(.critical))
         } else if data.contains(.warning) {
             await trigger(reason: .memoryPressure(.warning))
+        } else if data.contains(.normal) {
+            await trigger(reason: .memoryPressure(.normal))
         }
     }
 

@@ -60,6 +60,8 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
         let state = ProcessInfo.processInfo.thermalState
         Self.log.debug("[MW_PROFILE] Thermal state changed: \(String(describing: state))")
         switch state {
+        case .fair:
+            await trigger(reason: .thermalState(.fair))
         case .serious:
             await trigger(reason: .thermalState(.serious))
         case .critical:
