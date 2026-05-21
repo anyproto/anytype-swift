@@ -74,16 +74,16 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
     private func trigger(reason: DebugProfilerReason) async {
         let instant = ContinuousClock.now
         if let lastTrigger, lastTrigger.duration(to: instant) < Self.cooldown {
-            Self.log.debug("[MW_PROFILE] Thermal profiler skipped (cooldown): \(reason)")
+            Self.log.debug("[MW_PROFILE] Thermal profiler skipped (cooldown): \(reason.tag)")
             return
         }
         lastTrigger = instant
-        Self.log.debug("[MW_PROFILE] Thermal profiler triggered: \(reason)")
+        Self.log.debug("[MW_PROFILE] Thermal profiler triggered: \(reason.tag)")
         guard let path = await debugService.runProfiler(durationInSeconds: Self.profileDuration, reason: reason) else {
-            Self.log.debug("[MW_PROFILE] Thermal runProfiler returned nil for reason: \(reason)")
+            Self.log.debug("[MW_PROFILE] Thermal runProfiler returned nil for reason: \(reason.tag)")
             return
         }
-        Self.log.debug("[MW_PROFILE] Thermal runProfiler returned non-nil path for reason: \(reason)")
+        Self.log.debug("[MW_PROFILE] Thermal runProfiler returned non-nil path for reason: \(reason.tag)")
         sentryReporter.report(path: path, reasonTag: reason.tag, jsonInfo: nil) { [debugService] in
             Task {
                 Self.log.debug("[MW_PROFILE] Thermal report handed to Sentry, cleaning up source files")

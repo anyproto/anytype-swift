@@ -11,8 +11,15 @@ final class DebugProfileSentryReporter: DebugProfileSentryReporterProtocol {
     private static let log = EventLogger(category: "DebugProfileSentryReporter")
 
     func report(path: String, reasonTag: String, jsonInfo: String?, onCaptured: @Sendable () -> Void) {
-        let fileSize = (try? FileManager.default.attributesOfItem(atPath: path)[.size]) as? Int ?? 0
-        Self.log.debug("[MW_PROFILE] Report queued: reason=\(reasonTag), bytes=\(fileSize)")
+        // Use data-based attachment, not path-based: Sentry's transport reads
+        // path attachments lazily on its own queue, but the caller deletes the
+        // source file via `onCaptured`. Memory-map the read so we don't heap-copy
+        // a multi-MB zip during the very memory/thermal pressure event that
+        // produced it; the mapping stays valid even after the file is unlinked.
+        let url = path.isEmpty ? nil : URL(fileURLWithPath: path)
+        let attachmentData = url.flatMap { try? Data(contentsOf: $0, options: .mappedIfSafe) }
+        Self.log.debug("[MW_PROFILE] Report queued: reason=\(reasonTag), bytes=\(attachmentData?.count ?? 0)")
+
         let event = Event(level: .info)
         event.message = SentryMessage(formatted: "MW_\(reasonTag)")
         event.tags = ["report": "mw_profile", "reason": reasonTag]
@@ -27,16 +34,9 @@ final class DebugProfileSentryReporter: DebugProfileSentryReporterProtocol {
                     scope.setExtra(value: jsonInfo, key: "info")
                 }
             }
-            // Use data-based attachment, not path-based: Sentry's transport reads
-            // path attachments lazily on its own queue, but the caller deletes the
-            // source file via `onCaptured`. Memory-map the read so we don't heap-copy
-            // a multi-MB zip during the very memory/thermal pressure event that
-            // produced it; the mapping stays valid even after the file is unlinked.
-            if !path.isEmpty,
-               let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe) {
-                let url = URL(fileURLWithPath: path)
+            if let url, let attachmentData {
                 scope.addAttachment(Attachment(
-                    data: data,
+                    data: attachmentData,
                     filename: url.lastPathComponent,
                     contentType: url.debugProfileContentType
                 ))

@@ -73,16 +73,16 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
     private func trigger(reason: DebugProfilerReason) async {
         let instant = ContinuousClock.now
         if let lastTrigger, lastTrigger.duration(to: instant) < Self.cooldown {
-            Self.log.debug("[MW_PROFILE] Memory profiler skipped (cooldown): \(reason)")
+            Self.log.debug("[MW_PROFILE] Memory profiler skipped (cooldown): \(reason.tag)")
             return
         }
         lastTrigger = instant
-        Self.log.debug("[MW_PROFILE] Memory profiler triggered: \(reason)")
+        Self.log.debug("[MW_PROFILE] Memory profiler triggered: \(reason.tag)")
         guard let path = await debugService.runProfiler(durationInSeconds: 0, reason: reason) else {
-            Self.log.debug("[MW_PROFILE] Memory runProfiler returned nil for reason: \(reason)")
+            Self.log.debug("[MW_PROFILE] Memory runProfiler returned nil for reason: \(reason.tag)")
             return
         }
-        Self.log.debug("[MW_PROFILE] Memory runProfiler returned non-nil path for reason: \(reason)")
+        Self.log.debug("[MW_PROFILE] Memory runProfiler returned non-nil path for reason: \(reason.tag)")
         sentryReporter.report(path: path, reasonTag: reason.tag, jsonInfo: nil) { [debugService] in
             Task {
                 Self.log.debug("[MW_PROFILE] Memory report handed to Sentry, cleaning up source files")
