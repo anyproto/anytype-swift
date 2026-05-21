@@ -165,7 +165,9 @@ final class EditorPageController: UIViewController {
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
-        guard isEditing != editing else { return }
+        // collectionView.isEditing can be mutated outside this method;
+        // guard on both flags so any drift gets resynced.
+        guard isEditing != editing || collectionView.isEditing != editing else { return }
         super.setEditing(editing, animated: animated)
         collectionView.isEditing = editing
         bottomNavigationManager.multiselectActive(!editing)
