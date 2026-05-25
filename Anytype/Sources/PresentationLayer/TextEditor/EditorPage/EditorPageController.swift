@@ -84,8 +84,9 @@ final class EditorPageController: UIViewController {
     private let showHeader: Bool
     var viewModel: (any EditorPageViewModelProtocol)! {
         didSet {
-            viewModel.setupSubscriptions()
+            // Layout metadata must subscribe before model snapshot updates to avoid first-frame indentation fallback.
             layout.blockLayoutDetailsPublisher = viewModel.document.blockLayoutDetailsPublisher.receiveOnMain().eraseToAnyPublisher()
+            viewModel.setupSubscriptions()
         }
     }
     
