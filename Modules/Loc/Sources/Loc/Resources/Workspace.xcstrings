@@ -800,7 +800,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%lld/%lld Editors"
+            "value" : "%lld/%lld Editoren"
           }
         },
         "en" : {
@@ -13814,7 +13814,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Editing is available on Desktop"
+            "value" : "Bearbeitung ist auf dem Desktop verfügbar"
           }
         },
         "en" : {
@@ -19637,7 +19637,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d day ago"
+                  "value" : "vor %d Tag"
                 }
               },
               "other" : {
@@ -20295,13 +20295,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d day from now"
+                  "value" : "in %d Tag"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d days from now"
+                  "value" : "in %d Tagen"
                 }
               }
             }
@@ -24437,7 +24437,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property ‘%@’ has been created"
+            "value" : "Eigenschaft ‚%@‘ wurde erstellt"
           }
         },
         "en" : {
@@ -24592,7 +24592,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property ‘%@’ has been updated"
+            "value" : "Eigenschaft ‚%@‘ wurde aktualisiert"
           }
         },
         "en" : {
@@ -30559,7 +30559,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unique Network name (%@+ characters)"
+            "value" : "Eindeutiger Netzwerkname (%@+ Zeichen)"
           }
         },
         "en" : {
@@ -34472,7 +34472,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Welcome to the network, %@"
+            "value" : "Willkommen im Netzwerk, %@"
           }
         },
         "en" : {
@@ -38077,7 +38077,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Type ‘%@’ has been created"
+            "value" : "Typ ‚%@‘ wurde erstellt"
           }
         },
         "en" : {
@@ -47534,7 +47534,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "From type %@"
+            "value" : "Vom Typ %@"
           }
         },
         "en" : {
@@ -75533,7 +75533,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make Admin"
+            "value" : "Hacer administrador"
           }
         },
         "fa" : {
@@ -75557,7 +75557,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make Admin"
+            "value" : "Jadikan Admin"
           }
         },
         "it" : {
@@ -75623,7 +75623,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make Admin"
+            "value" : "Yönetici Yap"
           }
         },
         "uk" : {
@@ -75688,7 +75688,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+            "value" : "Los administradores pueden borrar mensajes, eliminar miembros y borrar definitivamente los objetos de la papelera."
           }
         },
         "fa" : {
@@ -75712,7 +75712,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+            "value" : "Admin bisa menghapus pesan, anggota, dan juga objek. Objek dapat dihapus secara permanen dari Bak Sampah oleh admin."
           }
         },
         "it" : {
@@ -75778,7 +75778,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+            "value" : "Yöneticiler mesajları silebilir, üyeleri kaldırabilir ve Çöp Kutusundaki nesneleri kalıcı olarak silebilir."
           }
         },
         "uk" : {
@@ -75843,7 +75843,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make the member an admin?"
+            "value" : "¿Quieres convertir a este miembro en administrador?"
           }
         },
         "fa" : {
@@ -75867,7 +75867,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make the member an admin?"
+            "value" : "Jadikan anggota ini admin?"
           }
         },
         "it" : {
@@ -75933,7 +75933,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make the member an admin?"
+            "value" : "Üye yönetici yapılsın mı?"
           }
         },
         "uk" : {
@@ -77226,7 +77226,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Admin"
+            "value" : "Administrator"
           }
         },
         "en" : {
@@ -77328,7 +77328,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Admin"
+            "value" : "Yönetici"
           }
         },
         "uk" : {
@@ -78633,7 +78633,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Remove the member from this channel?"
+            "value" : "¿Quieres eliminar este miembro del canal?"
           }
         },
         "fa" : {
@@ -78657,7 +78657,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Remove the member from this channel?"
+            "value" : "Hapus anggota ini dari kanal?"
           }
         },
         "it" : {
@@ -78723,7 +78723,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Remove the member from this channel?"
+            "value" : "Üye bu kanaldan çıkarılsın mı?"
           }
         },
         "uk" : {
@@ -79018,13 +79018,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d request"
+                  "value" : "%d Anfrage"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d requests"
+                  "value" : "%d Anfragen"
                 }
               }
             }
@@ -85259,13 +85259,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "This type has %d template"
+                  "value" : "Dieser Typ hat %d Vorlage"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "This type has %d templates"
+                  "value" : "Dieser Typ hat %d Vorlagen"
                 }
               }
             }
