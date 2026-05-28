@@ -27,6 +27,10 @@ actor ThermalProfilerTrigger: ThermalProfilerTriggerProtocol {
     init() {}
 
     func startSubscription() async {
+        guard FeatureFlags.pressureDebugReports else {
+            Self.log.debug("[MW_PROFILE] Thermal subscription skipped: toggle OFF")
+            return
+        }
         guard CoreEnvironment.targetType.isDebug else {
             Self.log.debug("[MW_PROFILE] Thermal subscription skipped: not a debug-class build")
             return

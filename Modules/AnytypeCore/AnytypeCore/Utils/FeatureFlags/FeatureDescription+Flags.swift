@@ -176,4 +176,11 @@ public extension FeatureDescription {
         category: .developerTool,
         defaultValue: false
     )
+
+    static let pressureDebugReports = FeatureDescription(
+        title: "Detect thermal/memory pressure and send debug reports - IOS-5994",
+        category: .developerTool,
+        defaultValue: false,
+        debugValue: true
+    )
 }
