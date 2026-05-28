@@ -114,6 +114,10 @@ public extension FeatureFlags {
         value(for: .showHangedObjects)
     }
 
+    static var pressureDebugReports: Bool {
+        value(for: .pressureDebugReports)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .showUploadStatusIndicator,
@@ -142,6 +146,7 @@ public extension FeatureFlags {
         .logMiddlewareRequests,
         .showPushMessagesInForeground,
         .spaceHubAlwaysShowLoading,
-        .showHangedObjects
+        .showHangedObjects,
+        .pressureDebugReports
     ]
 }

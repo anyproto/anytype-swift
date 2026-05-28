@@ -26,6 +26,10 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
     init() {}
 
     func startSubscription() async {
+        guard FeatureFlags.pressureDebugReports else {
+            Self.log.debug("[MW_PROFILE] Memory pressure subscription skipped: toggle OFF")
+            return
+        }
         guard CoreEnvironment.targetType.isDebug else {
             Self.log.debug("[MW_PROFILE] Memory pressure subscription skipped: not a debug-class build")
             return
