@@ -114,12 +114,17 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
             return components.url
         case let .object(objectId, spaceId, cid, key):
             guard var components = URLComponents(string: host + LinkPaths.object) else { return nil }
-            components.queryItems = [
+            var queryItems = [
                 URLQueryItem(name: "objectId", value: objectId),
-                URLQueryItem(name: "spaceId", value: spaceId),
-                URLQueryItem(name: "cid", value: cid),
-                URLQueryItem(name: "key", value: key)
+                URLQueryItem(name: "spaceId", value: spaceId)
             ]
+            if let cid {
+                queryItems.append(URLQueryItem(name: "cid", value: cid))
+            }
+            if let key {
+                queryItems.append(URLQueryItem(name: "key", value: key))
+            }
+            components.queryItems = queryItems
             return components.url
         case let .chatMessage(chatObjectId, spaceId, messageId):
             guard var components = URLComponents(string: host + LinkPaths.object) else { return nil }

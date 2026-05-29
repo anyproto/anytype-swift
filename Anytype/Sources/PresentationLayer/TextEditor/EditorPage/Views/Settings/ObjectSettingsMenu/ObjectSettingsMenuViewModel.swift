@@ -155,6 +155,8 @@ final class ObjectSettingsMenuViewModel {
             try? await viewModel.deleteAction()
         case .copyLink:
             try? await viewModel.copyLinkAction()
+        case .copyDeepLink:
+            try? await viewModel.copyDeepLinkAction()
         case .inviteMembers:
             viewModel.inviteMembersAction()
         case .editInfo:

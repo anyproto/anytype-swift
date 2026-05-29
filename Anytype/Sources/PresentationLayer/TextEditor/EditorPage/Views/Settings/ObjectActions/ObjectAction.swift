@@ -13,6 +13,7 @@ enum ObjectAction: Hashable, Identifiable {
     case templateToggleDefaultState(isDefault: Bool)
     case delete
     case copyLink
+    case copyDeepLink
     case inviteMembers
     case editInfo
 
@@ -69,6 +70,8 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.copyLink
             }
 
+            ObjectAction.copyDeepLink
+
             if details.resolvedLayoutValue.isChat && spaceType != .oneToOne && !details.isArchived {
                 if permissions.canEditDetails {
                     ObjectAction.editInfo
@@ -112,6 +115,8 @@ enum ObjectAction: Hashable, Identifiable {
             return "delete"
         case .copyLink:
             return "copyLink"
+        case .copyDeepLink:
+            return "copyDeepLink"
         case .inviteMembers:
             return "inviteMembers"
         case .editInfo:
@@ -137,6 +142,8 @@ enum ObjectAction: Hashable, Identifiable {
             return 22
         case .locked:
             return 30
+        case .copyDeepLink:
+            return 31
         case .inviteMembers:
             return 35
         case .copyLink:

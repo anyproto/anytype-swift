@@ -71,6 +71,8 @@ extension ObjectAction {
             return Loc.delete
         case .copyLink:
             return Loc.copyInviteLink
+        case .copyDeepLink:
+            return Loc.copyDeeplink
         case .inviteMembers:
             return Loc.Chat.inviteMembers
         case .editInfo:
@@ -102,6 +104,8 @@ extension ObjectAction {
             return .X32.delete
         case .copyLink:
             return .X32.copy
+        case .copyDeepLink:
+            return .X32.linkTo
         case .inviteMembers:
             return .X32.Island.addMember
         case .editInfo:
@@ -123,6 +127,8 @@ extension ObjectAction {
             return .system("star.fill")
         case .copyLink:
             return .system("link")
+        case .copyDeepLink:
+            return .system("point.topleft.down.to.point.bottomright.curvepath")
         case .archive(false):
             return .system("trash")
         default:

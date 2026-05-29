@@ -22123,6 +22123,17 @@
         }
       }
     },
+    "Copy Deeplink" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy Deeplink"
+          }
+        }
+      }
+    },
     "Copy link" : {
       "extractionState" : "manual",
       "localizations" : {
