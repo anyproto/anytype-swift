@@ -9914,7 +9914,7 @@
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg object"
+                      "value" : "%arg Objekt"
                     }
                   },
                   "other" : {
@@ -10066,7 +10066,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to delete %#@object@?"
+            "value" : "Yakin ingin menghapus %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -10456,7 +10456,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to delete %#@object@?"
+            "value" : "您确定要删除  %#@object@ 吗？"
           },
           "substitutions" : {
             "object" : {
@@ -11457,13 +11457,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Audio"
+                  "value" : "audio"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Audios"
+                  "value" : "%lld audios"
                 }
               }
             }
@@ -22123,6 +22123,161 @@
         }
       }
     },
+    "Copy Deeplink" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copiar enlace directo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Deeplink"
+          }
+        }
+      }
+    },
     "Copy link" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -30003,7 +30158,7 @@
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg device"
+                      "value" : "%arg Gerät"
                     }
                   },
                   "other" : {
@@ -30545,7 +30700,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@device@ connected"
+            "value" : "%#@device@ 已连接"
           },
           "substitutions" : {
             "device" : {
@@ -33245,7 +33400,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Empty Name"
+            "value" : "Leerer Name"
           }
         },
         "en" : {
@@ -43328,7 +43483,7 @@
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg file"
+                      "value" : "%arg Datei"
                     }
                   },
                   "other" : {
@@ -43870,7 +44025,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@ uploading"
+            "value" : "%#@file@ 正在上传"
           },
           "substitutions" : {
             "file" : {
@@ -48933,7 +49088,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Home and Pinned"
+            "value" : "Beranda dan Sematan"
           }
         },
         "it" : {
@@ -49017,7 +49172,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Home and Pinned"
+            "value" : "主页和置顶"
           }
         },
         "zh-Hant" : {
@@ -51229,13 +51384,13 @@
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg item"
+                      "value" : "%arg Element"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg items"
+                      "value" : "%arg Elemente"
                     }
                   }
                 }
@@ -51771,7 +51926,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@ syncing..."
+            "value" : "%#@item@ 正在同步…"
           },
           "substitutions" : {
             "item" : {
@@ -52921,7 +53076,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Let's try it"
+            "value" : "Probiere es aus"
           }
         },
         "en" : {
@@ -61215,7 +61370,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No matches found.\nTry a different keyword or check your spelling."
+            "value" : "Keine Treffer gefunden.\nVersuche ein anderes Schlüsselwort oder überprüfe deine Rechtschreibung."
           }
         },
         "en" : {
@@ -63931,7 +64086,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ selected"
+            "value" : "%#@object@ 已选择"
           },
           "substitutions" : {
             "object" : {
@@ -67792,7 +67947,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Paid by %@"
+            "value" : "Bezahlt von %@"
           }
         },
         "en" : {
@@ -68989,7 +69144,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@day@"
+            "value" : "pro %#@day@"
           },
           "substitutions" : {
             "day" : {
@@ -73340,7 +73495,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pre-Fill Name"
+            "value" : "Name vorab ausfüllen"
           }
         },
         "en" : {
@@ -78498,7 +78653,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Resend in %@ sec"
+            "value" : "Erneut senden in %@ Sek."
           }
         },
         "en" : {
@@ -80981,7 +81136,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Related to: %@"
+            "value" : "Zugehörig zu: %@"
           }
         },
         "en" : {
@@ -83548,13 +83703,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d selected block"
+                  "value" : "%d ausgewählter Block"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d selected blocks"
+                  "value" : "%d ausgewählte Blöcke"
                 }
               }
             }
@@ -96682,7 +96837,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Syncing..."
+            "value" : "  Wird synchronisiert ..."
           }
         },
         "en" : {
@@ -102458,7 +102613,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is no object named %@"
+            "value" : "Es gibt kein Objekt namens %@"
           }
         },
         "en" : {
@@ -102613,7 +102768,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is no property named %@"
+            "value" : "Es gibt keine Eigenschaft namens %@"
           }
         },
         "en" : {
@@ -102768,7 +102923,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is no type named %@"
+            "value" : "Es gibt keinen Typen namens %@"
           }
         },
         "en" : {
@@ -117804,7 +117959,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d member"
+                  "value" : "%d Mitglied"
                 }
               },
               "other" : {
@@ -118995,7 +119150,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Favorited"
+            "value" : "Favorisiert"
           }
         },
         "en" : {
@@ -119615,7 +119770,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My Favorites"
+            "value" : "Meine Favoriten"
           }
         },
         "en" : {
@@ -119925,7 +120080,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Paste as"
+            "value" : "Einfügen als"
           }
         },
         "en" : {
@@ -120045,7 +120200,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Paste as"
+            "value" : "粘贴为"
           }
         },
         "zh-Hant" : {
@@ -120235,7 +120390,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Plain Text"
+            "value" : "Reiner Text"
           }
         },
         "en" : {
@@ -120355,7 +120510,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Plain Text"
+            "value" : "纯文本"
           }
         },
         "zh-Hant" : {
