@@ -30,7 +30,7 @@ extension ObjectMenuSectionType {
             return .mainSettings
         case .undoRedo, .copyLink, .inviteMembers:
             return .mainSettings
-        case .linkItself, .locked, .makeAsTemplate:
+        case .linkItself, .locked, .makeAsTemplate, .copyDeepLink:
             return .moreCollapsible
         case .templateToggleDefaultState, .duplicate, .archive, .delete:
             return .finalActions
