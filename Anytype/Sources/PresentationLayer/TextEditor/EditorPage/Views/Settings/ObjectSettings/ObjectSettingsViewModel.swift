@@ -4,6 +4,7 @@ import UIKit
 import FloatingPanel
 import SwiftUI
 import AnytypeCore
+import DeepLinks
 
 enum ObjectSettingsAction {
     case cover(ObjectCoverPickerAction)
@@ -59,6 +60,8 @@ final class ObjectSettingsViewModel {
     private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.universalLinkParser) @ObservationIgnored
     private var universalLinkParser: any UniversalLinkParserProtocol
+    @Injected(\.deepLinkParser) @ObservationIgnored
+    private var deepLinkParser: any DeepLinkParserProtocol
     @Injected(\.workspaceService) @ObservationIgnored
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
@@ -397,6 +400,19 @@ final class ObjectSettingsViewModel {
 
         let invite = try? await workspaceService.getCurrentInvite(spaceId: details.spaceId)
         let link = universalLinkParser.createUrl(link: .object(objectId: details.id, spaceId: details.spaceId, cid: invite?.cid, key: invite?.fileKey))
+
+        UIPasteboard.general.string = link?.absoluteString
+        toastData = ToastBarData(Loc.copied)
+        dismiss.toggle()
+    }
+
+    func copyDeepLinkAction() async throws {
+        guard let details = document.details else { return }
+
+        let link = deepLinkParser.createUrl(
+            deepLink: .object(objectId: details.id, spaceId: details.spaceId, cid: nil, key: nil),
+            scheme: .main
+        )
 
         UIPasteboard.general.string = link?.absoluteString
         toastData = ToastBarData(Loc.copied)

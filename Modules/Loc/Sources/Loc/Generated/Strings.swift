@@ -272,6 +272,7 @@ public enum Loc {
     return Loc.tr("UI", "copied to clipboard", String(describing: p1), fallback: "%@ copied to clipboard")
   }
   public static let copy = Loc.tr("UI", "Copy", fallback: "Copy")
+  public static let copyDeeplink = Loc.tr("UI", "Copy Deeplink", fallback: "Copy Deeplink")
   public static let copyInviteLink = Loc.tr("UI", "Copy Invite Link", fallback: "Copy Invite Link")
   public static let copyLink = Loc.tr("UI", "Copy link", fallback: "Copy link")
   public static let copySpaceInfo = Loc.tr("UI", "Copy space info", fallback: "Copy space info")
