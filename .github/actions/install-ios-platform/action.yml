@@ -1,0 +1,17 @@
+name: Install iOS Platform
+# Downloads the iOS simulator runtime matching the pinned Xcode SDK. Without this the
+# runner may only have a newer runtime, and build-for-testing fails to resolve a simulator
+# destination ("iOS XX.Y is not installed").
+# Retries because -downloadPlatform intermittently fails with "Unable to connect to
+# simulator" on fresh runners.
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      run: |
+        for i in 1 2 3; do
+          xcodebuild -downloadPlatform iOS && exit 0
+          echo "downloadPlatform attempt $i failed; retrying in 30s..."
+          sleep 30
+        done
+        exit 1
