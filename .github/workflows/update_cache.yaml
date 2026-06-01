@@ -31,7 +31,7 @@ jobs:
           xcode-version: '26.1'
 
       - name: Install iOS Platform
-        run: xcodebuild -downloadPlatform iOS
+        uses: ./.github/actions/install-ios-platform
 
       - name: Download Middleware
         run: make setup-middle-ci
@@ -39,7 +39,7 @@ jobs:
           MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
       - name: Build tools
-        run: make setup-tools
+        run: make setup-env
 
       - name: Update build cache
         run: bundle exec fastlane build_for_tests
