@@ -42,6 +42,9 @@ extension Anytype_Rpc.Object {
         /// needed keys in details for return, when empty - will return all
         public var keys: [String] = []
 
+        /// when true, response.total is filled with the count of all objects matching the filters, ignoring limit/offset
+        public var needTotal: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -62,6 +65,9 @@ extension Anytype_Rpc.Object {
         public mutating func clearError() {self._error = nil}
 
         public var records: [SwiftProtobuf.Google_Protobuf_Struct] = []
+
+        /// total number of objects matching the filters, ignoring limit/offset; filled only when request.needTotal is true
+        public var total: Int64 = 0
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -149,7 +155,7 @@ extension Anytype_Rpc.Object.Search: SwiftProtobuf.Message, SwiftProtobuf._Messa
 
 extension Anytype_Rpc.Object.Search.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.Search.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}filters\0\u{1}sorts\0\u{1}fullText\0\u{1}offset\0\u{1}limit\0\u{1}objectTypeFilter\0\u{1}keys\0\u{1}spaceId\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}filters\0\u{1}sorts\0\u{1}fullText\0\u{1}offset\0\u{1}limit\0\u{1}objectTypeFilter\0\u{1}keys\0\u{1}spaceId\0\u{1}needTotal\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -165,6 +171,7 @@ extension Anytype_Rpc.Object.Search.Request: SwiftProtobuf.Message, SwiftProtobu
       case 6: try { try decoder.decodeRepeatedStringField(value: &self.objectTypeFilter) }()
       case 7: try { try decoder.decodeRepeatedStringField(value: &self.keys) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 9: try { try decoder.decodeSingularBoolField(value: &self.needTotal) }()
       default: break
       }
     }
@@ -195,6 +202,9 @@ extension Anytype_Rpc.Object.Search.Request: SwiftProtobuf.Message, SwiftProtobu
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 8)
     }
+    if self.needTotal != false {
+      try visitor.visitSingularBoolField(value: self.needTotal, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -207,6 +217,7 @@ extension Anytype_Rpc.Object.Search.Request: SwiftProtobuf.Message, SwiftProtobu
     if lhs.limit != rhs.limit {return false}
     if lhs.objectTypeFilter != rhs.objectTypeFilter {return false}
     if lhs.keys != rhs.keys {return false}
+    if lhs.needTotal != rhs.needTotal {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -214,7 +225,7 @@ extension Anytype_Rpc.Object.Search.Request: SwiftProtobuf.Message, SwiftProtobu
 
 extension Anytype_Rpc.Object.Search.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.Search.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}records\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}records\0\u{1}total\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -224,6 +235,7 @@ extension Anytype_Rpc.Object.Search.Response: SwiftProtobuf.Message, SwiftProtob
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.records) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.total) }()
       default: break
       }
     }
@@ -240,12 +252,16 @@ extension Anytype_Rpc.Object.Search.Response: SwiftProtobuf.Message, SwiftProtob
     if !self.records.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.records, fieldNumber: 2)
     }
+    if self.total != 0 {
+      try visitor.visitSingularInt64Field(value: self.total, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Search.Response, rhs: Anytype_Rpc.Object.Search.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.records != rhs.records {return false}
+    if lhs.total != rhs.total {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
