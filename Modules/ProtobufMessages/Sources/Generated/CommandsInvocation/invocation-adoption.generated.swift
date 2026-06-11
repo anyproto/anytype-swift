@@ -91,6 +91,11 @@ extension Anytype_Rpc.Account.Move.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Account.PreloadRemainingSpaces.Response: ResultWithError {}
+extension Anytype_Rpc.Account.PreloadRemainingSpaces.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Account.Recover.Response: ResultWithError {}
 extension Anytype_Rpc.Account.Recover.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

@@ -529,6 +529,31 @@ extension Anytype_Rpc.Account.Move.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Account.PreloadRemainingSpaces.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Account.PreloadRemainingSpaces.badInput")
+            case .accountIsNotRunning:
+                return LocHelper.tr(table: "LocalizableError", key: "Account.PreloadRemainingSpaces.accountIsNotRunning")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Account.Recover.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

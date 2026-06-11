@@ -37,11 +37,22 @@ extension Anytype_Rpc.Block {
         /// Clears the value of `selectedTextRange`. Subsequent reads from it will return its default value.
         public mutating func clearSelectedTextRange() {self._selectedTextRange = nil}
 
+        /// optional. when set and the request contains multiple blocks, selectedTextRange is applied to the first block and selectedTextRangeLastBlock to the last block. {0,0} range means the whole block
+        public var selectedTextRangeLastBlock: Anytype_Model_Range {
+          get {return _selectedTextRangeLastBlock ?? Anytype_Model_Range()}
+          set {_selectedTextRangeLastBlock = newValue}
+        }
+        /// Returns true if `selectedTextRangeLastBlock` has been explicitly set.
+        public var hasSelectedTextRangeLastBlock: Bool {return self._selectedTextRangeLastBlock != nil}
+        /// Clears the value of `selectedTextRangeLastBlock`. Subsequent reads from it will return its default value.
+        public mutating func clearSelectedTextRangeLastBlock() {self._selectedTextRangeLastBlock = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
 
         fileprivate var _selectedTextRange: Anytype_Model_Range? = nil
+        fileprivate var _selectedTextRangeLastBlock: Anytype_Model_Range? = nil
       }
 
       public struct Response: Sendable {
@@ -160,7 +171,7 @@ extension Anytype_Rpc.Block.Cut: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 
 extension Anytype_Rpc.Block.Cut.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Block.Cut.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}blocks\0\u{1}selectedTextRange\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}blocks\0\u{1}selectedTextRange\0\u{1}selectedTextRangeLastBlock\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -171,6 +182,7 @@ extension Anytype_Rpc.Block.Cut.Request: SwiftProtobuf.Message, SwiftProtobuf._M
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.blocks) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._selectedTextRange) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._selectedTextRangeLastBlock) }()
       default: break
       }
     }
@@ -190,6 +202,9 @@ extension Anytype_Rpc.Block.Cut.Request: SwiftProtobuf.Message, SwiftProtobuf._M
     try { if let v = self._selectedTextRange {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     } }()
+    try { if let v = self._selectedTextRangeLastBlock {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -197,6 +212,7 @@ extension Anytype_Rpc.Block.Cut.Request: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blocks != rhs.blocks {return false}
     if lhs._selectedTextRange != rhs._selectedTextRange {return false}
+    if lhs._selectedTextRangeLastBlock != rhs._selectedTextRangeLastBlock {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
