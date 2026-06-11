@@ -34,6 +34,10 @@ public extension FeatureFlags {
         value(for: .muteAndHide)
     }
 
+    static var preferredSpaceOnColdStart: Bool {
+        value(for: .preferredSpaceOnColdStart)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -127,6 +131,7 @@ public extension FeatureFlags {
         .fixChannelHomeBackNavigation,
         .fixAvatarTapFreeze,
         .muteAndHide,
+        .preferredSpaceOnColdStart,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

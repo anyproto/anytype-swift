@@ -136,6 +136,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private var pendingShareService: any PendingShareServiceProtocol
     @Injected(\.pendingShareStorage) @ObservationIgnored
     private var pendingShareStorage: any PendingShareStorageProtocol
+    @Injected(\.remainingSpacesPreloadService) @ObservationIgnored
+    private var remainingSpacesPreloadService: any RemainingSpacesPreloadServiceProtocol
     @ObservationIgnored
     private var needSetup = true
     
@@ -162,6 +164,13 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         }
 
         Task { await contactsService.prefetch() }
+
+        // No pending app action — the Space Hub itself is the cold start destination.
+        // Otherwise startHandleAppActions schedules the preload after navigation.
+        if appActionsStorage.action.isNil {
+            remainingSpacesPreloadService.schedulePreload()
+        }
+
         await startSubscriptions()
     }
     
@@ -179,6 +188,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             if let action {
                 try? await handleAppAction(action: action)
                 appActionsStorage.action = nil
+                remainingSpacesPreloadService.schedulePreload()
             }
         }
     }

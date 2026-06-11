@@ -20,8 +20,10 @@ public protocol AuthMiddleServiceProtocol: AnyObject, Sendable {
         rootPath: String,
         networkMode: Anytype_Rpc.Account.NetworkMode,
         joinStreamUrl: String,
-        configPath: String?
+        configPath: String?,
+        preferredSpaceId: String
     ) async throws -> AccountData
+    func preloadRemainingSpaces() async throws
     func deleteAccount() async throws -> AccountStatus
     func restoreAccount() async throws -> AccountStatus
     func mnemonicByEntropy(_ entropy: String) async throws -> String
@@ -92,7 +94,8 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
         rootPath: String,
         networkMode: Anytype_Rpc.Account.NetworkMode,
         joinStreamUrl: String,
-        configPath: String?
+        configPath: String?,
+        preferredSpaceId: String
     ) async throws -> AccountData {
         do {
             let response = try await ClientCommands.accountSelect(.with {
@@ -102,12 +105,17 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
                 $0.networkMode = networkMode
                 $0.networkCustomConfigFilePath = configPath ?? ""
                 $0.joinStreamURL = joinStreamUrl
+                $0.preferredSpaceID = preferredSpaceId
             }).invoke(qos: .userInitiated, ignoreLogErrors: .accountLoadIsCanceled, .accountStoreNotMigrated)
-            
+
             return try response.account.asModel()
         } catch let responseError as Anytype_Rpc.Account.Select.Response.Error {
             throw responseError.asError ?? responseError
         }
+    }
+
+    public func preloadRemainingSpaces() async throws {
+        try await ClientCommands.accountPreloadRemainingSpaces().invoke(ignoreLogErrors: .accountIsNotRunning)
     }
     
     public func deleteAccount() async throws -> AccountStatus {

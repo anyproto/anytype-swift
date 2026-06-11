@@ -7,7 +7,7 @@ protocol AuthServiceProtocol: Sendable {
     
     func accountRecover() async throws
    
-    func selectAccount(id: String) async throws -> AccountData
+    func selectAccount(id: String, preferredSpaceId: String) async throws -> AccountData
     
     /// Get mnemonic (recovery phrase) by entropy from qr code
     func mnemonicByEntropy(_ entropy: String) async throws -> String
