@@ -230,17 +230,12 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         detailsStorage: ObjectDetailsStorage
     ) -> ObjectHeaderCoverType? {
         let pictureId = details.picture
-        
+
         guard pictureId.isNotEmpty else {
             return nil
         }
-        
-        guard let pictureDetails = detailsStorage.get(id: pictureId),
-              pictureDetails.resolvedLayoutValue.isImage else {
-            return nil
-        }
-        
-        return .cover(.imageId(pictureId))
+
+        return findCover(at: [pictureId], details, detailsStorage: detailsStorage)
     }
     
     private func relationCoverType(
