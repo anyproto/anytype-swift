@@ -49,9 +49,8 @@ public extension FeatureDescription {
 
     static let preferredSpaceOnColdStart = FeatureDescription(
         title: "Preferred space on cold start - IOS-6409",
-        category: .productFeature(author: "requilence@gmail.com", targetRelease: "?"),
-        defaultValue: false,
-        debugValue: true
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "0.48.0"),
+        defaultValue: true
     )
 
     // MARK: - Experemental
