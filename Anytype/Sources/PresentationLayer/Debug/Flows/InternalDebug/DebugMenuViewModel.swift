@@ -39,6 +39,10 @@ final class DebugMenuViewModel: ObservableObject {
     private var applePushNotificationService: any ApplePushNotificationServiceProtocol
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
+    @Injected(\.thermalProfilerTrigger)
+    private var thermalProfilerTrigger: any ThermalProfilerTriggerProtocol
+    @Injected(\.memoryPressureProfilerTrigger)
+    private var memoryPressureProfilerTrigger: any MemoryPressureProfilerTriggerProtocol
     
     var shouldRunDebugProfilerOnNextStartup: Bool {
         get {
@@ -112,6 +116,14 @@ final class DebugMenuViewModel: ObservableObject {
     func onDebugRunProfiler() {
         debugService.startDebugRunProfiler()
     }
+
+    func triggerThermalProfile() async {
+        await thermalProfilerTrigger.triggerManually(severity: .critical)
+    }
+
+    func triggerMemoryPressureProfile() async {
+        await memoryPressureProfilerTrigger.triggerManually(severity: .critical)
+    }
     
     func shareUrlContent(url: URL) {
         shareUrlFile = url
@@ -119,6 +131,15 @@ final class DebugMenuViewModel: ObservableObject {
     
     func debugStat() async throws {
         shareUrlFile = try await debugService.debugStat()
+    }
+
+    func generateReport(full: Bool) async throws {
+        try await localAuthWithContinuation(reason: "Generate debug report") { [weak self] in
+            guard let self else { return }
+            let dir = FileManager.default.createTempDirectory().path
+            let result = try await debugService.exportReport(dir: dir, full: full)
+            shareUrlFile = URL(fileURLWithPath: result.path)
+        }
     }
     
     func getFirebaseNotificationToken() {

@@ -175,7 +175,7 @@ final class LoginViewModel {
         }
         do {
             accountSelectInProgress = true
-            let account = try await authService.selectAccount(id: accountId)
+            let account = try await authService.selectAccount(id: accountId, preferredSpaceId: "")
             
             switch account.status {
             case .active:

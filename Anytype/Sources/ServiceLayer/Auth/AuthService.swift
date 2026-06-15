@@ -48,7 +48,7 @@ actor AuthService: AuthServiceProtocol, Sendable {
         AnytypeAnalytics.instance().setUserId(analyticsId)
         AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
         AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId, middleTime: middleTime)
-        AnytypeAnalytics.instance().logCreateSpace(spaceAccessType: .private, spaceUxType: .data, route: .navigation)
+        AnytypeAnalytics.instance().logCreateSpace(spaceAccessType: .private, spaceType: .regular, route: .navigation)
         await appErrorLoggerConfiguration.setUserId(analyticsId)
         
         basicUserInfoStorage.usersId = account.id
@@ -69,15 +69,16 @@ actor AuthService: AuthServiceProtocol, Sendable {
         await loginStateService.setupStateAfterAuth()
     }
     
-    func selectAccount(id: String) async throws -> AccountData {
+    func selectAccount(id: String, preferredSpaceId: String) async throws -> AccountData {
         await loginStateService.setupStateBeforeLoginOrAuth()
-        
+
         let account = try await authMiddleService.selectAccount(
             id: id,
             rootPath: rootPath,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
             joinStreamUrl: "",
-            configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
+            configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? "",
+            preferredSpaceId: preferredSpaceId
         )
         
         let analyticsId = account.info.analyticsId

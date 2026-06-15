@@ -137,10 +137,10 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         
         var filteredDetails: [WidgetObjectListDetailsData]
         
-        if let searchText = searchText?.lowercased(), searchText.isNotEmpty {
+        if let searchText, searchText.isNotEmpty {
             filteredDetails = rowDetails.map { section in
                 var section = section
-                section.details = section.details.filter { $0.title.range(of: searchText, options: .caseInsensitive) != nil }
+                section.details = section.details.filter { $0.title.localizedStandardContains(searchText) }
                 return section
             }
             .filter { $0.details.isNotEmpty }

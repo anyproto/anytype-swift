@@ -23,7 +23,7 @@ enum BadgeTotalCalculator {
             case .all:
                 total += preview.unreadCounter
             case .mentions:
-                if spaceView.uxType.supportsMentions {
+                if spaceView.spaceType.supportsMentions {
                     total += preview.mentionCounter
                 }
             case .nothing, .UNRECOGNIZED:
@@ -40,7 +40,7 @@ enum BadgeTotalCalculator {
                 // mentions on top so a mention in an object I don't watch still bumps the badge.
                 total += info.unreadMessageCount + info.unsubscribedMentionCount
             case .mentions:
-                if spaceView.uxType.supportsMentions {
+                if spaceView.spaceType.supportsMentions {
                     total += info.totalMentionCount
                 }
             case .nothing, .UNRECOGNIZED:

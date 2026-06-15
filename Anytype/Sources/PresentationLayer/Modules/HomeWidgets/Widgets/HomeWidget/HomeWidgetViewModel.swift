@@ -34,6 +34,11 @@ final class HomeWidgetViewModel {
 
     init(data: HomepageWidgetViewData) {
         self.data = data
+        // Parent gates `homeWidgetData` on `document.details != nil`, so seed from it
+        // to avoid an empty-header first frame and a dead tap before the subscription replays.
+        if let details = data.document.details {
+            apply(details: details)
+        }
     }
 
     func onHeaderTap() {
@@ -65,10 +70,14 @@ final class HomeWidgetViewModel {
         let document = data.document
         for await _ in document.syncPublisher.values {
             guard let details = document.details else { continue }
-            self.details = details
-            self.title = details.pluralTitle
-            self.icon = details.objectIconImage
+            apply(details: details)
         }
+    }
+
+    private func apply(details: ObjectDetails) {
+        self.details = details
+        self.title = details.pluralTitle
+        self.icon = details.objectIconImage
     }
 
     private func startCountersSubscription() async {

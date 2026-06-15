@@ -11,17 +11,17 @@ struct SpaceShareParticipantViewModel: Identifiable {
     let status: Status?
     let action: Action?
     let contextActions: [ContextAction]
-    
+
     enum Status {
         case active(permission: String)
         case pending(message: String)
     }
-    
+
     struct Action {
         let title: String?
         let action: () async throws -> Void
     }
-    
+
     struct ContextAction: Identifiable {
         let id = UUID()
         let title: String
@@ -129,7 +129,7 @@ struct SpaceShareParticipantView: View {
                     }
                     .disabled(!action.enabled)
                 }
-                
+
             } label: {
                 status.padding([.vertical, .leading])
             }

@@ -633,7 +633,30 @@ extension AnytypeAnalytics {
             ]
         )
     }
-    
+
+    func logScreenManageSections() {
+        logEvent("ScreenManageSections")
+    }
+
+    func logReorderHomeSection(section: HomeSection) {
+        logEvent(
+            "ReorderHomeSection",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: section.analyticsId
+            ]
+        )
+    }
+
+    func logChangeHomeSectionVisibility(section: HomeSection, visible: Bool) {
+        logEvent(
+            "ChangeHomeSectionVisibility",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: section.analyticsId,
+                AnalyticsEventsPropertiesKey.visible: visible
+            ]
+        )
+    }
+
     func logOpenSidebarGroupToggle(source: AnalyticsWidgetSource) {
         logEvent(
             "OpenSidebarGroupToggle",
@@ -971,24 +994,24 @@ extension AnytypeAnalytics {
         ])
     }
     
-    func logCreateSpace(spaceId: String, spaceUxType: SpaceUxType, route: CreateSpaceRoute) {
+    func logCreateSpace(spaceId: String, spaceType: SpaceType, route: CreateSpaceRoute) {
         logEvent(
             "CreateSpace",
             spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.route: route.rawValue,
-                AnalyticsEventsPropertiesKey.uxType: spaceUxType.analyticsValue
+                AnalyticsEventsPropertiesKey.uxType: spaceType.analyticsValue
             ]
         )
     }
-    
-    func logCreateSpace(spaceAccessType: SpaceAccessType, spaceUxType: SpaceUxType, route: CreateSpaceRoute) {
+
+    func logCreateSpace(spaceAccessType: SpaceAccessType, spaceType: SpaceType, route: CreateSpaceRoute) {
         logEvent(
             "CreateSpace",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.spaceType: spaceAccessType.analyticsType.rawValue,
                 AnalyticsEventsPropertiesKey.route: route.rawValue,
-                AnalyticsEventsPropertiesKey.uxType: spaceUxType.analyticsValue
+                AnalyticsEventsPropertiesKey.uxType: spaceType.analyticsValue
             ]
         )
     }
@@ -1103,12 +1126,12 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logApproveInviteRequest(type: PermissionAnalyticsType, spaceUxType: SpaceUxType?) {
+    func logApproveInviteRequest(type: PermissionAnalyticsType, spaceType: SpaceType?) {
         logEvent(
             "ApproveInviteRequest",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type.rawValue,
-                AnalyticsEventsPropertiesKey.uxType: spaceUxType?.analyticsValue
+                AnalyticsEventsPropertiesKey.uxType: spaceType?.analyticsValue
             ].compactMapValues { $0 }
         )
     }
@@ -1288,6 +1311,18 @@ extension AnytypeAnalytics {
     
     func logKeyboardBarHideKeyboardMenu() {
         logEvent("KeyboardBarHideKeyboardMenu")
+    }
+
+    func logKeyboardBarDeleteBlockMenu() {
+        logEvent("KeyboardBarDeleteBlockMenu")
+    }
+
+    func logKeyboardBarIndentLeftMenu() {
+        logEvent("KeyboardBarIndentLeftMenu")
+    }
+
+    func logKeyboardBarIndentRightMenu() {
+        logEvent("KeyboardBarIndentRightMenu")
     }
     
     func logScreenHistory() {
@@ -1477,11 +1512,7 @@ extension AnytypeAnalytics {
     func logClickVaultCreateMenuSpace() {
         logEvent("ClickVaultCreateMenuSpace")
     }
-    
-    func logScreenVaultCreateMenu() {
-        logEvent("ScreenVaultCreateMenu")
-    }
-    
+
     func logClickScrollToReply(chatId: String) {
         logEvent(
             "ClickScrollToReply",

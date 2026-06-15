@@ -5,6 +5,7 @@ extension CursorModeAccessoryView {
         case slash
         case style
         case actions
+        case mention
         case undoRedo
         case deleteBlock
         case indentRight
@@ -16,6 +17,8 @@ extension CursorModeAccessoryView {
                 return UIImage(asset: .X32.slashMenu)
             case .style:
                 return UIImage(asset: .X32.style)
+            case .mention:
+                return UIImage(asset: .X32.mention)
             case .deleteBlock:
                 return UIImage(asset: .X32.delete)
             case .indentLeft:
@@ -35,6 +38,8 @@ extension CursorModeAccessoryView {
                 return .slashMenu
             case .style:
                 return .showStyleMenu
+            case .mention:
+                return .mention
             case .deleteBlock:
                 return .deleteBlock
             case .indentLeft:

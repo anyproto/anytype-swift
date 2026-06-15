@@ -5,12 +5,9 @@ import DesignKit
 
 struct SpaceHubView: View {
     @State private var model: SpaceHubViewModel
-    
-    private var namespace: Namespace.ID
-    
-    init(output: (any SpaceHubModuleOutput)?, namespace: Namespace.ID) {
+
+    init(output: (any SpaceHubModuleOutput)?) {
         _model = State(wrappedValue: SpaceHubViewModel(output: output))
-        self.namespace = namespace
     }
     
     var body: some View {
@@ -70,10 +67,6 @@ struct SpaceHubView: View {
             profileIcon: model.profileIcon,
             notificationsNotDetermined: model.notificationsNotDetermined,
             hideCreateButton: isEmptyState,
-            namespace: namespace,
-            onTapCreateSpace: {
-                model.onTapCreateSpace()
-            },
             onTapCreatePersonalChannel: {
                 model.onTapCreatePersonalChannel()
             },
@@ -91,6 +84,5 @@ struct SpaceHubView: View {
 }
 
 #Preview {
-    @Previewable @Namespace var namespace
-    SpaceHubView(output: nil, namespace: namespace)
+    SpaceHubView(output: nil)
 }

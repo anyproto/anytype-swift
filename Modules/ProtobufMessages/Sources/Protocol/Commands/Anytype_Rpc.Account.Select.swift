@@ -58,6 +58,9 @@ extension Anytype_Rpc.Account {
         /// if false - will run membership v1 polling loop, v2 methods will return error
         public var enableMembershipV2: Bool = false
 
+        /// optional. If set and resolvable, only this space + tech space load eagerly at start; the rest are deferred until AccountPreloadRemainingSpaces, a 10s timer, or this space fails. Empty = today's eager behavior.
+        public var preferredSpaceID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -248,7 +251,7 @@ extension Anytype_Rpc.Account.Select: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
 extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.Select.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}rootPath\0\u{1}disableLocalNetworkSync\0\u{1}networkMode\0\u{1}networkCustomConfigFilePath\0\u{1}preferYamuxTransport\0\u{1}jsonApiListenAddr\0\u{1}fulltextPrimaryLanguage\0\u{1}joinStreamURL\0\u{1}enableMembershipV2\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}rootPath\0\u{1}disableLocalNetworkSync\0\u{1}networkMode\0\u{1}networkCustomConfigFilePath\0\u{1}preferYamuxTransport\0\u{1}jsonApiListenAddr\0\u{1}fulltextPrimaryLanguage\0\u{1}joinStreamURL\0\u{1}enableMembershipV2\0\u{1}preferredSpaceId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -266,6 +269,7 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
       case 8: try { try decoder.decodeSingularStringField(value: &self.fulltextPrimaryLanguage) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.joinStreamURL) }()
       case 10: try { try decoder.decodeSingularBoolField(value: &self.enableMembershipV2) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.preferredSpaceID) }()
       default: break
       }
     }
@@ -302,6 +306,9 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     if self.enableMembershipV2 != false {
       try visitor.visitSingularBoolField(value: self.enableMembershipV2, fieldNumber: 10)
     }
+    if !self.preferredSpaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.preferredSpaceID, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -316,6 +323,7 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     if lhs.fulltextPrimaryLanguage != rhs.fulltextPrimaryLanguage {return false}
     if lhs.joinStreamURL != rhs.joinStreamURL {return false}
     if lhs.enableMembershipV2 != rhs.enableMembershipV2 {return false}
+    if lhs.preferredSpaceID != rhs.preferredSpaceID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

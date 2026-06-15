@@ -20,6 +20,7 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     var qrCodeInviteData: URLIdentifiable?
     var showHomeChangePicker = false
     var showHomepagePicker = false
+    var showManageSections = false
     var shouldDismissOverlay = false
 
     @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
@@ -36,7 +37,6 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     }
 
     func startSpaceViewTask() async {
-        guard FeatureFlags.createChannelFlow else { return }
         let spaceId = spaceInfo.accountSpaceId
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             let spaceView = participantSpaceView.spaceView
@@ -129,6 +129,10 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
 
     func onSpaceChatShowQrCodeSelected(url: URL) {
         qrCodeInviteData = url.identifiable
+    }
+
+    func onManageSectionsSelected() {
+        showManageSections = true
     }
 
     // MARK: - SetObjectCreationCoordinatorOutput

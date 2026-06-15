@@ -7212,7 +7212,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "링크되지 않은 객체는 그래프에서 다른 객체와의 직접적인 링크나 백링크가 없습니다."
+            "value" : "링크되지 않은 객체는 그래프에서 다른 객체와의 직접적인 링크나 역링크가 없습니다."
           }
         },
         "nb" : {
@@ -10066,7 +10066,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yakin ingin menghapus %#@object@?"
+            "value" : "Are you sure you want to delete %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -10456,7 +10456,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "您确定要删除  %#@object@ 吗？"
+            "value" : "Are you sure you want to delete %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -11457,13 +11457,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "audio"
+                  "value" : "Audio"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld audios"
+                  "value" : "%lld Audios"
                 }
               }
             }
@@ -12539,7 +12539,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "백링크 %d개"
+                  "value" : "역링크 %d개"
                 }
               }
             }
@@ -18246,161 +18246,6 @@
         }
       }
     },
-    "ChannelType" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "نوع القناة"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Kanaltyp"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Channel Type"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Tipo de canal"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Tipe Saluran"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Tipo di Canale"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "채널 유형"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Kanaaltype"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Тип канала"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Kanal Türü"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "频道类型"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channel Type"
-          }
-        }
-      }
-    },
     "Chat" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -21813,471 +21658,6 @@
         }
       }
     },
-    "ConvertChannelTypeAlert.confirm" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "نعم، تحويل"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Ja, konvertieren"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Yes, convert"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Sí, convertir"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Ya, ubah"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Sì, convertire"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "네, 변환합니다"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Ja, zet om"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Да, конвертировать"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Evet, dönüştür"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "是的，转换"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes, convert"
-          }
-        }
-      }
-    },
-    "ConvertChannelTypeAlert.message" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "التبديل بين المساحة والمحادثة سيغير التجربة بشكل كبير."
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Der Wechsel zwischen Space und Chat wird das Erlebnis erheblich verändern."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "El cambio entre espacio y chat es también un cambio considerable de experiencia."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Beralih antara Ruang dan Obrolan akan secara signifikan mengubah pengalaman."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Passare da Spazio a Chat cambierà significativamente l'esperienza."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "스페이스와 채팅 간에 전환하면 경험이 완전히 달라집니다."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Wisselen tussen ruimte en gesprek zal de ervaring aanzienlijk veranderen."
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Переключение между Пространством и Чатом существенно изменит ваш опыт работы."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Alan ve Sohbet arasında geçiş yapmak, deneyimi önemli ölçüde değiştirecektir."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "“空间”与“聊天”是两种截然不同的模式，切换后界面与交互将发生显著变化。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
-          }
-        }
-      }
-    },
-    "ConvertChannelTypeAlert.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "تحويل نوع القناة؟"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Kanaltyp konvertieren?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "¿Convertir en otro tipo de canal?"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Ubah Tipe Saluran?"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convertire il Tipo di Canale?"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "채널 유형 변환?"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Zet kanaaltype om?"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Конвертировать тип канала?"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Kanal Türü Dönüştürülsün mü?"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "要转换频道类型吗？"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert Channel Type?"
-          }
-        }
-      }
-    },
     "Copied" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -22666,7 +22046,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy Invite Link"
+            "value" : "초대 링크 복사"
           }
         },
         "nb" : {
@@ -23515,161 +22895,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Create Query"
-          }
-        }
-      }
-    },
-    "Create Space" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "إنشاء مساحة"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create Space"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create Space"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Space erstellen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Create Space"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Crear espacio"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create Space"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create Space"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Créer un espace"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Buat Ruang"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Crea Spazio"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "スペースを作成"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "스페이스 만들기"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create Space"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Maak ruimte"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create Space"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Utwórz Przestrzeń"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create Space"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create Space"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Создать пространство"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Alan Oluştur"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create Space"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create Space"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "创建空间"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create Space"
           }
         }
       }
@@ -28098,7 +27323,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "此保险库将于 %#@days@ 天后删除"
+            "value" : "This vault will be deleted %#@days@"
           },
           "substitutions" : {
             "days" : {
@@ -31320,7 +30545,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@device@ 已连接"
+            "value" : "%#@device@ connected"
           },
           "substitutions" : {
             "device" : {
@@ -34074,7 +33299,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Empty Name"
+            "value" : "빈 이름"
           }
         },
         "nb" : {
@@ -40625,7 +39850,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Off"
+            "value" : "끄기"
           }
         },
         "nb" : {
@@ -40780,7 +40005,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Offline access"
+            "value" : "오프라인 접근"
           }
         },
         "nb" : {
@@ -40935,7 +40160,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Auto sync files up to a selected size"
+            "value" : "설정한 크기까지 파일 자동 동기화"
           }
         },
         "nb" : {
@@ -41090,7 +40315,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Offline Downloads"
+            "value" : "오프라인 다운로드"
           }
         },
         "nb" : {
@@ -41400,7 +40625,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Use Cellular Data"
+            "value" : "모바일 데이터 사용"
           }
         },
         "nb" : {
@@ -44645,7 +43870,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@ 正在上传"
+            "value" : "%#@file@ uploading"
           },
           "substitutions" : {
             "file" : {
@@ -49648,6 +48873,161 @@
         }
       }
     },
+    "Home and Pinned" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home and Pinned"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Inicio y anclados"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ana Sayfa ve Sabitlenenler"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home and Pinned"
+          }
+        }
+      }
+    },
     "Home.Snackbar.Library" : {
       "comment" : "MARK: - Home",
       "extractionState" : "manual",
@@ -51197,7 +50577,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Dark"
+            "value" : "Escuro"
           }
         },
         "ru" : {
@@ -51353,7 +50733,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Light"
+            "value" : "Claro"
           }
         },
         "ru" : {
@@ -51508,7 +50888,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "System"
+            "value" : "Sistema"
           }
         },
         "ru" : {
@@ -52391,7 +51771,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@ 正在同步…"
+            "value" : "%#@item@ syncing..."
           },
           "substitutions" : {
             "item" : {
@@ -54753,472 +54133,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "物件類型"
-          }
-        }
-      }
-    },
-    "LinkPaste.bookmark" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "إنشاء إشارة مرجعية"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Стварыць закладку"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create bookmark"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Lesezeichen erstellen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Create bookmark"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Crear marcador"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create bookmark"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create bookmark"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Créer un marque-page"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Buat penanda"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Crea segnalibro"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "ブックマークを作成"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "북마크 생성"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Opprett bokmerke"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Maak bladwijzer"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create bookmark"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Utwórz zakładkę"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Criar marcador"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create bookmark"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Создать закладку"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yer imi oluştur"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Створити закладку"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Tạo dấu trang"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "创建书签"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "建立書籤"
-          }
-        }
-      }
-    },
-    "LinkPaste.link" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "لصق كرابط"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Уставіць спасылку"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste as link"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Als Link einfügen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Paste as link"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Pegar como enlace"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste as link"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste as link"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Coller en tant que lien"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Tempel sebagai tautan"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Incolla come collegamento"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "リンクとして貼り付け"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "링크로 붙여넣기"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Lim inn som lenke"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Plak als link"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste as link"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Wklej jako link"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Colar como link"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste as link"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Вставить как ссылку"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Bağlantı olarak yapıştır"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Вставити як посилання"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Dán dưới dạng link"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "粘贴链接"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "以連結貼上"
-          }
-        }
-      }
-    },
-    "LinkPaste.text" : {
-      "comment" : "MARK: Link Past Actions",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "لصق كنص"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Уставіць як тэкст"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste as text"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Als Text einfügen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Paste as text"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Pegar como texto"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste as text"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste as text"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Coller en tant que texte"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Tempel sebagai teks"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Incolla come testo"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "テキストとして貼り付け"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "텍스트로 붙여넣기"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Lim inn som tekst"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Plak als tekst"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste as text"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Wklej jako tekst"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Colar como texto"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Paste as text"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Вставить как текст"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Metin olarak yapıştır"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Вставити як текст"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Dán dưới dạng văn bản"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "粘贴为正文"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "以文本貼上"
           }
         }
       }
@@ -57776,6 +56690,161 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "管理付款方式"
+          }
+        }
+      }
+    },
+    "Manage sections" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "إدارة الأقسام"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bereiche verwalten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage sections"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Gestionar secciones"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Gestisci le sezioni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "섹션 관리"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Gerenciar seções"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bölümleri yönet"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "管理分区"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage sections"
           }
         }
       }
@@ -64862,7 +63931,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ 已选择"
+            "value" : "%#@object@ selected"
           },
           "substitutions" : {
             "object" : {
@@ -70472,7 +69541,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "每 %#@day@"
+            "value" : "per %#@day@"
           },
           "substitutions" : {
             "day" : {
@@ -71200,7 +70269,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "每 %#@month@"
+            "value" : "per %#@month@"
           },
           "substitutions" : {
             "month" : {
@@ -71928,7 +70997,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "每 %#@week@"
+            "value" : "per %#@week@"
           },
           "substitutions" : {
             "week" : {
@@ -72656,7 +71725,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "每 %#@year@"
+            "value" : "per %#@year@"
           },
           "substitutions" : {
             "year" : {
@@ -74325,7 +73394,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pre-Fill Name"
+            "value" : "기본 이름"
           }
         },
         "nb" : {
@@ -76880,6 +75949,161 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "最近存取"
+          }
+        }
+      }
+    },
+    "Recently edited" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "تم تحريرها مؤخرًا"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Нядаўна адрэдагаваны"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Recently edited"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Zuletzt bearbeitet"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recently edited"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Editado recientemente"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Recently edited"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Viimeksi muokatut"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Récemment modifié"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Baru disunting"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Modificati di recente"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "最近編集された"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "최근에 수정함"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Nylig endret"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Onlangs bewerkt"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Recently edited"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ostatnio edytowane"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Editado recentemente"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Recently edited"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Недавно обновлено"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yakın zamanda düzenlenen"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Нещодавно відредаговані"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Được sửa gần đây"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "最近编辑的文档"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "最近編輯"
           }
         }
       }
@@ -88618,7 +87842,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+            "value" : "Werde Mitglied, um deine ID für Personen lesbarer zu machen, damit andere dich leichter finden und kontaktieren können."
           }
         },
         "en" : {
@@ -88773,7 +87997,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This is your ANY ID"
+            "value" : "Das ist deine ANY-ID"
           }
         },
         "en" : {
@@ -102202,7 +101426,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Toggled heading"
+            "value" : "머릿글 토글"
           }
         },
         "nb" : {
@@ -102357,7 +101581,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Toggle subheading"
+            "value" : "부제목 토글"
           }
         },
         "nb" : {
@@ -102512,7 +101736,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Toggled title"
+            "value" : "제목 토글"
           }
         },
         "nb" : {
@@ -104319,7 +103543,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Try to find a new one"
+            "value" : "Versuche einen neuen zu finden"
           }
         },
         "en" : {
@@ -116568,7 +115792,7 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "System"
+            "value" : "Sistema"
           }
         },
         "ru" : {
@@ -120201,7 +119425,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pin to Channel"
+            "value" : "置顶"
           }
         },
         "zh-Hant" : {
@@ -120356,7 +119580,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unpin from Channel"
+            "value" : "取消置顶"
           }
         },
         "zh-Hant" : {
@@ -120511,13 +119735,788 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My Favorites"
+            "value" : "我的收藏夹"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "My Favorites"
+          }
+        }
+      }
+    },
+    "PasteMenu.bookmark" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "إشارة مرجعية"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Закладка"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bookmark"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Lesezeichen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bookmark"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Marcador"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bookmark"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Kirjanmerkki"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Marque-page"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Markah"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Segnalibro"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "ブックマーク"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "북마크"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bokmerke"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bladwijzer"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bookmark"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Zakładka"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Marcador"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bookmark"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Закладка"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yer imi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Закладка"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Dấu trang"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "书签"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "書籤"
+          }
+        }
+      }
+    },
+    "PasteMenu.header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pegar como"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tempel sebagai"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Farklı yapıştır"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Paste as"
+          }
+        }
+      }
+    },
+    "PasteMenu.object" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "كائن"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Аб'ект"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Object"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objekt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Object"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objeto"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Object"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objekti"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objet"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objek"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oggetto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "オブジェクト"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "객체"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objekt"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Object"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "ଅବଜେକ୍ଟ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Obiekt"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objeto"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Objeto"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Объект"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Nesne"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Об'єкт"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Đối tượng"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "对象"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "物件"
+          }
+        }
+      }
+    },
+    "PasteMenu.plainText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Texto simple"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Teks Polos"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Düz Metin"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Plain Text"
+          }
+        }
+      }
+    },
+    "PasteMenu.url" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "الرابط"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Link"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Adres URL"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ссылка"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL网址"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "URL"
           }
         }
       }

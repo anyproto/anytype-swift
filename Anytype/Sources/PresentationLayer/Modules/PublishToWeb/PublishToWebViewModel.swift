@@ -56,7 +56,7 @@ final class PublishToWebViewModel {
         
         let spaceView = activeWorkspaceStorage.spaceView(spaceId: spaceId)
         let spaceName = spaceView?.title ?? ""
-        let spaceUxType = spaceView?.uxType ?? .data
+        let spaceType = spaceView?.spaceType ?? .regular
 
         do {
             let status: PublishState?
@@ -73,7 +73,7 @@ final class PublishToWebViewModel {
                 status: status,
                 objectDetails: objectDetails,
                 spaceName: spaceName,
-                spaceUxType: spaceUxType
+                spaceType: spaceType
             ))
         } catch {
             state = .error(error.localizedDescription)

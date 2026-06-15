@@ -29,23 +29,10 @@ public extension FeatureDescription {
         debugValue: true
     )
 
-    static let createChannelFlow = FeatureDescription(
-        title: "Create Channel Flow - IOS-5856",
-        category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
-        defaultValue: true
-    )
-
     static let fixChannelHomeBackNavigation = FeatureDescription(
         title: "Fix channel home back navigation - IOS-6067",
         category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
         defaultValue: true
-    )
-
-    // should be disabled
-    static let channelTypeSwitcher = FeatureDescription(
-        title: "Channel type switcher - IOS-5378",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "?"),
-        defaultValue: false
     )
 
     static let fixAvatarTapFreeze = FeatureDescription(
@@ -57,6 +44,12 @@ public extension FeatureDescription {
     static let muteAndHide = FeatureDescription(
         title: "Mute and hide notification setting - IOS-5809",
         category: .productFeature(author: "k@anytype.io", targetRelease: "18"),
+        defaultValue: true
+    )
+
+    static let preferredSpaceOnColdStart = FeatureDescription(
+        title: "Preferred space on cold start - IOS-6409",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "0.48.0"),
         defaultValue: true
     )
 
@@ -188,5 +181,12 @@ public extension FeatureDescription {
         title: "Show hanged objects",
         category: .developerTool,
         defaultValue: false
+    )
+
+    static let pressureDebugReports = FeatureDescription(
+        title: "Detect thermal/memory pressure and send debug reports - IOS-5994",
+        category: .developerTool,
+        defaultValue: false,
+        debugValue: true
     )
 }

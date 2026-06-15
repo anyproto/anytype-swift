@@ -154,14 +154,8 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     private func updateObjectTypes() {
         Task {
-            let includeChat: Bool
-            if FeatureFlags.createChannelFlow {
-                let spaceType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.spaceType
-                includeChat = spaceType != .oneToOne
-            } else {
-                let spaceUxType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.uxType
-                includeChat = spaceUxType?.supportsMultiChats ?? true
-            }
+            let spaceType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.spaceType
+            let includeChat = spaceType != .oneToOne
             objectTypes = try await typesService.searchObjectTypes(
                 text: "",
                 includePins: true,

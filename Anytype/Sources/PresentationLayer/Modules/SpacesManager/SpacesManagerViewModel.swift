@@ -20,7 +20,6 @@ final class SpacesManagerViewModel {
     var spaceViewForDelete: SpaceView?
     var spaceCreateData: SpaceCreateData?
     var exportSpaceUrl: URL?
-    var showSpaceTypeForCreate = false
     var showGroupChannelCreate = false
     var shouldScanQrCode = false
     
@@ -63,20 +62,12 @@ final class SpacesManagerViewModel {
         spaceForStopSharingAlert = row.spaceView
     }
     
-    func onTapCreateSpace() {
-        showSpaceTypeForCreate.toggle()
-    }
-    
     func onSelectQrCodeScan() {
         shouldScanQrCode = true
     }
-    
-    func onSpaceTypeSelected(_ type: SpaceUxType) {
-            spaceCreateData = SpaceCreateData(spaceUxType: type)
-    }
 
     func onTapCreatePersonalChannel() {
-        spaceCreateData = SpaceCreateData(spaceUxType: .data, channelType: .personal)
+        spaceCreateData = SpaceCreateData(channelType: .personal)
     }
 
     func onTapCreateGroupChannel() {
@@ -90,23 +81,27 @@ private extension ParticipantSpaceViewData {
         if spaceView.accountStatus == .spaceRemoving {
             return 1
         }
-        
+
         if spaceView.accountStatus == .spaceJoining {
+            return 6
+        }
+
+        if participant?.permission == .owner {
             return 5
         }
-        
-        if participant?.permission == .owner {
+
+        if participant?.permission == .admin {
             return 4
         }
-        
+
         if participant?.permission == .writer {
             return 3
         }
-        
+
         if participant?.permission == .reader {
             return 2
         }
-        
+
         return 0
     }
 }

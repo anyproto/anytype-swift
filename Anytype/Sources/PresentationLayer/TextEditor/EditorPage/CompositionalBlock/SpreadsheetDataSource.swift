@@ -163,12 +163,14 @@ final class SpreadsheetViewDataSource {
         _ snapshot: Snapshot,
         animatingDifferences: Bool
     ) {
-        let selectedIndexPath = collectionView.indexPathsForSelectedItems
+        let selectedItems = collectionView.indexPathsForSelectedItems?
+            .compactMap { dataSource.itemIdentifier(for: $0) } ?? []
 
         dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
 
-        selectedIndexPath?.forEach {
-            self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
+        selectedItems.forEach { item in
+            guard let indexPath = dataSource.indexPath(for: item) else { return }
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
         }
     }
 }

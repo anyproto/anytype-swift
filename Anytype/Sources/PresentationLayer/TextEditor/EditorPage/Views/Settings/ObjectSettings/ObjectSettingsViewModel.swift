@@ -105,7 +105,6 @@ final class ObjectSettingsViewModel {
     var settings: [ObjectSetting] = []
     var showConflictAlert = false
     var isChat = false
-    let spaceUxType: SpaceUxType?
     let spaceType: SpaceType?
 
     // MARK: - Actions State
@@ -128,7 +127,6 @@ final class ObjectSettingsViewModel {
         self.output = output
 
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
-        spaceUxType = spaceView?.uxType
         spaceType = spaceView?.spaceType
     }
 
@@ -174,21 +172,12 @@ final class ObjectSettingsViewModel {
 
     private func updateSettings() {
         if let details = document.details {
-            if FeatureFlags.createChannelFlow {
-                settings = settingsBuilder.build(
-                    details: details,
-                    permissions: document.permissions,
-                    spaceType: spaceType,
-                    chatNotificationMode: chatNotificationMode
-                )
-            } else {
-                settings = settingsBuilder.build(
-                    details: details,
-                    permissions: document.permissions,
-                    spaceUxType: spaceUxType,
-                    chatNotificationMode: chatNotificationMode
-                )
-            }
+            settings = settingsBuilder.build(
+                details: details,
+                permissions: document.permissions,
+                spaceType: spaceType,
+                chatNotificationMode: chatNotificationMode
+            )
             isChat = details.resolvedLayoutValue.isChat
         }
     }
@@ -202,29 +191,16 @@ final class ObjectSettingsViewModel {
         let isPinnedToWidgets = widgetObject?.widgetBlockIdFor(targetObjectId: objectId).isNotNil ?? false
         let isFavorited = personalWidgetsObject?.containsWidgetFor(objectId: objectId) ?? false
 
-        if FeatureFlags.createChannelFlow {
-            objectActions = ObjectAction.buildActions(
-                details: details,
-                isLocked: document.isLocked,
-                isPinnedToWidgets: isPinnedToWidgets,
-                isFavorited: isFavorited,
-                canManageChannelPins: canManageChannelPins,
-                permissions: document.permissions,
-                spaceType: spaceType,
-                isSpaceOwner: isSpaceOwner
-            )
-        } else {
-            objectActions = ObjectAction.buildActions(
-                details: details,
-                isLocked: document.isLocked,
-                isPinnedToWidgets: isPinnedToWidgets,
-                isFavorited: isFavorited,
-                canManageChannelPins: canManageChannelPins,
-                permissions: document.permissions,
-                spaceUxType: spaceUxType,
-                isSpaceOwner: isSpaceOwner
-            )
-        }
+        objectActions = ObjectAction.buildActions(
+            details: details,
+            isLocked: document.isLocked,
+            isPinnedToWidgets: isPinnedToWidgets,
+            isFavorited: isFavorited,
+            canManageChannelPins: canManageChannelPins,
+            permissions: document.permissions,
+            spaceType: spaceType,
+            isSpaceOwner: isSpaceOwner
+        )
     }
 
     func onTapIconPicker() {

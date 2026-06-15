@@ -86,7 +86,7 @@ struct BadgeTotalCalculatorTests {
         let info = makeDiscussionInfo(messages: 5, subscribedMentions: 1, unsubscribedMentions: 1)
         let total = BadgeTotalCalculator.compute(
             previews: [],
-            spaceViews: [makeSpaceView(spaceId: spaceA, uxType: .oneToOne, spaceType: .oneToOne, pushMode: .mentions)],
+            spaceViews: [makeSpaceView(spaceId: spaceA, spaceType: .oneToOne, pushMode: .mentions)],
             chatDetails: [],
             discussionsBySpace: [spaceA: info]
         )
@@ -248,7 +248,6 @@ struct BadgeTotalCalculatorTests {
     private func makeSpaceView(
         spaceId: String,
         isActive: Bool = true,
-        uxType: SpaceUxType = .data,
         spaceType: SpaceType = .regular,
         pushMode: SpacePushNotificationsMode = .all,
         forceAllIds: [String] = [],
@@ -270,7 +269,6 @@ struct BadgeTotalCalculatorTests {
             writersLimit: nil,
             chatId: "",
             spaceOrder: "",
-            uxType: uxType,
             spaceType: spaceType,
             pushNotificationEncryptionKey: "",
             pushNotificationMode: pushMode,

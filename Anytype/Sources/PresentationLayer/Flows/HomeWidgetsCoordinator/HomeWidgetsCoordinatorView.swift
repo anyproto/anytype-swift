@@ -32,8 +32,8 @@ struct HomeWidgetsCoordinatorView: View {
     let context: WidgetScreenContext
 
     var body: some View {
-        SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) {
-            HomeWidgetsCoordinatorInternalView(info: $0, context: context)
+        SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) { info in
+            HomeWidgetsCoordinatorInternalView(info: info, context: context)
         }
     }
 }
@@ -52,7 +52,11 @@ private struct HomeWidgetsCoordinatorInternalView: View {
     }
 
     var body: some View {
-        HomeWidgetsView(info: model.spaceInfo, context: context, output: model)
+        HomeWidgetsView(
+            info: model.spaceInfo,
+            context: context,
+            output: model
+        )
             .onAppear {
                 model.pageNavigation = pageNavigation
             }
@@ -86,6 +90,9 @@ private struct HomeWidgetsCoordinatorInternalView: View {
             }
             .anytypeSheet(item: $model.qrCodeInviteData) {
                 QrCodeView(title: Loc.joinSpace, data: $0.value.absoluteString, analyticsType: .inviteSpace, route: .inviteLink)
+            }
+            .sheet(isPresented: $model.showManageSections) {
+                ManageSectionsView(spaceId: model.spaceInfo.accountSpaceId)
             }
             .sheet(isPresented: $model.showHomeChangePicker) {
                 HomepageSettingsPickerView(

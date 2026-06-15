@@ -116,6 +116,16 @@ struct DebugMenuView: View {
                 }
             }
             
+            AsyncStandardButton("[Temp] Send Sentry: thermal critical 🌡️", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                await model.triggerThermalProfile()
+            }
+
+            AsyncStandardButton("[Temp] Send Sentry: memory critical 🧠", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                await model.triggerMemoryPressureProfile()
+            }
+
             StandardButton("Homepage Picker Preview 🏠", style: .secondaryLarge) {
                 showHomepagePicker = true
             }
@@ -176,7 +186,17 @@ struct DebugMenuView: View {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 try await model.debugStat()
             }
-            
+
+            AsyncStandardButton("Generate report 📦", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                try await model.generateReport(full: false)
+            }
+
+            AsyncStandardButton("Generate full report 📦💪", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                try await model.generateReport(full: true)
+            }
+
             AsyncStandardButton("Export full directory 🤐", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 try await model.zipWorkingDirectory()

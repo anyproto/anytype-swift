@@ -29,6 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     @Injected(\.middlewareShutdownService)
     private var middlewareShutdownService: any MiddlewareShutdownServiceProtocol
 
+    // A push tap that cold starts the app is delivered twice — in scene connection options
+    // and in userNotificationCenter(_:didReceive:). Whichever runs first records the request
+    // id here so the other skips it.
+    private var handledPushRequestId: String?
+
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
@@ -69,7 +74,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let action = quickActionShortcutBuilder.buildAction(shortcutItem: shortcutItem) {
             appActionStorage.action = action.toAppAction()
         }
-        
+
+        // Push tap on cold start: store the deeplink synchronously, before any SwiftUI task runs,
+        // so the space id is guaranteed to be available when AccountSelect picks the preferred space
+        if FeatureFlags.preferredSpaceOnColdStart,
+           let response = options.notificationResponse,
+           let deepLink = pushDeepLink(from: response),
+           handledPushRequestId != response.notification.request.identifier {
+            handledPushRequestId = response.notification.request.identifier
+            AnytypeAnalytics.instance().logOpenChatByPush()
+            appActionStorage.action = .deepLink(deepLink, .internal)
+        }
+
         let config = UISceneConfiguration(
             name: "Default Configuration",
             sessionRole: connectingSceneSession.role
@@ -119,25 +135,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         didReceive response: UNNotificationResponse,
         withCompletionHandler completionHandler: @escaping () -> Void)
     {
-        let userInfo = response.notification.request.content.userInfo
-        
-        if let decryptedMessage = userInfo[DecryptedPushKeys.decryptedMessage] as? [String : Any],
-           let spaceId = decryptedMessage[DecryptedPushKeys.spaceId] as? String,
-           let chatId = decryptedMessage[DecryptedPushKeys.chatId] as? String {
-            AnytypeAnalytics.instance().logOpenChatByPush()
-            let msgId = decryptedMessage[DecryptedPushKeys.msgId] as? String
-            let deepLink: DeepLink
-            if let msgId, msgId.isNotEmpty {
-                deepLink = .chatMessage(chatObjectId: chatId, spaceId: spaceId, messageId: msgId)
-            } else {
-                deepLink = .object(objectId: chatId, spaceId: spaceId)
-            }
+        if let deepLink = pushDeepLink(from: response) {
+            let requestId = response.notification.request.identifier
             Task { @MainActor in
+                guard handledPushRequestId != requestId else { return }
+                handledPushRequestId = requestId
+                AnytypeAnalytics.instance().logOpenChatByPush()
                 appActionStorage.action = .deepLink(deepLink, .internal)
             }
         }
-        
+
         completionHandler()
+    }
+
+    nonisolated private func pushDeepLink(from response: UNNotificationResponse) -> DeepLink? {
+        let userInfo = response.notification.request.content.userInfo
+
+        guard let decryptedMessage = userInfo[DecryptedPushKeys.decryptedMessage] as? [String : Any],
+              let spaceId = decryptedMessage[DecryptedPushKeys.spaceId] as? String,
+              let chatId = decryptedMessage[DecryptedPushKeys.chatId] as? String else { return nil }
+
+        let msgId = decryptedMessage[DecryptedPushKeys.msgId] as? String
+        if let msgId, msgId.isNotEmpty {
+            return .chatMessage(chatObjectId: chatId, spaceId: spaceId, messageId: msgId)
+        } else {
+            return .object(objectId: chatId, spaceId: spaceId)
+        }
     }
     
     // MARK: - Termination

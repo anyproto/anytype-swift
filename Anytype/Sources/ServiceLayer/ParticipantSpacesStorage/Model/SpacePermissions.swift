@@ -12,7 +12,6 @@ struct SpacePermissions: Equatable, Hashable {
     let canDeleteLink: Bool
     let canEditPermissions: Bool
     let canApproveRequests: Bool
-    let canChangeUxType: Bool
     let canSetHomepage: Bool
 }
 
@@ -36,7 +35,7 @@ extension SpacePermissions {
 
         canBeShared = isOwner && spaceAccessType.isSharable && !isLocalMode
         canStopSharing = isOwner && spaceAccessType.isShared && !isLocalMode
-        canEdit = participantCanEdit
+        canEdit = participantCanEdit && (!spaceView.isLegacyStream || isOwner)
         canLeave = !isOwner && spaceView.isActive && !isLocalMode
 
         if spaceView.localStatus == .loading {
@@ -49,10 +48,9 @@ extension SpacePermissions {
 
         canBeArchived = spaceView.isActive
         canCancelJoinRequest = spaceView.accountStatus == .spaceJoining
-        canDeleteLink = isOwner && !isLocalMode && !spaceView.uxType.isStream // we don't have revoke method for stream guest link now
+        canDeleteLink = isOwner && !isLocalMode && !spaceView.isLegacyStream
         canEditPermissions = isOwner && !isLocalMode
         canApproveRequests = isOwner
-        canChangeUxType = isOwner
         canSetHomepage = isOwner && !spaceView.isOneToOne
     }
 }

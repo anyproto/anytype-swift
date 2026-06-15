@@ -39,6 +39,9 @@ jobs:
         with:
           xcode-version: '26.1'
 
+      - name: Install iOS Platform
+        uses: ./.github/actions/install-ios-platform
+
       - name: Download Middleware
         run: make setup-middle-ci
         env:
@@ -71,4 +74,4 @@ jobs:
           FASTLANE_XCODEBUILD_SETTINGS_RETRIES: 4
       
       - name: Summary
-        run: echo "${{ env.FASTLANE_GITHUB_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
+        run: echo "$FASTLANE_GITHUB_SUMMARY" >> "$GITHUB_STEP_SUMMARY"

@@ -17,9 +17,9 @@ final class MentionObjectsService: MentionObjectsServiceProtocol, Sendable {
             type: .desc
         )
 
-        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
+        let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, layouts: limitLayout, spaceUxType: spaceUxType)
+            SearchFiltersBuilder.build(isArchived: false, layouts: limitLayout, spaceType: spaceType)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
         }
 

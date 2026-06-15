@@ -49,9 +49,9 @@ final class GalleryInstallationCoordinatorViewModel: GalleryInstallationPreviewM
                     accessType: .personal,
                     useCase: .none,
                     withChat: true,
-                    uxType: .data
+                    spaceType: .regular
                 )
-                AnytypeAnalytics.instance().logCreateSpace(spaceId: createResponse.spaceID, spaceUxType: .data, route: .gallery)
+                AnytypeAnalytics.instance().logCreateSpace(spaceId: createResponse.spaceID, spaceType: .regular, route: .gallery)
                 dismiss.toggle()
                 try await galleryService.importExperience(spaceId: createResponse.spaceID, isNewSpace: true, title: manifest.title, url: manifest.downloadLink)
             }

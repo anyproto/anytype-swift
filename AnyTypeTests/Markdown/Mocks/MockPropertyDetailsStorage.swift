@@ -5,26 +5,30 @@ import Services
 
 
 final class MockPropertyDetailsStorage: PropertyDetailsStorageProtocol, @unchecked Sendable {
+    // IDs the storage should pretend it has no PropertyDetails for. Mirrors the production
+    // case where `relationsDetails(ids:)` silently drops unknown IDs via compactMap.
+    var missingIds: Set<String> = []
+
     // Publisher for sync events
     private let syncSubject = PassthroughSubject<Void, Never>()
     var syncPublisher: AnyPublisher<Void, Never> {
         return syncSubject.eraseToAnyPublisher()
     }
-    
+
     func relationsDetails(keys: [String], spaceId: String) -> [PropertyDetails] {
         return keys.map { PropertyDetails.mock(key: $0) }
     }
-    
+
     func relationsDetails(key: String, spaceId: String) throws -> PropertyDetails {
         PropertyDetails.mock(key: key)
     }
-    
+
     func relationsDetails(bundledKey: BundledPropertyKey, spaceId: String) throws -> PropertyDetails {
         PropertyDetails.mock(key: bundledKey.rawValue)
     }
-    
+
     func relationsDetails(ids: [String], spaceId: String) -> [PropertyDetails] {
-        return ids.map { PropertyDetails.mock(id: $0) }
+        return ids.compactMap { missingIds.contains($0) ? nil : PropertyDetails.mock(id: $0) }
     }
     
     func relationsDetails(spaceId: String) -> [PropertyDetails] {

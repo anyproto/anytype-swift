@@ -22,7 +22,7 @@ final class PublishToWebInternalViewModel: PublishingPreviewOutput {
 
     let domain: DomainType
     let objectDetails: ObjectDetails
-    let spaceUxType: SpaceUxType
+    let spaceType: SpaceType
 
     @ObservationIgnored
     private weak var output: (any PublishToWebModuleOutput)?
@@ -52,7 +52,7 @@ final class PublishToWebInternalViewModel: PublishingPreviewOutput {
         domain = data.domain
         status = data.status
         objectDetails = data.objectDetails
-        spaceUxType = data.spaceUxType
+        spaceType = data.spaceType
         self.output = output
         
         customPath = data.status?.uri ?? data.objectDetails.name

@@ -417,11 +417,6 @@ extension ImageAsset {
     public static let wine = ImageAsset.bundle(name: "CustomIcons/wine")
     public static let woman = ImageAsset.bundle(name: "CustomIcons/woman")
   }
-  public enum Channel {
-    public static let chat = ImageAsset.bundle(name: "Channel/Chat")
-    public static let space = ImageAsset.bundle(name: "Channel/Space")
-    public static let stream = ImageAsset.bundle(name: "Channel/Stream")
-  }
   public enum Chat {
     public enum SendMessage {
       public static let active = ImageAsset.bundle(name: "Chat/SendMessage/active")
@@ -437,8 +432,10 @@ extension ImageAsset {
     public static let exclamation = ImageAsset.bundle(name: "Dialog/exclamation")
     public static let invite = ImageAsset.bundle(name: "Dialog/invite")
     public static let lock = ImageAsset.bundle(name: "Dialog/lock")
+    public static let makeAdmin = ImageAsset.bundle(name: "Dialog/makeAdmin")
     public static let passport = ImageAsset.bundle(name: "Dialog/passport")
     public static let question = ImageAsset.bundle(name: "Dialog/question")
+    public static let removeMember = ImageAsset.bundle(name: "Dialog/removeMember")
     public static let send = ImageAsset.bundle(name: "Dialog/send")
     public static let update = ImageAsset.bundle(name: "Dialog/update")
     public static let updated = ImageAsset.bundle(name: "Dialog/updated")

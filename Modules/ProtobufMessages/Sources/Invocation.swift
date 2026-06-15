@@ -19,6 +19,7 @@ public struct Invocation<Request, Response>: Sendable where Request: Message & S
     public func invoke(
         requestMask: (@Sendable (inout Request) -> Void)? = nil,
         responseMask: (@Sendable (inout Response) -> Void)? = nil,
+        qos: DispatchQoS.QoSClass = .default,
         file: StaticString = #file,
         function: String = #function,
         line: UInt = #line,
@@ -26,7 +27,7 @@ public struct Invocation<Request, Response>: Sendable where Request: Message & S
     ) async throws -> Response {
         do {
             return try await withUncancellableHandler {
-                try await internalInvoke(requestMask: requestMask, responseMask: responseMask)
+                try await internalInvoke(requestMask: requestMask, responseMask: responseMask, qos: qos)
             }
         } catch let error as CancellationError {
             // Ignore try Task.checkCancellation()
@@ -44,7 +45,8 @@ public struct Invocation<Request, Response>: Sendable where Request: Message & S
     
     private func internalInvoke(
         requestMask: ((inout Request) -> Void)?,
-        responseMask: ((inout Response) -> Void)?
+        responseMask: ((inout Response) -> Void)?,
+        qos: DispatchQoS.QoSClass
     ) async throws -> Response {
         
         let result: Response
@@ -58,9 +60,16 @@ public struct Invocation<Request, Response>: Sendable where Request: Message & S
         try Task.checkCancellation()
         
         do {
-            result = try await Task {
-                try invokeTask(request)
-            }.value
+            result = try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Response, Error>) in
+                DispatchQueue.global(qos: qos).async {
+                    do {
+                        let response = try invokeTask(request)
+                        cont.resume(returning: response)
+                    } catch {
+                        cont.resume(throwing: error)
+                    }
+                }
+            }
         } catch {
             log(message: messageName, requestId: requestId, data: nil, error: error)
             throw error

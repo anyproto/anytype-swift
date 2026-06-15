@@ -1,5 +1,4 @@
 import SwiftUI
-import AnytypeCore
 
 // Is part of main view SpaceHubView. Related from SpaceHubViewModel
 struct SpaceHubList: View {
@@ -23,7 +22,7 @@ struct SpaceHubList: View {
     
     private var scrollView: some View {
         ScrollView(.vertical) {
-            VStack(spacing: 8) {
+            LazyVStack(spacing: 8) {
                 HomeUpdateSubmoduleView().padding(8)
 
                 ForEach(model.filteredSpaces) {
@@ -42,7 +41,6 @@ struct SpaceHubList: View {
     
     private var emptyStateView: some View {
         SpaceHubEmptyStateView(
-            onTapCreateSpace: { model.onTapCreateSpace() },
             onTapCreatePersonalChannel: { model.onTapCreatePersonalChannel() },
             onTapCreateGroupChannel: { model.onTapCreateGroupChannel() },
             onTapJoinViaQrCode: { model.onTapJoinViaQrCode() }

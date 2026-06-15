@@ -14,30 +14,6 @@ struct SetSubscriptionData: Hashable {
     let collectionId: String?
     let spaceId: String
 
-    @available(*, deprecated, message: "Use spaceType overload instead")
-    init(
-        identifier: String,
-        document: some SetDocumentProtocol,
-        groupFilter: DataviewFilter?,
-        currentPage: Int,
-        numberOfRowsPerPage: Int,
-        collectionId: String?,
-        objectOrderIds: [String],
-        spaceUxType: SpaceUxType?
-    ) {
-        let layoutFilter = SearchHelper.layoutFilter(DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType))
-        self.init(
-            identifier: identifier,
-            document: document,
-            groupFilter: groupFilter,
-            currentPage: currentPage,
-            numberOfRowsPerPage: numberOfRowsPerPage,
-            collectionId: collectionId,
-            objectOrderIds: objectOrderIds,
-            layoutFilter: layoutFilter
-        )
-    }
-
     init(
         identifier: String,
         document: some SetDocumentProtocol,

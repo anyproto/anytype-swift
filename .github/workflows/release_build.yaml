@@ -37,6 +37,9 @@ jobs:
         with:
           xcode-version: '26.1'
 
+      - name: Install iOS Platform
+        run: xcodebuild -downloadPlatform iOS
+
       - name: Download Middleware
         run: make setup-middle-ci
         env:
@@ -72,4 +75,4 @@ jobs:
           FASTLANE_XCODE_LIST_TIMEOUT: 900
 
       - name: Summary Anytype
-        run: echo "${{ env.FASTLANE_GITHUB_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
+        run: echo "$FASTLANE_GITHUB_SUMMARY" >> "$GITHUB_STEP_SUMMARY"

@@ -28,7 +28,6 @@ struct ListWidgetContentView: View {
                 Spacer.fixedHeight(8)
             }
         }
-        .transition(.opacity)
     }
     
     @ViewBuilder

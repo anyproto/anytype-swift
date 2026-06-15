@@ -17,6 +17,7 @@ public enum Anytype_Model_ParticipantPermissions: SwiftProtobuf.Enum, Swift.Case
   case writer // = 1
   case owner // = 2
   case noPermissions // = 3
+  case admin // = 4
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -29,6 +30,7 @@ public enum Anytype_Model_ParticipantPermissions: SwiftProtobuf.Enum, Swift.Case
     case 1: self = .writer
     case 2: self = .owner
     case 3: self = .noPermissions
+    case 4: self = .admin
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -39,6 +41,7 @@ public enum Anytype_Model_ParticipantPermissions: SwiftProtobuf.Enum, Swift.Case
     case .writer: return 1
     case .owner: return 2
     case .noPermissions: return 3
+    case .admin: return 4
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -49,12 +52,13 @@ public enum Anytype_Model_ParticipantPermissions: SwiftProtobuf.Enum, Swift.Case
     .writer,
     .owner,
     .noPermissions,
+    .admin,
   ]
 
 }
 
 extension Anytype_Model_ParticipantPermissions: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Reader\0\u{1}Writer\0\u{1}Owner\0\u{1}NoPermissions\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Reader\0\u{1}Writer\0\u{1}Owner\0\u{1}NoPermissions\0\u{1}Admin\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

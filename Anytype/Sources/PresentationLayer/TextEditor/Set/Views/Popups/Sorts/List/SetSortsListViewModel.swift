@@ -130,7 +130,7 @@ extension SetSortsListViewModel {
         let activeSorts = sorts.filter { !deletingSortIds.contains($0.sort.id) }
         rows = activeSorts.enumerated().map { index, sort in
             SetSortRowConfiguration(
-                id: "\(sort.relationDetails.id)_\(index)",
+                id: sort.sort.id,
                 title: sort.relationDetails.name,
                 subtitle: sort.typeTitle() ?? "",
                 iconAsset: sort.relationDetails.format.iconAsset,

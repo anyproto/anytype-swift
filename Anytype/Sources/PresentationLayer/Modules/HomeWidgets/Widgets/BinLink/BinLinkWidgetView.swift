@@ -2,13 +2,12 @@ import Foundation
 import SwiftUI
 
 struct BinLinkWidgetView: View {
-    
+
     let spaceId: String
-    @Binding var homeState: HomeWidgetsState
     weak var output: (any CommonWidgetModuleOutput)?
 
     var body: some View {
-        BinLinkWidgetViewInternal(spaceId: spaceId, homeState: $homeState, output: output)
+        BinLinkWidgetViewInternal(spaceId: spaceId, output: output)
             .id(spaceId)
     }
 }
@@ -16,28 +15,22 @@ struct BinLinkWidgetView: View {
 private struct BinLinkWidgetViewInternal: View {
 
     @State private var model: BinLinkWidgetViewModel
-    @Binding var homeState: HomeWidgetsState
 
     init(
         spaceId: String,
-        homeState: Binding<HomeWidgetsState>,
         output: (any CommonWidgetModuleOutput)?
     ) {
-        self._homeState = homeState
         self._model = State(initialValue: BinLinkWidgetViewModel(spaceId: spaceId, output: output))
     }
-    
+
     var body: some View {
-        if homeState.isReadWrite {
-            content
-        }
-    }
-    
-    var content: some View {
+        // Bin is only ever rendered when the user is readwrite — readonly is filtered out
+        // upstream by HomeWidgetsViewModel.visibleSections — so the homeState binding
+        // passed into LinkWidgetViewContainer is a constant.
         LinkWidgetViewContainer(
             isExpanded: .constant(false),
             dragId: nil,
-            homeState: $homeState,
+            homeState: .constant(.readwrite),
             allowContent: false,
             header: {
                 LinkWidgetDefaultHeader(title: Loc.bin, icon: .asset(.X24.bin), onTap: {
@@ -54,7 +47,7 @@ private struct BinLinkWidgetViewInternal: View {
         }
         .snackbar(toastBarData: $model.toastData)
     }
-    
+
     private var menuItems: some View {
         AsyncButton(Loc.Widgets.Actions.emptyBin, role: .destructive) {
             try await model.onEmptyBinTap()

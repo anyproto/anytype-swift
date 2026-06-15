@@ -6,7 +6,8 @@ class TypePropertiesMoveHandlerAdditionalTests: XCTestCase {
     var moveHandler: TypePropertiesMoveHandler!
     var mockDocument: MockBaseDocument!
     var mockPropertiesService: MockPropertiesService!
-    
+    var mockPropertyDetailsStorage: MockPropertyDetailsStorage!
+
     override func setUp() {
         super.setUp()
         let mockPropertiesService = MockPropertiesService()
@@ -14,6 +15,7 @@ class TypePropertiesMoveHandlerAdditionalTests: XCTestCase {
         let mockPropertyDetailsStorage = MockPropertyDetailsStorage()
         Container.shared.propertyDetailsStorage.register { mockPropertyDetailsStorage }
         self.mockPropertiesService = mockPropertiesService
+        self.mockPropertyDetailsStorage = mockPropertyDetailsStorage
         mockDocument = MockBaseDocument()
         moveHandler = TypePropertiesMoveHandler()
     }
@@ -187,5 +189,49 @@ class TypePropertiesMoveHandlerAdditionalTests: XCTestCase {
         } catch let error as TypePropertiesMoveError {
             XCTAssertEqual(error, .emptySection)
         }
+    }
+
+    // MARK: - IOS-6181 regression
+
+    // Reproduces Sentry IOS-8H5: middleware returns IDs in `recommendedFeaturedRelations`
+    // for which `PropertyDetailsStorage` has no entry, so the parallel details array is shorter.
+    // Pre-fix, the handler looked up `toIndex` in the IDs array and applied `toIndex + 1` to
+    // the (shorter) details array, trapping in `Array._checkIndex`.
+    func testMoveFromFieldsMenuToHeaderWithMissingFeaturedDetails() async throws {
+        // "h1" exists in the IDs array but the storage drops it (no PropertyDetails).
+        // So recommendedFeaturedRelationsDetails resolves to only [h2] — length 1.
+        mockPropertyDetailsStorage.missingIds = ["h1"]
+
+        let relationRows: [TypePropertiesRow] = [
+            .header(.header),
+            .relation(TypePropertiesRelationRow(section: .header, relation: .mock(id: "h2"), canDrag: true)),
+            .header(.fieldsMenu),
+            .relation(TypePropertiesRelationRow(section: .fieldsMenu, relation: .mock(id: "f1"), canDrag: true))
+        ]
+
+        mockDocument.mockDetails = ObjectDetails.mock(
+            recommendedFeaturedRelations: ["h1", "h2"],
+            recommendedRelations: ["f1"]
+        )
+
+        // Drag f1 onto h2 row in the header section. Pre-fix this trapped at
+        // `newFeaturedRelations.insert(fromRelation, at: toIndex + 1)`.
+        try await moveHandler.onMove(
+            from: 3,
+            to: 1,
+            relationRows: relationRows,
+            document: mockDocument
+        )
+
+        // f1 lands after h2 in the featured array; the orphaned h1 ID is dropped from the
+        // payload (it had no details, so it was never visible to the user anyway).
+        XCTAssertEqual(
+            mockPropertiesService.lastUpdateTypeProperties?.recommendedFeaturedProperties.map(\.id),
+            ["h2", "f1"]
+        )
+        XCTAssertEqual(
+            mockPropertiesService.lastUpdateTypeProperties?.recommendedProperties.map(\.id),
+            []
+        )
     }
 }

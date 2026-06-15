@@ -50,12 +50,29 @@ final class TreeWidgetViewModel: ObservableObject {
         widgetBlockId: String,
         widgetObject: any BaseDocumentProtocol,
         internalModel: any WidgetInternalViewModelProtocol,
+        prefetchedDetails: ObjectDetails?,
+        prefetchedFirstLevel: [ObjectDetails]?,
         output: (any CommonWidgetModuleOutput)?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.internalModel = internalModel
         self.output = output
+        // Inner VM seeds name/icon in its own init, but `setupAllSubscriptions`
+        // re-publishes them through `receiveOnMain()` — the @Published initial replay
+        // lands one main-tick late. Seed here too so the header renders on frame 0.
+        if let prefetchedDetails {
+            self.name = prefetchedDetails.title
+            self.icon = prefetchedDetails.objectIconImage
+        }
+        // Seed rows synchronously when available — `internalModel.detailsPublisher`
+        // is delivered via `receiveOnMain()`, so even an init-time seed in the inner
+        // VM reaches the sink one main-tick later. Without this, the content area
+        // animates from 0pt (rows == nil) to the empty-state placeholder (rows == []).
+        if let prefetchedFirstLevel {
+            self.firstLevelSubscriptionData = prefetchedFirstLevel
+            updateTree()
+        }
         startHeaderSubscription()
         startContentSubscription()
     }
@@ -150,7 +167,9 @@ final class TreeWidgetViewModel: ObservableObject {
     private func updateTree() {
         guard let firstLevelSubscriptionData else { return }
         let links = firstLevelSubscriptionData.map { $0.id }
-        withAnimation(rows.isNil ? nil : .default) {
+        // First-paint mount must NOT animate — would re-introduce the loading flash
+        // IOS-5812 fixed. Subsequent rebuilds animate (expand/collapse + sync churn).
+        withAnimation(rows == nil ? nil : .disclosureSmall) {
             rows = buildRows(links: links, idPrefix: "", level: 0)
         }
     }

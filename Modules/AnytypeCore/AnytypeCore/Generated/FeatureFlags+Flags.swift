@@ -22,16 +22,8 @@ public extension FeatureFlags {
         value(for: .qrCodeCircularText)
     }
 
-    static var createChannelFlow: Bool {
-        value(for: .createChannelFlow)
-    }
-
     static var fixChannelHomeBackNavigation: Bool {
         value(for: .fixChannelHomeBackNavigation)
-    }
-
-    static var channelTypeSwitcher: Bool {
-        value(for: .channelTypeSwitcher)
     }
 
     static var fixAvatarTapFreeze: Bool {
@@ -40,6 +32,10 @@ public extension FeatureFlags {
 
     static var muteAndHide: Bool {
         value(for: .muteAndHide)
+    }
+
+    static var preferredSpaceOnColdStart: Bool {
+        value(for: .preferredSpaceOnColdStart)
     }
 
     static var setKanbanView: Bool {
@@ -122,17 +118,20 @@ public extension FeatureFlags {
         value(for: .showHangedObjects)
     }
 
+    static var pressureDebugReports: Bool {
+        value(for: .pressureDebugReports)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .showUploadStatusIndicator,
         .homePage,
         .discussionButton,
         .qrCodeCircularText,
-        .createChannelFlow,
         .fixChannelHomeBackNavigation,
-        .channelTypeSwitcher,
         .fixAvatarTapFreeze,
         .muteAndHide,
+        .preferredSpaceOnColdStart,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
@@ -152,6 +151,7 @@ public extension FeatureFlags {
         .logMiddlewareRequests,
         .showPushMessagesInForeground,
         .spaceHubAlwaysShowLoading,
-        .showHangedObjects
+        .showHangedObjects,
+        .pressureDebugReports
     ]
 }

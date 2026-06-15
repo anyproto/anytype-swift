@@ -490,7 +490,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New channel"
+            "value" : "Neuer Kanal"
           }
         },
         "en" : {
@@ -800,7 +800,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%lld/%lld Editors"
+            "value" : "%lld/%lld Editoren"
           }
         },
         "en" : {
@@ -1110,7 +1110,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select members"
+            "value" : "Mitglieder auswählen"
           }
         },
         "en" : {
@@ -1164,7 +1164,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select members"
+            "value" : "멤버 선택"
           }
         },
         "nb" : {
@@ -1265,7 +1265,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%lld/%lld Viewers"
+            "value" : "%lld/%lld Zuschauer"
           }
         },
         "en" : {
@@ -1575,7 +1575,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Manage Channels"
+            "value" : "Kanäle verwalten"
           }
         },
         "en" : {
@@ -1629,7 +1629,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Manage Channels"
+            "value" : "채널 관리"
           }
         },
         "nb" : {
@@ -3008,7 +3008,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Channel Settings"
+            "value" : "Kanaleinstellungen"
           }
         },
         "en" : {
@@ -3163,7 +3163,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete channel"
+            "value" : "Kanal löschen"
           }
         },
         "en" : {
@@ -3318,7 +3318,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Leave channel"
+            "value" : "Kanal verlassen"
           }
         },
         "en" : {
@@ -3473,7 +3473,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat Name"
+            "value" : "Chatname"
           }
         },
         "en" : {
@@ -9646,7 +9646,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg comments"
+                      "value" : "%arg Kommentare"
                     }
                   }
                 }
@@ -9802,7 +9802,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg komentar"
+                      "value" : "%arg comments"
                     }
                   }
                 }
@@ -10192,7 +10192,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg 条评论"
+                      "value" : "%a 个合并评论"
                     }
                   }
                 }
@@ -10247,7 +10247,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "All New Replies"
+            "value" : "Alle neuen Antworten"
           }
         },
         "en" : {
@@ -10402,7 +10402,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mentions Only"
+            "value" : "Nur Erwähnungen"
           }
         },
         "en" : {
@@ -13814,7 +13814,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Editing is available on Desktop"
+            "value" : "Bearbeitung ist auf dem Desktop verfügbar"
           }
         },
         "en" : {
@@ -20295,13 +20295,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d day from now"
+                  "value" : "in %d Tag"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d days from now"
+                  "value" : "In %d Tagen"
                 }
               }
             }
@@ -24437,7 +24437,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property ‘%@’ has been created"
+            "value" : "Eigenschaft ‚%@‘ wurde erstellt"
           }
         },
         "en" : {
@@ -24592,7 +24592,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property ‘%@’ has been updated"
+            "value" : "Eigenschaft ‚%@‘ wurde aktualisiert"
           }
         },
         "en" : {
@@ -25212,7 +25212,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Properties panel"
+            "value" : "Eigenschaften-Panel"
           }
         },
         "en" : {
@@ -25797,7 +25797,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Change Home"
+            "value" : "更改主页"
           }
         },
         "zh-Hant" : {
@@ -28754,161 +28754,6 @@
         }
       }
     },
-    "Membership.Email.Body" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "مرحبًا فريق Anytype! أود تمديد عضويتي الحالية للحصول على المزيد (يرجى اختيار خيار):\n- مساحة تخزين عن بعد إضافية\n- المزيد من محرري المساحة\n- مساحات مشتركة إضافية\nتحديدًا،\nيرجى تقديم تفاصيل محددة لاحتياجاتك هنا."
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Добры дзень, каманда Anytype! Я хацеў бы пашырыць маё бягучае членства на дадатковыя опцыі (калі ласка, абярыце опцыю):- Дадатковае выдаленае сховішча\n- Больш рэдактараў прасторы\n- Дадатковыя агульныя прасторы\n\nКанкрэтна,\nКалі ласка, укажыце тут канкрэтныя дэталі вашых патрэбаў."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hallo Anytype Team! Ich möchte mein aktuelles Abonnement erweitern um (bitte eine Option wählen):\n- Extra Remotespeicher\n- weitere Space Bearbeiter\n- zusätzliche geteilte Spaces\nBitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "¡Hola, equipo de Anytype! Me gustaría ampliar mi suscripción actual de la siguiente forma (elige una opción):\n- Más almacenamiento remoto.\n- Más editores de espacios.\n- Más espacios compartidos.\nEn concreto,\n(Escribe aquí tus necesidades específicas)."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Salut équipe Anytype ! Je voudrais étendre mon abonnement actuel pour plus de (choisissez une option) :\n- Plus de stockage distant\n- Plus d'éditeurs d'espaces\n- Plus d'espaces partagés\nPrécisions,\nMerci de fournir ici des détails plus précis de vos besoins."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Halo tim Anytype! Saya ingin memperpanjang masa berlangganan saya (silakan pilih salah satu opsi):\n- Ekstra penyimpanan daring\n- Lebih banyak editor\n- Tambahan kapasitas ruang bersama\nSecara khusus,\nHarap berikan detail spesifik kebutuhan Anda di sini."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Ciao team di Anytype! Vorrei estendere la mia attuale adesione per ulteriori informazioni (si prega di scegliere un'opzione):\n- Archiviazione remota\n- Più editor di spazio\n- Ulteriori spazi condivisi\nSpecificamente,\nSi prega di fornire dettagli specifici delle vostre esigenze qui."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Anytypeチーム担当者の方へ\n\n現在利用しておりますAnytypeのメンバーシップについて、変更したくご連絡いたしました。\n（下記のオプションの中から必要なものをお選びいただき、詳細をご記入ください）\n\n・リモートストレージの追加\n・スペース編集者の追加\n・共有スペース数の追加\n\n具体的にご希望の内容がございましたら、こちらにご記載ください。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Anytype 팀, 안녕하세요! 저는 현재 멤버십을 연장하고자 합니다(옵션 선택):\n- 늘어난 원격 저장소\n- 더 많은 스페이스 편집자\n- 추가적인 공유 스페이스\n특히,\n당신의 요구의 세부 사항을 여기에 제공해주세요."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Halllo Anytype team! Ik zou graag mijn huidige lidmaatschap willen uitbreiden voor meer (kies alsjeblieft een optie):\n- Extra opslag\n- Meer ruimte bewerkers\n- Aanvullende gedeelde ruimtes\n\nSpecifiek,\nGeef alsjeblieft specifieke details van jouw wensen hier aan. "
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Cześć pracownicy Anytype! Chciałbym rozszerzyć swoją obecną subskrypcję na więcej (wybierz poniższe opcje):\n- Więcej zdalnej pamięci\n- Więcej edytorów przestrzeni\n- Dodatkowe dzielone przestrzenie\nKonkretniej,\nProszę umieść tutaj szczegóły swoich potrzeb."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Olá Equipe Anytype! Eu gostaria de estender minha atual assinatura para (por favor escolha uma opção):\n- Mais armazenamento remoto\n- Mais editores de espaço\n- Mais espaços compartilhados\nEspecificamente,\nforneça detalhes específicos das suas necessidades aqui."
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Здравствуйте, команда Anytype!\n\nЯ хотел(а) бы продлить свое текущее членство (пожалуйста, выберите опцию):\n- Дополнительное удаленное хранилище\n- Больше редакторов пространства\n- Дополнительные общие пространства\n\nОсобенно хотелось бы,\nПожалуйста, укажите подробности ваших потребностей здесь."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Merhaba Anytype ekibi! Mevcut üyeliğimi daha fazlası için uzatmak istiyorum (lütfen bir seçenek seçin): \n- Ekstra uzak depolama alanı \n- Daha fazla alan düzenleyicisi \n- Ek paylaşılan alanlar \nÖzellikle, \nLütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "您好 Anytype 团队！我想要延长我当前的会员资格(请选择一个选项)：\n- 额外远程存储\n- 更多空间编辑者\n- 额外的共享空间\n具体来说，\n请在这里提供您需要的具体细节。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "你好，Anytype 團隊！ 我想延長我目前的會員資格以獲得更多（請選擇一個選項）：\n - 額外的遠端儲存\n - 更多空間編輯者\n - 額外的共享空間\n 具體來說，\n 請在此提供您需求的具體細節。"
-          }
-        }
-      }
-    },
     "Membership.EmailForm.Subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -30714,7 +30559,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unique Network name (%@+ characters)"
+            "value" : "Eindeutiger Netzwerkname (%@+ Zeichen)"
           }
         },
         "en" : {
@@ -34627,7 +34472,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Welcome to the network, %@"
+            "value" : "Willkommen im Netzwerk, %@"
           }
         },
         "en" : {
@@ -34754,161 +34599,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Welcome to the network, %@"
-          }
-        }
-      }
-    },
-    "Membership.Upgrade.Button" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "الاتصال بفريق Anytype"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Звяжыцеся з камандай Anytype"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Contact Anytype Team"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Anytype-Team kontaktieren"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Contact Anytype Team"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hablar con el equipo de Anytype"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Contact Anytype Team"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Contact Anytype Team"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Contacter l'équipe d'Anytype"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hubungi Tim Anytype"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Contatta il Team Anytype"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Anytypeへのお問い合わせ"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Anytype 팀에 문의"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Contact Anytype Team"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Contacteer Anytype team"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Contact Anytype Team"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Skontaktuj się z zespołem Anytype"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Entrar em contato com a equipe Anytype"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Contact Anytype Team"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Связаться с командой Anytype"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Anytype ekibi ile iletişime geçin"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Contact Anytype Team"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Liên hệ đội ngũ Anytype"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "联系Anytype团队"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "聯絡 Anytype 團隊"
           }
         }
       }
@@ -35877,316 +35567,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "Membership.Upgrade.Text" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "تواصل معنا للحصول على مساحة تخزين إضافية، أو محرري مساحة، أو مساحات مشتركة إضافية. سيوفر فريق Anytype التفاصيل والشروط المصممة خصيصًا لاحتياجاتك."
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Звяртайцеся да нас за дадатковымі месцамі для захоўвання, рэдактарамі прасторы ці дадатковымі месцамі для агульнага выкарыстання. Каманда Anytype прадаставіць дэталі і ўмовы ў адпаведнасці з вашымі патрэбамі."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Kontaktiere und bezüglich mehr Speicherplatz oder mehr geteilten Spaces. Das Anytype Team wird sich mit Informationen und den auf dich zugeschnittenen Konditionen melden. "
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Habla con nosotros si quieres aumentar el almacenamiento, los editores de tus espacios o los espacios compartidos. El equipo de Anytype te ofrecerá detalles y condiciones adaptados a tus necesidades."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Contactez-nous pour obtenir du stockage supplémentaire, plus de rédacteurs, ou davantage d'espaces partagés. L'équipe d'Anytype vous fournira l'offre adaptée à vos besoins."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hubungi kami untuk penyimpanan ekstra, tambahan editor, atau lebih banyak ruang bersama. Tim Anytype akan memberikan detail dan ketentuan yang disesuaikan dengan kebutuhan Anda."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Contattaci per ottenere più spazio di archiviazione, editor di spazi o più spazi condivisi. Il team di Anytype fornirà dettagli e condizioni su misura per le tue esigenze."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "ストレージ容量の追加、スペースエディターに関するご質問、または共有スペースの増設については、お気軽にお問い合わせください。Anytypeがお客様のニーズに合わせた詳細と条件をご案内いたします。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "추가 저장 공간, 스페이스 편집자 또는 더 많은 공유 스페이스를 원하시면 우리에게 연락하세요. Anytype 팀이 요구에 맞는 세부사항과 조건을 제공합니다."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Neem contact met ons op voor extra opslag, ruimtebewerkers of meer gedeelde ruimtes. Het Anytype-team zal details en voorwaarden bieden die zijn afgestemd op jouw behoeften."
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Skontaktuj się z nami w celu uzyskania dodatkowej pamięci, edytorów przestrzeni lub większej liczby dzielonych przestrzeni. Zespół Antype poda szczegóły i warunki dostosowane do Twoich potrzeb."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Entre em contato conosco para obter armazenamento extra, editores de espaço ou mais espaços compartilhados. A equipe Anytype fornecerá detalhes e condições adaptadas às suas necessidades."
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Обращайтесь к нам за дополнительным объемом памяти хранилища, редакторами пространства или общими пространствами. Команда Anytype предоставит детали и условия в соответствии с вашими потребностями."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Ekstra depolama, alan editörleri veya daha fazla ortak alan için bize ulaşın. Anytype ekibi ihtiyaçlarınıza göre uyarlanmış ayrıntılar ve koşullar sağlayacaktır."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Liên lạc chúng tôi để có thêm dung lượng, biên tập viên không gian, hoặc nhiều không gian chung hơn. Đội ngũ Anytype sẽ cung cấp cho chi tiết và điều kiện phù hợp với nhu cầu của bạn."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "联系我们以获取额外的存储空间、空间编辑器或更多共享空间。任何类型的团队都将根据您的需求提供量身定制的细节和条件。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "如需更多額外的儲存容量、更多空間編輯者或更多共享空間，請與我們聯絡。 Anytype 團隊將根據您的需求和條件為您量身定製。"
-          }
-        }
-      }
-    },
-    "Membership.Upgrade.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "ترقية العضوية"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Павышэнне членства"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Membership upgrade"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hochstufen der Mitgliedschaft"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Membership upgrade"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Ampliación de la suscripción"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Membership upgrade"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Membership upgrade"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Mise à niveau de l'abonnement"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Gangguan pada status keanggotaan saat ini"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Aggiornamento Membership"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "メンバーシップをアップグレード"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "맴버십 업그레이드"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Membership upgrade"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Lidmaatschap upgrade"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Membership upgrade"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Ulepszenie subskrypcji"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Atualizar assinatura"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Membership upgrade"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Улучшение членства"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Üyelik yükseltme"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Membership upgrade"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Nâng cấp tư cách hội viên"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "会员升级"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "會員升級"
           }
         }
       }
@@ -38697,7 +38077,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Type ‘%@’ has been created"
+            "value" : "Typ ‚%@‘ wurde erstellt"
           }
         },
         "en" : {
@@ -45209,7 +44589,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create “%@”"
+            "value" : "„%@“ erstellen"
           }
         },
         "en" : {
@@ -48154,7 +47534,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "From type %@"
+            "value" : "Vom Typ %@"
           }
         },
         "en" : {
@@ -56067,7 +55447,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ is checked"
+            "value" : "%@ ist ausgewählt"
           }
         },
         "en" : {
@@ -56378,7 +55758,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ is unchecked"
+            "value" : "%@ ist nicht ausgewählt"
           }
         },
         "en" : {
@@ -58084,7 +57464,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%d applied"
+            "value" : "%d angewendet"
           }
         },
         "en" : {
@@ -62327,7 +61707,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "링크가 있는 사람은 채팅을 보고 읽을 수 있음"
+            "value" : "링크가 있는 사람은 채팅을 읽을 수 있음"
           }
         },
         "nb" : {
@@ -62670,7 +62050,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d member"
+                  "value" : "%d Mitglied"
                 }
               },
               "other" : {
@@ -64016,7 +63396,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mute and hide"
+            "value" : "Stummschalten und ausblenden"
           }
         },
         "en" : {
@@ -65853,472 +65233,6 @@
         }
       }
     },
-    "SpaceCreate.Chat.Title" : {
-      "comment" : "MARK: - Space Create",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "إنشاء محادثة جديدة"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a chat"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a chat"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat erstellen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Create a chat"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Crear un chat"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a chat"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a chat"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a chat"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Buat obrolan"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Crea una chat"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "チャットを作成"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "채팅 만들기"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a chat"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Maak een chat"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a chat"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Utwórz czat"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a chat"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a chat"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Создать чат"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Sohbet oluştur"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a chat"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a chat"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "创建聊天"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a chat"
-          }
-        }
-      }
-    },
-    "SpaceCreate.Space.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "إنشاء مساحة"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a space"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a space"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Erstelle einen Bereich"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Create a space"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Crear un espacio"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a space"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a space"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Créer un espace"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Buat ruang"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Crea uno spazio"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "スペースを作成"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "스페이스 만들기"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a space"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Maak een ruimte"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a space"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Utwórz przestrzeń"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Criar espaço"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a space"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Создать пространство"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Bir alan oluştur"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a space"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a space"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "创建空间"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a space"
-          }
-        }
-      }
-    },
-    "SpaceCreate.Stream.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "إنشاء تدفق"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a stream"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a stream"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Stream erstellen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Create a stream"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Crear una transmisión"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a stream"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a stream"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Créer un stream"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Buat siaran"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Crea una stream"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "ストリームを作成"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "스트림 만들기"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a stream"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Maak een stream"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a stream"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a stream"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a stream"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a stream"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Создать трансляцию"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yayın oluştur"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a stream"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a stream"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "创建直播流"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Create a stream"
-          }
-        }
-      }
-    },
     "SpaceInvite.Alert.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -67859,7 +66773,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Channel home"
+            "value" : "频道主页"
           }
         },
         "zh-Hant" : {
@@ -68061,7 +66975,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Sin Inicio"
+            "value" : "Sin Inicio "
           }
         },
         "fa" : {
@@ -68169,7 +67083,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No home"
+            "value" : "无主页"
           }
         },
         "zh-Hant" : {
@@ -68216,7 +67130,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Al entrar, se abre la navegación"
+            "value" : "Al entrar, se abre la navegación "
           }
         },
         "fa" : {
@@ -75212,7 +74126,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join %@"
+            "value" : "%@ beitreten"
           }
         },
         "en" : {
@@ -76583,6 +75497,471 @@
         }
       }
     },
+    "SpaceShare.MakeAdmin.Button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make Admin"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hacer administrador"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jadikan Admin"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yönetici Yap"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make Admin"
+          }
+        }
+      }
+    },
+    "SpaceShare.MakeAdmin.Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Los administradores pueden borrar mensajes, eliminar miembros y borrar definitivamente los objetos de la papelera."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin bisa menghapus pesan, anggota, dan juga objek. Objek dapat dihapus secara permanen dari Bak Sampah oleh admin."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yöneticiler mesajları silebilir, üyeleri kaldırabilir ve Çöp Kutusundaki nesneleri kalıcı olarak silebilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admins can delete messages, remove members, and permanently delete objects from Bin."
+          }
+        }
+      }
+    },
+    "SpaceShare.MakeAdmin.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "¿Quieres convertir a este miembro en administrador?"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jadikan anggota ini admin?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Üye yönetici yapılsın mı?"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Make the member an admin?"
+          }
+        }
+      }
+    },
     "SpaceShare.MakePrivate.Action" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -77823,6 +77202,161 @@
         }
       }
     },
+    "SpaceShare.Permissions.Admin" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Administrator"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Admin"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Administrador"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yönetici"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Admin"
+          }
+        }
+      }
+    },
     "SpaceShare.Permissions.Grand.Edit" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -78938,13 +78472,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ will be removed from the space."
+            "value" : "They'll lose access immediately. Depending on your invite settings, they may be able to rejoin or request to rejoin."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ se eliminará del espacio."
+            "value" : "Perderá el acceso al canal inmediatamente. Según la configuración de tu invitación, es posible que vuelva a unirse o a solicitar la admisión."
           }
         },
         "fa" : {
@@ -78992,7 +78526,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ will be removed from the space."
+            "value" : "They'll lose access immediately. Depending on your invite settings, they may be able to rejoin or request to rejoin."
           }
         },
         "nl" : {
@@ -79059,6 +78593,161 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%@ will be removed from the space."
+          }
+        }
+      }
+    },
+    "SpaceShare.RemoveMember.SheetTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "¿Quieres eliminar este miembro del canal?"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hapus anggota ini dari kanal?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Üye bu kanaldan çıkarılsın mı?"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove the member from this channel?"
           }
         }
       }
@@ -79329,13 +79018,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d request"
+                  "value" : "%d Anfrage"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d requests"
+                  "value" : "%d Anfragen"
                 }
               }
             }
@@ -82823,161 +82512,6 @@
         }
       }
     },
-    "Spaces.UxType.Chat.ChangeDescription" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "محادثة جماعية مع بيانات مشتركة. الأفضل للمجموعات الصغيرة أو محادثة واحدة مستمرة."
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Gruppenchat mit geteilten Daten. Am besten geeignet für kleine Gruppen oder eine einzelne fortlaufende Konversation."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat de grupo con datos compartidos. La mejor opción para grupos pequeños o una sola conversación continua."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Obrolan grup dengan informasi bersama. Cocok untuk kelompok kecil atau percakapan yang berlangsung secara berkelanjutan."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat di gruppo con dati condivisi. Ideale per piccoli gruppi o singole conversazioni continue."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "공유 데이터와 그룹 채팅. 작은 그룹이나 하나의 지속적인 대화에 적합합니다."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Groepsgesprek met gedeelde gegevens. Beste voor kleine groepen of een lopend gesprek."
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Групповой чат с общими данными. Лучше всего для небольших групп или для одной постоянной беседы."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Paylaşılan verilerle grup sohbeti. Küçük gruplar veya devam eden tek bir konuşma için en uygun seçenektir."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "分组聊天共享数据。最适合于小群组或单个正在进行的对话。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
-          }
-        }
-      }
-    },
     "Spaces.UxType.Chat.Description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -83443,161 +82977,6 @@
         }
       }
     },
-    "Spaces.UxType.Space.ChangeDescription" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "مركز لإدارة البيانات المتقدمة. محادثات متعددة حسب الموضوع قادمة قريبًا. مثالي لفرق أكبر."
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub für fortgeschrittene Datenverwaltung. Mehrfach-Chats nach Thema bald verfügbar. Ideal für größere Teams."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Centro de organización avanzada de datos. Próximamente podrá tener distintos chats por temas. Ideal para equipos más grandes."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Pusat pengelolaan data canggih. Obrolan multi-topik akan segera hadir. Ideal untuk tim yang lebih besar."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub per la gestione avanzata dei dati. Multi-chat per argomento in arrivo. Ideale per team di grandi dimensioni."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "고급 데이터 관리를 위한 허브. 주제마다 여러 채팅은 곧 지원됩니다. 더 큰 팀에 적합합니다."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub voor geavanceerde gegevensbeheer. Meerdere gesprekken per onderwerp komen binnenkort. Ideaal voor grotere teams."
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Хаб для расширенного управления данными. Мульти-чаты скоро появятся. Идеально подходит для больших команд."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Gelişmiş veri yönetimi için Hub. Konuya göre çoklu sohbetler yakında geliyor. Daha büyük gruplar için idealdir."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "高级数据管理集群。即将来临的多个主题聊天。适合较大的团队。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
-          }
-        }
-      }
-    },
     "Spaces.UxType.Space.Description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -83777,7 +83156,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private Channel"
+            "value" : "Privater Kanal"
           }
         },
         "en" : {

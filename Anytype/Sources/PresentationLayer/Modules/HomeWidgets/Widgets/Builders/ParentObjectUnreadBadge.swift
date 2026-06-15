@@ -17,5 +17,5 @@ struct ParentObjectUnreadBadge: Equatable, Hashable {
 
     var hasVisibleCounters: Bool { hasMentions || shouldShowUnreadCounter }
 
-    var titleColor: Color { notificationMode == .nothing ? .Text.secondary : .Text.primary }
+    var titleColor: Color { notificationMode.unreadRowTitleColor }
 }

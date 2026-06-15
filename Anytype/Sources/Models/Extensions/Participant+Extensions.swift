@@ -10,16 +10,18 @@ extension ParticipantPermissions {
             return Loc.SpaceShare.Permissions.writer
         case .owner:
             return Loc.SpaceShare.Permissions.owner
+        case .admin:
+            return Loc.SpaceShare.Permissions.admin
         case .noPermissions, .UNRECOGNIZED:
             return rawValue.description
         }
     }
-    
+
     var grandTitle: String {
         switch self {
         case .reader, .noPermissions, .UNRECOGNIZED:
             return Loc.SpaceShare.Permissions.Grand.view
-        case .writer, .owner:
+        case .writer, .owner, .admin:
             return Loc.SpaceShare.Permissions.Grand.edit
         }
     }
@@ -28,8 +30,17 @@ extension ParticipantPermissions {
         switch self {
         case .reader, .noPermissions, .UNRECOGNIZED:
             return false
-        case .writer, .owner:
+        case .writer, .owner, .admin:
             return true
+        }
+    }
+
+    var isModerator: Bool {
+        switch self {
+        case .owner, .admin:
+            return true
+        case .reader, .writer, .noPermissions, .UNRECOGNIZED:
+            return false
         }
     }
 }

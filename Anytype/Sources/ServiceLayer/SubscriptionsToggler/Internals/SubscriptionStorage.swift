@@ -59,6 +59,9 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         }
         
         guard self.data != data else {
+            // Always replace the callback so a later caller's closure wins
+            // (e.g. loader pre-warms with no-op, VM mounts with real handler).
+            self.update = update
             await update(state)
             stateSubject.send(state)
             return

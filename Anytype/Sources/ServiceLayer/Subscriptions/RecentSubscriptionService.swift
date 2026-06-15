@@ -25,6 +25,8 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
+    @Injected(\.participantsStorage)
+    private var participantsStorage: any ParticipantsStorageProtocol
     private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()
@@ -42,22 +44,17 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         
         let sort = makeSort(type: type)
 
-        let filters: [DataviewFilter]
-        if FeatureFlags.createChannelFlow {
-            let spaceType = workspaceStorage.spaceView(spaceId: spaceId)?.spaceType
-            filters = .builder {
-                SearchHelper.notHiddenFilters()
-                SearchHelper.layoutFilter(DetailsLayout.visibleLayouts(spaceType: spaceType))
-                SearchHelper.templateScheme(include: false)
-                makeDateFilter(type: type, spaceId: spaceId)
-            }
-        } else {
-            let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
-            filters = .builder {
-                SearchHelper.notHiddenFilters()
-                SearchHelper.layoutFilter(DetailsLayout.visibleLayouts(spaceUxType: spaceUxType))
-                SearchHelper.templateScheme(include: false)
-                makeDateFilter(type: type, spaceId: spaceId)
+        let spaceType = workspaceStorage.spaceView(spaceId: spaceId)?.spaceType
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.notHiddenFilters()
+            SearchHelper.layoutFilter(DetailsLayout.visibleLayoutsWithFiles(spaceType: spaceType))
+            SearchHelper.templateScheme(include: false)
+            makeDateFilter(type: type, spaceId: spaceId)
+            if type == .recentEdit {
+                SearchHelper.excludedRecommendedLayoutFilter([.participant])
+                if let participantId = currentParticipantId(spaceId: spaceId) {
+                    SearchHelper.lastModifiedByFilter(participantId)
+                }
             }
         }
         
@@ -111,9 +108,13 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         case .recentEdit:
             guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId),
                   let createdDate = spaceView.createdDate else { return nil }
-            return SearchHelper.lastModifiedDateFrom(createdDate.addingTimeInterval(3))
+            return SearchHelper.lastModifiedDateFrom(createdDate.addingTimeInterval(10))
         case .recentOpen:
             return SearchHelper.lastOpenedDateNotNilFilter()
         }
+    }
+
+    private func currentParticipantId(spaceId: String) -> String? {
+        participantsStorage.participants.first { $0.spaceId == spaceId }?.id
     }
 }

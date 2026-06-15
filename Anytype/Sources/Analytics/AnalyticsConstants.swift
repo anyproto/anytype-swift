@@ -59,6 +59,7 @@ enum AnalyticsEventsPropertiesKey {
     static let status = "status"
     static let uploadTime = "uploadTime"
     static let totalTime = "totalTime"
+    static let visible = "visible"
 }
 
 enum AnalyticsEventsTypeValues {
@@ -308,6 +309,7 @@ enum PermissionAnalyticsType: String {
     case read = "Reader"
     case write = "Writer"
     case owner = "Owner"
+    case admin = "Admin"
     case noPermissions = "NoPermissions"
     case unrecognized = "Unrecognized"
 }

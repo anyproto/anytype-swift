@@ -1,5 +1,6 @@
 import Services
 import AnytypeCore
+import SwiftUI
 
 extension SpacePushNotificationsMode {
 
@@ -38,6 +39,10 @@ extension SpacePushNotificationsMode {
     func toggled(isOneToOne: Bool) -> SpacePushNotificationsMode {
         guard isUnmutedAll else { return .all }
         return isOneToOne ? .nothing : .mentions
+    }
+
+    var unreadRowTitleColor: Color {
+        self == .nothing ? .Text.secondary : .Text.primary
     }
 
     var unreadCounterStyle: CounterViewStyle {

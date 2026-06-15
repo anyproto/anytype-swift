@@ -17,7 +17,7 @@ extension SetPropertiesDetailsLocalSearchInteractor {
         }
 
         let searchedRelations = relationsDetails.filter {
-            $0.name.range(of: text, options: .caseInsensitive) != nil
+            $0.name.localizedStandardContains(text)
         }
         
         if searchedRelations.isEmpty {

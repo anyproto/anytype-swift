@@ -37,7 +37,7 @@ struct PublishToWebInternalView: View {
         VStack(spacing: 0) {
             customUrlSection
 
-            if model.spaceUxType.supportsJoinSpaceButton {
+            if model.spaceType.supportsJoinSpaceButton {
                 SectionHeaderView(title: Loc.preferences)
                 joinSpaceButtonToggle
             }
@@ -216,6 +216,6 @@ struct PublishToWebInternalView: View {
         status: nil,
         objectDetails: ObjectDetails(id: ""),
         spaceName: "My Space",
-        spaceUxType: .data
+        spaceType: .regular
     ), output: nil)
 }

@@ -9,20 +9,32 @@ struct HomeWidgetsView: View {
     let output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?
 
     var body: some View {
-        HomeWidgetsInternalView(info: info, context: context, output: output)
-            .id(info.hashValue)
+        HomeWidgetsInternalView(
+            info: info,
+            context: context,
+            output: output
+        )
+        .id(info.hashValue)
     }
 }
 
 private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
-    @State var widgetsDndState = DragState()
+    // Hide pinned-widget badges by default; UnreadSectionViewModel releases them on first tick.
+    @State private var shouldHideChatBadges: Bool = true
 
     let context: WidgetScreenContext
     weak var panelOutput: (any HomeBottomNavigationPanelModuleOutput)?
 
-    init(info: AccountInfo, context: WidgetScreenContext, output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?) {
-        self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
+    init(
+        info: AccountInfo,
+        context: WidgetScreenContext,
+        output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?
+    ) {
+        self._model = State(wrappedValue: HomeWidgetsViewModel(
+            info: info,
+            output: output
+        ))
         self.context = context
         self.panelOutput = output
     }
@@ -31,9 +43,7 @@ private struct HomeWidgetsInternalView: View {
         ZStack(alignment: .bottom) {
             HomeWallpaperView(spaceId: model.spaceId)
 
-            content
-                .animation(.default, value: model.widgetBlocks.count)
-                .animation(.default, value: model.myFavoritesListViewModel.rows.count)
+            widgets
 
             if context.showEmbeddedBottomPanel {
                 HomeBottomNavigationPanelView(
@@ -61,6 +71,9 @@ private struct HomeWidgetsInternalView: View {
                 },
                 onQrCodeSelected: { url in
                     model.onQrCodeSelected(url: url)
+                },
+                onManageSectionsSelected: {
+                    model.onManageSectionsSelected()
                 }
             )
         }
@@ -69,29 +82,74 @@ private struct HomeWidgetsInternalView: View {
         .homeBottomPanelHidden(context.showEmbeddedBottomPanel)
     }
     
-    private var content: some View {
-        ZStack {
-            if model.widgetsDataLoaded && model.objectTypesDataLoaded {
-                widgets
-            }
-        }
-    }
-    
     private var widgets: some View {
         ScrollView {
             VStack(spacing: 0) {
                 SpaceInfoView(spaceId: model.spaceId)
                 InviteMembersStubWidgetView(spaceId: model.spaceId, output: model.output)
-                homeWidget
-                blockWidgets
-                unreadWidget
-                myFavoritesWidget
-                objectTypeWidgets
+                if let channelWidgetsObject = model.channelWidgetsObject,
+                   let personalWidgetsObject = model.personalWidgetsObject {
+                    homeWidget
+                    ForEach(model.visibleSections, id: \.self) { section in
+                        manageableSection(
+                            section,
+                            channelWidgetsObject: channelWidgetsObject,
+                            personalWidgetsObject: personalWidgetsObject
+                        )
+                    }
+                }
                 AnytypeNavigationSpacer(minHeight: context.showEmbeddedBottomPanel ? 72 : 0)
             }
             .padding(.horizontal, 20)
             .fitIPadToReadableContentGuide()
-            .shouldHideChatBadges(model.shouldHideChatBadges)
+            .shouldHideChatBadges(model.hasUnreadSection && shouldHideChatBadges)
+        }
+    }
+
+    @ViewBuilder
+    private func manageableSection(
+        _ section: HomeSection,
+        channelWidgetsObject: any BaseDocumentProtocol,
+        personalWidgetsObject: any BaseDocumentProtocol
+    ) -> some View {
+        switch section {
+        case .pinned:
+            PinnedSectionView(
+                info: model.info,
+                channelWidgetsObject: channelWidgetsObject,
+                personalWidgetsObject: personalWidgetsObject,
+                prefetchedSetSubscriptions: model.prefetchedSetSubscriptions,
+                prefetchedTreeChildren: model.prefetchedTreeChildren,
+                output: model.output
+            )
+        case .unread:
+            UnreadSectionView(
+                spaceId: model.spaceId,
+                prefetched: model.prefetchedUnreadSection,
+                output: model.output,
+                onShouldHideBadgesChange: { shouldHideChatBadges = $0 }
+            )
+        case .myFavorites:
+            MyFavoritesSectionView(
+                spaceId: model.spaceId,
+                personalWidgetsObject: personalWidgetsObject,
+                channelWidgetsObject: channelWidgetsObject,
+                output: model.output
+            )
+        case .recentlyEdited:
+            RecentlyEditedSectionView(
+                spaceId: model.spaceId,
+                output: model.output
+            )
+        case .objects:
+            ObjectTypesSectionView(
+                spaceId: model.spaceId,
+                output: model.output,
+                onCreateObjectType: { model.output?.onCreateObjectType() }
+            )
+        case .bin:
+            BinLinkWidgetView(spaceId: model.spaceId, output: model.output)
+                .padding(.top, 24)
         }
     }
 
@@ -100,73 +158,7 @@ private struct HomeWidgetsInternalView: View {
         if context == .overlay, let data = model.homeWidgetData {
             HomeWidgetView(data: data)
                 .id("\(data.objectId)-\(data.canSetHomepage)")
-                .padding(.bottom, 8)
-        }
-    }
-
-    @ViewBuilder
-    private var unreadWidget: some View {
-        if model.shouldShowUnreadSection {
-            HomeWidgetsGroupView(title: Loc.unread) {
-                model.onTapUnreadHeader()
-            }
-            if model.unreadSectionIsExpanded {
-                UnreadItemsGroupedView(items: model.unreadItems)
-            }
-        }
-    }
-
-    @ViewBuilder
-    private var blockWidgets: some View {
-        if model.widgetBlocks.isNotEmpty {
-            VStack(spacing: 12) {
-                WidgetSwipeTipView()
-                ForEach(model.widgetBlocks) { widgetInfo in
-                    HomeWidgetSubmoduleView(
-                        widgetInfo: widgetInfo,
-                        channelWidgetsObject: model.channelWidgetsObject,
-                        personalWidgetsObject: model.personalWidgetsObject,
-                        workspaceInfo: model.info,
-                        homeState: $model.homeState,
-                        output: model.output
-                    )
-                }
-            }
-            .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
-                model.widgetsDropUpdate(from: from, to: to)
-            } dropFinish: { from, to in
-                model.widgetsDropFinish(from: from, to: to)
-            }
-        }
-    }
-
-    @ViewBuilder
-    private var myFavoritesWidget: some View {
-        if model.myFavoritesListViewModel.rows.isNotEmpty {
-            HomeWidgetsGroupView(title: Loc.myFavorites) {
-                model.onTapMyFavoritesHeader()
-            }
-            if model.myFavoritesSectionIsExpanded {
-                MyFavoritesListView(model: model.myFavoritesListViewModel)
-            }
-        }
-    }
-
-    @ViewBuilder
-    private var objectTypeWidgets: some View {
-        HomeWidgetsGroupView(title: Loc.types, onTap: {
-            model.onTapObjectTypeHeader()
-        }, onCreate: nil)
-        if model.objectTypeSectionIsExpanded {
-            VStack(spacing: 12) {
-                ObjectTypesUnifiedWidgetView(
-                    typeInfos: model.objectTypeWidgets,
-                    canCreateType: model.canCreateObjectType,
-                    onCreateType: { model.onCreateObjectType() },
-                    output: model.output
-                )
-                BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
-            }
+                .padding(.bottom, 12)
         }
     }
 }

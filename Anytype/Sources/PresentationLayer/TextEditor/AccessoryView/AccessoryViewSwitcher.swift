@@ -110,12 +110,15 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         }
         accessoryView.transform = CGAffineTransform(translationX: 0, y: accessoryView.bounds.size.height)
 
-        if animation {
-            UIView.animate(withDuration: CATransaction.animationDuration()) {
+        // Defer: this can be reached from a UITextView delegate during cell dequeue; flushing layout there crashes on iOS 26.
+        DispatchQueue.main.async {
+            if animation {
+                UIView.animate(withDuration: CATransaction.animationDuration()) {
+                    reloadInputViews()
+                }
+            } else {
                 reloadInputViews()
             }
-        } else {
-            reloadInputViews()
         }
     }
     

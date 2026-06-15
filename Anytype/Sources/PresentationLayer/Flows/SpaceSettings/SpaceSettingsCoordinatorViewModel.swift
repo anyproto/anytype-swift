@@ -17,7 +17,6 @@ final class SpaceSettingsCoordinatorViewModel: SpaceSettingsModuleOutput, Remote
     var showWallpaperPicker = false
     var showSpaceShareData: SpaceShareData?
     var spaceNotificationsSettingsModuleData: SpaceNotificationsSettingsModuleData?
-    var spaceTypeChangeData: SpaceTypeChangeData?
     var showFiles = false
     var homePagePickerSpaceId: StringIdentifiable?
 
@@ -83,11 +82,7 @@ final class SpaceSettingsCoordinatorViewModel: SpaceSettingsModuleOutput, Remote
     func onBinSelected() {
         pageNavigation?.open(.editor(.bin(spaceId: spaceId)))
     }
-    
-    func onSpaceUxTypeSelected() {
-        spaceTypeChangeData = SpaceTypeChangeData(spaceId: spaceId)
-    }
-    
+
     // MARK: - RemoteStorageModuleOutput
     
     func onManageFilesSelected() {

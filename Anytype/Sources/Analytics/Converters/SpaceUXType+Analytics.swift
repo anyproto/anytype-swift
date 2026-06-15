@@ -1,20 +1,20 @@
 import Services
 
-extension SpaceUxType {
+extension SpaceType {
     var analyticsValue: String {
         switch self {
         case .chat:
             return "Chat"
-        case .data:
+        case .regular:
             return "Space"
-        case .stream:
-            return "Stream"
         case .oneToOne:
             return "OneToOne"
+        case .tech:
+            return "Tech"
+        case .unknown:
+            return "Unknown"
         case .UNRECOGNIZED:
             return "UNRECOGNIZED"
-        case .none:
-            return "None"
         }
     }
 }

@@ -21,7 +21,7 @@ final class SimpleSearchListViewModel {
     func search() async {
         if searchText.isNotEmpty {
             searchedItems = items.filter {
-                $0.title.range(of: searchText, options: .caseInsensitive) != nil
+                $0.title.localizedStandardContains(searchText)
             }
         } else {
             searchedItems = items

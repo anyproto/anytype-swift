@@ -32,6 +32,9 @@ jobs:
         with:
           xcode-version: '26.1'
 
+      - name: Install iOS Platform
+        run: xcodebuild -downloadPlatform iOS
+
       - name: Download Middleware
         run: make setup-middle-ci
         env:
@@ -39,12 +42,14 @@ jobs:
 
       - name: Build IPA
         run:  |
-          if [[ "${{ github.event.inputs.build_type }}" == "release" ]]; then
+          if [[ "$BUILD_TYPE" == "release" ]]; then
             bundle exec fastlane build_ipa_release
           else
             bundle exec fastlane build_ipa_dev
           fi
         continue-on-error: true
+        env:
+          BUILD_TYPE: ${{ github.event.inputs.build_type }}
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4

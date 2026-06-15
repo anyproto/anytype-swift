@@ -2,12 +2,67 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 import Combine
+import os
 
 
 public enum DebugRunProfilerState: Codable {
     case empty
     case inProgress
     case done(url: URL)
+}
+
+public enum DebugProfilerReason: Sendable {
+    case userRequest
+    case thermalState(ThermalSeverity)
+    case memoryPressure(MemorySeverity)
+
+    public enum ThermalSeverity: Sendable {
+        case fair
+        case serious
+        case critical
+    }
+
+    public enum MemorySeverity: Sendable {
+        case normal
+        case warning
+        case critical
+    }
+
+    var desc: String {
+        switch self {
+        case .userRequest: return "User request"
+        case .thermalState(.fair): return "iOS thermal state: fair"
+        case .thermalState(.serious): return "iOS thermal state: serious"
+        case .thermalState(.critical): return "iOS thermal state: critical"
+        case .memoryPressure(.normal): return "iOS memory pressure: normal"
+        case .memoryPressure(.warning): return "iOS memory pressure: warning"
+        case .memoryPressure(.critical): return "iOS memory pressure: critical"
+        }
+    }
+
+    public var tag: String {
+        switch self {
+        case .userRequest: return "user_request"
+        case .thermalState(.fair): return "thermal_fair"
+        case .thermalState(.serious): return "thermal_serious"
+        case .thermalState(.critical): return "thermal_critical"
+        case .memoryPressure(.normal): return "memory_pressure_normal"
+        case .memoryPressure(.warning): return "memory_pressure_warn"
+        case .memoryPressure(.critical): return "memory_pressure_critical"
+        }
+    }
+}
+
+public struct DebugReportResult: Sendable {
+    public let path: String
+    public let summary: String
+    public let lastModifiedTs: Int
+
+    public init(path: String, summary: String, lastModifiedTs: Int) {
+        self.path = path
+        self.summary = summary
+        self.lastModifiedTs = lastModifiedTs
+    }
 }
 
 public protocol DebugServiceProtocol: AnyObject, Sendable {
@@ -22,6 +77,10 @@ public protocol DebugServiceProtocol: AnyObject, Sendable {
 
     @MainActor var debugRunProfilerData: AnyPublisher<DebugRunProfilerState, Never> { get }
     func startDebugRunProfiler()
+
+    func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async -> String?
+    func exportReport(dir: String, full: Bool) async throws -> DebugReportResult
+    func cleanupReport(ts: Int) async
 }
 
 final class DebugService: ObservableObject, DebugServiceProtocol {
@@ -42,7 +101,8 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     }
     
     private let storage = Storage()
-    
+    private let profilerRunning = OSAllocatedUnfairLock(initialState: false)
+
     public func exportLocalStore() async throws -> String {
         let tempDirString = FileManager.default.createTempDirectory().path
         
@@ -133,13 +193,65 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     func startDebugRunProfiler() {
         Task {
             await storage.setDebugRunProfilerData(.inProgress)
-            
+
             let path = try await ClientCommands.debugRunProfiler(.with {
                 $0.durationInSeconds = 60
+                $0.reason = .userRequest
             }).invoke().path
 
             let url = URL(fileURLWithPath: path)
             await storage.setDebugRunProfilerData(.done(url: url))
+        }
+    }
+
+    func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async -> String? {
+        let acquired = profilerRunning.withLock { running in
+            guard !running else { return false }
+            running = true
+            return true
+        }
+        guard acquired else { return nil }
+        defer { profilerRunning.withLock { $0 = false } }
+
+        return try? await ClientCommands.debugRunProfiler(.with {
+            $0.durationInSeconds = Int32(durationInSeconds)
+            $0.reason = reason.protoReason
+            $0.reasonDesc = reason.desc
+        }).invoke().path
+    }
+
+    func exportReport(dir: String, full: Bool) async throws -> DebugReportResult {
+        let response = try await ClientCommands.debugExportReport(.with {
+            $0.dir = dir
+            $0.full = full
+        }).invoke()
+        return DebugReportResult(
+            path: response.path,
+            summary: response.summary,
+            lastModifiedTs: Int(response.lastModifiedTs)
+        )
+    }
+
+    func cleanupReport(ts: Int) async {
+        _ = try? await ClientCommands.debugCleanupReport(.with {
+            $0.ts = Int64(ts)
+        }).invoke()
+    }
+}
+
+private extension DebugProfilerReason {
+    var protoReason: Anytype_Rpc.Debug.RunProfiler.Request.Reason {
+        switch self {
+        case .userRequest: return .userRequest
+        // Middleware protobuf enum is closed; .fair / .normal piggyback on
+        // .userRequest while the truth is preserved in `reasonDesc` and the
+        // Sentry `tag` string.
+        case .thermalState(.fair): return .userRequest
+        case .thermalState(.serious): return .thermalSerious
+        case .thermalState(.critical): return .thermalCritical
+        case .memoryPressure(.normal): return .userRequest
+        case .memoryPressure(.warning): return .memoryPressureWarn
+        case .memoryPressure(.critical): return .memoryPressureCritical
         }
     }
 }
