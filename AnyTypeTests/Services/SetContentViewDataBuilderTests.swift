@@ -281,7 +281,7 @@ struct SetContentViewDataBuilderTests {
         viewType: DataviewViewType = .gallery
     ) -> ObjectHeaderCoverType? {
         let view = DataviewView.empty.updated(type: viewType, coverRelationKey: coverKey)
-        return builder.coverType(object, dataView: BlockDataview(), activeView: view, spaceId: spaceId, detailsStorage: storage)
+        return builder.coverType(object, dataView: .empty, activeView: view, spaceId: spaceId, detailsStorage: storage)
     }
 }
 
