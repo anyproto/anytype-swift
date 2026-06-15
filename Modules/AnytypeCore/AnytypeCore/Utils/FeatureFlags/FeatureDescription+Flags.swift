@@ -47,6 +47,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
+    static let preferredSpaceOnColdStart = FeatureDescription(
+        title: "Preferred space on cold start - IOS-6409",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "0.48.0"),
+        defaultValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(
