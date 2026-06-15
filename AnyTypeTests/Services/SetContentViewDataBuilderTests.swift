@@ -2,6 +2,7 @@ import Testing
 import Foundation
 @testable import Anytype
 import Services
+import SwiftProtobuf
 
 @Suite
 struct SetContentViewDataBuilderTests {
@@ -9,6 +10,7 @@ struct SetContentViewDataBuilderTests {
     private let builder: SetContentViewDataBuilder
 
     init() {
+        Container.shared.propertyDetailsStorage.register { MockPropertyDetailsStorage() }
         self.builder = SetContentViewDataBuilder()
     }
 
@@ -200,32 +202,130 @@ struct SetContentViewDataBuilderTests {
         #expect(result?.chatId == targetId)
     }
 
-    @Test("Bookmark with picture property returns picture as cover")
-    func testBookmarkWithPicture_ReturnsPictureCover() {
-        // 1. Object has bookmark layout
-        // 2. Picture property is not empty
-        // 3. Picture object exists in storage and is an image
-        // Result: Should return .cover(.imageId(pictureId))
-        
-        #expect(true, "Bookmark picture cover logic is implemented")
+    // MARK: - Gallery cover: Picture property
+
+    @Test("Picture cover resolves the picture property image")
+    func testPictureCover_ImageInStorage_ReturnsImageCover() {
+        let pictureId = "picture-image-1"
+        let storage = ObjectDetailsStorage()
+        storage.add(details: makeObject(id: pictureId, layout: .image))
+        let object = makeObject(id: "bookmark-1", layout: .bookmark, picture: pictureId)
+
+        let result = builder.coverType(
+            object,
+            dataView: BlockDataview(),
+            activeView: galleryView(coverRelationKey: SetViewSettingsImagePreviewCover.picture.rawValue),
+            spaceId: spaceId,
+            detailsStorage: storage
+        )
+
+        #expect(result == .cover(.imageId(pictureId)))
     }
 
-    @Test("Bookmark with invalid picture reference returns nil")
-    func testBookmarkWithInvalidPicture_ReturnsNil() {
-        
-        #expect(true, "Invalid picture references are handled safely")
+    @Test("Picture cover returns nil when the picture property is empty")
+    func testPictureCover_EmptyPicture_ReturnsNil() {
+        let object = makeObject(id: "bookmark-1", layout: .bookmark)
+
+        let result = builder.coverType(
+            object,
+            dataView: BlockDataview(),
+            activeView: galleryView(coverRelationKey: SetViewSettingsImagePreviewCover.picture.rawValue),
+            spaceId: spaceId,
+            detailsStorage: ObjectDetailsStorage()
+        )
+
+        #expect(result == nil)
     }
 
-    @Test("Explicit cover takes precedence over bookmark picture")
-    func testExplicitCover_TakesPrecedence() {
-        // Cover priority order:
-        // 1. Explicit page cover (highest)
-        // 2. Image layout objects
-        // 3. Bookmark picture
-        // 4. Relation-based cover
-        // Result: If explicit cover is set, bookmark picture is not used
-        
-        #expect(true, "Cover priority order is maintained")
+    @Test("Picture cover returns nil when the picture target is not an image")
+    func testPictureCover_NonImageTarget_ReturnsNil() {
+        let pictureId = "not-an-image"
+        let storage = ObjectDetailsStorage()
+        storage.add(details: makeObject(id: pictureId, layout: .basic))
+        let object = makeObject(id: "bookmark-1", layout: .bookmark, picture: pictureId)
+
+        let result = builder.coverType(
+            object,
+            dataView: BlockDataview(),
+            activeView: galleryView(coverRelationKey: SetViewSettingsImagePreviewCover.picture.rawValue),
+            spaceId: spaceId,
+            detailsStorage: storage
+        )
+
+        #expect(result == nil)
+    }
+
+    @Test("Picture cover returns nil when the picture target is missing from storage")
+    func testPictureCover_TargetMissing_ReturnsNil() {
+        let object = makeObject(id: "bookmark-1", layout: .bookmark, picture: "ghost-id")
+
+        let result = builder.coverType(
+            object,
+            dataView: BlockDataview(),
+            activeView: galleryView(coverRelationKey: SetViewSettingsImagePreviewCover.picture.rawValue),
+            spaceId: spaceId,
+            detailsStorage: ObjectDetailsStorage()
+        )
+
+        #expect(result == nil)
+    }
+
+    @Test("None cover does not auto-show a bookmark picture")
+    func testNoneCover_BookmarkWithPicture_ReturnsNil() {
+        let pictureId = "picture-image-1"
+        let storage = ObjectDetailsStorage()
+        storage.add(details: makeObject(id: pictureId, layout: .image))
+        let object = makeObject(id: "bookmark-1", layout: .bookmark, picture: pictureId)
+
+        let result = builder.coverType(
+            object,
+            dataView: BlockDataview(),
+            activeView: galleryView(coverRelationKey: SetViewSettingsImagePreviewCover.none.rawValue),
+            spaceId: spaceId,
+            detailsStorage: storage
+        )
+
+        #expect(result == nil)
+    }
+
+    @Test("Non-gallery view returns nil cover")
+    func testNonGalleryView_ReturnsNil() {
+        let pictureId = "picture-image-1"
+        let storage = ObjectDetailsStorage()
+        storage.add(details: makeObject(id: pictureId, layout: .image))
+        let object = makeObject(id: "bookmark-1", layout: .bookmark, picture: pictureId)
+
+        let listView = DataviewView.empty.updated(
+            type: .list,
+            coverRelationKey: SetViewSettingsImagePreviewCover.picture.rawValue
+        )
+
+        let result = builder.coverType(
+            object,
+            dataView: BlockDataview(),
+            activeView: listView,
+            spaceId: spaceId,
+            detailsStorage: storage
+        )
+
+        #expect(result == nil)
+    }
+
+    // MARK: - Helpers
+
+    private let spaceId = "space-1"
+
+    private func galleryView(coverRelationKey: String) -> DataviewView {
+        DataviewView.empty.updated(type: .gallery, coverRelationKey: coverRelationKey)
+    }
+
+    private func makeObject(id: String, layout: DetailsLayout, picture: String? = nil) -> ObjectDetails {
+        var values: [String: Google_Protobuf_Value] = [:]
+        values[BundledPropertyKey.resolvedLayout.rawValue] = layout.rawValue.protobufValue
+        if let picture {
+            values[BundledPropertyKey.picture.rawValue] = picture.protobufValue
+        }
+        return ObjectDetails(id: id, values: values)
     }
 }
 

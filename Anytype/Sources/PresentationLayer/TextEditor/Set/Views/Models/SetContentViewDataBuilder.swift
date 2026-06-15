@@ -199,7 +199,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         }
     }
     
-    private func coverType(
+    func coverType(
         _ details: ObjectDetails,
         dataView: BlockDataview,
         activeView: DataviewView,
@@ -212,43 +212,19 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         
         let showPictureCover = activeView.coverRelationKey == SetViewSettingsImagePreviewCover.picture.rawValue
         if showPictureCover {
-            return pictureCoverType(details, detailsStorage: detailsStorage)
+            return picturePropertyCover(details, detailsStorage: detailsStorage)
         }
-        
+
         let showPageCover = activeView.coverRelationKey == SetViewSettingsImagePreviewCover.pageCover.rawValue
         if showPageCover, let documentCover = details.documentCover {
             return .cover(documentCover)
         } else if showPageCover, details.objectType.isImageLayout {
             return .cover(DocumentCover.imageId(details.id))
         }
-        
-        // Check for bookmark picture (fallback for bookmarks without explicit cover)
-        if let bookmarkPictureCover = bookmarkPictureCoverType(details, detailsStorage: detailsStorage) {
-            return bookmarkPictureCover
-        }
-        
+
         return relationCoverType(details, dataView: dataView, activeView: activeView, spaceId: spaceId, detailsStorage: detailsStorage)
     }
-    
-    private func pictureCoverType(
-        _ details: ObjectDetails,
-        detailsStorage: ObjectDetailsStorage
-    ) -> ObjectHeaderCoverType? {
-        return picturePropertyCover(details, detailsStorage: detailsStorage)
-    }
-    
-    private func bookmarkPictureCoverType(
-        _ details: ObjectDetails,
-        detailsStorage: ObjectDetailsStorage
-    ) -> ObjectHeaderCoverType? {
-        // Only apply to bookmark objects as a fallback
-        guard details.isBookmark else {
-            return nil
-        }
-        
-        return picturePropertyCover(details, detailsStorage: detailsStorage)
-    }
-    
+
     private func picturePropertyCover(
         _ details: ObjectDetails,
         detailsStorage: ObjectDetailsStorage
