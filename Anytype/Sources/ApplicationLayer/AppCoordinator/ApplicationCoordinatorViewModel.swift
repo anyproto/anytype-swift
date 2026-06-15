@@ -161,8 +161,8 @@ final class ApplicationCoordinatorViewModel {
     // A pending deeplink (url or push notification tap) is the only known cold start destination —
     // without one the app opens the Space Hub, so no space is preferred.
     private func preferredSpaceId() -> String {
-        guard FeatureFlags.preferredSpaceOnColdStart else { return "" }
-        guard case let .deepLink(deepLink, _) = appActionStorage.action else { return "" }
+        guard FeatureFlags.preferredSpaceOnColdStart,
+              case let .deepLink(deepLink, _) = appActionStorage.action else { return "" }
         return deepLink.spaceId ?? ""
     }
 

@@ -19,8 +19,9 @@ final class RemainingSpacesPreloadService: RemainingSpacesPreloadServiceProtocol
         guard FeatureFlags.preferredSpaceOnColdStart else { return }
 
         let alreadyScheduled = scheduled.access { value in
-            defer { value = true }
-            return value
+            let wasScheduled = value
+            value = true
+            return wasScheduled
         }
         guard !alreadyScheduled else { return }
 
