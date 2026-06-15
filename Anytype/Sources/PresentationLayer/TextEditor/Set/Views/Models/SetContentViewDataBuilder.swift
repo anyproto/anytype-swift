@@ -199,7 +199,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         }
     }
     
-    private func coverType(
+    func coverType(
         _ details: ObjectDetails,
         dataView: BlockDataview,
         activeView: DataviewView,
@@ -209,14 +209,33 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         guard activeView.type == .gallery else {
             return nil
         }
+        
+        let showPictureCover = activeView.coverRelationKey == SetViewSettingsImagePreviewCover.picture.rawValue
+        if showPictureCover {
+            return picturePropertyCover(details, detailsStorage: detailsStorage)
+        }
+
         let showPageCover = activeView.coverRelationKey == SetViewSettingsImagePreviewCover.pageCover.rawValue
         if showPageCover, let documentCover = details.documentCover {
             return .cover(documentCover)
         } else if showPageCover, details.objectType.isImageLayout {
             return .cover(DocumentCover.imageId(details.id))
-        } else {
-            return relationCoverType(details, dataView: dataView, activeView: activeView, spaceId: spaceId, detailsStorage: detailsStorage)
         }
+
+        return relationCoverType(details, dataView: dataView, activeView: activeView, spaceId: spaceId, detailsStorage: detailsStorage)
+    }
+
+    private func picturePropertyCover(
+        _ details: ObjectDetails,
+        detailsStorage: ObjectDetailsStorage
+    ) -> ObjectHeaderCoverType? {
+        let pictureId = details.picture
+
+        guard pictureId.isNotEmpty else {
+            return nil
+        }
+
+        return findCover(at: [pictureId], details, detailsStorage: detailsStorage)
     }
     
     private func relationCoverType(

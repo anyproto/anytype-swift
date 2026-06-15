@@ -2,6 +2,7 @@ import Testing
 import Foundation
 @testable import Anytype
 import Services
+import SwiftProtobuf
 
 @Suite
 struct SetContentViewDataBuilderTests {
@@ -9,6 +10,7 @@ struct SetContentViewDataBuilderTests {
     private let builder: SetContentViewDataBuilder
 
     init() {
+        Container.shared.propertyDetailsStorage.register { MockPropertyDetailsStorage() }
         self.builder = SetContentViewDataBuilder()
     }
 
@@ -199,11 +201,100 @@ struct SetContentViewDataBuilderTests {
         #expect(result != nil)
         #expect(result?.chatId == targetId)
     }
+
+    // MARK: - Gallery cover: Picture property
+
+    @Test("Picture cover resolves the picture property image")
+    func testPictureCover_ImageInStorage_ReturnsImageCover() {
+        let pictureId = "picture-image-1"
+        let storage = ObjectDetailsStorage()
+        storage.add(details: .mock(id: pictureId, layout: .image))
+        let object = ObjectDetails.mock(id: "bookmark-1", layout: .bookmark, picture: pictureId)
+
+        let result = cover(for: object, coverKey: SetViewSettingsImagePreviewCover.picture.rawValue, storage: storage)
+
+        #expect(result == .cover(.imageId(pictureId)))
+    }
+
+    @Test("Picture cover returns nil when the picture property is empty")
+    func testPictureCover_EmptyPicture_ReturnsNil() {
+        let object = ObjectDetails.mock(id: "bookmark-1", layout: .bookmark)
+
+        let result = cover(for: object, coverKey: SetViewSettingsImagePreviewCover.picture.rawValue, storage: ObjectDetailsStorage())
+
+        #expect(result == nil)
+    }
+
+    @Test("Picture cover returns nil when the picture target is not an image")
+    func testPictureCover_NonImageTarget_ReturnsNil() {
+        let pictureId = "not-an-image"
+        let storage = ObjectDetailsStorage()
+        storage.add(details: .mock(id: pictureId, layout: .basic))
+        let object = ObjectDetails.mock(id: "bookmark-1", layout: .bookmark, picture: pictureId)
+
+        let result = cover(for: object, coverKey: SetViewSettingsImagePreviewCover.picture.rawValue, storage: storage)
+
+        #expect(result == nil)
+    }
+
+    @Test("Picture cover returns nil when the picture target is missing from storage")
+    func testPictureCover_TargetMissing_ReturnsNil() {
+        let object = ObjectDetails.mock(id: "bookmark-1", layout: .bookmark, picture: "ghost-id")
+
+        let result = cover(for: object, coverKey: SetViewSettingsImagePreviewCover.picture.rawValue, storage: ObjectDetailsStorage())
+
+        #expect(result == nil)
+    }
+
+    @Test("None cover does not auto-show a bookmark picture")
+    func testNoneCover_BookmarkWithPicture_ReturnsNil() {
+        let pictureId = "picture-image-1"
+        let storage = ObjectDetailsStorage()
+        storage.add(details: .mock(id: pictureId, layout: .image))
+        let object = ObjectDetails.mock(id: "bookmark-1", layout: .bookmark, picture: pictureId)
+
+        let result = cover(for: object, coverKey: SetViewSettingsImagePreviewCover.none.rawValue, storage: storage)
+
+        #expect(result == nil)
+    }
+
+    @Test("Non-gallery view returns nil cover")
+    func testNonGalleryView_ReturnsNil() {
+        let pictureId = "picture-image-1"
+        let storage = ObjectDetailsStorage()
+        storage.add(details: .mock(id: pictureId, layout: .image))
+        let object = ObjectDetails.mock(id: "bookmark-1", layout: .bookmark, picture: pictureId)
+
+        let result = cover(for: object, coverKey: SetViewSettingsImagePreviewCover.picture.rawValue, storage: storage, viewType: .list)
+
+        #expect(result == nil)
+    }
+
+    // MARK: - Helpers
+
+    private let spaceId = "space-1"
+
+    private func cover(
+        for object: ObjectDetails,
+        coverKey: String,
+        storage: ObjectDetailsStorage,
+        viewType: DataviewViewType = .gallery
+    ) -> ObjectHeaderCoverType? {
+        let view = DataviewView.empty.updated(type: viewType, coverRelationKey: coverKey)
+        return builder.coverType(object, dataView: .empty, activeView: view, spaceId: spaceId, detailsStorage: storage)
+    }
 }
 
 extension ObjectDetails {
-    static func mock(id: String) -> ObjectDetails {
-        ObjectDetails(id: id, values: [:])
+    static func mock(id: String, layout: DetailsLayout? = nil, picture: String? = nil) -> ObjectDetails {
+        var values: [String: Google_Protobuf_Value] = [:]
+        if let layout {
+            values[BundledPropertyKey.resolvedLayout.rawValue] = layout.rawValue.protobufValue
+        }
+        if let picture {
+            values[BundledPropertyKey.picture.rawValue] = picture.protobufValue
+        }
+        return ObjectDetails(id: id, values: values)
     }
 }
 
