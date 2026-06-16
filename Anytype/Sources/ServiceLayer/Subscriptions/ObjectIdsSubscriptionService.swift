@@ -29,7 +29,13 @@ actor ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
         additionalKeys: [BundledPropertyKey],
         update: @escaping @Sendable ([ObjectDetails]) async -> Void
     ) async {
-        
+
+        if objectIds.isEmpty {
+            try? await subscriptionStorage.stopSubscription()
+            await update([])
+            return
+        }
+
         let keys: [BundledPropertyKey] = .builder {
             BundledPropertyKey.objectListKeys
             additionalKeys
