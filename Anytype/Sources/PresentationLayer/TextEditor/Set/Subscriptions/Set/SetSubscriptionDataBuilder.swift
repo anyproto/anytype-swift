@@ -21,7 +21,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol, Send
 
         let keys = buildKeys(with: data)
         
-        let offset = (data.currentPage - 1) * numberOfRowsPerPageInSubscriptions
+        let offset = max((data.currentPage - 1) * numberOfRowsPerPageInSubscriptions, 0)
         
         return .search(
             SubscriptionData.Search(
