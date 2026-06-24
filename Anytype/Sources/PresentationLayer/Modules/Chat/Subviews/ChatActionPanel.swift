@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ChatActionPanelModel {
+struct ChatActionPanelModel: Equatable {
     let showScrollToBottom: Bool
     let srollToBottomCounter: Int
     let showMentions: Bool
@@ -78,5 +78,13 @@ struct ChatActionPanelView: View {
                     .offset(y: -10)
             }
         }
+    }
+}
+
+extension ChatActionPanelView: Equatable {
+    // Re-render only when the panel's data changes; the tap closures are recreated
+    // every parent body pass but are behaviourally stable, so they're excluded.
+    nonisolated static func == (lhs: ChatActionPanelView, rhs: ChatActionPanelView) -> Bool {
+        lhs.model == rhs.model
     }
 }
