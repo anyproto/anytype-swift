@@ -12,7 +12,7 @@ extension SetSubscriptionDataBuilderProtocol {
             identifier: identifier,
             document: setDocument,
             groupFilter: nil,
-            currentPage: 0,
+            currentPage: 1,
             numberOfRowsPerPage: widgetInfo.fixedLimit,
             collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
             objectOrderIds: setDocument.objectOrderIds(for: subscriptionId),
