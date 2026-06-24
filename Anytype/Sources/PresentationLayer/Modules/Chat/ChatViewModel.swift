@@ -809,8 +809,9 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     private func updateActions() {
+        let newModel: ChatActionPanelModel
         if let chatState, !forceHiddenActionPanel {
-            actionModel = ChatActionPanelModel(
+            newModel = ChatActionPanelModel(
                 showScrollToBottom: chatState.messages.counter > 0 || bigDistanceToBottom,
                 srollToBottomCounter: Int(chatState.messages.counter),
                 showMentions: chatState.mentions.counter > 0,
@@ -818,7 +819,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 showReactions: chatState.unreadReactionOrderID.isNotEmpty
             )
         } else {
-            actionModel = ChatActionPanelModel(
+            newModel = ChatActionPanelModel(
                 showScrollToBottom: bigDistanceToBottom,
                 srollToBottomCounter: 0,
                 showMentions: false,
@@ -826,5 +827,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 showReactions: false
             )
         }
+        guard newModel != actionModel else { return }
+        actionModel = newModel
     }
 }

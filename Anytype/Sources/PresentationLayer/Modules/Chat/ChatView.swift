@@ -175,6 +175,7 @@ struct ChatView: View {
         } onTapReaction: {
             model.onTapReaction()
         }
+        .equatable()
     }
     
     @ViewBuilder
