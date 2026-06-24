@@ -1,6 +1,9 @@
 import SwiftUI
+import UIKit
+import CoreImage
 import AnytypeCore
 import Services
+import DesignKit
 
 enum DashboardWallpaperMode: Hashable {
     case `default`
@@ -68,13 +71,7 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
         case let .name(_, iconOption, _):
             IconColorStorage.iconBackgroundColor(iconOption: iconOption)
         case let .imageId(imageId, _, iconOption, _):
-            CachedAsyncImage(url: ImageMetadata(id: imageId, side: .width(50)).contentUrl) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .padding(-64)
-                    .blur(radius: 32)
-            } placeholder: {
+            BlurredWallpaperImageView(imageId: imageId) {
                 IconColorStorage.iconBackgroundColor(iconOption: iconOption)
             }
         case .localPath(let path, _):
@@ -86,13 +83,7 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
     private func profileIconView(profileIcon: ObjectIcon.Profile) -> some View {
         switch profileIcon {
         case let .imageId(imageId):
-            CachedAsyncImage(url: ImageMetadata(id: imageId, side: .width(50)).contentUrl) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .padding(-64)
-                    .blur(radius: 32)
-            } placeholder: {
+            BlurredWallpaperImageView(imageId: imageId) {
                 Color.Shape.tertiary
             }
         case .name, .placeholder:
@@ -115,6 +106,82 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
     
     nonisolated static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.mode == rhs.mode && lhs.spaceIcon == rhs.spaceIcon
+    }
+}
+
+// Renders the space-icon wallpaper as a blur that is computed ONCE per icon and cached
+// process-wide, instead of a live `.blur` re-run on every mount (per-spaceId navigation,
+// Space Hub per-card backgrounds). The icon source is already tiny (50px), so the blur is
+// baked on the small bitmap and upscaled at display time, keeping cached bitmaps small.
+private struct BlurredWallpaperImageView<Placeholder: View>: View {
+
+    let imageId: String
+    @ViewBuilder let placeholder: () -> Placeholder
+
+    @State private var blurred: UIImage?
+
+    var body: some View {
+        Group {
+            if let blurred {
+                Image(uiImage: blurred)
+                    .resizable()
+                    .scaledToFill()
+            } else {
+                placeholder()
+            }
+        }
+        .task(id: imageId) {
+            await loadBlurred()
+        }
+    }
+
+    private func loadBlurred() async {
+        if let cached = await BlurredWallpaperCache.shared.cached(imageId) {
+            blurred = cached
+            return
+        }
+        guard
+            let url = ImageMetadata(id: imageId, side: .width(50)).contentUrl,
+            let source = try? await CachedAsyncImageCache.default.loadImage(from: url)
+        else { return }
+        blurred = await BlurredWallpaperCache.shared.blurred(source: source, imageId: imageId)
+    }
+}
+
+private actor BlurredWallpaperCache {
+
+    static let shared = BlurredWallpaperCache()
+
+    // Gaussian sigma in SOURCE pixels (the icon is fetched at 50px). Small values are plenty
+    // once the result is upscaled to fill the screen. Tune visually against the previous
+    // full-screen `.blur(radius: 32)` look.
+    private static let sigma: Double = 4
+
+    private let context = CIContext()
+    private var cache: [String: UIImage] = [:]
+
+    func cached(_ imageId: String) -> UIImage? {
+        cache[imageId]
+    }
+
+    func blurred(source: UIImage, imageId: String) -> UIImage? {
+        if let cached = cache[imageId] { return cached }
+        let result = bake(source)
+        if let result { cache[imageId] = result }
+        return result
+    }
+
+    private func bake(_ source: UIImage) -> UIImage? {
+        autoreleasepool {
+            guard let input = CIImage(image: source) else { return nil }
+            let extent = input.extent
+            let output = input
+                .clampedToExtent() // extend edge pixels so the blur has no transparent border (replaces the old .padding(-64))
+                .applyingGaussianBlur(sigma: Self.sigma)
+                .cropped(to: extent)
+            guard let cgImage = context.createCGImage(output, from: extent) else { return nil }
+            return UIImage(cgImage: cgImage)
+        }
     }
 }
 
