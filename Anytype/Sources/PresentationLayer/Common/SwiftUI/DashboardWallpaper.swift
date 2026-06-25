@@ -131,6 +131,7 @@ private struct BlurredWallpaperImageView<Placeholder: View>: View {
             }
         }
         .task(id: imageId) {
+            blurred = nil // drop the previous icon's blur so the placeholder shows while the new one bakes
             await loadBlurred()
         }
     }
@@ -152,10 +153,9 @@ private actor BlurredWallpaperCache {
 
     static let shared = BlurredWallpaperCache()
 
-    // Gaussian sigma in SOURCE pixels (the icon is fetched at 50px). Small values are plenty
-    // once the result is upscaled to fill the screen. Tune visually against the previous
-    // full-screen `.blur(radius: 32)` look.
-    private static let sigma: Double = 4
+    // Gaussian sigma in SOURCE pixels (the icon is fetched at 50px), then the blurred bitmap
+    // is upscaled to fill the screen. Higher = softer / more blurred. Tune visually.
+    private static let sigma: Double = 16
 
     private let context = CIContext()
     private var cache: [String: UIImage] = [:]
@@ -164,7 +164,7 @@ private actor BlurredWallpaperCache {
         cache[imageId]
     }
 
-    func blurred(source: UIImage, imageId: String) -> UIImage? {
+    func blurred(source: sending UIImage, imageId: String) -> UIImage? {
         if let cached = cache[imageId] { return cached }
         let result = bake(source)
         if let result { cache[imageId] = result }
