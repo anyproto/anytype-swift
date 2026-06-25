@@ -183,11 +183,11 @@ private actor BlurredWallpaperCache {
     }
 
     private func bake(_ source: UIImage) -> UIImage? {
-        autoreleasepool {
+        autoreleasepool { () -> UIImage? in
             guard let ciImage = CIImage(image: source) else { return nil }
             // CIImage(image:) ignores UIImage.imageOrientation; apply it so a non-.up
             // source icon isn't baked rotated/mirrored.
-            let input = ciImage.oriented(CGImagePropertyOrientation(source.imageOrientation))
+            let input = ciImage.oriented(CGImagePropertyOrientation(source.imageOrientation) ?? .up)
             let extent = input.extent
             let output = input
                 .clampedToExtent() // extend edge pixels so the blur has no transparent border (replaces the old .padding(-64))
