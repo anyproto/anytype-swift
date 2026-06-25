@@ -22,6 +22,19 @@ struct ObjectPropertyOption: Equatable, Identifiable {
 }
 
 extension ObjectPropertyOption {
+    init(objectOption: Property.Object.Option) {
+        id = objectOption.id
+        icon = objectOption.icon ?? .object(.defaultObjectIcon)
+        title = objectOption.title
+        type = objectOption.type
+        isArchived = objectOption.isArchived
+        isDeleted = objectOption.isDeleted
+        disableDeletion = true
+        disableDuplication = true
+        objectScreenData = objectOption.editorScreenData
+        screenData = objectOption.editorScreenData
+    }
+
     init(objectDetails: ObjectDetails) {
         id = objectDetails.id
         icon = objectDetails.objectIconImage
