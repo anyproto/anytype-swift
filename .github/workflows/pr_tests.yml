@@ -26,6 +26,14 @@ jobs:
           swiftpm-cache-restore-keys: spm-soucepackages-
           cache-read-only: true
 
+      # The macos-26 runner pool is heterogeneous: SDK headers carry different mtimes
+      # across runners. Clang's cached precompiled modules are mtime-locked to the runner
+      # that built them, so a restored ModuleCache fails on a different runner with
+      # "file has been modified since the module file was built". Drop it so Clang rebuilds
+      # modules against the current runner's SDK; the rest of the cached DerivedData stands.
+      - name: Clear stale module cache
+        run: rm -rf ~/Library/Developer/Xcode/DerivedData/*/ModuleCache.noindex || true
+
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps
 
