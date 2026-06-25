@@ -174,6 +174,8 @@ private actor BlurredWallpaperCache {
     }
 
     func blurred(source: sending UIImage, imageId: String) -> UIImage? {
+        // Re-check: a concurrent task (e.g. two Space Hub cards with the same icon) may have
+        // baked this id while we were fetching the source, so avoid a duplicate bake.
         if let cached = cache.object(forKey: imageId as NSString) { return cached }
         let result = bake(source)
         if let result { cache.setObject(result, forKey: imageId as NSString) }
@@ -185,7 +187,7 @@ private actor BlurredWallpaperCache {
             guard let ciImage = CIImage(image: source) else { return nil }
             // CIImage(image:) ignores UIImage.imageOrientation; apply it so a non-.up
             // source icon isn't baked rotated/mirrored.
-            let input = ciImage.oriented(forExifOrientation: source.imageOrientation.exifOrientation)
+            let input = ciImage.oriented(CGImagePropertyOrientation(source.imageOrientation))
             let extent = input.extent
             let output = input
                 .clampedToExtent() // extend edge pixels so the blur has no transparent border (replaces the old .padding(-64))
@@ -193,22 +195,6 @@ private actor BlurredWallpaperCache {
                 .cropped(to: extent)
             guard let cgImage = context.createCGImage(output, from: extent) else { return nil }
             return UIImage(cgImage: cgImage)
-        }
-    }
-}
-
-private extension UIImage.Orientation {
-    var exifOrientation: Int32 {
-        switch self {
-        case .up: 1
-        case .down: 3
-        case .left: 8
-        case .right: 6
-        case .upMirrored: 2
-        case .downMirrored: 4
-        case .leftMirrored: 5
-        case .rightMirrored: 7
-        @unknown default: 1
         }
     }
 }
