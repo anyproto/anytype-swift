@@ -131,16 +131,21 @@ private struct BlurredWallpaperImageView<Placeholder: View>: View {
             }
         }
         .task(id: imageId) {
-            blurred = nil // drop the previous icon's blur so the placeholder shows while the new one bakes
             await loadBlurred()
         }
     }
 
     private func loadBlurred() async {
+        // Fast path: serve the cached blur without clearing `blurred` first, so an
+        // already-baked icon swaps in directly instead of flashing the placeholder.
         if let cached = await BlurredWallpaperCache.shared.cached(imageId) {
             blurred = cached
             return
         }
+
+        // No cached blur for this icon yet — show the placeholder while it bakes.
+        blurred = nil
+
         guard
             let url = ImageMetadata(id: imageId, side: .width(50)).contentUrl,
             let source = try? await CachedAsyncImageCache.default.loadImage(from: url)
@@ -158,22 +163,29 @@ private actor BlurredWallpaperCache {
     private static let sigma: Double = 16
 
     private let context = CIContext()
-    private var cache: [String: UIImage] = [:]
+    private let cache: NSCache<NSString, UIImage> = {
+        let cache = NSCache<NSString, UIImage>()
+        cache.countLimit = 64 // bounded so visiting many spaces can't grow memory without limit
+        return cache
+    }()
 
     func cached(_ imageId: String) -> UIImage? {
-        cache[imageId]
+        cache.object(forKey: imageId as NSString)
     }
 
     func blurred(source: sending UIImage, imageId: String) -> UIImage? {
-        if let cached = cache[imageId] { return cached }
+        if let cached = cache.object(forKey: imageId as NSString) { return cached }
         let result = bake(source)
-        if let result { cache[imageId] = result }
+        if let result { cache.setObject(result, forKey: imageId as NSString) }
         return result
     }
 
     private func bake(_ source: UIImage) -> UIImage? {
         autoreleasepool {
-            guard let input = CIImage(image: source) else { return nil }
+            guard let ciImage = CIImage(image: source) else { return nil }
+            // CIImage(image:) ignores UIImage.imageOrientation; apply it so a non-.up
+            // source icon isn't baked rotated/mirrored.
+            let input = ciImage.oriented(forExifOrientation: source.imageOrientation.exifOrientation)
             let extent = input.extent
             let output = input
                 .clampedToExtent() // extend edge pixels so the blur has no transparent border (replaces the old .padding(-64))
@@ -181,6 +193,22 @@ private actor BlurredWallpaperCache {
                 .cropped(to: extent)
             guard let cgImage = context.createCGImage(output, from: extent) else { return nil }
             return UIImage(cgImage: cgImage)
+        }
+    }
+}
+
+private extension UIImage.Orientation {
+    var exifOrientation: Int32 {
+        switch self {
+        case .up: 1
+        case .down: 3
+        case .left: 8
+        case .right: 6
+        case .upMirrored: 2
+        case .downMirrored: 4
+        case .leftMirrored: 5
+        case .rightMirrored: 7
+        @unknown default: 1
         }
     }
 }
