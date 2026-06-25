@@ -14,12 +14,12 @@ struct MessageReactionList: View {
     
     var body: some View {
         WrappingHStack(alignment: .leading, horizontalSpacing: 8, verticalSpacing: 8, fitContentWidth: true) {
-            ForEach(rows.indices, id: \.self) { index in
+            ForEach(rows, id: \.emoji) { reaction in
                 MessageReactionView(
-                    model: rows[index],
+                    model: reaction,
                     canToggle: canToggleReaction,
-                    onTap: { try await onTapRow(rows[index]) },
-                    onLongTap: { onLongTapRow(rows[index]) }
+                    onTap: { try await onTapRow(reaction) },
+                    onLongTap: { onLongTapRow(reaction) }
                 )
             }
             if rows.isNotEmpty && canAddReaction {
