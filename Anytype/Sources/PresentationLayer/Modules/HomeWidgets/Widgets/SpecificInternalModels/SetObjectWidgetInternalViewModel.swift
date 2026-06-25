@@ -242,7 +242,7 @@ final class SetObjectWidgetInternalViewModel {
     }
     
     private func updateHeader(dataviewState: WidgetDataviewState?) {
-        headerItems = dataviewState?.dataview.map { dataView in
+        let newHeaderItems = dataviewState?.dataview.map { dataView in
             ViewWidgetTabsItemModel(
                 dataviewId: dataView.id,
                 title: dataView.nameWithPlaceholder,
@@ -251,6 +251,9 @@ final class SetObjectWidgetInternalViewModel {
                     self?.onActiveViewTap(dataView.id)
                 }
             )
+        }
+        if headerItems != newHeaderItems {
+            headerItems = newHeaderItems
         }
     }
     
@@ -359,7 +362,10 @@ final class SetObjectWidgetInternalViewModel {
     private func updateRowDetails(data: SubscriptionStorageState) {
         guard let setDocument else { return }
 
-        availableMoreObjects = data.total > data.items.count
+        let newAvailableMoreObjects = data.total > data.items.count
+        if availableMoreObjects != newAvailableMoreObjects {
+            availableMoreObjects = newAvailableMoreObjects
+        }
 
         let spaceView = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)
         let rowDetails = setObjectWidgetOrderHelper.reorder(

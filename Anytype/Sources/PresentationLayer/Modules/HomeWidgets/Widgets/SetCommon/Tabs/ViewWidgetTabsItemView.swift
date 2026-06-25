@@ -1,11 +1,11 @@
 import Foundation
 import SwiftUI
 
-struct ViewWidgetTabsItemModel {
+struct ViewWidgetTabsItemModel: Equatable {
     let dataviewId: String
     let title: String
     let isSelected: Bool
-    let onTap: () -> Void
+    @EquatableNoop var onTap: () -> Void
 }
 
 struct ViewWidgetTabsItemView: View {
