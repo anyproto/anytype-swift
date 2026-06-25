@@ -49,6 +49,9 @@ struct SearchView<SearchData: SearchDataProtocol>: View {
         }
         .background(Color.Background.secondary)
         .task(id: searchText) {
+            // Debounce: a new keystroke changes the id, cancelling this task so
+            // the sleep throws and `search` is never called for intermediate terms.
+            guard (try? await Task.sleep(for: .milliseconds(300))) != nil else { return }
             await search(searchText)
         }
     }
