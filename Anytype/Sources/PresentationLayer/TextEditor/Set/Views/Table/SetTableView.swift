@@ -85,7 +85,7 @@ struct SetTableView: View {
             headerSettingsView
             SetTableViewHeader(
                 columns: model.colums,
-                canEditRelationValuesInView: model.setDocument.setPermissions.canEditRelationValuesInView
+                canEditRelationValuesInView: model.canEditRelationValuesInView
             )
             .equatable()
         }

@@ -61,12 +61,21 @@ final class EditorSetViewModel: ObservableObject {
     // the pinned table header reads this in its body, which re-evaluates on every
     // model publish (e.g. a row edit) and would otherwise re-run the sort/filter/map.
     @Published private(set) var colums: [PropertyDetails] = []
+    // Captured by value into the `.equatable()` table header; recomputed on the same
+    // path as `colums` so a viewer→editor permission flip refreshes the header
+    // deterministically instead of relying on an incidental unrelated publish.
+    @Published private(set) var canEditRelationValuesInView = false
 
     private func updateColumns() {
         let newColumns = setDocument.sortedRelations(for: setDocument.activeView.id)
             .filter { $0.option.isVisible }.map(\.relationDetails)
-        guard newColumns != colums else { return }
-        colums = newColumns
+        if newColumns != colums {
+            colums = newColumns
+        }
+        let newCanEditRelationValues = setDocument.setPermissions.canEditRelationValuesInView
+        if canEditRelationValuesInView != newCanEditRelationValues {
+            canEditRelationValuesInView = newCanEditRelationValues
+        }
     }
     
     var isGroupBackgroundColors: Bool {
@@ -279,7 +288,11 @@ final class EditorSetViewModel: ObservableObject {
         // without a .dataviewUpdated event, so refresh the cached columns here too.
         // updateColumns() diff-guards, so redundant calls are free.
         setDocument.syncPublisher.receiveOnMain().sink { [weak self] in
-            self?.updateColumns()
+            guard let self else { return }
+            updateColumns()
+            // A relation format/read-only change doesn't emit a record Amend, so refresh
+            // the per-record cell configs too. Diff-guarded → a no-op when nothing changed.
+            updateConfigurations(with: Array(recordsDict.keys))
         }.store(in: &subscriptions)
 
         Task { @MainActor [weak self] in
