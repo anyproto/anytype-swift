@@ -56,8 +56,8 @@ struct TreeWidgetView: View {
         ) {
             if let rows = model.rows {
                 VStack(spacing: 0) {
-                    ForEach(rows, id: \.rowId) {
-                        TreeWidgetRowView(model: $0, showDivider: $0.rowId != rows.last?.rowId)
+                    ForEach(rows) {
+                        TreeWidgetRowView(model: $0, showDivider: $0.id != rows.last?.id)
                             .transition(.move(edge: .top).combined(with: .opacity))
                     }
                     if model.availableMore {

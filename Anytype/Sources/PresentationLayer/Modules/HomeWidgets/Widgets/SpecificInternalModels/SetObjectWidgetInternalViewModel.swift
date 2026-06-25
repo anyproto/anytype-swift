@@ -187,30 +187,37 @@ final class SetObjectWidgetInternalViewModel {
     // MARK: - Private for view updates
     
     private func updateRows(rowDetails: [SetContentViewItemConfiguration]?) {
-        showUnsupportedBanner = (style == .view) && !(setDocument?.activeView.type.isSupportedOnDevice ?? false)
+        let newShowUnsupportedBanner = (style == .view) && !(setDocument?.activeView.type.isSupportedOnDevice ?? false)
+        if showUnsupportedBanner != newShowUnsupportedBanner {
+            showUnsupportedBanner = newShowUnsupportedBanner
+        }
 
+        let newRows: SetObjectViewWidgetRows
         switch style {
         case .list:
             let listRows = buildListRows(from: rowDetails)
-            rows = .list(rows: listRows, id: activeViewId ?? "")
+            newRows = .list(rows: listRows, id: activeViewId ?? "")
         case .compactList:
             let listRows = buildListRows(from: rowDetails)
-            rows = .compactList(rows: listRows, id: activeViewId ?? "")
+            newRows = .compactList(rows: listRows, id: activeViewId ?? "")
         case .view:
             if isSetByImageType() {
                 let galleryRows = rowDetails.map { widgetRowModelBuilder.buildGalleryRows(from: $0) }
-                rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
+                newRows = .gallery(rows: galleryRows, id: activeViewId ?? "")
             } else {
                 switch setDocument?.activeView.type {
                 case .table, .list, .kanban, .calendar, .graph, nil:
                     let listRows = buildListRows(from: rowDetails)
-                    rows = .compactList(rows: listRows, id: activeViewId ?? "")
+                    newRows = .compactList(rows: listRows, id: activeViewId ?? "")
                 case .gallery:
                     let galleryRows = rowDetails.map { widgetRowModelBuilder.buildGalleryRows(from: $0) }
-                    rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
+                    newRows = .gallery(rows: galleryRows, id: activeViewId ?? "")
                 }
             }
         }
+
+        guard newRows != rows else { return }
+        rows = newRows
     }
 
     private func buildListRows(from configs: [SetContentViewItemConfiguration]?) -> [ListWidgetRowModel]? {

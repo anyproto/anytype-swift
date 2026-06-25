@@ -1,13 +1,15 @@
 import Foundation
 import SwiftUI
 
-struct GalleryWidgetRowModel {
+struct GalleryWidgetRowModel: Identifiable, Equatable {
     let objectId: String
     let title: String?
     let icon: Icon?
     let cover: ObjectHeaderCoverType?
-    let onTap: @MainActor () -> Void
-    
+    @EquatableNoop var onTap: @MainActor () -> Void
+
+    var id: String { objectId }
+
     var shouldIncreaseCoverHeight: Bool {
         cover.isNotNil && icon.isNil && title.isNil
     }

@@ -18,7 +18,7 @@ struct GalleryWidgetView: View {
         ScrollView(.horizontal) {
             HStack(spacing: 8) {
                 if let rows {
-                    ForEach(rows, id: \.objectId) { row in
+                    ForEach(rows) { row in
                         GalleryWidgetRow(model: row)
                     }
                     if showAllObjects {
