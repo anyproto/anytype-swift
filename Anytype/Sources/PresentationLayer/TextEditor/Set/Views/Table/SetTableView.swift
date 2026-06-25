@@ -24,10 +24,7 @@ struct SetTableView: View {
             OffsetAwareScrollView(
                 axes: [.vertical],
                 showsIndicators: false,
-                offsetChanged: {
-                    offset.y = $0.y
-                    UIApplication.shared.hideKeyboard()
-                }
+                offsetChanged: { offset.y = $0.y }
             ) {
                 Spacer.fixedHeight(tableHeaderSize.height)
                 LazyVStack(
@@ -42,6 +39,7 @@ struct SetTableView: View {
                 .padding(.top, -headerMinimizedSize.height)
             }
         }
+        .scrollDismissesKeyboard(.immediately)
     }
     
     @ViewBuilder
@@ -85,7 +83,11 @@ struct SetTableView: View {
     private var compoundHeader: some View {
         VStack(spacing: 0) {
             headerSettingsView
-            SetTableViewHeader(model: model)
+            SetTableViewHeader(
+                columns: model.colums,
+                canEditRelationValuesInView: model.setDocument.setPermissions.canEditRelationValuesInView
+            )
+            .equatable()
         }
         .background(Color.Background.primary)
     }

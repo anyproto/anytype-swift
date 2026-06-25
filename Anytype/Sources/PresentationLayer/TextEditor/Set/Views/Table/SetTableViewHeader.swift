@@ -1,8 +1,14 @@
 import SwiftUI
+import Services
 
-struct SetTableViewHeader: View {
-    @ObservedObject var model: EditorSetViewModel
-    
+struct SetTableViewHeader: View, Equatable {
+    let columns: [PropertyDetails]
+    let canEditRelationValuesInView: Bool
+
+    nonisolated static func == (lhs: SetTableViewHeader, rhs: SetTableViewHeader) -> Bool {
+        lhs.columns == rhs.columns && lhs.canEditRelationValuesInView == rhs.canEditRelationValuesInView
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeDivider()
@@ -10,13 +16,13 @@ struct SetTableViewHeader: View {
             AnytypeDivider()
         }
     }
-    
+
     private var content: some View {
         LazyHStack(spacing: 0) {
-            ForEach(model.colums, id: \.key) { data in
+            ForEach(columns, id: \.key) { data in
                 HStack(spacing: 0) {
                     Spacer.fixedWidth(15)
-                    if data.isReadOnlyValue || !model.setDocument.setPermissions.canEditRelationValuesInView {
+                    if data.isReadOnlyValue || !canEditRelationValuesInView {
                         Image(asset: .relationLockedSmall)
                             .tint(.Control.secondary)
                         Spacer.fixedWidth(4)
@@ -27,7 +33,7 @@ struct SetTableViewHeader: View {
                         .minimumScaleFactor(0.5)
                     Spacer()
                 }.frame(width: 144)
-                
+
                 Rectangle()
                     .frame(width: .onePixel, height: 18)
                     .foregroundStyle(Color.Shape.primary)
@@ -39,6 +45,6 @@ struct SetTableViewHeader: View {
 
 struct SetTableViewHeader_Previews: PreviewProvider {
     static var previews: some View {
-        SetTableViewHeader(model: EditorSetViewModel.emptyPreview)
+        SetTableViewHeader(columns: [], canEditRelationValuesInView: true)
     }
 }

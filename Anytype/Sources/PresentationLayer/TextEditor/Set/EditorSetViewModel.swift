@@ -56,10 +56,17 @@ final class EditorSetViewModel: ObservableObject {
     var isEmptyViews: Bool {
         setDocument.dataView.views.isEmpty
     }
-    
-    var colums: [PropertyDetails] {
-        setDocument.sortedRelations(for: setDocument.activeView.id)
+
+    // Cached on the dataview-update path instead of recomputed on every access:
+    // the pinned table header reads this in its body, which re-evaluates on every
+    // model publish (e.g. a row edit) and would otherwise re-run the sort/filter/map.
+    @Published private(set) var colums: [PropertyDetails] = []
+
+    private func updateColumns() {
+        let newColumns = setDocument.sortedRelations(for: setDocument.activeView.id)
             .filter { $0.option.isVisible }.map(\.relationDetails)
+        guard newColumns != colums else { return }
+        colums = newColumns
     }
     
     var isGroupBackgroundColors: Bool {
@@ -267,7 +274,14 @@ final class EditorSetViewModel: ObservableObject {
                 await self?.onDataChange(update)
             }
         }.store(in: &subscriptions)
-        
+
+        // Relation-details changes (rename, read-only/format) arrive via syncPublisher
+        // without a .dataviewUpdated event, so refresh the cached columns here too.
+        // updateColumns() diff-guards, so redundant calls are free.
+        setDocument.syncPublisher.receiveOnMain().sink { [weak self] in
+            self?.updateColumns()
+        }.store(in: &subscriptions)
+
         Task { @MainActor [weak self] in
             guard let self else { return }
             do {
@@ -436,6 +450,7 @@ final class EditorSetViewModel: ObservableObject {
         }
         setupTitle()
         setupDescription()
+        updateColumns()
         await startSubscriptionIfNeeded()
         updateConfigurations(with: Array(recordsDict.keys))
 
@@ -623,7 +638,12 @@ final class EditorSetViewModel: ObservableObject {
                 tempConfigurationsDict[groupId] = configurations
             }
         }
-        configurationsDict = sortedConfigurationsDict(with: tempConfigurationsDict)
+        let sortedDict = sortedConfigurationsDict(with: tempConfigurationsDict)
+        // Diff-guard: skip the publish when nothing changed so a single-record event
+        // doesn't re-render the whole grid/table. SetContentViewItemConfiguration is
+        // Equatable (onItemTap is @EquatableNoop), so this compare is cheap.
+        guard sortedDict != configurationsDict else { return }
+        configurationsDict = sortedDict
     }
     
     private func sortedConfigurationsDict(
