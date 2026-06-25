@@ -55,6 +55,10 @@ final class SpreadsheetViewDataSource {
         }
 
         self.allModels = allModels
+        // Content/structure changed: invalidate memoized section heights so the
+        // layout re-measures on the next prepare() (single-cell edits keep using
+        // the targeted setNeedsLayout(indexPath:) path).
+        (collectionView.collectionViewLayout as? SpreadsheetLayout)?.invalidateCachedHeights()
         applyBlocksSectionSnapshot(snapshot, animatingDifferences: true)
     }
 
