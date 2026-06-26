@@ -28,18 +28,10 @@ extension EditorCollectionFlowLayout {
     
     // MARK: - Private
     nonisolated private static func traverseBlock(_ block: BlockInformation, dictionary: [String: BlockInformation]) -> [String] {
-        block.childrenIds.map { childId -> [String] in
-
-            var childIndentifiers = [String]()
-            if let childInformation = dictionary[childId] {
-                childIndentifiers.append(childInformation.id)
-                childIndentifiers.append(
-                    contentsOf: traverseBlock(childInformation, dictionary: dictionary)
-                )
-            }
-
-            return childIndentifiers
-        }.flatMap { $0 }
+        block.childrenIds.flatMap { childId -> [String] in
+            guard let childInformation = dictionary[childId] else { return [] }
+            return [childId] + traverseBlock(childInformation, dictionary: dictionary)
+        }
     }
     
     nonisolated private static func findIdentation(

@@ -27,7 +27,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         dataSource = nil
         cancellables.removeAll()
         attributes.removeAll()
-        cachedSectionHeights.removeAll()
+        invalidateCachedHeights()
         contentSize = .zero
         lastSelectedAttributes.removeAll()
     }

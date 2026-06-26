@@ -7,7 +7,15 @@ final class SpreadsheetViewDataSource {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, EditorItem>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, EditorItem>
 
-    var allModels = [[EditorItem]]()
+    var allModels = [[EditorItem]]() {
+        didSet {
+            // Content/structure changed: invalidate memoized section heights so the
+            // layout re-measures on the next prepare() (single-cell edits keep using
+            // the targeted setNeedsLayout(indexPath:) path). Driven from the write
+            // itself so a new mutation path can't forget to invalidate.
+            (collectionView.collectionViewLayout as? SpreadsheetLayout)?.invalidateCachedHeights()
+        }
+    }
     private lazy var dataSource: DataSource = makeCollectionViewDataSource()
     private let collectionView: EditorCollectionView
     private let templateCell = EditorViewListCell()
@@ -55,10 +63,6 @@ final class SpreadsheetViewDataSource {
         }
 
         self.allModels = allModels
-        // Content/structure changed: invalidate memoized section heights so the
-        // layout re-measures on the next prepare() (single-cell edits keep using
-        // the targeted setNeedsLayout(indexPath:) path).
-        (collectionView.collectionViewLayout as? SpreadsheetLayout)?.invalidateCachedHeights()
         applyBlocksSectionSnapshot(snapshot, animatingDifferences: true)
     }
 
