@@ -54,8 +54,15 @@ extension LegacySearchViewModel {
     
     func didAskToSearch(text: String) {
         searchTask?.cancel()
-        
+
         searchTask = Task { @MainActor in
+            // Debounce only real typing: the next keystroke cancels this task, so the
+            // sleep throws and the middleware search is skipped for intermediate terms.
+            // The initial/empty-text load (onAppear and clear-to-empty) runs instantly,
+            // matching GlobalSearch's needDelay() behavior.
+            if text.isNotEmpty {
+                guard (try? await Task.sleep(for: .milliseconds(300))) != nil else { return }
+            }
             try? await internalViewModel.search(text: text)
             updateCreateItemButtonState(searchText: text)
         }

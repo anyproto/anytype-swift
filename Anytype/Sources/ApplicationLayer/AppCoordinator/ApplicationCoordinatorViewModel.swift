@@ -2,6 +2,7 @@ import SwiftUI
 @preconcurrency import Combine
 import AnytypeCore
 import Services
+import DeepLinks
 
 @MainActor
 @Observable
@@ -25,6 +26,8 @@ final class ApplicationCoordinatorViewModel {
     private var basicUserInfoStorage: any BasicUserInfoStorageProtocol
     @Injected(\.pushNotificationsPermissionService) @ObservationIgnored
     private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
+    @Injected(\.appActionStorage) @ObservationIgnored
+    private var appActionStorage: AppActionStorage
 
     @ObservationIgnored
     private var dismissAllPresented: DismissAllPresented?
@@ -128,7 +131,7 @@ final class ApplicationCoordinatorViewModel {
     
     func selectAccount(id: String) async {
         do {
-            let account = try await authService.selectAccount(id: id)
+            let account = try await authService.selectAccount(id: id, preferredSpaceId: preferredSpaceId())
             
             switch account.status {
             case .active:
@@ -152,6 +155,15 @@ final class ApplicationCoordinatorViewModel {
         } catch {
             applicationStateService.state = .auth
         }
+    }
+
+    // Space the middleware should load eagerly on AccountSelect, the rest are deferred.
+    // A pending deeplink (url or push notification tap) is the only known cold start destination —
+    // without one the app opens the Space Hub, so no space is preferred.
+    private func preferredSpaceId() -> String {
+        guard FeatureFlags.preferredSpaceOnColdStart,
+              case let .deepLink(deepLink, _) = appActionStorage.action else { return "" }
+        return deepLink.spaceId ?? ""
     }
 
     private func handleFileLimitReachedError() {

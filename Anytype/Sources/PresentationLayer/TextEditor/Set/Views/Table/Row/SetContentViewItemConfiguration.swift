@@ -17,8 +17,11 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     let coverType: ObjectHeaderCoverType?
     let minHeight: CGFloat?
     let chatPreview: MessagePreviewModel?
+    // Navigation identity compared by Hashable so consumers (e.g. widget re-render guards)
+    // rebuild the row when routing changes even if rendered fields stay the same.
+    let screenData: ScreenData
     @EquatableNoop var onItemTap: @MainActor () -> Void
-    
+
     init(
         id: String,
         title: String,
@@ -34,6 +37,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         coverType: ObjectHeaderCoverType?,
         minHeight: CGFloat?,
         chatPreview: MessagePreviewModel? = nil,
+        screenData: ScreenData,
         onItemTap: @escaping @MainActor () -> Void
     ) {
         self.id = id
@@ -50,6 +54,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         self.coverType = coverType
         self.minHeight = minHeight
         self.chatPreview = chatPreview
+        self.screenData = screenData
         self.onItemTap = onItemTap
     }
 }

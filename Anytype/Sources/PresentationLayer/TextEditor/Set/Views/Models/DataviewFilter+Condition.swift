@@ -56,6 +56,30 @@ extension Array where Element == DataviewFilter {
             return filter.isSupportedForSubscription ? filter : nil
         }
     }
+
+    // Middleware stores a "Current User" filter value as a placeholder struct ({ type, value }),
+    // not a participant id. The placeholder is resolved client-side (same as desktop/Android) by
+    // substituting the current participant id before subscribing.
+    func resolvingCurrentUserPlaceholder(participantId: String?) -> [DataviewFilter] {
+        map { filter in
+            var resolved = filter
+            // Advanced filter: recurse into nested conditions
+            if filter.operator != .no {
+                resolved.nestedFilters = filter.nestedFilters
+                    .resolvingCurrentUserPlaceholder(participantId: participantId)
+                return resolved
+            }
+            guard let placeholder = RelationPlaceholder(filter.value),
+                  case .currentUser = placeholder.type,
+                  let participantId else { return filter }
+            // Match the value shape to the condition: list-based conditions expect a list,
+            // equality-based conditions expect a scalar (see SearchHelper).
+            resolved.value = filter.condition.expectsListValue
+                ? [participantId].protobufValue
+                : participantId.protobufValue
+            return resolved
+        }
+    }
 }
 
 extension DataviewFilter.Condition {
@@ -65,6 +89,16 @@ extension DataviewFilter.Condition {
             return false
         default:
             return true
+        }
+    }
+
+    // List-based conditions expect a list value; equality-based conditions expect a scalar.
+    var expectsListValue: Bool {
+        switch self {
+        case .in, .notIn, .allIn, .notAllIn, .exactIn, .notExactIn:
+            return true
+        default:
+            return false
         }
     }
     

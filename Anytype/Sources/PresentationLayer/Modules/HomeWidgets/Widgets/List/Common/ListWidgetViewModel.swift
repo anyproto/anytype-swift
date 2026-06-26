@@ -102,7 +102,7 @@ final class ListWidgetViewModel: ObservableObject {
     }
     
     private func updateViewState() {
-        rows = rowDetails?.map { details in
+        let newRows = rowDetails?.map { details in
             ListWidgetRowModel(
                 details: details,
                 onTap: { [weak self] _ in
@@ -110,10 +110,12 @@ final class ListWidgetViewModel: ObservableObject {
                 }
             )
         }
+        guard newRows != rows else { return }
+        rows = newRows
     }
 
     private func updateHeader(dataviewState: WidgetDataviewState?) {
-        headerItems = dataviewState?.dataview.map { dataView in
+        let newHeaderItems = dataviewState?.dataview.map { dataView in
             ViewWidgetTabsItemModel(
                 dataviewId: dataView.id,
                 title: dataView.nameWithPlaceholder,
@@ -123,6 +125,8 @@ final class ListWidgetViewModel: ObservableObject {
                 }
             )
         }
+        guard newHeaderItems != headerItems else { return }
+        headerItems = newHeaderItems
     }
     
     private func handleTapOnObject(details: ObjectDetails) {

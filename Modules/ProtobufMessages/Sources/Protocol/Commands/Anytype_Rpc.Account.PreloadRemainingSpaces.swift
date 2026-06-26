@@ -11,8 +11,8 @@
 import Foundation
 import SwiftProtobuf
 
-extension Anytype_Rpc.Block {
-    public struct Copy: Sendable {
+extension Anytype_Rpc.Account {
+    public struct PreloadRemainingSpaces: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -24,35 +24,9 @@ extension Anytype_Rpc.Block {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var contextID: String = String()
-
-        public var blocks: [Anytype_Model_Block] = []
-
-        public var selectedTextRange: Anytype_Model_Range {
-          get {return _selectedTextRange ?? Anytype_Model_Range()}
-          set {_selectedTextRange = newValue}
-        }
-        /// Returns true if `selectedTextRange` has been explicitly set.
-        public var hasSelectedTextRange: Bool {return self._selectedTextRange != nil}
-        /// Clears the value of `selectedTextRange`. Subsequent reads from it will return its default value.
-        public mutating func clearSelectedTextRange() {self._selectedTextRange = nil}
-
-        /// optional. when set and the request contains multiple blocks, selectedTextRange is applied to the first block and selectedTextRangeLastBlock to the last block. {0,0} range means the whole block
-        public var selectedTextRangeLastBlock: Anytype_Model_Range {
-          get {return _selectedTextRangeLastBlock ?? Anytype_Model_Range()}
-          set {_selectedTextRangeLastBlock = newValue}
-        }
-        /// Returns true if `selectedTextRangeLastBlock` has been explicitly set.
-        public var hasSelectedTextRangeLastBlock: Bool {return self._selectedTextRangeLastBlock != nil}
-        /// Clears the value of `selectedTextRangeLastBlock`. Subsequent reads from it will return its default value.
-        public mutating func clearSelectedTextRangeLastBlock() {self._selectedTextRangeLastBlock = nil}
-
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
-
-        fileprivate var _selectedTextRange: Anytype_Model_Range? = nil
-        fileprivate var _selectedTextRangeLastBlock: Anytype_Model_Range? = nil
       }
 
       public struct Response: Sendable {
@@ -60,20 +34,14 @@ extension Anytype_Rpc.Block {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Block.Copy.Response.Error {
-          get {return _error ?? Anytype_Rpc.Block.Copy.Response.Error()}
+        public var error: Anytype_Rpc.Account.PreloadRemainingSpaces.Response.Error {
+          get {return _error ?? Anytype_Rpc.Account.PreloadRemainingSpaces.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
         public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
-
-        public var textSlot: String = String()
-
-        public var htmlSlot: String = String()
-
-        public var anySlot: [Anytype_Model_Block] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -82,7 +50,7 @@ extension Anytype_Rpc.Block {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Block.Copy.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Account.PreloadRemainingSpaces.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -90,11 +58,14 @@ extension Anytype_Rpc.Block {
 
           public enum Code: SwiftProtobuf.Enum, Swift.CaseIterable {
             public typealias RawValue = Int
-            case null // = 0
-            case unknownError // = 1
 
-            /// ...
+            /// No error
+            case null // = 0
+
+            /// Any other errors
+            case unknownError // = 1
             case badInput // = 2
+            case accountIsNotRunning // = 101
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -106,6 +77,7 @@ extension Anytype_Rpc.Block {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 101: self = .accountIsNotRunning
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -115,15 +87,17 @@ extension Anytype_Rpc.Block {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .accountIsNotRunning: return 101
               case .UNRECOGNIZED(let i): return i
               }
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Block.Copy.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Account.PreloadRemainingSpaces.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
+              .accountIsNotRunning,
             ]
 
           }
@@ -133,15 +107,15 @@ extension Anytype_Rpc.Block {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Block.Copy.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.Account.PreloadRemainingSpaces.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Block.Copy: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Block.protoMessageName + ".Copy"
+extension Anytype_Rpc.Account.PreloadRemainingSpaces: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".PreloadRemainingSpaces"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -153,64 +127,34 @@ extension Anytype_Rpc.Block.Copy: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Block.Copy, rhs: Anytype_Rpc.Block.Copy) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Account.PreloadRemainingSpaces, rhs: Anytype_Rpc.Account.PreloadRemainingSpaces) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Block.Copy.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Block.Copy.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}blocks\0\u{1}selectedTextRange\0\u{1}selectedTextRangeLastBlock\0")
+extension Anytype_Rpc.Account.PreloadRemainingSpaces.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.PreloadRemainingSpaces.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.blocks) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._selectedTextRange) }()
-      case 4: try { try decoder.decodeSingularMessageField(value: &self._selectedTextRangeLastBlock) }()
-      default: break
-      }
-    }
+    // Load everything into unknown fields
+    while try decoder.nextFieldNumber() != nil {}
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.contextID.isEmpty {
-      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
-    }
-    if !self.blocks.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.blocks, fieldNumber: 2)
-    }
-    try { if let v = self._selectedTextRange {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    } }()
-    try { if let v = self._selectedTextRangeLastBlock {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Block.Copy.Request, rhs: Anytype_Rpc.Block.Copy.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {return false}
-    if lhs.blocks != rhs.blocks {return false}
-    if lhs._selectedTextRange != rhs._selectedTextRange {return false}
-    if lhs._selectedTextRangeLastBlock != rhs._selectedTextRangeLastBlock {return false}
+  public static func ==(lhs: Anytype_Rpc.Account.PreloadRemainingSpaces.Request, rhs: Anytype_Rpc.Account.PreloadRemainingSpaces.Request) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Block.Copy.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Block.Copy.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}textSlot\0\u{1}htmlSlot\0\u{1}anySlot\0")
+extension Anytype_Rpc.Account.PreloadRemainingSpaces.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.PreloadRemainingSpaces.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -219,9 +163,6 @@ extension Anytype_Rpc.Block.Copy.Response: SwiftProtobuf.Message, SwiftProtobuf.
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.textSlot) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.htmlSlot) }()
-      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.anySlot) }()
       default: break
       }
     }
@@ -235,30 +176,18 @@ extension Anytype_Rpc.Block.Copy.Response: SwiftProtobuf.Message, SwiftProtobuf.
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.textSlot.isEmpty {
-      try visitor.visitSingularStringField(value: self.textSlot, fieldNumber: 2)
-    }
-    if !self.htmlSlot.isEmpty {
-      try visitor.visitSingularStringField(value: self.htmlSlot, fieldNumber: 3)
-    }
-    if !self.anySlot.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.anySlot, fieldNumber: 4)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Block.Copy.Response, rhs: Anytype_Rpc.Block.Copy.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Account.PreloadRemainingSpaces.Response, rhs: Anytype_Rpc.Account.PreloadRemainingSpaces.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.textSlot != rhs.textSlot {return false}
-    if lhs.htmlSlot != rhs.htmlSlot {return false}
-    if lhs.anySlot != rhs.anySlot {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Block.Copy.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Block.Copy.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Account.PreloadRemainingSpaces.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.PreloadRemainingSpaces.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -284,7 +213,7 @@ extension Anytype_Rpc.Block.Copy.Response.Error: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Block.Copy.Response.Error, rhs: Anytype_Rpc.Block.Copy.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Account.PreloadRemainingSpaces.Response.Error, rhs: Anytype_Rpc.Account.PreloadRemainingSpaces.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -292,8 +221,8 @@ extension Anytype_Rpc.Block.Copy.Response.Error: SwiftProtobuf.Message, SwiftPro
   }
 }
 
-extension Anytype_Rpc.Block.Copy.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
+extension Anytype_Rpc.Account.PreloadRemainingSpaces.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}ACCOUNT_IS_NOT_RUNNING\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

@@ -1,22 +1,27 @@
 import Foundation
 import SwiftUI
 
-struct TreeWidgetRowViewModel {
-    
-    enum ExpandedType {
+struct TreeWidgetRowViewModel: Identifiable, Equatable {
+
+    enum ExpandedType: Equatable {
         case arrow(expanded: Bool)
         case icon(asset: ImageAsset)
     }
-    
+
     let rowId: String
     let objectId: String
     let title: String
     let icon: Icon
     let expandedType: ExpandedType
     let level: Int
-    let tapExpand: (TreeWidgetRowViewModel) -> Void
-    let tapCollapse: (TreeWidgetRowViewModel) -> Void
-    let tapObject: (TreeWidgetRowViewModel) -> Void
+    // Navigation identity compared by Equatable so re-render guards rebuild the row
+    // (and its tapObject) when routing changes even if rendered fields stay the same.
+    let screenData: ScreenData
+    @EquatableNoop var tapExpand: (TreeWidgetRowViewModel) -> Void
+    @EquatableNoop var tapCollapse: (TreeWidgetRowViewModel) -> Void
+    @EquatableNoop var tapObject: (TreeWidgetRowViewModel) -> Void
+
+    var id: String { rowId }
 }
 
 struct TreeWidgetRowView: View {

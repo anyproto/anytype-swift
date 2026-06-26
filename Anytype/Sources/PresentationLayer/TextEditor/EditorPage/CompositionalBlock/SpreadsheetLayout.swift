@@ -27,7 +27,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         dataSource = nil
         cancellables.removeAll()
         attributes.removeAll()
-        cachedSectionHeights.removeAll()
+        invalidateCachedHeights()
         contentSize = .zero
         lastSelectedAttributes.removeAll()
     }
@@ -77,6 +77,12 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         }
 
         for sectionIndex in 0..<dataSource.allModels.count {
+            // Re-measure only sections whose cached height was invalidated
+            // (a single-cell edit nils one section; `reset()`/`invalidateEverything()`
+            // clear the whole cache). Avoids re-measuring the entire table on every
+            // attribute-only invalidation.
+            if cachedSectionHeights[sectionIndex] != nil { continue }
+
             var sectionMaxHeight: CGFloat = 0
 
             for rowIndex in 0..<dataSource.allModels[sectionIndex].count {
@@ -108,6 +114,8 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     }
 
     private func reset() {
+        // Column widths changed: every cached height is stale (width drives text wrapping).
+        invalidateCachedHeights()
         prepare()
     }
 
@@ -157,6 +165,12 @@ final class SpreadsheetLayout: UICollectionViewLayout {
 }
 
 extension SpreadsheetLayout {
+    // Drop all memoized section heights: content/structure of `allModels` changed,
+    // so every section must be re-measured on the next `prepare()`.
+    func invalidateCachedHeights() {
+        cachedSectionHeights.removeAll()
+    }
+
     func setNeedsLayout(indexPath: IndexPath) {
         guard let dataSource = dataSource,
               dataSource.contentConfigurationProvider(at: indexPath).isNotNil else { return }

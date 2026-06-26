@@ -132,7 +132,7 @@ extension BundledPropertiesValueProvider {
     var isSet: Bool { resolvedLayoutValue.isSet }
     
     var isObjectType: Bool { resolvedLayoutValue.isObjectType }
-    
+
     var isSupportedForOpening: Bool { resolvedLayoutValue.isSupportedForOpening }
 
     var isSupportedForDiscussion: Bool { resolvedLayoutValue.isSupportedForDiscussion }

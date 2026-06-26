@@ -68,7 +68,7 @@ final class WorkspaceService: WorkspaceServiceProtocol {
             $0.details.fields[BundledPropertyKey.spaceType.rawValue] = spaceType.rawValue.protobufValue
             $0.useCase = useCase
             $0.withChat = withChat
-        }).invoke()
+        }).invoke(qos: .userInitiated)
         return result
     }
 
@@ -80,7 +80,7 @@ final class WorkspaceService: WorkspaceServiceProtocol {
             $0.details.fields[BundledPropertyKey.oneToOneRequestMetadataKey.rawValue] = metadataKey.protobufValue
             $0.useCase = .none
             $0.withChat = true
-        }).invoke()
+        }).invoke(qos: .userInitiated)
 
         return result.spaceID
     }
@@ -89,8 +89,8 @@ final class WorkspaceService: WorkspaceServiceProtocol {
         let result = try await ClientCommands.workspaceOpen(.with {
             $0.spaceID = spaceId
             $0.withChat = withChat
-        }).invoke()
-        
+        }).invoke(qos: .userInitiated)
+
         return result.info.asModel
     }
     

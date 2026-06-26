@@ -68,7 +68,7 @@ final class PropertiesService: PropertiesServiceProtocol {
         let result = try await ClientCommands.objectCreateRelation(.with {
             $0.details = propertyDetails.asMiddleware
             $0.spaceID = spaceId
-        }).invoke()
+        }).invoke(qos: .userInitiated)
         
         guard let objectDetails = try? ObjectDetails(protobufStruct: result.details) else {
             throw PropertyServiceError.unableToCreateRelationFromObject

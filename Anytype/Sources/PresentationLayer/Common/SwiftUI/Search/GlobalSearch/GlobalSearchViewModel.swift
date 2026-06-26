@@ -54,6 +54,7 @@ final class GlobalSearchViewModel {
     
     func startParticipantTask() async {
         for await participant in accountParticipantStorage.participantSequence(spaceId: moduleData.spaceId) {
+            guard participant.canEdit != participantCanEdit else { continue }
             participantCanEdit = participant.canEdit
             updateSections()
         }
@@ -166,7 +167,7 @@ final class GlobalSearchViewModel {
     
     private func listSectionData(title: String?, result: [SearchResultWithMeta]) -> ListSectionData<String?, SearchWithMetaModel> {
         ListSectionData(
-            id: title ?? UUID().uuidString,
+            id: title ?? "single_section",
             data: title,
             rows: result.compactMap { result in
                 searchWithMetaModelBuilder.buildModel(

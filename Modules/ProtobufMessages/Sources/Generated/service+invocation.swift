@@ -294,6 +294,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func accountPreloadRemainingSpaces(
+        _ request: Anytype_Rpc.Account.PreloadRemainingSpaces.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.PreloadRemainingSpaces.Request, Anytype_Rpc.Account.PreloadRemainingSpaces.Response> {
+        return Invocation(messageName: "AccountPreloadRemainingSpaces", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountPreloadRemainingSpaces(requestData) ?? Data()
+            return try Anytype_Rpc.Account.PreloadRemainingSpaces.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func accountRevertDeletion(
         _ request: Anytype_Rpc.Account.RevertDeletion.Request = .init()
     ) -> Invocation<Anytype_Rpc.Account.RevertDeletion.Request, Anytype_Rpc.Account.RevertDeletion.Response> {

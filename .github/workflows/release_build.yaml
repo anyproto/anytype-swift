@@ -75,4 +75,4 @@ jobs:
           FASTLANE_XCODE_LIST_TIMEOUT: 900
 
       - name: Summary Anytype
-        run: echo "${{ env.FASTLANE_GITHUB_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
+        run: echo "$FASTLANE_GITHUB_SUMMARY" >> "$GITHUB_STEP_SUMMARY"

@@ -29,6 +29,7 @@ This document provides an overview of GitHub workflows, custom actions, and auto
 | `branch_build.yaml` | Manual | Build and upload branch to TestFlight |
 | `dev_build.yaml` | Schedule (weekdays 05:00 UTC), manual | Daily dev build to TestFlight |
 | `claude-code-review.yml` | PR opened | AI-powered code review with Claude |
+| `link_issue_to_release.yaml` | PR merged to `develop` or `release` | Auto-assign Linear issue to the matching release |
 
 ## Workflows
 
@@ -102,6 +103,26 @@ This document provides an overview of GitHub workflows, custom actions, and auto
 - Auto-merge is handled automatically by `automerge.yaml` workflow (no manual intervention needed)
 - PR will merge automatically when all required checks pass
 - Linear issue is closed when PR is created (not when merged)
+
+---
+
+#### `link_issue_to_release.yaml` - Auto-link Linear Issue to Release
+**File:** `.github/workflows/link_issue_to_release.yaml`
+**Triggers:** Pull request `closed` on `develop` or `release` branch (gated by `merged == true`)
+**Purpose:** When a PR is merged, assigns the Linear issue referenced by its branch name (`ios-XXXX-...`) to the matching release in the "Anytype iOS" pipeline.
+
+**Mapping:**
+- PR → `release` branch → release with stage name `Beta`
+- PR → `develop` branch → release with stage name `In Progress` (preferred), else `Planned`
+
+**Behavior:**
+- Branch without `ios-XXXX` prefix → exits silently (covers bot branches, hotfixes)
+- Issue not found in Linear → exits silently
+- Issue already on any release → exits silently (idempotent re-runs)
+- Multiple matching releases → picks the lowest semver `name` (component-wise numeric compare)
+- No matching release → posts a comment on the Linear issue with PR URL, base branch, and expected stages; fails the workflow
+
+**Required secrets:** `LINEAR_TOKEN`
 
 ---
 

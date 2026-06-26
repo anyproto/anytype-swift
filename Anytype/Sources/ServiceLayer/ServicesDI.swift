@@ -267,6 +267,10 @@ extension Container {
     var appActionStorage: Factory<AppActionStorage> {
         self { AppActionStorage() }.singleton
     }
+
+    var remainingSpacesPreloadService: Factory<any RemainingSpacesPreloadServiceProtocol> {
+        self { RemainingSpacesPreloadService() }.singleton
+    }
     
     var quickActionShortcutBuilder: Factory<any QuickActionShortcutBuilderProtocol> {
         self { QuickActionShortcutBuilder() }.shared

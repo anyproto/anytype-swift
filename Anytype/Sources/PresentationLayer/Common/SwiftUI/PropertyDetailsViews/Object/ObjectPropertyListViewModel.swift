@@ -22,6 +22,8 @@ final class ObjectPropertyListViewModel {
     private let interactor: any ObjectPropertyListInteractorProtocol
     @ObservationIgnored
     private let relationSelectedOptionsModel: any PropertySelectedOptionsModelProtocol
+    @ObservationIgnored
+    private let preloadedReadOnlyOptions: [ObjectPropertyOption]?
 
     @ObservationIgnored
     @Injected(\.objectActionsService)
@@ -35,6 +37,7 @@ final class ObjectPropertyListViewModel {
         self.output = output
         self.interactor = data.interactor
         self.relationSelectedOptionsModel = data.relationSelectedOptionsModel
+        self.preloadedReadOnlyOptions = data.preloadedReadOnlyOptions
     }
 
     func startSelectedOptionsSubscription() async {
@@ -120,6 +123,13 @@ final class ObjectPropertyListViewModel {
     }
     
     func searchTextChanged() async {
+        // Read-only object relations (links/backlinks) render already-resolved objects
+        // instead of re-querying via filtered search, which drops hidden/legacy objects.
+        if let preloadedReadOnlyOptions {
+            options = preloadedReadOnlyOptions
+            setEmptyIfNeeded()
+            return
+        }
         do {
             let selectedOptions = try await interactor.searchOptions(text: searchText, limitObjectIds: selectedOptionsIds)
             let rawOptions = try await interactor.searchOptions(text: searchText, excludeObjectIds: selectedOptionsIds)

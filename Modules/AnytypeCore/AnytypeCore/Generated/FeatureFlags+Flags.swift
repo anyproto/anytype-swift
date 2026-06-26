@@ -34,6 +34,10 @@ public extension FeatureFlags {
         value(for: .muteAndHide)
     }
 
+    static var preferredSpaceOnColdStart: Bool {
+        value(for: .preferredSpaceOnColdStart)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -114,6 +118,10 @@ public extension FeatureFlags {
         value(for: .showHangedObjects)
     }
 
+    static var pressureDebugReports: Bool {
+        value(for: .pressureDebugReports)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .showUploadStatusIndicator,
@@ -123,6 +131,7 @@ public extension FeatureFlags {
         .fixChannelHomeBackNavigation,
         .fixAvatarTapFreeze,
         .muteAndHide,
+        .preferredSpaceOnColdStart,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
@@ -142,6 +151,7 @@ public extension FeatureFlags {
         .logMiddlewareRequests,
         .showPushMessagesInForeground,
         .spaceHubAlwaysShowLoading,
-        .showHangedObjects
+        .showHangedObjects,
+        .pressureDebugReports
     ]
 }

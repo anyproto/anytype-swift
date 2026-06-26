@@ -141,16 +141,26 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     
     private func handleUpdate(ids: [String]) {
         let blocksViewModels = blockBuilder.buildEditorItems(infos: ids, ignoreCache: false)
-        
+
+        let wasEmpty = modelsHolder.items.isEmpty
         let difference = modelsHolder.difference(between: blocksViewModels)
         if difference.insertions.isNotEmpty {
             modelsHolder.applyDifference(difference: difference)
         } else {
             modelsHolder.items = blocksViewModels
         }
-        
+
         guard document.isOpened else { return }
-        
+
+        // Skip re-applying a full-section snapshot when nothing structurally changed.
+        // `flattenBlockIds` is id-deduped, but a no-op emission still pays a full
+        // diff inside `apply`. Keep applying when the models were just populated
+        // (initial render) or when the initial scroll is still pending.
+        let initialScrollPending = !didScrollToInitialBlock && configuration.blockId != nil
+        if difference.isEmpty, !wasEmpty, !initialScrollPending {
+            return
+        }
+
         viewInput?.update(changes: difference, allModels: modelsHolder.items, isRealData: true) { [weak self] in
             guard let self else { return }
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)

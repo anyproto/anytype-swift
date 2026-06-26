@@ -50,8 +50,9 @@ jobs:
         run: |
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8
-          bundle exec fastlane branch_build tf_comment:"${{ github.event.inputs.tf_comment }}"
+          bundle exec fastlane branch_build tf_comment:"$TF_COMMENT"
         env:
+          TF_COMMENT: ${{ github.event.inputs.tf_comment }}
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.SSH_KEY_FASTLANE_MATCH }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
@@ -65,4 +66,4 @@ jobs:
           FASTLANE_XCODEBUILD_SETTINGS_RETRIES: 4
 
       - name: Summary
-        run: echo "${{ env.FASTLANE_GITHUB_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
+        run: echo "$FASTLANE_GITHUB_SUMMARY" >> "$GITHUB_STEP_SUMMARY"

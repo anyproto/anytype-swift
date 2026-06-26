@@ -38,8 +38,6 @@ permissions:
   pull-requests: write
 
 jobs:
-  # First job: Check if the middleware version is already up-to-date
-  # This prevents unnecessary work if the version hasn't changed
   check-version:
     name: Check current middleware version
     runs-on: macos-26
@@ -52,17 +50,17 @@ jobs:
       - name: Read Libraryfile and compare
         id: chk
         shell: bash
+        env:
+          TARGET_VERSION: ${{ inputs.middle_version }}
         run: |
-          # Read the MIDDLE_VERSION from Libraryfile (contains current middleware version)
           set -a
           source Libraryfile || true
           set +a
           CURR="${MIDDLE_VERSION:-}"
           echo "Current version: ${CURR}"
-          echo "Target version: ${{ inputs.middle_version }}"
+          echo "Target version: $TARGET_VERSION"
 
-          # Compare current version with target version
-          if [ "$CURR" = "${{ inputs.middle_version }}" ]; then
+          if [ "$CURR" = "$TARGET_VERSION" ]; then
             echo "same=true" >> "$GITHUB_OUTPUT"
             echo "Version already up-to-date. Workflow will finish successfully without updates."
           else
@@ -70,13 +68,14 @@ jobs:
             echo "Version differs. Proceeding with update…"
           fi
 
-  # Second job: Perform the actual middleware update
-  # Only runs if the version check shows the version needs updating
   update:
     name: Update middleware version
     runs-on: macos-26
     needs: check-version
     if: ${{ needs.check-version.outputs.same != 'true' }}
+    env:
+      MIDDLE_VERSION: ${{ inputs.middle_version }}
+      TASK_NAME: ${{ inputs.task_name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -117,11 +116,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
 
-      # Update the MIDDLE_VERSION value in Libraryfile
       - name: Update Middleware Version
-        run: make set-middle-version v=${{ inputs.middle_version }}
+        run: make set-middle-version v="$MIDDLE_VERSION"
 
-      # Download the new middleware binaries and regenerate protobuf files
       - name: Download Middleware and Generate Files
         run: make setup-middle
         env:
@@ -131,28 +128,37 @@ jobs:
       - name: Update git config
         uses: ./.github/actions/update-git-config
 
-      # Create a new branch and commit the changes
-      # Branch name format: IOS-123-update-middleware-1.2.3 or update-middleware-1.2.3
       - name: Create Commit
         id: commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
         run: |
-          BRANCH_NAME="${{ inputs.task_name != '' && format('{0}-update-middleware-{1}', inputs.task_name, inputs.middle_version) || format('update-middleware-{0}', inputs.middle_version) }}"
-          COMMIT_MESSAGE="${{ inputs.task_name != '' && format('{0} Automation: Update middleware to {1}', inputs.task_name, inputs.middle_version) || format('Automation: Update middleware to {0}', inputs.middle_version) }}"
+          if [ -n "$TASK_NAME" ]; then
+            BRANCH_NAME="${TASK_NAME}-update-middleware-${MIDDLE_VERSION}"
+            COMMIT_MESSAGE="${TASK_NAME} Automation: Update middleware to ${MIDDLE_VERSION}"
+          else
+            BRANCH_NAME="update-middleware-${MIDDLE_VERSION}"
+            COMMIT_MESSAGE="Automation: Update middleware to ${MIDDLE_VERSION}"
+          fi
 
           # Clean up any existing branch with the same name
-          git branch -D $BRANCH_NAME || true
-          git push origin --delete $BRANCH_NAME || true
+          git branch -D "$BRANCH_NAME" || true
+          git push origin --delete "$BRANCH_NAME" || true
 
           # Create new branch and commit all changes
-          git checkout -b $BRANCH_NAME
+          git checkout -b "$BRANCH_NAME"
           git add .
           git commit -m "$COMMIT_MESSAGE" --no-verify
 
-          # Export branch name and commit message for later steps
-          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
-          echo "commit_message=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
-        env:
-          GITHUB_TOKEN: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
+          # Heredoc form guards against newline injection in the value.
+          {
+            echo "branch_name<<__GH_OUTPUT_EOF__"
+            echo "$BRANCH_NAME"
+            echo "__GH_OUTPUT_EOF__"
+            echo "commit_message<<__GH_OUTPUT_EOF__"
+            echo "$COMMIT_MESSAGE"
+            echo "__GH_OUTPUT_EOF__"
+          } >> "$GITHUB_OUTPUT"
 
       # Build to verify compilation with new middleware
       - name: Build for testing
@@ -168,22 +174,24 @@ jobs:
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
 
-      # Push the branch and create a PR
       - name: Create PR
-        run: |
-          git push origin ${{ steps.commit.outputs.branch_name }} --no-verify
-
-          PR_BODY="This PR updates middleware to version ${{ inputs.middle_version }}"
-          gh pr create --title "${{ steps.commit.outputs.commit_message }}" --body "$PR_BODY" --base ${{ github.ref_name }}
         env:
+          BRANCH_NAME: ${{ steps.commit.outputs.branch_name }}
+          COMMIT_MESSAGE: ${{ steps.commit.outputs.commit_message }}
+          BASE_REF: ${{ github.ref_name }}
           GITHUB_TOKEN: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
+        run: |
+          git push origin "$BRANCH_NAME" --no-verify
 
-      # Close the Linear issue by moving it to "Done" state
-      # Only runs if a task_name was provided (e.g., IOS-123)
+          PR_BODY="This PR updates middleware to version ${MIDDLE_VERSION}"
+          gh pr create --title "$COMMIT_MESSAGE" --body "$PR_BODY" --base "$BASE_REF"
+
       - name: Close Linear Issue
         if: ${{ inputs.task_name != '' }}
+        env:
+          LINEAR_TOKEN: ${{ secrets.LINEAR_TOKEN }}
         run: |
-          ISSUE_ID="${{ inputs.task_name }}"
+          ISSUE_ID="$TASK_NAME"
 
           # Step 1: Query Linear API to get the issue and its team's workflow states
           # We need to find the "Done" state ID for this team
@@ -207,7 +215,7 @@ jobs:
 
           # Make GraphQL request to get issue data
           ISSUE_DATA=$(curl -s -X POST https://api.linear.app/graphql \
-            -H "Authorization: ${{ secrets.LINEAR_TOKEN }}" \
+            -H "Authorization: $LINEAR_TOKEN" \
             -H "Content-Type: application/json" \
             -d "{\"query\":\"$ISSUE_QUERY\",\"variables\":{\"identifier\":\"$ISSUE_ID\"}}")
 
@@ -244,7 +252,7 @@ jobs:
 
           # Make GraphQL mutation request to update the issue using the UUID
           UPDATE_RESULT=$(curl -s -X POST https://api.linear.app/graphql \
-            -H "Authorization: ${{ secrets.LINEAR_TOKEN }}" \
+            -H "Authorization: $LINEAR_TOKEN" \
             -H "Content-Type: application/json" \
             -d "{\"query\":\"$UPDATE_MUTATION\",\"variables\":{\"issueId\":\"$ISSUE_UUID\",\"stateId\":\"$DONE_STATE_ID\"}}")
 

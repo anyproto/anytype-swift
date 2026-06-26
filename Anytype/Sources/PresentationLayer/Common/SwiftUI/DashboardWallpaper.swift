@@ -1,6 +1,9 @@
 import SwiftUI
+import UIKit
+import CoreImage
 import AnytypeCore
 import Services
+import DesignKit
 
 enum DashboardWallpaperMode: Hashable {
     case `default`
@@ -68,13 +71,7 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
         case let .name(_, iconOption, _):
             IconColorStorage.iconBackgroundColor(iconOption: iconOption)
         case let .imageId(imageId, _, iconOption, _):
-            CachedAsyncImage(url: ImageMetadata(id: imageId, side: .width(50)).contentUrl) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .padding(-64)
-                    .blur(radius: 32)
-            } placeholder: {
+            BlurredWallpaperImageView(imageId: imageId) {
                 IconColorStorage.iconBackgroundColor(iconOption: iconOption)
             }
         case .localPath(let path, _):
@@ -86,13 +83,7 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
     private func profileIconView(profileIcon: ObjectIcon.Profile) -> some View {
         switch profileIcon {
         case let .imageId(imageId):
-            CachedAsyncImage(url: ImageMetadata(id: imageId, side: .width(50)).contentUrl) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .padding(-64)
-                    .blur(radius: 32)
-            } placeholder: {
+            BlurredWallpaperImageView(imageId: imageId) {
                 Color.Shape.tertiary
             }
         case .name, .placeholder:
@@ -115,6 +106,112 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
     
     nonisolated static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.mode == rhs.mode && lhs.spaceIcon == rhs.spaceIcon
+    }
+}
+
+// Renders the space-icon wallpaper as a blur that is computed ONCE per icon and cached
+// process-wide, instead of a live `.blur` re-run on every mount (per-spaceId navigation,
+// Space Hub per-card backgrounds). The icon source is already tiny (50px), so the blur is
+// baked on the small bitmap and upscaled at display time, keeping cached bitmaps small.
+private struct BlurredWallpaperImageView<Placeholder: View>: View {
+
+    let imageId: String
+    @ViewBuilder let placeholder: () -> Placeholder
+
+    @State private var blurred: UIImage?
+
+    var body: some View {
+        Group {
+            if let blurred {
+                Image(uiImage: blurred)
+                    .resizable()
+                    .scaledToFill()
+            } else {
+                placeholder()
+            }
+        }
+        .task(id: imageId) {
+            await loadBlurred()
+        }
+    }
+
+    private func loadBlurred() async {
+        // Fast path: serve the cached blur without clearing `blurred` first, so an
+        // already-baked icon swaps in directly instead of flashing the placeholder.
+        if let cached = await BlurredWallpaperCache.shared.cached(imageId) {
+            blurred = cached
+            return
+        }
+
+        // No cached blur for this icon yet — show the placeholder while it bakes.
+        blurred = nil
+
+        guard
+            let url = ImageMetadata(id: imageId, side: .width(50)).contentUrl,
+            let source = try? await CachedAsyncImageCache.default.loadImage(from: url)
+        else { return }
+        blurred = await BlurredWallpaperCache.shared.blurred(source: source, imageId: imageId)
+    }
+}
+
+private actor BlurredWallpaperCache {
+
+    static let shared = BlurredWallpaperCache()
+
+    // Gaussian sigma in SOURCE pixels (the icon is fetched at 50px), then the blurred bitmap
+    // is upscaled to fill the screen. Higher = softer / more blurred. Tune visually.
+    private static let sigma: Double = 16
+
+    private let context = CIContext()
+    private let cache: NSCache<NSString, UIImage> = {
+        let cache = NSCache<NSString, UIImage>()
+        cache.countLimit = 64 // bounded so visiting many spaces can't grow memory without limit
+        return cache
+    }()
+
+    func cached(_ imageId: String) -> UIImage? {
+        cache.object(forKey: imageId as NSString)
+    }
+
+    func blurred(source: sending UIImage, imageId: String) -> UIImage? {
+        // Re-check: a concurrent task (e.g. two Space Hub cards with the same icon) may have
+        // baked this id while we were fetching the source, so avoid a duplicate bake.
+        if let cached = cache.object(forKey: imageId as NSString) { return cached }
+        let result = bake(source)
+        if let result { cache.setObject(result, forKey: imageId as NSString) }
+        return result
+    }
+
+    private func bake(_ source: UIImage) -> UIImage? {
+        autoreleasepool { () -> UIImage? in
+            guard let ciImage = CIImage(image: source) else { return nil }
+            // CIImage(image:) ignores UIImage.imageOrientation; apply it so a non-.up
+            // source icon isn't baked rotated/mirrored.
+            let input = ciImage.oriented(forExifOrientation: source.imageOrientation.exifOrientation)
+            let extent = input.extent
+            let output = input
+                .clampedToExtent() // extend edge pixels so the blur has no transparent border (replaces the old .padding(-64))
+                .applyingGaussianBlur(sigma: Self.sigma)
+                .cropped(to: extent)
+            guard let cgImage = context.createCGImage(output, from: extent) else { return nil }
+            return UIImage(cgImage: cgImage)
+        }
+    }
+}
+
+private extension UIImage.Orientation {
+    var exifOrientation: Int32 {
+        switch self {
+        case .up: 1
+        case .down: 3
+        case .left: 8
+        case .right: 6
+        case .upMirrored: 2
+        case .downMirrored: 4
+        case .leftMirrored: 5
+        case .rightMirrored: 7
+        @unknown default: 1
+        }
     }
 }
 

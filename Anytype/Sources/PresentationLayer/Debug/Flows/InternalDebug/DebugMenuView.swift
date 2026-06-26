@@ -116,6 +116,16 @@ struct DebugMenuView: View {
                 }
             }
             
+            AsyncStandardButton("[Temp] Send Sentry: thermal critical 🌡️", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                await model.triggerThermalProfile()
+            }
+
+            AsyncStandardButton("[Temp] Send Sentry: memory critical 🧠", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                await model.triggerMemoryPressureProfile()
+            }
+
             StandardButton("Homepage Picker Preview 🏠", style: .secondaryLarge) {
                 showHomepagePicker = true
             }

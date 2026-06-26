@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ChatActionPanelModel {
+struct ChatActionPanelModel: Equatable {
     let showScrollToBottom: Bool
     let srollToBottomCounter: Int
     let showMentions: Bool
@@ -21,26 +21,28 @@ struct ChatActionPanelView: View {
     let onTapReaction: () -> Void
 
     var body: some View {
-        VStack(spacing: 12) {
-            if model.showReactions {
-                button(systemName: "heart", count: 0) {
-                    onTapReaction()
+        GlassEffectContainerIOS26(spacing: 6) {
+            VStack(spacing: 12) {
+                if model.showReactions {
+                    button(systemName: "heart", count: 0) {
+                        onTapReaction()
+                    }
+                    .glassEffectIDIOS26("reaction", in: glassNamespace)
                 }
-                .glassEffectIDIOS26("reaction", in: glassNamespace)
-            }
 
-            if model.showMentions {
-                button(asset: .X24.mention, count: model.mentionsCounter) {
-                    onTapMention()
+                if model.showMentions {
+                    button(asset: .X24.mention, count: model.mentionsCounter) {
+                        onTapMention()
+                    }
+                    .glassEffectIDIOS26("mention", in: glassNamespace)
                 }
-                .glassEffectIDIOS26("mention", in: glassNamespace)
-            }
 
-            if model.showScrollToBottom {
-                button(asset: .X24.Arrow.down, count: model.srollToBottomCounter) {
-                    onTapScrollToBottom()
+                if model.showScrollToBottom {
+                    button(asset: .X24.Arrow.down, count: model.srollToBottomCounter) {
+                        onTapScrollToBottom()
+                    }
+                    .glassEffectIDIOS26("scroll", in: glassNamespace)
                 }
-                .glassEffectIDIOS26("scroll", in: glassNamespace)
             }
         }
         .padding(.horizontal, 12)
@@ -76,5 +78,13 @@ struct ChatActionPanelView: View {
                     .offset(y: -10)
             }
         }
+    }
+}
+
+extension ChatActionPanelView: Equatable {
+    // Re-render only when the panel's data changes; the tap closures are recreated
+    // every parent body pass but are behaviourally stable, so they're excluded.
+    nonisolated static func == (lhs: ChatActionPanelView, rhs: ChatActionPanelView) -> Bool {
+        lhs.model == rhs.model
     }
 }

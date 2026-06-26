@@ -39,9 +39,11 @@ struct ChatInput: View {
     }
 
     var body: some View {
-        HStack(alignment: .bottom, spacing: 8) {
-            plusMenu
-            inputBubble
+        GlassEffectContainerIOS26(spacing: 4) {
+            HStack(alignment: .bottom, spacing: 8) {
+                plusMenu
+                inputBubble
+            }
         }
         .padding(.horizontal, 16)
     }
@@ -114,8 +116,8 @@ struct ChatInput: View {
             .disabled(disableHeaderAndAttachments)
             textInputArea
         }
+        .glassEffectInteractiveIOS26(in: .rect(cornerRadius: 20, style: .continuous))
         .clipShape(.rect(cornerRadius: 20, style: .continuous))
-        .glassEffectInteractiveIOS26(in: .rect(cornerRadius: 20))
         .animation(.easeInOut(duration: 0.2), value: showSendButton)
     }
 

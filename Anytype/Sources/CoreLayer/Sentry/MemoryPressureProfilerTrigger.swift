@@ -6,6 +6,7 @@ import Logger
 protocol MemoryPressureProfilerTriggerProtocol: AnyObject, Sendable {
     func startSubscription() async
     func stopSubscriptionAndClean() async
+    func triggerManually(severity: DebugProfilerReason.MemorySeverity) async
 }
 
 actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
@@ -25,9 +26,17 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
     init() {}
 
     func startSubscription() async {
-        guard CoreEnvironment.targetType.isDebug else { return }
+        guard FeatureFlags.pressureDebugReports else {
+            Self.log.debug("[MW_PROFILE] Memory pressure subscription skipped: toggle OFF")
+            return
+        }
+        guard CoreEnvironment.targetType.isDebug else {
+            Self.log.debug("[MW_PROFILE] Memory pressure subscription skipped: not a debug-class build")
+            return
+        }
+        Self.log.debug("[MW_PROFILE] Memory pressure subscription started")
         let source = DispatchSource.makeMemoryPressureSource(
-            eventMask: [.warning, .critical],
+            eventMask: [.normal, .warning, .critical],
             queue: .global(qos: .utility)
         )
         source.setEventHandler { [weak self] in
@@ -45,26 +54,53 @@ actor MemoryPressureProfilerTrigger: MemoryPressureProfilerTriggerProtocol {
         lastTrigger = nil
     }
 
+    func triggerManually(severity: DebugProfilerReason.MemorySeverity) async {
+        lastTrigger = nil
+        await trigger(reason: .memoryPressure(severity))
+    }
+
     private func handleEventFire() async {
-        guard let data = source?.data else { return }
+        guard let data = source?.data else {
+            Self.log.debug("[MW_PROFILE] Memory pressure event fired but source.data was nil")
+            return
+        }
+        Self.log.debug("[MW_PROFILE] Memory pressure event fired: \(data.logName)")
         if data.contains(.critical) {
             await trigger(reason: .memoryPressure(.critical))
         } else if data.contains(.warning) {
             await trigger(reason: .memoryPressure(.warning))
+        } else if data.contains(.normal) {
+            await trigger(reason: .memoryPressure(.normal))
         }
     }
 
     private func trigger(reason: DebugProfilerReason) async {
         let instant = ContinuousClock.now
         if let lastTrigger, lastTrigger.duration(to: instant) < Self.cooldown {
-            Self.log.debug("Profiler skipped (cooldown): \(reason)")
+            Self.log.debug("[MW_PROFILE] Memory profiler skipped (cooldown): \(reason.tag)")
             return
         }
         lastTrigger = instant
-        Self.log.debug("Profiler triggered: \(reason)")
+        Self.log.debug("[MW_PROFILE] Memory profiler triggered: \(reason.tag)")
         guard let path = await debugService.runProfiler(durationInSeconds: 0, reason: reason) else {
+            Self.log.debug("[MW_PROFILE] Memory runProfiler returned nil for reason: \(reason.tag)")
             return
         }
-        sentryReporter.report(path: path, reasonTag: reason.tag, jsonInfo: nil)
+        Self.log.debug("[MW_PROFILE] Memory runProfiler returned non-nil path for reason: \(reason.tag)")
+        sentryReporter.report(path: path, reasonTag: reason.tag, jsonInfo: nil) { [debugService] in
+            Task {
+                Self.log.debug("[MW_PROFILE] Memory report handed to Sentry, cleaning up source files")
+                await debugService.cleanupReport(ts: Int(Date().timeIntervalSince1970))
+            }
+        }
+    }
+}
+
+private extension DispatchSource.MemoryPressureEvent {
+    var logName: String {
+        if contains(.critical) { return "critical" }
+        if contains(.warning) { return "warning" }
+        if contains(.normal) { return "normal" }
+        return "unknown(rawValue=\(rawValue))"
     }
 }

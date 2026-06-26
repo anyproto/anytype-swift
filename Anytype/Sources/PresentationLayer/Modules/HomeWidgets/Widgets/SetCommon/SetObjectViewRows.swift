@@ -1,6 +1,6 @@
 import Foundation
 
-enum SetObjectViewWidgetRows {
+enum SetObjectViewWidgetRows: Equatable {
     case compactList(rows: [ListWidgetRowModel]?, id: String)
     case list(rows: [ListWidgetRowModel]?, id: String)
     case gallery(rows: [GalleryWidgetRowModel]?, id: String)

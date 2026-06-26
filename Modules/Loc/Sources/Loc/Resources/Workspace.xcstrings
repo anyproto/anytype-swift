@@ -9640,7 +9640,7 @@
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg Kommentar"
+                      "value" : "%arg comment"
                     }
                   },
                   "other" : {
@@ -19637,7 +19637,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "vor %d Tag"
+                  "value" : "%d day ago"
                 }
               },
               "other" : {
@@ -20301,7 +20301,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "in %d Tagen"
+                  "value" : "In %d Tagen"
                 }
               }
             }
@@ -62050,7 +62050,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d member"
+                  "value" : "%d Mitglied"
                 }
               },
               "other" : {
@@ -78478,7 +78478,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ se eliminará del espacio."
+            "value" : "Perderá el acceso al canal inmediatamente. Según la configuración de tu invitación, es posible que vuelva a unirse o a solicitar la admisión."
           }
         },
         "fa" : {
@@ -85259,13 +85259,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Dieser Typ hat %d Vorlage"
+                  "value" : "This type has %d template"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Dieser Typ hat %d Vorlagen"
+                  "value" : "This type has %d templates"
                 }
               }
             }

@@ -106,7 +106,10 @@ final class PropertyValueCoordinatorViewModel:
                     relationSelectedOptionsModel: PropertySelectedOptionsModel(
                         config: configuration,
                         selectedOptionsIds: object.selectedObjects.compactMap { $0.id }
-                    )
+                    ),
+                    preloadedReadOnlyOptions: object.links != nil
+                        ? object.selectedObjects.map(ObjectPropertyOption.init(objectOption:))
+                        : nil
                 ),
                 output: self
             ).eraseToAnyView()

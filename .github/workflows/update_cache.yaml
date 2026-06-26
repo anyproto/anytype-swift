@@ -40,6 +40,8 @@ jobs:
 
       - name: Build tools
         run: make setup-env
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Update build cache
         run: bundle exec fastlane build_for_tests

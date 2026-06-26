@@ -2,6 +2,7 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 import Combine
+import os
 
 
 public enum DebugRunProfilerState: Codable {
@@ -16,11 +17,13 @@ public enum DebugProfilerReason: Sendable {
     case memoryPressure(MemorySeverity)
 
     public enum ThermalSeverity: Sendable {
+        case fair
         case serious
         case critical
     }
 
     public enum MemorySeverity: Sendable {
+        case normal
         case warning
         case critical
     }
@@ -28,8 +31,10 @@ public enum DebugProfilerReason: Sendable {
     var desc: String {
         switch self {
         case .userRequest: return "User request"
+        case .thermalState(.fair): return "iOS thermal state: fair"
         case .thermalState(.serious): return "iOS thermal state: serious"
         case .thermalState(.critical): return "iOS thermal state: critical"
+        case .memoryPressure(.normal): return "iOS memory pressure: normal"
         case .memoryPressure(.warning): return "iOS memory pressure: warning"
         case .memoryPressure(.critical): return "iOS memory pressure: critical"
         }
@@ -38,8 +43,10 @@ public enum DebugProfilerReason: Sendable {
     public var tag: String {
         switch self {
         case .userRequest: return "user_request"
+        case .thermalState(.fair): return "thermal_fair"
         case .thermalState(.serious): return "thermal_serious"
         case .thermalState(.critical): return "thermal_critical"
+        case .memoryPressure(.normal): return "memory_pressure_normal"
         case .memoryPressure(.warning): return "memory_pressure_warn"
         case .memoryPressure(.critical): return "memory_pressure_critical"
         }
@@ -94,7 +101,8 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     }
     
     private let storage = Storage()
-    
+    private let profilerRunning = OSAllocatedUnfairLock(initialState: false)
+
     public func exportLocalStore() async throws -> String {
         let tempDirString = FileManager.default.createTempDirectory().path
         
@@ -197,7 +205,15 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     }
 
     func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async -> String? {
-        try? await ClientCommands.debugRunProfiler(.with {
+        let acquired = profilerRunning.withLock { running in
+            guard !running else { return false }
+            running = true
+            return true
+        }
+        guard acquired else { return nil }
+        defer { profilerRunning.withLock { $0 = false } }
+
+        return try? await ClientCommands.debugRunProfiler(.with {
             $0.durationInSeconds = Int32(durationInSeconds)
             $0.reason = reason.protoReason
             $0.reasonDesc = reason.desc
@@ -227,8 +243,13 @@ private extension DebugProfilerReason {
     var protoReason: Anytype_Rpc.Debug.RunProfiler.Request.Reason {
         switch self {
         case .userRequest: return .userRequest
+        // Middleware protobuf enum is closed; .fair / .normal piggyback on
+        // .userRequest while the truth is preserved in `reasonDesc` and the
+        // Sentry `tag` string.
+        case .thermalState(.fair): return .userRequest
         case .thermalState(.serious): return .thermalSerious
         case .thermalState(.critical): return .thermalCritical
+        case .memoryPressure(.normal): return .userRequest
         case .memoryPressure(.warning): return .memoryPressureWarn
         case .memoryPressure(.critical): return .memoryPressureCritical
         }

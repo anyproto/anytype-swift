@@ -56,10 +56,22 @@ final class EditorSetViewModel: ObservableObject {
     var isEmptyViews: Bool {
         setDocument.dataView.views.isEmpty
     }
-    
-    var colums: [PropertyDetails] {
-        setDocument.sortedRelations(for: setDocument.activeView.id)
+
+    // Cached to avoid re-sorting on every body re-evaluation; diff-guarded.
+    @Published private(set) var colums: [PropertyDetails] = []
+    // Captured by value so a permission flip refreshes the header deterministically.
+    @Published private(set) var canEditRelationValuesInView = false
+
+    private func updateColumns() {
+        let newColumns = setDocument.sortedRelations(for: setDocument.activeView.id)
             .filter { $0.option.isVisible }.map(\.relationDetails)
+        if newColumns != colums {
+            colums = newColumns
+        }
+        let newCanEditRelationValues = setDocument.setPermissions.canEditRelationValuesInView
+        if canEditRelationValuesInView != newCanEditRelationValues {
+            canEditRelationValuesInView = newCanEditRelationValues
+        }
     }
     
     var isGroupBackgroundColors: Bool {
@@ -267,7 +279,15 @@ final class EditorSetViewModel: ObservableObject {
                 await self?.onDataChange(update)
             }
         }.store(in: &subscriptions)
-        
+
+        // Relation renames/format changes arrive via syncPublisher without a dataview event.
+        setDocument.syncPublisher.receiveOnMain().sink { [weak self] in
+            guard let self else { return }
+            updateColumns()
+            // Relation format/read-only changes emit no record Amend; refresh cell configs (diff-guarded).
+            updateConfigurations(with: Array(recordsDict.keys))
+        }.store(in: &subscriptions)
+
         Task { @MainActor [weak self] in
             guard let self else { return }
             do {
@@ -436,6 +456,7 @@ final class EditorSetViewModel: ObservableObject {
         }
         setupTitle()
         setupDescription()
+        updateColumns()
         await startSubscriptionIfNeeded()
         updateConfigurations(with: Array(recordsDict.keys))
 
@@ -623,7 +644,10 @@ final class EditorSetViewModel: ObservableObject {
                 tempConfigurationsDict[groupId] = configurations
             }
         }
-        configurationsDict = sortedConfigurationsDict(with: tempConfigurationsDict)
+        let sortedDict = sortedConfigurationsDict(with: tempConfigurationsDict)
+        // Diff-guard: skip publish when unchanged; SetContentViewItemConfiguration is Equatable.
+        guard sortedDict != configurationsDict else { return }
+        configurationsDict = sortedDict
     }
     
     private func sortedConfigurationsDict(
@@ -682,7 +706,10 @@ final class EditorSetViewModel: ObservableObject {
     
     @MainActor
     private func itemTapped(_ details: ObjectDetails) {
-        openObject(details: details)
+        // Row closures capture a details snapshot; the configurations diff-guard can keep a row
+        // whose navigation-relevant fields (bookmark source, chatId, layout) changed invisibly.
+        let freshDetails = subscriptionStorages.values.compactMap { $0.detailsStorage.get(id: details.id) }.first
+        openObject(details: freshDetails ?? details)
     }
     
     private func clearState() async {
