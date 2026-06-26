@@ -5,10 +5,6 @@ struct SetTableViewHeader: View, Equatable {
     let columns: [PropertyDetails]
     let canEditRelationValuesInView: Bool
 
-    nonisolated static func == (lhs: SetTableViewHeader, rhs: SetTableViewHeader) -> Bool {
-        lhs.columns == rhs.columns && lhs.canEditRelationValuesInView == rhs.canEditRelationValuesInView
-    }
-
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeDivider()
