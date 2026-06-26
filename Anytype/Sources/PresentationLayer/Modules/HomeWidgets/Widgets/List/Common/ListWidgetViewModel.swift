@@ -115,7 +115,7 @@ final class ListWidgetViewModel: ObservableObject {
     }
 
     private func updateHeader(dataviewState: WidgetDataviewState?) {
-        headerItems = dataviewState?.dataview.map { dataView in
+        let newHeaderItems = dataviewState?.dataview.map { dataView in
             ViewWidgetTabsItemModel(
                 dataviewId: dataView.id,
                 title: dataView.nameWithPlaceholder,
@@ -125,6 +125,8 @@ final class ListWidgetViewModel: ObservableObject {
                 }
             )
         }
+        guard newHeaderItems != headerItems else { return }
+        headerItems = newHeaderItems
     }
     
     private func handleTapOnObject(details: ObjectDetails) {

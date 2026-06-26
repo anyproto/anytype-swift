@@ -199,14 +199,15 @@ final class TreeWidgetViewModel: ObservableObject {
                     canBeExpanded: level < Constants.maxExpandableLevel
                 ),
                 level: level,
+                screenData: details.screenData(),
                 tapExpand: { [weak self] model in
                     self?.onTapExpand(model: model)
                 },
                 tapCollapse: { [weak self] model in
                     self?.onTapCollapse(model: model)
                 },
-                tapObject: { [weak self] _ in
-                    self?.handleTapOnObject(details: details)
+                tapObject: { [weak self] model in
+                    self?.handleTapOnObject(screenData: model.screenData)
                 }
             )
             
@@ -223,10 +224,10 @@ final class TreeWidgetViewModel: ObservableObject {
         return (firstLevelSubscriptionData ?? []) + (childSubscriptionData ?? [])
     }
     
-    private func handleTapOnObject(details: ObjectDetails) {
+    private func handleTapOnObject(screenData: ScreenData) {
         guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
         AnytypeAnalytics.instance().logOpenSidebarObject(createType: info.widgetCreateType)
-        output?.onObjectSelected(screenData: details.screenData())
+        output?.onObjectSelected(screenData: screenData)
     }
 }
 

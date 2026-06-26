@@ -9,6 +9,7 @@ extension ListWidgetRowModel {
         parentBadge: ParentObjectUnreadBadge? = nil,
         onTap: @escaping @MainActor (ScreenData) -> Void
     ) {
+        let screenData = details.screenData()
         self = ListWidgetRowModel(
             objectId: details.id,
             icon: details.objectIconImage,
@@ -16,8 +17,9 @@ extension ListWidgetRowModel {
             description: details.subtitle,
             chatPreview: chatPreview,
             parentBadge: parentBadge,
+            screenData: screenData,
             onTap: {
-                onTap(details.screenData())
+                onTap(screenData)
             }
         )
     }
@@ -34,6 +36,7 @@ extension ListWidgetRowModel {
             description: details.description,
             chatPreview: chatPreview,
             parentBadge: parentBadge,
+            screenData: details.screenData,
             onTap: details.onItemTap
         )
     }

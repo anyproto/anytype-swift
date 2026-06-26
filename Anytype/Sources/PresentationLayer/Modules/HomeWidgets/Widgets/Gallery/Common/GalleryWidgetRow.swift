@@ -6,6 +6,9 @@ struct GalleryWidgetRowModel: Identifiable, Equatable {
     let title: String?
     let icon: Icon?
     let cover: ObjectHeaderCoverType?
+    // Navigation identity compared by Equatable so re-render guards rebuild the row
+    // (and its onTap) when routing changes even if rendered fields stay the same.
+    let screenData: ScreenData
     @EquatableNoop var onTap: @MainActor () -> Void
 
     var id: String { objectId }

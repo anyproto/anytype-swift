@@ -14,6 +14,9 @@ struct TreeWidgetRowViewModel: Identifiable, Equatable {
     let icon: Icon
     let expandedType: ExpandedType
     let level: Int
+    // Navigation identity compared by Equatable so re-render guards rebuild the row
+    // (and its tapObject) when routing changes even if rendered fields stay the same.
+    let screenData: ScreenData
     @EquatableNoop var tapExpand: (TreeWidgetRowViewModel) -> Void
     @EquatableNoop var tapCollapse: (TreeWidgetRowViewModel) -> Void
     @EquatableNoop var tapObject: (TreeWidgetRowViewModel) -> Void
