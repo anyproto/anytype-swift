@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import AnytypeCore
 
 protocol SetSubscriptionDataBuilderProtocol: AnyObject, Sendable {
     
@@ -9,26 +10,34 @@ protocol SetSubscriptionDataBuilderProtocol: AnyObject, Sendable {
 }
 
 final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol, Sendable {
-    
+
     let subscriptionId = "Set-\(UUID().uuidString)"
-    
+
+    @Injected(\.participantsStorage)
+    private var participantsStorage: any ParticipantsStorageProtocol
+
     init() {}
-    
+
     // MARK: - SetSubscriptionDataBuilderProtocol
-    
+
     func set(_ data: SetSubscriptionData) -> SubscriptionData {
         let numberOfRowsPerPageInSubscriptions = data.numberOfRowsPerPage
 
         let keys = buildKeys(with: data)
-        
+
         let offset = max((data.currentPage - 1) * numberOfRowsPerPageInSubscriptions, 0)
-        
+
+        let participantId = participantsStorage.participants
+            .first { $0.spaceId == data.spaceId }?.id
+        let filters = data.filters
+            .resolvingCurrentUserPlaceholder(participantId: participantId)
+
         return .search(
             SubscriptionData.Search(
                 identifier: data.identifier,
                 spaceId: data.spaceId,
                 sorts: data.sorts,
-                filters: data.filters,
+                filters: filters,
                 limit: numberOfRowsPerPageInSubscriptions,
                 offset: offset,
                 keys: keys,
