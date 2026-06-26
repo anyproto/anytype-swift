@@ -8,6 +8,7 @@ extension GalleryWidgetRowModel {
             title: details.showTitle ? details.title : nil,
             icon: details.showIcon ? details.icon : nil,
             cover: details.coverType,
+            screenData: details.screenData,
             onTap: details.onItemTap
         )
     }

@@ -1,13 +1,18 @@
 import Foundation
 import SwiftUI
 
-struct GalleryWidgetRowModel {
+struct GalleryWidgetRowModel: Identifiable, Equatable {
     let objectId: String
     let title: String?
     let icon: Icon?
     let cover: ObjectHeaderCoverType?
-    let onTap: @MainActor () -> Void
-    
+    // Navigation identity compared by Equatable so re-render guards rebuild the row
+    // (and its onTap) when routing changes even if rendered fields stay the same.
+    let screenData: ScreenData
+    @EquatableNoop var onTap: @MainActor () -> Void
+
+    var id: String { objectId }
+
     var shouldIncreaseCoverHeight: Bool {
         cover.isNotNil && icon.isNil && title.isNil
     }
