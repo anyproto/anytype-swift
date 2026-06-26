@@ -92,13 +92,16 @@ private extension Array where Element == ObjectDetails {
                 details: details,
                 selectedIds: selectedIds
             )
+            let rowModel = SearchObjectRowView.Model(details: details)
             return ListRowConfiguration(
+                // Hash only the rendered fields so unrelated detail churn doesn't
+                // invalidate visually-identical rows.
                 id: details.id,
-                contentHash: details.hashValue ^ (selectionIndicator?.hashValue ?? 0)
+                contentHash: rowModel.hashValue ^ (selectionIndicator?.hashValue ?? 0)
             ) {
                 AnyView(
                     SearchObjectRowView(
-                        viewModel: SearchObjectRowView.Model(details: details),
+                        viewModel: rowModel,
                         selectionIndicatorViewModel: selectionIndicator
                     )
                 )

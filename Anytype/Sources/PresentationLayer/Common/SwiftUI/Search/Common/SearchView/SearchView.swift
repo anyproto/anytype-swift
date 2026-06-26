@@ -49,6 +49,13 @@ struct SearchView<SearchData: SearchDataProtocol>: View {
         }
         .background(Color.Background.secondary)
         .task(id: searchText) {
+            // Debounce real typing: a new keystroke changes the id, cancelling this task so
+            // the sleep throws and `search` is never called for intermediate terms. Skip the
+            // delay for the initial/empty load so pickers populate immediately without a flash
+            // of the empty state (and its malformed empty-query title).
+            if searchText.isNotEmpty {
+                guard (try? await Task.sleep(for: .milliseconds(300))) != nil else { return }
+            }
             await search(searchText)
         }
     }

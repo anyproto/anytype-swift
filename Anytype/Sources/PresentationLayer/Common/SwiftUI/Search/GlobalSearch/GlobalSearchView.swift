@@ -115,7 +115,7 @@ struct GlobalSearchView: View {
             }
         }
         .scrollIndicators(.never)
-        .id(model.state)
+        .id(model.state.scrollResetKey)
     }
     
     private func itemRow(for rowModel: SearchWithMetaModel) -> some View {
