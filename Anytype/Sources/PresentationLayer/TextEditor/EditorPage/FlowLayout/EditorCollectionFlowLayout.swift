@@ -268,8 +268,14 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
             }
         }
         
+        for newDetails in newLayoutDetailsDict.values {
+            guard blockLayoutDetails[newDetails.id] == nil,
+                  let layoutItem = cachedAttributes[newDetails.id] else { continue }
+            invalidationIndexPaths.append(layoutItem.indexPath)
+        }
+
         blockLayoutDetails = newLayoutDetailsDict
-        
+
         if invalidationIndexPaths.isNotEmpty {
             invalidateLayout(with: CustomInvalidation(indexPaths: invalidationIndexPaths))
         }
