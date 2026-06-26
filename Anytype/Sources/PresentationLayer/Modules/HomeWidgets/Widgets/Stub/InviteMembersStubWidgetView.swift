@@ -16,7 +16,6 @@ struct InviteMembersStubWidgetView: View {
             }
         }
         .padding(.bottom, model.showInviteMembers ? 12 : 0)
-        .animation(.default, value: model.showInviteMembers)
         .task {
             await model.startSubscription()
         }

@@ -17,7 +17,7 @@ struct CustomIconGridView: View {
             return CustomIcon.allCases
         }
         
-        return CustomIcon.allCases.filter { $0.rawValue.lowercased().contains(searchText.lowercased()) }
+        return CustomIcon.allCases.filter { $0.rawValue.localizedStandardContains(searchText) }
     }
     
     private let columns = [

@@ -3,80 +3,63 @@ import AnytypeCore
 import Services
 import Combine
 import SwiftUI
-import AsyncAlgorithms
 
 @MainActor
 @Observable
 final class HomeWidgetsViewModel {
 
-    private enum Constants {
-        static let pinnedSectionId = "HomePinnedSection"
-        static let objectTypeSectionId = "HomeObjectTypeSection"
-        static let unreadSectionId = "HomeUnreadSection"
-        static let myFavoritesSectionId = "HomeMyFavoritesSection"
-    }
-    
     // MARK: - DI
 
     let info: AccountInfo
-    let channelWidgetsObject: any BaseDocumentProtocol
 
-    @Injected(\.blockWidgetService) @ObservationIgnored
-    private var blockWidgetService: any BlockWidgetServiceProtocol
-    @Injected(\.objectActionsService) @ObservationIgnored
-    private var objectActionService: any ObjectActionsServiceProtocol
-    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
-    private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     @Injected(\.documentsProvider) @ObservationIgnored
     private var documentsProvider: any DocumentsProviderProtocol
-    @Injected(\.participantsStorage) @ObservationIgnored
-    private var accountParticipantStorage: any ParticipantsStorageProtocol
+    @Injected(\.widgetsObjectsStorage) @ObservationIgnored
+    private var widgetsObjectsStorage: any WidgetsObjectsStorageProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.homeWidgetsRecentStateManager) @ObservationIgnored
-    private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
-    @Injected(\.objectTypeProvider) @ObservationIgnored
-    private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.expandedService) @ObservationIgnored
-    private var expandedService: any ExpandedServiceProtocol
-    @Injected(\.chatMessagesPreviewsStorage) @ObservationIgnored
-    private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
-    @Injected(\.objectTypesWithObjectsCreatedService) @ObservationIgnored
-    private var objectTypesWithObjectsCreatedService: any ObjectTypesWithObjectsCreatedServiceProtocol
-    @Injected(\.chatDetailsStorage) @ObservationIgnored
-    private var chatDetailsStorage: any ChatDetailsStorageProtocol
-    @Injected(\.objectsWithUnreadDiscussionsSubscription) @ObservationIgnored
-    private var unreadDiscussionsSubscription: any ObjectsWithUnreadDiscussionsSubscriptionProtocol
+    @Injected(\.homeSectionsStorage) @ObservationIgnored
+    private var homeSectionsStorage: any HomeSectionsStorageProtocol
+    @Injected(\.participantsStorage) @ObservationIgnored
+    private var accountParticipantStorage: any ParticipantsStorageProtocol
+    @Injected(\.setWidgetsPrewarmer) @ObservationIgnored
+    private var setWidgetsPrewarmer: any SetWidgetsPrewarmerProtocol
+    @Injected(\.treeWidgetsPrewarmer) @ObservationIgnored
+    private var treeWidgetsPrewarmer: any TreeWidgetsPrewarmerProtocol
+    @Injected(\.unreadSectionPrewarmer) @ObservationIgnored
+    private var unreadSectionPrewarmer: any UnreadSectionPrewarmerProtocol
 
     @ObservationIgnored
     weak var output: (any HomeWidgetsModuleOutput)?
-    
+
     // MARK: - State
-    
-    var widgetBlocks: [BlockWidgetInfo] = []
-    var objectTypeWidgets: [ObjectTypeWidgetInfo] = []
-    var homeState: HomeWidgetsState = .readonly
-    var widgetsDataLoaded: Bool = false
-    var objectTypesDataLoaded: Bool = false
-    var wallpaper: SpaceWallpaperType = .default
-    var pinnedSectionIsExpanded: Bool = false
-    var objectTypeSectionIsExpanded: Bool = false
-    var canCreateObjectType: Bool = false
+
     var homeWidgetData: HomepageWidgetViewData?
-    var unreadSectionIsExpanded: Bool = false
-    var unreadItems: [UnreadSectionItem] = []
-    var myFavoritesSectionIsExpanded: Bool = false
-    var myFavoritesListViewModel: MyFavoritesListViewModel?
-    private var supportsMultiChats: Bool = false
+    var sectionsConfiguration: HomeSectionsConfiguration = .default
+    private(set) var channelWidgetsObject: (any BaseDocumentProtocol)?
+    private(set) var personalWidgetsObject: (any BaseDocumentProtocol)?
+    private(set) var prefetchedSetSubscriptions: [String: PrefetchedSetSubscription] = [:]
+    private(set) var prefetchedTreeChildren: [String: PrefetchedTreeChildren] = [:]
+    private(set) var prefetchedUnreadSection: PrefetchedUnreadSection?
+
+    // Default false so readonly users never see (and can never tap) the Bin's empty-bin
+    // action before `canEdit` resolves. Editors briefly see no Bin section until then —
+    // matches pre-refactor `homeState = .readonly` default and `PinnedSectionViewModel`.
+    private var canEdit: Bool = false
+
+    @ObservationIgnored
+    private var prewarmTask: Task<Void, Never>?
 
     var spaceId: String { info.accountSpaceId }
 
-    var shouldShowUnreadSection: Bool {
-        supportsMultiChats && unreadItems.isNotEmpty
+    var visibleSections: [HomeSection] {
+        canEdit
+            ? sectionsConfiguration.visibleSections
+            : sectionsConfiguration.visibleSections.filter { $0 != .bin }
     }
 
-    var shouldHideChatBadges: Bool {
-        shouldShowUnreadSection && unreadSectionIsExpanded
+    var hasUnreadSection: Bool {
+        sectionsConfiguration.visibleSections.contains(.unread)
     }
 
     init(
@@ -85,61 +68,34 @@ final class HomeWidgetsViewModel {
     ) {
         self.info = info
         self.output = output
-        let channelWidgetsObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
-        self.channelWidgetsObject = channelWidgetsObject
-        if FeatureFlags.personalFavorites {
-            let personalWidgetsObject = documentService.document(
-                objectId: info.personalWidgetsId,
-                spaceId: info.accountSpaceId
-            )
-            self.myFavoritesListViewModel = MyFavoritesListViewModel(
-                spaceId: info.accountSpaceId,
-                personalWidgetsObject: personalWidgetsObject,
-                channelWidgetsObject: channelWidgetsObject,
-                onObjectSelected: { [weak output] details in
-                    output?.onObjectSelected(screenData: details.screenData())
-                }
-            )
-        } else {
-            self.myFavoritesListViewModel = nil
+        // Spawn pre-warm in init so it overlaps the space-transition animation
+        // instead of waiting for view appear.
+        prewarmTask = Task(priority: .high) { [weak self] in
+            await self?.runPrewarm()
         }
-        self.pinnedSectionIsExpanded = expandedService.isExpanded(id: Constants.pinnedSectionId, defaultValue: true)
-        self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
-        self.unreadSectionIsExpanded = expandedService.isExpanded(id: Constants.unreadSectionId, defaultValue: true)
-        self.myFavoritesSectionIsExpanded = expandedService.isExpanded(id: Constants.myFavoritesSectionId, defaultValue: true)
+    }
+
+    deinit {
+        prewarmTask?.cancel()
+    }
+
+    /// Test-only synchronization hook for the init-spawned pre-warm Task.
+    func awaitPrewarm() async {
+        await prewarmTask?.value
     }
 
     func startSubscriptions() async {
-        async let widgetObjectSub: () = startWidgetObjectTask()
-        async let myFavoritesSub: () = startMyFavoritesTask()
-        async let canEditSub: () = startCanEditSubscription()
-        async let objectTypesTask: () = startObjectTypesTask()
         async let spaceViewTask: () = startSpaceViewTask()
-        async let unreadItemsTask: () = startUnreadItemsTask()
+        async let sectionsConfigurationTask: () = startSectionsConfigurationTask()
+        async let canEditTask: () = startCanEditSubscription()
 
-        _ = await (widgetObjectSub, myFavoritesSub, canEditSub, objectTypesTask, spaceViewTask, unreadItemsTask)
+        _ = await (spaceViewTask, sectionsConfigurationTask, canEditTask)
     }
 
     func onAppear() {
         AnytypeAnalytics.instance().logScreenWidget()
     }
 
-    func widgetsDropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
-        widgetBlocks.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
-    }
-    
-    func widgetsDropFinish(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
-        AnytypeAnalytics.instance().logReorderWidget(source: from.data.source.analyticsSource)
-        Task {
-            try? await objectActionService.move(
-                dashboadId: channelWidgetsObject.objectId,
-                blockId: from.data.id,
-                dropPositionblockId: to.data.id,
-                position: to.index > from.index ? .bottom : .top
-            )
-        }
-    }
-    
     func onSpaceSelected() {
         output?.onSpaceSelected()
     }
@@ -152,99 +108,43 @@ final class HomeWidgetsViewModel {
         output?.onSpaceChatShowQrCodeSelected(url: url)
     }
 
-    func onCreateObjectType() {
-        output?.onCreateObjectType()
-    }
-    
-    func onTapPinnedHeader() {
-        withAnimation {
-            pinnedSectionIsExpanded = !pinnedSectionIsExpanded
-        }
-        expandedService.setState(id: Constants.pinnedSectionId, isExpanded: pinnedSectionIsExpanded)
-    }
-    
-    func onTapObjectTypeHeader() {
-        withAnimation {
-            objectTypeSectionIsExpanded = !objectTypeSectionIsExpanded
-        }
-        expandedService.setState(id: Constants.objectTypeSectionId, isExpanded: objectTypeSectionIsExpanded)
-    }
-
-    func onTapUnreadHeader() {
-        withAnimation {
-            unreadSectionIsExpanded = !unreadSectionIsExpanded
-        }
-        expandedService.setState(id: Constants.unreadSectionId, isExpanded: unreadSectionIsExpanded)
-    }
-
-    func onTapMyFavoritesHeader() {
-        withAnimation {
-            myFavoritesSectionIsExpanded = !myFavoritesSectionIsExpanded
-        }
-        expandedService.setState(id: Constants.myFavoritesSectionId, isExpanded: myFavoritesSectionIsExpanded)
+    func onManageSectionsSelected() {
+        output?.onManageSectionsSelected()
     }
 
     // MARK: - Private
-    
-    private func startWidgetObjectTask() async {
-        for await _ in channelWidgetsObject.syncPublisher.values {
-            widgetsDataLoaded = true
 
-            let blocks = channelWidgetsObject.children.filter(\.isWidget)
-            recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: channelWidgetsObject)
+    private func runPrewarm() async {
+        // Channel doc may still be opening; wait for it before reading children.
+        await widgetsObjectsStorage.waitForReady(spaceId: info.accountSpaceId)
+        guard !Task.isCancelled,
+              let (channel, personal) = widgetsObjectsStorage.widgetsObjects(spaceId: info.accountSpaceId)
+        else { return }
 
-            let newWidgetBlocks = blocks
-                .compactMap { channelWidgetsObject.widgetInfo(block: $0) }
+        // Pre-warm before flipping the `channelWidgetsObject` gate so Set/Type and
+        // expanded Tree widgets render rows on the first frame.
+        async let prefetchedSet = setWidgetsPrewarmer.prewarm(channelDoc: channel)
+        async let prefetchedTree = treeWidgetsPrewarmer.prewarm(channelDoc: channel)
+        async let prefetchedUnread = unreadSectionPrewarmer.prewarm(spaceId: info.accountSpaceId)
+        let (setMap, treeMap, unread) = await (prefetchedSet, prefetchedTree, prefetchedUnread)
 
-            guard widgetBlocks != newWidgetBlocks else { continue }
-
-            widgetBlocks = newWidgetBlocks
-        }
+        guard !Task.isCancelled else { return }
+        channelWidgetsObject = channel
+        personalWidgetsObject = personal
+        prefetchedSetSubscriptions = setMap
+        prefetchedTreeChildren = treeMap
+        prefetchedUnreadSection = unread
     }
 
-    private func startMyFavoritesTask() async {
-        // Drives the `MyFavoritesListViewModel.rows` list — only spins up when the feature flag
-        // enabled the sub-viewmodel in `init`.
-        guard let myFavoritesListViewModel else { return }
-        await myFavoritesListViewModel.startSubscriptions()
+    private func startSectionsConfigurationTask() async {
+        for await configuration in homeSectionsStorage.configurationPublisher(spaceId: info.accountSpaceId).values {
+            sectionsConfiguration = configuration
+        }
     }
 
     private func startCanEditSubscription() async {
         for await canEdit in accountParticipantStorage.canEditSequence(spaceId: info.accountSpaceId) {
-            homeState = canEdit ? .readwrite : .readonly
-            canCreateObjectType = canEdit
-        }
-    }
-    
-    private func startObjectTypesTask() async {
-        let spaceId = spaceId
-        let allowedLayouts: [DetailsLayout]
-        if FeatureFlags.createChannelFlow {
-            let spaceType = workspaceStorage.spaceView(spaceId: spaceId)?.spaceType
-            allowedLayouts = DetailsLayout.widgetTypeLayouts(spaceType: spaceType)
-            await objectTypesWithObjectsCreatedService.startSubscription(spaceId: spaceId, spaceType: spaceType)
-        } else {
-            let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
-            allowedLayouts = DetailsLayout.widgetTypeLayouts(spaceUxType: spaceUxType)
-            await objectTypesWithObjectsCreatedService.startSubscription(spaceId: spaceId, spaceUxType: spaceUxType)
-        }
-
-        let typesPublisher = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)
-        let objectsCreatedPublisher = objectTypesWithObjectsCreatedService.typeIdsWithObjectsCreatedPublisher
-
-        let stream = typesPublisher.combineLatest(objectsCreatedPublisher)
-            .map { (types, typeIdsWithObjectsCreated) in
-                types
-                    .filter { ($0.recommendedLayout.map { allowedLayouts.contains($0) } ?? false) && !$0.isTemplateType }
-                    .filter { typeIdsWithObjectsCreated.contains($0.id) }
-                    .map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
-            }
-            .removeDuplicates()
-            .values
-
-        for await objectTypes in stream {
-            objectTypesDataLoaded = true
-            objectTypeWidgets = objectTypes
+            self.canEdit = canEdit
         }
     }
 
@@ -260,7 +160,6 @@ final class HomeWidgetsViewModel {
 
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             let spaceView = participantSpaceView.spaceView
-            supportsMultiChats = !spaceView.isOneToOne
 
             // Home widget renders whichever object is set as homepage (Chat / Page / Collection).
             // 1-on-1 channels always home on Chat; `SpaceView.homepage` is unreliable there
@@ -324,58 +223,4 @@ final class HomeWidgetsViewModel {
         }
     }
 
-    private func startUnreadItemsTask() async {
-        let spaceId = spaceId
-        let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
-        guard !(spaceView?.isOneToOne ?? true) else { return }
-
-        let previewsSequence = await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
-        let chatsSequence = await chatDetailsStorage.allChatsSequence
-        let spaceViewSequence = workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values
-        let unreadDiscussionsSequence = await unreadDiscussionsSubscription.unreadBySpaceSequence
-
-        // combineLatest is max-arity 3 — nest two pairs.
-        let chatTriple = combineLatest(previewsSequence, chatsSequence, spaceViewSequence)
-        for await (triple, unreadBySpace) in combineLatest(chatTriple, unreadDiscussionsSequence) {
-            let (previews, chatDetails, currentSpaceView) = triple
-
-            let chatItems: [UnreadSectionItem] = previews.compactMap { preview in
-                guard preview.spaceId == spaceId else { return nil }
-
-                if FeatureFlags.muteAndHide {
-                    let mode = currentSpaceView.effectiveNotificationMode(for: preview.chatId)
-                    if mode == .nothing {
-                        guard preview.mentionCounter > 0 || preview.hasUnreadReactions else { return nil }
-                    }
-                }
-
-                guard preview.hasCounters else { return nil }
-                guard let chatDetail = chatDetails.first(where: { $0.id == preview.chatId }), !chatDetail.isArchivedOrDeleted else {
-                    return nil
-                }
-                return .chat(
-                    UnreadChatWidgetData(id: preview.chatId, spaceId: spaceId, output: output),
-                    lastMessageDate: preview.lastMessage?.createdAt
-                )
-            }
-
-            let parentSource = FeatureFlags.discussionButton ? (unreadBySpace[spaceId]?.parents ?? []) : []
-            let parentItems: [UnreadSectionItem] = parentSource.compactMap { parent in
-                if FeatureFlags.muteAndHide && currentSpaceView.pushNotificationMode == .nothing {
-                    guard parent.hasUnreadMention else { return nil }
-                }
-                // Aggregator admits any subscribed parent; drop fully-caught-up rows here so the section
-                // never shows a name with no badge. Mirrors the chat path's `hasCounters` guard.
-                guard parent.unreadMessageCount > 0 || parent.hasUnreadMention else { return nil }
-                return .discussionParent(
-                    UnreadDiscussionParentWidgetData(id: parent.id, spaceId: spaceId, output: output),
-                    lastMessageDate: parent.lastMessageDate
-                )
-            }
-
-            let merged = (chatItems + parentItems).sorted { $0.sortDate > $1.sortDate }
-            guard unreadItems != merged else { continue }
-            unreadItems = merged
-        }
-    }
 }

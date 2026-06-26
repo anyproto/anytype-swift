@@ -53,7 +53,7 @@ final class SpaceRequestAlertModel: ObservableObject {
     
     func onViewAccess() async throws {
         let spaceView = workspaceStorage.spaceView(spaceId: data.spaceId)
-        AnytypeAnalytics.instance().logApproveInviteRequest(type: .read, spaceUxType: spaceView?.uxType)
+        AnytypeAnalytics.instance().logApproveInviteRequest(type: .read, spaceType: spaceView?.spaceType)
         try await workspaceService.requestApprove(
             spaceId: data.spaceId,
             identity: data.participantIdentity,
@@ -63,7 +63,7 @@ final class SpaceRequestAlertModel: ObservableObject {
     
     func onEditAccess() async throws {
         let spaceView = workspaceStorage.spaceView(spaceId: data.spaceId)
-        AnytypeAnalytics.instance().logApproveInviteRequest(type: .write, spaceUxType: spaceView?.uxType)
+        AnytypeAnalytics.instance().logApproveInviteRequest(type: .write, spaceType: spaceView?.spaceType)
         try await workspaceService.requestApprove(
             spaceId: data.spaceId,
             identity: data.participantIdentity,

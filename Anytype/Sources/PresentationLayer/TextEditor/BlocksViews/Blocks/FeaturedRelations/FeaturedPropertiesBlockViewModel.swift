@@ -32,9 +32,13 @@ final class FeaturedPropertiesBlockViewModel: BlockViewModelProtocol {
             .receiveOnMain()
             .removeDuplicates()
             .sink { [weak self] newFeaturedRelations in
-                guard let self else { return }
-                if featuredRelations != newFeaturedRelations {
-                    self.featuredRelations = newFeaturedRelations
+                guard let self, featuredRelations != newFeaturedRelations else { return }
+                self.featuredRelations = newFeaturedRelations
+                // Defer reconfigure to next runloop tick so it never lands on the main queue
+                // while an animated dataSource.apply from applyBlocksSectionSnapshot is in flight
+                // (UIKit's diffable data source deadlock detector otherwise throws).
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
                     collectionController.reconfigure(items: [.block(self)])
                 }
             }.store(in: &cancellables)

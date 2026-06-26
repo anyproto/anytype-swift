@@ -16,7 +16,7 @@ struct WidgetCommonActionsMenuView: View {
     let items: [WidgetMenuItem]
     let widgetBlockId: String
     let channelWidgetsObject: any BaseDocumentProtocol
-    let personalWidgetsObject: (any BaseDocumentProtocol)?
+    let personalWidgetsObject: any BaseDocumentProtocol
     let homeState: HomeWidgetsState
     let output: (any CommonWidgetModuleOutput)?
     let targetObjectId: String?
@@ -27,7 +27,7 @@ struct WidgetCommonActionsMenuView: View {
         items: [WidgetMenuItem],
         widgetBlockId: String,
         channelWidgetsObject: any BaseDocumentProtocol,
-        personalWidgetsObject: (any BaseDocumentProtocol)?,
+        personalWidgetsObject: any BaseDocumentProtocol,
         homeState: HomeWidgetsState,
         output: (any CommonWidgetModuleOutput)?,
         targetObjectId: String?
@@ -95,10 +95,6 @@ struct WidgetCommonActionsMenuView: View {
             Button {
                 guard let targetObjectId else {
                     anytypeAssertionFailure(".favorite menu item emitted without targetObjectId")
-                    return
-                }
-                guard let personalWidgetsObject else {
-                    anytypeAssertionFailure(".favorite menu item emitted without personalWidgetsObject")
                     return
                 }
                 model.provider.onFavoriteTap(

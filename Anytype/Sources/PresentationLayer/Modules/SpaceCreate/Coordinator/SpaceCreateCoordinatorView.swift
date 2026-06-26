@@ -1,5 +1,4 @@
 import SwiftUI
-import AnytypeCore
 
 struct SpaceCreateCoordinatorView: View {
 
@@ -13,17 +12,13 @@ struct SpaceCreateCoordinatorView: View {
 
     var body: some View {
         Group {
-            if FeatureFlags.createChannelFlow {
-                if embedInNavigationStack {
-                    NavigationStack {
-                        ChannelCreateView(data: model.data, output: model)
-                    }
-                    .tint(Color.Text.secondary)
-                } else {
+            if embedInNavigationStack {
+                NavigationStack {
                     ChannelCreateView(data: model.data, output: model)
                 }
+                .tint(Color.Text.secondary)
             } else {
-                SpaceCreateView(data: model.data, output: model)
+                ChannelCreateView(data: model.data, output: model)
             }
         }
         .sheet(item: $model.localObjectIconPickerData) {

@@ -1,5 +1,4 @@
 import SwiftUI
-import AnytypeCore
 
 // Is part of main view SpaceHubView. Related from SpaceHubViewModel
 struct SpaceHubList: View {
@@ -42,7 +41,6 @@ struct SpaceHubList: View {
     
     private var emptyStateView: some View {
         SpaceHubEmptyStateView(
-            onTapCreateSpace: { model.onTapCreateSpace() },
             onTapCreatePersonalChannel: { model.onTapCreatePersonalChannel() },
             onTapCreateGroupChannel: { model.onTapCreateGroupChannel() },
             onTapJoinViaQrCode: { model.onTapJoinViaQrCode() }

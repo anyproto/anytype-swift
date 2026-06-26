@@ -18,10 +18,8 @@ struct WidgetContainerWithEmptyState<Content: View>: View {
                     .frame(height: showEmpty ? 72 : 0)
                 Spacer.fixedHeight(8)
             }
-            .transition(.opacity)
         } else {
             content
-                .transition(.opacity)
         }
     }
 }

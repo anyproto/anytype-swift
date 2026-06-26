@@ -250,7 +250,6 @@ public enum Loc {
   public static let changeIcon = Loc.tr("UI", "Change icon", fallback: "Change icon")
   public static let changeType = Loc.tr("UI", "Change type", fallback: "Change type")
   public static let changeWallpaper = Loc.tr("UI", "Change wallpaper", fallback: "Change wallpaper")
-  public static let channelType = Loc.tr("UI", "ChannelType", fallback: "Channel Type")
   public static let chat = Loc.tr("UI", "Chat", fallback: "Chat")
   public static let chooseDefaultObjectType = Loc.tr("UI", "Choose default object type", fallback: "Choose default object type")
   public static let chooseLayoutType = Loc.tr("UI", "Choose layout type", fallback: "Choose layout type")
@@ -273,6 +272,7 @@ public enum Loc {
     return Loc.tr("UI", "copied to clipboard", String(describing: p1), fallback: "%@ copied to clipboard")
   }
   public static let copy = Loc.tr("UI", "Copy", fallback: "Copy")
+  public static let copyDeeplink = Loc.tr("UI", "Copy Deeplink", fallback: "Copy Deeplink")
   public static let copyInviteLink = Loc.tr("UI", "Copy Invite Link", fallback: "Copy Invite Link")
   public static let copyLink = Loc.tr("UI", "Copy link", fallback: "Copy link")
   public static let copySpaceInfo = Loc.tr("UI", "Copy space info", fallback: "Copy space info")
@@ -293,7 +293,6 @@ public enum Loc {
     return Loc.tr("UI", "Create relation", String(describing: p1), fallback: "Create property ‘%@’")
   }
   public static let createSet = Loc.tr("UI", "Create Set", fallback: "Create Query")
-  public static let createSpace = Loc.tr("UI", "Create Space", fallback: "Create Space")
   public static let createType = Loc.tr("UI", "Create type", fallback: "Create type")
   public static let current = Loc.tr("UI", "Current", fallback: "Current")
   public static let customizeURL = Loc.tr("UI", "Customize URL", fallback: "Customize URL")
@@ -384,6 +383,7 @@ public enum Loc {
   public static let highlight = Loc.tr("UI", "Highlight", fallback: "Highlight")
   public static let history = Loc.tr("UI", "History", fallback: "History")
   public static let home = Loc.tr("UI", "Home", fallback: "Home")
+  public static let homeAndPinned = Loc.tr("UI", "Home and Pinned", fallback: "Home and Pinned")
   public static let icon = Loc.tr("UI", "Icon", fallback: "Icon")
   public static func image(_ p1: Int) -> String {
     return Loc.tr("UI", "Image", p1, fallback: "Plural format key: Image")
@@ -421,6 +421,7 @@ public enum Loc {
   public static let logOut = Loc.tr("UI", "Log out", fallback: "Log Out")
   public static let logoutAndClearData = Loc.tr("UI", "Logout and clear data", fallback: "Logout and clear data")
   public static let managePayment = Loc.tr("UI", "Manage payment", fallback: "Manage payment")
+  public static let manageSections = Loc.tr("UI", "Manage sections", fallback: "Manage sections")
   public static let media = Loc.tr("UI", "Media", fallback: "Media")
   public static func membersPlural(_ p1: Int) -> String {
     return Loc.tr("UI", "membersPlural", p1, fallback: "Plural format key: membersPlural")
@@ -546,6 +547,7 @@ public enum Loc {
   public static let qrCode = Loc.tr("UI", "QR Code", fallback: "QR Code")
   public static let random = Loc.tr("UI", "Random", fallback: "Random")
   public static let recent = Loc.tr("UI", "Recent", fallback: "Recent")
+  public static let recentlyEdited = Loc.tr("UI", "Recently edited", fallback: "Recently edited")
   public static let red = Loc.tr("UI", "Red", fallback: "Red")
   public static let redBackground = Loc.tr("UI", "Red background", fallback: "Red background")
   public static let redo = Loc.tr("UI", "Redo", fallback: "Redo")
@@ -842,11 +844,6 @@ public enum Loc {
   public enum CommonOpenErrorView {
     public static let message = Loc.tr("UI", "CommonOpenErrorView.Message", fallback: "No data found")
   }
-  public enum ConvertChannelTypeAlert {
-    public static let confirm = Loc.tr("UI", "ConvertChannelTypeAlert.confirm", fallback: "Yes, convert")
-    public static let message = Loc.tr("UI", "ConvertChannelTypeAlert.message", fallback: "Switching between Space and Chat will significantly change the experience.")
-    public static let title = Loc.tr("UI", "ConvertChannelTypeAlert.title", fallback: "Convert Channel Type?")
-  }
   public enum DataviewType {
     public static let calendar = Loc.tr("UI", "DataviewType.calendar", fallback: "Calendar")
     public static let gallery = Loc.tr("UI", "DataviewType.gallery", fallback: "Gallery")
@@ -1044,11 +1041,6 @@ public enum Loc {
       public static let title = Loc.tr("UI", "LinkAppearance.ObjectType.Title", fallback: "Object type")
     }
   }
-  public enum LinkPaste {
-    public static let bookmark = Loc.tr("UI", "LinkPaste.bookmark", fallback: "Create bookmark")
-    public static let link = Loc.tr("UI", "LinkPaste.link", fallback: "Paste as link")
-    public static let text = Loc.tr("UI", "LinkPaste.text", fallback: "Paste as text")
-  }
   public enum LongTapCreateTip {
     public static let message = Loc.tr("UI", "LongTapCreateTip.Message", fallback: "Long tap on Create Object button to open menu with types")
     public static let title = Loc.tr("UI", "LongTapCreateTip.Title", fallback: "Create Objects with specific Type")
@@ -1061,6 +1053,13 @@ public enum Loc {
   public enum ObjectTypeDeleteAlert {
     public static let message = Loc.tr("UI", "ObjectTypeDeleteAlert.message", fallback: "Are you sure you want to delete this Type? All existing objects of this type will be preserved, but will no longer be associated with it.")
     public static let title = Loc.tr("UI", "ObjectTypeDeleteAlert.title", fallback: "Delete Object Type?")
+  }
+  public enum PasteMenu {
+    public static let bookmark = Loc.tr("UI", "PasteMenu.bookmark", fallback: "Bookmark")
+    public static let header = Loc.tr("UI", "PasteMenu.header", fallback: "Paste as")
+    public static let object = Loc.tr("UI", "PasteMenu.object", fallback: "Object")
+    public static let plainText = Loc.tr("UI", "PasteMenu.plainText", fallback: "Plain Text")
+    public static let url = Loc.tr("UI", "PasteMenu.url", fallback: "URL")
   }
   public enum Primitives {
     public enum LayoutConflict {
@@ -1800,9 +1799,6 @@ public enum Loc {
       public static let title3 = Loc.tr("Workspace", "Membership.Banner.Title3", fallback: "Support Digital Independence")
       public static let title4 = Loc.tr("Workspace", "Membership.Banner.Title4", fallback: "Invest in Connectivity")
     }
-    public enum Email {
-      public static let body = Loc.tr("Workspace", "Membership.Email.Body", fallback: "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here.")
-    }
     public enum EmailForm {
       public static let subtitle = Loc.tr("Workspace", "Membership.EmailForm.Subtitle", fallback: "It is not linked to your account in any way.")
       public static let title = Loc.tr("Workspace", "Membership.EmailForm.Title", fallback: "Get updates and enjoy free perks!")
@@ -1860,15 +1856,12 @@ public enum Loc {
       }
     }
     public enum Upgrade {
-      public static let button = Loc.tr("Workspace", "Membership.Upgrade.Button", fallback: "Contact Anytype Team")
       public static let moreMembers = Loc.tr("Workspace", "Membership.Upgrade.MoreMembers", fallback: "Upgrade to add more members")
       public static let moreSpaces = Loc.tr("Workspace", "Membership.Upgrade.MoreSpaces", fallback: "Upgrade to add more spaces.")
       public static let noMoreEditors = Loc.tr("Workspace", "Membership.Upgrade.NoMoreEditors", fallback: "You can’t add more editors")
       public static func spacesLimit(_ p1: Int) -> String {
         return Loc.tr("Workspace", "Membership.Upgrade.SpacesLimit", p1, fallback: "Plural format key: Membership.Upgrade.SpacesLimit")
       }
-      public static let text = Loc.tr("Workspace", "Membership.Upgrade.Text", fallback: "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.")
-      public static let title = Loc.tr("Workspace", "Membership.Upgrade.Title", fallback: "Membership upgrade")
     }
   }
   public enum MembershipServiceError {
@@ -2338,17 +2331,6 @@ public enum Loc {
       }
     }
   }
-  public enum SpaceCreate {
-    public enum Chat {
-      public static let title = Loc.tr("Workspace", "SpaceCreate.Chat.Title", fallback: "Create a chat")
-    }
-    public enum Space {
-      public static let title = Loc.tr("Workspace", "SpaceCreate.Space.Title", fallback: "Create a space")
-    }
-    public enum Stream {
-      public static let title = Loc.tr("Workspace", "SpaceCreate.Stream.Title", fallback: "Create a stream")
-    }
-  }
   public enum SpaceInvite {
     public enum Alert {
       public static let subtitle = Loc.tr("Workspace", "SpaceInvite.Alert.subtitle", fallback: "If you switch link type, your existing link will be deactivated.")
@@ -2490,6 +2472,11 @@ public enum Loc {
       public static let message = Loc.tr("Workspace", "SpaceShare.JoinConfirmation.Message", fallback: "You will receive a notification when the space owner will approve your request.")
       public static let title = Loc.tr("Workspace", "SpaceShare.JoinConfirmation.Title", fallback: "Request sent")
     }
+    public enum MakeAdmin {
+      public static let button = Loc.tr("Workspace", "SpaceShare.MakeAdmin.Button", fallback: "Make Admin")
+      public static let message = Loc.tr("Workspace", "SpaceShare.MakeAdmin.Message", fallback: "Admins can delete messages, remove members, and permanently delete objects from Bin.")
+      public static let title = Loc.tr("Workspace", "SpaceShare.MakeAdmin.Title", fallback: "Make the member an admin?")
+    }
     public enum MakePrivate {
       public static let action = Loc.tr("Workspace", "SpaceShare.MakePrivate.Action", fallback: "Make Private")
       public static let confirm = Loc.tr("Workspace", "SpaceShare.MakePrivate.Confirm", fallback: "Confirm")
@@ -2498,6 +2485,7 @@ public enum Loc {
       public static let toast = Loc.tr("Workspace", "SpaceShare.MakePrivate.Toast", fallback: "You can make the space private after removing all members")
     }
     public enum Permissions {
+      public static let admin = Loc.tr("Workspace", "SpaceShare.Permissions.Admin", fallback: "Admin")
       public static let owner = Loc.tr("Workspace", "SpaceShare.Permissions.Owner", fallback: "Owner")
       public static let reader = Loc.tr("Workspace", "SpaceShare.Permissions.Reader", fallback: "Viewer")
       public static let writer = Loc.tr("Workspace", "SpaceShare.Permissions.Writer", fallback: "Editor")
@@ -2511,9 +2499,8 @@ public enum Loc {
       public static let title = Loc.tr("Workspace", "SpaceShare.QR.Title", fallback: "QR code for joining a Space")
     }
     public enum RemoveMember {
-      public static func message(_ p1: Any) -> String {
-        return Loc.tr("Workspace", "SpaceShare.RemoveMember.Message", String(describing: p1), fallback: "%@ will be removed from the space.")
-      }
+      public static let message = Loc.tr("Workspace", "SpaceShare.RemoveMember.Message", fallback: "They'll lose access immediately. Depending on your invite settings, they may be able to rejoin or request to rejoin.")
+      public static let sheetTitle = Loc.tr("Workspace", "SpaceShare.RemoveMember.SheetTitle", fallback: "Remove the member from this channel?")
       public static let title = Loc.tr("Workspace", "SpaceShare.RemoveMember.Title", fallback: "Remove member")
     }
     public enum Share {
@@ -2554,7 +2541,6 @@ public enum Loc {
     }
     public enum UxType {
       public enum Chat {
-        public static let changeDescription = Loc.tr("Workspace", "Spaces.UxType.Chat.ChangeDescription", fallback: "Group chat with shared data. Best for small groups or a single ongoing conversation.")
         public static let description = Loc.tr("Workspace", "Spaces.UxType.Chat.Description", fallback: "Group chat with content organization")
         public static let title = Loc.tr("Workspace", "Spaces.UxType.Chat.Title", fallback: "Chat")
       }
@@ -2562,7 +2548,6 @@ public enum Loc {
         public static let title = Loc.tr("Workspace", "Spaces.UxType.OneToOne.Title", fallback: "Direct channel")
       }
       public enum Space {
-        public static let changeDescription = Loc.tr("Workspace", "Spaces.UxType.Space.ChangeDescription", fallback: "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams.")
         public static let description = Loc.tr("Workspace", "Spaces.UxType.Space.Description", fallback: "Hub for advanced data management")
         public static let infoTitle = Loc.tr("Workspace", "Spaces.UxType.Space.InfoTitle", fallback: "Private Channel")
         public static let title = Loc.tr("Workspace", "Spaces.UxType.Space.Title", fallback: "Space")

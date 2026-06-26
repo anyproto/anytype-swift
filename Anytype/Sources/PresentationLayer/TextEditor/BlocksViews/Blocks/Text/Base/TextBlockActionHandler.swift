@@ -3,10 +3,12 @@ import UIKit
 import Services
 import AnytypeCore
 import Factory
+import DeepLinks
 
 struct TextBlockURLInputParameters {
     let textView: UITextView
     let rect: CGRect
+    let options: [EditorContextualOption]
     let optionHandler: (EditorContextualOption) -> Void
 }
 
@@ -47,6 +49,15 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     
     @Injected(\.linkToSearchHelper)
     private var linkToSearchHelper: any LinkToSearchHelperProtocol
+
+    @Injected(\.deepLinkParser)
+    private var deepLinkParser: any DeepLinkParserProtocol
+
+    @Injected(\.universalLinkParser)
+    private var universalLinkParser: any UniversalLinkParserProtocol
+
+    @Injected(\.searchService)
+    private var searchService: any SearchServiceProtocol
     
     weak var viewModel: TextBlockViewModel?
     
@@ -280,6 +291,15 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
             return false
         }
 
+        // Link blocks can only target objects in the current space.
+        // Cross-space links and self-links fall back to the standard menu.
+        // Accept both anytype:// deep links and https://object.any.coop/... web links.
+        let pastedObjectId: String? = parsedLocalObjectId(from: url.url)
+
+        let options: [EditorContextualOption] = pastedObjectId != nil
+            ? [.object, .createBookmark, .pasteAsLink, .pasteAsText]
+            : [.createBookmark, .pasteAsLink, .pasteAsText]
+
         let newTextWithLink = makeAttributedString(
             attributedText: textView.attributedText,
             replacementURL: url.url,
@@ -296,7 +316,8 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
             
             let urlIputParameters = TextBlockURLInputParameters(
                 textView: textView,
-                rect: textRect) { [info, weak self] option in
+                rect: textRect,
+                options: options) { [info, weak self] option in
                     switch option {
                     case .createBookmark:
                         let position: BlockPosition = textView.text == trimmedText ?
@@ -309,7 +330,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
                                 position: position,
                                 url: url
                             )
-                            if let value = safeSendableAttributedString.value {
+                            // For .replace the source block is destroyed, so restoring its text
+                            // would target a nonexistent block (BlockTextSetText: not found).
+                            if position == .bottom, let value = safeSendableAttributedString.value {
                                 try await self?.setNewText(attributedString: value.sendable())
                             }
                         }
@@ -328,6 +351,30 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             SharingTip.didCopyText = true
+                        }
+                    case .object:
+                        guard let pastedObjectId else { break }
+                        let position: BlockPosition = textView.text == trimmedText ?
+                            .replace : .bottom
+
+                        let safeSendableAttributedString = SafeSendable(value: originalAttributedString)
+                        Task { @MainActor [weak self] in
+                            guard let self else { return }
+                            do {
+                                let details = try await self.objectDetails(forObjectId: pastedObjectId)
+                                try await self.actionHandler.addLink(
+                                    targetDetails: details,
+                                    blockId: info.id,
+                                    position: position,
+                                    route: .clipboard
+                                )
+                                // For .replace the source block is destroyed; nothing to restore.
+                                if position == .bottom, let value = safeSendableAttributedString.value {
+                                    try await self.setNewText(attributedString: value.sendable())
+                                }
+                            } catch {
+                                anytypeAssertionFailure(error.localizedDescription)
+                            }
                         }
                     }
                 }
@@ -449,6 +496,43 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         info.toggle()
         actionHandler.toggle(blockId: info.id)
         viewModel.map { collectionController.reconfigure(items: [.block($0)]) }
+    }
+
+    private func objectDetails(forObjectId objectId: String) async throws -> ObjectDetails {
+        if let cached = document.detailsStorage.get(id: objectId) {
+            return cached
+        }
+        let results = try await searchService.searchObjects(spaceId: document.spaceId, objectIds: [objectId])
+        guard let details = results.first else {
+            throw CommonError.undefined
+        }
+        return details
+    }
+
+    private func parsedLocalObjectId(from url: URL) -> String? {
+        // Web link form (https://object.any.coop/...) is what desktop and iOS share/copy generate,
+        // so it covers nearly every real paste. Fall back to anytype:// deep link form only if the
+        // web parser didn't recognize the URL at all (rare edge case — internal scheme rarely ends
+        // up on the clipboard).
+        let candidate: (objectId: String, spaceId: String)? = {
+            if let universalLink = universalLinkParser.parse(url: url) {
+                if case let .object(objectId, spaceId, _, _) = universalLink {
+                    return (objectId, spaceId)
+                }
+                return nil
+            }
+            if let deepLink = deepLinkParser.parse(url: url),
+               case let .object(objectId, spaceId, _, _) = deepLink {
+                return (objectId, spaceId)
+            }
+            return nil
+        }()
+        guard let candidate,
+              candidate.spaceId == document.spaceId,
+              candidate.objectId != document.objectId else {
+            return nil
+        }
+        return candidate.objectId
     }
 }
 

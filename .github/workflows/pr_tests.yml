@@ -34,6 +34,9 @@ jobs:
         with:
           xcode-version: '26.1'
 
+      - name: Install iOS Platform
+        uses: ./.github/actions/install-ios-platform
+
       - name: Download Middleware
         run: make setup-middle-ci
         env:

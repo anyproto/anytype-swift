@@ -4,21 +4,12 @@ import Services
 
 struct ConversationEmptyStateView: View {
 
-    let isStream: Bool
     let isOneToOne: Bool
     let participantPermissions: ParticipantPermissions?
     let addMembersAction: (() -> Void)?
     let qrCodeAction: (() -> Void)?
 
     var body: some View {
-        if isStream {
-            streamEmptyStateView
-        } else {
-            chatEmptyStateView
-        }
-    }
-
-    private var chatEmptyStateView: some View {
         switch participantPermissions {
         case .owner:
             emptyStateView(
@@ -26,32 +17,9 @@ struct ConversationEmptyStateView: View {
                 addMembersAction: isOneToOne ? nil : addMembersAction,
                 qrCodeAction: isOneToOne ? nil : qrCodeAction
             )
-        case .writer:
+        case .writer, .reader, .admin, .noPermissions, .UNRECOGNIZED, nil:
             emptyStateView(
                 title: Loc.Chat.Empty.title,
-                addMembersAction: nil,
-                qrCodeAction: nil
-            )
-        case .reader, .noPermissions, .UNRECOGNIZED, nil:
-            emptyStateView(
-                title: Loc.Chat.Empty.title,
-                addMembersAction: nil,
-                qrCodeAction: nil
-            )
-        }
-    }
-    
-    private var streamEmptyStateView: some View {
-        switch participantPermissions {
-        case .owner:
-            emptyStateView(
-                title: Loc.Stream.Empty.title,
-                addMembersAction: addMembersAction,
-                qrCodeAction: qrCodeAction
-            )
-        case .writer, .reader, .noPermissions, .UNRECOGNIZED, nil:
-            emptyStateView(
-                title: Loc.Stream.Empty.title,
                 addMembersAction: nil,
                 qrCodeAction: nil
             )

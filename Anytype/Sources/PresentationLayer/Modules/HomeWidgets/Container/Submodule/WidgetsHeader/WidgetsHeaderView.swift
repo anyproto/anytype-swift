@@ -11,13 +11,15 @@ struct WidgetsHeaderView: View {
         context: WidgetScreenContext,
         onSpaceSelected: @escaping () -> Void,
         onMembersSelected: @escaping (String, SettingsSpaceShareRoute) -> Void,
-        onQrCodeSelected: @escaping (URL) -> Void
+        onQrCodeSelected: @escaping (URL) -> Void,
+        onManageSectionsSelected: @escaping () -> Void
     ) {
         _model = State(initialValue: WidgetsHeaderViewModel(
             spaceId: spaceId,
             onSpaceSelected: onSpaceSelected,
             onMembersSelected: onMembersSelected,
-            onQrCodeSelected: onQrCodeSelected
+            onQrCodeSelected: onQrCodeSelected,
+            onManageSectionsSelected: onManageSectionsSelected
         ))
         self.context = context
     }
@@ -72,6 +74,9 @@ private struct WidgetsHeaderMenuContent: View {
         } else if model.isPrivateSpace {
             inviteMembersButton
         }
+
+        Divider()
+        manageSectionsButton
     }
 
     // MARK: - Menu Items
@@ -127,6 +132,14 @@ private struct WidgetsHeaderMenuContent: View {
             model.onCopyInviteLinkTap()
         } label: {
             Label(Loc.copyInviteLink, systemImage: "document.on.document")
+        }
+    }
+
+    private var manageSectionsButton: some View {
+        Button {
+            model.onManageSectionsTap()
+        } label: {
+            Label(Loc.manageSections, systemImage: "list.bullet")
         }
     }
 }

@@ -4,7 +4,8 @@ struct ObjectTypesUnifiedWidgetView: View {
     let typeInfos: [ObjectTypeWidgetInfo]
     let canCreateType: Bool
     let onCreateType: () -> Void
-    let output: (any CommonWidgetModuleOutput)?
+    let onTap: (ObjectTypeWidgetInfo) -> Void
+    let onCreate: (ObjectTypeWidgetInfo) async throws -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -12,7 +13,8 @@ struct ObjectTypesUnifiedWidgetView: View {
                 ObjectTypesUnifiedRowView(
                     info: info,
                     showDivider: index < typeInfos.count - 1 || canCreateType,
-                    output: output
+                    onTap: onTap,
+                    onCreate: onCreate
                 )
             }
 

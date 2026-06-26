@@ -16,7 +16,7 @@ final class GlobalServicesConfiguration: AppConfiguratorProtocol {
     private var appVersionUpdateService: any AppVersionUpdateServiceProtocol
     @Injected(\.debugService)
     private var debugService: any DebugServiceProtocol
-    
+
     func configure() {
         // Global listeners
         eventListener.startListening()

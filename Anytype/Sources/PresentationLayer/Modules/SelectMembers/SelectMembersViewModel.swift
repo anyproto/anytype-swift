@@ -27,8 +27,8 @@ final class SelectMembersViewModel {
     var filteredContacts: [Contact] {
         guard searchText.isNotEmpty else { return contacts }
         return contacts.filter {
-            $0.name.localizedCaseInsensitiveContains(searchText) ||
-            $0.globalName.localizedCaseInsensitiveContains(searchText)
+            $0.name.localizedStandardContains(searchText) ||
+            $0.globalName.localizedStandardContains(searchText)
         }
     }
 

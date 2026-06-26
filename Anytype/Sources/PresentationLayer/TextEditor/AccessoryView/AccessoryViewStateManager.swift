@@ -301,10 +301,17 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         
         let startPosition = configuration.textView.offsetFromBegining(newMentionPosition)
         let caretOffsetFromStart = configuration.textView.offset(from: newMentionPosition, to: caretPosition)
-        
+
         let mutableString = NSMutableAttributedString(attributedString: configuration.textView.attributedText)
+
+        guard startPosition >= 0,
+              caretOffsetFromStart >= 0,
+              startPosition + caretOffsetFromStart <= mutableString.length else {
+            return nil
+        }
+
         mutableString.replaceCharacters(in: .init(location: startPosition, length: caretOffsetFromStart), with: "")
-        
+
         return (mutableString, startPosition)
     }
 }
@@ -422,6 +429,14 @@ extension AccessoryViewStateManagerImpl {
             configuration?.output?.didSelectShowStyleMenu()
         case .keyboardDismiss:
             UIApplication.shared.hideKeyboard()
+        case .mention:
+            if let textView = configuration?.textView {
+                textView.insertStringAfterCaret(
+                    TextTriggerSymbols.mention(prependSpace: shouldPrependSpace(textView: textView))
+                )
+            }
+            showMentionsView()
+            configuration?.output?.accessoryState = .search
         case .slashMenu:
             configuration?.textView.insertStringAfterCaret(TextTriggerSymbols.slashMenu)
             showSlashMenuView()
@@ -459,12 +474,18 @@ extension AccessoryViewStateManagerImpl {
             AnytypeAnalytics.instance().logKeyboardBarHideKeyboardMenu()
         case .showStyleMenu:
             AnytypeAnalytics.instance().logKeyboardBarStyleMenu()
+        case .mention:
+            AnytypeAnalytics.instance().logKeyboardBarMentionMenu()
         case .editingMode:
             AnytypeAnalytics.instance().logKeyboardBarSelectionMenu()
         case .undoRedo:
             AnytypeAnalytics.instance().logKeyboardBarUndoMenu()
-        case .deleteBlock, .indentLeft, .indentRight:
-            break
+        case .deleteBlock:
+            AnytypeAnalytics.instance().logKeyboardBarDeleteBlockMenu()
+        case .indentLeft:
+            AnytypeAnalytics.instance().logKeyboardBarIndentLeftMenu()
+        case .indentRight:
+            AnytypeAnalytics.instance().logKeyboardBarIndentRightMenu()
         }
     }
 }

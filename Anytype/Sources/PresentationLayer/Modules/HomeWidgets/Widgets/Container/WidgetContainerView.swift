@@ -21,7 +21,7 @@ struct WidgetContainerView<Content: View>: View {
     init(
         widgetBlockId: String,
         channelWidgetsObject: some BaseDocumentProtocol,
-        personalWidgetsObject: (any BaseDocumentProtocol)?,
+        personalWidgetsObject: any BaseDocumentProtocol,
         spaceId: String,
         homeState: Binding<HomeWidgetsState>,
         name: String,
@@ -117,9 +117,8 @@ struct WidgetContainerView<Content: View>: View {
             .snackbar(toastBarData: $model.toastData)
         }
         .twoWayBinding(viewState: $homeState, modelState: $model.homeState)
-        .onChange(of: contentState) { oldValue, newValue in
-            let animated = oldValue != .loading
-            model.updateExpanded(contentState: newValue, animated: animated)
+        .onChange(of: contentState) { _, newValue in
+            model.updateExpanded(contentState: newValue)
         }
         .task {
             await model.startSubscriptions()

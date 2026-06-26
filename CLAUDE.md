@@ -10,7 +10,7 @@ Privacy-focused, local-first workspace for iOS. Swift + SwiftUI + Custom Middlew
 
 ## 🚀 Quick Start
 ```bash
-make setup-env && make setup-tools && make setup-middle  # First time
+make setup-env && make setup-middle  # First time
 make generate                                             # After any asset/flag/localization change
 ```
 **Requirements**: Xcode 16.1+, Swift Package Manager

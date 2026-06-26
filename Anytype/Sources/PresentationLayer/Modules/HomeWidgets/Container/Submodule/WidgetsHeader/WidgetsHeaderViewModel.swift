@@ -28,6 +28,8 @@ final class WidgetsHeaderViewModel {
     private let onMembersSelected: (String, SettingsSpaceShareRoute) -> Void
     @ObservationIgnored
     private let onQrCodeSelected: (URL) -> Void
+    @ObservationIgnored
+    private let onManageSectionsSelected: () -> Void
 
     @ObservationIgnored
     private let accountSpaceId: String
@@ -73,12 +75,14 @@ final class WidgetsHeaderViewModel {
         spaceId: String,
         onSpaceSelected: @escaping () -> Void,
         onMembersSelected: @escaping (String, SettingsSpaceShareRoute) -> Void,
-        onQrCodeSelected: @escaping (URL) -> Void
+        onQrCodeSelected: @escaping (URL) -> Void,
+        onManageSectionsSelected: @escaping () -> Void
     ) {
         self.accountSpaceId = spaceId
         self.onSpaceSelected = onSpaceSelected
         self.onMembersSelected = onMembersSelected
         self.onQrCodeSelected = onQrCodeSelected
+        self.onManageSectionsSelected = onManageSectionsSelected
     }
 
     func startSubscriptions() async {
@@ -113,12 +117,7 @@ final class WidgetsHeaderViewModel {
         }
 
         do {
-            let invite: SpaceInvite
-            if spaceView.uxType.isStream {
-                invite = try await workspaceService.getGuestInvite(spaceId: accountSpaceId)
-            } else {
-                invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
-            }
+            let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
             inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
         } catch {
             inviteLink = nil
@@ -161,5 +160,9 @@ final class WidgetsHeaderViewModel {
         guard let inviteLink else { return }
         UIPasteboard.general.string = inviteLink.absoluteString
         toastBarData = ToastBarData(Loc.copiedToClipboard(Loc.link), type: .success)
+    }
+
+    func onManageSectionsTap() {
+        onManageSectionsSelected()
     }
 }

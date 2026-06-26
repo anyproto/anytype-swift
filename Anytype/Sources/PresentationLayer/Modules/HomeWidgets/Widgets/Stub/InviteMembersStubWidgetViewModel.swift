@@ -42,8 +42,7 @@ final class InviteMembersStubWidgetViewModel {
         for await (isShared, hasMembers) in isShared.combineLatest(hasMembers).values {
             let hasPendingMembers = pendingShareStorage.pendingState(for: spaceId)?.identities.isNotEmpty ?? false
             let dismissed = onboardingStorage.isInviteMembersDismissed(spaceId: spaceId)
-            showInviteMembers = FeatureFlags.createChannelFlow
-                && isShared
+            showInviteMembers = isShared
                 && !hasMembers
                 && !hasPendingMembers
                 && !dismissed

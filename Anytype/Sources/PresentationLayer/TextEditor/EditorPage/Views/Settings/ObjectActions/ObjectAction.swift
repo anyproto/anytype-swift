@@ -13,81 +13,9 @@ enum ObjectAction: Hashable, Identifiable {
     case templateToggleDefaultState(isDefault: Bool)
     case delete
     case copyLink
+    case copyDeepLink
     case inviteMembers
     case editInfo
-
-    @available(*, deprecated, message: "Use spaceType overload instead")
-    static func buildActions(
-        details: ObjectDetails,
-        isLocked: Bool,
-        isPinnedToWidgets: Bool,
-        isFavorited: Bool,
-        canManageChannelPins: Bool,
-        permissions: ObjectPermissions,
-        spaceUxType: SpaceUxType?,
-        isSpaceOwner: Bool
-    ) -> [Self] {
-        let canCreateWidget = details.isVisibleLayout(spaceUxType: spaceUxType)
-            && !details.isTemplate
-            && details.resolvedLayoutValue != .participant
-            && permissions.canApplyUneditableActions
-
-        return .builder {
-            if permissions.canArchive {
-                ObjectAction.archive(isArchived: details.isArchived)
-            }
-
-            if canCreateWidget && canManageChannelPins {
-                ObjectAction.pin(isPinned: isPinnedToWidgets)
-            }
-
-            if canCreateWidget && FeatureFlags.personalFavorites {
-                ObjectAction.favorite(isFavorited: isFavorited)
-            }
-
-            if permissions.canDuplicate {
-                ObjectAction.duplicate
-            }
-
-            if permissions.canUndoRedo {
-                ObjectAction.undoRedo
-            }
-
-            if permissions.canMakeAsTemplate {
-                ObjectAction.makeAsTemplate
-            }
-
-            if permissions.canTemplateSetAsDefault, let targetObjectType = details.targetObjectTypeValue {
-                let isDefault = targetObjectType.defaultTemplateId == details.id
-                ObjectAction.templateToggleDefaultState(isDefault: isDefault)
-            }
-
-            if permissions.canLinkItself {
-                ObjectAction.linkItself
-            }
-
-            if permissions.canShare {
-                ObjectAction.copyLink
-            }
-
-            if details.resolvedLayoutValue.isChat && spaceUxType?.supportsMultiChats == true && !details.isArchived {
-                if permissions.canEditDetails {
-                    ObjectAction.editInfo
-                }
-                if isSpaceOwner {
-                    ObjectAction.inviteMembers
-                }
-            }
-
-            if permissions.canLock {
-                ObjectAction.locked(isLocked: isLocked)
-            }
-
-            if permissions.canDelete {
-                ObjectAction.delete
-            }
-        }
-    }
 
     static func buildActions(
         details: ObjectDetails,
@@ -113,7 +41,7 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.pin(isPinned: isPinnedToWidgets)
             }
 
-            if canCreateWidget && FeatureFlags.personalFavorites {
+            if canCreateWidget {
                 ObjectAction.favorite(isFavorited: isFavorited)
             }
 
@@ -141,6 +69,8 @@ enum ObjectAction: Hashable, Identifiable {
             if permissions.canShare {
                 ObjectAction.copyLink
             }
+
+            ObjectAction.copyDeepLink
 
             if details.resolvedLayoutValue.isChat && spaceType != .oneToOne && !details.isArchived {
                 if permissions.canEditDetails {
@@ -185,6 +115,8 @@ enum ObjectAction: Hashable, Identifiable {
             return "delete"
         case .copyLink:
             return "copyLink"
+        case .copyDeepLink:
+            return "copyDeepLink"
         case .inviteMembers:
             return "inviteMembers"
         case .editInfo:
@@ -210,6 +142,8 @@ enum ObjectAction: Hashable, Identifiable {
             return 22
         case .locked:
             return 30
+        case .copyDeepLink:
+            return 31
         case .inviteMembers:
             return 35
         case .copyLink:

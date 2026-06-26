@@ -33,8 +33,6 @@ final class SpaceSettingsViewModel {
     private var accountManager: any AccountManagerProtocol
     @ObservationIgnored @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @ObservationIgnored @Injected(\.mailUrlBuilder)
-    private var mailUrlBuilder: any MailUrlBuilderProtocol
     @ObservationIgnored @Injected(\.universalLinkParser)
     private var universalLinkParser: any UniversalLinkParserProtocol
     @ObservationIgnored @Injected(\.fileLimitsStorage)
@@ -84,7 +82,6 @@ final class SpaceSettingsViewModel {
     var allowRemoteStorage = false
     var canEdit = false
     var canSetHomepage = false
-    var uxTypeSettingsData: SpaceUxTypeSettingsData?
     var shareSection: SpaceSettingsShareSection = .personal
     var membershipUpgradeReason: MembershipUpgradeReason?
     var storageInfo = RemoteStorageSegmentInfo()
@@ -228,11 +225,7 @@ final class SpaceSettingsViewModel {
     func onBinTap() {
         output?.onBinSelected()
     }
-    
-    func onUxTypeTap() {
-        output?.onSpaceUxTypeSelected()
-    }
-    
+
     // MARK: - Subscriptions
     
     func startSubscriptions() async {
@@ -354,8 +347,6 @@ final class SpaceSettingsViewModel {
         isOneToOne = spaceView.isOneToOne
         showNotificationsSection = !spaceView.isOneToOne
 
-        uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat && FeatureFlags.channelTypeSwitcher ? SpaceUxTypeSettingsData(uxType: spaceView.uxType) : nil
-
         updateOneToOneParticipant()
 
         info = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
@@ -413,21 +404,12 @@ final class SpaceSettingsViewModel {
         guard let participantSpaceView else { return }
         guard shareSection.isSharingAvailable else { return }
         guard !participantSpaceView.spaceView.isOneToOne else { return }
-        
-        if participantSpaceView.spaceView.uxType.isStream {
-            let invite = try? await workspaceService.getGuestInvite(spaceId: workspaceInfo.accountSpaceId)
-            if let invite {
-                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-            } else {
-                inviteLink = nil
-            }
+
+        let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
+        if let invite {
+            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
         } else {
-            let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
-            if let invite {
-                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-            } else {
-                inviteLink = nil
-            }
+            inviteLink = nil
         }
     }
 }

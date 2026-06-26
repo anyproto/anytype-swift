@@ -2,34 +2,12 @@ import Services
 import AnytypeCore
 
 protocol ObjectSettingsBuilderProtocol {
-    @available(*, deprecated, message: "Use spaceType overload instead")
-    func build(details: ObjectDetails, permissions: ObjectPermissions, spaceUxType: SpaceUxType?, chatNotificationMode: SpacePushNotificationsMode?) -> [ObjectSetting]
     func build(details: ObjectDetails, permissions: ObjectPermissions, spaceType: SpaceType?, chatNotificationMode: SpacePushNotificationsMode?) -> [ObjectSetting]
 }
 
 final class ObjectSettingsBuilder: ObjectSettingsBuilderProtocol {
     @Injected(\.objectSettingsConflictManager)
     private var conflictManager: any ObjectSettingsPrimitivesConflictManagerProtocol
-
-    func build(details: ObjectDetails, permissions: ObjectPermissions, spaceUxType: SpaceUxType?, chatNotificationMode: SpacePushNotificationsMode?) -> [ObjectSetting] {
-        let canShowVersionHistory = details.isVisibleLayout(spaceUxType: spaceUxType)
-            && details.resolvedLayoutValue != .participant
-            && !details.resolvedLayoutValue.isChat
-            && !details.templateIsBundled
-            && !details.isObjectType
-
-        let canShowNotifications = details.resolvedLayoutValue.isChat
-            && spaceUxType?.supportsMultiChats == true
-            && !details.isArchived
-
-        return buildSettings(
-            details: details,
-            permissions: permissions,
-            canShowVersionHistory: canShowVersionHistory,
-            canShowNotifications: canShowNotifications,
-            chatNotificationMode: chatNotificationMode
-        )
-    }
 
     func build(details: ObjectDetails, permissions: ObjectPermissions, spaceType: SpaceType?, chatNotificationMode: SpacePushNotificationsMode?) -> [ObjectSetting] {
         let canShowVersionHistory = details.isVisibleLayout(spaceType: spaceType)

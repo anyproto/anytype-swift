@@ -22,16 +22,8 @@ public extension FeatureFlags {
         value(for: .qrCodeCircularText)
     }
 
-    static var createChannelFlow: Bool {
-        value(for: .createChannelFlow)
-    }
-
     static var fixChannelHomeBackNavigation: Bool {
         value(for: .fixChannelHomeBackNavigation)
-    }
-
-    static var channelTypeSwitcher: Bool {
-        value(for: .channelTypeSwitcher)
     }
 
     static var fixAvatarTapFreeze: Bool {
@@ -40,10 +32,6 @@ public extension FeatureFlags {
 
     static var muteAndHide: Bool {
         value(for: .muteAndHide)
-    }
-
-    static var personalFavorites: Bool {
-        value(for: .personalFavorites)
     }
 
     static var setKanbanView: Bool {
@@ -132,12 +120,9 @@ public extension FeatureFlags {
         .homePage,
         .discussionButton,
         .qrCodeCircularText,
-        .createChannelFlow,
         .fixChannelHomeBackNavigation,
-        .channelTypeSwitcher,
         .fixAvatarTapFreeze,
         .muteAndHide,
-        .personalFavorites,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

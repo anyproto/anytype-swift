@@ -52,6 +52,12 @@ final class LinkWidgetViewModel {
         self.widgetBlockId = data.widgetBlockId
         self.widgetObject = data.channelWidgetsObject
         self.output = data.output
+        // Avoid a frame of empty row before `widgetTargetDetailsPublisher` first ticks.
+        if let details = data.prefetchedDetails {
+            self.linkedObjectDetails = details
+            self.name = details.pluralTitle
+            self.icon = details.objectIconImage
+        }
     }
     
     func onHeaderTap() {

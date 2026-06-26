@@ -9,9 +9,14 @@ final class ProfileViewModel {
 
     var details: ObjectDetails?
     var showSettings = false
+    var canRemoveMember = false
+    var removeAlertModel: SpaceParticipantRemoveViewModel?
 
     @ObservationIgnored
     var pageNavigation: PageNavigation?
+
+    @ObservationIgnored
+    var onParticipantRemoved: (() -> Void)?
 
     var isOwner: Bool {
         accountManager.account.info.profileObjectID == details?.identityProfileLink
@@ -28,6 +33,15 @@ final class ProfileViewModel {
     private var workspaceService: any WorkspaceServiceProtocol
     @ObservationIgnored @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @ObservationIgnored
+    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(info.spaceId)
+
+    @ObservationIgnored
+    private var actorSpaceView: ParticipantSpaceViewData?
+    @ObservationIgnored
+    private var targetParticipant: Participant?
 
     @ObservationIgnored
     private let subId = "ProfileViewModel-\(UUID().uuidString)"
@@ -37,9 +51,11 @@ final class ProfileViewModel {
     }
 
     func setupSubscriptions() async {
-        async let subscription: () = subscribe()
+        async let detailsTask: () = subscribe()
+        async let spaceViewTask: () = startSpaceViewTask()
+        async let participantsTask: () = startParticipantsTask()
 
-        (_) = await (subscription)
+        (_, _, _) = await (detailsTask, spaceViewTask, participantsTask)
     }
 
     func onConnect() async throws {
@@ -59,8 +75,22 @@ final class ProfileViewModel {
             oneToOneIdentity: details.identity,
             metadataKey: details.oneToOneRequestMetadataKey
         )
-        AnytypeAnalytics.instance().logCreateSpace(spaceId: newSpaceId, spaceUxType: .oneToOne, route: .profile)
+        AnytypeAnalytics.instance().logCreateSpace(spaceId: newSpaceId, spaceType: .oneToOne, route: .profile)
         pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: newSpaceId)))
+    }
+
+    func onRemoveMember() {
+        guard let target = targetParticipant else { return }
+        removeAlertModel = SpaceParticipantRemoveViewModel(
+            onConfirm: { [weak self] in
+                AnytypeAnalytics.instance().logRemoveSpaceMember()
+                try await self?.workspaceService.participantRemove(
+                    spaceId: target.spaceId,
+                    identity: target.identity
+                )
+                self?.onParticipantRemoved?()
+            }
+        )
     }
 
     // MARK: - Private
@@ -74,6 +104,31 @@ final class ProfileViewModel {
         ) { [weak self] details in
             await self?.handleProfileDetails(details)
         }
+    }
+
+    private func startSpaceViewTask() async {
+        for await spaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: info.spaceId).values {
+            actorSpaceView = spaceView
+            updateRemoveCapability()
+        }
+    }
+
+    private func startParticipantsTask() async {
+        for await items in participantsSubscription.withoutRemovingParticipantsPublisher.values {
+            targetParticipant = items.first { $0.id == info.objectId }
+            updateRemoveCapability()
+        }
+    }
+
+    private func updateRemoveCapability() {
+        let newValue: Bool
+        if let actorSpaceView, let target = targetParticipant {
+            newValue = actorSpaceView.canRemove(target: target)
+        } else {
+            newValue = false
+        }
+        guard newValue != canRemoveMember else { return }
+        canRemoveMember = newValue
     }
 
     private func handleProfileDetails(_ details: ObjectDetails) async {

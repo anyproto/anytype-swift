@@ -10,6 +10,54 @@ public enum DebugRunProfilerState: Codable {
     case done(url: URL)
 }
 
+public enum DebugProfilerReason: Sendable {
+    case userRequest
+    case thermalState(ThermalSeverity)
+    case memoryPressure(MemorySeverity)
+
+    public enum ThermalSeverity: Sendable {
+        case serious
+        case critical
+    }
+
+    public enum MemorySeverity: Sendable {
+        case warning
+        case critical
+    }
+
+    var desc: String {
+        switch self {
+        case .userRequest: return "User request"
+        case .thermalState(.serious): return "iOS thermal state: serious"
+        case .thermalState(.critical): return "iOS thermal state: critical"
+        case .memoryPressure(.warning): return "iOS memory pressure: warning"
+        case .memoryPressure(.critical): return "iOS memory pressure: critical"
+        }
+    }
+
+    public var tag: String {
+        switch self {
+        case .userRequest: return "user_request"
+        case .thermalState(.serious): return "thermal_serious"
+        case .thermalState(.critical): return "thermal_critical"
+        case .memoryPressure(.warning): return "memory_pressure_warn"
+        case .memoryPressure(.critical): return "memory_pressure_critical"
+        }
+    }
+}
+
+public struct DebugReportResult: Sendable {
+    public let path: String
+    public let summary: String
+    public let lastModifiedTs: Int
+
+    public init(path: String, summary: String, lastModifiedTs: Int) {
+        self.path = path
+        self.summary = summary
+        self.lastModifiedTs = lastModifiedTs
+    }
+}
+
 public protocol DebugServiceProtocol: AnyObject, Sendable {
     func exportLocalStore() async throws -> String
     func exportStackGoroutines() async throws -> String
@@ -22,6 +70,10 @@ public protocol DebugServiceProtocol: AnyObject, Sendable {
 
     @MainActor var debugRunProfilerData: AnyPublisher<DebugRunProfilerState, Never> { get }
     func startDebugRunProfiler()
+
+    func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async -> String?
+    func exportReport(dir: String, full: Bool) async throws -> DebugReportResult
+    func cleanupReport(ts: Int) async
 }
 
 final class DebugService: ObservableObject, DebugServiceProtocol {
@@ -133,13 +185,52 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     func startDebugRunProfiler() {
         Task {
             await storage.setDebugRunProfilerData(.inProgress)
-            
+
             let path = try await ClientCommands.debugRunProfiler(.with {
                 $0.durationInSeconds = 60
+                $0.reason = .userRequest
             }).invoke().path
 
             let url = URL(fileURLWithPath: path)
             await storage.setDebugRunProfilerData(.done(url: url))
+        }
+    }
+
+    func runProfiler(durationInSeconds: Int, reason: DebugProfilerReason) async -> String? {
+        try? await ClientCommands.debugRunProfiler(.with {
+            $0.durationInSeconds = Int32(durationInSeconds)
+            $0.reason = reason.protoReason
+            $0.reasonDesc = reason.desc
+        }).invoke().path
+    }
+
+    func exportReport(dir: String, full: Bool) async throws -> DebugReportResult {
+        let response = try await ClientCommands.debugExportReport(.with {
+            $0.dir = dir
+            $0.full = full
+        }).invoke()
+        return DebugReportResult(
+            path: response.path,
+            summary: response.summary,
+            lastModifiedTs: Int(response.lastModifiedTs)
+        )
+    }
+
+    func cleanupReport(ts: Int) async {
+        _ = try? await ClientCommands.debugCleanupReport(.with {
+            $0.ts = Int64(ts)
+        }).invoke()
+    }
+}
+
+private extension DebugProfilerReason {
+    var protoReason: Anytype_Rpc.Debug.RunProfiler.Request.Reason {
+        switch self {
+        case .userRequest: return .userRequest
+        case .thermalState(.serious): return .thermalSerious
+        case .thermalState(.critical): return .thermalCritical
+        case .memoryPressure(.warning): return .memoryPressureWarn
+        case .memoryPressure(.critical): return .memoryPressureCritical
         }
     }
 }

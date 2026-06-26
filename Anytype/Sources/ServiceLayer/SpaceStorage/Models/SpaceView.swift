@@ -17,8 +17,10 @@ struct SpaceView: Identifiable, Equatable, Hashable {
     let writersLimit: Int?
     let chatId: String
     let spaceOrder: String
-    @available(*, deprecated, message: "Use spaceType instead")
-    let uxType: SpaceUxType
+    // Legacy proto field. Kept only as a fallback for stream channels —
+    // they have no representation in `SpaceType`. Sole reader: `isLegacyStream`.
+    // Do not introduce new readers; use `spaceType` for all new logic.
+    private let uxType: SpaceUxType
     let spaceType: SpaceType
     let pushNotificationEncryptionKey: String
     let pushNotificationMode: SpacePushNotificationsMode
@@ -27,6 +29,56 @@ struct SpaceView: Identifiable, Equatable, Hashable {
     let forceMentionIds: [String]
     let oneToOneIdentity: String
     let homepage: SpaceHomepage
+
+    init(
+        id: String,
+        name: String,
+        description: String,
+        objectIconImage: Icon,
+        targetSpaceId: String,
+        createdDate: Date?,
+        joinDate: Date?,
+        accountStatus: SpaceStatus?,
+        localStatus: SpaceStatus?,
+        spaceAccessType: SpaceAccessType?,
+        readersLimit: Int?,
+        writersLimit: Int?,
+        chatId: String,
+        spaceOrder: String,
+        spaceType: SpaceType,
+        pushNotificationEncryptionKey: String,
+        pushNotificationMode: SpacePushNotificationsMode,
+        forceAllIds: [String],
+        forceMuteIds: [String],
+        forceMentionIds: [String],
+        oneToOneIdentity: String,
+        homepage: SpaceHomepage,
+        uxType: SpaceUxType = .data
+    ) {
+        self.id = id
+        self.name = name
+        self.description = description
+        self.objectIconImage = objectIconImage
+        self.targetSpaceId = targetSpaceId
+        self.createdDate = createdDate
+        self.joinDate = joinDate
+        self.accountStatus = accountStatus
+        self.localStatus = localStatus
+        self.spaceAccessType = spaceAccessType
+        self.readersLimit = readersLimit
+        self.writersLimit = writersLimit
+        self.chatId = chatId
+        self.spaceOrder = spaceOrder
+        self.uxType = uxType
+        self.spaceType = spaceType
+        self.pushNotificationEncryptionKey = pushNotificationEncryptionKey
+        self.pushNotificationMode = pushNotificationMode
+        self.forceAllIds = forceAllIds
+        self.forceMuteIds = forceMuteIds
+        self.forceMentionIds = forceMentionIds
+        self.oneToOneIdentity = oneToOneIdentity
+        self.homepage = homepage
+    }
 }
 
 extension SpaceView: DetailsModel {
@@ -119,13 +171,20 @@ extension SpaceView {
         spaceType == .oneToOne
     }
 
+    // Sole reader of the legacy `uxType` field. Used only to enforce
+    // owner-only-write on legacy stream spaces, which have no representation
+    // in the new `SpaceType` enum.
+    var isLegacyStream: Bool {
+        uxType == .stream
+    }
+
     var showsMessageAuthor: Bool {
-        !isOneToOne && uxType.showsMessageAuthor
+        spaceType.showsMessageAuthor
     }
 
     @available(*, deprecated, message: "Use homepage to determine initial screen")
     var initialScreenIsChat: Bool {
-        uxType.initialScreenIsChat
+        spaceType.initialScreenIsChat
     }
 
     @available(*, deprecated, message: "Will be reworked with homepage logic")
@@ -135,7 +194,7 @@ extension SpaceView {
 
     @available(*, deprecated, message: "Will be reworked with homepage logic")
     var canShowChatWidget: Bool {
-        !uxType.supportsMultiChats
+        !spaceType.supportsMultiChats
     }
 
     var hasChat: Bool {
@@ -163,7 +222,7 @@ extension SpaceView {
     }
 
     private func activeWriters(participants: [Participant]) -> Int {
-        participants.filter { $0.permission == .writer || $0.permission == .owner }.count
+        participants.filter { $0.permission == .writer || $0.permission == .owner || $0.permission == .admin }.count
     }
 
     func effectiveNotificationMode(for chatId: String) -> SpacePushNotificationsMode {

@@ -3,20 +3,20 @@ import SwiftUI
 
 struct SpaceParticipantRemoveViewModel: Identifiable {
     let id = UUID()
-    let participantName: String
     let onConfirm: () async throws -> Void
 }
 
 struct SpaceParticipantRemoveView: View {
-    
+
     let model: SpaceParticipantRemoveViewModel
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         BottomAlertView(
-            title: Loc.SpaceShare.RemoveMember.title,
-            message: Loc.SpaceShare.RemoveMember.message(model.participantName)
+            title: Loc.SpaceShare.RemoveMember.sheetTitle,
+            message: Loc.SpaceShare.RemoveMember.message,
+            icon: .Dialog.removeMember
         ) {
             BottomAlertButton(text: Loc.remove, style: .warning) {
                 try await model.onConfirm()

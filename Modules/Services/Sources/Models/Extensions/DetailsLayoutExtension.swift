@@ -27,46 +27,6 @@ public extension DetailsLayout {
     private static let chatLayouts: [DetailsLayout] = [.chatDerived]
 }
 
-// MARK: - Space-aware filtering (SpaceUxType) — deprecated
-
-public extension DetailsLayout {
-    @available(*, deprecated, message: "Use spaceType overload instead")
-    static func visibleLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard spaceUxType.supportsMultiChats else { return visibleLayoutsBase }
-        return visibleLayoutsBase + chatLayouts
-    }
-
-    @available(*, deprecated, message: "Use spaceType overload instead")
-    static func visibleLayoutsWithFiles(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard spaceUxType.supportsMultiChats else { return visibleLayoutsWithFilesBase }
-        return visibleLayoutsWithFilesBase + chatLayouts
-    }
-
-    @available(*, deprecated, message: "Use spaceType overload instead")
-    static func supportedForCreation(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard spaceUxType.supportsMultiChats else { return supportedForCreationBase }
-        return supportedForCreationBase + chatLayouts
-    }
-
-    @available(*, deprecated, message: "Use spaceType overload instead")
-    static func supportedForCreationInSets(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard spaceUxType.supportsMultiChats else { return supportedForCreationInSetsBase }
-        return supportedForCreationInSetsBase + chatLayouts
-    }
-
-    @available(*, deprecated, message: "Use spaceType overload instead")
-    static func widgetTypeLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard spaceUxType.supportsMultiChats else { return widgetTypeLayoutsBase }
-        return widgetTypeLayoutsBase + chatLayouts
-    }
-
-    @available(*, deprecated, message: "Use spaceType overload instead")
-    static func supportedForSharingExtension(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard spaceUxType.supportsMultiChats else { return supportedForSharingExtensionBase }
-        return supportedForSharingExtensionBase + chatLayouts
-    }
-}
-
 // MARK: - Space-aware filtering (SpaceType)
 
 public extension DetailsLayout {
@@ -138,16 +98,6 @@ public extension DetailsLayout {
 // MARK: - Instance functions
 
 public extension DetailsLayout {
-    @available(*, deprecated, message: "Use spaceType overload instead")
-    func isSupportedForCreation(spaceUxType: SpaceUxType?) -> Bool {
-        Self.supportedForCreation(spaceUxType: spaceUxType).contains(self)
-    }
-
-    @available(*, deprecated, message: "Use spaceType overload instead")
-    func isSupportedForCreationInSets(spaceUxType: SpaceUxType?) -> Bool {
-        Self.supportedForCreationInSets(spaceUxType: spaceUxType).contains(self)
-    }
-
     func isSupportedForCreation(spaceType: SpaceType?) -> Bool {
         Self.supportedForCreation(spaceType: spaceType).contains(self)
     }

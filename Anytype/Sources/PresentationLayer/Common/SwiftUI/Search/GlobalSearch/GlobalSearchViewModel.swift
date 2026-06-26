@@ -39,8 +39,6 @@ final class GlobalSearchViewModel {
     private var participantCanEdit = false
 
     @ObservationIgnored
-    private var spaceUxType: SpaceUxType?
-    @ObservationIgnored
     private var spaceType: SpaceType?
     @ObservationIgnored
     private var searchResult = [SearchResultWithMeta]()
@@ -51,7 +49,7 @@ final class GlobalSearchViewModel {
     init(data: GlobalSearchModuleData) {
         self.moduleData = data
         self.restoreState()
-        self.loadSpaceUxType()
+        self.loadSpaceType()
     }
     
     func startParticipantTask() async {
@@ -114,10 +112,8 @@ final class GlobalSearchViewModel {
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    private func loadSpaceUxType() {
-        let spaceView = spaceViewsStorage.spaceView(spaceId: moduleData.spaceId)
-        spaceUxType = spaceView?.uxType
-        spaceType = spaceView?.spaceType
+    private func loadSpaceType() {
+        spaceType = spaceViewsStorage.spaceView(spaceId: moduleData.spaceId)?.spaceType
     }
     
     private func updateSections() {
@@ -184,18 +180,10 @@ final class GlobalSearchViewModel {
     
     private func buildLayouts() -> [DetailsLayout] {
         return .builder {
-            if FeatureFlags.createChannelFlow {
-                if state.searchText.isEmpty {
-                    state.section.supportedLayouts(spaceType: spaceType).filter { $0 != .participant }
-                } else {
-                    state.section.supportedLayouts(spaceType: spaceType)
-                }
+            if state.searchText.isEmpty {
+                state.section.supportedLayouts(spaceType: spaceType).filter { $0 != .participant }
             } else {
-                if state.searchText.isEmpty {
-                    state.section.supportedLayouts(spaceUxType: spaceUxType).filter { $0 != .participant }
-                } else {
-                    state.section.supportedLayouts(spaceUxType: spaceUxType)
-                }
+                state.section.supportedLayouts(spaceType: spaceType)
             }
         }
     }

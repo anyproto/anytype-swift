@@ -11,18 +11,31 @@ extension View {
 }
 
 struct SafariBookmarkModifier: ViewModifier {
-    
+
+    @Environment(\.openURL) private var openURL
     @Binding var screenData: BookmarkScreenData?
     var onOpenBookmarkAsObject: (_ data: BookmarkScreenData) -> Void
-    
+
     func body(content: Content) -> some View {
         content
-            .sheet(item: $screenData) { data in
+            .onChange(of: screenData) { _, newValue in
+                guard let url = newValue?.url, !url.containsHttpProtocol else { return }
+                screenData = nil
+                openURL(url)
+            }
+            .sheet(item: safariBinding) { data in
                 SafariBookmarkView(url: data.url) {
                     screenData = nil
                     onOpenBookmarkAsObject(data)
                 }
                 .ignoresSafeArea()
             }
+    }
+
+    private var safariBinding: Binding<BookmarkScreenData?> {
+        Binding(
+            get: { screenData?.url.containsHttpProtocol == true ? screenData : nil },
+            set: { screenData = $0 }
+        )
     }
 }

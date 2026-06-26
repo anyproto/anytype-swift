@@ -187,9 +187,29 @@ extension Container {
     var documentsProvider: Factory<any DocumentsProviderProtocol> {
         self { DocumentsProvider() }.singleton
     }
-    
+
+    var widgetsObjectsStorage: Factory<any WidgetsObjectsStorageProtocol> {
+        self { WidgetsObjectsStorage() }.singleton
+    }
+
+    var setWidgetsPrewarmer: Factory<any SetWidgetsPrewarmerProtocol> {
+        self { SetWidgetsPrewarmer() }.singleton
+    }
+
+    var treeWidgetsPrewarmer: Factory<any TreeWidgetsPrewarmerProtocol> {
+        self { TreeWidgetsPrewarmer() }.singleton
+    }
+
+    var unreadSectionPrewarmer: Factory<any UnreadSectionPrewarmerProtocol> {
+        self { UnreadSectionPrewarmer() }.singleton
+    }
+
     var expandedService: Factory<any ExpandedServiceProtocol> {
         self { ExpandedService() }.shared
+    }
+
+    var homeSectionsStorage: Factory<any HomeSectionsStorageProtocol> {
+        self { HomeSectionsStorage() }.shared
     }
 
     var channelOnboardingStorage: Factory<any ChannelOnboardingStorageProtocol> {
@@ -253,7 +273,7 @@ extension Container {
     }
     
     var deepLinkParser: Factory<any DeepLinkParserProtocol> {
-        self { DeepLinkDI.shared.parser(targetType: CoreEnvironment.targetType) }
+        self { DeepLinkDI.shared.parser(targetType: CoreEnvironment.targetType) }.shared
     }
     
     var universalLinkParser: Factory<any UniversalLinkParserProtocol> {
@@ -330,6 +350,22 @@ extension Container {
     
     var p2pStatusStorage: Factory< any P2PStatusStorageProtocol> {
         self { P2PStatusStorage() }.singleton
+    }
+
+    var thermalProfilerTrigger: Factory<any ThermalProfilerTriggerProtocol> {
+        self { ThermalProfilerTrigger() }.singleton
+    }
+
+    var memoryPressureProfilerTrigger: Factory<any MemoryPressureProfilerTriggerProtocol> {
+        self { MemoryPressureProfilerTrigger() }.singleton
+    }
+
+    var debugProfileEventHandler: Factory<any DebugProfileEventHandlerProtocol> {
+        self { DebugProfileEventHandler() }.singleton
+    }
+
+    var debugProfileSentryReporter: Factory<any DebugProfileSentryReporterProtocol> {
+        self { DebugProfileSentryReporter() }.singleton
     }
     
     var participantSubscriptionProvider: Factory<any ParticipantsSubscriptionProviderProtocol> {

@@ -39,6 +39,9 @@ jobs:
         with:
           xcode-version: '26.1'
 
+      - name: Install iOS Platform
+        uses: ./.github/actions/install-ios-platform
+
       - name: Download Middleware
         run: make setup-middle-ci
         env:
@@ -49,7 +52,6 @@ jobs:
         run: bundle exec fastlane tests
         continue-on-error: true
         env:
-          SLACK_URL_BUILD_TESTS: ${{ secrets.SLACK_URL_BUILD_TESTS }}
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
       

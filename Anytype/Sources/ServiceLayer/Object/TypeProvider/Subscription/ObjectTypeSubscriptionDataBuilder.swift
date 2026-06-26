@@ -13,12 +13,12 @@ final class ObjectTypeSubscriptionDataBuilder: MultispaceOneActiveSubscriptionDa
             SearchHelper.layoutFilter([DetailsLayout.objectType])
         ]
 
-        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
+        let spaceType = workspaceStorage.spaceView(spaceId: spaceId)?.spaceType
         return .search(
             SubscriptionData.Search(
                 identifier: subId,
                 spaceId: spaceId,
-                sorts: SearchHelper.defaultObjectTypeSort(spaceUxType: spaceUxType),
+                sorts: SearchHelper.defaultObjectTypeSort(spaceType: spaceType),
                 filters: filters,
                 limit: 0,
                 offset: 0,

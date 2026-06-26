@@ -92,7 +92,7 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             isMuted: !spaceView.pushNotificationMode.isUnmutedAll,
             canBeDeleted: spaceData.space.canBeDeleted,
             canLeave: spaceData.space.canLeave,
-            uxTypeName: spaceView.uxType.name,
+            uxTypeName: spaceView.spaceType.name,
             supportsMultiChats: !spaceView.isOneToOne,
             isOneToOne: spaceView.isOneToOne,
             currentNotificationMode: spaceView.pushNotificationMode,

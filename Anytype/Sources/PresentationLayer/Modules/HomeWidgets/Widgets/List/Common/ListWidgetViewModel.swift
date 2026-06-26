@@ -102,30 +102,26 @@ final class ListWidgetViewModel: ObservableObject {
     }
     
     private func updateViewState() {
-        withAnimation(rows.isNil ? nil : .default) {
-            rows = rowDetails?.map { details in
-                ListWidgetRowModel(
-                    details: details,
-                    onTap: { [weak self] _ in
-                        self?.handleTapOnObject(details: details)
-                    }
-                )
-            }
+        rows = rowDetails?.map { details in
+            ListWidgetRowModel(
+                details: details,
+                onTap: { [weak self] _ in
+                    self?.handleTapOnObject(details: details)
+                }
+            )
         }
     }
-    
+
     private func updateHeader(dataviewState: WidgetDataviewState?) {
-        withAnimation(headerItems.isNil ? nil : .default) {
-            headerItems = dataviewState?.dataview.map { dataView in
-                ViewWidgetTabsItemModel(
-                    dataviewId: dataView.id,
-                    title: dataView.nameWithPlaceholder,
-                    isSelected: dataView.id == dataviewState?.activeViewId,
-                    onTap: { [weak self] in
-                        self?.internalHeaderModel?.onActiveViewTap(dataView.id)
-                    }
-                )
-            }
+        headerItems = dataviewState?.dataview.map { dataView in
+            ViewWidgetTabsItemModel(
+                dataviewId: dataView.id,
+                title: dataView.nameWithPlaceholder,
+                isSelected: dataView.id == dataviewState?.activeViewId,
+                onTap: { [weak self] in
+                    self?.internalHeaderModel?.onActiveViewTap(dataView.id)
+                }
+            )
         }
     }
     

@@ -32,7 +32,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var chatCreateData: ChatCreateScreenData?
     var bookmarkCreateData: BookmarkCreateScreenData?
     var overlayWidgetsData: HomeWidgetData?
-    var showSpaceTypeForCreate = false
     var showGroupChannelCreate = false
     var shouldScanQrCode = false
     var showAppSettings = false
@@ -162,9 +161,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             needSetup = false
         }
 
-        if FeatureFlags.createChannelFlow {
-            Task { await contactsService.prefetch() }
-        }
+        Task { await contactsService.prefetch() }
         await startSubscriptions()
     }
     
@@ -242,29 +239,17 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         showScreenSync(data: .editor(data.editorScreenData))
     }
     
-    func onSpaceTypeSelected(_ type: SpaceUxType) {
-        Task {
-            // After dismiss spaceCreateData, alert will appear again. Fix it.
-            await dismissAllPresented?()
-            spaceCreateData = SpaceCreateData(spaceUxType: type)
-        }
-    }
-    
     func onSelectQrCodeScan() {
         Task {
             await dismissAllPresented?()
             shouldScanQrCode = true
         }
     }
-    
+
     // MARK: - SpaceHubModuleOutput
-    
-    func onSelectCreateObject() {
-        showSpaceTypeForCreate = true
-    }
 
     func onSelectCreatePersonalChannel() {
-        spaceCreateData = SpaceCreateData(spaceUxType: .data, channelType: .personal)
+        spaceCreateData = SpaceCreateData(channelType: .personal)
     }
 
     func onSelectCreateGroupChannel() {
@@ -298,8 +283,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         Task { await showSpace(spaceId: spaceId) }
     }
 
-    func onSpaceJoined(spaceId: String, spaceUxType: SpaceUxType) {
-        Task { await showSpace(spaceId: spaceId, spaceUxType: spaceUxType) }
+    func onSpaceJoined(spaceId: String, spaceType: SpaceType) {
+        Task { await showSpace(spaceId: spaceId, spaceType: spaceType) }
     }
 
     func onOpenSpaceSettings(spaceId: String) {
@@ -350,11 +335,11 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         Task { try await showScreen(data: data) }
     }
     
-    private func homeObjectScreenData(spaceId: String, spaceUxType: SpaceUxType? = nil) async -> AnyHashable {
+    private func homeObjectScreenData(spaceId: String, spaceType: SpaceType? = nil) async -> AnyHashable {
         let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
 
         // 1-1 spaces always open on chat
-        let isOneToOne = spaceUxType == .oneToOne || spaceView?.isOneToOne == true
+        let isOneToOne = spaceType == .oneToOne || spaceView?.isOneToOne == true
         if isOneToOne {
             return SpaceChatCoordinatorData(spaceId: spaceId)
         }
@@ -386,11 +371,11 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
 
     /// Builds the home path for a space without committing to navigationPath.
     /// Returns nil if already in the target space.
-    private func prepareSpacePath(spaceId: String, spaceUxType: SpaceUxType? = nil) async -> HomePath? {
+    private func prepareSpacePath(spaceId: String, spaceType: SpaceType? = nil) async -> HomePath? {
         guard currentSpaceId != spaceId else { return nil }
 
         setActiveSpace(spaceId: spaceId)
-        let homeObject = await homeObjectScreenData(spaceId: spaceId, spaceUxType: spaceUxType)
+        let homeObject = await homeObjectScreenData(spaceId: spaceId, spaceType: spaceType)
 
         let path: [AnyHashable] = .builder {
             SpaceHubNavigationItem()
@@ -400,8 +385,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         return HomePath(initialPath: path)
     }
 
-    private func showSpace(spaceId: String, spaceUxType: SpaceUxType? = nil) async {
-        guard let newPath = await prepareSpacePath(spaceId: spaceId, spaceUxType: spaceUxType) else { return }
+    private func showSpace(spaceId: String, spaceType: SpaceType? = nil) async {
+        guard let newPath = await prepareSpacePath(spaceId: spaceId, spaceType: spaceType) else { return }
         if navigationPath != newPath {
             await dismissAllPresented?()
             navigationPath = newPath

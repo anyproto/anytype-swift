@@ -111,7 +111,6 @@ struct SpaceHubSpacesStorageVisibleParentsTests {
             writersLimit: nil,
             chatId: "",
             spaceOrder: "",
-            uxType: spaceType == .oneToOne ? .oneToOne : .data,
             spaceType: spaceType,
             pushNotificationEncryptionKey: "",
             pushNotificationMode: mode,

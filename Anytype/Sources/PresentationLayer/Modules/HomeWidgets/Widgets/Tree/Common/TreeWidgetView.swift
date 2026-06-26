@@ -17,6 +17,8 @@ struct TreeWidgetView: View {
                 widgetBlockId: data.widgetBlockId,
                 widgetObject: data.channelWidgetsObject,
                 internalModel: internalModel,
+                prefetchedDetails: data.prefetchedDetails,
+                prefetchedFirstLevel: data.prefetchedTreeChildren?.childDetails,
                 output: data.output
             )
         )
@@ -56,6 +58,7 @@ struct TreeWidgetView: View {
                 VStack(spacing: 0) {
                     ForEach(rows, id: \.rowId) {
                         TreeWidgetRowView(model: $0, showDivider: $0.rowId != rows.last?.rowId)
+                            .transition(.move(edge: .top).combined(with: .opacity))
                     }
                     if model.availableMore {
                         WidgetSeeAllRow {

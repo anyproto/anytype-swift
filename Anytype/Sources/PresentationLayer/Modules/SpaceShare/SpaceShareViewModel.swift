@@ -22,9 +22,6 @@ final class SpaceShareViewModel {
     @Injected(\.membershipStatusStorage)
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @ObservationIgnored
-    @Injected(\.mailUrlBuilder)
-    private var mailUrlBuilder: any MailUrlBuilderProtocol
-    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspacesStorage: any SpaceViewsStorageProtocol
     @ObservationIgnored
@@ -61,6 +58,7 @@ final class SpaceShareViewModel {
     var requestAlertModel: SpaceRequestAlertData?
     var changeAccessAlertModel: SpaceChangeAccessViewModel?
     var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
+    var makeAdminAlertModel: SpaceParticipantMakeAdminViewModel?
     var showStopSharingAlert = false
     var showMakePrivateAlert = false
     var showUpgradeBadge = false
@@ -266,38 +264,63 @@ final class SpaceShareViewModel {
     }
     
     private func participantContextActions(_ participant: Participant) -> [SpaceShareParticipantViewModel.ContextAction] {
-        guard let participantSpaceView, participantSpaceView.permissions.canEditPermissions else { return [] }
-        guard participant.permission != .owner else { return [] }
+        guard let participantSpaceView else { return [] }
         switch participant.status {
         case .active:
-            return [
-                SpaceShareParticipantViewModel.ContextAction(
-                    title: Loc.SpaceShare.Permissions.reader,
-                    isSelected: participant.permission == .reader,
+            guard participantSpaceView.canShowRoleMenu(target: participant) else { return [] }
+
+            let isOwnerActor = participantSpaceView.isOwner
+            let canPromote = participantSpaceView.canPromoteToAdmin(target: participant)
+            let canChangeRole = participantSpaceView.canChangeRole(target: participant)
+            let canRemove = participantSpaceView.canRemove(target: participant)
+
+            var actions: [SpaceShareParticipantViewModel.ContextAction] = []
+
+            if isOwnerActor {
+                actions.append(SpaceShareParticipantViewModel.ContextAction(
+                    title: Loc.SpaceShare.Permissions.admin,
+                    isSelected: participant.permission == .admin,
                     destructive: false,
-                    enabled: canChangeWriterToReader || participant.permission == .reader,
+                    enabled: canPromote && (canChangeReaderToWriter || participant.permission == .writer),
                     action: { [weak self] in
-                        self?.showPermissionAlert(participant: participant, newPermission: .reader)
+                        self?.showMakeAdminAlert(participant: participant)
                     }
-                ),
-                SpaceShareParticipantViewModel.ContextAction(
-                    title: Loc.SpaceShare.Permissions.writer,
-                    isSelected: participant.permission == .writer,
-                    destructive: false,
-                    enabled: canChangeReaderToWriter || participant.permission == .writer,
-                    action: { [weak self] in
-                        self?.showPermissionAlert(participant: participant, newPermission: .writer)
-                    }
-                ),
-                SpaceShareParticipantViewModel.ContextAction(
+                ))
+            }
+
+            actions.append(SpaceShareParticipantViewModel.ContextAction(
+                title: Loc.SpaceShare.Permissions.writer,
+                isSelected: participant.permission == .writer,
+                destructive: false,
+                enabled: canChangeRole && (canChangeReaderToWriter || participant.permission == .writer),
+                action: { [weak self] in
+                    self?.showPermissionAlert(participant: participant, newPermission: .writer)
+                }
+            ))
+
+            actions.append(SpaceShareParticipantViewModel.ContextAction(
+                title: Loc.SpaceShare.Permissions.reader,
+                isSelected: participant.permission == .reader,
+                destructive: false,
+                enabled: canChangeRole && (canChangeWriterToReader || participant.permission == .reader),
+                action: { [weak self] in
+                    self?.showPermissionAlert(participant: participant, newPermission: .reader)
+                }
+            ))
+
+            if canRemove {
+                actions.append(SpaceShareParticipantViewModel.ContextAction(
                     title: Loc.SpaceShare.RemoveMember.title,
                     isSelected: false,
                     destructive: true,
-                    enabled: canRemoveMember,
+                    enabled: true,
                     action: { [weak self] in
                         self?.showRemoveAlert(participant: participant)
                     }
-                )]
+                ))
+            }
+
+            return actions
         case .joining:
             return canApproveRequests ? [SpaceShareParticipantViewModel.ContextAction(
                 title: Loc.SpaceShare.Action.viewRequest,
@@ -358,10 +381,23 @@ final class SpaceShareViewModel {
     
     private func showRemoveAlert(participant: Participant) {
         removeParticipantAlertModel = SpaceParticipantRemoveViewModel(
-            participantName: participant.title,
             onConfirm: { [weak self] in
                 AnytypeAnalytics.instance().logRemoveSpaceMember()
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
+            }
+        )
+    }
+
+    private func showMakeAdminAlert(participant: Participant) {
+        makeAdminAlertModel = SpaceParticipantMakeAdminViewModel(
+            onConfirm: { [weak self] in
+                AnytypeAnalytics.instance().logChangeSpaceMemberPermissions(type: ParticipantPermissions.admin.analyticsType)
+                try await self?.workspaceService.participantPermissionsChange(
+                    spaceId: participant.spaceId,
+                    identity: participant.identity,
+                    permissions: .admin
+                )
+                self?.toastBarData = ToastBarData(Loc.SpaceShare.accessChanged, type: .success)
             }
         )
     }
@@ -376,23 +412,27 @@ private extension Participant {
         if permission == .owner {
             return 1000
         }
-        
+
+        if permission == .admin {
+            return 500
+        }
+
         if status == .joining {
             return 30
         }
-        
+
         if status == .removing {
             return 20
         }
-        
+
         if permission == .writer {
             return 5
         }
-        
+
         if permission == .reader {
             return 4
         }
-        
+
         return 1
     }
 }

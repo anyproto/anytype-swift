@@ -4,6 +4,7 @@ import UIKit
 import FloatingPanel
 import SwiftUI
 import AnytypeCore
+import DeepLinks
 
 enum ObjectSettingsAction {
     case cover(ObjectCoverPickerAction)
@@ -59,6 +60,8 @@ final class ObjectSettingsViewModel {
     private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.universalLinkParser) @ObservationIgnored
     private var universalLinkParser: any UniversalLinkParserProtocol
+    @Injected(\.deepLinkParser) @ObservationIgnored
+    private var deepLinkParser: any DeepLinkParserProtocol
     @Injected(\.workspaceService) @ObservationIgnored
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.participantSpacesStorage) @ObservationIgnored
@@ -85,7 +88,6 @@ final class ObjectSettingsViewModel {
     // the global info can race app launch with `AccountData.empty`.
     @ObservationIgnored
     private lazy var personalWidgetsObject: (any BaseDocumentProtocol)? = {
-        guard FeatureFlags.personalFavorites else { return nil }
         guard let info = workspaceStorage.spaceInfo(spaceId: spaceId) else {
             anytypeAssertionFailure("info not found for personal widgets")
             return nil
@@ -106,7 +108,6 @@ final class ObjectSettingsViewModel {
     var settings: [ObjectSetting] = []
     var showConflictAlert = false
     var isChat = false
-    let spaceUxType: SpaceUxType?
     let spaceType: SpaceType?
 
     // MARK: - Actions State
@@ -129,7 +130,6 @@ final class ObjectSettingsViewModel {
         self.output = output
 
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
-        spaceUxType = spaceView?.uxType
         spaceType = spaceView?.spaceType
     }
 
@@ -160,9 +160,7 @@ final class ObjectSettingsViewModel {
 
     private func startParticipantSpaceViewSubscription() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
-            canManageChannelPins = FeatureFlags.personalFavorites
-                ? participantSpaceView.canManageChannelPins
-                : true
+            canManageChannelPins = participantSpaceView.canManageChannelPins
             isSpaceOwner = participantSpaceView.isOwner
             updateActions()
         }
@@ -177,21 +175,12 @@ final class ObjectSettingsViewModel {
 
     private func updateSettings() {
         if let details = document.details {
-            if FeatureFlags.createChannelFlow {
-                settings = settingsBuilder.build(
-                    details: details,
-                    permissions: document.permissions,
-                    spaceType: spaceType,
-                    chatNotificationMode: chatNotificationMode
-                )
-            } else {
-                settings = settingsBuilder.build(
-                    details: details,
-                    permissions: document.permissions,
-                    spaceUxType: spaceUxType,
-                    chatNotificationMode: chatNotificationMode
-                )
-            }
+            settings = settingsBuilder.build(
+                details: details,
+                permissions: document.permissions,
+                spaceType: spaceType,
+                chatNotificationMode: chatNotificationMode
+            )
             isChat = details.resolvedLayoutValue.isChat
         }
     }
@@ -205,29 +194,16 @@ final class ObjectSettingsViewModel {
         let isPinnedToWidgets = widgetObject?.widgetBlockIdFor(targetObjectId: objectId).isNotNil ?? false
         let isFavorited = personalWidgetsObject?.containsWidgetFor(objectId: objectId) ?? false
 
-        if FeatureFlags.createChannelFlow {
-            objectActions = ObjectAction.buildActions(
-                details: details,
-                isLocked: document.isLocked,
-                isPinnedToWidgets: isPinnedToWidgets,
-                isFavorited: isFavorited,
-                canManageChannelPins: canManageChannelPins,
-                permissions: document.permissions,
-                spaceType: spaceType,
-                isSpaceOwner: isSpaceOwner
-            )
-        } else {
-            objectActions = ObjectAction.buildActions(
-                details: details,
-                isLocked: document.isLocked,
-                isPinnedToWidgets: isPinnedToWidgets,
-                isFavorited: isFavorited,
-                canManageChannelPins: canManageChannelPins,
-                permissions: document.permissions,
-                spaceUxType: spaceUxType,
-                isSpaceOwner: isSpaceOwner
-            )
-        }
+        objectActions = ObjectAction.buildActions(
+            details: details,
+            isLocked: document.isLocked,
+            isPinnedToWidgets: isPinnedToWidgets,
+            isFavorited: isFavorited,
+            canManageChannelPins: canManageChannelPins,
+            permissions: document.permissions,
+            spaceType: spaceType,
+            isSpaceOwner: isSpaceOwner
+        )
     }
 
     func onTapIconPicker() {
@@ -424,6 +400,19 @@ final class ObjectSettingsViewModel {
 
         let invite = try? await workspaceService.getCurrentInvite(spaceId: details.spaceId)
         let link = universalLinkParser.createUrl(link: .object(objectId: details.id, spaceId: details.spaceId, cid: invite?.cid, key: invite?.fileKey))
+
+        UIPasteboard.general.string = link?.absoluteString
+        toastData = ToastBarData(Loc.copied)
+        dismiss.toggle()
+    }
+
+    func copyDeepLinkAction() async throws {
+        guard let details = document.details else { return }
+
+        let link = deepLinkParser.createUrl(
+            deepLink: .object(objectId: details.id, spaceId: details.spaceId, cid: nil, key: nil),
+            scheme: .main
+        )
 
         UIPasteboard.general.string = link?.absoluteString
         toastData = ToastBarData(Loc.copied)
