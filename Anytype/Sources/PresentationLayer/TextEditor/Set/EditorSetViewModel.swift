@@ -706,7 +706,10 @@ final class EditorSetViewModel: ObservableObject {
     
     @MainActor
     private func itemTapped(_ details: ObjectDetails) {
-        openObject(details: details)
+        // Row closures capture a details snapshot; the configurations diff-guard can keep a row
+        // whose navigation-relevant fields (bookmark source, chatId, layout) changed invisibly.
+        let freshDetails = subscriptionStorages.values.compactMap { $0.detailsStorage.get(id: details.id) }.first
+        openObject(details: freshDetails ?? details)
     }
     
     private func clearState() async {
