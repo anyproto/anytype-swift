@@ -50,7 +50,9 @@ final class MembershipCoordinatorModel {
         Task {
             await loadTiers()
 
-            guard let initialTierId else { return }
+            // A code link takes precedence: don't open the purchase sheet behind (or
+            // after) the code activation cover.
+            guard initialCode == nil, let initialTierId else { return }
             guard let initialTier = tiers.first(where: { $0.type.id == initialTierId }) else {
                 anytypeAssertionFailure("Not found initial id for Memberhsip coordinator", info: ["tierId": String(initialTierId)])
                 return
