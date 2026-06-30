@@ -405,6 +405,11 @@ enum SettingsSpaceMembersRoute: String {
     case navigation = "Navigation"
 }
 
+enum MembershipCodeRoute: String {
+    case stripe = "Stripe"
+    case settingsMembership = "ScreenSettingsMembership"
+}
+
 enum SettingsSpaceShareRoute: String {
     case settings = "Settings"
     case navigation = "Navigation"

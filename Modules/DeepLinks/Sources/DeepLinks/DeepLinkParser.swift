@@ -78,8 +78,10 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
                   let key = queryItems.stringValue(key: "key") else { return nil }
             return .hi(identity: identity, key: key)
         case LinkPaths.membership:
-            guard let tier = queryItems.intValue(key: "tier") else { return nil }
-            return .membership(tierId: tier)
+            let tier = queryItems.intValue(key: "tier")
+            let code = queryItems.stringValue(key: "code")
+            guard tier != nil || code != nil else { return nil }
+            return .membership(tierId: tier, code: code)
         case LinkPaths.networkConfig:
             guard let config = queryItems.stringValue(key: "config") else { return nil }
             return .networkConfig(config: config)
@@ -141,12 +143,17 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
                 URLQueryItem(name: "key", value: key)
             ]
             return components.url
-        case .membership(let tierId):
+        case let .membership(tierId, code):
             guard var components = URLComponents(string: host + LinkPaths.membership) else { return nil }
-            components.queryItems = [
-                URLQueryItem(name: "tier", value: String(tierId)),
-            ]
-            
+            var queryItems = [URLQueryItem]()
+            if let tierId {
+                queryItems.append(URLQueryItem(name: "tier", value: String(tierId)))
+            }
+            if let code {
+                queryItems.append(URLQueryItem(name: "code", value: code))
+            }
+            components.queryItems = queryItems
+
             return components.url
         case .networkConfig(let config):
             guard var components = URLComponents(string: host + LinkPaths.networkConfig) else { return nil }

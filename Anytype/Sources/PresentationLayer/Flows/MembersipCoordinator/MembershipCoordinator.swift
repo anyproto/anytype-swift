@@ -6,8 +6,8 @@ struct MembershipCoordinator: View {
     @State var model: MembershipCoordinatorModel
     @Environment(\.openURL) private var openURL
 
-    init(initialTierId: Int? = nil) {
-        _model = State(initialValue: MembershipCoordinatorModel(initialTierId: initialTierId))
+    init(initialTierId: Int? = nil, initialCode: String? = nil) {
+        _model = State(initialValue: MembershipCoordinatorModel(initialTierId: initialTierId, initialCode: initialCode))
     }
 
     var body: some View {
@@ -17,10 +17,14 @@ struct MembershipCoordinator: View {
             } else {
                 MembershipModuleView(
                     membership: model.userMembership,
-                    tiers: model.tiers
-                ) { tier in
-                    model.onTierSelected(tier: tier)
-                }
+                    tiers: model.tiers,
+                    onTierTap: { tier in
+                        model.onTierSelected(tier: tier)
+                    },
+                    onActivateCodeTap: {
+                        model.onActivateCodeTap()
+                    }
+                )
                 .overlay(alignment: .bottom) {
                     ConfettiOverlay(fireConfetti: $model.fireConfetti)
                 }
@@ -33,6 +37,11 @@ struct MembershipCoordinator: View {
         }
         .anytypeSheet(item: $model.showSuccess) {
             MembershipTierSuccessView(tier: $0)
+        }
+        .anytypeSheet(item: $model.showCodeActivation) { data in
+            MembershipCodeActivationView(data: data) { redeemedTier in
+                await model.onCodeRedeemed(redeemedTier: redeemedTier)
+            }
         }
         .onChange(of: model.emailUrl) { _, url in
             showEmail(url: url)

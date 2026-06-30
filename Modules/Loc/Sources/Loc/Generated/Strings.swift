@@ -1799,6 +1799,13 @@ public enum Loc {
       public static let title3 = Loc.tr("Workspace", "Membership.Banner.Title3", fallback: "Support Digital Independence")
       public static let title4 = Loc.tr("Workspace", "Membership.Banner.Title4", fallback: "Invest in Connectivity")
     }
+    public enum Code {
+      public static let activate = Loc.tr("Workspace", "Membership.Code.Activate", fallback: "Activate")
+      public static let entry = Loc.tr("Workspace", "Membership.Code.Entry", fallback: "Activate Code")
+      public static let placeholder = Loc.tr("Workspace", "Membership.Code.Placeholder", fallback: "Paste activation code…")
+      public static let subtitle = Loc.tr("Workspace", "Membership.Code.Subtitle", fallback: "Enter the code you received after purchase or from invitation. Your membership will be activated instantly.")
+      public static let title = Loc.tr("Workspace", "Membership.Code.Title", fallback: "Activate Your Code")
+    }
     public enum EmailForm {
       public static let subtitle = Loc.tr("Workspace", "Membership.EmailForm.Subtitle", fallback: "It is not linked to your account in any way.")
       public static let title = Loc.tr("Workspace", "Membership.EmailForm.Title", fallback: "Get updates and enjoy free perks!")
