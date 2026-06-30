@@ -89,10 +89,11 @@ final class MembershipCoordinatorModel {
 
         // Resolve the full tier for the success screen. Prefer the tier the redeem
         // returned (reliable, offline for standard tiers already in `tiers`), then a
-        // forced status refresh (covers custom/team tiers), then the cached status.
+        // forced status refresh (covers custom/team tiers). Intentionally no cached-status
+        // fallback: right after a redeem the cache can still hold the pre-redemption tier,
+        // which would show the success screen for the wrong tier.
         let tier = redeemedTier.flatMap { type in tiers.first { $0.type.id == type.id } }
             ?? (try? await membershipService.getMembership(noCache: true))?.tier
-            ?? membershipStatusStorage.currentStatus.tier
         guard let tier else { return }
 
         AnytypeAnalytics.instance().logActivateMembershipCode(tier: tier)
