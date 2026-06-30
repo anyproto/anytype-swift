@@ -83,7 +83,7 @@ struct MembershipModuleView: View {
     }
     
     private var activateCode: some View {
-        MembershipLegalButton(
+        MembershipRowButton(
             text: Loc.Membership.Code.entry,
             icon: .RightAttribute.disclosure,
             iconSize: 24
@@ -96,13 +96,13 @@ struct MembershipModuleView: View {
     @MainActor
     var legal: some View {
         VStack(alignment: .leading) {
-            MembershipLegalButton(text: Loc.Membership.Legal.details) {
+            MembershipRowButton(text: Loc.Membership.Legal.details) {
                 safariUrl = URL(string: AboutApp.pricingLink)
             }
-            MembershipLegalButton(text: Loc.Membership.Legal.privacy) { 
+            MembershipRowButton(text: Loc.Membership.Legal.privacy) { 
                 safariUrl = URL(string: AboutApp.privacyPolicyLink)
             }
-            MembershipLegalButton(text: Loc.Membership.Legal.terms) { 
+            MembershipRowButton(text: Loc.Membership.Legal.terms) { 
                 safariUrl = URL(string: AboutApp.termsLink)
             }
             

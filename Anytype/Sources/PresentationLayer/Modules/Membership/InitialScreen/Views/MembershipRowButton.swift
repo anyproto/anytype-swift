@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct MembershipLegalButton: View {
+struct MembershipRowButton: View {
     let text: String
     var icon: ImageAsset = .X18.webLink
     var iconSize: CGFloat = 18
@@ -28,10 +28,10 @@ struct MembershipLegalButton: View {
 #Preview {
     ScrollView {
         VStack {
-            MembershipLegalButton(text: "Press me", onTap: {})
-            MembershipLegalButton(text: "Press me", onTap: {})
-            MembershipLegalButton(text: "Press me", onTap: {})
-            MembershipLegalButton(text: "Press me", onTap: {})
+            MembershipRowButton(text: "Press me", onTap: {})
+            MembershipRowButton(text: "Press me", onTap: {})
+            MembershipRowButton(text: "Press me", onTap: {})
+            MembershipRowButton(text: "Press me", onTap: {})
         }.padding()
     }
 }
