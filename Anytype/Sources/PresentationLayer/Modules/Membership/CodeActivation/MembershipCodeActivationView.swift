@@ -22,6 +22,7 @@ struct MembershipCodeActivationView: View {
                         placeholder: Loc.Membership.Code.placeholder,
                         text: $model.code
                     )
+                    .disabled(model.isActivating)
                     if let errorText = model.errorText {
                         AnytypeText(errorText, style: .relation2Regular)
                             .foregroundStyle(Color.Dark.red)

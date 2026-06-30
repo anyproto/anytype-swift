@@ -14,6 +14,7 @@ struct MembershipCodeActivationData: Identifiable {
 final class MembershipCodeActivationViewModel {
     var code: String
     var errorText: String?
+    var isActivating = false
 
     @ObservationIgnored @Injected(\.membershipService)
     private var membershipService: any MembershipServiceProtocol
@@ -41,9 +42,13 @@ final class MembershipCodeActivationViewModel {
         errorText = nil
         AnytypeAnalytics.instance().logClickMembershipCode()
 
+        isActivating = true
+        defer { isActivating = false }
+
+        let submittedCode = code
         do {
-            try await membershipService.codeGetInfo(code: code)
-            let redeemedTier = try await membershipService.codeRedeem(code: code)
+            try await membershipService.codeGetInfo(code: submittedCode)
+            let redeemedTier = try await membershipService.codeRedeem(code: submittedCode)
             await onRedeemed(redeemedTier)
         } catch {
             errorText = error.localizedDescription

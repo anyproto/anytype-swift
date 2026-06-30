@@ -27,6 +27,8 @@ final class MembershipCoordinatorModel {
     private let initialTierId: Int?
     @ObservationIgnored
     private let initialCode: String?
+    @ObservationIgnored
+    private var didPresentInitialCode = false
 
     init(initialTierId: Int?, initialCode: String?) {
         self.initialTierId = initialTierId
@@ -40,7 +42,8 @@ final class MembershipCoordinatorModel {
     }
     
     func onAppear() {
-        if let initialCode {
+        if let initialCode, !didPresentInitialCode {
+            didPresentInitialCode = true
             showCodeActivation = MembershipCodeActivationData(code: initialCode, route: .stripe)
         }
 
