@@ -434,6 +434,7 @@ extension ImageAsset {
     public static let lock = ImageAsset.bundle(name: "Dialog/lock")
     public static let makeAdmin = ImageAsset.bundle(name: "Dialog/makeAdmin")
     public static let passport = ImageAsset.bundle(name: "Dialog/passport")
+    public static let pinCode = ImageAsset.bundle(name: "Dialog/pinCode")
     public static let question = ImageAsset.bundle(name: "Dialog/question")
     public static let removeMember = ImageAsset.bundle(name: "Dialog/removeMember")
     public static let send = ImageAsset.bundle(name: "Dialog/send")

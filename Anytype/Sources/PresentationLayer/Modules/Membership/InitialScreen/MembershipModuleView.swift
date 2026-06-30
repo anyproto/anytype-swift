@@ -11,15 +11,18 @@ struct MembershipModuleView: View {
     private let membership: MembershipStatus
     private let tiers: [MembershipTier]
     private let onTierTap: (MembershipTier) -> ()
-    
+    private let onActivateCodeTap: () -> ()
+
     init(
         membership: MembershipStatus,
         tiers: [MembershipTier],
-        onTierTap: @escaping (MembershipTier) -> ()
+        onTierTap: @escaping (MembershipTier) -> (),
+        onActivateCodeTap: @escaping () -> ()
     ) {
         self.membership = membership
         self.tiers = tiers
         self.onTierTap =  onTierTap
+        self.onActivateCodeTap = onActivateCodeTap
     }
     
     var body: some View {
@@ -42,7 +45,9 @@ struct MembershipModuleView: View {
                     }
                     .padding(.top, 20)
                     .padding(.bottom, 32)
-                    
+
+                    activateCode
+
                     legal
                 }
             }
@@ -77,6 +82,17 @@ struct MembershipModuleView: View {
         }
     }
     
+    private var activateCode: some View {
+        MembershipLegalButton(
+            text: Loc.Membership.Code.entry,
+            icon: .RightAttribute.disclosure,
+            iconSize: 24
+        ) {
+            onActivateCodeTap()
+        }
+        .padding(.bottom, 32)
+    }
+
     @MainActor
     var legal: some View {
         VStack(alignment: .leading) {
@@ -122,7 +138,8 @@ struct MembershipModuleView: View {
         MembershipModuleView(
             membership: .empty,
             tiers: [],
-            onTierTap: { _ in }
+            onTierTap: { _ in },
+            onActivateCodeTap: { }
         )
     }
 }

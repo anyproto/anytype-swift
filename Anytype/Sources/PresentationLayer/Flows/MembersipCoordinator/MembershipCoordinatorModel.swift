@@ -12,6 +12,7 @@ final class MembershipCoordinatorModel {
     var showTiersLoadingError = false
     var showTier: MembershipTier?
     var showSuccess: MembershipTier?
+    var showCodeActivation: MembershipCodeActivationData?
     var fireConfetti = false
     var emailUrl: URL?
 
@@ -24,9 +25,12 @@ final class MembershipCoordinatorModel {
 
     @ObservationIgnored
     private let initialTierId: Int?
+    @ObservationIgnored
+    private let initialCode: String?
 
-    init(initialTierId: Int?) {
+    init(initialTierId: Int?, initialCode: String?) {
         self.initialTierId = initialTierId
+        self.initialCode = initialCode
     }
 
     func startMembershipSubscription() async {
@@ -36,9 +40,13 @@ final class MembershipCoordinatorModel {
     }
     
     func onAppear() {
+        if let initialCode {
+            showCodeActivation = MembershipCodeActivationData(code: initialCode, route: .stripe)
+        }
+
         Task {
             await loadTiers()
-            
+
             guard let initialTierId else { return }
             guard let initialTier = tiers.first(where: { $0.type.id == initialTierId }) else {
                 anytypeAssertionFailure("Not found initial id for Memberhsip coordinator", info: ["tierId": String(initialTierId)])
@@ -66,6 +74,25 @@ final class MembershipCoordinatorModel {
     }
     
     func onSuccessfulPurchase(tier: MembershipTier) {
+        showSuccessScreen(tier: tier)
+    }
+
+    func onActivateCodeTap() {
+        showCodeActivation = MembershipCodeActivationData(code: nil, route: .settingsMembership)
+    }
+
+    func onCodeRedeemed(redeemedTier: MembershipTierType?) async {
+        showCodeActivation = nil
+
+        // Resolve the full tier for the success screen. Prefer the tier the redeem
+        // returned (reliable, offline for standard tiers already in `tiers`), then a
+        // forced status refresh (covers custom/team tiers), then the cached status.
+        let tier = redeemedTier.flatMap { type in tiers.first { $0.type.id == type.id } }
+            ?? (try? await membershipService.getMembership(noCache: true))?.tier
+            ?? membershipStatusStorage.currentStatus.tier
+        guard let tier else { return }
+
+        AnytypeAnalytics.instance().logActivateMembershipCode(tier: tier)
         showSuccessScreen(tier: tier)
     }
     

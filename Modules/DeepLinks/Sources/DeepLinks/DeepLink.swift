@@ -7,7 +7,7 @@ public enum DeepLink: Equatable, Sendable {
     case chatMessage(chatObjectId: String, spaceId: String, messageId: String)
     case hi(identity: String, key: String)
 
-    case membership(tierId: Int)
+    case membership(tierId: Int?, code: String?)
 
     case networkConfig(config: String)
 }

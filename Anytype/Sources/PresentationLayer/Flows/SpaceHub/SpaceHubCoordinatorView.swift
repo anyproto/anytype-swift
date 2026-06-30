@@ -30,8 +30,8 @@ struct SpaceHubCoordinatorView: View {
             .sheet(isPresented: $model.showSpaceManager) {
                 SpacesManagerView()
             }
-            .sheet(item: $model.membershipTierId) { tierId in
-                MembershipCoordinator(initialTierId: tierId.value)
+            .sheet(item: $model.membershipDeepLinkData) { data in
+                MembershipCoordinator(initialTierId: data.tierId, initialCode: data.code)
             }
             .sheet(item: $model.membershipNameFinalizationData) {
                 MembershipNameFinalizationView(tier: $0)

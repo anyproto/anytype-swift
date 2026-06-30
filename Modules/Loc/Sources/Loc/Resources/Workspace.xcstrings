@@ -28754,6 +28754,61 @@
         }
       }
     },
+    "Membership.Code.Activate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activate"
+          }
+        }
+      }
+    },
+    "Membership.Code.Entry" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activate Code"
+          }
+        }
+      }
+    },
+    "Membership.Code.Placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paste activation code…"
+          }
+        }
+      }
+    },
+    "Membership.Code.Subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the code you received after purchase or from invitation. Your membership will be activated instantly."
+          }
+        }
+      }
+    },
+    "Membership.Code.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activate Your Code"
+          }
+        }
+      }
+    },
     "Membership.EmailForm.Subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
