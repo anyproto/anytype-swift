@@ -41,9 +41,7 @@ struct MembershipCellCardRow: View {
             IconView(icon: .asset(.RightAttribute.disclosure))
                 .frame(width: 24, height: 24)
         case .externalLink:
-            Image(systemName: "arrow.up.right")
-                .font(.system(size: 15, weight: .regular))
-                .foregroundStyle(Color.Text.secondary)
+            IconView(icon: .asset(.X18.webLink))
                 .frame(width: 24, height: 24)
         }
     }

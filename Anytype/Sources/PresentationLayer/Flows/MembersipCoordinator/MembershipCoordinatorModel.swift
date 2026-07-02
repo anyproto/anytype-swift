@@ -21,8 +21,8 @@ final class MembershipCoordinatorModel {
     private var membershipService: any MembershipServiceProtocol
     @ObservationIgnored @Injected(\.membershipStatusStorage)
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
-    @ObservationIgnored @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
+    @ObservationIgnored @Injected(\.supportMailBuilder)
+    private var supportMailBuilder: any SupportMailBuilderProtocol
 
     @ObservationIgnored
     private let initialTierId: Int?
@@ -89,17 +89,9 @@ final class MembershipCoordinatorModel {
 
     func onAskQuestionTap() {
         AnytypeAnalytics.instance().logContactUs()
-        let info = [
-            Loc.About.appVersion(MetadataProvider.appVersion ?? ""),
-            Loc.About.buildNumber(MetadataProvider.buildNumber ?? ""),
-            Loc.About.anytypeId(accountManager.account.id)
-        ].joined(separator: "\n")
-        let mailLink = MailUrl(
-            to: AboutApp.supportMailTo,
-            subject: Loc.About.Mail.subject(accountManager.account.id),
-            body: Loc.About.Mail.body(info)
-        )
-        emailUrl = mailLink.url
+        Task {
+            emailUrl = await supportMailBuilder.supportMailUrl()
+        }
     }
 
     // Opens the standalone name-selection flow so the user can claim their `.any`
