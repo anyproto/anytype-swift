@@ -23,6 +23,12 @@ struct MembershipCoordinator: View {
                     },
                     onActivateCodeTap: {
                         model.onActivateCodeTap()
+                    },
+                    onAskQuestionTap: {
+                        model.onAskQuestionTap()
+                    },
+                    onSelectNameTap: {
+                        model.onSelectNameTap()
                     }
                 )
                 .overlay(alignment: .bottom) {
@@ -34,6 +40,9 @@ struct MembershipCoordinator: View {
 
         .sheet(item: $model.showTier) { tier in
             tierSelection(tier: tier)
+        }
+        .sheet(item: $model.showNameFinalization) { tier in
+            MembershipNameFinalizationView(tier: tier)
         }
         .anytypeSheet(item: $model.showSuccess) {
             MembershipTierSuccessView(tier: $0)

@@ -837,10 +837,7 @@ extension ImageAsset {
     public static let loading = ImageAsset.bundle(name: "Illustration/Loading")
   }
   public enum Membership {
-    public static let banner1 = ImageAsset.bundle(name: "Membership/banner_1")
-    public static let banner2 = ImageAsset.bundle(name: "Membership/banner_2")
-    public static let banner3 = ImageAsset.bundle(name: "Membership/banner_3")
-    public static let banner4 = ImageAsset.bundle(name: "Membership/banner_4")
+    public static let anyName = ImageAsset.bundle(name: "Membership/any_name")
     public static let tierBuilderMedium = ImageAsset.bundle(name: "Membership/tier_builder_medium")
     public static let tierBuilderSmall = ImageAsset.bundle(name: "Membership/tier_builder_small")
     public static let tierCocreatorMedium = ImageAsset.bundle(name: "Membership/tier_cocreator_medium")

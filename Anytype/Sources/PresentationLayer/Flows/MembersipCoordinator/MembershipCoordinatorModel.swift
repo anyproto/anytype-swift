@@ -11,6 +11,7 @@ final class MembershipCoordinatorModel {
 
     var showTiersLoadingError = false
     var showTier: MembershipTier?
+    var showNameFinalization: MembershipTier?
     var showSuccess: MembershipTier?
     var showCodeActivation: MembershipCodeActivationData?
     var fireConfetti = false
@@ -20,8 +21,8 @@ final class MembershipCoordinatorModel {
     private var membershipService: any MembershipServiceProtocol
     @ObservationIgnored @Injected(\.membershipStatusStorage)
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
-    @ObservationIgnored @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
+    @ObservationIgnored @Injected(\.supportInfoBuilder)
+    private var supportInfoBuilder: any SupportInfoBuilderProtocol
 
     @ObservationIgnored
     private let initialTierId: Int?
@@ -75,6 +76,10 @@ final class MembershipCoordinatorModel {
     }
     
     func onTierSelected(tier: MembershipTier) {
+        // The details carousel is built from `tiers`; opening it for a tier absent
+        // from that list (stale cache / owned custom tier, or before tiers finish
+        // loading) would land on a blank page. Ignore the tap in that case.
+        guard tiers.contains(where: { $0.id == tier.id }) else { return }
         showTier = tier
     }
     
@@ -86,6 +91,20 @@ final class MembershipCoordinatorModel {
         showCodeActivation = MembershipCodeActivationData(code: nil, route: .settingsMembership)
     }
 
+    func onAskQuestionTap() {
+        AnytypeAnalytics.instance().logContactUs()
+        Task {
+            emailUrl = await supportInfoBuilder.supportMailUrl()
+        }
+    }
+
+    // Opens the standalone name-selection flow so the user can claim their `.any`
+    // name for the tier they already own.
+    func onSelectNameTap() {
+        guard let currentTier = userMembership.tier else { return }
+        showNameFinalization = currentTier
+    }
+
     func onCodeRedeemed(redeemedTier: MembershipTierType?) async {
         showCodeActivation = nil
 
@@ -94,8 +113,10 @@ final class MembershipCoordinatorModel {
         // forced status refresh (covers custom/team tiers). Intentionally no cached-status
         // fallback: right after a redeem the cache can still hold the pre-redemption tier,
         // which would show the success screen for the wrong tier.
-        let tier = redeemedTier.flatMap { type in tiers.first { $0.type.id == type.id } }
-            ?? (try? await membershipService.getMembership(noCache: true))?.tier
+        var tier = redeemedTier.flatMap { type in tiers.first { $0.type.id == type.id } }
+        if tier == nil {
+            tier = (try? await membershipService.getMembership(noCache: true))?.tier
+        }
         guard let tier else { return }
 
         AnytypeAnalytics.instance().logActivateMembershipCode(tier: tier)
