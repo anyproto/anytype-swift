@@ -1838,7 +1838,6 @@ public enum Loc {
       }
     }
     public enum Legal {
-      public static let alreadyPurchasedTier = Loc.tr("Workspace", "Membership.Legal.AlreadyPurchasedTier", fallback: "Already purchased tier?")
       public static let details = Loc.tr("Workspace", "Membership.Legal.Details", fallback: "Membership plan details")
       public static let letUsKnow = Loc.tr("Workspace", "Membership.Legal.LetUsKnow", fallback: "Please let us know here.")
       public static let privacy = Loc.tr("Workspace", "Membership.Legal.Privacy", fallback: "Privacy policy")

@@ -50,6 +50,12 @@ struct MembershipTierRecommendationTests {
         #expect(MembershipTierRecommendation.recommendedTier(membership: membership, tiers: []) == nil)
     }
 
+    @Test func recommended_currentTierNotInLoadedList_isNil() {
+        // Stale cache: the owned tier isn't in the loaded tiers array yet.
+        let membership = MembershipStatus.mock(tier: .mockCustom)
+        #expect(MembershipTierRecommendation.recommendedTier(membership: membership, tiers: tiers) == nil)
+    }
+
     // MARK: - showAnyName
 
     @Test func showAnyName_freeTierWithoutAnyName_isFalse() {

@@ -1,5 +1,4 @@
 import SwiftUI
-import Services
 
 
 // Outlined block prompting the user to claim their `.any` name (paid tiers only).

@@ -15,9 +15,12 @@ enum MembershipTierRecommendation {
     // the entry right after the current tier. Returns nil when the user is already
     // on the last tier (nothing to upgrade to).
     static func recommendedTier(membership: MembershipStatus, tiers: [MembershipTier]) -> MembershipTier? {
+        // No current tier, or the owned tier isn't in the loaded list yet (stale
+        // cache): don't guess an upgrade — offering the cheapest tier here would
+        // surface a downgrade as an "Upgrade".
         guard let current = currentTier(membership: membership, tiers: tiers),
               let currentIndex = tiers.firstIndex(where: { $0.type.id == current.type.id }) else {
-            return tiers.first
+            return nil
         }
 
         let nextIndex = currentIndex + 1
