@@ -24,8 +24,12 @@ enum MembershipTierRecommendation {
         return tiers[nextIndex]
     }
 
-    // Whether the owned tier includes a claimable `.any` name.
+    // Whether the owned tier includes a claimable `.any` name. Suppressed while
+    // status is `.pending`: the payment is confirmed but the middleware is still
+    // allocating the name it was purchased with, so prompting a re-selection /
+    // finalize here would race that side-effect.
     static func showAnyName(membership: MembershipStatus) -> Bool {
+        guard membership.status != .pending else { return false }
         guard let anyName = membership.tier?.anyName else { return false }
         return anyName != .none
     }
