@@ -76,6 +76,10 @@ final class MembershipCoordinatorModel {
     }
     
     func onTierSelected(tier: MembershipTier) {
+        // The details carousel is built from `tiers`; opening it for a tier absent
+        // from that list (stale cache / owned custom tier, or before tiers finish
+        // loading) would land on a blank page. Ignore the tap in that case.
+        guard tiers.contains(where: { $0.id == tier.id }) else { return }
         showTier = tier
     }
     
