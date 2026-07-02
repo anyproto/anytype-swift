@@ -28765,6 +28765,39 @@
         }
       }
     },
+    "Membership.AnyName.Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is your unique name on the Anytype network. It acts as your personal domain and cannot be changed."
+          }
+        }
+      }
+    },
+    "Membership.AnyName.Select" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select"
+          }
+        }
+      }
+    },
+    "Membership.AskQuestion" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ask a question"
+          }
+        }
+      }
+    },
     "Membership.Code.Entry" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -28772,6 +28805,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Activate Code"
+          }
+        }
+      }
+    },
+    "Membership.CurrentPlan" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Plan"
+          }
+        }
+      }
+    },
+    "Membership.SeeAllPlans" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See all plans"
+          }
+        }
+      }
+    },
+    "Membership.SelectAnyName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select .any name"
           }
         }
       }

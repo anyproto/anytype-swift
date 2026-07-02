@@ -11,6 +11,7 @@ final class MembershipCoordinatorModel {
 
     var showTiersLoadingError = false
     var showTier: MembershipTier?
+    var showNameFinalization: MembershipTier?
     var showSuccess: MembershipTier?
     var showCodeActivation: MembershipCodeActivationData?
     var fireConfetti = false
@@ -86,6 +87,28 @@ final class MembershipCoordinatorModel {
         showCodeActivation = MembershipCodeActivationData(code: nil, route: .settingsMembership)
     }
 
+    func onAskQuestionTap() {
+        AnytypeAnalytics.instance().logContactUs()
+        let info = [
+            Loc.About.appVersion(MetadataProvider.appVersion ?? ""),
+            Loc.About.buildNumber(MetadataProvider.buildNumber ?? ""),
+            Loc.About.anytypeId(accountManager.account.id)
+        ].joined(separator: "\n")
+        let mailLink = MailUrl(
+            to: AboutApp.supportMailTo,
+            subject: Loc.About.Mail.subject(accountManager.account.id),
+            body: Loc.About.Mail.body(info)
+        )
+        emailUrl = mailLink.url
+    }
+
+    // Opens the standalone name-selection flow so the user can claim their `.any`
+    // name for the tier they already own.
+    func onSelectNameTap() {
+        guard let currentTier = MembershipTierRecommendation.currentTier(membership: userMembership, tiers: tiers) else { return }
+        showNameFinalization = currentTier
+    }
+
     func onCodeRedeemed(redeemedTier: MembershipTierType?) async {
         showCodeActivation = nil
 
@@ -94,8 +117,10 @@ final class MembershipCoordinatorModel {
         // forced status refresh (covers custom/team tiers). Intentionally no cached-status
         // fallback: right after a redeem the cache can still hold the pre-redemption tier,
         // which would show the success screen for the wrong tier.
-        let tier = redeemedTier.flatMap { type in tiers.first { $0.type.id == type.id } }
-            ?? (try? await membershipService.getMembership(noCache: true))?.tier
+        var tier = redeemedTier.flatMap { type in tiers.first { $0.type.id == type.id } }
+        if tier == nil {
+            tier = (try? await membershipService.getMembership(noCache: true))?.tier
+        }
         guard let tier else { return }
 
         AnytypeAnalytics.instance().logActivateMembershipCode(tier: tier)

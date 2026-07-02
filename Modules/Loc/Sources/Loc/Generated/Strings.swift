@@ -1783,11 +1783,19 @@ public enum Loc {
     public static let title = Loc.tr("Workspace", "HomepagePicker.title", fallback: "Add a Channel Home?")
   }
   public enum Membership {
+    public static let askQuestion = Loc.tr("Workspace", "Membership.AskQuestion", fallback: "Ask a question")
+    public static let currentPlan = Loc.tr("Workspace", "Membership.CurrentPlan", fallback: "Current Plan")
     public static let emailValidation = Loc.tr("Workspace", "Membership.EmailValidation", fallback: "Enter the code sent to your email")
+    public static let seeAllPlans = Loc.tr("Workspace", "Membership.SeeAllPlans", fallback: "See all plans")
+    public static let selectAnyName = Loc.tr("Workspace", "Membership.SelectAnyName", fallback: "Select .any name")
     public static let unavailable = Loc.tr("Workspace", "Membership.unavailable", fallback: "This tier is not available in the app. We know it's not ideal.")
     public enum Ad {
       public static let subtitle = Loc.tr("Workspace", "Membership.Ad.Subtitle", fallback: "Joining Anytype network means contributing to its story")
       public static let title = Loc.tr("Workspace", "Membership.Ad.Title", fallback: "Membership")
+    }
+    public enum AnyName {
+      public static let description = Loc.tr("Workspace", "Membership.AnyName.Description", fallback: "This is your unique name on the Anytype network. It acts as your personal domain and cannot be changed.")
+      public static let select = Loc.tr("Workspace", "Membership.AnyName.Select", fallback: "Select")
     }
     public enum Banner {
       public static let subtitle1 = Loc.tr("Workspace", "Membership.Banner.Subtitle1", fallback: "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.")

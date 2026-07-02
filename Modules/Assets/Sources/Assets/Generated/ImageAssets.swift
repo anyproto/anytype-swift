@@ -837,6 +837,7 @@ extension ImageAsset {
     public static let loading = ImageAsset.bundle(name: "Illustration/Loading")
   }
   public enum Membership {
+    public static let anyName = ImageAsset.bundle(name: "Membership/any_name")
     public static let banner1 = ImageAsset.bundle(name: "Membership/banner_1")
     public static let banner2 = ImageAsset.bundle(name: "Membership/banner_2")
     public static let banner3 = ImageAsset.bundle(name: "Membership/banner_3")
