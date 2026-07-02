@@ -73,34 +73,22 @@ struct MembershipPlanCardView: View {
 }
 
 
-// Single feature line: thin Figma check (14×14, Text.primary stroke) + label.
+// Single feature line: thin 14×14 check tinted Text.primary + label.
 private struct MembershipFeatureRow: View {
     let text: String
 
     var body: some View {
         HStack(alignment: .top, spacing: 6) {
-            MembershipFeatureCheckmark()
-                .stroke(Color.Text.primary, style: StrokeStyle(lineWidth: 1, lineCap: .round, lineJoin: .round))
+            Image(asset: .X18.tick)
+                .resizable()
                 .frame(width: 14, height: 14)
+                .foregroundStyle(Color.Text.primary)
                 .padding(.top, 2)
             AnytypeText(text, style: .caption1Regular)
                 .foregroundStyle(Color.Text.primary)
                 .lineLimit(2)
                 .fixedSize(horizontal: false, vertical: true)
         }
-    }
-}
-
-
-private struct MembershipFeatureCheckmark: Shape {
-    func path(in rect: CGRect) -> Path {
-        let scaleX = rect.width / 14
-        let scaleY = rect.height / 14
-        var path = Path()
-        path.move(to: CGPoint(x: 3 * scaleX, y: 7 * scaleY))
-        path.addLine(to: CGPoint(x: 6.2 * scaleX, y: 10.5 * scaleY))
-        path.addLine(to: CGPoint(x: 11 * scaleX, y: 3.5 * scaleY))
-        return path
     }
 }
 

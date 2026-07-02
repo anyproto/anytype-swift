@@ -24,4 +24,10 @@ enum MembershipTierRecommendation {
         guard tiers.indices.contains(nextIndex) else { return nil }
         return tiers[nextIndex]
     }
+
+    // Whether the current tier includes a claimable `.any` name.
+    static func showAnyName(membership: MembershipStatus, tiers: [MembershipTier]) -> Bool {
+        guard let anyName = currentTier(membership: membership, tiers: tiers)?.anyName else { return false }
+        return anyName != .none
+    }
 }

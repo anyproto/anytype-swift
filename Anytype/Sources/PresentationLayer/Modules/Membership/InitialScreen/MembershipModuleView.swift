@@ -40,9 +40,7 @@ struct MembershipModuleView: View {
     }
 
     private var showAnyNameBlock: Bool {
-        guard let currentTier else { return false }
-        if case .some = currentTier.anyName { return true }
-        return false
+        MembershipTierRecommendation.showAnyName(membership: membership, tiers: tiers)
     }
 
     var body: some View {

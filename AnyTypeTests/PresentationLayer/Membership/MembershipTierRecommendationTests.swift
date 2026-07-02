@@ -49,4 +49,22 @@ struct MembershipTierRecommendationTests {
         let membership = MembershipStatus.mock(tier: nil)
         #expect(MembershipTierRecommendation.recommendedTier(membership: membership, tiers: []) == nil)
     }
+
+    // MARK: - showAnyName
+
+    @Test func showAnyName_freeTierWithoutAnyName_isFalse() {
+        // Falls back to the first tier (.mockStarter, anyName == .none).
+        let membership = MembershipStatus.mock(tier: nil)
+        #expect(MembershipTierRecommendation.showAnyName(membership: membership, tiers: tiers) == false)
+    }
+
+    @Test func showAnyName_paidTierWithAnyName_isTrue() {
+        let membership = MembershipStatus.mock(tier: .mockBuilder)
+        #expect(MembershipTierRecommendation.showAnyName(membership: membership, tiers: tiers) == true)
+    }
+
+    @Test func showAnyName_emptyTiers_isFalse() {
+        let membership = MembershipStatus.mock(tier: nil)
+        #expect(MembershipTierRecommendation.showAnyName(membership: membership, tiers: []) == false)
+    }
 }
