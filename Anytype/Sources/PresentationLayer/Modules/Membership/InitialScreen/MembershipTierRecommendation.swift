@@ -1,25 +1,21 @@
 import Services
 
 
-// Pure helpers driving the redesigned membership screen: which tier is shown as
-// the current plan and which one (if any) is offered as the next upgrade.
+// Pure helpers driving the redesigned membership screen: which upgrade (if any)
+// to recommend, and whether to show the `.any` name block. The current plan is
+// simply `membership.tier` — the free tier is not part of the purchasable list,
+// so it must never be inferred from `tiers`.
 enum MembershipTierRecommendation {
 
-    // The plan the user is on. Falls back to the first tier (free) when no paid
-    // tier is owned.
-    static func currentTier(membership: MembershipStatus, tiers: [MembershipTier]) -> MembershipTier? {
-        membership.tier ?? tiers.first
-    }
-
-    // The next tier up to recommend as an upgrade. Uses the middleware array order:
-    // the entry right after the current tier. Returns nil when the user is already
-    // on the last tier (nothing to upgrade to).
+    // The next tier up to offer as an upgrade. With no owned tier, recommend the
+    // cheapest available tier. Otherwise the entry right after the owned tier in
+    // middleware order — nil when it's already the last tier, or isn't in the
+    // loaded list yet (stale cache).
     static func recommendedTier(membership: MembershipStatus, tiers: [MembershipTier]) -> MembershipTier? {
-        // No current tier, or the owned tier isn't in the loaded list yet (stale
-        // cache): don't guess an upgrade — offering the cheapest tier here would
-        // surface a downgrade as an "Upgrade".
-        guard let current = currentTier(membership: membership, tiers: tiers),
-              let currentIndex = tiers.firstIndex(where: { $0.type.id == current.type.id }) else {
+        guard let current = membership.tier else {
+            return tiers.first
+        }
+        guard let currentIndex = tiers.firstIndex(where: { $0.type.id == current.type.id }) else {
             return nil
         }
 
@@ -28,9 +24,9 @@ enum MembershipTierRecommendation {
         return tiers[nextIndex]
     }
 
-    // Whether the current tier includes a claimable `.any` name.
-    static func showAnyName(membership: MembershipStatus, tiers: [MembershipTier]) -> Bool {
-        guard let anyName = currentTier(membership: membership, tiers: tiers)?.anyName else { return false }
+    // Whether the owned tier includes a claimable `.any` name.
+    static func showAnyName(membership: MembershipStatus) -> Bool {
+        guard let anyName = membership.tier?.anyName else { return false }
         return anyName != .none
     }
 }

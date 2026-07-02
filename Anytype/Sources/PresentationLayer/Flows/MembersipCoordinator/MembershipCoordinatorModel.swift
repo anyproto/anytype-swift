@@ -105,7 +105,7 @@ final class MembershipCoordinatorModel {
     // Opens the standalone name-selection flow so the user can claim their `.any`
     // name for the tier they already own.
     func onSelectNameTap() {
-        guard let currentTier = MembershipTierRecommendation.currentTier(membership: userMembership, tiers: tiers) else { return }
+        guard let currentTier = userMembership.tier else { return }
         showNameFinalization = currentTier
     }
 

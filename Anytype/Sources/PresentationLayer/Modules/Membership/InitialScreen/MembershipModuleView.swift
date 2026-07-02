@@ -32,7 +32,7 @@ struct MembershipModuleView: View {
     }
 
     private var currentTier: MembershipTier? {
-        MembershipTierRecommendation.currentTier(membership: membership, tiers: tiers)
+        membership.tier
     }
 
     private var recommendedTier: MembershipTier? {
@@ -40,7 +40,7 @@ struct MembershipModuleView: View {
     }
 
     private var showAnyNameBlock: Bool {
-        MembershipTierRecommendation.showAnyName(membership: membership, tiers: tiers)
+        MembershipTierRecommendation.showAnyName(membership: membership)
     }
 
     var body: some View {
@@ -71,7 +71,7 @@ struct MembershipModuleView: View {
                             }
 
                             if showAnyNameBlock {
-                                MembershipAnyNameView(handle: membership.anyName.handle) {
+                                MembershipAnyNameView(name: membership.anyName.formatted) {
                                     onSelectNameTap()
                                 }
                             }

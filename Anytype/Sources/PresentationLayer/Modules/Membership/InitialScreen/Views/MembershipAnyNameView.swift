@@ -3,12 +3,12 @@ import SwiftUI
 
 // Outlined block prompting the user to claim their `.any` name (paid tiers only).
 // Two states: no name yet → description + Select button; name set → shows the
-// handle, no button.
+// name, no button.
 struct MembershipAnyNameView: View {
-    let handle: String
+    let name: String
     let onSelectNameTap: () -> ()
 
-    private var hasName: Bool { !handle.isEmpty }
+    private var hasName: Bool { !name.isEmpty }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -17,7 +17,7 @@ struct MembershipAnyNameView: View {
                 .resizable()
                 .frame(width: 60, height: 48)
             Spacer.fixedHeight(12)
-            AnytypeText(hasName ? handle : Loc.Membership.selectAnyName, style: .previewTitle1Medium)
+            AnytypeText(hasName ? name : Loc.Membership.selectAnyName, style: .previewTitle1Medium)
                 .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(4)
@@ -44,8 +44,8 @@ struct MembershipAnyNameView: View {
 
 #Preview {
     VStack(spacing: 12) {
-        MembershipAnyNameView(handle: "", onSelectNameTap: {})
-        MembershipAnyNameView(handle: "alexsmith", onSelectNameTap: {})
+        MembershipAnyNameView(name: "", onSelectNameTap: {})
+        MembershipAnyNameView(name: "alexsmith.any", onSelectNameTap: {})
     }
     .padding(16)
 }

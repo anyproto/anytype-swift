@@ -6,31 +6,12 @@ struct MembershipTierRecommendationTests {
 
     private let tiers: [MembershipTier] = [.mockStarter, .mockBuilder, .mockCoCreator]
 
-    // MARK: - currentTier
-
-    @Test func currentTier_noPaidTier_fallsBackToFirst() {
-        let membership = MembershipStatus.mock(tier: nil)
-        let current = MembershipTierRecommendation.currentTier(membership: membership, tiers: tiers)
-        #expect(current?.type == MembershipTierType.starter)
-    }
-
-    @Test func currentTier_ownedTier_returnsOwned() {
-        let membership = MembershipStatus.mock(tier: .mockBuilder)
-        let current = MembershipTierRecommendation.currentTier(membership: membership, tiers: tiers)
-        #expect(current?.type == MembershipTierType.builder)
-    }
-
-    @Test func currentTier_emptyTiers_isNil() {
-        let membership = MembershipStatus.mock(tier: nil)
-        #expect(MembershipTierRecommendation.currentTier(membership: membership, tiers: []) == nil)
-    }
-
     // MARK: - recommendedTier
 
-    @Test func recommended_freeUser_isFirstPaidTier() {
+    @Test func recommended_noTier_isFirstAvailableTier() {
         let membership = MembershipStatus.mock(tier: nil)
         let recommended = MembershipTierRecommendation.recommendedTier(membership: membership, tiers: tiers)
-        #expect(recommended?.type == MembershipTierType.builder)
+        #expect(recommended?.type == MembershipTierType.starter)
     }
 
     @Test func recommended_midTier_isNextTier() {
@@ -45,7 +26,7 @@ struct MembershipTierRecommendationTests {
         #expect(recommended == nil)
     }
 
-    @Test func recommended_emptyTiers_isNil() {
+    @Test func recommended_noTierAndEmptyTiers_isNil() {
         let membership = MembershipStatus.mock(tier: nil)
         #expect(MembershipTierRecommendation.recommendedTier(membership: membership, tiers: []) == nil)
     }
@@ -58,19 +39,19 @@ struct MembershipTierRecommendationTests {
 
     // MARK: - showAnyName
 
-    @Test func showAnyName_freeTierWithoutAnyName_isFalse() {
-        // Falls back to the first tier (.mockStarter, anyName == .none).
+    @Test func showAnyName_noTier_isFalse() {
         let membership = MembershipStatus.mock(tier: nil)
-        #expect(MembershipTierRecommendation.showAnyName(membership: membership, tiers: tiers) == false)
+        #expect(MembershipTierRecommendation.showAnyName(membership: membership) == false)
     }
 
-    @Test func showAnyName_paidTierWithAnyName_isTrue() {
+    @Test func showAnyName_tierWithoutAnyName_isFalse() {
+        // .mockStarter has anyName == .none.
+        let membership = MembershipStatus.mock(tier: .mockStarter)
+        #expect(MembershipTierRecommendation.showAnyName(membership: membership) == false)
+    }
+
+    @Test func showAnyName_tierWithAnyName_isTrue() {
         let membership = MembershipStatus.mock(tier: .mockBuilder)
-        #expect(MembershipTierRecommendation.showAnyName(membership: membership, tiers: tiers) == true)
-    }
-
-    @Test func showAnyName_emptyTiers_isFalse() {
-        let membership = MembershipStatus.mock(tier: nil)
-        #expect(MembershipTierRecommendation.showAnyName(membership: membership, tiers: []) == false)
+        #expect(MembershipTierRecommendation.showAnyName(membership: membership) == true)
     }
 }
