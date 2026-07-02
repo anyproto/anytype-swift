@@ -3,10 +3,11 @@ import AnytypeCore
 import UIKit
 import DeviceKit
 
-// Single source of truth for the support-email composition. Both Settings > About
-// and the membership "Ask a question" entry point build the same body so support
-// receives full diagnostic info regardless of where the mail was started.
-protocol SupportMailBuilderProtocol: AnyObject, Sendable {
+// Single source of truth for support diagnostics: the technical/full info blocks
+// and the prefilled support `mailto:` URL. Both Settings > About and the membership
+// "Ask a question" entry point compose the same body so support receives full
+// diagnostic info regardless of where the mail was started.
+protocol SupportInfoBuilderProtocol: AnyObject, Sendable {
     // App/account technical info (no device/OS). Shown as copyable tech info.
     func technicalInfo() async -> String
     // technicalInfo plus device model and OS version.
@@ -15,7 +16,7 @@ protocol SupportMailBuilderProtocol: AnyObject, Sendable {
     func supportMailUrl() async -> URL?
 }
 
-final class SupportMailBuilder: SupportMailBuilderProtocol {
+final class SupportInfoBuilder: SupportInfoBuilderProtocol {
 
     private let middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol = Container.shared.middlewareConfigurationProvider()
     private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()

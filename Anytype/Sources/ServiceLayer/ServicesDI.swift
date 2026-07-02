@@ -184,8 +184,8 @@ extension Container {
         self { MiddlewareConfigurationProvider() }.singleton
     }
 
-    var supportMailBuilder: Factory<any SupportMailBuilderProtocol> {
-        self { SupportMailBuilder() }
+    var supportInfoBuilder: Factory<any SupportInfoBuilderProtocol> {
+        self { SupportInfoBuilder() }
     }
     
     var documentsProvider: Factory<any DocumentsProviderProtocol> {

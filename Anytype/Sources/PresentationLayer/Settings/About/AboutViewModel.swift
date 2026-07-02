@@ -9,8 +9,8 @@ final class AboutViewModel {
 
     // MARK: - DI
 
-    @ObservationIgnored @Injected(\.supportMailBuilder)
-    private var supportMailBuilder: any SupportMailBuilderProtocol
+    @ObservationIgnored @Injected(\.supportInfoBuilder)
+    private var supportInfoBuilder: any SupportInfoBuilderProtocol
     @ObservationIgnored
     private weak var output: (any AboutModuleOutput)?
 
@@ -48,7 +48,7 @@ final class AboutViewModel {
     func onContactTap() {
         AnytypeAnalytics.instance().logContactUs()
         Task {
-            openUrl = await supportMailBuilder.supportMailUrl()
+            openUrl = await supportInfoBuilder.supportMailUrl()
         }
     }
     
@@ -65,7 +65,7 @@ final class AboutViewModel {
     func onInfoTap() {
         UISelectionFeedbackGenerator().selectionChanged()
         Task {
-            UIPasteboard.general.string = await supportMailBuilder.fullInfo()
+            UIPasteboard.general.string = await supportInfoBuilder.fullInfo()
             snackBarData = ToastBarData(Loc.copiedToClipboard(Loc.About.techInfo))
         }
     }
@@ -78,8 +78,8 @@ final class AboutViewModel {
     // MARK: - Private
     
     private func setupView() {
-        Task { @MainActor in
-            info = await supportMailBuilder.technicalInfo()
+        Task {
+            info = await supportInfoBuilder.technicalInfo()
         }
     }
 

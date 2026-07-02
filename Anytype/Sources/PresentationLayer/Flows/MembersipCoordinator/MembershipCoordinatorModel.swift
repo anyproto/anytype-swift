@@ -21,8 +21,8 @@ final class MembershipCoordinatorModel {
     private var membershipService: any MembershipServiceProtocol
     @ObservationIgnored @Injected(\.membershipStatusStorage)
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
-    @ObservationIgnored @Injected(\.supportMailBuilder)
-    private var supportMailBuilder: any SupportMailBuilderProtocol
+    @ObservationIgnored @Injected(\.supportInfoBuilder)
+    private var supportInfoBuilder: any SupportInfoBuilderProtocol
 
     @ObservationIgnored
     private let initialTierId: Int?
@@ -90,7 +90,7 @@ final class MembershipCoordinatorModel {
     func onAskQuestionTap() {
         AnytypeAnalytics.instance().logContactUs()
         Task {
-            emailUrl = await supportMailBuilder.supportMailUrl()
+            emailUrl = await supportInfoBuilder.supportMailUrl()
         }
     }
 
