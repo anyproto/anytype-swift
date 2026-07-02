@@ -1797,16 +1797,6 @@ public enum Loc {
       public static let description = Loc.tr("Workspace", "Membership.AnyName.Description", fallback: "This is your unique name on the Anytype network. It acts as your personal domain and cannot be changed.")
       public static let select = Loc.tr("Workspace", "Membership.AnyName.Select", fallback: "Select")
     }
-    public enum Banner {
-      public static let subtitle1 = Loc.tr("Workspace", "Membership.Banner.Subtitle1", fallback: "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.")
-      public static let subtitle2 = Loc.tr("Workspace", "Membership.Banner.Subtitle2", fallback: "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.")
-      public static let subtitle3 = Loc.tr("Workspace", "Membership.Banner.Subtitle3", fallback: "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.")
-      public static let subtitle4 = Loc.tr("Workspace", "Membership.Banner.Subtitle4", fallback: "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.")
-      public static let title1 = Loc.tr("Workspace", "Membership.Banner.Title1", fallback: "Build the Vision Together")
-      public static let title2 = Loc.tr("Workspace", "Membership.Banner.Title2", fallback: "Unlock Member Benefits")
-      public static let title3 = Loc.tr("Workspace", "Membership.Banner.Title3", fallback: "Support Digital Independence")
-      public static let title4 = Loc.tr("Workspace", "Membership.Banner.Title4", fallback: "Invest in Connectivity")
-    }
     public enum Code {
       public static let activate = Loc.tr("Workspace", "Membership.Code.Activate", fallback: "Activate")
       public static let entry = Loc.tr("Workspace", "Membership.Code.Entry", fallback: "Activate Code")
