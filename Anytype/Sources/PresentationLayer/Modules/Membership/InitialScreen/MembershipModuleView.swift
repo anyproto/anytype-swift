@@ -71,7 +71,7 @@ struct MembershipModuleView: View {
                             }
 
                             if showAnyNameBlock {
-                                MembershipAnyNameView(name: membership.anyName.formatted) {
+                                MembershipAnyNameView {
                                     onSelectNameTap()
                                 }
                             }

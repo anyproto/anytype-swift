@@ -50,8 +50,18 @@ struct MembershipTierRecommendationTests {
         #expect(MembershipTierRecommendation.showAnyName(membership: membership) == false)
     }
 
-    @Test func showAnyName_tierWithAnyName_isTrue() {
-        let membership = MembershipStatus.mock(tier: .mockBuilder)
+    @Test func showAnyName_tierWithAnyNameAndNoNameSet_isTrue() {
+        let membership = MembershipStatus.mock(tier: .mockBuilder, anyName: .mockEmpty)
         #expect(MembershipTierRecommendation.showAnyName(membership: membership) == true)
+    }
+
+    @Test func showAnyName_nameAlreadyClaimed_isFalse() {
+        let membership = MembershipStatus.mock(tier: .mockBuilder, anyName: .mock)
+        #expect(MembershipTierRecommendation.showAnyName(membership: membership) == false)
+    }
+
+    @Test func showAnyName_pending_isFalse() {
+        let membership = MembershipStatus.mock(tier: .mockBuilder, status: .pending, anyName: .mockEmpty)
+        #expect(MembershipTierRecommendation.showAnyName(membership: membership) == false)
     }
 }
