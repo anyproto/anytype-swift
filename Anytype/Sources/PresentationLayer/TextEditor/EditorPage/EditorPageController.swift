@@ -352,6 +352,7 @@ extension EditorPageController: EditorPageViewInput {
         changes: CollectionDifference<EditorItem>?,
         allModels: [EditorItem],
         isRealData: Bool,
+        animated: Bool,
         completion: @escaping () -> Void
     ) {
         var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
@@ -359,7 +360,7 @@ extension EditorPageController: EditorPageViewInput {
 
         applyBlocksSectionSnapshot(
             blocksSnapshot,
-            animatingDifferences: dataSourceAnimationEnabled,
+            animatingDifferences: animated && dataSourceAnimationEnabled,
             completion: completion
         )
         applyAnimationConfig = isRealData

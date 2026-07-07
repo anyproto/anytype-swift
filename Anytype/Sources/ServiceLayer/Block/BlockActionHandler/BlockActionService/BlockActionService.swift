@@ -55,6 +55,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     func replaceBlock(info: BlockInformation, blockId: String, focusAt: BlockFocusPosition?) async throws -> String {
         let newBlockId = try await blockService.replaceBlock(contextId: documentId, blockId: blockId, info: info)
         SessionCreatedBlockIdsStorage.shared.register(newBlockId)
+        BlockIdentitySwapStorage.shared.register(newBlockId)
 
         if let focusAt {
             cursorManager.blockFocus = BlockFocus(id: newBlockId, position: focusAt)

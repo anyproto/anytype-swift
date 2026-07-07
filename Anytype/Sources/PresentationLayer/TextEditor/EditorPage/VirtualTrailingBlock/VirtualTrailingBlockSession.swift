@@ -136,6 +136,7 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
             position: .bottom
         )
         SessionCreatedBlockIdsStorage.shared.register(blockId)
+        BlockIdentitySwapStorage.shared.register(blockId)
         if let containerInfo = document.infoContainer.get(id: blockId),
            containerInfo.configurationData.parentId.isNotNil {
             return containerInfo

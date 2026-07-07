@@ -144,11 +144,15 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             changes: nil,
             allModels: [shimmeringBlockViewModel],
             isRealData: false,
+            animated: false,
             completion: { }
         )
     }
     
     private func handleUpdate(ids: [String]) {
+        // An identity swap (virtual placeholder → real block, empty-block fork) must not be
+        // rendered as an animated delete+insert of the same visible content.
+        let containsIdentitySwap = BlockIdentitySwapStorage.shared.consumeSwap(in: ids)
         var blocksViewModels = blockBuilder.buildEditorItems(infos: ids, ignoreCache: false)
         if let trailingBlockPlaceholder {
             if let materializedId = trailingBlockPlaceholder.session.materializedBlockId,
@@ -180,7 +184,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             return
         }
 
-        viewInput?.update(changes: difference, allModels: modelsHolder.items, isRealData: true) { [weak self] in
+        viewInput?.update(changes: difference, allModels: modelsHolder.items, isRealData: true, animated: !containsIdentitySwap) { [weak self] in
             guard let self else { return }
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
             initialScrollToBlockIfNeeded()
@@ -356,7 +360,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
 
         modelsHolder.items = items
         guard document.isOpened else { return }
-        viewInput?.update(changes: nil, allModels: items, isRealData: true, completion: { })
+        // The placeholder is a blank line; showing or removing it must be instant — animating
+        // its removal after materialization would double-render the just-created block.
+        viewInput?.update(changes: nil, allModels: items, isRealData: true, animated: false, completion: { })
     }
     
     private func handleTemplateSubscription(details: [ObjectDetails]) {
