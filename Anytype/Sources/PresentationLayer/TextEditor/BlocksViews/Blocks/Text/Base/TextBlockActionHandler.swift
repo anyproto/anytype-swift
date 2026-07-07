@@ -688,6 +688,11 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
             let text = textView.attributedText.sendable()
             Task { try await forkEmptyBlockIfNeeded(carrying: text.value, focusAt: nil) }
         }
+        if let virtualBlockSession, virtualBlockSession.isMaterialized {
+            // The created block's cell has taken first responder over from this placeholder;
+            // the placeholder row can now be removed without touching the keyboard.
+            virtualBlockSession.completeFocusHandoff()
+        }
         let configuration = accessoryConfiguration(using: textView)
 
         collectionController.blockDidFinishEditing()

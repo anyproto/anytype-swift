@@ -24,6 +24,7 @@ protocol VirtualTrailingBlockSessionProtocol: AnyObject {
     func materialize(carrying content: BlockText, focusAt: BlockFocusPosition?) async throws -> VirtualTrailingBlockMaterialization
     func dismiss()
     func dismissAndFocusPreviousBlock()
+    func completeFocusHandoff()
 }
 
 @MainActor
@@ -47,6 +48,10 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
 
     private var state = State.active
     private var isInvalidated = false
+    // True while the focused placeholder cell must stay alive: removing it before the created
+    // block's text view takes first responder briefly dismisses the keyboard (the accessory
+    // bar visibly slides down). Cleared when the placeholder's text view resigns.
+    private(set) var awaitingFocusHandoff = false
 
     init(
         virtualId: String,
@@ -84,9 +89,19 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
     /// but it must no longer grab focus.
     func invalidate() {
         isInvalidated = true
+        awaitingFocusHandoff = false
         if let materializedBlockId, cursorManager.blockFocus?.id == materializedBlockId {
             cursorManager.blockFocus = nil
         }
+    }
+
+    /// Called when the placeholder's text view resigned first responder after materialization —
+    /// the created block's cell has taken over and the placeholder can be removed without
+    /// touching the keyboard.
+    func completeFocusHandoff() {
+        guard case .materialized = state, awaitingFocusHandoff else { return }
+        awaitingFocusHandoff = false
+        onFinish()
     }
 
     func materialize(carrying content: BlockText, focusAt: BlockFocusPosition?) async throws -> VirtualTrailingBlockMaterialization {
@@ -102,6 +117,7 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
                 let info = try await task.value
                 state = .materialized(info)
                 if !isInvalidated {
+                    awaitingFocusHandoff = focusAt.isNotNil
                     applyFocus(focusAt, blockId: info.id)
                 }
                 onFinish()

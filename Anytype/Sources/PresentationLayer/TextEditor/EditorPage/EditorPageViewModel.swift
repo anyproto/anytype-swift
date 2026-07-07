@@ -156,11 +156,14 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         var blocksViewModels = blockBuilder.buildEditorItems(infos: ids, ignoreCache: false)
         if let trailingBlockPlaceholder {
             if let materializedId = trailingBlockPlaceholder.session.materializedBlockId,
-               ids.contains(materializedId) {
-                // The created block replaces the placeholder within this same snapshot,
-                // so the focused text view hands over to the real cell without a gap.
+               ids.contains(materializedId),
+               !trailingBlockPlaceholder.session.awaitingFocusHandoff {
                 cleanupTrailingBlockPlaceholder()
             } else {
+                // While a focus handoff is pending, the focused placeholder cell must survive
+                // the apply that inserts the created block: deleting the first responder's
+                // cell briefly dismisses the keyboard (the accessory bar slides down). The
+                // placeholder is removed when its text view resigns.
                 blocksViewModels.append(trailingBlockPlaceholder.item)
             }
         }
@@ -329,13 +332,17 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
 
     private func deactivateTrailingBlockPlaceholder(waitForMaterializedBlock: Bool = true) {
         guard let trailingBlockPlaceholder else { return }
-        if waitForMaterializedBlock,
-           let materializedId = trailingBlockPlaceholder.session.materializedBlockId,
-           modelsHolder.items.firstIndex(blockId: materializedId) == nil {
-            // The create event hasn't produced the real item yet. handleUpdate swaps the
-            // placeholder for it in one snapshot; removing it now would tear down the
-            // focused text view before the real cell can take over.
-            return
+        if waitForMaterializedBlock {
+            // While the placeholder's text view is still first responder, removing its cell
+            // briefly dismisses the keyboard; completeFocusHandoff finishes the removal.
+            if trailingBlockPlaceholder.session.awaitingFocusHandoff { return }
+            if let materializedId = trailingBlockPlaceholder.session.materializedBlockId,
+               modelsHolder.items.firstIndex(blockId: materializedId) == nil {
+                // The create event hasn't produced the real item yet. handleUpdate swaps the
+                // placeholder for it in one snapshot; removing it now would tear down the
+                // focused text view before the real cell can take over.
+                return
+            }
         }
         cleanupTrailingBlockPlaceholder()
         refreshTrailingBlockPlaceholder()
