@@ -24,7 +24,9 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     // MARK: - State
     
     private var subscription: AnyCancellable?
-    
+    private var handlerRegistration: Task<Void, Never>?
+    private var pendingEvents: [EventsBunch]?
+
     private var data: SubscriptionData?
     private var update: (@Sendable (_ data: SubscriptionStorageState) async -> Void)?
     
@@ -38,7 +40,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         self.detailsStorage = detailsStorage
         self.toggler = toggler
         self.statePublisher = stateSubject.compactMap { $0 }.eraseToAnyPublisher()
-        Task { await setupHandler() }
+        handlerRegistration = Task { await setupHandler() }
     }
     
     deinit {
@@ -66,23 +68,42 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
             stateSubject.send(state)
             return
         }
-        
-        let result = try await toggler.startSubscription(data: data)
-        
+
+        // Ensure the event handler is registered before issuing the subscribe RPC,
+        // so an event that races the response is not missed.
+        await handlerRegistration?.value
+
+        // Capture events arriving during the in-flight subscribe instead of mutating
+        // live state (which the removeAll() + records seed below would wipe).
+        pendingEvents = []
+        let result: SubscriptionTogglerResult
+        do {
+            result = try await toggler.startSubscription(data: data)
+        } catch {
+            pendingEvents = nil
+            throw error
+        }
+
         self.data = data
         self.update = update
-        
+
         detailsStorage.removeAll()
         orderIds.removeAll()
-        
+
         result.records.forEach { detailsStorage.amend(details: $0) }
         result.dependencies.forEach { detailsStorage.amend(details: $0) }
         result.records.forEach { orderIds.append($0.id) }
-        
+
         state.total = result.total
         state.prevCount = result.prevCount
         state.nextCount = result.nextCount
-        
+
+        // Replay events that arrived during the in-flight subscribe so an event-delivered
+        // record missing from the response snapshot is reconciled in.
+        let buffered = pendingEvents
+        pendingEvents = nil
+        buffered?.forEach { applyEvents($0) }
+
         updateItemsCache()
         await update(state)
         stateSubject.send(state)
@@ -96,8 +117,8 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     
     // MARK: - Private
     
-    private func setupHandler() {
-        subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
+    private func setupHandler() async {
+        subscription = await EventBunchSubscribtion.default.addHandlerAwaiting { [weak self] events in
             guard events.contextId.isEmpty else { return }
             await self?.handle(events: events)
         }
@@ -105,9 +126,24 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     
     private func handle(events: EventsBunch) async {
         anytypeAssert(events.localEvents.isEmpty, "Local events with emplty objectId: \(events)")
-        
+
+        // A subscribe RPC is in flight: buffer and reconcile after the response snapshot.
+        if pendingEvents != nil {
+            pendingEvents?.append(events)
+            return
+        }
+
         let oldState = state
-        
+        applyEvents(events)
+
+        if oldState != state {
+            updateItemsCache()
+            await update?(state)
+            stateSubject.send(state)
+        }
+    }
+
+    private func applyEvents(_ events: EventsBunch) {
         for event in events.middlewareEvents {
             switch event.value {
             case .objectDetailsSet(let data):
@@ -125,6 +161,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
                 orderIds.applySubscriptionUpdate(update)
             case .subscriptionAdd(let data):
                 guard idsContainsMySub([data.subID]) else { break }
+                guard !orderIds.contains(data.id) else { break }
                 let update: SubscriptionUpdate = .add(data.id, after: data.afterID.isNotEmpty ? data.afterID : nil)
                 orderIds.applySubscriptionUpdate(update)
             case .subscriptionRemove(let data):
@@ -142,14 +179,8 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
                 break
             }
         }
-        
+
         state.items = orderIds.compactMap { detailsStorage.get(id: $0) }
-        
-        if oldState != state {
-            updateItemsCache()
-            await update?(state)
-            stateSubject.send(state)
-        }
     }
     
     private func idsContainsMySub(_ ids: [String], incudeDeps: Bool = false) -> Bool {
