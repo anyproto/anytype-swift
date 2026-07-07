@@ -38,6 +38,14 @@ public extension FeatureFlags {
         value(for: .preferredSpaceOnColdStart)
     }
 
+    static var virtualTrailingBlock: Bool {
+        value(for: .virtualTrailingBlock)
+    }
+
+    static var forkEmptyBlockOnFill: Bool {
+        value(for: .forkEmptyBlockOnFill)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -132,6 +140,8 @@ public extension FeatureFlags {
         .fixAvatarTapFreeze,
         .muteAndHide,
         .preferredSpaceOnColdStart,
+        .virtualTrailingBlock,
+        .forkEmptyBlockOnFill,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

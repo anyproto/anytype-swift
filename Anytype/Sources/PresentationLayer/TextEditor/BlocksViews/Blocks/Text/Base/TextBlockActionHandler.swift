@@ -46,7 +46,10 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     
     private let cursorManager: EditorCursorManager
     private let accessoryViewStateManager: any AccessoryViewStateManager
-    
+    // Set only for the trailing "tap to type" placeholder. While unmaterialized, mutating
+    // paths must not target `info.id` — the block does not exist in the middleware yet.
+    private let virtualBlockSession: (any VirtualTrailingBlockSessionProtocol)?
+
     @Injected(\.linkToSearchHelper)
     private var linkToSearchHelper: any LinkToSearchHelperProtocol
 
@@ -63,8 +66,14 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     
     // MARK: - Dynamic
     private var changeType: TextChangeType?
-    
+
     var accessoryState: AccessoryViewInputState = .none
+
+    // First fill of an existing empty block replaces it with a fresh identity; see
+    // forkEmptyBlockIfNeeded. Kept for the handler's lifetime — once forked, later calls
+    // only rebind to the already-created block.
+    private var emptyBlockFork: Task<BlockInformation, any Error>?
+    private var pendingForkOldId: String?
 
     init(
         document: some BaseDocumentProtocol,
@@ -91,7 +100,8 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         keyboardHandler: some KeyboardActionHandlerProtocol,
         markupChanger: some BlockMarkupChangerProtocol,
         slashMenuActionHandler: SlashMenuActionHandler,
-        openLinkToObject: @MainActor @escaping (LinkToObjectSearchModuleData) -> Void
+        openLinkToObject: @MainActor @escaping (LinkToObjectSearchModuleData) -> Void,
+        virtualBlockSession: (any VirtualTrailingBlockSessionProtocol)? = nil
     ) {
         self.document = document
         self.info = info
@@ -118,6 +128,103 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         self.markupChanger = markupChanger
         self.slashMenuActionHandler = slashMenuActionHandler
         self.openLinkToObject = openLinkToObject
+        self.virtualBlockSession = virtualBlockSession
+    }
+
+    // MARK: - Virtual trailing block
+
+    private var isVirtualUnmaterialized: Bool {
+        guard let virtualBlockSession else { return false }
+        return !virtualBlockSession.isMaterialized
+    }
+
+    /// Creates the real trailing block carrying `attrText` and rebinds this handler to it.
+    /// Returns true when this call's content was carried by the BlockCreate request, so no
+    /// follow-up text sync is needed.
+    @discardableResult
+    private func materializeVirtualBlock(
+        carrying attrText: NSAttributedString,
+        style: BlockText.Style? = nil,
+        focusAt: BlockFocusPosition?
+    ) async throws -> Bool {
+        guard let virtualBlockSession, !virtualBlockSession.isMaterialized else { return false }
+        guard var content = info.textContent else { return false }
+        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: attrText)
+        content.text = middlewareString.text
+        content.marks = middlewareString.marks
+        if let style {
+            content.contentType = style
+        }
+        let materialization = try await virtualBlockSession.materialize(carrying: content, focusAt: focusAt)
+        info = materialization.info
+        return materialization.contentCarried
+    }
+
+    private func virtualBlockCanSyncTextChange(_ textView: UITextView) -> Bool {
+        // Wait for the IME commit — creating the block mid-composition would bounce the
+        // first responder and break the composition.
+        guard textView.markedTextRange == nil else { return false }
+        // During a slash/mention session typing is a local search filter; the commit paths
+        // (setNewText, didSelectSlashAction) materialize with the final text.
+        if case .search = accessoryState { return false }
+        // Empty text creates nothing, but a deletion racing an in-flight creation must
+        // still propagate to the created block.
+        return textView.attributedText.length > 0 || virtualBlockSession?.isMaterializing == true
+    }
+
+    private func endOfTextFocus(_ attrText: NSAttributedString) -> BlockFocusPosition {
+        .at(NSRange(location: attrText.length, length: 0))
+    }
+
+    // MARK: - Empty block identity fork
+
+    private func canForkEmptyBlockOnFill(_ newText: NSAttributedString) -> Bool {
+        guard FeatureFlags.forkEmptyBlockOnFill else { return false }
+        // The virtual trailing block creates its real block with content directly.
+        guard virtualBlockSession == nil else { return false }
+        guard newText.length > 0 else { return false }
+        guard let content = info.textContent, content.text.isEmpty else { return false }
+        // Replacing a block with children would orphan them.
+        guard info.childrenIds.isEmpty else { return false }
+        switch content.contentType {
+        case .title, .description, .code:
+            return false
+        default:
+            return true
+        }
+    }
+
+    /// First content into an existing empty block forks its identity via BlockReplace: two
+    /// clients filling the same empty block concurrently end up with two blocks — both texts
+    /// survive — instead of one whole-value last-writer-wins text. Returns true when this
+    /// call's content was carried by the replace request.
+    @discardableResult
+    private func forkEmptyBlockIfNeeded(carrying attrText: NSAttributedString, focusAt: BlockFocusPosition?) async throws -> Bool {
+        if let emptyBlockFork {
+            let newInfo = try await emptyBlockFork.value
+            // Rebind only while still pointing at the replaced id — repeated calls must not
+            // keep resetting `info` to the fork-time snapshot.
+            if info.id != newInfo.id {
+                info = newInfo
+            }
+            return false
+        }
+        guard canForkEmptyBlockOnFill(attrText) else { return false }
+
+        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: attrText)
+        let oldInfo = info
+        let task = Task { try await actionHandler.replaceEmptyBlock(info: oldInfo, middlewareString: middlewareString, focusAt: focusAt) }
+        emptyBlockFork = task
+        pendingForkOldId = oldInfo.id
+        do {
+            info = try await task.value
+            return true
+        } catch {
+            emptyBlockFork = nil
+            pendingForkOldId = nil
+            anytypeAssertionFailure("Empty block identity fork failed", info: ["error": error.localizedDescription])
+            throw error
+        }
     }
 
     func textBlockActions() -> TextBlockContentConfiguration.Actions {
@@ -198,6 +305,12 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         
         if mentionDetecter.removeMentionIfNeeded(textView: textView, replacementText: replacementText) {
             Task { @MainActor in
+                if isVirtualUnmaterialized {
+                    let contentCarried = try await materializeVirtualBlock(carrying: textView.attributedText, focusAt: nil)
+                    if contentCarried { return }
+                }
+                let forkCarried = try await forkEmptyBlockIfNeeded(carrying: textView.attributedText, focusAt: nil)
+                if forkCarried { return }
                 try await actionHandler.changeText(textView.attributedText.sendable(), blockId: info.id)
             }
             return false
@@ -212,12 +325,17 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
             replacementText: replacementText,
             range: range
         ) {
+            if isVirtualUnmaterialized {
+                handleVirtualMarkdownChange(markdownChange)
+                return false
+            }
             switch markdownChange {
             case let .turnInto(style, newText):
                 guard let content = info.textContent, content.contentType != style else { return true }
                 guard BlockRestrictionsBuilder.build(content:  info.content).canApplyTextStyle(style) else { return true }
-                
+
                 Task { @MainActor in
+                    try await forkEmptyBlockIfNeeded(carrying: newText, focusAt: .beginning)
                     try await actionHandler.turnInto(style, blockId: info.id)
                     try await setNewText(attributedString: newText.sendable())
                     resetSubject.send(nil)
@@ -225,12 +343,14 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
                 }
             case let .addBlock(type, newText):
                 Task { @MainActor in
+                    try await forkEmptyBlockIfNeeded(carrying: newText, focusAt: .beginning)
                     try await setNewText(attributedString: newText.sendable())
                     try await actionHandler.addBlock(type, blockId: info.id, blockText: newText.sendable(), position: .top)
                     resetSubject.send(nil)
                 }
             case let .addStyle(style, currentText, styleRange, focusRange):
                 Task { @MainActor in
+                    try await forkEmptyBlockIfNeeded(carrying: currentText, focusAt: .at(focusRange))
                     let newText = try await actionHandler.setTextStyle(
                         style,
                         range: styleRange,
@@ -248,6 +368,35 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         }
 
         return true
+    }
+
+    private func handleVirtualMarkdownChange(_ markdownChange: MarkdownChange) {
+        switch markdownChange {
+        case let .turnInto(style, newText):
+            guard let content = info.textContent, content.contentType != style else { return }
+            guard BlockRestrictionsBuilder.build(content: info.content).canApplyTextStyle(style) else { return }
+            resetSubject.send(newText)
+            Task { @MainActor in
+                try await materializeVirtualBlock(carrying: newText, style: style, focusAt: .beginning)
+            }
+        case let .addBlock(type, newText):
+            resetSubject.send(newText)
+            Task { @MainActor in
+                try await materializeVirtualBlock(carrying: newText, focusAt: .beginning)
+                try await actionHandler.addBlock(type, blockId: info.id, blockText: newText.sendable(), position: .top)
+            }
+        case let .addStyle(style, currentText, styleRange, focusRange):
+            let styledText = markupChanger.setMarkup(
+                style,
+                range: styleRange,
+                attributedString: currentText,
+                contentType: info.content.type
+            )
+            resetSubject.send(styledText)
+            Task { @MainActor in
+                try await materializeVirtualBlock(carrying: styledText, focusAt: .at(focusRange))
+            }
+        }
     }
 
     private func makeAttributedString(
@@ -385,11 +534,26 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     }
 
     private func shouldPaste(range: NSRange, textView: UITextView) -> Bool {
-        guard let pasteboardService else { return false }
-        
-        if pasteboardService.hasValidURL {
+        guard pasteboardService != nil else { return false }
+
+        if pasteboardService?.hasValidURL == true {
             return true
         }
+
+        if isVirtualUnmaterialized {
+            Task { @MainActor in
+                try await materializeVirtualBlock(carrying: textView.attributedText, focusAt: .beginning)
+                performPaste(range: range, textView: textView)
+            }
+            return false
+        }
+
+        performPaste(range: range, textView: textView)
+        return false
+    }
+
+    private func performPaste(range: NSRange, textView: UITextView) {
+        guard let pasteboardService else { return }
 
         pasteboardService.pasteInsideBlock(objectId: document.objectId, spaceId: document.spaceId, focusedBlockId: info.id, range: range) { [weak self] in
             self?.showWaitingView(Loc.pasteProcessing)
@@ -409,34 +573,47 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
 
             SharingTip.didCopyText = true
         }
-        return false
     }
 
     private func copy(range: NSRange) {
+        guard !isVirtualUnmaterialized else { return }
         AnytypeAnalytics.instance().logCopyBlock(countBlocks: 1)
         Task {
             try await pasteboardService?.copy(document: document, blocksIds: [info.id], selectedTextRange: range)
         }
     }
-    
+
     private func cut(range: NSRange) {
+        guard !isVirtualUnmaterialized else { return }
         Task {
             try await pasteboardService?.cut(document: document, blocksIds: [info.id], selectedTextRange: range)
         }
     }
 
     private func createEmptyBlock() {
+        guard !isVirtualUnmaterialized else { return }
         actionHandler.createEmptyBlock(parentId: info.id)
     }
 
     private func handleKeyboardAction(action: CustomTextView.KeyboardAction, textView: UITextView) {
         Task { @MainActor in
+            if isVirtualUnmaterialized {
+                if case .delete = action {
+                    virtualBlockSession?.dismissAndFocusPreviousBlock()
+                    return
+                }
+                try await materializeVirtualBlock(carrying: textView.attributedText, focusAt: endOfTextFocus(textView.attributedText))
+            }
+            // A keyboard action racing ahead of the first keystroke's task can become the fork
+            // initiator; carry a real focus so the caret survives either ordering. Actions that
+            // set their own focus afterwards (split/merge) simply overwrite it.
+            try await forkEmptyBlockIfNeeded(carrying: textView.attributedText, focusAt: endOfTextFocus(textView.attributedText))
             try await keyboardHandler.handle(
                 info: info,
                 textView: textView,
                 action: action
             )
-            
+
             viewModel.map { collectionController.reconfigure(items: [.block($0)]) }
         }
     }
@@ -455,7 +632,29 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     private func textViewDidChangeText(textView: UITextView) {
         changeType.map { accessoryViewStateManager.textDidChange(changeType: $0) }
         let text = textView.attributedText.sendable()
-        Task {
+        let caret = textView.selectedRange
+        if isVirtualUnmaterialized {
+            Task { [weak textView] in
+                // Checked after the current call stack unwinds: the toolbar slash/mention
+                // buttons insert their trigger symbol first and open the search session
+                // right after this callback, and that session must stay on this text view.
+                guard let textView, virtualBlockCanSyncTextChange(textView) else { return }
+                let contentCarried = try await materializeVirtualBlock(carrying: text.value, focusAt: .at(caret))
+                guard !contentCarried else { return }
+                try await actionHandler.changeText(text, blockId: info.id)
+            }
+            return
+        }
+        Task { [weak textView] in
+            if emptyBlockFork == nil, canForkEmptyBlockOnFill(text.value) {
+                // Defer the fork to the IME/search-session commit; nothing syncs meanwhile,
+                // so the shared empty register is never written. Checked after the call
+                // stack unwinds so toolbar-inserted "/"/"@" sessions are already open.
+                if let textView, textView.markedTextRange != nil { return }
+                if case .search = accessoryState { return }
+            }
+            let contentCarried = try await forkEmptyBlockIfNeeded(carrying: text.value, focusAt: .at(caret))
+            guard !contentCarried else { return }
             try await actionHandler.changeText(text, blockId: info.id)
         }
     }
@@ -474,8 +673,23 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
 
     @MainActor
     private func textViewDidEndEditing(textView: UITextView) {
+        if isVirtualUnmaterialized {
+            let text = textView.attributedText.sendable()
+            if text.value.length > 0 {
+                // Keep text typed during a still-open slash/mention session or an abandoned
+                // IME composition — losing it on defocus would be worse than creating the block.
+                Task { try await materializeVirtualBlock(carrying: text.value, focusAt: nil) }
+            } else {
+                virtualBlockSession?.dismiss()
+            }
+        } else if emptyBlockFork == nil, canForkEmptyBlockOnFill(textView.attributedText) {
+            // Text held back during a slash/mention session or an IME composition must not
+            // be lost on defocus.
+            let text = textView.attributedText.sendable()
+            Task { try await forkEmptyBlockIfNeeded(carrying: text.value, focusAt: nil) }
+        }
         let configuration = accessoryConfiguration(using: textView)
-        
+
         collectionController.blockDidFinishEditing()
         accessoryViewStateManager.didEndEditing(with: configuration)
     }
@@ -483,16 +697,24 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     @MainActor
     private func textViewDidChangeCaretPosition(textView: UITextView, range: NSRange) {
         accessoryViewStateManager.selectionDidChange(range: range)
+        // A pending focus for a not-yet-created block would shadow the focus handoff to the
+        // real block set during materialization.
+        guard !isVirtualUnmaterialized else { return }
+        // Same for the old id of an in-flight identity fork; after the rebind info.id is the
+        // new id and caret tracking resumes.
+        guard pendingForkOldId != info.id else { return }
         cursorManager.blockFocus = BlockFocus(id: info.id, position: .at(range))
 //        cursorManager.didChangeCursorPosition(at: data.info.id, position: .at(range)) // DO WE NEED IT? WHY?
     }
 
     private func toggleCheckBox() {
+        guard !isVirtualUnmaterialized else { return }
         guard let content = info.textContent else { return }
         actionHandler.checkbox(selected: !content.checked, blockId: info.id)
     }
 
     private func toggleDropdownView() {
+        guard !isVirtualUnmaterialized else { return }
         info.toggle()
         actionHandler.toggle(blockId: info.id)
         viewModel.map { collectionController.reconfigure(items: [.block($0)]) }
@@ -539,6 +761,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
 extension TextBlockActionHandler: AccessoryViewOutput {
     @MainActor
     func showLinkToSearch(range: NSRange, text: NSAttributedString) {
+        guard !isVirtualUnmaterialized else { return }
         linkToSearchHelper.showLinkToSearch(
             range: range,
             text: text,
@@ -569,13 +792,31 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     
     func setNewText(attributedString: SafeNSAttributedString) async throws {
         resetSubject.send(attributedString.value)
+        if isVirtualUnmaterialized {
+            let contentCarried = try await materializeVirtualBlock(
+                carrying: attributedString.value,
+                focusAt: endOfTextFocus(attributedString.value)
+            )
+            if contentCarried { return }
+        }
+        let forkCarried = try await forkEmptyBlockIfNeeded(
+            carrying: attributedString.value,
+            focusAt: endOfTextFocus(attributedString.value)
+        )
+        if forkCarried { return }
         try await actionHandler.changeText(attributedString, blockId: info.id)
-        
+
         viewModel.map { collectionController.itemDidChangeFrame(item: .block($0)) }
     }
-    
+
     func changeText(attributedString: SafeNSAttributedString) {
         Task { @MainActor in
+            if isVirtualUnmaterialized {
+                let contentCarried = try await materializeVirtualBlock(carrying: attributedString.value, focusAt: nil)
+                if contentCarried { return }
+            }
+            let forkCarried = try await forkEmptyBlockIfNeeded(carrying: attributedString.value, focusAt: nil)
+            if forkCarried { return }
             try await actionHandler.changeText(attributedString, blockId: info.id)
         }
     }
@@ -611,6 +852,11 @@ extension TextBlockActionHandler: AccessoryViewOutput {
         at position: Int,
         textView: UITextView?
     ) async throws {
+        if isVirtualUnmaterialized {
+            // setNewText normally materializes first; this covers actions reached without it.
+            try await materializeVirtualBlock(carrying: textView?.attributedText ?? NSAttributedString(), focusAt: nil)
+        }
+        try await forkEmptyBlockIfNeeded(carrying: textView?.attributedText ?? NSAttributedString(), focusAt: nil)
         try await slashMenuActionHandler.handle(
             action,
             textView: textView,
@@ -622,26 +868,46 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     }
     
     func didSelectEditButton() {
+        if isVirtualUnmaterialized {
+            Task { @MainActor in
+                try await materializeVirtualBlock(carrying: NSAttributedString(), focusAt: nil)
+                onEnterSelectionMode(info)
+            }
+            return
+        }
         onEnterSelectionMode(info)
     }
-    
+
     func didSelectShowStyleMenu() {
+        if isVirtualUnmaterialized {
+            Task { @MainActor in
+                try await materializeVirtualBlock(carrying: NSAttributedString(), focusAt: nil)
+                onShowStyleMenu(info)
+            }
+            return
+        }
         onShowStyleMenu(info)
     }
-    
+
     func didSelectUndoRedo() {
         onSelectUndoRedo()
     }
 
     func didSelectDeleteBlock() {
+        if isVirtualUnmaterialized {
+            virtualBlockSession?.dismissAndFocusPreviousBlock()
+            return
+        }
         onDeleteBlock(info)
     }
 
     func didSelectIndentLeft() {
+        guard !isVirtualUnmaterialized else { return }
         onIndentLeft(info)
     }
 
     func didSelectIndentRight() {
+        guard !isVirtualUnmaterialized else { return }
         onIndentRight(info)
     }
 

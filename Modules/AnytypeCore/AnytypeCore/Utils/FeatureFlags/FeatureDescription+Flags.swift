@@ -53,6 +53,18 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
+    static let virtualTrailingBlock = FeatureDescription(
+        title: "Virtual trailing block instead of empty block on tap below content",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "0.49.0"),
+        defaultValue: true
+    )
+
+    static let forkEmptyBlockOnFill = FeatureDescription(
+        title: "Fork block identity (BlockReplace) on first content into an empty block",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "0.49.0"),
+        defaultValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(

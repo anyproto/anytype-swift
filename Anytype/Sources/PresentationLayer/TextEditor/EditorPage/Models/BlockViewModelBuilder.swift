@@ -139,8 +139,100 @@ final class BlockViewModelBuilder {
     
     func buildShimeringItem() -> EditorItem {
         let shimmeringViewModel = ShimmeringBlockViewModel()
-        
+
         return .system(shimmeringViewModel)
+    }
+
+    func buildVirtualTrailingItem(virtualId: String, session: some VirtualTrailingBlockSessionProtocol) -> EditorItem? {
+        guard let info = infoContainer.get(id: virtualId) else { return nil }
+        let blockInformationProvider = BlockModelInfomationProvider(document: document, info: info)
+        let viewModel = makeTextBlockViewModel(
+            info: info,
+            blockInformationProvider: blockInformationProvider,
+            virtualBlockSession: session
+        )
+        return .block(viewModel)
+    }
+
+    private func makeTextBlockViewModel(
+        info: BlockInformation,
+        blockInformationProvider: BlockModelInfomationProvider,
+        virtualBlockSession: (any VirtualTrailingBlockSessionProtocol)? = nil
+    ) -> TextBlockViewModel {
+        let textBlockActionHandler = TextBlockActionHandler(
+            document: document,
+            info: info,
+            focusSubject: subjectsHolder.focusSubject(for: info.id),
+            showObject: { [weak self] objectId in
+                self?.router.showObject(objectId: objectId)
+            },
+            openURL: { [weak output] url in
+                output?.openUrl(url)
+            },
+            onShowStyleMenu: { [weak self] blockInformation in
+                Task { @MainActor [weak self] in
+                    self?.editorPageBlocksStateManager.didSelectStyleSelection(infos: [blockInformation])
+                }
+            },
+            onEnterSelectionMode: { [weak self] blockInformation in
+                Task { @MainActor [weak self] in
+                    self?.editorPageBlocksStateManager.didSelectEditingState(info: blockInformation)
+                }
+
+            },
+            onSelectUndoRedo: { [weak self] in
+                self?.output?.didUndoRedo()
+            },
+            onDeleteBlock: { [weak self] blockInformation in
+                self?.handler.delete(blockIds: [blockInformation.id])
+            },
+            onIndentLeft: { [weak self] blockInformation in
+                self?.indentLeft(blockInformation: blockInformation)
+            },
+            onIndentRight: { [weak self] blockInformation in
+                self?.indentRight(blockInformation: blockInformation)
+            },
+            showTextIconPicker: { [weak router, weak document] in
+                guard let router, let document else { return }
+                router.showTextIconPicker(
+                    contextId: document.objectId,
+                    objectId: info.id
+                )
+            },
+            showWaitingView: { [weak router] text in
+                router?.showWaitingView(text: text)
+            },
+            hideWaitingView: {  [weak router] in
+                router?.hideWaitingView()
+            },
+            showURLBookmarkPopup: { [weak router] parameters in
+                router?.showLinkContextualMenu(inputParameters: parameters)
+            },
+            actionHandler: handler,
+            pasteboardService: pasteboardService,
+            markdownListener: markdownListener,
+            collectionController: blockCollectionController,
+            cursorManager: cursorManager,
+            accessoryViewStateManager: accessoryStateManager,
+            keyboardHandler: keyboardActionHandler,
+            markupChanger: markupChanger,
+            slashMenuActionHandler: slashMenuActionHandler,
+            openLinkToObject: { [weak self] data in
+                self?.output?.showLinkToObject(data: data)
+            },
+            virtualBlockSession: virtualBlockSession
+        )
+        let viewModel = TextBlockViewModel(
+            document: document,
+            blockInformationProvider: blockInformationProvider,
+            actionHandler: textBlockActionHandler,
+            cursorManager: cursorManager,
+            collectionController: blockCollectionController
+        )
+
+        textBlockActionHandler.viewModel = viewModel
+
+        return viewModel
     }
     
     private func build(_ ids: [String], ignoreCache: Bool) -> [any BlockViewModelProtocol] {
@@ -178,79 +270,10 @@ final class BlockViewModelBuilder {
                     }
                 )
             default:
-                let textBlockActionHandler = TextBlockActionHandler(
-                    document: document,
+                return makeTextBlockViewModel(
                     info: info,
-                    focusSubject: subjectsHolder.focusSubject(for: info.id),
-                    showObject: { [weak self] objectId in
-                        self?.router.showObject(objectId: objectId)
-                    },
-                    openURL: { [weak output] url in
-                        output?.openUrl(url)
-                    },
-                    onShowStyleMenu: { [weak self] blockInformation in
-                        Task { @MainActor [weak self] in
-                            self?.editorPageBlocksStateManager.didSelectStyleSelection(infos: [blockInformation])
-                        }
-                    },
-                    onEnterSelectionMode: { [weak self] blockInformation in
-                        Task { @MainActor [weak self] in
-                            self?.editorPageBlocksStateManager.didSelectEditingState(info: blockInformation)
-                        }
-                        
-                    },
-                    onSelectUndoRedo: { [weak self] in
-                        self?.output?.didUndoRedo()
-                    },
-                    onDeleteBlock: { [weak self] blockInformation in
-                        self?.handler.delete(blockIds: [blockInformation.id])
-                    },
-                    onIndentLeft: { [weak self] blockInformation in
-                        self?.indentLeft(blockInformation: blockInformation)
-                    },
-                    onIndentRight: { [weak self] blockInformation in
-                        self?.indentRight(blockInformation: blockInformation)
-                    },
-                    showTextIconPicker: { [weak router, weak document] in
-                        guard let router, let document else { return }
-                        router.showTextIconPicker(
-                            contextId: document.objectId,
-                            objectId: info.id
-                        )
-                    },
-                    showWaitingView: { [weak router] text in
-                        router?.showWaitingView(text: text)
-                    },
-                    hideWaitingView: {  [weak router] in
-                        router?.hideWaitingView()
-                    },
-                    showURLBookmarkPopup: { [weak router] parameters in
-                        router?.showLinkContextualMenu(inputParameters: parameters)
-                    },
-                    actionHandler: handler,
-                    pasteboardService: pasteboardService,
-                    markdownListener: markdownListener,
-                    collectionController: blockCollectionController,
-                    cursorManager: cursorManager,
-                    accessoryViewStateManager: accessoryStateManager,
-                    keyboardHandler: keyboardActionHandler,
-                    markupChanger: markupChanger,
-                    slashMenuActionHandler: slashMenuActionHandler,
-                    openLinkToObject: { [weak self] data in
-                        self?.output?.showLinkToObject(data: data)
-                    }
+                    blockInformationProvider: blockInformationProvider
                 )
-                let viewModel = TextBlockViewModel(
-                    document: document,
-                    blockInformationProvider: blockInformationProvider,
-                    actionHandler: textBlockActionHandler,
-                    cursorManager: cursorManager,
-                    collectionController: blockCollectionController
-                )
-                
-                textBlockActionHandler.viewModel = viewModel
-                
-                return viewModel
             }
         case let .file(content):
             switch content.contentType {

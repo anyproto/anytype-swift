@@ -467,7 +467,9 @@ final class EditorSetViewModel: ObservableObject {
         if let details = setDocument.details {
             titleString = details.setTitle
 
-            titleSubscription = $titleString.sink { [weak self] newValue in
+            // Same-value publishes (e.g. SwiftUI focus/blur) must not reach setText — every
+            // write hits the whole-value LWW text register and can clobber a peer edit.
+            titleSubscription = $titleString.removeDuplicates().sink { [weak self] newValue in
                 self?.updateTextFieldData(newValue: newValue, blockId: CustomRelationKey.title.rawValue) {
                     self?.descriptionString = $0
                 }
@@ -479,7 +481,7 @@ final class EditorSetViewModel: ObservableObject {
         if let details = setDocument.details {
             descriptionString = details.description
 
-            descriptionSubscription = $descriptionString.sink { [weak self] newValue in
+            descriptionSubscription = $descriptionString.removeDuplicates().sink { [weak self] newValue in
                 self?.updateTextFieldData(newValue: newValue, blockId: BundledPropertyKey.description.rawValue) {
                     self?.titleString = $0
                 }

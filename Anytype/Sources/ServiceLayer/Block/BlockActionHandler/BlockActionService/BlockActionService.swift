@@ -43,12 +43,24 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) async throws -> String {
         let blockId = try await blockService.add(contextId: documentId, targetId: targetBlockId, info: info, position: position)
-        
+        SessionCreatedBlockIdsStorage.shared.register(blockId)
+
         if setFocus {
             cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
         }
-        
+
         return blockId
+    }
+
+    func replaceBlock(info: BlockInformation, blockId: String, focusAt: BlockFocusPosition?) async throws -> String {
+        let newBlockId = try await blockService.replaceBlock(contextId: documentId, blockId: blockId, info: info)
+        SessionCreatedBlockIdsStorage.shared.register(newBlockId)
+
+        if let focusAt {
+            cursorManager.blockFocus = BlockFocus(id: newBlockId, position: focusAt)
+        }
+
+        return newBlockId
     }
 
     func setAndSplit(
@@ -71,6 +83,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             style: newBlockContentType,
             mode: mode
         )
+        SessionCreatedBlockIdsStorage.shared.register(blockId)
 
         cursorManager.focus(at: blockId, position: .beginning)
         cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)

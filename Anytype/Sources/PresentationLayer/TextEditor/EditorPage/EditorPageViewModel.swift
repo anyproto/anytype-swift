@@ -44,6 +44,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     lazy var subscriptions = [AnyCancellable]()
     private var didScrollToInitialBlock = false
     private var publishState: PublishState?
+    private var trailingBlockPlaceholder: (session: VirtualTrailingBlockSession, item: EditorItem)?
 
     @Published var bottomPanelHidden: Bool = false
     @Published var bottomPanelHiddenAnimated: Bool = true
@@ -102,6 +103,14 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             self?.viewInput?.update(permissions: permissions)
             self?.blocksStateManager.checkOpenedState()
         }.store(in: &subscriptions)
+
+        blocksStateManager.editorEditingStatePublisher.receiveOnMain().sink { [weak self] state in
+            guard let self, let trailingBlockPlaceholder else { return }
+            if case .editing = state { return }
+            // An in-flight creation must not grab focus once the editor left editing mode.
+            trailingBlockPlaceholder.session.invalidate()
+            deactivateTrailingBlockPlaceholder(waitForMaterializedBlock: false)
+        }.store(in: &subscriptions)
         
         headerModel.$header.receiveOnMain().sink { [weak self] value in
             guard let headerModel = value else { return }
@@ -140,7 +149,17 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     }
     
     private func handleUpdate(ids: [String]) {
-        let blocksViewModels = blockBuilder.buildEditorItems(infos: ids, ignoreCache: false)
+        var blocksViewModels = blockBuilder.buildEditorItems(infos: ids, ignoreCache: false)
+        if let trailingBlockPlaceholder {
+            if let materializedId = trailingBlockPlaceholder.session.materializedBlockId,
+               ids.contains(materializedId) {
+                // The created block replaces the placeholder within this same snapshot,
+                // so the focused text view hands over to the real cell without a gap.
+                cleanupTrailingBlockPlaceholder()
+            } else {
+                blocksViewModels.append(trailingBlockPlaceholder.item)
+            }
+        }
 
         let wasEmpty = modelsHolder.items.isEmpty
         let difference = modelsHolder.difference(between: blocksViewModels)
@@ -237,8 +256,107 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         viewInput?.update(syncStatusData: data)
     }
     
-    func tapOnEmptyPlace() {
-        actionHandler.createEmptyBlock(parentId: document.objectId)
+    func tapOnEmptyPlace(isBelowContent: Bool) {
+        guard FeatureFlags.virtualTrailingBlock else {
+            actionHandler.createEmptyBlock(parentId: document.objectId)
+            return
+        }
+        guard isBelowContent, document.permissions.canEditBlocks else { return }
+
+        if let trailingBlockPlaceholder {
+            cursorManager.focus(at: trailingBlockPlaceholder.session.virtualId, position: .beginning)
+            return
+        }
+
+        // Focus-reuse only an empty trailing block created by this session. A foreign empty
+        // last block would make concurrent cursors from different clients converge on the
+        // same block id, which loses text on whole-value last-writer-wins sync.
+        if let lastModel = lastBlockViewModel,
+           lastModel.info.isTextAndEmpty,
+           lastModel.info.textContent?.contentType == .text,
+           SessionCreatedBlockIdsStorage.shared.contains(lastModel.info.id) {
+            lastModel.set(focus: .beginning)
+            return
+        }
+
+        activateTrailingBlockPlaceholder()
+    }
+
+    private var lastBlockViewModel: (any BlockViewModelProtocol)? {
+        for item in modelsHolder.items.reversed() {
+            if case let .block(model) = item { return model }
+        }
+        return nil
+    }
+
+    private func activateTrailingBlockPlaceholder() {
+        let virtualId = TrailingBlockPlaceholderConstants.idPrefix + UUID().uuidString
+        let info = BlockInformation(
+            id: virtualId,
+            content: .text(.empty(contentType: .text)),
+            backgroundColor: nil,
+            horizontalAlignment: .left,
+            childrenIds: [],
+            configurationData: BlockInformationMetadata(parentId: document.objectId, backgroundColor: .default),
+            fields: [:]
+        )
+        document.infoContainer.add(info)
+
+        let session = VirtualTrailingBlockSession(
+            virtualId: virtualId,
+            document: document,
+            cursorManager: cursorManager,
+            modelsHolder: modelsHolder,
+            collectionController: EditorBlockCollectionController(viewInput: viewInput),
+            onFinish: { [weak self] in
+                self?.deactivateTrailingBlockPlaceholder()
+            }
+        )
+
+        guard let item = blockBuilder.buildVirtualTrailingItem(virtualId: virtualId, session: session) else {
+            document.infoContainer.remove(id: virtualId)
+            return
+        }
+
+        trailingBlockPlaceholder = (session, item)
+        cursorManager.blockFocus = BlockFocus(id: virtualId, position: .beginning)
+        refreshTrailingBlockPlaceholder()
+    }
+
+    private func deactivateTrailingBlockPlaceholder(waitForMaterializedBlock: Bool = true) {
+        guard let trailingBlockPlaceholder else { return }
+        if waitForMaterializedBlock,
+           let materializedId = trailingBlockPlaceholder.session.materializedBlockId,
+           modelsHolder.items.firstIndex(blockId: materializedId) == nil {
+            // The create event hasn't produced the real item yet. handleUpdate swaps the
+            // placeholder for it in one snapshot; removing it now would tear down the
+            // focused text view before the real cell can take over.
+            return
+        }
+        cleanupTrailingBlockPlaceholder()
+        refreshTrailingBlockPlaceholder()
+    }
+
+    private func cleanupTrailingBlockPlaceholder() {
+        guard let trailingBlockPlaceholder else { return }
+        self.trailingBlockPlaceholder = nil
+        document.infoContainer.remove(id: trailingBlockPlaceholder.session.virtualId)
+        if cursorManager.blockFocus?.id == trailingBlockPlaceholder.session.virtualId {
+            cursorManager.blockFocus = nil
+        }
+    }
+
+    private func refreshTrailingBlockPlaceholder() {
+        var items = modelsHolder.items.filter {
+            !$0.blockId.hasPrefix(TrailingBlockPlaceholderConstants.idPrefix)
+        }
+        if let trailingBlockPlaceholder {
+            items.append(trailingBlockPlaceholder.item)
+        }
+
+        modelsHolder.items = items
+        guard document.isOpened else { return }
+        viewInput?.update(changes: nil, allModels: items, isRealData: true, completion: { })
     }
     
     private func handleTemplateSubscription(details: [ObjectDetails]) {
@@ -363,6 +481,10 @@ extension EditorPageViewModel {
     func cursorFocus(blockId: String) {
         cursorManager.restoreLastFocus(at: blockId)
     }
+}
+
+private enum TrailingBlockPlaceholderConstants {
+    static let idPrefix = "virtual-trailing-block-"
 }
 
 // MARK: - Debug
