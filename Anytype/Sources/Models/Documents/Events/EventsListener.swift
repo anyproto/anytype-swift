@@ -101,15 +101,34 @@ actor EventsListener: EventsListenerProtocol {
     private func handle(events: EventsBunch) {
         let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter.convert($0) }
         let localUpdates = events.localEvents.flatMap { localConverter.convert($0) }
-        let markupUpdates = mentionMarkupEventProvider.updateMentionsEvent()
 
-        let builderChangedIds = IndentationBuilder.build(
-            container: infoContainer,
-            id: objectId
-        )
-        let builderUpdates: [DocumentUpdate] = builderChangedIds.map { .block(blockId: $0) }
-    
+        // Both walks below are O(document size). Mention texts depend on block
+        // content and on details of mentioned objects; indentation metadata and
+        // numbered-list values depend on block changes only.
+        let convertedUpdates = middlewareUpdates + localUpdates
+        let hasBlockUpdates = convertedUpdates.contains { update in
+            switch update {
+            case .general, .block, .unhandled:
+                return true
+            default:
+                return false
+            }
+        }
+        let hasDetailsUpdates = convertedUpdates.contains { update in
+            guard case .details = update else { return false }
+            return true
+        }
+
+        let markupUpdates = hasBlockUpdates || hasDetailsUpdates
+            ? mentionMarkupEventProvider.updateMentionsEvent()
+            : []
+
+        let builderUpdates: [DocumentUpdate] = hasBlockUpdates
+            ? IndentationBuilder.build(container: infoContainer, id: objectId).map { .block(blockId: $0) }
+            : []
+
         let updates = middlewareUpdates + markupUpdates + localUpdates + builderUpdates
+        guard updates.isNotEmpty else { return }
         receiveUpdates(updates)
     }
     
