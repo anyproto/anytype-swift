@@ -52,25 +52,36 @@ public class ServiceMessageHandlerAdapter: @unchecked Sendable {
 
 /// Private `ServiceMessageHandlerProtocol` adoption.
 fileprivate final class ServiceMessageHandler: NSObject, Sendable, ServiceMessageHandlerProtocol {
-    
-    let handler: @Sendable (_ event: Anytype_Event) async -> Void
-    
+
+    // A Task per incoming chunk gives no FIFO guarantee — reordered events
+    // (e.g. subscriptionAdd after the amend that follows it) corrupt storages.
+    // Chunks are buffered in arrival order and drained by a single consumer.
+    private let continuation: AsyncStream<Data>.Continuation
+    private let consumer: Task<Void, Never>
+
     init(handler: @escaping @Sendable (_: Anytype_Event) async -> Void) {
-        self.handler = handler
-    }
-    
-    public func handle(_ data: Data?) {
-        Task {
-            guard let data = data,
-                  let event = try? Anytype_Event(serializedBytes: data)
-            else { return }
-            
-            log(event: event)
-            await handler(event)
+        let (stream, continuation) = AsyncStream.makeStream(of: Data.self)
+        self.continuation = continuation
+        self.consumer = Task {
+            for await data in stream {
+                guard let event = try? Anytype_Event(serializedBytes: data) else { continue }
+                Self.log(event: event)
+                await handler(event)
+            }
         }
     }
-    
-    private func log(event: Anytype_Event) {
+
+    deinit {
+        continuation.finish()
+        consumer.cancel()
+    }
+
+    public func handle(_ data: Data?) {
+        guard let data else { return }
+        continuation.yield(data)
+    }
+
+    private static func log(event: Anytype_Event) {
         guard let handler = InvocationSettings.handler, handler.isLogEnabled else { return }
 
         let responseJsonData = try? event.jsonUTF8Data()
