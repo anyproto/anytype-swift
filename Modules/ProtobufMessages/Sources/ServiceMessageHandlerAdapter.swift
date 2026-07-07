@@ -36,13 +36,22 @@ public class ServiceMessageHandlerAdapter: @unchecked Sendable {
         handlers.removeAll { $0.value == nil }
         handlers.append(WeakHandler(handler))
     }
-    
+
+    private func currentHandlers() -> [WeakHandler] {
+        lock.lock()
+        defer { lock.unlock() }
+        return handlers
+    }
+
     private func listen() {
         lock.lock()
         defer { lock.unlock() }
         listener = ServiceMessageHandler { [weak self] event in
             guard let self else { return }
-            for handler in handlers {
+            // Snapshot under the lock and release it before awaiting: reading
+            // `handlers` unsynchronized races with `addHandler`, and the lock
+            // must not be held across the suspension point.
+            for handler in currentHandlers() {
                 await handler.value?.handle(event)
             }
         }
