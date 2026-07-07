@@ -71,16 +71,17 @@ fileprivate final class ServiceMessageHandler: NSObject, Sendable, ServiceMessag
     }
     
     private func log(event: Anytype_Event) {
-        
+        guard let handler = InvocationSettings.handler, handler.isLogEnabled else { return }
+
         let responseJsonData = try? event.jsonUTF8Data()
         let messageNames = responseJsonData?.parseMessages() ?? ""
-        
+
         let message = InvocationMessage(
             name: "Events:\(messageNames)",
             requestJsonData: nil,
             responseJsonData: responseJsonData,
             responseError: nil
         )
-        InvocationSettings.handler?.logHandler(message: message)
+        handler.logHandler(message: message)
     }
 }
