@@ -32,6 +32,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private var participantStorage: any ParticipantsStorageProtocol
     @Injected(\.publishedUrlBuilder)
     private var publishedUrlBuilder: any PublishedUrlBuilderProtocol
+    @Injected(\.blockIdentitySwapStorage)
+    private var blockIdentitySwapStorage: any BlockIdentitySwapStorageProtocol
     
     
     private let cursorManager: EditorCursorManager
@@ -152,7 +154,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private func handleUpdate(ids: [String]) {
         // An identity swap (virtual placeholder → real block, empty-block fork) must not be
         // rendered as an animated delete+insert of the same visible content.
-        let containsIdentitySwap = BlockIdentitySwapStorage.shared.consumeSwap(in: ids)
+        let containsIdentitySwap = blockIdentitySwapStorage.consumeSwap(in: ids)
         var blocksViewModels = blockBuilder.buildEditorItems(infos: ids, ignoreCache: false)
         if let trailingBlockPlaceholder {
             if let materializedId = trailingBlockPlaceholder.session.materializedBlockId,

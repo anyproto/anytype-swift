@@ -45,6 +45,8 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
 
     @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
+    @Injected(\.blockIdentitySwapStorage)
+    private var blockIdentitySwapStorage: any BlockIdentitySwapStorageProtocol
 
     private var state = State.active
     private var isInvalidated = false
@@ -152,7 +154,7 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
             position: .bottom
         )
         SessionCreatedBlockIdsStorage.shared.register(blockId)
-        BlockIdentitySwapStorage.shared.register(blockId)
+        blockIdentitySwapStorage.register(blockId)
         if let containerInfo = document.infoContainer.get(id: blockId),
            containerInfo.configurationData.parentId.isNotNil {
             return containerInfo
