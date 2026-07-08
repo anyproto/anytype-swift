@@ -137,7 +137,11 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         }
 
         let oldState = state
-        applyEvents(events)
+
+        // Every event bunch in the app reaches every subscription. Rebuilding items +
+        // comparing state for bunches that touched nothing here is pure waste, so skip
+        // when no event applied to this sub.
+        guard applyEvents(events) else { return }
         updateItemsCache()
 
         if oldState != state {
@@ -146,30 +150,38 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         }
     }
 
-    private func applyEvents(_ events: EventsBunch) {
+    @discardableResult
+    private func applyEvents(_ events: EventsBunch) -> Bool {
+        var didMutate = false
         for event in events.middlewareEvents {
             switch event.value {
             case .objectDetailsSet(let data):
                 guard idsContainsMySub(data.subIds, incudeDeps: true) else { break }
                 _ = detailsStorage.set(data: data)
+                didMutate = true
             case .objectDetailsAmend(let data):
                 guard idsContainsMySub(data.subIds, incudeDeps: true) else { break }
                 _ = detailsStorage.amend(data: data)
+                didMutate = true
             case .objectDetailsUnset(let data):
                 guard idsContainsMySub(data.subIds, incudeDeps: true) else { break }
                 _ = detailsStorage.unset(data: data)
+                didMutate = true
             case .subscriptionPosition(let data):
                 guard idsContainsMySub([data.subID]) else { break }
                 let update: SubscriptionUpdate = .move(from: data.id, after: data.afterID.isNotEmpty ? data.afterID : nil)
                 orderIds.applySubscriptionUpdate(update)
+                didMutate = true
             case .subscriptionAdd(let data):
                 guard idsContainsMySub([data.subID]) else { break }
                 let update: SubscriptionUpdate = .add(data.id, after: data.afterID.isNotEmpty ? data.afterID : nil)
                 orderIds.applySubscriptionUpdate(update)
+                didMutate = true
             case .subscriptionRemove(let data):
                 guard idsContainsMySub([data.subID]) else { break }
                 let update: SubscriptionUpdate = .remove(data.id)
                 orderIds.applySubscriptionUpdate(update)
+                didMutate = true
             case .objectRemove:
                 break // unsupported (Not supported in middleware converter also)
             case .subscriptionCounters(let data):
@@ -177,10 +189,13 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
                 state.total = Int(data.total)
                 state.nextCount = Int(data.nextCount)
                 state.prevCount = Int(data.prevCount)
+                didMutate = true
             default:
                 break
             }
         }
+
+        return didMutate
     }
 
     private func idsContainsMySub(_ ids: [String], incudeDeps: Bool = false) -> Bool {

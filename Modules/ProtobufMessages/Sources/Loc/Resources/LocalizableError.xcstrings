@@ -1,6 +1,127 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Membership.CodeGetInfo.alreadyUsed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Membership already exists for the current identity"
+          }
+        }
+      }
+    },
+    "Membership.CodeGetInfo.badInput" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bad input"
+          }
+        }
+      }
+    },
+    "Membership.CodeGetInfo.notFound" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The code is not valid. Please check and try again."
+          }
+        }
+      }
+    },
+    "Membership.CodeGetInfo.notLoggedIn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not logged in"
+          }
+        }
+      }
+    },
+    "Membership.CodeGetInfo.paymentNodeError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No connection to payment node. Please try again."
+          }
+        }
+      }
+    },
+    "Membership.CodeRedeem.alreadyUsed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Membership already exists for the current identity"
+          }
+        }
+      }
+    },
+    "Membership.CodeRedeem.badAnyname" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid name"
+          }
+        }
+      }
+    },
+    "Membership.CodeRedeem.badInput" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bad input"
+          }
+        }
+      }
+    },
+    "Membership.CodeRedeem.notFound" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The code is not valid. Please check and try again."
+          }
+        }
+      }
+    },
+    "Membership.CodeRedeem.notLoggedIn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not logged in"
+          }
+        }
+      }
+    },
+    "Membership.CodeRedeem.paymentNodeError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No connection to payment node. Please try again."
+          }
+        }
+      }
+    },
     "Membership.IsNameValid.badInput" : {
       "extractionState" : "manual",
       "localizations" : {

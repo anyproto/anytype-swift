@@ -1,7 +1,6 @@
 import Foundation
 import AnytypeCore
 import UIKit
-import DeviceKit
 import AudioToolbox
 
 @MainActor
@@ -10,17 +9,10 @@ final class AboutViewModel {
 
     // MARK: - DI
 
-    @ObservationIgnored @Injected(\.middlewareConfigurationProvider)
-    private var middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol
-    @ObservationIgnored @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
+    @ObservationIgnored @Injected(\.supportInfoBuilder)
+    private var supportInfoBuilder: any SupportInfoBuilderProtocol
     @ObservationIgnored
     private weak var output: (any AboutModuleOutput)?
-
-    @ObservationIgnored
-    private var appVersion: String? = MetadataProvider.appVersion
-    @ObservationIgnored
-    private var buildNumber: String? = MetadataProvider.buildNumber
 
     // MARK: - State
 
@@ -55,12 +47,9 @@ final class AboutViewModel {
     
     func onContactTap() {
         AnytypeAnalytics.instance().logContactUs()
-        let mailLink = MailUrl(
-            to: AboutApp.supportMailTo,
-            subject: Loc.About.Mail.subject(accountManager.account.id),
-            body: Loc.About.Mail.body(fullInfo())
-        )
-        openUrl = mailLink.url
+        Task {
+            openUrl = await supportInfoBuilder.supportMailUrl()
+        }
     }
     
     func onTermOfUseTap() {
@@ -75,8 +64,10 @@ final class AboutViewModel {
     
     func onInfoTap() {
         UISelectionFeedbackGenerator().selectionChanged()
-        UIPasteboard.general.string = fullInfo()
-        snackBarData = ToastBarData(Loc.copiedToClipboard(Loc.About.techInfo))
+        Task {
+            UIPasteboard.general.string = await supportInfoBuilder.fullInfo()
+            snackBarData = ToastBarData(Loc.copiedToClipboard(Loc.About.techInfo))
+        }
     }
     
     func onDebugMenuTap() {
@@ -87,29 +78,12 @@ final class AboutViewModel {
     // MARK: - Private
     
     private func setupView() {
-        Task { @MainActor in
-            let libraryVersion = try? await middlewareConfigurationProvider.libraryVersion()
-            
-            info = [
-                Loc.About.appVersion(appVersion ?? ""),
-                Loc.About.buildNumber(buildNumber ?? ""),
-                Loc.About.library(libraryVersion ?? ""),
-                Loc.About.anytypeId(accountManager.account.id),
-                Loc.About.deviceId(accountManager.account.info.deviceId),
-                Loc.About.analyticsId(accountManager.account.info.analyticsId)
-            ].joined(separator: "\n")
+        Task {
+            info = await supportInfoBuilder.technicalInfo()
         }
     }
-    
+
     private func handleUrl(string: String) {
         safariUrl = URL(string: string)
-    }
-    
-    private func fullInfo() -> String {
-        return [
-            Loc.About.device(Device.current.safeDescription),
-            Loc.About.osVersion(UIDevice.current.systemVersion),
-            info
-        ].joined(separator: "\n")
     }
 }

@@ -301,7 +301,10 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol, 
         }
     }
     
-    private func textViewWillBeginEditing(textView: UITextView) {}
+    @MainActor
+    private func textViewWillBeginEditing(textView: UITextView) {
+        accessoryViewStateManager.willBeginEditing(with: accessoryConfiguration(using: textView))
+    }
     
     @MainActor
     private func textViewDidBeginEditing(textView: UITextView) {

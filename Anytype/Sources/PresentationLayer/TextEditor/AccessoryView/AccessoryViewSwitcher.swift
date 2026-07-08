@@ -80,7 +80,24 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func clearAccessory() {
         cursorModeAccessoryView.isHidden = true
     }
-    
+
+    /// Attaches the accessory the upcoming session will show, without reloading input views.
+    /// Called before the text view becomes first responder, so the keyboard presents with the
+    /// bar already in place; the later show call early-returns on the same instance.
+    func preattachAccessoryView(to configuration: TextViewAccessoryConfiguration) {
+        let view: UIView
+        if configuration.textView.selectedRange.length != .zero {
+            view = markupAccessoryView
+        } else {
+            let isSelectType = document.details?.isSelectType ?? false
+            let canSelectType = document.permissions.canChangeType
+            let showTypePicker = isSelectType && canSelectType && !typePickerDismissedByUser
+            view = showTypePicker ? changeTypeView : cursorModeAccessoryView
+        }
+        view.transform = .identity
+        configuration.textView.inputAccessoryView = view
+    }
+
     // MARK: - Private methods
     private func showAccessoryView(_ view: AccessoryViewType, animation: Bool = false) {
         guard let textView = configuration?.textView else { return }

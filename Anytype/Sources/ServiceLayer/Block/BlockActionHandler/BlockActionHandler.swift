@@ -207,9 +207,62 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         return newText
     }
     
+    // First content into an existing empty block forks its identity: BlockReplace removes the
+    // old id and creates a fresh one carrying the content in a single atomic change, so two
+    // clients filling the same empty block concurrently end up with two blocks instead of one
+    // last-writer-wins text.
+    func replaceEmptyBlock(info: BlockInformation, middlewareString: MiddlewareString, focusAt: BlockFocusPosition?) async throws -> BlockInformation {
+        guard var content = info.textContent else {
+            anytypeAssertionFailure("Replace of a non-text block")
+            throw CommonError.undefined
+        }
+        content.text = middlewareString.text
+        content.marks = middlewareString.marks
+
+        // No id — the middleware generates a fresh one. Everything else the empty block had
+        // (style, checked, color, background, align) is carried over. `fields` is set on the
+        // model but BlockInformationConverter currently drops it from the wire request.
+        let replacement = BlockInformation(
+            id: "",
+            content: .text(content),
+            backgroundColor: info.backgroundColor,
+            horizontalAlignment: info.horizontalAlignment,
+            childrenIds: [],
+            configurationData: info.configurationData,
+            fields: info.fields
+        )
+
+        let newBlockId = try await service.replaceBlock(info: replacement, blockId: info.id, focusAt: focusAt)
+
+        if let containerInfo = document.infoContainer.get(id: newBlockId),
+           containerInfo.configurationData.parentId.isNotNil {
+            return containerInfo
+        }
+        // The replace event may not be applied yet when the response returns; downstream
+        // consumers (keyboard handler) need at least id and parentId.
+        return BlockInformation(
+            id: newBlockId,
+            content: .text(content),
+            backgroundColor: info.backgroundColor,
+            horizontalAlignment: info.horizontalAlignment,
+            childrenIds: [],
+            configurationData: info.configurationData,
+            fields: info.fields
+        )
+    }
+
     func changeText(_ text: SafeNSAttributedString, blockId: String) async throws {
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text.value)
-            
+
+        // Focus and other UIKit quirks can fire text-change callbacks without an actual edit.
+        // Syncing unchanged text is not just wasted traffic: every BlockTextSetText writes the
+        // whole-value LWW text register and can clobber a concurrent peer edit.
+        if let currentContent = document.infoContainer.get(id: blockId)?.textContent,
+           currentContent.text == middlewareString.text,
+           currentContent.marks == middlewareString.marks {
+            return
+        }
+
         await EventsBunch(
             contextId: document.objectId,
             localEvents: [.setText(blockId: blockId, text: middlewareString)]

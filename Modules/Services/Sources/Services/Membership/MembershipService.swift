@@ -23,8 +23,13 @@ public protocol MembershipServiceProtocol: Sendable {
     
     func getBillingId(name: String, tier: MembershipTier) async throws -> UUID
     func verifyReceipt(receipt: String) async throws
-    
+
     func finalizeMembership(name: String) async throws
+
+    // validates the code; errors propagate as LocalizedError
+    func codeGetInfo(code: String) async throws
+    // redeems the code and returns the tier it unlocked; errors propagate as LocalizedError
+    func codeRedeem(code: String) async throws -> MembershipTierType?
 }
 
 public extension MembershipServiceProtocol {
@@ -126,5 +131,20 @@ final class MembershipService: MembershipServiceProtocol {
             $0.nsName = name
             $0.nsNameType = .anyName
         }).invoke()
+    }
+
+    public func codeGetInfo(code: String) async throws {
+        try await ClientCommands.membershipCodeGetInfo(.with {
+            $0.code = code
+        }).invoke()
+    }
+
+    public func codeRedeem(code: String) async throws -> MembershipTierType? {
+        let response = try await ClientCommands.membershipCodeRedeem(.with {
+            $0.code = code
+            $0.nsName = ""
+            $0.nsNameType = .anyName
+        }).invoke()
+        return MembershipTierType(intId: response.requestedTier)
     }
 }

@@ -20,7 +20,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var spaceProfileData: AccountInfo?
     var userWarningAlert: UserWarningAlert?
     var showSharingExtension = false
-    var membershipTierId: IntIdentifiable?
+    var membershipDeepLinkData: MembershipDeepLinkData?
     var showGalleryImport: GalleryInstallationData?
     var spaceJoinData: SpaceJoinModuleData?
     var membershipNameFinalizationData: MembershipTier?
@@ -582,9 +582,9 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             await handleObjectDeelpink(objectId: objectId, spaceId: spaceId, cid: cid, key: key, source: source)
         case let .chatMessage(chatObjectId, spaceId, messageId):
             await handleChatMessageDeepLink(chatObjectId: chatObjectId, spaceId: spaceId, messageId: messageId)
-        case .membership(let tierId):
+        case let .membership(tierId, code):
             guard accountManager.account.allowMembership else { return }
-            membershipTierId = tierId.identifiable
+            membershipDeepLinkData = MembershipDeepLinkData(tierId: tierId, code: code)
         case .networkConfig:
             toastBarData = ToastBarData(Loc.unsupportedDeeplink)
         case let .hi(identity, key):

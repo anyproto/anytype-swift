@@ -25,6 +25,7 @@ protocol EditorPageViewInput: EditorCollectionReloadable {
         changes: CollectionDifference<EditorItem>?,
         allModels: [EditorItem],
         isRealData: Bool,
+        animated: Bool,
         completion: @escaping () -> Void
     )
     func update(syncStatusData: SyncStatusData)

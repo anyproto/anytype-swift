@@ -352,6 +352,7 @@ extension EditorPageController: EditorPageViewInput {
         changes: CollectionDifference<EditorItem>?,
         allModels: [EditorItem],
         isRealData: Bool,
+        animated: Bool,
         completion: @escaping () -> Void
     ) {
         var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
@@ -359,7 +360,7 @@ extension EditorPageController: EditorPageViewInput {
 
         applyBlocksSectionSnapshot(
             blocksSnapshot,
-            animatingDifferences: dataSourceAnimationEnabled,
+            animatingDifferences: animated && dataSourceAnimationEnabled,
             completion: completion
         )
         applyAnimationConfig = isRealData
@@ -533,8 +534,22 @@ private extension EditorPageController {
         let location = self.listViewTapGestureRecognizer.location(in: collectionView)
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
-        
-        viewModel.tapOnEmptyPlace()
+
+        viewModel.tapOnEmptyPlace(isBelowContent: location.y >= contentMaxY)
+    }
+
+    // Bottom edge of the last laid-out item. Taps below it target the trailing area;
+    // taps in gaps between blocks must not create anything.
+    private var contentMaxY: CGFloat {
+        var maxY: CGFloat = 0
+        for section in 0..<collectionView.numberOfSections {
+            let itemsCount = collectionView.numberOfItems(inSection: section)
+            guard itemsCount > 0 else { continue }
+            let indexPath = IndexPath(item: itemsCount - 1, section: section)
+            guard let attributes = collectionView.layoutAttributesForItem(at: indexPath) else { continue }
+            maxY = max(maxY, attributes.frame.maxY)
+        }
+        return maxY
     }
 
     @objc

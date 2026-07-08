@@ -183,6 +183,10 @@ extension Container {
     var middlewareConfigurationProvider: Factory<any MiddlewareConfigurationProviderProtocol> {
         self { MiddlewareConfigurationProvider() }.singleton
     }
+
+    var supportInfoBuilder: Factory<any SupportInfoBuilderProtocol> {
+        self { SupportInfoBuilder() }
+    }
     
     var documentsProvider: Factory<any DocumentsProviderProtocol> {
         self { DocumentsProvider() }.singleton
