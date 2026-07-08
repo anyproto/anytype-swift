@@ -104,19 +104,14 @@ actor EventsListener: EventsListenerProtocol {
 
         // Both walks below are O(document size). Mention texts depend on block
         // content and on details of mentioned objects; indentation metadata and
-        // numbered-list values depend on block changes only.
-        let convertedUpdates = middlewareUpdates + localUpdates
-        let hasBlockUpdates = convertedUpdates.contains { update in
-            switch update {
-            case .general, .block, .unhandled:
-                return true
-            default:
-                return false
-            }
-        }
-        let hasDetailsUpdates = convertedUpdates.contains { update in
-            guard case .details = update else { return false }
-            return true
+        // numbered-list values depend on block changes only. Classify in a single
+        // early-exit pass instead of two scans over a merged array.
+        var hasBlockUpdates = false
+        var hasDetailsUpdates = false
+        for update in [middlewareUpdates, localUpdates].joined() {
+            hasBlockUpdates = hasBlockUpdates || update.affectsBlocks
+            hasDetailsUpdates = hasDetailsUpdates || update.affectsDetails
+            if hasBlockUpdates && hasDetailsUpdates { break }
         }
 
         let markupUpdates = hasBlockUpdates || hasDetailsUpdates

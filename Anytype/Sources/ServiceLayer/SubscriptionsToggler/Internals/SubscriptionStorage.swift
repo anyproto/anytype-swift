@@ -157,7 +157,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
 
         guard didMutate else { return }
 
-        state.items = orderIds.compactMap { detailsStorage.get(id: $0) }
+        updateItemsCache()
 
         if oldState != state {
             await update?(state)
