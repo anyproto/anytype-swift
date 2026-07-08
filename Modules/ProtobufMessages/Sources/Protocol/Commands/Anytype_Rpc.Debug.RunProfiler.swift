@@ -24,13 +24,16 @@ extension Anytype_Rpc.Debug {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        /// 0 = save heap snapshot only; >0 = run full profiler (CPU, heap, trace, goroutines) for this many seconds
+        /// 0 = save heap snapshot only; >0 = run timed profiler (CPU, heap, goroutines) for this many seconds. Set includeTrace to also capture the runtime execution trace.
         public var durationInSeconds: Int32 = 0
 
         public var reason: Anytype_Rpc.Debug.RunProfiler.Request.Reason = .unknown
 
         /// Optional free-form description to attach to the profile
         public var reasonDesc: String = String()
+
+        /// Also capture the runtime execution trace (runtime/trace). Off by default: it is the heaviest artifact in both archive size and runtime overhead. Only applies when durationInSeconds > 0.
+        public var includeTrace: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -201,7 +204,7 @@ extension Anytype_Rpc.Debug.RunProfiler: SwiftProtobuf.Message, SwiftProtobuf._M
 
 extension Anytype_Rpc.Debug.RunProfiler.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Debug.RunProfiler.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}durationInSeconds\0\u{1}reason\0\u{1}reasonDesc\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}durationInSeconds\0\u{1}reason\0\u{1}reasonDesc\0\u{1}includeTrace\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -212,6 +215,7 @@ extension Anytype_Rpc.Debug.RunProfiler.Request: SwiftProtobuf.Message, SwiftPro
       case 1: try { try decoder.decodeSingularInt32Field(value: &self.durationInSeconds) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.reason) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.reasonDesc) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.includeTrace) }()
       default: break
       }
     }
@@ -227,6 +231,9 @@ extension Anytype_Rpc.Debug.RunProfiler.Request: SwiftProtobuf.Message, SwiftPro
     if !self.reasonDesc.isEmpty {
       try visitor.visitSingularStringField(value: self.reasonDesc, fieldNumber: 3)
     }
+    if self.includeTrace != false {
+      try visitor.visitSingularBoolField(value: self.includeTrace, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -234,6 +241,7 @@ extension Anytype_Rpc.Debug.RunProfiler.Request: SwiftProtobuf.Message, SwiftPro
     if lhs.durationInSeconds != rhs.durationInSeconds {return false}
     if lhs.reason != rhs.reason {return false}
     if lhs.reasonDesc != rhs.reasonDesc {return false}
+    if lhs.includeTrace != rhs.includeTrace {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
