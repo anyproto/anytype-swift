@@ -1783,21 +1783,26 @@ public enum Loc {
     public static let title = Loc.tr("Workspace", "HomepagePicker.title", fallback: "Add a Channel Home?")
   }
   public enum Membership {
+    public static let askQuestion = Loc.tr("Workspace", "Membership.AskQuestion", fallback: "Ask a question")
+    public static let currentPlan = Loc.tr("Workspace", "Membership.CurrentPlan", fallback: "Current Plan")
     public static let emailValidation = Loc.tr("Workspace", "Membership.EmailValidation", fallback: "Enter the code sent to your email")
+    public static let seeAllPlans = Loc.tr("Workspace", "Membership.SeeAllPlans", fallback: "See all plans")
+    public static let selectAnyName = Loc.tr("Workspace", "Membership.SelectAnyName", fallback: "Select .any name")
     public static let unavailable = Loc.tr("Workspace", "Membership.unavailable", fallback: "This tier is not available in the app. We know it's not ideal.")
     public enum Ad {
       public static let subtitle = Loc.tr("Workspace", "Membership.Ad.Subtitle", fallback: "Joining Anytype network means contributing to its story")
       public static let title = Loc.tr("Workspace", "Membership.Ad.Title", fallback: "Membership")
     }
-    public enum Banner {
-      public static let subtitle1 = Loc.tr("Workspace", "Membership.Banner.Subtitle1", fallback: "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.")
-      public static let subtitle2 = Loc.tr("Workspace", "Membership.Banner.Subtitle2", fallback: "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.")
-      public static let subtitle3 = Loc.tr("Workspace", "Membership.Banner.Subtitle3", fallback: "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.")
-      public static let subtitle4 = Loc.tr("Workspace", "Membership.Banner.Subtitle4", fallback: "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.")
-      public static let title1 = Loc.tr("Workspace", "Membership.Banner.Title1", fallback: "Build the Vision Together")
-      public static let title2 = Loc.tr("Workspace", "Membership.Banner.Title2", fallback: "Unlock Member Benefits")
-      public static let title3 = Loc.tr("Workspace", "Membership.Banner.Title3", fallback: "Support Digital Independence")
-      public static let title4 = Loc.tr("Workspace", "Membership.Banner.Title4", fallback: "Invest in Connectivity")
+    public enum AnyName {
+      public static let description = Loc.tr("Workspace", "Membership.AnyName.Description", fallback: "This is your unique name on the Anytype network. It acts as your personal domain and cannot be changed.")
+      public static let select = Loc.tr("Workspace", "Membership.AnyName.Select", fallback: "Select")
+    }
+    public enum Code {
+      public static let activate = Loc.tr("Workspace", "Membership.Code.Activate", fallback: "Activate")
+      public static let entry = Loc.tr("Workspace", "Membership.Code.Entry", fallback: "Activate Code")
+      public static let placeholder = Loc.tr("Workspace", "Membership.Code.Placeholder", fallback: "Paste activation code…")
+      public static let subtitle = Loc.tr("Workspace", "Membership.Code.Subtitle", fallback: "Enter the code you received after purchase or from invitation. Your membership will be activated instantly.")
+      public static let title = Loc.tr("Workspace", "Membership.Code.Title", fallback: "Activate Your Code")
     }
     public enum EmailForm {
       public static let subtitle = Loc.tr("Workspace", "Membership.EmailForm.Subtitle", fallback: "It is not linked to your account in any way.")
@@ -1823,7 +1828,6 @@ public enum Loc {
       }
     }
     public enum Legal {
-      public static let alreadyPurchasedTier = Loc.tr("Workspace", "Membership.Legal.AlreadyPurchasedTier", fallback: "Already purchased tier?")
       public static let details = Loc.tr("Workspace", "Membership.Legal.Details", fallback: "Membership plan details")
       public static let letUsKnow = Loc.tr("Workspace", "Membership.Legal.LetUsKnow", fallback: "Please let us know here.")
       public static let privacy = Loc.tr("Workspace", "Membership.Legal.Privacy", fallback: "Privacy policy")

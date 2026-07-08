@@ -1233,6 +1233,18 @@ extension AnytypeAnalytics {
     func logClickMembership(type: ClickMembershipType) {
         logEvent("ClickMembership", withEventProperties: [AnalyticsEventsPropertiesKey.type:  type.rawValue])
     }
+
+    func logScreenMembershipCode(route: MembershipCodeRoute) {
+        logEvent("ScreenMembershipCode", withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
+    }
+
+    func logClickMembershipCode() {
+        logEvent("ClickMembershipCode")
+    }
+
+    func logActivateMembershipCode(tier: MembershipTier) {
+        logEvent("ActivateMembershipCode", withEventProperties: [AnalyticsEventsPropertiesKey.name: tier.name])
+    }
     
     func logChangePlan(tier: MembershipTier) {
         logEvent("ChangePlan", withEventProperties: [AnalyticsEventsPropertiesKey.name:  tier.name])

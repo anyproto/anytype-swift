@@ -7,43 +7,94 @@ import AnytypeCore
 
 struct MembershipModuleView: View {
     @State private var safariUrl: URL?
-    
+
     private let membership: MembershipStatus
     private let tiers: [MembershipTier]
     private let onTierTap: (MembershipTier) -> ()
-    
+    private let onActivateCodeTap: () -> ()
+    private let onAskQuestionTap: () -> ()
+    private let onSelectNameTap: () -> ()
+
     init(
         membership: MembershipStatus,
         tiers: [MembershipTier],
-        onTierTap: @escaping (MembershipTier) -> ()
+        onTierTap: @escaping (MembershipTier) -> (),
+        onActivateCodeTap: @escaping () -> (),
+        onAskQuestionTap: @escaping () -> (),
+        onSelectNameTap: @escaping () -> ()
     ) {
         self.membership = membership
         self.tiers = tiers
-        self.onTierTap =  onTierTap
+        self.onTierTap = onTierTap
+        self.onActivateCodeTap = onActivateCodeTap
+        self.onAskQuestionTap = onAskQuestionTap
+        self.onSelectNameTap = onSelectNameTap
     }
-    
+
+    private var currentTier: MembershipTier? {
+        membership.tier
+    }
+
+    private var recommendedTier: MembershipTier? {
+        MembershipTierRecommendation.recommendedTier(membership: membership, tiers: tiers)
+    }
+
+    private var showAnyNameBlock: Bool {
+        MembershipTierRecommendation.showAnyName(membership: membership)
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            ScrollView {
-                VStack {
-                    Spacer.fixedHeight(35)
-                    title
-                    AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular)
-                        .foregroundStyle(Color.Text.primary)
-                        .padding(.horizontal, 60)
-                        .multilineTextAlignment(.center)
-                    Spacer.fixedHeight(32)
-                    
-                    baners
-                    MembershipTierListView(userMembership: membership, tiers: tiers) {
-                        UISelectionFeedbackGenerator().selectionChanged()
-                        onTierTap($0)
+            GeometryReader { proxy in
+                ScrollView {
+                    VStack(spacing: 0) {
+                        VStack(spacing: 12) {
+                            if let currentTier {
+                                MembershipPlanCardView(
+                                    tier: currentTier,
+                                    ctaText: Loc.Membership.currentPlan,
+                                    ctaStyle: .current
+                                ) {
+                                    onTierTap(currentTier)
+                                }
+                            }
+
+                            if let recommendedTier {
+                                MembershipPlanCardView(
+                                    tier: recommendedTier,
+                                    ctaText: Loc.upgrade,
+                                    ctaStyle: .upgrade
+                                ) {
+                                    onTierTap(recommendedTier)
+                                }
+                            }
+
+                            if showAnyNameBlock {
+                                MembershipAnyNameView {
+                                    onSelectNameTap()
+                                }
+                            }
+
+                            MembershipCellCardRow(text: Loc.Membership.Code.entry, icon: .disclosure) {
+                                onActivateCodeTap()
+                            }
+
+                            MembershipCellCardRow(text: Loc.Membership.seeAllPlans, icon: .externalLink) {
+                                safariUrl = URL(string: AboutApp.pricingLink)
+                            }
+                        }
+
+                        // Footer sits at the bottom of the screen; on short content it is
+                        // pushed down, on tall content it keeps a 44pt minimum gap.
+                        Spacer(minLength: 44)
+
+                        footer
                     }
-                    .padding(.top, 20)
-                    .padding(.bottom, 32)
-                    
-                    legal
+                    .padding(.horizontal, 16)
+                    .padding(.top, 12)
+                    .padding(.bottom, 24)
+                    .frame(minHeight: proxy.size.height)
                 }
             }
         }
@@ -52,77 +103,49 @@ struct MembershipModuleView: View {
             AnytypeAnalytics.instance().logScreenSettingsMembership()
         }
     }
-    
-    private var title: some View {
-        Group {
-            if Loc.Membership.Ad.title.latinCharactersOnly {
-                AnytypeText(Loc.Membership.Ad.title, style: .riccioneBannerTitle)
-            } else {
-                AnytypeText(Loc.Membership.Ad.title, style: .interBannerTitle)
-            }
-        }
-        .foregroundStyle(Color.Text.primary)
-        .padding(.horizontal, 20)
-        .multilineTextAlignment(.center)
-    }
-    
-    private var baners: some View {
-        Group {
-            switch membership.tier?.type {
-            case .starter, .legacyExplorer, nil:
-                MembershipBannersView()
-            case .builder, .coCreator, .custom, .anyTeam, .explorer, .seatBasedTier:
-                EmptyView()
-            }
-        }
-    }
-    
+
     @MainActor
-    var legal: some View {
-        VStack(alignment: .leading) {
-            MembershipLegalButton(text: Loc.Membership.Legal.details) {
-                safariUrl = URL(string: AboutApp.pricingLink)
+    private var footer: some View {
+        VStack(spacing: 12) {
+            AsyncButton {
+                try await AppStore.sync()
+            } label: {
+                footerLabel(Loc.Membership.Legal.restorePurchases)
             }
-            MembershipLegalButton(text: Loc.Membership.Legal.privacy) { 
+            footerButton(Loc.Membership.askQuestion) {
+                onAskQuestionTap()
+            }
+            footerButton(Loc.Membership.Legal.privacy) {
                 safariUrl = URL(string: AboutApp.privacyPolicyLink)
             }
-            MembershipLegalButton(text: Loc.Membership.Legal.terms) { 
+            footerButton(Loc.Membership.Legal.terms) {
                 safariUrl = URL(string: AboutApp.termsLink)
             }
-            
-            Spacer.fixedHeight(32)
-            restorePurchases
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    private func footerButton(_ text: String, action: @escaping () -> ()) -> some View {
+        Button(action: action) {
+            footerLabel(text)
         }
     }
-    
-    
-    private var restorePurchases: some View {
-        AsyncButton {
-            try await AppStore.sync()
-        } label: {
-            Group {
-                AnytypeText(
-                    "\(Loc.Membership.Legal.alreadyPurchasedTier) ",
-                    style: .caption1Regular
-                ).foregroundStyle(Color.Text.primary) +
-                AnytypeText(
-                    Loc.Membership.Legal.restorePurchases,
-                    style: .caption1Regular
-                )
-                .foregroundStyle(Color.Text.primary).underline()
-            }
-            .multilineTextAlignment(.leading)
-            .padding(.horizontal, 20)
-        }
+
+    private func footerLabel(_ text: String) -> some View {
+        AnytypeText(text, style: .calloutRegular)
+            .foregroundStyle(Color.Text.secondary)
     }
 }
 
 #Preview {
     NavigationView {
         MembershipModuleView(
-            membership: .empty,
-            tiers: [],
-            onTierTap: { _ in }
+            membership: .mock(tier: nil),
+            tiers: [.mockStarter, .mockBuilder, .mockCoCreator],
+            onTierTap: { _ in },
+            onActivateCodeTap: { },
+            onAskQuestionTap: { },
+            onSelectNameTap: { }
         )
     }
 }
