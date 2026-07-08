@@ -227,6 +227,15 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         }
     }
 
+    /// Ensures a concrete middleware block carries `attrText` before a text mutation: first via the
+    /// virtual placeholder's BlockCreate, then via the empty-block identity fork. Each step is a
+    /// no-op when it doesn't apply. Returns true when one of them carried the content, so the caller
+    /// can skip its own text sync.
+    private func carryOrSync(_ attrText: NSAttributedString, focusAt: BlockFocusPosition?) async throws -> Bool {
+        if try await materializeVirtualBlock(carrying: attrText, focusAt: focusAt) { return true }
+        return try await forkEmptyBlockIfNeeded(carrying: attrText, focusAt: focusAt)
+    }
+
     func textBlockActions() -> TextBlockContentConfiguration.Actions {
         TextBlockContentConfiguration.Actions(
             shouldPaste: { [weak self] range, textView in
@@ -305,12 +314,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         
         if mentionDetecter.removeMentionIfNeeded(textView: textView, replacementText: replacementText) {
             Task { @MainActor in
-                if isVirtualUnmaterialized {
-                    let contentCarried = try await materializeVirtualBlock(carrying: textView.attributedText, focusAt: nil)
-                    if contentCarried { return }
-                }
-                let forkCarried = try await forkEmptyBlockIfNeeded(carrying: textView.attributedText, focusAt: nil)
-                if forkCarried { return }
+                if try await carryOrSync(textView.attributedText, focusAt: nil) { return }
                 try await actionHandler.changeText(textView.attributedText.sendable(), blockId: info.id)
             }
             return false
@@ -797,18 +801,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     
     func setNewText(attributedString: SafeNSAttributedString) async throws {
         resetSubject.send(attributedString.value)
-        if isVirtualUnmaterialized {
-            let contentCarried = try await materializeVirtualBlock(
-                carrying: attributedString.value,
-                focusAt: endOfTextFocus(attributedString.value)
-            )
-            if contentCarried { return }
-        }
-        let forkCarried = try await forkEmptyBlockIfNeeded(
-            carrying: attributedString.value,
-            focusAt: endOfTextFocus(attributedString.value)
-        )
-        if forkCarried { return }
+        if try await carryOrSync(attributedString.value, focusAt: endOfTextFocus(attributedString.value)) { return }
         try await actionHandler.changeText(attributedString, blockId: info.id)
 
         viewModel.map { collectionController.itemDidChangeFrame(item: .block($0)) }
@@ -816,12 +809,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
 
     func changeText(attributedString: SafeNSAttributedString) {
         Task { @MainActor in
-            if isVirtualUnmaterialized {
-                let contentCarried = try await materializeVirtualBlock(carrying: attributedString.value, focusAt: nil)
-                if contentCarried { return }
-            }
-            let forkCarried = try await forkEmptyBlockIfNeeded(carrying: attributedString.value, focusAt: nil)
-            if forkCarried { return }
+            if try await carryOrSync(attributedString.value, focusAt: nil) { return }
             try await actionHandler.changeText(attributedString, blockId: info.id)
         }
     }
@@ -857,11 +845,8 @@ extension TextBlockActionHandler: AccessoryViewOutput {
         at position: Int,
         textView: UITextView?
     ) async throws {
-        if isVirtualUnmaterialized {
-            // setNewText normally materializes first; this covers actions reached without it.
-            try await materializeVirtualBlock(carrying: textView?.attributedText ?? NSAttributedString(), focusAt: nil)
-        }
-        try await forkEmptyBlockIfNeeded(carrying: textView?.attributedText ?? NSAttributedString(), focusAt: nil)
+        // setNewText normally materializes first; this covers actions reached without it.
+        _ = try await carryOrSync(textView?.attributedText ?? NSAttributedString(), focusAt: nil)
         try await slashMenuActionHandler.handle(
             action,
             textView: textView,
