@@ -111,6 +111,23 @@ final class BlockService: BlockServiceProtocol {
         }).invoke()
     }
 
+    // BlockReplace: atomic remove(old) + create(new) in one change. The returned id is fresh —
+    // the request block carries no id.
+    public func replaceBlock(contextId: String, blockId: String, info: BlockInformation) async throws -> String {
+        guard let block = BlockInformationConverter.convert(information: info) else {
+            anytypeAssertionFailure("replaceBlockIsNotParsed")
+            throw CommonError.undefined
+        }
+
+        let response = try await ClientCommands.blockReplace(.with {
+            $0.contextID = contextId
+            $0.blockID = blockId
+            $0.block = block
+        }).invoke()
+
+        return response.blockID
+    }
+
     public func replace(objectId: String, blockIds: [String], targetId: String) async throws {
         try await ClientCommands.blockListMoveToExistingObject(.with {
             $0.contextID = objectId

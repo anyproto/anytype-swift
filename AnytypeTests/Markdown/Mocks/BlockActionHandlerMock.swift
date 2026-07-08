@@ -133,6 +133,11 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     func changeText(_ text: SafeNSAttributedString, blockId: String) async throws {
         assertionFailure()
     }
+
+    func replaceEmptyBlock(info: BlockInformation, middlewareString: MiddlewareString, focusAt: BlockFocusPosition?) async throws -> BlockInformation {
+        assertionFailure()
+        return info
+    }
     
     var changeTextStub = false
     var changeTextNumberOfCalls = 0

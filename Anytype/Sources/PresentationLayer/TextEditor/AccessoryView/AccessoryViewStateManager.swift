@@ -97,15 +97,22 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
     
     // MARK: - AccessoryViewStateManager
     func willBeginEditing(with configuration: TextViewAccessoryConfiguration) {
-
+        // Attach before the text view becomes first responder so the keyboard presents with
+        // the bar already in place. Attaching in didBeginEdition leaves the accessory area
+        // empty for a frame on every focus change — a visible blink between blocks and on
+        // block identity swaps.
+        switcher.preattachAccessoryView(to: configuration)
     }
-    
+
     func didBeginEdition(with configuration: TextViewAccessoryConfiguration) {
-        // Clear existing configuration and state
-        self.configuration?.textView.inputAccessoryView = nil
+        // Clear existing configuration and state. Detach only from a different text view —
+        // stripping the just-preattached bar would reintroduce the focus-change blink.
+        if self.configuration?.textView != configuration.textView {
+            self.configuration?.textView.inputAccessoryView = nil
+        }
         self.configuration?.output?.accessoryState = .none
         self.configuration = nil
-        
+
         switcher.clearAccessory()
         
         
@@ -135,8 +142,12 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
     }
     
     func didEndEditing(with configuration: TextViewAccessoryConfiguration) {
-        // Clear existing configuration and state
-        self.configuration?.textView.inputAccessoryView = nil
+        // Clear existing configuration and state. The ending text view keeps its accessory
+        // attached, so on full keyboard dismissal the bar rides down with the keyboard
+        // instead of vanishing a frame earlier.
+        if self.configuration?.textView != configuration.textView {
+            self.configuration?.textView.inputAccessoryView = nil
+        }
         self.configuration?.output?.accessoryState = .none
         self.configuration = nil
         

@@ -40,6 +40,7 @@ protocol BlockActionHandlerProtocol: AnyObject, Sendable {
     func setObjectCollectionType() async throws
     func applyTemplate(objectId: String, templateId: String) async throws
     func changeText(_ text: SafeNSAttributedString, blockId: String) async throws
+    func replaceEmptyBlock(info: BlockInformation, middlewareString: MiddlewareString, focusAt: BlockFocusPosition?) async throws -> BlockInformation
     func setTextStyle(
         _ attribute: MarkupType,
         range: NSRange,
