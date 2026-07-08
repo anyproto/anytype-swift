@@ -111,6 +111,32 @@ struct SubscriptionStorageRaceTests {
     }
 
     @Test
+    func replayedAddWithRealAfterIdIsPositioned() async throws {
+        // Realistic streamed add: afterID points at a record present in the response
+        // snapshot (not the empty afterID used above), so it must land right after it.
+        let subId = "SubscriptionId.Test-\(UUID().uuidString)"
+        let toggler = FakeSuspendingToggler()
+        let storage = SubscriptionStorage(subId: subId, detailsStorage: ObjectDetailsStorage(), toggler: toggler)
+
+        let response = SubscriptionTogglerResult(
+            records: [makeDetails(id: "anchor", name: "Anchor")],
+            dependencies: [], total: 2, prevCount: 0, nextCount: 0
+        )
+
+        let task = Task { try await storage.startOrUpdateSubscription(data: searchData(subId: subId)) }
+        await toggler.waitUntilEntered()
+        await EventBunchSubscribtion.default.sendEvent(events: EventsBunch(contextId: "", middlewareEvents: [
+            detailsSetEvent(id: "streamed-id", subId: subId, name: "Streamed"),
+            subscriptionAddEvent(id: "streamed-id", subId: subId, afterId: "anchor")
+        ]))
+        await toggler.finish(with: response)
+        _ = try await task.value
+
+        let ids = await currentItemIds(storage)
+        #expect(ids == ["anchor", "streamed-id"])
+    }
+
+    @Test
     func replayedAddIsDedupedAgainstResponseSnapshot() async throws {
         let subId = "SubscriptionId.Test-\(UUID().uuidString)"
         let toggler = FakeSuspendingToggler()

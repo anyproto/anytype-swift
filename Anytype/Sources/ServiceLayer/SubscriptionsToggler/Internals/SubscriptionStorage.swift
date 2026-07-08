@@ -80,7 +80,11 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         do {
             result = try await toggler.startSubscription(data: data)
         } catch {
+            // Subscribe failed: a prior subscription may still be live, so reconcile the
+            // buffered events into current state instead of dropping them, then rethrow.
+            pendingEvents?.forEach { applyEvents($0) }
             pendingEvents = nil
+            updateItemsCache()
             throw error
         }
 
