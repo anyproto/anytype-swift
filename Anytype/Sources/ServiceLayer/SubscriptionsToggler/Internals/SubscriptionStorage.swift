@@ -100,9 +100,8 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
 
         // Replay events that arrived during the in-flight subscribe so an event-delivered
         // record missing from the response snapshot is reconciled in.
-        let buffered = pendingEvents
+        pendingEvents?.forEach { applyEvents($0) }
         pendingEvents = nil
-        buffered?.forEach { applyEvents($0) }
 
         updateItemsCache()
         await update(state)
@@ -135,9 +134,9 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
 
         let oldState = state
         applyEvents(events)
+        updateItemsCache()
 
         if oldState != state {
-            updateItemsCache()
             await update?(state)
             stateSubject.send(state)
         }
@@ -161,7 +160,6 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
                 orderIds.applySubscriptionUpdate(update)
             case .subscriptionAdd(let data):
                 guard idsContainsMySub([data.subID]) else { break }
-                guard !orderIds.contains(data.id) else { break }
                 let update: SubscriptionUpdate = .add(data.id, after: data.afterID.isNotEmpty ? data.afterID : nil)
                 orderIds.applySubscriptionUpdate(update)
             case .subscriptionRemove(let data):
@@ -179,10 +177,8 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
                 break
             }
         }
-
-        state.items = orderIds.compactMap { detailsStorage.get(id: $0) }
     }
-    
+
     private func idsContainsMySub(_ ids: [String], incudeDeps: Bool = false) -> Bool {
         if incudeDeps {
             let subIdDeps = "\(subId)/dep"
