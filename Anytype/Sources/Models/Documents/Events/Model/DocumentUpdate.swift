@@ -21,4 +21,24 @@ extension DocumentUpdate {
             return false
         }
     }
+
+    // Mention texts and indentation/numbered-list metadata are rebuilt only when
+    // blocks change; mention texts also depend on details of mentioned objects.
+    var affectsBlocks: Bool {
+        switch self {
+        case .general, .block, .unhandled:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var affectsDetails: Bool {
+        switch self {
+        case .details:
+            return true
+        default:
+            return false
+        }
+    }
 }
