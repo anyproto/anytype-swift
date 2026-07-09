@@ -16,11 +16,14 @@ public extension ObjectDetailsStorage {
             return nil
         }
         
-        let currentDetails = get(id: id) ?? ObjectDetails(id: id)
-        let updatedDetails = currentDetails.updated(by: data.details.fields)
-        
+        // `Set` is an authoritative snapshot, not a patch. The proto requires the
+        // client to replace its state ("can not be a partial state") and the heart
+        // reference client rebuilds the entry from scratch; merging would leak keys
+        // the server has dropped.
+        let updatedDetails = ObjectDetails(id: id, values: data.details.fields)
+
         add(details: updatedDetails)
-        
+
         return updatedDetails
     }
     

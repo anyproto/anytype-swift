@@ -36,13 +36,22 @@ public class ServiceMessageHandlerAdapter: @unchecked Sendable {
         handlers.removeAll { $0.value == nil }
         handlers.append(WeakHandler(handler))
     }
-    
+
+    private func currentHandlers() -> [WeakHandler] {
+        lock.lock()
+        defer { lock.unlock() }
+        return handlers
+    }
+
     private func listen() {
         lock.lock()
         defer { lock.unlock() }
         listener = ServiceMessageHandler { [weak self] event in
             guard let self else { return }
-            for handler in handlers {
+            // Snapshot under the lock and release it before awaiting: reading
+            // `handlers` unsynchronized races with `addHandler`, and the lock
+            // must not be held across the suspension point.
+            for handler in currentHandlers() {
                 await handler.value?.handle(event)
             }
         }
@@ -52,35 +61,47 @@ public class ServiceMessageHandlerAdapter: @unchecked Sendable {
 
 /// Private `ServiceMessageHandlerProtocol` adoption.
 fileprivate final class ServiceMessageHandler: NSObject, Sendable, ServiceMessageHandlerProtocol {
-    
-    let handler: @Sendable (_ event: Anytype_Event) async -> Void
-    
+
+    // A Task per incoming chunk gives no FIFO guarantee — reordered events
+    // (e.g. subscriptionAdd after the amend that follows it) corrupt storages.
+    // Chunks are buffered in arrival order and drained by a single consumer.
+    private let continuation: AsyncStream<Data>.Continuation
+    private let consumer: Task<Void, Never>
+
     init(handler: @escaping @Sendable (_: Anytype_Event) async -> Void) {
-        self.handler = handler
-    }
-    
-    public func handle(_ data: Data?) {
-        Task {
-            guard let data = data,
-                  let event = try? Anytype_Event(serializedBytes: data)
-            else { return }
-            
-            log(event: event)
-            await handler(event)
+        let (stream, continuation) = AsyncStream.makeStream(of: Data.self)
+        self.continuation = continuation
+        self.consumer = Task {
+            for await data in stream {
+                guard let event = try? Anytype_Event(serializedBytes: data) else { continue }
+                Self.log(event: event)
+                await handler(event)
+            }
         }
     }
-    
-    private func log(event: Anytype_Event) {
-        
+
+    deinit {
+        continuation.finish()
+        consumer.cancel()
+    }
+
+    public func handle(_ data: Data?) {
+        guard let data else { return }
+        continuation.yield(data)
+    }
+
+    private static func log(event: Anytype_Event) {
+        guard let handler = InvocationSettings.handler, handler.isLogEnabled else { return }
+
         let responseJsonData = try? event.jsonUTF8Data()
         let messageNames = responseJsonData?.parseMessages() ?? ""
-        
+
         let message = InvocationMessage(
             name: "Events:\(messageNames)",
             requestJsonData: nil,
             responseJsonData: responseJsonData,
             responseError: nil
         )
-        InvocationSettings.handler?.logHandler(message: message)
+        handler.logHandler(message: message)
     }
 }

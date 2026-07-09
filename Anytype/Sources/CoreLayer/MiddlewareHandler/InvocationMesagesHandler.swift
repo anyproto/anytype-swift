@@ -7,9 +7,11 @@ import SwiftEntryKit
 final class InvocationMesagesHandler: InvocationMesagesHandlerProtocol {
     
     var enableLogger: Bool = false
-    
+
+    var isLogEnabled: Bool { enableLogger }
+
     func logHandler(message: InvocationMessage) {
-        
+
         guard enableLogger else { return }
         
         // Delete emoji. Pulse crash issue https://github.com/kean/PulsePro/issues/22

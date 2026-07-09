@@ -8,6 +8,7 @@ extension Array where Element == String {
             guard let index = indexInCollection(blockId: blockId) else { return }
             self.remove(at: index)
         case let .add(blockId, afterId):
+            guard !contains(blockId) else { return } // keep ids unique (idempotent add)
             guard let index = indexForAdd(afterId: afterId) else { return }
             self.insert(blockId, at: index)
         case let .move(from, after):

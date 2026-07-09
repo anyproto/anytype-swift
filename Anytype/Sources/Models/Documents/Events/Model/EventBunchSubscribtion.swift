@@ -21,6 +21,14 @@ actor EventBunchSubscribtion {
         }
         return AnyCancellable(subscriber)
     }
+
+    // Actor-isolated registration: addSubscriber runs synchronously before this returns,
+    // so the handler is live the moment the caller awaits it (no deferred-Task gap).
+    func addHandlerAwaiting(_ handler: @escaping @Sendable (_ events: EventsBunch) async -> Void) async -> AnyCancellable {
+        let subscriber = EventBunchSubscriber(handler: handler)
+        addSubscriber(subscriber)
+        return AnyCancellable(subscriber)
+    }
     
     func stream() -> AsyncStream<EventsBunch> {
         AsyncStream { continuation in

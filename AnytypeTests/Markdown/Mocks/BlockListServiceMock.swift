@@ -17,6 +17,23 @@ final class BlockServiceMock: BlockServiceProtocol, @unchecked Sendable {
         }
     }
     
+    var replaceBlockStub = false
+    var replaceBlockNumberOfCalls = 0
+    var replaceBlockTargetId: String?
+    var replaceBlockInfo: BlockInformation?
+    var replaceBlockReturnId = ""
+    func replaceBlock(contextId: String, blockId: String, info: BlockInformation) async throws -> String {
+        if replaceBlockStub {
+            replaceBlockNumberOfCalls += 1
+            replaceBlockTargetId = blockId
+            replaceBlockInfo = info
+            return replaceBlockReturnId
+        } else {
+            assertionFailure()
+            return ""
+        }
+    }
+
     var moveStub = false
     var moveNumberOfCalls = 0
     var moveBlockId: String?

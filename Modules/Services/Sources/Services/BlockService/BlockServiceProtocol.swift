@@ -13,6 +13,7 @@ public protocol BlockServiceProtocol: AnyObject, Sendable {
     func setBlockColor(objectId: String, blockIds: [String], color: MiddlewareColor) async throws
     
     func replace(objectId: String, blockIds: [String], targetId: String) async throws
+    func replaceBlock(contextId: String, blockId: String, info: BlockInformation) async throws -> String
     func move(objectId: String, blockId: String, targetId: String, position: Anytype_Model_Block.Position) async throws
     func moveToPage(objectId: String, blockIds: [String], pageId: String) async throws
     func setLinkAppearance(objectId: String, blockIds: [String], appearance: BlockLink.Appearance) async throws
