@@ -101,6 +101,7 @@ extension Anytype_Event.Message {
       case chatUpdateReactionReadStatus(Anytype_Event.Chat.UpdateReactionReadStatus)
       case objectAutoArchive(Anytype_Event.Object.AutoArchive)
       case objectAutoRestore(Anytype_Event.Object.AutoRestore)
+      case objectCleanupSuggestion(Anytype_Event.Object.CleanupSuggestion)
       case debugProfileCreated(Anytype_Event.Debug.ProfileCreated)
       /// received whenever the total number of non-deleted messages in
       case chatUpdateMessageCount(Anytype_Event.Chat.UpdateMessageCount)
