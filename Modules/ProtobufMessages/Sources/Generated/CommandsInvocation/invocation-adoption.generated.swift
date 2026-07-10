@@ -1080,6 +1080,16 @@ extension Anytype_Rpc.Object.ChatAdd.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Object.CleanupSuggestionIgnore.Response: ResultWithError {}
+extension Anytype_Rpc.Object.CleanupSuggestionIgnore.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Object.CleanupSuggestions.Response: ResultWithError {}
+extension Anytype_Rpc.Object.CleanupSuggestions.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Object.Close.Response: ResultWithError {}
 extension Anytype_Rpc.Object.Close.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
