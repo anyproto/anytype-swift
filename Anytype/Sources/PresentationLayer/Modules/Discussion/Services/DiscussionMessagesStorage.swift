@@ -17,7 +17,7 @@ protocol DiscussionMessagesStorageProtocol: AnyObject, Sendable {
     func message(id: String) async -> ChatMessage?
     func updateVisibleRange(startMessageId: String, endMessageId: String) async
     func markAsReadAll() async throws -> ChatMessage
-    var updateStream: AnyAsyncSequence<[ChatUpdate]> { get }
+    var updateStream: AnyAsyncSequence<Set<ChatUpdate>> { get }
     var fullMessages: [FullChatMessage]? { get async }
     var chatState: ChatState? { get async }
     var messageCount: Int? { get async }
@@ -65,14 +65,17 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     private(set) var chatState: ChatState?
     private(set) var messageCount: Int?
 
-    private let syncStream = AsyncToManyStream<[ChatUpdate]>()
+    // Delta updates must never be dropped: a lost .messages tick leaves the chat
+    // stale until reopen. AsyncUpdateStream unions pending updates for busy
+    // subscribers and seeds new subscribers with a full refresh.
+    private let syncStream = AsyncUpdateStream<ChatUpdate>(seed: Set(ChatUpdate.allCases))
 
     init(spaceId: String, chatObjectId: String) {
         self.spaceId = spaceId
         self.chatObjectId = chatObjectId
     }
 
-    nonisolated var updateStream: AnyAsyncSequence<[ChatUpdate]> {
+    nonisolated var updateStream: AnyAsyncSequence<Set<ChatUpdate>> {
         syncStream.eraseToAnyAsyncSequence()
     }
 
@@ -125,7 +128,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
             updateFullMessages()
         }
 
-        syncStream.send(ChatUpdate.allCases)
+        syncStream.send(Set(ChatUpdate.allCases))
         subscriptionStarted = true
     }
 
@@ -317,7 +320,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
             updateFullMessages(notify: false)
         }
         if subscriptionStarted {
-            syncStream.send(Array(updates))
+            syncStream.send(updates)
         }
     }
 
