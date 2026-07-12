@@ -1,5 +1,6 @@
 import Services
 import AnytypeCore
+import SwiftProtobuf
 
 enum SetObjectCreationMode {
     case `internal`
@@ -12,6 +13,7 @@ protocol SetObjectCreationCoordinatorProtocol {
         setDocument: some SetDocumentProtocol,
         mode: SetObjectCreationMode,
         setting: ObjectCreationSetting?,
+        prefilledFields: [String: Google_Protobuf_Value],
         output: (any SetObjectCreationCoordinatorOutput)?,
         customAnalyticsRoute: AnalyticsEventsRouteKind?
     )
@@ -31,23 +33,30 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     
     @Injected(\.setObjectCreationHelper)
     private var objectCreationHelper: any SetObjectCreationHelperProtocol
-    
+
+    // Shared across every create entry point of the screen so two fast taps make one object.
+    private var isCreatingObject = false
+
     nonisolated init() {}
-    
+
     func startCreateObject(
         setDocument: some SetDocumentProtocol,
         mode: SetObjectCreationMode,
         setting: ObjectCreationSetting?,
+        prefilledFields: [String: Google_Protobuf_Value],
         output: (any SetObjectCreationCoordinatorOutput)?,
         customAnalyticsRoute: AnalyticsEventsRouteKind?
     ) {
+        guard !isCreatingObject else { return }
+        isCreatingObject = true
         Task { @MainActor [weak self] in
             guard let self else { return }
-            
+            defer { isCreatingObject = false }
+
             self.output = output
             self.customAnalyticsRoute = customAnalyticsRoute
             do {
-                let action = try await objectCreationHelper.createObject(for: setDocument, setting: setting)
+                let action = try await objectCreationHelper.createObject(for: setDocument, setting: setting, prefilledFields: prefilledFields)
                 handleAction(action, mode: mode, setDocument: setDocument)
             } catch {
                 anytypeAssertionFailure("Cannot create object for set document", info: [
@@ -108,6 +117,16 @@ extension SetObjectCreationCoordinatorProtocol {
         output: (any SetObjectCreationCoordinatorOutput)?,
         customAnalyticsRoute: AnalyticsEventsRouteKind?
     ) {
-        startCreateObject(setDocument: setDocument, mode: mode, setting: nil, output: output, customAnalyticsRoute: customAnalyticsRoute)
+        startCreateObject(setDocument: setDocument, mode: mode, setting: nil, prefilledFields: [:], output: output, customAnalyticsRoute: customAnalyticsRoute)
+    }
+
+    func startCreateObject(
+        setDocument: some SetDocumentProtocol,
+        mode: SetObjectCreationMode,
+        setting: ObjectCreationSetting?,
+        output: (any SetObjectCreationCoordinatorOutput)?,
+        customAnalyticsRoute: AnalyticsEventsRouteKind?
+    ) {
+        startCreateObject(setDocument: setDocument, mode: mode, setting: setting, prefilledFields: [:], output: output, customAnalyticsRoute: customAnalyticsRoute)
     }
 }

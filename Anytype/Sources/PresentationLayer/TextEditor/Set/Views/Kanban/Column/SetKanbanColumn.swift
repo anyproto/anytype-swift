@@ -4,6 +4,7 @@ import SwiftUI
 struct SetKanbanColumn: View {
     let groupId: String
     let headerType: SetKanbanColumnHeaderType
+    let count: Int
     let configurations: [SetContentViewItemConfiguration]
     let isGroupBackgroundColors: Bool
     let backgroundColor: BlockBackgroundColor
@@ -14,6 +15,7 @@ struct SetKanbanColumn: View {
     
     let onShowMoreTap: () -> Void
     let onSettingsTap: () -> Void
+    let onCreateTap: (() -> Void)?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -56,8 +58,37 @@ struct SetKanbanColumn: View {
             if showPagingView {
                 pagingView
             }
+            if let onCreateTap {
+                createView(onCreateTap)
+            }
         }
         .frame(width: 254)
+    }
+
+    private func createView(_ onTap: @escaping () -> Void) -> some View {
+        SetDragAndDropView(
+            dropData: $dropData,
+            configuration: nil,
+            groupId: groupId,
+            dragAndDropDelegate: dragAndDropDelegate,
+            content: {
+                Button {
+                    onTap()
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(asset: .X24.plus)
+                            .foregroundStyle(Color.Control.secondary)
+                        AnytypeText(Loc.new, style: .caption1Medium)
+                            .foregroundStyle(Color.Text.secondary)
+                        Spacer()
+                    }
+                    .padding(.horizontal, 10)
+                    .frame(height: 40)
+                    .fixTappableArea()
+                }
+                .buttonStyle(LightDimmingButtonStyle())
+            }
+        )
     }
     
     private var header: some View {
@@ -102,9 +133,13 @@ struct SetKanbanColumn: View {
                     .foregroundStyle(Color.Text.secondary)
                 }
             }
-            
+
+            Spacer.fixedWidth(8)
+            AnytypeText("\(count)", style: .relation2Regular)
+                .foregroundStyle(Color.Text.secondary)
+
             Spacer()
-            
+
             Image(asset: .X24.more).foregroundStyle(Color.Control.secondary)
         }
         .padding(.horizontal, 10)

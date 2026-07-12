@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import DesignKit
 
 struct SetKanbanView: View {
     @ObservedObject var model: EditorSetViewModel
@@ -43,9 +44,35 @@ struct SetKanbanView: View {
             EmptyView()
         } else {
             Section(header: compoundHeader) {
-                boardContent
+                switch model.boardState {
+                case .loading:
+                    loadingView
+                case .error:
+                    errorView
+                case .ready:
+                    boardContent
+                }
             }
         }
+    }
+
+    private var loadingView: some View {
+        DotsView()
+            .frame(width: 50, height: 6)
+            .frame(maxWidth: .infinity)
+            .padding(.top, 60)
+    }
+
+    private var errorView: some View {
+        EmptyStateView(
+            title: Loc.Content.Common.error,
+            style: .error,
+            buttonData: EmptyStateView.ButtonData(title: Loc.tryAgain) {
+                await model.onBoardErrorRetryTap()
+            }
+        )
+        .frame(maxWidth: .infinity)
+        .padding(.top, 60)
     }
     
     private var boardContent: some View {
@@ -56,6 +83,7 @@ struct SetKanbanView: View {
                         SetKanbanColumn(
                             groupId: groupId,
                             headerType: model.headerType(for: groupId),
+                            count: model.columnCount(for: groupId),
                             configurations: configurations,
                             isGroupBackgroundColors: model.isGroupBackgroundColors,
                             backgroundColor: model.groupBackgroundColor(for: groupId),
@@ -67,7 +95,10 @@ struct SetKanbanView: View {
                             },
                             onSettingsTap: {
                                 model.showKanbanColumnSettings(for: groupId)
-                            }
+                            },
+                            onCreateTap: model.canCreateCardInColumn ? {
+                                model.onCreateObjectInColumnTap(groupId)
+                            } : nil
                         )
                     }
                 }

@@ -69,8 +69,8 @@ public extension FeatureDescription {
     
     static let setKanbanView = FeatureDescription(
         title: "Set kanban view",
-        category: .productFeature(author: "joe_pusya@anytype.io", targetRelease: "?"),
-        defaultValue: false
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "0.49.0"),
+        defaultValue: true
     )
     
     static let fullInlineSetImpl = FeatureDescription(
@@ -80,9 +80,9 @@ public extension FeatureDescription {
     )
     
     static let dndOnCollectionsAndSets = FeatureDescription(
-        title: "Dnd on collections and sets (wating for the middle)",
-        category: .productFeature(author: "joe_pusya@anytype.io", targetRelease: "?"),
-        defaultValue: false
+        title: "Dnd on collections and sets (kanban only)",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "0.49.0"),
+        defaultValue: true
     )
     
     static let matchedTransitionSource = FeatureDescription(
