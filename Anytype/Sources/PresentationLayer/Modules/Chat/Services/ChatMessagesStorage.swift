@@ -68,7 +68,10 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     private var replies = [String: ChatMessage]()
     private(set) var fullMessages: [FullChatMessage]?
     private(set) var chatState: ChatState?
-    
+    // Sync status events can outrun the chatAdd that inserts the message
+    // (push events race RPC-response events). Remembered and applied on arrival.
+    private var pendingSyncStatus = [String: Bool]()
+
     private let syncStream = AsyncToManyStream<[ChatUpdate]>()
     
     init(spaceId: String, chatObjectId: String) {
@@ -271,15 +274,25 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 if messages.chatUpdateReactions(data) {
                     updates.insert(.messages)
                 }
+                lastMessages.chatUpdateReactions(data)
             case let .chatUpdateMessageReadStatus(data):
                 guard data.subIds.contains(subId) else { break }
-                messages.chatUpdateMessageReadStatus(data)
+                if messages.chatUpdateMessageReadStatus(data) {
+                    updates.insert(.messages)
+                }
+                lastMessages.chatUpdateMessageReadStatus(data)
             case let .chatUpdateMentionReadStatus(data):
                 guard data.subIds.contains(subId) else { break }
-                messages.chatUpdateMentionReadStatus(data)
+                if messages.chatUpdateMentionReadStatus(data) {
+                    updates.insert(.messages)
+                }
+                lastMessages.chatUpdateMentionReadStatus(data)
             case let .chatUpdateReactionReadStatus(data):
                 guard data.subIds.contains(subId) else { break }
-                messages.chatUpdateReactionReadStatus(data)
+                if messages.chatUpdateReactionReadStatus(data) {
+                    updates.insert(.messages)
+                }
+                lastMessages.chatUpdateReactionReadStatus(data)
             case let .chatStateUpdate(data):
                 guard data.subIds.contains(subId) else { break }
                 if (chatState?.order ?? -1) < data.state.order {
@@ -290,6 +303,10 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 guard data.subIds.contains(subId) else { break }
                 if messages.chatUpdateMessageSyncStatus(data) {
                     updates.insert(.messages)
+                }
+                lastMessages.chatUpdateMessageSyncStatus(data)
+                for messageId in data.ids where messages.message(id: messageId).isNil {
+                    pendingSyncStatus[messageId] = data.isSynced
                 }
             default:
                 break
@@ -304,12 +321,37 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             await updateAttachmentSubscription()
         }
         
+        if applyPendingSyncStatus() {
+            updates.insert(.messages)
+        }
+
         if updates.contains(.messages) {
             updateFullMessages(notify: false)
         }
         if subscriptionStarted {
             syncStream.send(Array(updates))
         }
+    }
+
+    private func applyPendingSyncStatus() -> Bool {
+        guard !pendingSyncStatus.isEmpty else { return false }
+        var applied = false
+        for (messageId, isSynced) in pendingSyncStatus {
+            guard messages.message(id: messageId).isNotNil else { continue }
+            var event = Anytype_Event.Chat.UpdateMessageSyncStatus()
+            event.ids = [messageId]
+            event.isSynced = isSynced
+            if messages.chatUpdateMessageSyncStatus(event) {
+                applied = true
+            }
+            lastMessages.chatUpdateMessageSyncStatus(event)
+            pendingSyncStatus.removeValue(forKey: messageId)
+        }
+        // Statuses for messages that never enter the window are stale — don't accumulate them
+        if pendingSyncStatus.count > 100 {
+            pendingSyncStatus.removeAll()
+        }
+        return applied
     }
     
     private func addNewMessages(messages newMessages: [ChatMessage]) async {
