@@ -55,6 +55,8 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     private var subscriptionStartMessageId: String?
     private var subscriptionEndMessageId: String?
     private var subscribedAttachmentIds = Set<String>()
+    private var markAsReadRunning = false
+    private var pendingMarkAsReadRange: (start: String, end: String)?
 
     // MARK: - Message State
     private var attachments = ChatMessageAttachmentsStorage()
@@ -87,7 +89,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
         let currentStartMessageIndex = subscriptionStartMessageId.map { messages.index(messageId: $0) ?? notFoundValue } ?? notFoundValue
         let currentEndMessageIndex = subscriptionEndMessageId.map { messages.index(messageId: $0) ?? notFoundValue } ?? notFoundValue
 
-        try? await markAsRead(startMessageId: startMessageId, endMessageId: endMessageId)
+        await markAsRead(startMessageId: startMessageId, endMessageId: endMessageId)
 
         guard abs(startMessageIndex - currentStartMessageIndex) > Constants.subscriptionMessageIntervalForAttachments
                 || abs(endMessageIndex - currentEndMessageIndex) > Constants.subscriptionMessageIntervalForAttachments else { return }
@@ -425,13 +427,27 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
         await mediaCacheHeatingService.updateVisibleMedia(attachmentDetails: details)
     }
 
-    private func markAsRead(startMessageId: String, endMessageId: String) async throws {
-        guard let chatState,
-              let afterOrderId = messages.message(id: startMessageId)?.orderID,
+    private func markAsRead(startMessageId: String, endMessageId: String) async {
+        // Coalesce: overlapping calls ack with the same captured lastStateID and race
+        // each other. Keep only the latest requested range, process one at a time.
+        pendingMarkAsReadRange = (startMessageId, endMessageId)
+        guard !markAsReadRunning else { return }
+        markAsReadRunning = true
+        defer { markAsReadRunning = false }
+        while let range = pendingMarkAsReadRange {
+            pendingMarkAsReadRange = nil
+            await performMarkAsRead(startMessageId: range.start, endMessageId: range.end)
+        }
+    }
+
+    private func performMarkAsRead(startMessageId: String, endMessageId: String) async {
+        guard let afterOrderId = messages.message(id: startMessageId)?.orderID,
               let beforeOrderId = messages.message(id: endMessageId)?.orderID
               else { return }
 
-        if chatState.messages.oldestOrderID.isNotEmpty,
+        // Re-read chatState before every request: the middleware ignores acks carrying
+        // a stale lastStateID, which would leave the unread counter stuck.
+        if let chatState, chatState.messages.oldestOrderID.isNotEmpty,
             chatState.messages.oldestOrderID <= beforeOrderId {
             do {
                 try await chatService.readMessages(
@@ -446,7 +462,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
             }
         }
 
-        if chatState.mentions.oldestOrderID.isNotEmpty,
+        if let chatState, chatState.mentions.oldestOrderID.isNotEmpty,
            chatState.mentions.oldestOrderID <= beforeOrderId {
             do {
                 try await chatService.readMessages(
