@@ -103,22 +103,28 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             return
         }
 
+        // Register the bus subscription before the RPC so events emitted right after
+        // the middleware-side subscription goes live land in the stream buffer
+        // instead of being lost while the Task is still starting.
+        let eventStream = await EventBunchSubscribtion.default.stream()
         subscription = Task { [weak self] in
-            for await events in await EventBunchSubscribtion.default.stream() {
+            for await events in eventStream {
                 if events.contextId == self?.chatObjectId {
                     await self?.handle(events: events)
                 }
             }
         }
-        
+
         let response = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, subId: subId, limit: Constants.pageSize)
 
-        // Setup chat state as first
-        chatState = response.chatState
-        
+        // Events processed while awaiting the response may already hold a newer state — don't regress it
+        if (chatState?.order ?? -1) < response.chatState.order {
+            chatState = response.chatState
+        }
+
         lastMessages.add(response.messages)
-        
-        let unreadOrderId = response.chatState.messages.oldestOrderID
+
+        let unreadOrderId = (chatState ?? response.chatState).messages.oldestOrderID
         if unreadOrderId.isNotEmpty {
             // Load messages for unred bounce
             _ = try? await loadPagesTo(orderId: unreadOrderId)
