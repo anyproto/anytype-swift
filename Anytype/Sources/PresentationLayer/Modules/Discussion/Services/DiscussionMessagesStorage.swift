@@ -259,7 +259,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     private func handle(events: EventsBunch) async {
         var updates: Set<ChatUpdate> = []
 
-        var updateRepliesAndAttachments = true
+        var updateRepliesAndAttachments = false
         var needsTailGapRefill = false
 
         for event in events.middlewareEvents {
@@ -284,6 +284,8 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
                 guard data.subIds.contains(subId) else { break }
                 if messages.chatDelete(data) {
                     updates.insert(.messages)
+                    // Trigger attachments cleanup for the removed message
+                    updateRepliesAndAttachments = true
                 }
                 lastMessages.chatDelete(data)
             case let .chatUpdate(data):
@@ -430,9 +432,14 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     }
 
     private func updateAttachmentSubscription() async {
-        guard let subscriptionStartMessageId, let subscriptionEndMessageId,
-              let startMessageIndex = messages.index(messageId: subscriptionStartMessageId),
-              let endMessageIndex = messages.index(messageId: subscriptionEndMessageId)  else { return }
+        // Before the first visible-range callback there are no anchors yet — cover the
+        // whole window so attachment details that appear later (e.g. incoming files
+        // still syncing) still reach the UI.
+        let startAnchorId = subscriptionStartMessageId ?? messages.first?.id
+        let endAnchorId = subscriptionEndMessageId ?? messages.last?.id
+        guard let startAnchorId, let endAnchorId,
+              let startMessageIndex = messages.index(messageId: startAnchorId),
+              let endMessageIndex = messages.index(messageId: endAnchorId) else { return }
 
         let startIndex = startMessageIndex - Constants.subsctiptionMessageOverLimitForAttachments
         let endIndex = endMessageIndex + Constants.subsctiptionMessageOverLimitForAttachments
