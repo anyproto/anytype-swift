@@ -78,8 +78,8 @@ struct ChatInputPanel: View {
         .task(id: model.mentionSearchState) {
             try? await model.updateMentionState()
         }
-        .throwingTask(id: model.sendMessageTaskInProgress) {
-            try await model.sendMessageTask()
+        .task(id: model.sendMessageTaskInProgress) {
+            await model.sendMessageTask()
         }
         .onChange(of: model.message) {
             model.messageDidChanged()

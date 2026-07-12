@@ -39,7 +39,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         replyToMessageId: String?,
         useBlocksFormat: Bool
     ) async throws -> String {
-        let chatMessage = await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId, useBlocksFormat: useBlocksFormat)
+        let chatMessage = try await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId, useBlocksFormat: useBlocksFormat)
         return try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
     }
 
@@ -52,7 +52,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         replyToMessageId: String?,
         useBlocksFormat: Bool
     ) async throws {
-        var chatMessage = await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId, useBlocksFormat: useBlocksFormat)
+        var chatMessage = try await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId, useBlocksFormat: useBlocksFormat)
         chatMessage.id = messageId
         try await chatService.updateMessage(chatObjectId: chatId, message: chatMessage)
     }
@@ -66,7 +66,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         linkedObjects: [ChatLinkedObject],
         replyToMessageId: String?,
         useBlocksFormat: Bool
-    ) async -> ChatMessage {
+    ) async throws -> ChatMessage {
 
         var chatMessage = ChatMessage()
         let content = chatInputConverter.convert(message: message.value)
@@ -101,7 +101,8 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
                 }
             case .localPhotosFile(let chatLocalFile):
                 guard let data = chatLocalFile.data else { continue }
-                guard let fileDetails = try? await uploadFile(spaceId: spaceId, data: data.data, preloadFileId: chatLocalFile.data?.preloadFileId, createdInContext: chatId) else { continue }
+                // A failed upload must fail the send — silently dropping the attachment loses user data
+                let fileDetails = try await uploadFile(spaceId: spaceId, data: data.data, preloadFileId: chatLocalFile.data?.preloadFileId, createdInContext: chatId)
                 if useBlocksFormat {
                     var linkBlock = ChatMessage.MessageBlockLink()
                     linkBlock.targetObjectID = fileDetails.id
@@ -115,7 +116,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
                     chatMessage.attachments.append(attachment)
                 }
             case .localBinaryFile(let binaryFile):
-                guard let fileDetails = try? await uploadFile(spaceId: spaceId, data: binaryFile.data, preloadFileId: binaryFile.preloadFileId, createdInContext: chatId) else { continue }
+                let fileDetails = try await uploadFile(spaceId: spaceId, data: binaryFile.data, preloadFileId: binaryFile.preloadFileId, createdInContext: chatId)
                 if useBlocksFormat {
                     var linkBlock = ChatMessage.MessageBlockLink()
                     linkBlock.targetObjectID = fileDetails.id
@@ -132,14 +133,14 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
                 guard let url = AnytypeURL(string: data.url) else { continue }
                 let type = try? typeProvider.objectType(uniqueKey: ObjectTypeUniqueKey.bookmark, spaceId: spaceId)
 
-                guard let bookmark = try? await bookmarkService.createBookmarkObject(
+                let bookmark = try await bookmarkService.createBookmarkObject(
                     spaceId: spaceId,
                     url: url,
                     templateId: type?.defaultTemplateId,
                     origin: .none,
                     createdInContext: chatId,
                     createdInContextRef: ""
-                ) else { continue }
+                )
 
                 if useBlocksFormat {
                     var linkBlock = ChatMessage.MessageBlockLink()
