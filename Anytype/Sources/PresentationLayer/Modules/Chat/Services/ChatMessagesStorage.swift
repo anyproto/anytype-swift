@@ -168,7 +168,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         let loadedMessagesBefore = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: replyMessage.orderID, limit: Constants.pageSize)
         let loadedMessagesAfter = try await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: replyMessage.orderID, limit: Constants.pageSize)
         
-        let allLoadedMessages = loadedMessagesBefore + [replyMessage] + loadedMessagesAfter
+        var allLoadedMessages = loadedMessagesBefore + [replyMessage] + loadedMessagesAfter
+        // Keep messages that events added during the fetches: when the fetch reached
+        // the current tail, anything newer than the fetched window is contiguous with it.
+        if loadedMessagesAfter.count < Constants.pageSize {
+            let fetchedMaxOrderId = allLoadedMessages.map(\.orderID).max() ?? ""
+            allLoadedMessages += messages.messages.filter { $0.orderID > fetchedMaxOrderId }
+        }
         messages.removeAll()
         
         await addNewMessages(messages: allLoadedMessages)
@@ -189,7 +195,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             throw CommonError.undefined
         }
         
-        let allLoadedMessages = loadedMessagesBefore + loadedMessagesAfter
+        var allLoadedMessages = loadedMessagesBefore + loadedMessagesAfter
+        // Keep messages that events added during the fetches: when the fetch reached
+        // the current tail, anything newer than the fetched window is contiguous with it.
+        if loadedMessagesAfter.count < Constants.pageSize {
+            let fetchedMaxOrderId = allLoadedMessages.map(\.orderID).max() ?? ""
+            allLoadedMessages += messages.messages.filter { $0.orderID > fetchedMaxOrderId }
+        }
         messages.removeAll()
         
         await addNewMessages(messages: allLoadedMessages)
@@ -241,18 +253,28 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private func handle(events: EventsBunch) async {
         var updates: Set<ChatUpdate> = []
-        
+
         var updateRepliesAndAttachments = true
-        
+        var needsTailGapRefill = false
+
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatAdd(data):
                 guard data.subIds.contains(subId) else { break }
+                let windowWasAtTail = messages.last?.id == lastMessages.last?.id
                 if messages.chatAdd(data) {
                     updates.insert(.messages)
                     updateRepliesAndAttachments = true
+                } else if windowWasAtTail, let last = messages.last, data.afterOrderID > last.orderID {
+                    // The new message references a predecessor we never received — an event
+                    // was missed. Refetch the tail instead of freezing the window: otherwise
+                    // every subsequent chatAdd fails the boundary check too.
+                    needsTailGapRefill = true
                 }
-                lastMessages.chatAdd(data)
+                if !lastMessages.chatAdd(data), let last = lastMessages.last, data.message.orderID > last.orderID {
+                    // lastMessages must always track the real tail, even across gaps
+                    lastMessages.add(data.message)
+                }
             case let .chatDelete(data):
                 guard data.subIds.contains(subId) else { break }
                 if messages.chatDelete(data) {
@@ -297,7 +319,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         }
         
         lastMessages.cleanFirst(maxCache: Constants.lastMessagesMaxCacheSize)
-        
+
+        if needsTailGapRefill {
+            await refillTailGap()
+            updates.insert(.messages)
+            updateRepliesAndAttachments = true
+        }
+
         if updateRepliesAndAttachments {
             await loadReplies()
             await loadAttachments()
@@ -314,10 +342,18 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private func addNewMessages(messages newMessages: [ChatMessage]) async {
         messages.add(newMessages)
-        
+
         await loadReplies()
         await loadAttachments()
         await updateAttachmentSubscription()
+    }
+
+    private func refillTailGap() async {
+        guard let last = messages.last else { return }
+        guard let newMessages = try? await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: last.orderID, limit: Constants.pageSize),
+              newMessages.isNotEmpty else { return }
+        messages.add(newMessages)
+        messages.cleanFirst(maxCache: Constants.maxCacheSize)
     }
     
     private func loadAttachments() async {
