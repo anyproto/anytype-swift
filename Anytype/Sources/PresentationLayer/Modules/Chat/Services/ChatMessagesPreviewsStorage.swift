@@ -4,6 +4,8 @@ import AnytypeCore
 import AsyncTools
 
 protocol ChatMessagesPreviewsStorageProtocol: AnyObject, Sendable {
+    func startSubscription() async
+    func stopSubscriptionAndClean() async
     func previews() async -> [ChatMessagePreview]
     var previewsSequence: AnyAsyncSequence<[ChatMessagePreview]> { get async }
     var previewsSequenceWithEmpty: AnyAsyncSequence<[ChatMessagePreview]> { get async }
@@ -28,9 +30,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     private var previewsBySpace = [ChatMessagePreviewKey: ChatMessagePreview]()
     private let previewsStream = AsyncToManyStream<[ChatMessagePreview]>()
     
-    init() {
-        Task { await startSubscription() }
-    }
+    init() {}
     
     var previewsSequence: AnyAsyncSequence<[ChatMessagePreview]> {
         previewsStream.throttle(milliseconds: 300).eraseToAnyAsyncSequence()
@@ -44,33 +44,30 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         Array(previewsBySpace.values)
     }
     
-    deinit {
-        subscription?.cancel()
-        subscription = nil
-        // Implemented in swift 6.1 https://github.com/swiftlang/swift-evolution/blob/main/proposals/0371-isolated-synchronous-deinit.md
-        Task { [chatService, basicUserInfoStorage] in
-            guard basicUserInfoStorage.usersId.isNotEmpty else { return }
-            try await chatService.unsubscribeFromMessagePreviews()
-        }
-    }
-    
-    // MARK: - Private
-    
-    private func startSubscription() async {
+    // Lifecycle is managed by LoginStateService: started after login, stopped on logout.
+    // Without an explicit restart the middleware-side subscription is gone after
+    // logout/login and previews stay dead until app restart.
+    func startSubscription() async {
+        guard subscription == nil else { return }
         guard basicUserInfoStorage.usersId.isNotEmpty else {
             return
         }
-        
+
+        // Register the bus subscription before the RPC so events emitted right after
+        // the middleware-side subscription goes live land in the stream buffer.
+        let eventStream = await EventBunchSubscribtion.default.stream()
         subscription = Task { [weak self] in
-            for await events in await EventBunchSubscribtion.default.stream() {
+            for await events in eventStream {
                 await self?.handle(events: events)
             }
         }
-        
-        do {
 
+        do {
             let response = try await chatService.subscribeToMessagePreviews(subId: subscriptionId)
-            
+
+            // Stopped while awaiting the response — don't resurrect old previews
+            guard subscription != nil else { return }
+
             for preview in response.previews {
                 handleChatState(spaceId: preview.spaceID, chatId: preview.chatObjectID, state: preview.state)
                 await handleChatLastMessage(spaceId: preview.spaceID, chatId: preview.chatObjectID, message: preview.message, dependencies: preview.dependencies.compactMap(\.asDetails))
@@ -81,6 +78,22 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
             anytypeAssertionFailure("Subscribe to messages previews error", info: ["previewsError": error.localizedDescription])
         }
     }
+
+    func stopSubscriptionAndClean() async {
+        subscription?.cancel()
+        subscription = nil
+        previewsBySpace.removeAll()
+        previewsStream.send([])
+        guard basicUserInfoStorage.usersId.isNotEmpty else { return }
+        try? await chatService.unsubscribeFromMessagePreviews()
+    }
+
+    deinit {
+        subscription?.cancel()
+        subscription = nil
+    }
+
+    // MARK: - Private
     
     private func handle(events: EventsBunch) async {
         var hasChanges = false
