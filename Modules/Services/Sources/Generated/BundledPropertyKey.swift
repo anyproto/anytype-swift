@@ -378,6 +378,9 @@ public enum BundledPropertyKey: String, Sendable {
     /// BlockID/RelationKey/MessageId where the object was initially created
     case createdInContextRef = "createdInContextRef"
 
+    /// Ignore this object's createdInContext link: it is excluded from cleanup suggestions and from automatic context-driven archival
+    case createdInContextIgnored = "createdInContextIgnored"
+
     /// Import type, used to create object (notion, md and etc)
     case importType = "importType"
 

@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.Object {
-    public struct ListSetIsArchived: Sendable {
+    public struct CleanupSuggestionIgnore: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -26,10 +26,7 @@ extension Anytype_Rpc.Object {
 
         public var objectIds: [String] = []
 
-        public var isArchived: Bool = false
-
-        /// when true, skip the orphan cascade entirely (see SetIsArchived.Request).
-        public var skipCascade: Bool = false
+        public var ignored: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -41,23 +38,14 @@ extension Anytype_Rpc.Object {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Object.ListSetIsArchived.Response.Error {
-          get {return _error ?? Anytype_Rpc.Object.ListSetIsArchived.Response.Error()}
+        public var error: Anytype_Rpc.Object.CleanupSuggestionIgnore.Response.Error {
+          get {return _error ?? Anytype_Rpc.Object.CleanupSuggestionIgnore.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
         public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
-
-        public var event: Anytype_ResponseEvent {
-          get {return _event ?? Anytype_ResponseEvent()}
-          set {_event = newValue}
-        }
-        /// Returns true if `event` has been explicitly set.
-        public var hasEvent: Bool {return self._event != nil}
-        /// Clears the value of `event`. Subsequent reads from it will return its default value.
-        public mutating func clearEvent() {self._event = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -66,7 +54,7 @@ extension Anytype_Rpc.Object {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Object.ListSetIsArchived.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Object.CleanupSuggestionIgnore.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -76,8 +64,6 @@ extension Anytype_Rpc.Object {
             public typealias RawValue = Int
             case null // = 0
             case unknownError // = 1
-
-            /// ...
             case badInput // = 2
             case UNRECOGNIZED(Int)
 
@@ -104,7 +90,7 @@ extension Anytype_Rpc.Object {
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Object.ListSetIsArchived.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Object.CleanupSuggestionIgnore.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
@@ -117,16 +103,15 @@ extension Anytype_Rpc.Object {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Object.ListSetIsArchived.Response.Error? = nil
-        fileprivate var _event: Anytype_ResponseEvent? = nil
+        fileprivate var _error: Anytype_Rpc.Object.CleanupSuggestionIgnore.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Object.ListSetIsArchived: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".ListSetIsArchived"
+extension Anytype_Rpc.Object.CleanupSuggestionIgnore: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".CleanupSuggestionIgnore"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -138,15 +123,15 @@ extension Anytype_Rpc.Object.ListSetIsArchived: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.ListSetIsArchived, rhs: Anytype_Rpc.Object.ListSetIsArchived) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.CleanupSuggestionIgnore, rhs: Anytype_Rpc.Object.CleanupSuggestionIgnore) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.ListSetIsArchived.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.ListSetIsArchived.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}objectIds\0\u{1}isArchived\0\u{1}skipCascade\0")
+extension Anytype_Rpc.Object.CleanupSuggestionIgnore.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.CleanupSuggestionIgnore.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}objectIds\0\u{1}ignored\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -155,8 +140,7 @@ extension Anytype_Rpc.Object.ListSetIsArchived.Request: SwiftProtobuf.Message, S
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.objectIds) }()
-      case 2: try { try decoder.decodeSingularBoolField(value: &self.isArchived) }()
-      case 3: try { try decoder.decodeSingularBoolField(value: &self.skipCascade) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.ignored) }()
       default: break
       }
     }
@@ -166,27 +150,23 @@ extension Anytype_Rpc.Object.ListSetIsArchived.Request: SwiftProtobuf.Message, S
     if !self.objectIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.objectIds, fieldNumber: 1)
     }
-    if self.isArchived != false {
-      try visitor.visitSingularBoolField(value: self.isArchived, fieldNumber: 2)
-    }
-    if self.skipCascade != false {
-      try visitor.visitSingularBoolField(value: self.skipCascade, fieldNumber: 3)
+    if self.ignored != false {
+      try visitor.visitSingularBoolField(value: self.ignored, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.ListSetIsArchived.Request, rhs: Anytype_Rpc.Object.ListSetIsArchived.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.CleanupSuggestionIgnore.Request, rhs: Anytype_Rpc.Object.CleanupSuggestionIgnore.Request) -> Bool {
     if lhs.objectIds != rhs.objectIds {return false}
-    if lhs.isArchived != rhs.isArchived {return false}
-    if lhs.skipCascade != rhs.skipCascade {return false}
+    if lhs.ignored != rhs.ignored {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.ListSetIsArchived.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.ListSetIsArchived.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}event\0")
+extension Anytype_Rpc.Object.CleanupSuggestionIgnore.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.CleanupSuggestionIgnore.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -195,7 +175,6 @@ extension Anytype_Rpc.Object.ListSetIsArchived.Response: SwiftProtobuf.Message, 
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
       default: break
       }
     }
@@ -209,22 +188,18 @@ extension Anytype_Rpc.Object.ListSetIsArchived.Response: SwiftProtobuf.Message, 
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    try { if let v = self._event {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.ListSetIsArchived.Response, rhs: Anytype_Rpc.Object.ListSetIsArchived.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.CleanupSuggestionIgnore.Response, rhs: Anytype_Rpc.Object.CleanupSuggestionIgnore.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs._event != rhs._event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.ListSetIsArchived.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Object.CleanupSuggestionIgnore.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.CleanupSuggestionIgnore.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -250,7 +225,7 @@ extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.ListSetIsArchived.Response.Error, rhs: Anytype_Rpc.Object.ListSetIsArchived.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.CleanupSuggestionIgnore.Response.Error, rhs: Anytype_Rpc.Object.CleanupSuggestionIgnore.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -258,7 +233,7 @@ extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error: SwiftProtobuf.Mes
   }
 }
 
-extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Object.CleanupSuggestionIgnore.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 

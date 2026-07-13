@@ -28,6 +28,11 @@ extension Anytype_Rpc.Object {
 
         public var isArchived: Bool = false
 
+        /// when true, skip the orphan cascade entirely (no file auto-archive, no
+        /// CleanupSuggestion event). Used by the client when archiving objects the user
+        /// confirmed in the popup, to avoid re-prompting.
+        public var skipCascade: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -143,7 +148,7 @@ extension Anytype_Rpc.Object.SetIsArchived: SwiftProtobuf.Message, SwiftProtobuf
 
 extension Anytype_Rpc.Object.SetIsArchived.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.SetIsArchived.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}isArchived\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}isArchived\0\u{1}skipCascade\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -153,6 +158,7 @@ extension Anytype_Rpc.Object.SetIsArchived.Request: SwiftProtobuf.Message, Swift
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.isArchived) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.skipCascade) }()
       default: break
       }
     }
@@ -165,12 +171,16 @@ extension Anytype_Rpc.Object.SetIsArchived.Request: SwiftProtobuf.Message, Swift
     if self.isArchived != false {
       try visitor.visitSingularBoolField(value: self.isArchived, fieldNumber: 2)
     }
+    if self.skipCascade != false {
+      try visitor.visitSingularBoolField(value: self.skipCascade, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.SetIsArchived.Request, rhs: Anytype_Rpc.Object.SetIsArchived.Request) -> Bool {
     if lhs.contextID != rhs.contextID {return false}
     if lhs.isArchived != rhs.isArchived {return false}
+    if lhs.skipCascade != rhs.skipCascade {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
