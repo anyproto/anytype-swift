@@ -934,6 +934,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectCleanupSuggestions(
+        _ request: Anytype_Rpc.Object.CleanupSuggestions.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.CleanupSuggestions.Request, Anytype_Rpc.Object.CleanupSuggestions.Response> {
+        return Invocation(messageName: "ObjectCleanupSuggestions", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectCleanupSuggestions(requestData) ?? Data()
+            return try Anytype_Rpc.Object.CleanupSuggestions.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func objectCleanupSuggestionIgnore(
+        _ request: Anytype_Rpc.Object.CleanupSuggestionIgnore.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.CleanupSuggestionIgnore.Request, Anytype_Rpc.Object.CleanupSuggestionIgnore.Response> {
+        return Invocation(messageName: "ObjectCleanupSuggestionIgnore", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectCleanupSuggestionIgnore(requestData) ?? Data()
+            return try Anytype_Rpc.Object.CleanupSuggestionIgnore.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func objectListSetIsFavorite(
         _ request: Anytype_Rpc.Object.ListSetIsFavorite.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.ListSetIsFavorite.Request, Anytype_Rpc.Object.ListSetIsFavorite.Response> {

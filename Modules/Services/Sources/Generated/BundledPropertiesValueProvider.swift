@@ -140,6 +140,7 @@ public protocol BundledPropertiesValueProvider {
     var imageKind: Int? { get }
     var createdInContext: ObjectId { get }
     var createdInContextRef: String { get }
+    var createdInContextIgnored: Bool { get }
     var importType: Int? { get }
     var globalName: String { get }
     var syncStatus: Int? { get }
@@ -706,6 +707,10 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// BlockID/RelationKey/MessageId where the object was initially created
     var createdInContextRef: String {
         return value(for: BundledPropertyKey.createdInContextRef.rawValue)
+    }
+    /// Ignore this object's createdInContext link: it is excluded from cleanup suggestions and from automatic context-driven archival
+    var createdInContextIgnored: Bool {
+        return value(for: BundledPropertyKey.createdInContextIgnored.rawValue)
     }
     /// Import type, used to create object (notion, md and etc)
     var importType: Int? {
