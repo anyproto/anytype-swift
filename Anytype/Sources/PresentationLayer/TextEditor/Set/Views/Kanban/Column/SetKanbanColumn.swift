@@ -19,31 +19,59 @@ struct SetKanbanColumn: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            content
-            if configurations.isEmpty {
-                emptyDroppableArea
-            }
-        }
-    }
-    
-    private var content: some View {
-        VStack(spacing: 0) {
             header
-            column
+                .padding(.horizontal, 8)
+                .background(
+                    columnBackgroundColor,
+                    in: .rect(topLeadingRadius: 4, topTrailingRadius: 4)
+                )
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 0) {
+                    column
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, configurations.isEmpty ? 0 : Constants.contentInset)
+                        .background(
+                            columnBackgroundColor,
+                            in: .rect(bottomLeadingRadius: 4, bottomTrailingRadius: 4)
+                        )
+                    if configurations.isEmpty {
+                        emptyDroppableArea
+                    }
+                    // Room to scroll the last card and the create button clear of the floating
+                    // home panel, whose blur intercepts touches across the full width.
+                    AnytypeNavigationSpacer()
+                }
+                .scrollAxisLock(.vertical)
+            }
+            .scrollBounceBehavior(.basedOnSize)
+            .overlay(alignment: .top) { topFade }
         }
-        .padding(.horizontal, 8)
-        .padding(.bottom, configurations.isEmpty ? 0 : 8)
-        .background(
-            isGroupBackgroundColors ?
-            backgroundColor.swiftColor.opacity(0.5) :
-            Color.Background.primary
-        )
-        .clipShape(.rect(cornerRadius: 4))
         .frame(width: 270)
     }
-    
+
+    private var columnBackgroundColor: Color {
+        isGroupBackgroundColors ?
+        backgroundColor.swiftColor.opacity(0.5) :
+        Color.Background.primary
+    }
+
+    // Softens the hard clip under the header: cards dissolve into the column's own color instead
+    // of being cut off. The group tint is translucent, so the fade has to be its composite over
+    // the board background - fading to the tint alone would leave cards showing through it.
+    private var topFade: some View {
+        ZStack {
+            Color.Background.primary
+            columnBackgroundColor
+        }
+        .frame(height: Constants.contentInset)
+        .mask(
+            LinearGradient(colors: [.black, .clear], startPoint: .top, endPoint: .bottom)
+        )
+        .allowsHitTesting(false)
+    }
+
     private var column: some View {
-        VStack(spacing: 8) {
+        LazyVStack(spacing: 8) {
             ForEach(configurations) { configuration in
                 SetDragAndDropView(
                     dropData: $dropData,
@@ -181,5 +209,13 @@ struct SetKanbanColumn: View {
                     .frame(height: 44)
             }
         )
+    }
+}
+
+extension SetKanbanColumn {
+    enum Constants {
+        // Doubles as the fade height, so at rest the fade covers only the inset and is fully
+        // transparent by the first card's top edge.
+        static let contentInset: CGFloat = 8
     }
 }
