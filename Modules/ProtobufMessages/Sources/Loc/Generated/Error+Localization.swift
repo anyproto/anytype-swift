@@ -7533,6 +7533,8 @@ extension Anytype_Rpc.Space.InviteChange.Response.Error: LocalizedError {
                 return LocHelper.tr(table: "LocalizableError", key: "Space.InviteChange.requestFailed")
             case .incorrectPermissions:
                 return LocHelper.tr(table: "LocalizableError", key: "Space.InviteChange.incorrectPermissions")
+            case .inviteNotShareable:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.InviteChange.inviteNotShareable")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -7566,6 +7568,10 @@ extension Anytype_Rpc.Space.InviteGenerate.Response.Error: LocalizedError {
                 return LocHelper.tr(table: "LocalizableError", key: "Space.InviteGenerate.limitReached")
             case .notShareable:
                 return LocHelper.tr(table: "LocalizableError", key: "Space.InviteGenerate.notShareable")
+            case .inviteAlreadyShared:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.InviteGenerate.inviteAlreadyShared")
+            case .inviteNotShareable:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.InviteGenerate.inviteNotShareable")
             case .UNRECOGNIZED:
                 return ""
         }

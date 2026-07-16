@@ -80,6 +80,7 @@ public extension BundledPropertyKey {
         .spaceInviteFileKey,
         .spaceInviteType,
         .spaceInvitePermissions,
+        .spaceInviteHeldByOwner,
         .readersLimit,
         .writersLimit,
         .sharedSpacesLimit,
