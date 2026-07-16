@@ -738,7 +738,8 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     func copyObjectLink() async {
         let invite = try? await workspaceService.getCurrentInvite(spaceId: spaceId)
-        let link = universalLinkParser.createUrl(link: .object(objectId: objectId, spaceId: spaceId, cid: invite?.cid, key: invite?.fileKey))
+        let hasLink = invite?.hasLink ?? false
+        let link = universalLinkParser.createUrl(link: .object(objectId: objectId, spaceId: spaceId, cid: hasLink ? invite?.cid : nil, key: hasLink ? invite?.fileKey : nil))
         UIPasteboard.general.string = link?.absoluteString
         toastBarData = ToastBarData(Loc.copied)
     }

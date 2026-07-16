@@ -92,7 +92,7 @@ final class SpaceProfileViewModel {
         guard !linkUpdated else { return }
         defer { linkUpdated = true }
 
-        guard let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId) else { return }
+        guard let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId), invite.hasLink else { return }
         inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
     }
     

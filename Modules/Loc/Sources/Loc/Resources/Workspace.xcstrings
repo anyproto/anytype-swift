@@ -59735,6 +59735,17 @@
         }
       }
     },
+    "Space.Invite.HeldByOwner.Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The invite link is held by the space owner. Ask them to share it."
+          }
+        }
+      }
+    },
     "Space.Invite.LinkDisabled.Subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -60355,6 +60366,83 @@
         }
       }
     },
+    "Space.Invite.Reset.ConfirmMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The current link stops working for everyone who has it, including the people you meant to invite. A new link is created in its place."
+          }
+        }
+      }
+    },
+    "Space.Invite.Reset.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset link"
+          }
+        }
+      }
+    },
+    "Space.Invite.Share.ConfirmMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All space members will be able to see this invite link and share it with anyone. To make it private again, you'll need to reset the link."
+          }
+        }
+      }
+    },
+    "Space.Invite.Share.ConfirmTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share invite link"
+          }
+        }
+      }
+    },
+    "Space.Invite.Share.DisabledReason" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anyone with this link joins as an editor, without approval. Only you can share it."
+          }
+        }
+      }
+    },
+    "Space.Invite.Share.LockedHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To make it private again, you'll need to reset the link."
+          }
+        }
+      }
+    },
+    "Space.Invite.Share.Toggle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everyone in the space can share this invite"
+          }
+        }
+      }
+    },
     "Space.Invite.ViewerAccess.Subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -60661,6 +60749,28 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Viewer access"
+          }
+        }
+      }
+    },
+    "Space.Invite.Warning.AutoApproval" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anyone who gains access to this invitation link will be able to join this space at any time, until you reset the link."
+          }
+        }
+      }
+    },
+    "Space.Invite.Warning.EditorUpgrade" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Any existing Viewer who gains access to this invitation link can use it to upgrade themselves to Editor."
           }
         }
       }

@@ -118,7 +118,7 @@ final class WidgetsHeaderViewModel {
 
         do {
             let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
-            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+            inviteLink = invite.hasLink ? universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey)) : nil
         } catch {
             inviteLink = nil
         }

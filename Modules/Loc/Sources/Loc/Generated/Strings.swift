@@ -2279,6 +2279,9 @@ public enum Loc {
         public static let subtitle = Loc.tr("Workspace", "Space.Invite.EditorAccess.Subtitle", fallback: "People with link can edit and write in chat")
         public static let title = Loc.tr("Workspace", "Space.Invite.EditorAccess.Title", fallback: "Editor access")
       }
+      public enum HeldByOwner {
+        public static let message = Loc.tr("Workspace", "Space.Invite.HeldByOwner.Message", fallback: "The invite link is held by the space owner. Ask them to share it.")
+      }
       public enum LinkDisabled {
         public static let subtitle = Loc.tr("Workspace", "Space.Invite.LinkDisabled.Subtitle", fallback: "Only already invited members have access")
         public static let title = Loc.tr("Workspace", "Space.Invite.LinkDisabled.Title", fallback: "Link disabled")
@@ -2287,9 +2290,24 @@ public enum Loc {
         public static let subtitle = Loc.tr("Workspace", "Space.Invite.RequestAccess.Subtitle", fallback: "Owner must approve each join request")
         public static let title = Loc.tr("Workspace", "Space.Invite.RequestAccess.Title", fallback: "Request access")
       }
+      public enum Reset {
+        public static let confirmMessage = Loc.tr("Workspace", "Space.Invite.Reset.ConfirmMessage", fallback: "The current link stops working for everyone who has it, including the people you meant to invite. A new link is created in its place.")
+        public static let title = Loc.tr("Workspace", "Space.Invite.Reset.Title", fallback: "Reset link")
+      }
+      public enum Share {
+        public static let confirmMessage = Loc.tr("Workspace", "Space.Invite.Share.ConfirmMessage", fallback: "All space members will be able to see this invite link and share it with anyone. To make it private again, you'll need to reset the link.")
+        public static let confirmTitle = Loc.tr("Workspace", "Space.Invite.Share.ConfirmTitle", fallback: "Share invite link")
+        public static let disabledReason = Loc.tr("Workspace", "Space.Invite.Share.DisabledReason", fallback: "Anyone with this link joins as an editor, without approval. Only you can share it.")
+        public static let lockedHint = Loc.tr("Workspace", "Space.Invite.Share.LockedHint", fallback: "To make it private again, you'll need to reset the link.")
+        public static let toggle = Loc.tr("Workspace", "Space.Invite.Share.Toggle", fallback: "Everyone in the space can share this invite")
+      }
       public enum ViewerAccess {
         public static let subtitle = Loc.tr("Workspace", "Space.Invite.ViewerAccess.Subtitle", fallback: "People with link can view and read chat")
         public static let title = Loc.tr("Workspace", "Space.Invite.ViewerAccess.Title", fallback: "Viewer access")
+      }
+      public enum Warning {
+        public static let autoApproval = Loc.tr("Workspace", "Space.Invite.Warning.AutoApproval", fallback: "Anyone who gains access to this invitation link will be able to join this space at any time, until you reset the link.")
+        public static let editorUpgrade = Loc.tr("Workspace", "Space.Invite.Warning.EditorUpgrade", fallback: "Any existing Viewer who gains access to this invitation link can use it to upgrade themselves to Editor.")
       }
     }
     public enum Notifications {
