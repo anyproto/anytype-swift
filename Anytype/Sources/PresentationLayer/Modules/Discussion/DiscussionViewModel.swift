@@ -373,6 +373,10 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             }
         } catch {
             // Keep the input intact so the user can retry
+            if let sendError = error as? ChatActionSendError {
+                // Reuse already uploaded attachments on retry instead of re-uploading them
+                attachmentHandler.setLinkedObjects(sendError.updatedLinkedObjects)
+            }
             toastBarData = ToastBarData(error.localizedDescription, type: .failure)
         }
     }

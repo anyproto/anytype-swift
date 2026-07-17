@@ -125,6 +125,9 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     
     func setLinkedObjects(_ objects: [ChatLinkedObject]) {
         state.setLinkedObjects(objects)
+        // Keep photos items in sync — otherwise a removed/converted photo would be re-added on the next picker update
+        let localPhotosHashes = Set(objects.compactMap { $0.localPhotosFile?.photosPickerItemHash })
+        state.removePhotosItems { !localPhotosHashes.contains($0.hashValue) }
     }
 
     func getPhotosItems() -> [PhotosPickerItem] {
