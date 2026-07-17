@@ -168,7 +168,13 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
         let loadedMessagesBefore = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: replyMessage.orderID, limit: Constants.pageSize)
         let loadedMessagesAfter = try await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: replyMessage.orderID, limit: Constants.pageSize)
 
-        let allLoadedMessages = loadedMessagesBefore + [replyMessage] + loadedMessagesAfter
+        var allLoadedMessages = loadedMessagesBefore + [replyMessage] + loadedMessagesAfter
+        // Keep messages that events added during the fetches: when the fetch reached
+        // the current tail, anything newer than the fetched window is contiguous with it.
+        if loadedMessagesAfter.count < Constants.pageSize {
+            let fetchedMaxOrderId = allLoadedMessages.map(\.orderID).max() ?? ""
+            allLoadedMessages += messages.messages.filter { $0.orderID > fetchedMaxOrderId }
+        }
         messages.removeAll()
 
         await addNewMessages(messages: allLoadedMessages)
@@ -189,7 +195,13 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
             throw CommonError.undefined
         }
 
-        let allLoadedMessages = loadedMessagesBefore + loadedMessagesAfter
+        var allLoadedMessages = loadedMessagesBefore + loadedMessagesAfter
+        // Keep messages that events added during the fetches: when the fetch reached
+        // the current tail, anything newer than the fetched window is contiguous with it.
+        if loadedMessagesAfter.count < Constants.pageSize {
+            let fetchedMaxOrderId = allLoadedMessages.map(\.orderID).max() ?? ""
+            allLoadedMessages += messages.messages.filter { $0.orderID > fetchedMaxOrderId }
+        }
         messages.removeAll()
 
         await addNewMessages(messages: allLoadedMessages)
@@ -250,21 +262,33 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     private func handle(events: EventsBunch) async {
         var updates: Set<ChatUpdate> = []
 
-        var updateRepliesAndAttachments = true
+        var updateRepliesAndAttachments = false
+        var needsTailGapRefill = false
 
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatAdd(data):
                 guard data.subIds.contains(subId) else { break }
+                let windowWasAtTail = messages.last?.id == lastMessages.last?.id
                 if messages.chatAdd(data) {
                     updates.insert(.messages)
                     updateRepliesAndAttachments = true
+                } else if windowWasAtTail, let last = messages.last, data.afterOrderID > last.orderID {
+                    // The new message references a predecessor we never received — an event
+                    // was missed. Refetch the tail instead of freezing the window: otherwise
+                    // every subsequent chatAdd fails the boundary check too.
+                    needsTailGapRefill = true
                 }
-                lastMessages.chatAdd(data)
+                if !lastMessages.chatAdd(data), let last = lastMessages.last, data.message.orderID > last.orderID {
+                    // lastMessages must always track the real tail, even across gaps
+                    lastMessages.add(data.message)
+                }
             case let .chatDelete(data):
                 guard data.subIds.contains(subId) else { break }
                 if messages.chatDelete(data) {
                     updates.insert(.messages)
+                    // Trigger attachments cleanup for the removed message
+                    updateRepliesAndAttachments = true
                 }
                 lastMessages.chatDelete(data)
             case let .chatUpdate(data):
@@ -310,6 +334,12 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
 
         lastMessages.cleanFirst(maxCache: Constants.lastMessagesMaxCacheSize)
 
+        if needsTailGapRefill {
+            await refillTailGap()
+            updates.insert(.messages)
+            updateRepliesAndAttachments = true
+        }
+
         if updateRepliesAndAttachments {
             await loadReplies()
             await loadAttachments()
@@ -330,6 +360,14 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
         await loadReplies()
         await loadAttachments()
         await updateAttachmentSubscription()
+    }
+
+    private func refillTailGap() async {
+        guard let last = messages.last else { return }
+        guard let newMessages = try? await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: last.orderID, limit: Constants.pageSize),
+              newMessages.isNotEmpty else { return }
+        messages.add(newMessages)
+        messages.cleanFirst(maxCache: Constants.maxCacheSize)
     }
 
     private func loadAttachments() async {
@@ -397,9 +435,14 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
     }
 
     private func updateAttachmentSubscription() async {
-        guard let subscriptionStartMessageId, let subscriptionEndMessageId,
-              let startMessageIndex = messages.index(messageId: subscriptionStartMessageId),
-              let endMessageIndex = messages.index(messageId: subscriptionEndMessageId)  else { return }
+        // Before the first visible-range callback there are no anchors yet — cover the
+        // whole window so attachment details that appear later (e.g. incoming files
+        // still syncing) still reach the UI.
+        let startAnchorId = subscriptionStartMessageId ?? messages.first?.id
+        let endAnchorId = subscriptionEndMessageId ?? messages.last?.id
+        guard let startAnchorId, let endAnchorId,
+              let startMessageIndex = messages.index(messageId: startAnchorId),
+              let endMessageIndex = messages.index(messageId: endAnchorId) else { return }
 
         let startIndex = startMessageIndex - Constants.subsctiptionMessageOverLimitForAttachments
         let endIndex = endMessageIndex + Constants.subsctiptionMessageOverLimitForAttachments
