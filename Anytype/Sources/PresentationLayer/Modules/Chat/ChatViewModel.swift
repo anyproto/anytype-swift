@@ -753,7 +753,8 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     func updateInviteState() async {
         do {
             let invite = try await workspaceService.getCurrentInvite(spaceId: spaceId)
-            qrCodeInviteUrl = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+            // Invite held by the owner resolves with an empty cid on a member's device — never render an empty link
+            qrCodeInviteUrl = invite.hasLink ? universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey)) : nil
         } catch {
             qrCodeInviteUrl = nil
         }

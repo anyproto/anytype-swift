@@ -1,6 +1,7 @@
 import Foundation
 import Factory
 import Services
+import ProtobufMessages
 
 protocol PendingShareServiceProtocol: AnyObject, Sendable {
     func savePendingAndRunChain(spaceId: String, identities: [PendingIdentity]) async
@@ -54,13 +55,22 @@ actor PendingShareService: PendingShareServiceProtocol {
         }
 
         if state.needsGenerateInvite {
+            // Members are added to the ACL directly; the invite only has to exist. Keep the owner's
+            // invite untouched and default new ones to request-to-join, held by the owner.
             do {
-                _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
-                state.needsGenerateInvite = false
-                storage.savePendingState(state)
+                _ = try await workspaceService.getCurrentInvite(spaceId: spaceId)
+            } catch let error as Anytype_Rpc.Space.InviteGetCurrent.Response.Error where error.code == .noActiveInvite {
+                do {
+                    _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .member, permissions: nil)
+                } catch {
+                    return
+                }
             } catch {
+                // Transient failure — retry the whole step later instead of risking a duplicate invite
                 return
             }
+            state.needsGenerateInvite = false
+            storage.savePendingState(state)
         }
 
         // Middleware participantsAddList is idempotent — re-sending already-added participants is a no-op.
