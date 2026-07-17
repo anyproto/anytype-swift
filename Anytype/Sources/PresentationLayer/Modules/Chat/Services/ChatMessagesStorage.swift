@@ -35,6 +35,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         static let pageSize = 100
         static let maxCacheSize = 1000
         static let lastMessagesMaxCacheSize = 10
+        static let pendingSyncStatusMaxCacheSize = 100
         // As user scroll N messages, we update the attachments subscription. Not every message.
         static let subscriptionMessageIntervalForAttachments = 20
         // Subscribe to visible cells attachments AND N top and N bottom. Should be more "interval" value for better experience.
@@ -70,7 +71,10 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     private var replies = [String: ChatMessage]()
     private(set) var fullMessages: [FullChatMessage]?
     private(set) var chatState: ChatState?
-    
+    // Sync status events can outrun the chatAdd that inserts the message
+    // (push events race RPC-response events). Remembered and applied on arrival.
+    private var pendingSyncStatus = [String: Bool]()
+
     // Delta updates must never be dropped: a lost .messages tick leaves the chat
     // stale until reopen. AsyncUpdateStream unions pending updates for busy
     // subscribers and seeds new subscribers with a full refresh.
@@ -306,15 +310,25 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 if messages.chatUpdateReactions(data) {
                     updates.insert(.messages)
                 }
+                lastMessages.chatUpdateReactions(data)
             case let .chatUpdateMessageReadStatus(data):
                 guard data.subIds.contains(subId) else { break }
-                messages.chatUpdateMessageReadStatus(data)
+                if messages.chatUpdateMessageReadStatus(data) {
+                    updates.insert(.messages)
+                }
+                lastMessages.chatUpdateMessageReadStatus(data)
             case let .chatUpdateMentionReadStatus(data):
                 guard data.subIds.contains(subId) else { break }
-                messages.chatUpdateMentionReadStatus(data)
+                if messages.chatUpdateMentionReadStatus(data) {
+                    updates.insert(.messages)
+                }
+                lastMessages.chatUpdateMentionReadStatus(data)
             case let .chatUpdateReactionReadStatus(data):
                 guard data.subIds.contains(subId) else { break }
-                messages.chatUpdateReactionReadStatus(data)
+                if messages.chatUpdateReactionReadStatus(data) {
+                    updates.insert(.messages)
+                }
+                lastMessages.chatUpdateReactionReadStatus(data)
             case let .chatStateUpdate(data):
                 guard data.subIds.contains(subId) else { break }
                 if (chatState?.order ?? -1) < data.state.order {
@@ -325,6 +339,10 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 guard data.subIds.contains(subId) else { break }
                 if messages.chatUpdateMessageSyncStatus(data) {
                     updates.insert(.messages)
+                }
+                lastMessages.chatUpdateMessageSyncStatus(data)
+                for messageId in data.ids where messages.message(id: messageId).isNil {
+                    pendingSyncStatus[messageId] = data.isSynced
                 }
             default:
                 break
@@ -345,6 +363,10 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             await updateAttachmentSubscription()
         }
         
+        if applyPendingSyncStatus() {
+            updates.insert(.messages)
+        }
+
         if updates.contains(.messages) {
             updateFullMessages(notify: false)
         }
@@ -352,9 +374,32 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             syncStream.send(updates)
         }
     }
+
+    private func applyPendingSyncStatus() -> Bool {
+        guard !pendingSyncStatus.isEmpty else { return false }
+        var applied = false
+        for (messageId, isSynced) in pendingSyncStatus {
+            guard messages.message(id: messageId).isNotNil else { continue }
+            var event = Anytype_Event.Chat.UpdateMessageSyncStatus()
+            event.ids = [messageId]
+            event.isSynced = isSynced
+            if messages.chatUpdateMessageSyncStatus(event) {
+                applied = true
+            }
+            lastMessages.chatUpdateMessageSyncStatus(event)
+            pendingSyncStatus.removeValue(forKey: messageId)
+        }
+        // Statuses for messages that never enter the window are stale — don't accumulate them
+        if pendingSyncStatus.count > Constants.pendingSyncStatusMaxCacheSize {
+            pendingSyncStatus.removeAll()
+        }
+        return applied
+    }
     
     private func addNewMessages(messages newMessages: [ChatMessage]) async {
         messages.add(newMessages)
+        // Statuses may have been queued while these messages were loading via RPC
+        _ = applyPendingSyncStatus()
 
         await loadReplies()
         await loadAttachments()
