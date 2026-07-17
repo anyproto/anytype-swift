@@ -46,6 +46,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let spaceIconForNotificationsHandler: any SpaceIconForNotificationsHandlerProtocol = Container.shared.spaceIconForNotificationsHandler()
     private let spaceFileUploadService: any SpaceFileUploadServiceProtocol = Container.shared.spaceFileUploadService()
     private let appIconBadgeService: any AppIconBadgeServiceProtocol = Container.shared.appIconBadgeService()
+    private let chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol = Container.shared.chatMessagesPreviewsStorage()
     private let thermalProfilerTrigger: any ThermalProfilerTriggerProtocol = Container.shared.thermalProfilerTrigger()
     private let memoryPressureProfilerTrigger: any MemoryPressureProfilerTriggerProtocol = Container.shared.memoryPressureProfilerTrigger()
     private let debugProfileEventHandler: any DebugProfileEventHandlerProtocol = Container.shared.debugProfileEventHandler()
@@ -92,6 +93,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private func startSubscriptions() async {
         await workspacesStorage.startSubscription()
         await chatDetailsStorage.startSubscription()
+        await chatMessagesPreviewsStorage.startSubscription()
         await accountParticipantsStorage.startSubscription()
         await objectsWithUnreadDiscussionsSubscription.startSubscription()
         await participantSpacesStorage.startSubscription()
@@ -114,6 +116,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private func stopSubscriptions() async {
         await workspacesStorage.stopSubscription()
         await chatDetailsStorage.stopSubscription()
+        await chatMessagesPreviewsStorage.stopSubscriptionAndClean()
         await propertyDetailsStorage.stopSubscription()
         await objectTypeProvider.stopSubscription()
         await accountParticipantsStorage.stopSubscription()
