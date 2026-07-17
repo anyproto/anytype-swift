@@ -13,7 +13,7 @@ struct ShareInviteWithSpaceAlert: View {
             BottomAlertButton(text: Loc.cancel, style: .secondary) {
                 dismiss()
             }
-            BottomAlertButton(text: Loc.confirm, style: .primary) {
+            BottomAlertButton(text: Loc.Space.Invite.Share.confirmButton, style: .primary) {
                 onConfirm()
                 dismiss()
             }
@@ -27,7 +27,7 @@ struct ResetInviteLinkAlert: View {
 
     var body: some View {
         BottomAlertView(
-            title: Loc.Space.Invite.Reset.title,
+            title: Loc.Space.Invite.Reset.confirmTitle,
             message: Loc.Space.Invite.Reset.confirmMessage,
             icon: .Dialog.exclamation
         ) {

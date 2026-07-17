@@ -59741,7 +59741,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The invite link is held by the space owner. Ask them to share it."
+            "value" : "The invite link is held by the channel owner. Ask them to share it."
           }
         }
       }
@@ -60377,6 +60377,17 @@
         }
       }
     },
+    "Space.Invite.Reset.ConfirmTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset invite link"
+          }
+        }
+      }
+    },
     "Space.Invite.Reset.Title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -60388,13 +60399,24 @@
         }
       }
     },
+    "Space.Invite.Share.ConfirmButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share invite"
+          }
+        }
+      }
+    },
     "Space.Invite.Share.ConfirmMessage" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "All space members will be able to see this invite link and share it with anyone. To make it private again, you'll need to reset the link."
+            "value" : "All channel members will be able to see this invite link and share it with anyone. To make it private again, you'll need to reset the link."
           }
         }
       }
@@ -60405,7 +60427,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Share invite link"
+            "value" : "Share this invite with the channel?"
           }
         }
       }
@@ -60427,7 +60449,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "To make it private again, you'll need to reset the link."
+            "value" : "This invite is already shared. To take it back, reset the link."
           }
         }
       }
@@ -60438,7 +60460,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Everyone in the space can share this invite"
+            "value" : "Everyone in the channel can share this invite"
           }
         }
       }
@@ -60759,7 +60781,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Anyone who gains access to this invitation link will be able to join this space at any time, until you reset the link."
+            "value" : "Anyone who gains access to this invitation link will be able to join this channel at any time, until you reset the link."
           }
         }
       }
