@@ -317,7 +317,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         sendMessageTaskInProgress = true
     }
 
-    func sendMessageTask() async throws {
+    func sendMessageTask() async {
         guard sendMessageTaskInProgress else { return }
         guard message.string.trimmingCharacters(in: .whitespacesAndNewlines).isNotEmpty || linkedObjects.isNotEmpty else {
             sendMessageTaskInProgress = false
@@ -328,25 +328,30 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             try Task.checkCancellation()
             sendButtonIsLoading = true
         }
+        // Reset on every exit path — a thrown error must not leave the send button stuck
+        defer {
+            loadingTask.cancel()
+            sendButtonIsLoading = false
+            sendMessageTaskInProgress = false
+        }
         mentionSearchState = .finish
-        if let editMessage {
-            guard let chatId else {
-                anytypeAssertionFailure("Edit message without chatId")
-                sendMessageTaskInProgress = false
-                return
-            }
-            try await chatActionService.updateMessage(
-                chatId: chatId,
-                spaceId: spaceId,
-                messageId: editMessage.id,
-                message: message.sendable(),
-                linkedObjects: linkedObjects,
-                replyToMessageId: replyToMessage?.id,
-                useBlocksFormat: true
-            )
-            clearInput()
-        } else if discussionMessageLimits.canSendMessage() {
-            do {
+        do {
+            if let editMessage {
+                guard let chatId else {
+                    anytypeAssertionFailure("Edit message without chatId")
+                    return
+                }
+                try await chatActionService.updateMessage(
+                    chatId: chatId,
+                    spaceId: spaceId,
+                    messageId: editMessage.id,
+                    message: message.sendable(),
+                    linkedObjects: linkedObjects,
+                    replyToMessageId: replyToMessage?.id,
+                    useBlocksFormat: true
+                )
+                clearInput()
+            } else if discussionMessageLimits.canSendMessage() {
                 let isFirstComment = chatId == nil
                 let resolvedChatId = try await createDiscussionIfNeeded()
                 let messageId = try await chatActionService.createMessage(
@@ -362,16 +367,18 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
                 discussionMessageLimits.markSentMessage()
                 clearInput()
                 await donateShareSuggestion()
-            } catch {
-                toastBarData = ToastBarData(error.localizedDescription, type: .failure)
+            } else {
+                keyboardDismiss?()
+                showSendLimitAlert = true
             }
-        } else {
-            keyboardDismiss?()
-            showSendLimitAlert = true
+        } catch {
+            // Keep the input intact so the user can retry
+            if let sendError = error as? ChatActionSendError {
+                // Reuse already uploaded attachments on retry instead of re-uploading them
+                attachmentHandler.setLinkedObjects(sendError.updatedLinkedObjects)
+            }
+            toastBarData = ToastBarData(error.localizedDescription, type: .failure)
         }
-        loadingTask.cancel()
-        sendButtonIsLoading = false
-        sendMessageTaskInProgress = false
     }
 
     private func logDiscussionAnalytics(isFirstComment: Bool) {
