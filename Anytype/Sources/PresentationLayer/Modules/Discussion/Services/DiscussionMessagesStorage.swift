@@ -458,7 +458,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
                     lastStateId: chatState.lastStateID
                 )
             } catch {
-                anytypeAssertionFailure("Discussion mark-as-read failed (messages): \(error)")
+                anytypeAssertionFailure("Discussion mark-as-read failed (messages)", info: ["error": error.localizedDescription])
             }
         }
 
@@ -473,7 +473,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
                     lastStateId: chatState.lastStateID
                 )
             } catch {
-                anytypeAssertionFailure("Discussion mark-as-read failed (mentions): \(error)")
+                anytypeAssertionFailure("Discussion mark-as-read failed (mentions)", info: ["error": error.localizedDescription])
             }
         }
     }
