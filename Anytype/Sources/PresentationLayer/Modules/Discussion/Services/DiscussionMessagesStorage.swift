@@ -33,6 +33,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
         static let pageSize = 100
         static let maxCacheSize = 1000
         static let lastMessagesMaxCacheSize = 10
+        static let pendingSyncStatusMaxCacheSize = 100
         static let subscriptionMessageIntervalForAttachments = 20
         static let subsctiptionMessageOverLimitForAttachments = 30
     }
@@ -354,7 +355,7 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
             pendingSyncStatus.removeValue(forKey: messageId)
         }
         // Statuses for messages that never enter the window are stale — don't accumulate them
-        if pendingSyncStatus.count > 100 {
+        if pendingSyncStatus.count > Constants.pendingSyncStatusMaxCacheSize {
             pendingSyncStatus.removeAll()
         }
         return applied
@@ -362,6 +363,8 @@ actor DiscussionMessagesStorage: DiscussionMessagesStorageProtocol {
 
     private func addNewMessages(messages newMessages: [ChatMessage]) async {
         messages.add(newMessages)
+        // Statuses may have been queued while these messages were loading via RPC
+        _ = applyPendingSyncStatus()
 
         await loadReplies()
         await loadAttachments()

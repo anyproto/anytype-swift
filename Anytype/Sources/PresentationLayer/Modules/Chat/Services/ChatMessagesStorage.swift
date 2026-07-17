@@ -35,6 +35,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         static let pageSize = 100
         static let maxCacheSize = 1000
         static let lastMessagesMaxCacheSize = 10
+        static let pendingSyncStatusMaxCacheSize = 100
         // As user scroll N messages, we update the attachments subscription. Not every message.
         static let subscriptionMessageIntervalForAttachments = 20
         // Subscribe to visible cells attachments AND N top and N bottom. Should be more "interval" value for better experience.
@@ -348,7 +349,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             pendingSyncStatus.removeValue(forKey: messageId)
         }
         // Statuses for messages that never enter the window are stale — don't accumulate them
-        if pendingSyncStatus.count > 100 {
+        if pendingSyncStatus.count > Constants.pendingSyncStatusMaxCacheSize {
             pendingSyncStatus.removeAll()
         }
         return applied
@@ -356,7 +357,9 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private func addNewMessages(messages newMessages: [ChatMessage]) async {
         messages.add(newMessages)
-        
+        // Statuses may have been queued while these messages were loading via RPC
+        _ = applyPendingSyncStatus()
+
         await loadReplies()
         await loadAttachments()
         await updateAttachmentSubscription()
