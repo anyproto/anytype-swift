@@ -39,6 +39,29 @@ extension MessageAttachmentDetails {
         )
     }
     
+    init(fileDetails: FileDetails) {
+        let resolvedLayoutValue: DetailsLayout = switch fileDetails.fileContentType {
+        case .file: .file
+        case .image: .image
+        case .video: .video
+        case .audio: .audio
+        case .none: .basic
+        }
+        self = MessageAttachmentDetails(
+            id: fileDetails.id,
+            title: fileDetails.fileName,
+            description: "",
+            sizeInBytes: fileDetails.sizeInBytes,
+            resolvedLayoutValue: resolvedLayoutValue,
+            objectIconImage: .object(.file(mimeType: fileDetails.fileMimeType, name: fileDetails.name)),
+            source: nil,
+            syncStatus: nil,
+            syncError: nil,
+            downloadingState: false,
+            uploadTimeMs: nil
+        )
+    }
+
     static func placeholder(tagetId: String) -> Self {
         MessageAttachmentDetails(
             id: tagetId,
