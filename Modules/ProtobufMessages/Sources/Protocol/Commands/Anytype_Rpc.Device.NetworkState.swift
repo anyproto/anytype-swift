@@ -33,6 +33,13 @@ extension Anytype_Rpc.Device {
 
           public var deviceNetworkType: Anytype_Model_DeviceNetworkType = .wifi
 
+          /// opaque identity of the current network path as reported by the OS
+          /// (iOS: NWPath interfaces/gateway digest; Android: Network#getNetworkHandle()).
+          /// When it changes while the type stays the same (Wi-Fi to Wi-Fi switch,
+          /// cellular re-attach) the middleware still resets connections and re-syncs.
+          /// Optional: empty means unknown, only type transitions are used then.
+          public var networkID: String = String()
+
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
           public init() {}
@@ -162,7 +169,7 @@ extension Anytype_Rpc.Device.NetworkState.Set: SwiftProtobuf.Message, SwiftProto
 
 extension Anytype_Rpc.Device.NetworkState.Set.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Device.NetworkState.Set.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}deviceNetworkType\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}deviceNetworkType\0\u{1}networkId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -171,6 +178,7 @@ extension Anytype_Rpc.Device.NetworkState.Set.Request: SwiftProtobuf.Message, Sw
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularEnumField(value: &self.deviceNetworkType) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.networkID) }()
       default: break
       }
     }
@@ -180,11 +188,15 @@ extension Anytype_Rpc.Device.NetworkState.Set.Request: SwiftProtobuf.Message, Sw
     if self.deviceNetworkType != .wifi {
       try visitor.visitSingularEnumField(value: self.deviceNetworkType, fieldNumber: 1)
     }
+    if !self.networkID.isEmpty {
+      try visitor.visitSingularStringField(value: self.networkID, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Device.NetworkState.Set.Request, rhs: Anytype_Rpc.Device.NetworkState.Set.Request) -> Bool {
     if lhs.deviceNetworkType != rhs.deviceNetworkType {return false}
+    if lhs.networkID != rhs.networkID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
