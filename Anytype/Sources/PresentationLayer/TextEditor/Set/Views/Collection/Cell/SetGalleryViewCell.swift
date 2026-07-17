@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct SetGalleryViewCell: View {
-    @State private var width: CGFloat = .zero
     let configuration: SetContentViewItemConfiguration
     
     var body: some View {
@@ -26,7 +25,6 @@ struct SetGalleryViewCell: View {
         .overlay(
             RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(Color.Shape.primary, lineWidth: 0.5)
         )
-        .readSize { width = $0.width }
     }
     
     private var infoContent: some View {
@@ -52,12 +50,17 @@ struct SetGalleryViewCell: View {
     @ViewBuilder
     private var coverContent: some View {
         if configuration.hasCover, let coverType = configuration.coverType {
-            let defaultHeight = configuration.isSmallCardSize ? Constants.smallItemHeight : Constants.largeItemHeight
-            let height: CGFloat = configuration.shouldIncreaseCoverHeight ? width : defaultHeight
-            ObjectHeaderCoverView(objectCover: coverType, fitImage: configuration.coverFit)
-                .frame(height: height)
-                .frame(maxWidth: .infinity)
-                .background(Color.Shape.transparentSecondary)
+            let cover = ObjectHeaderCoverView(objectCover: coverType, fitImage: configuration.coverFit)
+            Group {
+                if configuration.shouldIncreaseCoverHeight {
+                    // Cover-only cards are square: height == card width
+                    cover.aspectRatio(1, contentMode: .fit)
+                } else {
+                    cover.frame(height: configuration.isSmallCardSize ? Constants.smallItemHeight : Constants.largeItemHeight)
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color.Shape.transparentSecondary)
         }
     }
     

@@ -14,15 +14,12 @@ struct ChatMessageAttachmentsStorage: Sendable {
     
     @discardableResult
     mutating func update(details: [ObjectDetails]) -> Bool {
-        let newAttachments = details
-            .reduce(into: [String: ObjectDetails]()) { $0[$1.id] = $1 }
-        
-        if attachmentsDetails != newAttachments {
-            attachmentsDetails.merge(newAttachments, uniquingKeysWith: { $1 })
-            return true
-        } else {
-            return false
+        var updated = false
+        for detail in details where attachmentsDetails[detail.id] != detail {
+            attachmentsDetails[detail.id] = detail
+            updated = true
         }
+        return updated
     }
     
     mutating func remove(ids: [String]) {

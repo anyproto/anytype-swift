@@ -2,6 +2,7 @@ import Foundation
 import Services
 import SwiftUI
 import AnytypeCore
+import SwiftProtobuf
 
 struct SetViewData: Identifiable {
     let id = UUID()
@@ -149,8 +150,8 @@ final class EditorSetCoordinatorViewModel:
     
     // MARK: - NavigationContext
     
-    func showCreateObject(document: some SetDocumentProtocol, setting: ObjectCreationSetting?) {
-        setObjectCreationCoordinator.startCreateObject(setDocument: document, mode: .internal, setting: setting, output: self, customAnalyticsRoute: nil)
+    func showCreateObject(document: some SetDocumentProtocol, setting: ObjectCreationSetting?, prefilledFields: [String: Google_Protobuf_Value]) {
+        setObjectCreationCoordinator.startCreateObject(setDocument: document, mode: .internal, setting: setting, prefilledFields: prefilledFields, output: self, customAnalyticsRoute: nil)
     }
     
     func showKanbanColumnSettings(

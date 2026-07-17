@@ -11,4 +11,5 @@ struct SetPermissions {
     var canEditTitle: Bool = false
     var canEditDescription: Bool = false
     var canEditSetObjectIcon: Bool = false
+    var canMoveCards: Bool = false
 }

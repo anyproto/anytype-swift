@@ -399,7 +399,8 @@ final class ObjectSettingsViewModel {
         guard let details = document.details else { return }
 
         let invite = try? await workspaceService.getCurrentInvite(spaceId: details.spaceId)
-        let link = universalLinkParser.createUrl(link: .object(objectId: details.id, spaceId: details.spaceId, cid: invite?.cid, key: invite?.fileKey))
+        let hasLink = invite?.hasLink ?? false
+        let link = universalLinkParser.createUrl(link: .object(objectId: details.id, spaceId: details.spaceId, cid: hasLink ? invite?.cid : nil, key: hasLink ? invite?.fileKey : nil))
 
         UIPasteboard.general.string = link?.absoluteString
         toastData = ToastBarData(Loc.copied)

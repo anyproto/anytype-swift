@@ -26,36 +26,36 @@ extension DataviewGroup {
         }
     }
     
-    func backgroundColor(document: some BaseDocumentProtocol) -> BlockBackgroundColor? {
+    func backgroundColor(optionDetails: (String) -> ObjectDetails?) -> BlockBackgroundColor? {
         switch value {
         case .tag(let tag):
             guard let firstTagId = tag.ids.first,
-                  let details = document.detailsStorage.get(id: firstTagId) else { return nil }
+                  let details = optionDetails(firstTagId) else { return nil }
             return MiddlewareColor(rawValue: details.relationOptionColor)?.backgroundColor
         case .status(let status):
-            guard let details = document.detailsStorage.get(id: status.id) else { return nil }
+            guard let details = optionDetails(status.id) else { return nil }
             return MiddlewareColor(rawValue: details.relationOptionColor)?.backgroundColor
         default:
             return nil
         }
     }
-    
-    func header(with groupRelationKey: String, document: some BaseDocumentProtocol) -> SetKanbanColumnHeaderType {
+
+    func header(checkboxTitle: String, optionDetails: (String) -> ObjectDetails?) -> SetKanbanColumnHeaderType {
         switch value {
         case .tag(let tag):
             let tags = tag.ids
-                .compactMap { document.detailsStorage.get(id: $0) }
+                .compactMap { optionDetails($0) }
                 .map { PropertyOption(details: $0) }
                 .map { Property.Tag.Option(option: $0) }
             return tags.isEmpty ? .uncategorized : .tag(tags)
         case .status(let status):
-            guard let optionDetails = document.detailsStorage.get(id: status.id) else {
+            guard let details = optionDetails(status.id) else {
                 return .uncategorized
             }
-            let option = PropertyOption(details: optionDetails)
+            let option = PropertyOption(details: details)
             return .status([Property.Status.Option(option: option)])
         case .checkbox(let checkbox):
-            return .checkbox(title: groupRelationKey.capitalized, isChecked: checkbox.checked)
+            return .checkbox(title: checkboxTitle, isChecked: checkbox.checked)
         default:
             return .uncategorized
         }
