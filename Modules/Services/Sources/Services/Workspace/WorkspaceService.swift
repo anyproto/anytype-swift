@@ -15,7 +15,7 @@ public protocol WorkspaceServiceProtocol: Sendable {
     func inviteView(cid: String, key: String) async throws -> SpaceInviteView
     func join(spaceId: String, cid: String, key: String, networkId: String) async throws
     func joinCancel(spaceId: String) async throws
-    func generateInvite(spaceId: String, inviteType: InviteType?, permissions: InvitePermissions?) async throws -> SpaceInvite
+    func generateInvite(spaceId: String, inviteType: InviteType?, permissions: InvitePermissions?, shareWithinSpace: Bool) async throws -> SpaceInvite
     func changeInvite(spaceId: String, permissions: InvitePermissions) async throws
     func revokeInvite(spaceId: String) async throws
     func stopSharing(spaceId: String) async throws
@@ -34,8 +34,8 @@ public protocol WorkspaceServiceProtocol: Sendable {
 }
 
 public extension WorkspaceServiceProtocol {
-    func generateInvite(spaceId: String) async throws -> SpaceInvite {
-        try await generateInvite(spaceId: spaceId, inviteType: nil, permissions: nil)
+    func generateInvite(spaceId: String, inviteType: InviteType?, permissions: InvitePermissions?) async throws -> SpaceInvite {
+        try await generateInvite(spaceId: spaceId, inviteType: inviteType, permissions: permissions, shareWithinSpace: false)
     }
 }
 
@@ -145,13 +145,14 @@ final class WorkspaceService: WorkspaceServiceProtocol {
         }).invoke()
     }
     
-    func generateInvite(spaceId: String, inviteType: InviteType?, permissions: InvitePermissions?) async throws -> SpaceInvite {
+    func generateInvite(spaceId: String, inviteType: InviteType?, permissions: InvitePermissions?, shareWithinSpace: Bool) async throws -> SpaceInvite {
         let result = try await ClientCommands.spaceInviteGenerate(.with {
             $0.spaceID = spaceId
             if let inviteType { $0.inviteType = inviteType }
             if let permissions { $0.permissions = permissions }
+            $0.shareWithinSpace = shareWithinSpace
         }).invoke()
-        return result.asModel()
+        return result.asModel(shareWithinSpace: shareWithinSpace)
     }
     
     func changeInvite(spaceId: String, permissions: InvitePermissions) async throws {
