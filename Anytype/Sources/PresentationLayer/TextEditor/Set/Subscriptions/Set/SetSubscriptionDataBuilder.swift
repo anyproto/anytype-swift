@@ -74,7 +74,10 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol, Send
         
         keys.append(contentsOf: data.options.map { $0.key })
         keys.append(data.coverRelationKey)
-        
+        if let groupRelationKey = data.groupRelationKey {
+            keys.append(groupRelationKey)
+        }
+
         return keys
     }
 }

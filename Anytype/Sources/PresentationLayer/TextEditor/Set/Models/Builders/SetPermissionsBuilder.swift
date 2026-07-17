@@ -26,7 +26,8 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
             canEditRelationValuesInView: canEdit && canEditRelationValuesInView(setDocument: setDocument),
             canEditTitle: canEdit,
             canEditDescription: canEdit,
-            canEditSetObjectIcon: canEdit
+            canEditSetObjectIcon: canEdit,
+            canMoveCards: canEdit
         )
     }
     
