@@ -84,7 +84,6 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         subscription = nil
         previewsBySpace.removeAll()
         previewsStream.send([])
-        guard basicUserInfoStorage.usersId.isNotEmpty else { return }
         try? await chatService.unsubscribeFromMessagePreviews()
     }
 
