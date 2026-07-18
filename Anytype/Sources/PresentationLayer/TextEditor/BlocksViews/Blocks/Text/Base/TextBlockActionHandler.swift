@@ -49,6 +49,12 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     // Set only for the trailing "tap to type" placeholder. While unmaterialized, mutating
     // paths must not target `info.id` — the block does not exist in the middleware yet.
     private let virtualBlockSession: (any VirtualTrailingBlockSessionProtocol)?
+    // Refreshes the live on-screen cell for a block id from current model state. After the
+    // empty-block identity fork or the virtual-placeholder materialization, the visible cell is
+    // a freshly built handler; this handler's own `resetSubject` drives the replaced (dead) cell.
+    // A programmatic text write from the paste menu must therefore refresh the live cell
+    // explicitly — this also re-syncs its text view before the next keystroke can read stale text.
+    private let reconfigureLiveBlock: @MainActor (String) -> Void
 
     @Injected(\.linkToSearchHelper)
     private var linkToSearchHelper: any LinkToSearchHelperProtocol
@@ -101,7 +107,8 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         markupChanger: some BlockMarkupChangerProtocol,
         slashMenuActionHandler: SlashMenuActionHandler,
         openLinkToObject: @MainActor @escaping (LinkToObjectSearchModuleData) -> Void,
-        virtualBlockSession: (any VirtualTrailingBlockSessionProtocol)? = nil
+        virtualBlockSession: (any VirtualTrailingBlockSessionProtocol)? = nil,
+        reconfigureLiveBlock: @MainActor @escaping (String) -> Void = { _ in }
     ) {
         self.document = document
         self.info = info
@@ -129,6 +136,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         self.slashMenuActionHandler = slashMenuActionHandler
         self.openLinkToObject = openLinkToObject
         self.virtualBlockSession = virtualBlockSession
+        self.reconfigureLiveBlock = reconfigureLiveBlock
     }
 
     // MARK: - Virtual trailing block
@@ -499,9 +507,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
                             range: range
                         )
                         if let newText {
-                            self?.setNewTextSync(attributedString: newText)
+                            self?.setNewTextRefreshingLiveBlock(attributedString: newText)
                         }
-                        
+
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             SharingTip.didCopyText = true
                         }
@@ -903,5 +911,18 @@ extension TextBlockActionHandler: AccessoryViewOutput {
 
     private func setNewTextSync(attributedString: NSAttributedString) {
         Task { try await setNewText(attributedString: attributedString.sendable()) }
+    }
+
+    /// Like `setNewTextSync`, but after the write refreshes the live cell for the current block id.
+    /// The paste-menu callbacks run on the pre-fork handler: if the empty-block identity fork or the
+    /// virtual-placeholder materialization has swapped this block's identity, `setNewText`'s
+    /// `resetSubject` only reaches this handler's now-replaced cell. Reconfiguring the live cell from
+    /// the freshly written model both shows the new value and re-syncs its text view, so the next
+    /// keystroke cannot read the stale link back and overwrite the plain text.
+    private func setNewTextRefreshingLiveBlock(attributedString: NSAttributedString) {
+        Task { @MainActor in
+            try await setNewText(attributedString: attributedString.sendable())
+            reconfigureLiveBlock(info.id)
+        }
     }
 }
