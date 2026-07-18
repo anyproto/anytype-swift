@@ -220,7 +220,11 @@ final class BlockViewModelBuilder {
             openLinkToObject: { [weak self] data in
                 self?.output?.showLinkToObject(data: data)
             },
-            virtualBlockSession: virtualBlockSession
+            virtualBlockSession: virtualBlockSession,
+            reconfigureLiveBlock: { [weak modelsHolder, weak blockCollectionController] blockId in
+                guard let model = modelsHolder?.blocksMapping[blockId] else { return }
+                blockCollectionController?.reconfigure(items: [.block(model)])
+            }
         )
         let viewModel = TextBlockViewModel(
             document: document,
