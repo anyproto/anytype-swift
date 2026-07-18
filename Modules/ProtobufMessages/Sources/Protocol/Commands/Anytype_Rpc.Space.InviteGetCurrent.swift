@@ -53,6 +53,10 @@ extension Anytype_Rpc.Space {
 
         public var permissions: Anytype_Model_ParticipantPermissions = .reader
 
+        /// heldByOwner is set when the invite is kept in the owner's account. Members get it with an
+        /// empty inviteCid and inviteFileKey: only the owner can share the link.
+        public var heldByOwner: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -171,7 +175,7 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Request: SwiftProtobuf.Message, Swi
 
 extension Anytype_Rpc.Space.InviteGetCurrent.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Space.InviteGetCurrent.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}inviteCid\0\u{1}inviteFileKey\0\u{1}inviteType\0\u{1}permissions\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}inviteCid\0\u{1}inviteFileKey\0\u{1}inviteType\0\u{1}permissions\0\u{1}heldByOwner\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -184,6 +188,7 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response: SwiftProtobuf.Message, Sw
       case 3: try { try decoder.decodeSingularStringField(value: &self.inviteFileKey) }()
       case 4: try { try decoder.decodeSingularEnumField(value: &self.inviteType) }()
       case 5: try { try decoder.decodeSingularEnumField(value: &self.permissions) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.heldByOwner) }()
       default: break
       }
     }
@@ -209,6 +214,9 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response: SwiftProtobuf.Message, Sw
     if self.permissions != .reader {
       try visitor.visitSingularEnumField(value: self.permissions, fieldNumber: 5)
     }
+    if self.heldByOwner != false {
+      try visitor.visitSingularBoolField(value: self.heldByOwner, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -218,6 +226,7 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response: SwiftProtobuf.Message, Sw
     if lhs.inviteFileKey != rhs.inviteFileKey {return false}
     if lhs.inviteType != rhs.inviteType {return false}
     if lhs.permissions != rhs.permissions {return false}
+    if lhs.heldByOwner != rhs.heldByOwner {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

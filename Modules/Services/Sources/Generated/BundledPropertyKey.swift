@@ -343,6 +343,9 @@ public enum BundledPropertyKey: String, Sendable {
     /// Invite permissions. Possible values: models.ParticipantPermissions
     case spaceInvitePermissions = "spaceInvitePermissions"
 
+    /// Set when the space invite is kept in the owner's account instead of the space, so that only the owner can share it
+    case spaceInviteHeldByOwner = "spaceInviteHeldByOwner"
+
     /// Identity
     case identity = "identity"
 

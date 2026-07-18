@@ -128,6 +128,7 @@ public protocol BundledPropertiesValueProvider {
     var guestKey: String { get }
     var participantPermissions: Int? { get }
     var spaceInvitePermissions: Int? { get }
+    var spaceInviteHeldByOwner: Bool { get }
     var identity: String { get }
     var participantStatus: Int? { get }
     var myParticipantStatus: Int? { get }
@@ -660,6 +661,10 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Invite permissions. Possible values: models.ParticipantPermissions
     var spaceInvitePermissions: Int? {
         return value(for: BundledPropertyKey.spaceInvitePermissions.rawValue)
+    }
+    /// Set when the space invite is kept in the owner's account instead of the space, so that only the owner can share it
+    var spaceInviteHeldByOwner: Bool {
+        return value(for: BundledPropertyKey.spaceInviteHeldByOwner.rawValue)
     }
     /// Identity
     var identity: String {

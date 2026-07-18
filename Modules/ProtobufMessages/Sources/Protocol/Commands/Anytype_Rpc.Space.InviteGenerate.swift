@@ -30,6 +30,10 @@ extension Anytype_Rpc.Space {
 
         public var permissions: Anytype_Model_ParticipantPermissions = .reader
 
+        /// shareWithinSpace stores the invite in the space itself, so that every member can share it.
+        /// Otherwise the invite is kept in the owner's account and only the owner can share it.
+        public var shareWithinSpace: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -80,6 +84,14 @@ extension Anytype_Rpc.Space {
             case requestFailed // = 103
             case limitReached // = 104
             case notShareable // = 105
+
+            /// the current invite is already shared within the space and cannot be taken back into the
+            /// owner's account: revoke it and generate a new one
+            case inviteAlreadyShared // = 106
+
+            /// an invite anyone can join with cannot be shared within the space: whoever holds such a
+            /// link is in, so it stays in the owner's account and is theirs alone to hand out
+            case inviteNotShareable // = 107
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -96,6 +108,8 @@ extension Anytype_Rpc.Space {
               case 103: self = .requestFailed
               case 104: self = .limitReached
               case 105: self = .notShareable
+              case 106: self = .inviteAlreadyShared
+              case 107: self = .inviteNotShareable
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -110,6 +124,8 @@ extension Anytype_Rpc.Space {
               case .requestFailed: return 103
               case .limitReached: return 104
               case .notShareable: return 105
+              case .inviteAlreadyShared: return 106
+              case .inviteNotShareable: return 107
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -124,6 +140,8 @@ extension Anytype_Rpc.Space {
               .requestFailed,
               .limitReached,
               .notShareable,
+              .inviteAlreadyShared,
+              .inviteNotShareable,
             ]
 
           }
@@ -161,7 +179,7 @@ extension Anytype_Rpc.Space.InviteGenerate: SwiftProtobuf.Message, SwiftProtobuf
 
 extension Anytype_Rpc.Space.InviteGenerate.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Space.InviteGenerate.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}inviteType\0\u{1}permissions\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}inviteType\0\u{1}permissions\0\u{1}shareWithinSpace\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -172,6 +190,7 @@ extension Anytype_Rpc.Space.InviteGenerate.Request: SwiftProtobuf.Message, Swift
       case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.inviteType) }()
       case 3: try { try decoder.decodeSingularEnumField(value: &self.permissions) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.shareWithinSpace) }()
       default: break
       }
     }
@@ -187,6 +206,9 @@ extension Anytype_Rpc.Space.InviteGenerate.Request: SwiftProtobuf.Message, Swift
     if self.permissions != .reader {
       try visitor.visitSingularEnumField(value: self.permissions, fieldNumber: 3)
     }
+    if self.shareWithinSpace != false {
+      try visitor.visitSingularBoolField(value: self.shareWithinSpace, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -194,6 +216,7 @@ extension Anytype_Rpc.Space.InviteGenerate.Request: SwiftProtobuf.Message, Swift
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.inviteType != rhs.inviteType {return false}
     if lhs.permissions != rhs.permissions {return false}
+    if lhs.shareWithinSpace != rhs.shareWithinSpace {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -289,7 +312,7 @@ extension Anytype_Rpc.Space.InviteGenerate.Response.Error: SwiftProtobuf.Message
 }
 
 extension Anytype_Rpc.Space.InviteGenerate.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}NO_SUCH_SPACE\0\u{1}SPACE_IS_DELETED\0\u{1}REQUEST_FAILED\0\u{1}LIMIT_REACHED\0\u{1}NOT_SHAREABLE\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}NO_SUCH_SPACE\0\u{1}SPACE_IS_DELETED\0\u{1}REQUEST_FAILED\0\u{1}LIMIT_REACHED\0\u{1}NOT_SHAREABLE\0\u{1}INVITE_ALREADY_SHARED\0\u{1}INVITE_NOT_SHAREABLE\0")
 }
 
 // If the compiler emits an error on this type, it is because this file
