@@ -1,4 +1,5 @@
 import Services
+import SwiftProtobuf
 
 enum SetObjectCreationAction {
     case showObject(ObjectDetails, titleInputType: CreateObjectTitleInputType)
@@ -8,7 +9,9 @@ enum SetObjectCreationAction {
 
 protocol SetObjectCreationHelperProtocol: Sendable {
     func createObject(
-        for setDocument: some SetDocumentProtocol, setting: ObjectCreationSetting?
+        for setDocument: some SetDocumentProtocol,
+        setting: ObjectCreationSetting?,
+        prefilledFields: [String: Google_Protobuf_Value]
     ) async throws -> SetObjectCreationAction
 }
 
@@ -24,7 +27,8 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
 
     func createObject(
         for setDocument: some SetDocumentProtocol,
-        setting: ObjectCreationSetting?
+        setting: ObjectCreationSetting?,
+        prefilledFields: [String: Google_Protobuf_Value]
     ) async throws -> SetObjectCreationAction {
         let collectionId = setDocument.isCollection() ? setDocument.objectId : nil
 
@@ -33,19 +37,20 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
         } else if isChatObject(setDocument: setDocument, setting: setting) {
             return .showChatCreation(spaceId: setDocument.spaceId, collectionId: collectionId)
         } else if setDocument.isCollection() {
-            return try await createObjectForCollection(for: setDocument, setting: setting)
+            return try await createObjectForCollection(for: setDocument, setting: setting, prefilledFields: prefilledFields)
         } else if setDocument.isSetByRelation() {
-            return try await createObjectForRelationSet(for: setDocument, setting: setting)
+            return try await createObjectForRelationSet(for: setDocument, setting: setting, prefilledFields: prefilledFields)
         } else {
-            return try await createObjectForRegularSet(for: setDocument, setting: setting)
+            return try await createObjectForRegularSet(for: setDocument, setting: setting, prefilledFields: prefilledFields)
         }
     }
-    
+
     // MARK: - Private
-    
+
     private func createObjectForCollection(
         for setDocument: some SetDocumentProtocol,
-        setting: ObjectCreationSetting?
+        setting: ObjectCreationSetting?,
+        prefilledFields: [String: Google_Protobuf_Value]
     ) async throws -> SetObjectCreationAction {
         let objectType = objectType(for: setDocument, setting: setting)
         let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
@@ -55,6 +60,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
             type: objectType,
             relationsDetails: [],
             templateId: templateId,
+            prefilledFields: prefilledFields,
             createdInContext: setDocument.objectId
         )
 
@@ -67,10 +73,11 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
 
         return result
     }
-    
+
     private func createObjectForRelationSet(
         for setDocument: some SetDocumentProtocol,
-        setting: ObjectCreationSetting?
+        setting: ObjectCreationSetting?,
+        prefilledFields: [String: Google_Protobuf_Value]
     ) async throws -> SetObjectCreationAction {
         let relationsDetails = setDocument.dataViewRelationsDetails.filter { detail in
             guard let source = setDocument.details?.filteredSetOf else { return false }
@@ -83,13 +90,15 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
             setDocument: setDocument,
             type: objectType,
             relationsDetails: relationsDetails,
-            templateId: templateId
+            templateId: templateId,
+            prefilledFields: prefilledFields
         )
     }
-    
+
     private func createObjectForRegularSet(
         for setDocument: some SetDocumentProtocol,
-        setting: ObjectCreationSetting?
+        setting: ObjectCreationSetting?,
+        prefilledFields: [String: Google_Protobuf_Value]
     ) async throws -> SetObjectCreationAction {
         let objectTypeId = setDocument.details?.filteredSetOf.first ?? ""
         let objectType = try objectTypeProvider.objectType(id: objectTypeId)
@@ -98,33 +107,37 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
             setDocument: setDocument,
             type: objectType,
             relationsDetails: [],
-            templateId: templateId
+            templateId: templateId,
+            prefilledFields: prefilledFields
         )
     }
-    
+
     private func createObject(
         setDocument: some SetDocumentProtocol,
         type: ObjectType?,
         relationsDetails: [PropertyDetails],
         templateId: String?,
+        prefilledFields: [String: Google_Protobuf_Value],
         createdInContext: String = "",
         createdInContextRef: String = ""
     ) async throws -> SetObjectCreationAction {
-        let details = try await dataviewService.addRecord(
+        let filterFields = prefilledFieldsBuilder.buildPrefilledFields(from: setDocument.activeViewFilters, relationsDetails: relationsDetails)
+        let details = ObjectDetails(id: filterFields.id, values: filterFields.values.merging(prefilledFields) { $1 })
+        let createdDetails = try await dataviewService.addRecord(
             typeUniqueKey: type?.uniqueKey,
             templateId: templateId ?? "",
             spaceId: setDocument.spaceId,
-            details: prefilledFieldsBuilder.buildPrefilledFields(from: setDocument.activeViewFilters, relationsDetails: relationsDetails),
+            details: details,
             createdInContext: createdInContext,
             createdInContextRef: createdInContextRef
         )
         if let type, type.isNoteLayout {
-            guard let newBlockId = try? await blockService.addFirstBlock(contextId: details.id, info: .emptyText) else {
-                return .showObject(details, titleInputType: .none)
+            guard let newBlockId = try? await blockService.addFirstBlock(contextId: createdDetails.id, info: .emptyText) else {
+                return .showObject(createdDetails, titleInputType: .none)
             }
-            return .showObject(details, titleInputType: .writeToBlock(blockId: newBlockId))
+            return .showObject(createdDetails, titleInputType: .writeToBlock(blockId: newBlockId))
         } else {
-            return .showObject(details, titleInputType: .writeToRelationName)
+            return .showObject(createdDetails, titleInputType: .writeToRelationName)
         }
     }
     
@@ -169,6 +182,6 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
 
 extension SetObjectCreationHelperProtocol {
     func createObject(for setDocument: some SetDocumentProtocol) async throws -> SetObjectCreationAction {
-        return try await createObject(for: setDocument, setting: nil)
+        return try await createObject(for: setDocument, setting: nil, prefilledFields: [:])
     }
 }

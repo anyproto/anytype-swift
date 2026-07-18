@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import SwiftProtobuf
 
 @MainActor
 protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
@@ -12,7 +13,7 @@ protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func showQueries(document: some SetDocumentProtocol, selectedObjectId: String?, onSelect: @escaping (String) -> ())
 
     // NavigationContext
-    func showCreateObject(document: some SetDocumentProtocol, setting: ObjectCreationSetting?)
+    func showCreateObject(document: some SetDocumentProtocol, setting: ObjectCreationSetting?, prefilledFields: [String: Google_Protobuf_Value])
     func showKanbanColumnSettings(
         hideColumn: Bool,
         selectedColor: BlockBackgroundColor?,

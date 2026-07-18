@@ -3,8 +3,9 @@ import SwiftUI
 
 struct InviteTypePicker: View {
     let currentType: SpaceRichIviteType
+    var disabledTypes: [SpaceRichIviteType] = []
     let onSelect: (SpaceRichIviteType) -> Void
-    
+
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -24,6 +25,8 @@ struct InviteTypePicker: View {
                         $0.newDivider()
                     }
                 }
+                .disabled(disabledTypes.contains(type))
+                .opacity(disabledTypes.contains(type) ? 0.3 : 1)
             }
             Spacer.fixedHeight(8)
         }

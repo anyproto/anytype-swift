@@ -10,6 +10,7 @@ struct SetSubscriptionData: Hashable {
     let options: [DataviewRelationOption]
     let currentPage: Int
     let coverRelationKey: String
+    let groupRelationKey: String?
     let numberOfRowsPerPage: Int
     let collectionId: String?
     let spaceId: String
@@ -88,6 +89,7 @@ struct SetSubscriptionData: Hashable {
         self.options = view.options
         self.currentPage = currentPage
         self.coverRelationKey = view.coverRelationKey
+        self.groupRelationKey = view.type.hasGroups && view.groupRelationKey.isNotEmpty ? view.groupRelationKey : nil
         self.numberOfRowsPerPage = numberOfRowsPerPage
         self.collectionId = collectionId
         self.spaceId = document.spaceId

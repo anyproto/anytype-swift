@@ -2,6 +2,15 @@ import Services
 import UIKit
 import AnytypeCore
 
+struct ChatActionSendError: Error, LocalizedError {
+    let underlyingError: any Error
+    /// Input linked objects with successfully uploaded ones replaced by `.uploadedObject`,
+    /// so a retry reuses the created objects instead of re-uploading and orphaning them
+    let updatedLinkedObjects: [ChatLinkedObject]
+
+    var errorDescription: String? { underlyingError.localizedDescription }
+}
+
 protocol ChatActionServiceProtocol: AnyObject, Sendable {
     func createMessage(
         chatId: String,
@@ -39,8 +48,12 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         replyToMessageId: String?,
         useBlocksFormat: Bool
     ) async throws -> String {
-        let chatMessage = await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId, useBlocksFormat: useBlocksFormat)
-        return try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
+        let (chatMessage, updatedLinkedObjects) = try await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId, useBlocksFormat: useBlocksFormat)
+        do {
+            return try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
+        } catch {
+            throw ChatActionSendError(underlyingError: error, updatedLinkedObjects: updatedLinkedObjects)
+        }
     }
 
     func updateMessage(
@@ -52,9 +65,14 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         replyToMessageId: String?,
         useBlocksFormat: Bool
     ) async throws {
-        var chatMessage = await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId, useBlocksFormat: useBlocksFormat)
+        let (madeMessage, updatedLinkedObjects) = try await makeMessage(chatId: chatId, spaceId: spaceId, message: message, linkedObjects: linkedObjects, replyToMessageId: replyToMessageId, useBlocksFormat: useBlocksFormat)
+        var chatMessage = madeMessage
         chatMessage.id = messageId
-        try await chatService.updateMessage(chatObjectId: chatId, message: chatMessage)
+        do {
+            try await chatService.updateMessage(chatObjectId: chatId, message: chatMessage)
+        } catch {
+            throw ChatActionSendError(underlyingError: error, updatedLinkedObjects: updatedLinkedObjects)
+        }
     }
     
     // MARK: - Private
@@ -66,7 +84,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         linkedObjects: [ChatLinkedObject],
         replyToMessageId: String?,
         useBlocksFormat: Bool
-    ) async -> ChatMessage {
+    ) async throws -> (message: ChatMessage, updatedLinkedObjects: [ChatLinkedObject]) {
 
         var chatMessage = ChatMessage()
         let content = chatInputConverter.convert(message: message.value)
@@ -83,80 +101,91 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         }
         chatMessage.replyToMessageID = replyToMessageId ?? ""
 
-        for linkedObject in linkedObjects {
-            switch linkedObject {
-            case .uploadedObject(let objectDetails):
-                if useBlocksFormat {
-                    var linkBlock = ChatMessage.MessageBlockLink()
-                    linkBlock.targetObjectID = objectDetails.id
-                    linkBlock.type = objectDetails.resolvedLayoutValue.blockLinkType
-                    var block = ChatMessage.MessageBlock()
-                    block.content = .link(linkBlock)
-                    chatMessage.blocks.append(block)
-                } else {
-                    var attachment = ChatMessageAttachment()
-                    attachment.target = objectDetails.id
-                    attachment.type = .link
-                    chatMessage.attachments.append(attachment)
-                }
-            case .localPhotosFile(let chatLocalFile):
-                guard let data = chatLocalFile.data else { continue }
-                guard let fileDetails = try? await uploadFile(spaceId: spaceId, data: data.data, preloadFileId: chatLocalFile.data?.preloadFileId, createdInContext: chatId) else { continue }
-                if useBlocksFormat {
-                    var linkBlock = ChatMessage.MessageBlockLink()
-                    linkBlock.targetObjectID = fileDetails.id
-                    linkBlock.type = fileDetails.blockLinkType
-                    var block = ChatMessage.MessageBlock()
-                    block.content = .link(linkBlock)
-                    chatMessage.blocks.append(block)
-                } else {
-                    var attachment = ChatMessageAttachment()
-                    attachment.target = fileDetails.id
-                    chatMessage.attachments.append(attachment)
-                }
-            case .localBinaryFile(let binaryFile):
-                guard let fileDetails = try? await uploadFile(spaceId: spaceId, data: binaryFile.data, preloadFileId: binaryFile.preloadFileId, createdInContext: chatId) else { continue }
-                if useBlocksFormat {
-                    var linkBlock = ChatMessage.MessageBlockLink()
-                    linkBlock.targetObjectID = fileDetails.id
-                    linkBlock.type = fileDetails.blockLinkType
-                    var block = ChatMessage.MessageBlock()
-                    block.content = .link(linkBlock)
-                    chatMessage.blocks.append(block)
-                } else {
-                    var attachment = ChatMessageAttachment()
-                    attachment.target = fileDetails.id
-                    chatMessage.attachments.append(attachment)
-                }
-            case .localBookmark(let data):
-                guard let url = AnytypeURL(string: data.url) else { continue }
-                let type = try? typeProvider.objectType(uniqueKey: ObjectTypeUniqueKey.bookmark, spaceId: spaceId)
+        var updatedLinkedObjects = linkedObjects
 
-                guard let bookmark = try? await bookmarkService.createBookmarkObject(
-                    spaceId: spaceId,
-                    url: url,
-                    templateId: type?.defaultTemplateId,
-                    origin: .none,
-                    createdInContext: chatId,
-                    createdInContextRef: ""
-                ) else { continue }
+        do {
+            for (index, linkedObject) in linkedObjects.enumerated() {
+                switch linkedObject {
+                case .uploadedObject(let objectDetails):
+                    if useBlocksFormat {
+                        var linkBlock = ChatMessage.MessageBlockLink()
+                        linkBlock.targetObjectID = objectDetails.id
+                        linkBlock.type = objectDetails.resolvedLayoutValue.blockLinkType
+                        var block = ChatMessage.MessageBlock()
+                        block.content = .link(linkBlock)
+                        chatMessage.blocks.append(block)
+                    } else {
+                        var attachment = ChatMessageAttachment()
+                        attachment.target = objectDetails.id
+                        attachment.type = .link
+                        chatMessage.attachments.append(attachment)
+                    }
+                case .localPhotosFile(let chatLocalFile):
+                    guard let data = chatLocalFile.data else { continue }
+                    // A failed upload must fail the send — silently dropping the attachment loses user data
+                    let fileDetails = try await uploadFile(spaceId: spaceId, data: data.data, preloadFileId: chatLocalFile.data?.preloadFileId, createdInContext: chatId)
+                    updatedLinkedObjects[index] = .uploadedObject(MessageAttachmentDetails(fileDetails: fileDetails))
+                    if useBlocksFormat {
+                        var linkBlock = ChatMessage.MessageBlockLink()
+                        linkBlock.targetObjectID = fileDetails.id
+                        linkBlock.type = fileDetails.blockLinkType
+                        var block = ChatMessage.MessageBlock()
+                        block.content = .link(linkBlock)
+                        chatMessage.blocks.append(block)
+                    } else {
+                        var attachment = ChatMessageAttachment()
+                        attachment.target = fileDetails.id
+                        chatMessage.attachments.append(attachment)
+                    }
+                case .localBinaryFile(let binaryFile):
+                    let fileDetails = try await uploadFile(spaceId: spaceId, data: binaryFile.data, preloadFileId: binaryFile.preloadFileId, createdInContext: chatId)
+                    updatedLinkedObjects[index] = .uploadedObject(MessageAttachmentDetails(fileDetails: fileDetails))
+                    if useBlocksFormat {
+                        var linkBlock = ChatMessage.MessageBlockLink()
+                        linkBlock.targetObjectID = fileDetails.id
+                        linkBlock.type = fileDetails.blockLinkType
+                        var block = ChatMessage.MessageBlock()
+                        block.content = .link(linkBlock)
+                        chatMessage.blocks.append(block)
+                    } else {
+                        var attachment = ChatMessageAttachment()
+                        attachment.target = fileDetails.id
+                        chatMessage.attachments.append(attachment)
+                    }
+                case .localBookmark(let data):
+                    guard let url = AnytypeURL(string: data.url) else { continue }
+                    let type = try? typeProvider.objectType(uniqueKey: ObjectTypeUniqueKey.bookmark, spaceId: spaceId)
 
-                if useBlocksFormat {
-                    var linkBlock = ChatMessage.MessageBlockLink()
-                    linkBlock.targetObjectID = bookmark.id
-                    linkBlock.type = .bookmark
-                    var block = ChatMessage.MessageBlock()
-                    block.content = .link(linkBlock)
-                    chatMessage.blocks.append(block)
-                } else {
-                    var attachment = ChatMessageAttachment()
-                    attachment.target = bookmark.id
-                    chatMessage.attachments.append(attachment)
+                    let bookmark = try await bookmarkService.createBookmarkObject(
+                        spaceId: spaceId,
+                        url: url,
+                        templateId: type?.defaultTemplateId,
+                        origin: .none,
+                        createdInContext: chatId,
+                        createdInContextRef: ""
+                    )
+                    updatedLinkedObjects[index] = .uploadedObject(MessageAttachmentDetails(details: bookmark))
+
+                    if useBlocksFormat {
+                        var linkBlock = ChatMessage.MessageBlockLink()
+                        linkBlock.targetObjectID = bookmark.id
+                        linkBlock.type = .bookmark
+                        var block = ChatMessage.MessageBlock()
+                        block.content = .link(linkBlock)
+                        chatMessage.blocks.append(block)
+                    } else {
+                        var attachment = ChatMessageAttachment()
+                        attachment.target = bookmark.id
+                        chatMessage.attachments.append(attachment)
+                    }
                 }
             }
+        } catch {
+            // A failure on one item must not lose the objects already created for the previous ones
+            throw ChatActionSendError(underlyingError: error, updatedLinkedObjects: updatedLinkedObjects)
         }
 
-        return chatMessage
+        return (chatMessage, updatedLinkedObjects)
     }
 
     private func uploadFile(spaceId: String, data: FileData, preloadFileId: String?, createdInContext: String) async throws -> FileDetails {

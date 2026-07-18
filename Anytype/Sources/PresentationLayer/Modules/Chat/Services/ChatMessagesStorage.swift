@@ -17,7 +17,7 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func message(id: String) async -> ChatMessage?
     func updateVisibleRange(startMessageId: String, endMessageId: String) async
     func markAsReadAll() async throws -> ChatMessage
-    var updateStream: AnyAsyncSequence<[ChatUpdate]> { get }
+    var updateStream: AnyAsyncSequence<Set<ChatUpdate>> { get }
     var fullMessages: [FullChatMessage]? { get async }
     var chatState: ChatState? { get async }
 }
@@ -35,6 +35,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         static let pageSize = 100
         static let maxCacheSize = 1000
         static let lastMessagesMaxCacheSize = 10
+        static let pendingSyncStatusMaxCacheSize = 100
         // As user scroll N messages, we update the attachments subscription. Not every message.
         static let subscriptionMessageIntervalForAttachments = 20
         // Subscribe to visible cells attachments AND N top and N bottom. Should be more "interval" value for better experience.
@@ -59,7 +60,9 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     private var subscriptionStartMessageId: String?
     private var subscriptionEndMessageId: String?
     private var subscribedAttachmentIds = Set<String>()
-    
+    private var markAsReadRunning = false
+    private var pendingMarkAsReadRange: (start: String, end: String)?
+
     // MARK: - Message State
     private var attachments = ChatMessageAttachmentsStorage()
     private var messages = ChatInternalMessageStorage()
@@ -68,15 +71,21 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     private var replies = [String: ChatMessage]()
     private(set) var fullMessages: [FullChatMessage]?
     private(set) var chatState: ChatState?
-    
-    private let syncStream = AsyncToManyStream<[ChatUpdate]>()
+    // Sync status events can outrun the chatAdd that inserts the message
+    // (push events race RPC-response events). Remembered and applied on arrival.
+    private var pendingSyncStatus = [String: Bool]()
+
+    // Delta updates must never be dropped: a lost .messages tick leaves the chat
+    // stale until reopen. AsyncUpdateStream unions pending updates for busy
+    // subscribers and seeds new subscribers with a full refresh.
+    private let syncStream = AsyncUpdateStream<ChatUpdate>(seed: Set(ChatUpdate.allCases))
     
     init(spaceId: String, chatObjectId: String) {
         self.spaceId = spaceId
         self.chatObjectId = chatObjectId
     }
     
-    nonisolated var updateStream: AnyAsyncSequence<[ChatUpdate]> {
+    nonisolated var updateStream: AnyAsyncSequence<Set<ChatUpdate>> {
         syncStream.eraseToAnyAsyncSequence()
     }
     
@@ -88,8 +97,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         let currentStartMessageIndex = subscriptionStartMessageId.map { messages.index(messageId: $0) ?? notFoundValue } ?? notFoundValue
         let currentEndMessageIndex = subscriptionEndMessageId.map { messages.index(messageId: $0) ?? notFoundValue } ?? notFoundValue
         
-        try? await markAsRead(startMessageId: startMessageId, endMessageId: endMessageId)
-        
+        await markAsRead(startMessageId: startMessageId, endMessageId: endMessageId)
+
         guard abs(startMessageIndex - currentStartMessageIndex) > Constants.subscriptionMessageIntervalForAttachments
                 || abs(endMessageIndex - currentEndMessageIndex) > Constants.subscriptionMessageIntervalForAttachments else { return }
         
@@ -103,22 +112,28 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             return
         }
 
+        // Register the bus subscription before the RPC so events emitted right after
+        // the middleware-side subscription goes live land in the stream buffer
+        // instead of being lost while the Task is still starting.
+        let eventStream = await EventBunchSubscribtion.default.stream()
         subscription = Task { [weak self] in
-            for await events in await EventBunchSubscribtion.default.stream() {
+            for await events in eventStream {
                 if events.contextId == self?.chatObjectId {
                     await self?.handle(events: events)
                 }
             }
         }
-        
+
         let response = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, subId: subId, limit: Constants.pageSize)
 
-        // Setup chat state as first
-        chatState = response.chatState
-        
+        // Events processed while awaiting the response may already hold a newer state — don't regress it
+        if (chatState?.order ?? -1) < response.chatState.order {
+            chatState = response.chatState
+        }
+
         lastMessages.add(response.messages)
-        
-        let unreadOrderId = response.chatState.messages.oldestOrderID
+
+        let unreadOrderId = (chatState ?? response.chatState).messages.oldestOrderID
         if unreadOrderId.isNotEmpty {
             // Load messages for unred bounce
             _ = try? await loadPagesTo(orderId: unreadOrderId)
@@ -128,7 +143,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             updateFullMessages()
         }
         
-        syncStream.send(ChatUpdate.allCases)
+        syncStream.send(Set(ChatUpdate.allCases))
         subscriptionStarted = true
     }
     
@@ -168,7 +183,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         let loadedMessagesBefore = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: replyMessage.orderID, limit: Constants.pageSize)
         let loadedMessagesAfter = try await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: replyMessage.orderID, limit: Constants.pageSize)
         
-        let allLoadedMessages = loadedMessagesBefore + [replyMessage] + loadedMessagesAfter
+        var allLoadedMessages = loadedMessagesBefore + [replyMessage] + loadedMessagesAfter
+        // Keep messages that events added during the fetches: when the fetch reached
+        // the current tail, anything newer than the fetched window is contiguous with it.
+        if loadedMessagesAfter.count < Constants.pageSize {
+            let fetchedMaxOrderId = allLoadedMessages.map(\.orderID).max() ?? ""
+            allLoadedMessages += messages.messages.filter { $0.orderID > fetchedMaxOrderId }
+        }
         messages.removeAll()
         
         await addNewMessages(messages: allLoadedMessages)
@@ -189,7 +210,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             throw CommonError.undefined
         }
         
-        let allLoadedMessages = loadedMessagesBefore + loadedMessagesAfter
+        var allLoadedMessages = loadedMessagesBefore + loadedMessagesAfter
+        // Keep messages that events added during the fetches: when the fetch reached
+        // the current tail, anything newer than the fetched window is contiguous with it.
+        if loadedMessagesAfter.count < Constants.pageSize {
+            let fetchedMaxOrderId = allLoadedMessages.map(\.orderID).max() ?? ""
+            allLoadedMessages += messages.messages.filter { $0.orderID > fetchedMaxOrderId }
+        }
         messages.removeAll()
         
         await addNewMessages(messages: allLoadedMessages)
@@ -241,22 +268,34 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private func handle(events: EventsBunch) async {
         var updates: Set<ChatUpdate> = []
-        
-        var updateRepliesAndAttachments = true
-        
+
+        var updateRepliesAndAttachments = false
+        var needsTailGapRefill = false
+
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatAdd(data):
                 guard data.subIds.contains(subId) else { break }
+                let windowWasAtTail = messages.last?.id == lastMessages.last?.id
                 if messages.chatAdd(data) {
                     updates.insert(.messages)
                     updateRepliesAndAttachments = true
+                } else if windowWasAtTail, let last = messages.last, data.afterOrderID > last.orderID {
+                    // The new message references a predecessor we never received — an event
+                    // was missed. Refetch the tail instead of freezing the window: otherwise
+                    // every subsequent chatAdd fails the boundary check too.
+                    needsTailGapRefill = true
                 }
-                lastMessages.chatAdd(data)
+                if !lastMessages.chatAdd(data), let last = lastMessages.last, data.message.orderID > last.orderID {
+                    // lastMessages must always track the real tail, even across gaps
+                    lastMessages.add(data.message)
+                }
             case let .chatDelete(data):
                 guard data.subIds.contains(subId) else { break }
                 if messages.chatDelete(data) {
                     updates.insert(.messages)
+                    // Trigger attachments cleanup for the removed message
+                    updateRepliesAndAttachments = true
                 }
                 lastMessages.chatDelete(data)
             case let .chatUpdate(data):
@@ -271,15 +310,25 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 if messages.chatUpdateReactions(data) {
                     updates.insert(.messages)
                 }
+                lastMessages.chatUpdateReactions(data)
             case let .chatUpdateMessageReadStatus(data):
                 guard data.subIds.contains(subId) else { break }
-                messages.chatUpdateMessageReadStatus(data)
+                if messages.chatUpdateMessageReadStatus(data) {
+                    updates.insert(.messages)
+                }
+                lastMessages.chatUpdateMessageReadStatus(data)
             case let .chatUpdateMentionReadStatus(data):
                 guard data.subIds.contains(subId) else { break }
-                messages.chatUpdateMentionReadStatus(data)
+                if messages.chatUpdateMentionReadStatus(data) {
+                    updates.insert(.messages)
+                }
+                lastMessages.chatUpdateMentionReadStatus(data)
             case let .chatUpdateReactionReadStatus(data):
                 guard data.subIds.contains(subId) else { break }
-                messages.chatUpdateReactionReadStatus(data)
+                if messages.chatUpdateReactionReadStatus(data) {
+                    updates.insert(.messages)
+                }
+                lastMessages.chatUpdateReactionReadStatus(data)
             case let .chatStateUpdate(data):
                 guard data.subIds.contains(subId) else { break }
                 if (chatState?.order ?? -1) < data.state.order {
@@ -291,33 +340,78 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 if messages.chatUpdateMessageSyncStatus(data) {
                     updates.insert(.messages)
                 }
+                lastMessages.chatUpdateMessageSyncStatus(data)
+                for messageId in data.ids where messages.message(id: messageId).isNil {
+                    pendingSyncStatus[messageId] = data.isSynced
+                }
             default:
                 break
             }
         }
         
         lastMessages.cleanFirst(maxCache: Constants.lastMessagesMaxCacheSize)
-        
+
+        if needsTailGapRefill {
+            await refillTailGap()
+            updates.insert(.messages)
+            updateRepliesAndAttachments = true
+        }
+
         if updateRepliesAndAttachments {
             await loadReplies()
             await loadAttachments()
             await updateAttachmentSubscription()
         }
         
+        if applyPendingSyncStatus() {
+            updates.insert(.messages)
+        }
+
         if updates.contains(.messages) {
             updateFullMessages(notify: false)
         }
         if subscriptionStarted {
-            syncStream.send(Array(updates))
+            syncStream.send(updates)
         }
+    }
+
+    private func applyPendingSyncStatus() -> Bool {
+        guard !pendingSyncStatus.isEmpty else { return false }
+        var applied = false
+        for (messageId, isSynced) in pendingSyncStatus {
+            guard messages.message(id: messageId).isNotNil else { continue }
+            var event = Anytype_Event.Chat.UpdateMessageSyncStatus()
+            event.ids = [messageId]
+            event.isSynced = isSynced
+            if messages.chatUpdateMessageSyncStatus(event) {
+                applied = true
+            }
+            lastMessages.chatUpdateMessageSyncStatus(event)
+            pendingSyncStatus.removeValue(forKey: messageId)
+        }
+        // Statuses for messages that never enter the window are stale — don't accumulate them
+        if pendingSyncStatus.count > Constants.pendingSyncStatusMaxCacheSize {
+            pendingSyncStatus.removeAll()
+        }
+        return applied
     }
     
     private func addNewMessages(messages newMessages: [ChatMessage]) async {
         messages.add(newMessages)
-        
+        // Statuses may have been queued while these messages were loading via RPC
+        _ = applyPendingSyncStatus()
+
         await loadReplies()
         await loadAttachments()
         await updateAttachmentSubscription()
+    }
+
+    private func refillTailGap() async {
+        guard let last = messages.last else { return }
+        guard let newMessages = try? await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: last.orderID, limit: Constants.pageSize),
+              newMessages.isNotEmpty else { return }
+        messages.add(newMessages)
+        messages.cleanFirst(maxCache: Constants.maxCacheSize)
     }
     
     private func loadAttachments() async {
@@ -386,9 +480,14 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     private func updateAttachmentSubscription() async {
-        guard let subscriptionStartMessageId, let subscriptionEndMessageId,
-              let startMessageIndex = messages.index(messageId: subscriptionStartMessageId),
-              let endMessageIndex = messages.index(messageId: subscriptionEndMessageId)  else { return }
+        // Before the first visible-range callback there are no anchors yet — cover the
+        // whole window so attachment details that appear later (e.g. incoming files
+        // still syncing) still reach the UI.
+        let startAnchorId = subscriptionStartMessageId ?? messages.first?.id
+        let endAnchorId = subscriptionEndMessageId ?? messages.last?.id
+        guard let startAnchorId, let endAnchorId,
+              let startMessageIndex = messages.index(messageId: startAnchorId),
+              let endMessageIndex = messages.index(messageId: endAnchorId) else { return }
         
         let startIndex = startMessageIndex - Constants.subsctiptionMessageOverLimitForAttachments
         let endIndex = endMessageIndex + Constants.subsctiptionMessageOverLimitForAttachments
@@ -417,41 +516,67 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         await mediaCacheHeatingService.updateVisibleMedia(attachmentDetails: details)
     }
     
-    private func markAsRead(startMessageId: String, endMessageId: String) async throws {
-        guard let chatState,
-              let afterOrderId = messages.message(id: startMessageId)?.orderID,
+    private func markAsRead(startMessageId: String, endMessageId: String) async {
+        // Coalesce: overlapping calls ack with the same captured lastStateID and race
+        // each other. Keep only the latest requested range, process one at a time.
+        pendingMarkAsReadRange = (startMessageId, endMessageId)
+        guard !markAsReadRunning else { return }
+        markAsReadRunning = true
+        defer { markAsReadRunning = false }
+        while let range = pendingMarkAsReadRange {
+            pendingMarkAsReadRange = nil
+            await performMarkAsRead(startMessageId: range.start, endMessageId: range.end)
+        }
+    }
+
+    private func performMarkAsRead(startMessageId: String, endMessageId: String) async {
+        guard let afterOrderId = messages.message(id: startMessageId)?.orderID,
               let beforeOrderId = messages.message(id: endMessageId)?.orderID
               else { return }
-        
-        if chatState.messages.oldestOrderID.isNotEmpty,
+
+        // Re-read chatState before every request: the middleware ignores acks carrying
+        // a stale lastStateID, which would leave the unread counter stuck.
+        if let chatState, chatState.messages.oldestOrderID.isNotEmpty,
             chatState.messages.oldestOrderID <= beforeOrderId {
-            try? await chatService.readMessages(
-                chatObjectId: chatObjectId,
-                afterOrderId: afterOrderId,
-                beforeOrderId: beforeOrderId,
-                type: .messages,
-                lastStateId: chatState.lastStateID
-            )
-        }
-        
-        if chatState.mentions.oldestOrderID.isNotEmpty,
-           chatState.mentions.oldestOrderID <= beforeOrderId {
-            try? await chatService.readMessages(
-                chatObjectId: chatObjectId,
-                afterOrderId: afterOrderId,
-                beforeOrderId: beforeOrderId,
-                type: .mentions,
-                lastStateId: chatState.lastStateID
-            )
+            do {
+                try await chatService.readMessages(
+                    chatObjectId: chatObjectId,
+                    afterOrderId: afterOrderId,
+                    beforeOrderId: beforeOrderId,
+                    type: .messages,
+                    lastStateId: chatState.lastStateID
+                )
+            } catch {
+                anytypeAssertionFailure("Chat mark-as-read failed (messages)", info: ["error": error.localizedDescription])
+            }
         }
 
-        if chatState.unreadReactionOrderID.isNotEmpty,
+        if let chatState, chatState.mentions.oldestOrderID.isNotEmpty,
+           chatState.mentions.oldestOrderID <= beforeOrderId {
+            do {
+                try await chatService.readMessages(
+                    chatObjectId: chatObjectId,
+                    afterOrderId: afterOrderId,
+                    beforeOrderId: beforeOrderId,
+                    type: .mentions,
+                    lastStateId: chatState.lastStateID
+                )
+            } catch {
+                anytypeAssertionFailure("Chat mark-as-read failed (mentions)", info: ["error": error.localizedDescription])
+            }
+        }
+
+        if let chatState, chatState.unreadReactionOrderID.isNotEmpty,
            chatState.unreadReactionOrderID >= afterOrderId,
            chatState.unreadReactionOrderID <= beforeOrderId {
-            try? await chatService.readReactions(
-                chatObjectId: chatObjectId,
-                orderId: chatState.unreadReactionOrderID
-            )
+            do {
+                try await chatService.readReactions(
+                    chatObjectId: chatObjectId,
+                    orderId: chatState.unreadReactionOrderID
+                )
+            } catch {
+                anytypeAssertionFailure("Chat mark-as-read failed (reactions)", info: ["error": error.localizedDescription])
+            }
         }
     }
     

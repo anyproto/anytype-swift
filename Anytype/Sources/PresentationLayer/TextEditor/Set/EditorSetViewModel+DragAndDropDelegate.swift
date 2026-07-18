@@ -7,8 +7,10 @@ struct SetDragAndDropConfiguration {
 
 @MainActor
 protocol SetDragAndDropDelegate {
+    var canDragCards: Bool { get }
     func onDrag(from: SetDragAndDropConfiguration, to: SetDragAndDropConfiguration)
     func onDrop(configurationId: String, fromGroupId: String, toGroupId: String) -> Bool
+    func onDragCancelled()
 }
 
 extension EditorSetViewModel: SetDragAndDropDelegate {
@@ -29,37 +31,55 @@ extension EditorSetViewModel: SetDragAndDropDelegate {
         }
     }
     
+    func onDragCancelled() {
+        revertOptimisticCardMoves()
+    }
+
     func onDrop(configurationId: String, fromGroupId: String, toGroupId: String) -> Bool {
+        guard canDragCards else {
+            revertOptimisticCardMoves()
+            return false
+        }
+
         if fromGroupId == toGroupId,
             let configurations = configurationsDict[fromGroupId]
         {
+            // ObjectOrderUpdate replaces the whole (viewId, groupId) list; persisting a
+            // partially loaded column would destroy the order of the unloaded cards.
+            guard isGroupFullyLoaded(fromGroupId) else {
+                revertOptimisticCardMoves()
+                return false
+            }
             let groupObjectIds = GroupObjectIds(
                 groupId: fromGroupId,
                 objectIds: configurations.map { $0.id }
             )
             objectOrderUpdate(with: [groupObjectIds])
         } else if fromGroupId != toGroupId,
-                  let fromConfigurations = configurationsDict[fromGroupId],
-                  let toConfigurations = configurationsDict[toGroupId]
+                  configurationsDict[fromGroupId].isNotNil,
+                  configurationsDict[toGroupId].isNotNil
         {
-            updateObjectDetails(
+            let moved = updateObjectDetails(
                 configurationId,
-                groupId: toGroupId
+                fromGroupId: fromGroupId,
+                toGroupId: toGroupId
             )
+            guard moved else { return false }
 
-            let fromGroupObjectIds = GroupObjectIds(
-                groupId: fromGroupId,
-                objectIds: fromConfigurations.map { $0.id }
-            )
-            let toGroupObjectIds = GroupObjectIds(
-                groupId: toGroupId,
-                objectIds: toConfigurations.map { $0.id }
-            )
-            objectOrderUpdate(with: [fromGroupObjectIds, toGroupObjectIds])
+            var groupObjectIds = [GroupObjectIds]()
+            if isGroupFullyLoaded(fromGroupId), let fromConfigurations = configurationsDict[fromGroupId] {
+                groupObjectIds.append(GroupObjectIds(groupId: fromGroupId, objectIds: fromConfigurations.map { $0.id }))
+            }
+            if isGroupFullyLoaded(toGroupId), let toConfigurations = configurationsDict[toGroupId] {
+                groupObjectIds.append(GroupObjectIds(groupId: toGroupId, objectIds: toConfigurations.map { $0.id }))
+            }
+            if groupObjectIds.isNotEmpty {
+                objectOrderUpdate(with: groupObjectIds)
+            }
         } else {
             return false
         }
-        
+
         return true
     }
     
@@ -88,18 +108,16 @@ extension EditorSetViewModel: SetDragAndDropDelegate {
             return
         }
 
-        var toIndex = 0
+        var toIndex = toConfigurations.count
         if let toConfigurationId = to.configurationId {
-            toIndex = toConfigurations.index(id: toConfigurationId) ?? 0
+            toIndex = toConfigurations.index(id: toConfigurationId) ?? toConfigurations.count
         }
 
         withAnimation(.slowIteractiveSpring) {
             let fromConfiguration = fromConfigurations[fromIndex]
             fromConfigurations.remove(at: fromIndex)
 
-            let dropAfter = toIndex > fromIndex
-            let dropIndex = dropAfter ? toIndex + 1 : toIndex
-            toConfigurations.insert(fromConfiguration, at: dropIndex)
+            toConfigurations.insert(fromConfiguration, at: toIndex)
 
             configurationsDict[from.groupId] = fromConfigurations
             configurationsDict[to.groupId] = toConfigurations

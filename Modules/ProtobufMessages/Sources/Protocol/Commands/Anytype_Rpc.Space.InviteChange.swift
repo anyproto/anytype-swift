@@ -69,6 +69,10 @@ extension Anytype_Rpc.Space {
             case spaceIsDeleted // = 102
             case requestFailed // = 103
             case incorrectPermissions // = 105
+
+            /// the invite is shared within the space and these permissions are above read access:
+            /// whoever holds such a link is in the space, and every member holds it
+            case inviteNotShareable // = 107
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -84,6 +88,7 @@ extension Anytype_Rpc.Space {
               case 102: self = .spaceIsDeleted
               case 103: self = .requestFailed
               case 105: self = .incorrectPermissions
+              case 107: self = .inviteNotShareable
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -97,6 +102,7 @@ extension Anytype_Rpc.Space {
               case .spaceIsDeleted: return 102
               case .requestFailed: return 103
               case .incorrectPermissions: return 105
+              case .inviteNotShareable: return 107
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -110,6 +116,7 @@ extension Anytype_Rpc.Space {
               .spaceIsDeleted,
               .requestFailed,
               .incorrectPermissions,
+              .inviteNotShareable,
             ]
 
           }
@@ -250,7 +257,7 @@ extension Anytype_Rpc.Space.InviteChange.Response.Error: SwiftProtobuf.Message, 
 }
 
 extension Anytype_Rpc.Space.InviteChange.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}NO_SUCH_SPACE\0\u{1}SPACE_IS_DELETED\0\u{1}REQUEST_FAILED\0\u{2}\u{2}INCORRECT_PERMISSIONS\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}NO_SUCH_SPACE\0\u{1}SPACE_IS_DELETED\0\u{1}REQUEST_FAILED\0\u{2}\u{2}INCORRECT_PERMISSIONS\0\u{2}\u{2}INVITE_NOT_SHAREABLE\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

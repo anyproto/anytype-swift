@@ -14,8 +14,7 @@ protocol AppIconBadgeServiceProtocol: AnyObject, Sendable {
 
 actor AppIconBadgeService: AppIconBadgeServiceProtocol {
 
-    // LazyInjected to avoid creating ChatMessagesPreviewsStorage before auth
-    // (when basicUserInfoStorage.usersId is empty, its subscription silently skips)
+    // ChatMessagesPreviewsStorage subscription lifecycle is managed by LoginStateService
     @LazyInjected(\.chatMessagesPreviewsStorage)
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
     @Injected(\.spaceViewsStorage)

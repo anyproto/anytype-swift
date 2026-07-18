@@ -3,6 +3,7 @@ import Services
 import AnytypeCore
 import SwiftUI
 import OrderedCollections
+import SwiftProtobuf
 
 
 @MainActor
@@ -27,6 +28,7 @@ final class EditorSetViewModel: ObservableObject {
     private var externalActiveViewId: String?
     
     private var recordsDict: OrderedDictionary<String, [ObjectDetails]> = [:]
+    private var totalsDict: [String: Int] = [:]
     private var groups: [DataviewGroup] = []
     
     @MainActor
@@ -40,6 +42,8 @@ final class EditorSetViewModel: ObservableObject {
     )
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
+    @Published private(set) var boardState: SetKanbanBoardState = .loading
+    @Published private(set) var groupOptionDetails: [String: ObjectDetails] = [:]
     
     @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
     
@@ -112,7 +116,10 @@ final class EditorSetViewModel: ObservableObject {
     
     var showEmptyState: Bool {
         (isEmptyQuery && !setDocument.isCollection()) ||
-        (recordsDict.values.first { $0.isNotEmpty } == nil && setDocument.activeViewFilters.isEmpty)
+        // A board with columns is never empty: emptiness is columns.isEmpty, not cards.isEmpty.
+        // Collapsing an all-empty board into the generic screen would also hide the columns
+        // needed to create the first card.
+        (!activeView.type.hasGroups && recordsDict.values.first { $0.isNotEmpty } == nil && setDocument.activeViewFilters.isEmpty)
     }
     
     var emptyStateMode: EditorSetEmptyMode {
@@ -144,7 +151,26 @@ final class EditorSetViewModel: ObservableObject {
     
     func headerType(for groupId: String) -> SetKanbanColumnHeaderType {
         guard let group = groups.first(where: { $0.id == groupId }) else { return .uncategorized }
-        return group.header(with: activeView.groupRelationKey, document: setDocument.document)
+        return group.header(checkboxTitle: groupRelationDisplayName, optionDetails: { [weak self] optionId in
+            self?.optionDetails(for: optionId)
+        })
+    }
+
+    func columnCount(for groupId: String) -> Int {
+        totalsDict[groupId] ?? 0
+    }
+
+    private var groupRelationDisplayName: String {
+        let relationDetails = try? propertyDetailsStorage.relationsDetails(key: activeView.groupRelationKey, spaceId: setDocument.spaceId)
+        return relationDetails?.name ?? activeView.groupRelationKey.capitalized
+    }
+
+    // Live options first (rename/recolor arrive there), then per-column dependency
+    // details, then the document storage as a last resort.
+    private func optionDetails(for optionId: String) -> ObjectDetails? {
+        groupOptionDetails[optionId]
+            ?? subscriptionStorages.values.compactMap { $0.detailsStorage.get(id: optionId) }.first
+            ?? setDocument.document.detailsStorage.get(id: optionId)
     }
     
     func contextMenuItems(for relation: Property) -> [PropertyValueViewModel.MenuItem] {
@@ -190,7 +216,10 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func groupFirstOptionBackgroundColor(for groupId: String) -> BlockBackgroundColor {
-        guard let backgroundColor = groups.first(where: { $0.id == groupId })?.backgroundColor(document: setDocument.document) else {
+        let group = groups.first { $0.id == groupId }
+        guard let backgroundColor = group?.backgroundColor(optionDetails: { [weak self] optionId in
+            self?.optionDetails(for: optionId)
+        }) else {
             return BlockBackgroundColor.gray
         }
         return backgroundColor
@@ -231,6 +260,9 @@ final class EditorSetViewModel: ObservableObject {
     
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: any SubscriptionStorageProtocol]()
+    private var startSubscriptionsByGroupsTask: Task<Void, Never>?
+    private var boardSubscriptionsEpoch = 0
+    private var cardIdsWithPendingMove = Set<String>()
     private var titleSubscription: AnyCancellable?
     private var descriptionSubscription: AnyCancellable?
     private var chatPreviews: [ChatMessagePreview] = []
@@ -329,6 +361,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onDisappear() {
+        boardSubscriptionsEpoch += 1
         Task {
             await stopAllSubscriptionStorages()
             try await groupsSubscriptionsHandler.stopAllSubscriptions()
@@ -385,24 +418,100 @@ final class EditorSetViewModel: ObservableObject {
         }
         
         if activeView.type.hasGroups {
-            try? await setupGroupsSubscription(forceUpdate: forceUpdate)
+            do {
+                try await setupGroupsSubscription(forceUpdate: forceUpdate)
+                if boardState != .ready {
+                    boardState = .ready
+                }
+            } catch {
+                boardState = .error(message: error.localizedDescription)
+            }
         } else {
             setupPaginationDataIfNeeded(groupId: setSubscriptionDataBuilder.subscriptionId)
-            await startSubscriptionIfNeeded(with: setSubscriptionDataBuilder.subscriptionId)
+            await startSubscriptionIfNeeded(subscriptionId: setSubscriptionDataBuilder.subscriptionId, groupId: setSubscriptionDataBuilder.subscriptionId)
         }
     }
     
-    func updateObjectDetails(_ detailsId: String, groupId: String) {
-        guard let group = groups.first(where: { $0.id == groupId }),
-        let value = group.value else { return }
+    @discardableResult
+    func updateObjectDetails(_ detailsId: String, fromGroupId: String, toGroupId: String) -> Bool {
+        let relationKey = activeView.groupRelationKey
+        let move = SetKanbanCardMove.compute(
+            currentValue: groupRelationValue(for: detailsId, relationKey: relationKey, groupId: fromGroupId),
+            sourceGroupValue: groups.first { $0.id == fromGroupId }?.value,
+            targetGroupValue: groups.first { $0.id == toGroupId }?.value,
+            groupsLoaded: groups.isNotEmpty
+        )
+
+        // Reverts rebuild every column, not just the two involved: an earlier optimistic
+        // move may have stripped the card from a third column's configurations.
+        guard case let .write(value) = move else {
+            revertOptimisticCardMoves()
+            return false
+        }
+
+        // The RMW reads the backend value; a second move of the same card before the
+        // first write round-trips would compute against stale data and resurrect tags.
+        guard !cardIdsWithPendingMove.contains(detailsId) else {
+            revertOptimisticCardMoves()
+            return false
+        }
+        cardIdsWithPendingMove.insert(detailsId)
 
         Task {
-            try await detailsService.updateDetails(
-                contextId: detailsId,
-                relationKey: activeView.groupRelationKey,
-                value: value
-            )
+            defer { cardIdsWithPendingMove.remove(detailsId) }
+            do {
+                try await propertiesService.updateProperty(
+                    objectId: detailsId,
+                    propertyKey: relationKey,
+                    value: value.protobufValue
+                )
+                logCardMove(relationKey: relationKey, value: value)
+            } catch {
+                revertOptimisticCardMoves()
+                output?.showFailureToast(message: error.localizedDescription)
+            }
         }
+        return true
+    }
+
+    private func logCardMove(relationKey: String, value: SetKanbanCardMoveValue) {
+        guard let relationDetails = try? propertyDetailsStorage.relationsDetails(key: relationKey, spaceId: setDocument.spaceId) else { return }
+        AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
+            isEmpty: value == .unset || value == .ids([]),
+            format: relationDetails.format,
+            type: .dataview,
+            key: relationDetails.analyticsKey
+        )
+    }
+
+    private func groupRelationValue(for detailsId: String, relationKey: String, groupId: String) -> [String] {
+        let details = subscriptionStorage(for: groupId)?.detailsStorage.get(id: detailsId)
+            ?? subscriptionStorages.values.compactMap { $0.detailsStorage.get(id: detailsId) }.first
+        return SetKanbanCardMove.stringList(from: details?.values[relationKey])
+    }
+
+    private func subscriptionStorage(for groupId: String) -> (any SubscriptionStorageProtocol)? {
+        subscriptionStorages[groupId] ?? subscriptionStorages[recordsSubscriptionId(for: groupId)]
+    }
+
+    func isGroupFullyLoaded(_ groupId: String) -> Bool {
+        SetKanbanReorder.isColumnFullyLoaded(
+            loadedCount: recordsDict[groupId]?.count ?? 0,
+            totalCount: totalsDict[groupId]
+        )
+    }
+
+    var canDragCards: Bool {
+        activeView.type.hasGroups && setDocument.setPermissions.canMoveCards
+    }
+
+    func revertOptimisticCardMoves() {
+        updateConfigurations(with: Array(recordsDict.keys))
+    }
+
+    func onBoardErrorRetryTap() async {
+        boardState = .loading
+        await startSubscriptionIfNeeded(forceUpdate: true)
     }
     
     func pagitationData(by groupId: String? = nil) -> EditorSetPaginationData {
@@ -521,54 +630,141 @@ final class EditorSetViewModel: ObservableObject {
         let hasGroupDiff = await groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data)
         if hasGroupDiff {
             try await groupsSubscriptionsHandler.stopAllSubscriptions()
-            groups = try await startGroupsSubscription(with: data)
+            groups = []
+            let snapshot = try await startGroupsSubscription(with: data)
+            // Group events can race the subscribe RPC; the callback already applied them
+            // to `groups`, so merge instead of overwriting with the snapshot.
+            let racedGroups = groups.filter { raced in !snapshot.contains { $0.id == raced.id } }
+            groups = snapshot + racedGroups
         }
 
-        let groupOrderUpdates = await checkGroupOrderUpdates()
-            
+        await startOptionsSubscription()
+
+        let groupOrderUpdates = checkGroupOrderUpdates()
+
         if forceUpdate || groupOrderUpdates || hasGroupDiff {
             await startSubscriptionsByGroups()
         }
     }
-    
-    private func checkGroupOrderUpdates() async -> Bool {
+
+    private func checkGroupOrderUpdates() -> Bool {
         let groupOrder = setDocument.dataView.groupOrders.first { [weak self] in $0.viewID == self?.activeView.id }
         let visibleViewGroups = groupOrder?.viewGroups.filter { !$0.hidden }
         let newVisible = visibleViewGroups?.first { [weak self] in self?.recordsDict[$0.groupID] == nil }
-        
+
         let hiddenViewGroups = groupOrder?.viewGroups.filter { $0.hidden } ?? []
-        var hasNewHidden = false
-        for group in hiddenViewGroups {
-            if recordsDict[group.groupID] != nil {
-                hasNewHidden = true
-                recordsDict[group.groupID] = nil
-                configurationsDict[group.groupID] = nil
-                try? await subscriptionStorages[group.groupID]?.stopSubscription()
-            }
-        }
-        
+        let hasNewHidden = hiddenViewGroups.contains { recordsDict[$0.groupID] != nil }
+
         return newVisible != nil || hasNewHidden
     }
-    
+
     private func startGroupsSubscription(with data: GroupsSubscriptionData) async throws -> [DataviewGroup] {
         try await groupsSubscriptionsHandler.startGroupsSubscription(data: data) { [weak self] group, remove in
             guard let self else { return }
-            if remove {
-                self.groups = self.groups.filter { $0 != group }
-            } else {
-                self.groups.append(group)
-            }
+            let otherGroups = self.groups.filter { $0.id != group.id }
+            self.groups = remove ? otherGroups : otherGroups + [group]
             await startSubscriptionsByGroups()
         }
     }
-    
+
+    // Interleaved invocations (a dataview update racing a group add/remove event) can
+    // interleave across await points and stop a column the other run just started;
+    // serialize FIFO so each run sees settled state. The epoch check keeps a link that
+    // was queued before teardown (onDisappear/clearState) from re-subscribing after it.
     private func startSubscriptionsByGroups() async {
-        for group in sortedVisibleGroups() {
-            let groupFilter = group.filter(with: self.activeView.groupRelationKey)
-            let subscriptionId = group.id
-            setupPaginationDataIfNeeded(groupId: group.id)
-            await startSubscriptionIfNeeded(with: subscriptionId, groupFilter: groupFilter)
+        let epoch = boardSubscriptionsEpoch
+        let previousTask = startSubscriptionsByGroupsTask
+        let task = Task { [weak self] in
+            await previousTask?.value
+            guard let self, self.boardSubscriptionsEpoch == epoch else { return }
+            await self.startSubscriptionsByGroupsSerialized()
         }
+        startSubscriptionsByGroupsTask = task
+        await task.value
+    }
+
+    private func startSubscriptionsByGroupsSerialized() async {
+        let visibleGroups = sortedVisibleGroups()
+        await stopStaleGroupSubscriptions(activeGroupIds: visibleGroups.map(\.id))
+        for group in visibleGroups {
+            let groupFilter = group.filter(with: self.activeView.groupRelationKey)
+            setupPaginationDataIfNeeded(groupId: group.id)
+            await startSubscriptionIfNeeded(subscriptionId: recordsSubscriptionId(for: group.id), groupId: group.id, groupFilter: groupFilter)
+        }
+    }
+
+    // Board record subscriptions are namespaced per screen: backend group ids are
+    // deterministic (option id / md5 of option ids), so two open sets grouped by the
+    // same relation would otherwise collide on the shared subscription registry.
+    private func recordsSubscriptionId(for groupId: String) -> String {
+        "\(setSubscriptionDataBuilder.subscriptionId)-Group-\(groupId)"
+    }
+
+    private var optionsSubscriptionId: String {
+        "\(setSubscriptionDataBuilder.subscriptionId)-Options"
+    }
+
+    // Column headers must follow option rename/recolor live; per-column dependency
+    // details cover only options referenced by loaded records, so an empty column
+    // would otherwise have no resolvable header.
+    private func startOptionsSubscription() async {
+        let relationKey = activeView.groupRelationKey
+        guard relationKey.isNotEmpty else { return }
+
+        let data = SubscriptionData.search(
+            SubscriptionData.Search(
+                identifier: optionsSubscriptionId,
+                spaceId: setDocument.spaceId,
+                filters: [
+                    SearchHelper.layoutFilter([.relationOption]),
+                    SearchHelper.relationKey(relationKey),
+                    SearchHelper.isDeletedFilter(isDeleted: false),
+                    SearchHelper.isArchivedFilter(isArchived: false)
+                ],
+                limit: 0,
+                keys: [
+                    BundledPropertyKey.id.rawValue,
+                    BundledPropertyKey.name.rawValue,
+                    BundledPropertyKey.relationOptionColor.rawValue
+                ],
+                noDepSubscription: true
+            )
+        )
+
+        let subscription = subscriptionStorages[optionsSubscriptionId] ?? subscriptionStorageProvider.createSubscriptionStorage(subId: optionsSubscriptionId)
+        subscriptionStorages[optionsSubscriptionId] = subscription
+
+        try? await subscription.startOrUpdateSubscription(data: data) { [weak self] state in
+            await self?.updateGroupOptionDetails(with: state)
+        }
+    }
+
+    private func updateGroupOptionDetails(with state: SubscriptionStorageState) {
+        groupOptionDetails = Dictionary(uniqueKeysWithValues: state.items.map { ($0.id, $0) })
+    }
+
+    // Cancelling the client-side stream does not cancel the server-side subscription;
+    // stale ids must be stopped explicitly before the tracked set is overwritten.
+    private func stopStaleGroupSubscriptions(activeGroupIds: [String]) async {
+        let activeSubscriptionIds = Set(activeGroupIds.map { recordsSubscriptionId(for: $0) } + [setSubscriptionDataBuilder.subscriptionId, optionsSubscriptionId])
+        let flatSubscriptionId = setSubscriptionDataBuilder.subscriptionId
+        let staleSubscriptionIds = subscriptionStorages.keys.filter { !activeSubscriptionIds.contains($0) }
+        for subscriptionId in staleSubscriptionIds {
+            try? await subscriptionStorages[subscriptionId]?.stopSubscription()
+            subscriptionStorages[subscriptionId] = nil
+        }
+
+        let activeGroupIdsSet = Set(activeGroupIds)
+        let staleGroupIds = recordsDict.keys.filter { $0 != flatSubscriptionId && !activeGroupIdsSet.contains($0) }
+        guard !staleGroupIds.isEmpty else { return }
+        for groupId in staleGroupIds {
+            recordsDict[groupId] = nil
+            totalsDict[groupId] = nil
+            pagitationDataDict[groupId] = nil
+        }
+        var configurations = configurationsDict
+        staleGroupIds.forEach { configurations[$0] = nil }
+        configurationsDict = configurations
     }
     
     private func setupPaginationDataIfNeeded(groupId: String) {
@@ -576,8 +772,8 @@ final class EditorSetViewModel: ObservableObject {
         pagitationDataDict[groupId] = EditorSetPaginationData.empty
     }
     
-    private func startSubscriptionIfNeeded(with subscriptionId: String, groupFilter: DataviewFilter? = nil) async {
-        let pagitationData = pagitationData(by: subscriptionId)
+    private func startSubscriptionIfNeeded(subscriptionId: String, groupId: String, groupFilter: DataviewFilter? = nil) async {
+        let pagitationData = pagitationData(by: groupId)
         let currentPage: Int
         let numberOfRowsPerPage: Int
         if activeView.type.hasGroups {
@@ -587,7 +783,7 @@ final class EditorSetViewModel: ObservableObject {
             numberOfRowsPerPage = userDefaults.rowsPerPageInSet
             currentPage = max(pagitationData.selectedPage, 1)
         }
-        
+
         guard setDocument.canStartSubscription() else { return }
 
         let subscriptionData = SetSubscriptionData(
@@ -597,23 +793,27 @@ final class EditorSetViewModel: ObservableObject {
             currentPage: currentPage,
             numberOfRowsPerPage: numberOfRowsPerPage,
             collectionId: setDocument.isCollection() ? objectId : nil,
-            objectOrderIds: setDocument.objectOrderIds(for: subscriptionId),
+            objectOrderIds: setDocument.objectOrderIds(for: groupId),
             spaceType: spaceView?.spaceType
         )
         let data = setSubscriptionDataBuilder.set(subscriptionData)
-        
+
         let subscription = subscriptionStorages[data.identifier] ?? subscriptionStorageProvider.createSubscriptionStorage(subId: data.identifier)
         subscriptionStorages[data.identifier] = subscription
 
         try? await subscription.startOrUpdateSubscription(data: data) { [weak self] state in
-            await self?.updateData(with: subscriptionId, numberOfRowsPerPage: numberOfRowsPerPage, state: state)
+            await self?.updateData(with: groupId, numberOfRowsPerPage: numberOfRowsPerPage, state: state)
         }
     }
 
     private func updateData(with groupId: String, numberOfRowsPerPage: Int, state: SubscriptionStorageState) {
+        // A stopped column's storage can still deliver an in-flight update; accepting it
+        // would resurrect the removed column.
+        guard subscriptionStorage(for: groupId) != nil else { return }
         let pagesCount = numberOfRowsPerPage > 0 ? Int(ceil(Float(state.total) / Float(numberOfRowsPerPage))) : 0
         updatePageCount(pagesCount, groupId: groupId, ignorePageLimit: activeView.type.hasGroups)
         recordsDict[groupId] = state.items
+        totalsDict[groupId] = state.total
         updateConfigurations(with: [groupId])
     }
     
@@ -624,7 +824,7 @@ final class EditorSetViewModel: ObservableObject {
     private func updateConfigurations(with groupIds: [String]) {
         var tempConfigurationsDict = configurationsDict
         for groupId in groupIds {
-            guard let subscription = subscriptionStorages[groupId] else {
+            guard let subscription = subscriptionStorage(for: groupId) else {
                 anytypeAssertionFailure("Subscription not started for group")
                 continue
             }
@@ -715,10 +915,14 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func clearState() async {
+        boardSubscriptionsEpoch += 1
         recordsDict = [:]
+        totalsDict = [:]
         configurationsDict = [:]
         pagitationDataDict = [:]
         groups = []
+        groupOptionDetails = [:]
+        boardState = .loading
         await stopAllSubscriptionStorages()
         try? await groupsSubscriptionsHandler.stopAllSubscriptions()
     }
@@ -744,7 +948,21 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func createObject(setting: ObjectCreationSetting? = nil) {
-        output?.showCreateObject(document: setDocument, setting: setting)
+        output?.showCreateObject(document: setDocument, setting: setting, prefilledFields: [:])
+    }
+
+    var canCreateCardInColumn: Bool {
+        setDocument.setPermissions.canCreateObject
+    }
+
+    func onCreateObjectInColumnTap(_ groupId: String) {
+        guard setDocument.setPermissions.canCreateObject else { return }
+        let groupValue = groups.first { $0.id == groupId }?.value
+        var prefilledFields = [String: Google_Protobuf_Value]()
+        if let value = SetKanbanCardMove.prefilledValue(targetGroupValue: groupValue) {
+            prefilledFields[activeView.groupRelationKey] = value
+        }
+        output?.showCreateObject(document: setDocument, setting: nil, prefilledFields: prefilledFields)
     }
 
     private func defaultSubscriptionDetailsStorage(file: StaticString = #file, function: String = #function, line: UInt = #line) -> ObjectDetailsStorage? {
@@ -812,15 +1030,21 @@ extension EditorSetViewModel {
     func objectOrderUpdate(with groupObjectIds: [GroupObjectIds]) {
         Task { [weak self] in
             guard let self else { return }
-            try await self.dataviewService.objectOrderUpdate(
-                objectId: setDocument.objectId,
-                blockId: setDocument.blockId,
-                order: groupObjectIds.map { DataviewObjectOrder(viewID: self.activeView.id, groupID: $0.groupId, objectIds: $0.objectIds) }
-            )
+            do {
+                try await self.dataviewService.objectOrderUpdate(
+                    objectId: setDocument.objectId,
+                    blockId: setDocument.blockId,
+                    order: groupObjectIds.map { DataviewObjectOrder(viewID: self.activeView.id, groupID: $0.groupId, objectIds: $0.objectIds) }
+                )
+            } catch {
+                revertOptimisticCardMoves()
+                output?.showFailureToast(message: error.localizedDescription)
+            }
         }
     }
     
     func showKanbanColumnSettings(for groupId: String) {
+        guard setDocument.setPermissions.canEditView else { return }
         let groupOrder = setDocument.dataView.groupOrders.first { [weak self] in $0.viewID == self?.activeView.id }
         let viewGroup = groupOrder?.viewGroups.first { $0.groupID == groupId }
         let selectedColor = MiddlewareColor(rawValue: viewGroup?.backgroundColor ?? "")?.backgroundColor

@@ -406,7 +406,7 @@ final class SpaceSettingsViewModel {
         guard !participantSpaceView.spaceView.isOneToOne else { return }
 
         let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
-        if let invite {
+        if let invite, invite.hasLink {
             inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
         } else {
             inviteLink = nil

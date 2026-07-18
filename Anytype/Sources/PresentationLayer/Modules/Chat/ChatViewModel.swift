@@ -303,7 +303,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         sendMessageTaskInProgress = true
     }
     
-    func sendMessageTask() async throws {
+    func sendMessageTask() async {
         guard sendMessageTaskInProgress else { return }
         guard message.string.trimmingCharacters(in: .whitespacesAndNewlines).isNotEmpty || linkedObjects.isNotEmpty else {
             sendMessageTaskInProgress = false
@@ -314,40 +314,52 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             try Task.checkCancellation()
             sendButtonIsLoading = true
         }
-        mentionSearchState = .finish
-        if let editMessage {
-            try await chatActionService.updateMessage(
-                chatId: chatId,
-                spaceId: spaceId,
-                messageId: editMessage.id,
-                message: message.sendable(),
-                linkedObjects: linkedObjects,
-                replyToMessageId: replyToMessage?.id,
-                useBlocksFormat: useBlocksFormat
-            )
-            clearInput()
-        } else if chatMessageLimits.canSendMessage() {
-            let messageId = try await chatActionService.createMessage(
-                chatId: chatId,
-                spaceId: spaceId,
-                message: message.sendable(),
-                linkedObjects: linkedObjects,
-                replyToMessageId: replyToMessage?.id,
-                useBlocksFormat: useBlocksFormat
-            )
-            let type: SentMessageType = linkedObjects.isNotEmpty ? (message.string.isNotEmpty ? .mixed : .attachment) : .text
-            AnytypeAnalytics.instance().logSentMessage(type: type, chatId: chatId)
-            collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
-            chatMessageLimits.markSentMessage()
-            clearInput()
-            await donateShareSuggestion()
-        } else {
-            keyboardDismiss?()
-            showSendLimitAlert = true
+        // Reset on every exit path — a thrown error must not leave the send button stuck
+        defer {
+            loadingTask.cancel()
+            sendButtonIsLoading = false
+            sendMessageTaskInProgress = false
         }
-        loadingTask.cancel()
-        sendButtonIsLoading = false
-        sendMessageTaskInProgress = false
+        mentionSearchState = .finish
+        do {
+            if let editMessage {
+                try await chatActionService.updateMessage(
+                    chatId: chatId,
+                    spaceId: spaceId,
+                    messageId: editMessage.id,
+                    message: message.sendable(),
+                    linkedObjects: linkedObjects,
+                    replyToMessageId: replyToMessage?.id,
+                    useBlocksFormat: useBlocksFormat
+                )
+                clearInput()
+            } else if chatMessageLimits.canSendMessage() {
+                let messageId = try await chatActionService.createMessage(
+                    chatId: chatId,
+                    spaceId: spaceId,
+                    message: message.sendable(),
+                    linkedObjects: linkedObjects,
+                    replyToMessageId: replyToMessage?.id,
+                    useBlocksFormat: useBlocksFormat
+                )
+                let type: SentMessageType = linkedObjects.isNotEmpty ? (message.string.isNotEmpty ? .mixed : .attachment) : .text
+                AnytypeAnalytics.instance().logSentMessage(type: type, chatId: chatId)
+                collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
+                chatMessageLimits.markSentMessage()
+                clearInput()
+                await donateShareSuggestion()
+            } else {
+                keyboardDismiss?()
+                showSendLimitAlert = true
+            }
+        } catch {
+            // Keep the input intact so the user can retry
+            if let sendError = error as? ChatActionSendError {
+                // Reuse already uploaded attachments on retry instead of re-uploading them
+                attachmentHandler.setLinkedObjects(sendError.updatedLinkedObjects)
+            }
+            toastBarData = ToastBarData(error.localizedDescription, type: .failure)
+        }
     }
     
     func onTapRemoveLinkedObject(linkedObject: ChatLinkedObject) {
@@ -753,7 +765,8 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     func updateInviteState() async {
         do {
             let invite = try await workspaceService.getCurrentInvite(spaceId: spaceId)
-            qrCodeInviteUrl = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+            // Invite held by the owner resolves with an empty cid on a member's device — never render an empty link
+            qrCodeInviteUrl = invite.hasLink ? universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey)) : nil
         } catch {
             qrCodeInviteUrl = nil
         }
