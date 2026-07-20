@@ -13,7 +13,8 @@ import UIKit
 /// Columns sitting exactly on the page line follow it in both directions - that is the
 /// whole-page scroll illusion, and it is what brings every synced column back to its own top
 /// when the page re-expands. Columns scrolled deeper keep their position until the page line
-/// catches them.
+/// catches them. Over-dragging past fully expanded stretches the whole board down as one sheet,
+/// like the other view types' rubber band.
 ///
 /// TODO: IOS-6595 - the introspection + KVO + setContentOffset plumbing exists only because
 /// SwiftUI on iOS 17 exposes neither scroll offsets nor pixel-level scroll control. Once the
@@ -40,9 +41,10 @@ final class KanbanCollapseCoordinator {
     private var isSyncing = false
 
     // The page line: how far the settings row and page-locked columns have collapsed. Header
-    // travel beyond it only slides the header's remainder out from behind the nav bar.
+    // travel beyond it only slides the header's remainder out from behind the nav bar. Negative
+    // is the over-drag stretch: the whole board follows the rubber band down as one sheet.
     private var pageCollapse: CGFloat {
-        min(max(headerTravel, 0), collapseDistance)
+        min(headerTravel, collapseDistance)
     }
 
     func setDistances(collapse collapseDistance: CGFloat, headerTravel headerTravelDistance: CGFloat) {
@@ -130,11 +132,19 @@ final class KanbanCollapseCoordinator {
                 !scrollView.isTracking, !scrollView.isDragging
             else { continue }
             let rel = relativeOffset(scrollView)
-            // Columns on the page line move with it in both directions; columns behind the new
-            // line are caught up so their spacer never shows as a hole; deeper columns keep
-            // their position until the line reaches them (Trello-style persistence).
+            // Columns on the page line move with it in both directions (into the over-drag
+            // stretch too); columns behind the new line are caught up so their spacer never
+            // shows as a hole; deeper columns keep their position until the line reaches them
+            // (Trello-style persistence)...
             if abs(rel - oldPage) <= Constants.lockTolerance || rel < newPage {
-                scroll(scrollView, to: max(newPage, 0))
+                scroll(scrollView, to: newPage)
+            } else {
+                // ...except during the stretch, where they too move with the sheet. The shift
+                // telescopes back to zero as the bounce settles, so their position is kept.
+                let stretchShift = min(newPage, 0) - min(oldPage, 0)
+                if stretchShift != 0 {
+                    scroll(scrollView, to: rel + stretchShift)
+                }
             }
         }
     }

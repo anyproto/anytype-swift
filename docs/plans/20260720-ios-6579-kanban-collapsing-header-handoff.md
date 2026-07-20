@@ -283,6 +283,10 @@ Two more field bugs, both rooted in this doc's original cross-column rules:
      them.
    - Net effect: dragging any column down with the header expanded scrolls only that column's
      cards (header pinned at 0), and the "all group headers visible" state is always reachable.
+   - The over-drag stretch (`pageCollapse < 0`) moves ALL columns with the sheet: locked ones
+     follow the line, deeper ones are shifted by the stretch deltas (telescopes back to zero on
+     settle, so their position is preserved). Without this the opaque header slid down over
+     static neighbor columns during the bounce.
 
 ## Key files
 
