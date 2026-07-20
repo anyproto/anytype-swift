@@ -47,7 +47,11 @@ struct SetDragAndDropView<Content>: View where Content: View {
                             }
                             return provider
                         }
-                        .opacity(dropData.draggingCard?.id == configuration.id ? 0.4 : 1)
+                        // Dim only once a drop target has been entered, not on payload
+                        // creation alone: SwiftUI may invoke the onDrag closure without a real
+                        // drag (e.g. the armed context-menu interaction re-requesting the
+                        // payload after a drop), and that must not re-dim the card.
+                        .opacity(dropData.draggingCard?.id == configuration.id && dropData.toGroupId != nil ? 0.4 : 1)
                 }
                 .onDrop(
                     of: SetItemProviderObject.writableTypeIdentifiersForItemProvider,
