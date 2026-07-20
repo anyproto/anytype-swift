@@ -256,6 +256,34 @@ pop the header's position, but both endpoints lie behind the nav blur, so it isn
 mid-screen. Short columns (content < viewport + fullHeaderHeight of scroll range) can't push the
 header fully away — same limitation Grid has with short content.
 
+### Second device round: delta-driven header, two-way page lock, single active fling
+
+Two more field bugs, both rooted in this doc's original cross-column rules:
+
+1. **Header flicker + garbage states with two decelerating columns.** The driver arbitration
+   let a decelerating column steal the header back, so two settling columns alternated as
+   driver every frame. Fix: only finger contact claims drivership, and claiming stops the
+   previous driver's fling dead (`setContentOffset(_, animated: false)` — the canonical
+   deceleration kill). One active scroller at a time, like UIKit's own touch-stops-fling rule.
+2. **Deep columns made the header jump, and columns could never be restored to their group
+   headers.** The spec's `collapse = clamp(driver's offset, 0, H)` maps the driver's *absolute*
+   offset — so touching a column scrolled deeper than the page teleported the header to its
+   depth. And follower sync was one-way (raise only), so once a column was pushed deeper it
+   could never be walked back. Fix, the current model in `KanbanCollapseCoordinator`:
+   - `headerTravel` moves by the driver's scroll **deltas** (KVO old/new), clamped to
+     `[0, fullHeaderHeight]`; it is continuous across driver changes — no jumps by construction.
+     A floor of `min(rel, 0)` lets a top-bouncing column drag the header down 1:1 and back;
+     upward deltas coming out of the rubber band are dropped so the snap-back can't re-collapse
+     what the stretch expanded (this also lets a range-exhausted column finish expanding the
+     header with repeated pulls).
+   - `pageCollapse = clamp(headerTravel, 0, H)` is the page line. Columns sitting **on** the
+     line follow it in *both* directions — that's the page illusion, and it's what returns
+     every synced column to its own top when the page expands. Columns behind the new line are
+     caught up (no-hole invariant); deeper columns keep their position until the line reaches
+     them.
+   - Net effect: dragging any column down with the header expanded scrolls only that column's
+     cards (header pinned at 0), and the "all group headers visible" state is always reachable.
+
 ## Key files
 
 - `Anytype/Sources/PresentationLayer/TextEditor/Set/Views/Kanban/Board/SetKanbanView.swift`
