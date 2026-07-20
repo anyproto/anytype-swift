@@ -31,23 +31,31 @@ struct SetKanbanColumn: View {
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 0) {
-                Spacer.fixedHeight(collapseDistance)
-                LazyVStack(spacing: 8, pinnedViews: [.sectionHeaders]) {
-                    Section(header: pinnedHeader) {
-                        cards
+            // The whole column is a drop target: without it, a release over the top spacer,
+            // the pinned header, the gaps between cards or the empty bottom area performs no
+            // drop - the card stays dimmed and the move never persists.
+            SetDragAndDropView(
+                dropData: $dropData,
+                configuration: nil,
+                groupId: groupId,
+                dragAndDropDelegate: dragAndDropDelegate,
+                content: {
+                    VStack(spacing: 0) {
+                        Spacer.fixedHeight(collapseDistance)
+                        LazyVStack(spacing: 8, pinnedViews: [.sectionHeaders]) {
+                            Section(header: pinnedHeader) {
+                                cards
+                            }
+                        }
+                        .padding(.bottom, configurations.isEmpty ? 0 : Constants.contentInset)
+                        .background(columnBackgroundColor, in: .rect(cornerRadius: 4))
+                        // Room to scroll the last card and the create button clear of the
+                        // floating home panel, whose blur intercepts touches full-width.
+                        AnytypeNavigationSpacer()
                     }
+                    .frame(minHeight: minContentHeight, alignment: .top)
                 }
-                .padding(.bottom, configurations.isEmpty ? 0 : Constants.contentInset)
-                .background(columnBackgroundColor, in: .rect(cornerRadius: 4))
-                if configurations.isEmpty {
-                    emptyDroppableArea
-                }
-                // Room to scroll the last card and the create button clear of the floating
-                // home panel, whose blur intercepts touches across the full width.
-                AnytypeNavigationSpacer()
-            }
-            .frame(minHeight: minContentHeight, alignment: .top)
+            )
             .scrollAxisLock(.vertical)
             .kanbanCollapseSync(collapseCoordinator)
         }
@@ -251,19 +259,6 @@ struct SetKanbanColumn: View {
         }
     }
 
-    private var emptyDroppableArea: some View {
-        SetDragAndDropView(
-            dropData: $dropData,
-            configuration: nil,
-            groupId: groupId,
-            dragAndDropDelegate: dragAndDropDelegate,
-            content: {
-                Rectangle()
-                    .fill(Color.Background.primary)
-                    .frame(height: 44)
-            }
-        )
-    }
 }
 
 extension SetKanbanColumn {
