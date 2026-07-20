@@ -18,12 +18,16 @@ struct SetKanbanColumn: View {
     let minContentHeight: CGFloat
     let collapseCoordinator: KanbanCollapseCoordinator
 
+    // Every column of the board, for the card's "Move to" menu; this column filters itself out.
+    let moveTargets: [SetKanbanMoveTarget]
+
     let dragAndDropDelegate: any SetDragAndDropDelegate
     @Binding var dropData: SetCardDropData
 
     let onShowMoreTap: () -> Void
     let onSettingsTap: () -> Void
     let onCreateTap: (() -> Void)?
+    let onMoveTap: ((_ configurationId: String, _ toGroupId: String) -> Void)?
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -107,6 +111,13 @@ struct SetKanbanColumn: View {
                     SetGalleryViewCell(configuration: configuration)
                 }
             )
+            // A stationary long press opens the menu; moving during the press still starts
+            // the drag - the underlying UIKit interactions arbitrate between the two.
+            .ifLet(onMoveTap) { view, onMoveTap in
+                view.contextMenu {
+                    moveMenu(for: configuration, onMoveTap: onMoveTap)
+                }
+            }
             .padding(.horizontal, 8)
         }
         if showPagingView {
@@ -116,6 +127,23 @@ struct SetKanbanColumn: View {
         if let onCreateTap {
             createView(onCreateTap)
                 .padding(.horizontal, 8)
+        }
+    }
+
+    @ViewBuilder
+    private func moveMenu(
+        for configuration: SetContentViewItemConfiguration,
+        onMoveTap: @escaping (_ configurationId: String, _ toGroupId: String) -> Void
+    ) -> some View {
+        let targets = moveTargets.filter { $0.id != groupId }
+        if !targets.isEmpty {
+            Menu(Loc.moveTo) {
+                ForEach(targets) { target in
+                    Button(target.title) {
+                        onMoveTap(configuration.id, target.id)
+                    }
+                }
+            }
         }
     }
 

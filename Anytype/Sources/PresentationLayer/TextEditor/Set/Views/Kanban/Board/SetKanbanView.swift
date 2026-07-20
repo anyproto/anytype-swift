@@ -129,7 +129,10 @@ struct SetKanbanView: View {
     }
 
     private func boardContent(viewportHeight: CGFloat) -> some View {
-        ScrollView(.horizontal, showsIndicators: false) {
+        let moveTargets = model.configurationsDict.keys.map { groupId in
+            SetKanbanMoveTarget(id: groupId, title: model.headerType(for: groupId).title)
+        }
+        return ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(alignment: .top, spacing: 8) {
                 ForEach(model.configurationsDict.keys, id: \.self) { groupId in
                     if let configurations = model.configurationsDict[groupId] {
@@ -144,6 +147,7 @@ struct SetKanbanView: View {
                             collapseDistance: collapseDistance,
                             minContentHeight: viewportHeight - settingsHeaderSize.height + collapseDistance,
                             collapseCoordinator: collapseCoordinator,
+                            moveTargets: moveTargets,
                             dragAndDropDelegate: model,
                             dropData: $dropData,
                             onShowMoreTap: {
@@ -154,6 +158,9 @@ struct SetKanbanView: View {
                             },
                             onCreateTap: model.canCreateCardInColumn ? {
                                 model.onCreateObjectInColumnTap(groupId)
+                            } : nil,
+                            onMoveTap: model.canDragCards ? { configurationId, toGroupId in
+                                model.moveCard(configurationId, fromGroupId: groupId, toGroupId: toGroupId)
                             } : nil
                         )
                     }

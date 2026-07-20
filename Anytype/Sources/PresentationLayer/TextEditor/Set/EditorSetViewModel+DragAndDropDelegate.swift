@@ -35,6 +35,17 @@ extension EditorSetViewModel: SetDragAndDropDelegate {
         revertOptimisticCardMoves()
     }
 
+    // Menu-driven variant of a drag to another column: same optimistic move to the target's
+    // end, same persistence and revert-on-failure path.
+    func moveCard(_ configurationId: String, fromGroupId: String, toGroupId: String) {
+        guard canDragCards, fromGroupId != toGroupId else { return }
+        onDrag(
+            from: SetDragAndDropConfiguration(groupId: fromGroupId, configurationId: configurationId),
+            to: SetDragAndDropConfiguration(groupId: toGroupId, configurationId: nil)
+        )
+        _ = onDrop(configurationId: configurationId, fromGroupId: fromGroupId, toGroupId: toGroupId)
+    }
+
     func onDrop(configurationId: String, fromGroupId: String, toGroupId: String) -> Bool {
         guard canDragCards else {
             revertOptimisticCardMoves()
