@@ -272,10 +272,9 @@ Two more field bugs, both rooted in this doc's original cross-column rules:
    could never be walked back. Fix, the current model in `KanbanCollapseCoordinator`:
    - `headerTravel` moves by the driver's scroll **deltas** (KVO old/new), clamped to
      `[0, fullHeaderHeight]`; it is continuous across driver changes — no jumps by construction.
-     A floor of `min(rel, 0)` lets a top-bouncing column drag the header down 1:1 and back;
-     upward deltas coming out of the rubber band are dropped so the snap-back can't re-collapse
-     what the stretch expanded (this also lets a range-exhausted column finish expanding the
-     header with repeated pulls).
+     Upward deltas coming out of the top rubber band are dropped so the snap-back can't
+     re-collapse what the stretch expanded (this also lets a range-exhausted column finish
+     expanding the header with repeated pulls).
    - `pageCollapse = clamp(headerTravel, 0, H)` is the page line. Columns sitting **on** the
      line follow it in *both* directions — that's the page illusion, and it's what returns
      every synced column to its own top when the page expands. Columns behind the new line are
@@ -283,10 +282,13 @@ Two more field bugs, both rooted in this doc's original cross-column rules:
      them.
    - Net effect: dragging any column down with the header expanded scrolls only that column's
      cards (header pinned at 0), and the "all group headers visible" state is always reachable.
-   - The over-drag stretch (`pageCollapse < 0`) moves ALL columns with the sheet: locked ones
-     follow the line, deeper ones are shifted by the stretch deltas (telescopes back to zero on
-     settle, so their position is preserved). Without this the opaque header slid down over
-     static neighbor columns during the bounce.
+   - Over-drag past fully expanded bounces ONLY the dragged column under a static header.
+     Whole-sheet stretch was tried and reverted: a non-interacting `UIScrollView` won't hold an
+     out-of-range (negative) contentOffset — UIKit re-clamps it to 0 on every layout pass, so
+     mirrored followers flickered between the pushed position and the clamp ("columns jump
+     up"). Only the actively-panned scroll view can sit in the rubber-band zone. If the
+     whole-sheet look is ever wanted, it must be done with SwiftUI `.offset` on non-driver
+     columns (needs driver identity plumbed up), not with contentOffset.
 
 ## Key files
 

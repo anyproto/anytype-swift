@@ -103,8 +103,7 @@ struct SetKanbanView: View {
 
                 compoundHeader
                     .readSize { settingsHeaderSize = $0 }
-                    // Stops at the top once the collapse is consumed; follows the driver's
-                    // rubber band below zero so the whole page bounces as one, like Grid.
+                    // Stops at the top once the collapse is consumed.
                     .offset(y: collapseDistance - min(headerTravel, collapseDistance))
             }
         }
