@@ -66,6 +66,7 @@ private final class ScrollAxisLockUIView: UIView {
 private final class CrossAxisDragGate: UIGestureRecognizer {
     private let scrollAxis: Axis
     private var startLocation = CGPoint.zero
+    private var stationaryHoldTimeout: DispatchWorkItem?
 
     init(scrollAxis: Axis) {
         self.scrollAxis = scrollAxis
@@ -83,6 +84,18 @@ private final class CrossAxisDragGate: UIGestureRecognizer {
             return
         }
         startLocation = touch.location(in: view)
+
+        // A press that hasn't moved is not a scroll - fail before the system's ~0.5s
+        // drag-lift/context-menu timers, or anything made to wait for this gate's resolution
+        // (it otherwise resolves only on movement or touch end) never fires on a long press.
+        let timeout = DispatchWorkItem { [weak self] in
+            MainActor.assumeIsolated {
+                guard let self, self.state == .possible else { return }
+                self.state = .failed
+            }
+        }
+        stationaryHoldTimeout = timeout
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.stationaryHoldTimeout, execute: timeout)
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
@@ -112,6 +125,12 @@ private final class CrossAxisDragGate: UIGestureRecognizer {
         state = state == .began ? .cancelled : .failed
     }
 
+    override func reset() {
+        super.reset()
+        stationaryHoldTimeout?.cancel()
+        stationaryHoldTimeout = nil
+    }
+
     // A gate that can't be the wrong gate: a scroll view with nothing to scroll along its axis
     // needs no arbitration, and neither does one we attached to by mistake.
     private var canScrollAlongAxis: Bool {
@@ -132,5 +151,8 @@ private final class CrossAxisDragGate: UIGestureRecognizer {
 private extension CrossAxisDragGate {
     enum Constants {
         static let directionThreshold: CGFloat = 6
+        // Below the ~0.5s system long-press timers, above any hesitation between touch-down
+        // and the start of a deliberate swipe.
+        static let stationaryHoldTimeout: TimeInterval = 0.3
     }
 }

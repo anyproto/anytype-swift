@@ -23,22 +23,28 @@ final class SetCardDropInsideDelegate: DropDelegate {
             return
         }
 
-        dragAndDropDelegate.onDrag(
-            from: SetDragAndDropConfiguration(
-                groupId: fromGroupId,
-                configurationId: draggingCard.id
-            ),
-            to: SetDragAndDropConfiguration(
-                groupId: toGroupId,
-                configurationId: droppingCard?.id
+        // A background target (no specific card under the drag) appends only when coming from
+        // another column; inside the card's own column it must not teleport the card to the
+        // end - it just arms performDrop for a release over the column's empty areas.
+        let movesCard = droppingCard != nil || fromGroupId != toGroupId
+        if movesCard {
+            dragAndDropDelegate.onDrag(
+                from: SetDragAndDropConfiguration(
+                    groupId: fromGroupId,
+                    configurationId: draggingCard.id
+                ),
+                to: SetDragAndDropConfiguration(
+                    groupId: toGroupId,
+                    configurationId: droppingCard?.id
+                )
             )
-        )
 
-        if fromGroupId != toGroupId {
-            data.fromGroupId = toGroupId
+            if fromGroupId != toGroupId {
+                data.fromGroupId = toGroupId
+            }
+
+            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         }
-
-        UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
 
         data.droppingCard = droppingCard
         data.toGroupId = toGroupId
