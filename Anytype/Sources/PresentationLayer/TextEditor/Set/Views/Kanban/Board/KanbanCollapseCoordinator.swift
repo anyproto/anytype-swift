@@ -60,6 +60,8 @@ final class KanbanCollapseCoordinator {
     }
 
     func register(_ scrollView: UIScrollView) {
+        // Backstop for teardown paths that skip `unregister` - the observation token holds the
+        // scroll view weakly, so entries of deallocated columns prune here.
         entries = entries.filter { $0.value.scrollView != nil }
 
         let id = ObjectIdentifier(scrollView)
@@ -77,6 +79,13 @@ final class KanbanCollapseCoordinator {
         // A column materialized mid-collapse starts at zero offset; consume its spacer right
         // away so it doesn't show a hole where the header used to be.
         catchUp(scrollView)
+    }
+
+    func unregister(_ scrollView: UIScrollView) {
+        entries.removeValue(forKey: ObjectIdentifier(scrollView))?.observation.invalidate()
+        if driver === scrollView {
+            driver = nil
+        }
     }
 
     private func offsetChanged(_ scrollView: UIScrollView, delta: CGFloat) {
@@ -203,6 +212,7 @@ private struct KanbanCollapseSyncView: UIViewRepresentable {
 
 private final class KanbanCollapseSyncUIView: UIView {
     private let coordinator: KanbanCollapseCoordinator
+    private weak var registeredScrollView: UIScrollView?
 
     init(coordinator: KanbanCollapseCoordinator) {
         self.coordinator = coordinator
@@ -216,8 +226,16 @@ private final class KanbanCollapseSyncUIView: UIView {
 
     override func didMoveToWindow() {
         super.didMoveToWindow()
-        guard window != nil, let scrollView = enclosingScrollView else { return }
-        coordinator.register(scrollView)
+        if window != nil {
+            guard let scrollView = enclosingScrollView else { return }
+            registeredScrollView = scrollView
+            coordinator.register(scrollView)
+        } else if let scrollView = registeredScrollView {
+            // Deterministic cleanup on teardown and on the whole board leaving the window
+            // (navigation push); reattachment re-registers and catches the column up.
+            registeredScrollView = nil
+            coordinator.unregister(scrollView)
+        }
     }
 
     private var enclosingScrollView: UIScrollView? {
