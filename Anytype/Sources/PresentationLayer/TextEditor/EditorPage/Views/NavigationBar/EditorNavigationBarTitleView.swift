@@ -12,6 +12,8 @@ final class EditorNavigationBarTitleView: UIView {
     private let glassBackground = GlassEffectViewIOS26()
     private let stackView = UIStackView()
     private let spacerView = UIView()
+    private let leadingSpacerView = UIView()
+    private var spacersEqualWidthConstraint: NSLayoutConstraint?
 
     private let iconImageView = IconViewUIKit()
     private let titleLabel = AnytypeLabel(style: .uxCalloutRegular)
@@ -72,6 +74,8 @@ extension EditorNavigationBarTitleView: ConfigurableView {
             iconImageView.isHidden = titleModel.icon.isNil
             iconImageView.icon = titleModel.icon
             arrowImageView.isHidden = true
+            leadingSpacerView.isHidden = true
+            spacersEqualWidthConstraint?.isActive = false
             stackViewLeadingConstraint?.constant = 6
         case let .modeTitle(text):
             titleLabel.setText(text, style: .uxTitle1Semibold)
@@ -79,6 +83,10 @@ extension EditorNavigationBarTitleView: ConfigurableView {
             stackView.isUserInteractionEnabled = false
             iconImageView.isHidden = true
             arrowImageView.isHidden = true
+            // No icon in this mode: without a leading counterweight the trailing spacer pins
+            // the text to the capsule's left edge; equal spacers center it instead.
+            leadingSpacerView.isHidden = false
+            spacersEqualWidthConstraint?.isActive = true
             stackViewLeadingConstraint?.constant = 6
         case let .templates(model):
             titleLabel.setText(Loc.TemplateSelection.Header.title, style: .caption1Medium)
@@ -86,6 +94,8 @@ extension EditorNavigationBarTitleView: ConfigurableView {
             stackView.addTapGesture { _ in model.onTap() }
             arrowImageView.isHidden = false
             iconImageView.isHidden = true
+            leadingSpacerView.isHidden = true
+            spacersEqualWidthConstraint?.isActive = false
             stackViewLeadingConstraint?.constant = 12
         }
         mode = model
@@ -153,6 +163,7 @@ private extension EditorNavigationBarTitleView {
         )
         stackViewLeadingConstraint?.isActive = true
 
+        stackView.addArrangedSubview(leadingSpacerView)
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(lockImageView)
@@ -162,6 +173,12 @@ private extension EditorNavigationBarTitleView {
         // Spacer expands to push content left
         spacerView.setContentHuggingPriority(.defaultLow, for: .horizontal)
         spacerView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+
+        // Shown only in modeTitle, where matching the trailing spacer centers the label.
+        leadingSpacerView.isHidden = true
+        leadingSpacerView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        leadingSpacerView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        spacersEqualWidthConstraint = leadingSpacerView.widthAnchor.constraint(equalTo: spacerView.widthAnchor)
 
         iconImageView.layoutUsing.anchors {
             $0.size(CGSize(width: 32, height: 32))
