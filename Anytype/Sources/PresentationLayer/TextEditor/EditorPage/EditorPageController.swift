@@ -397,6 +397,12 @@ extension EditorPageController: EditorPageViewInput {
     
     func textBlockDidBeginEditing(firstResponderView: UIView) {
         self.firstResponderView = firstResponderView
+        // A selection display deactivated during a past Enter handoff (takeFocus) must come
+        // back the moment this block is edited again, in case UIKit does not re-activate it
+        // on its own — otherwise the block would edit with an invisible caret.
+        if let textView = firstResponderView as? UITextView {
+            setSelectionDisplay(true, for: textView)
+        }
     }
 
     func itemDidChangeFrame(item: EditorItem) {
@@ -419,8 +425,69 @@ extension EditorPageController: EditorPageViewInput {
               let indexPath = dataSource.indexPath(for: item),
               let cell = collectionView.cellForItem(at: indexPath),
               let contentView = firstTextBlockContentView(in: cell) else { return false }
-        contentView.takeFocus(at: position)
+        // Switch the outgoing selection UI off at the interaction level before the responder
+        // moves: the caret is a self-perpetuating interaction-owned animation that ignores
+        // transaction suppression, but a deactivated interaction has nothing left to fade.
+        // This is the documented whole-interaction switch — not the cursorView subview, whose
+        // direct mutation leaves ghost carets. Reactivation happens on the next begin-editing
+        // of that block (see textBlockDidBeginEditing).
+        if let oldTextView = firstResponderView as? UITextView {
+            setSelectionDisplay(false, for: oldTextView)
+        }
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        UIView.performWithoutAnimation {
+            contentView.takeFocus(at: position)
+        }
+        CATransaction.commit()
         return true
+    }
+
+    func isFirstResponderNearBottom() -> Bool {
+        guard let firstResponderView else { return false }
+        let frame = firstResponderView.convert(firstResponderView.bounds, to: collectionView)
+        let visibleMaxY = collectionView.contentOffset.y + collectionView.bounds.height - collectionView.adjustedContentInset.bottom
+        // Room below the focused block for one more row of roughly its own height?
+        return frame.maxY + frame.height > visibleMaxY
+    }
+
+    private func setSelectionDisplay(_ activated: Bool, for textView: UITextView) {
+        guard #available(iOS 17.0, *) else { return }
+        for interaction in textView.interactions {
+            guard let selectionDisplay = interaction as? UITextSelectionDisplayInteraction,
+                  selectionDisplay.isActivated != activated else { continue }
+            selectionDisplay.isActivated = activated
+            selectionDisplay.setNeedsSelectionUpdate()
+        }
+    }
+
+    func revealBlock(blockId: String) {
+        guard let item = dataSourceItem(for: blockId),
+              let indexPath = dataSource.indexPath(for: item) else { return }
+        // Runs in the same runloop iteration as the updates it follows, so the scroll lands in
+        // the same render commit: UIKit's own first-responder reveal comes a tick later, which
+        // renders the row change and the scroll as two visible steps.
+        UIView.performWithoutAnimation {
+            collectionView.layoutIfNeeded()
+            guard let cellFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else { return }
+            let insets = collectionView.adjustedContentInset
+            let visibleMinY = collectionView.contentOffset.y + insets.top
+            let visibleMaxY = collectionView.contentOffset.y + collectionView.bounds.height - insets.bottom
+            var offsetY = collectionView.contentOffset.y
+            if cellFrame.maxY > visibleMaxY {
+                offsetY += cellFrame.maxY - visibleMaxY
+            } else if cellFrame.minY < visibleMinY {
+                offsetY -= visibleMinY - cellFrame.minY
+            }
+            // setContentOffset does not clamp: revealing a row near the document end would
+            // otherwise park the view overscrolled past the bottom inset.
+            let minOffsetY = -insets.top
+            let maxOffsetY = max(minOffsetY, collectionView.contentSize.height - collectionView.bounds.height + insets.bottom)
+            offsetY = min(max(offsetY, minOffsetY), maxOffsetY)
+            if offsetY != collectionView.contentOffset.y {
+                collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: offsetY), animated: false)
+            }
+        }
     }
 
     private func firstTextBlockContentView(in view: UIView) -> TextBlockContentView? {

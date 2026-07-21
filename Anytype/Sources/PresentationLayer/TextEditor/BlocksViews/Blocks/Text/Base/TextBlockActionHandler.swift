@@ -713,6 +713,10 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
 
     @MainActor
     private func textViewDidChangeCaretPosition(textView: UITextView, range: NSRange) {
+        // A cleared selection (selectedTextRange = nil during the Enter/fork focus handoff) is
+        // not a caret position: recording NSNotFound would leave a poisoned pending focus that
+        // a later reconfigure consumes, stealing first responder back with an invalid caret.
+        guard range.location != NSNotFound else { return }
         accessoryViewStateManager.selectionDidChange(range: range)
         // A pending focus for a not-yet-created block would shadow the focus handoff to the
         // real block set during materialization.

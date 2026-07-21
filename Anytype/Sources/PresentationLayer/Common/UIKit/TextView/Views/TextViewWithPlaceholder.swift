@@ -216,6 +216,11 @@ extension TextViewWithPlaceholder {
     
     func update(placeholder: NSAttributedString?) {
         placeholderLabel.attributedText = placeholder
+        // Visibility must be resynced synchronously here: cell (re)configuration sets the text
+        // programmatically before this call, and the didProcessEditing-driven sync below is a
+        // deferred task — a reused cell that last showed a placeholder would otherwise render
+        // it under the new non-empty text until that task wins the race.
+        syncPlaceholder()
     }
 }
 

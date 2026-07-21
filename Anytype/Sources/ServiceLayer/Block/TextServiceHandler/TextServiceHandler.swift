@@ -23,14 +23,10 @@ final class TextServiceHandler: TextServiceProtocol {
     }
     
     func split(contextId: String, blockId: String, range: NSRange, style: Style, mode: SplitMode) async throws -> String {
-        let blockID = try await textService.split(contextId: contextId, blockId: blockId, range: range, style: style, mode: mode)
-        
-        await EventsBunch(
-            contextId: contextId,
-            localEvents: [.general]
-        ).send()
-
-        return blockID
+        // No local events here: the render pass they trigger must only run after the caller
+        // (setAndSplit) has recorded the unanimated-arrival registration and the focus intent
+        // for the created block — see BlockActionService.setAndSplit.
+        try await textService.split(contextId: contextId, blockId: blockId, range: range, style: style, mode: mode)
     }
 
     func merge(contextId: String, firstBlockId: String, secondBlockId: String) async throws {

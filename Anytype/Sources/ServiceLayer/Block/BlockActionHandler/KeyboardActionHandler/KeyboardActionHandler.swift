@@ -25,8 +25,10 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     
     @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
-    
-    
+    @Injected(\.blockIdentitySwapStorage)
+    private var blockIdentitySwapStorage: any BlockIdentitySwapStorageProtocol
+
+
     init(
         documentId: String,
         spaceId: String,
@@ -70,7 +72,8 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             }
             
             if info.childrenIds.isNotEmpty {
-                try await service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
+                let newBlockId = try await service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
+                registerUnanimatedArrival(newBlockId)
             } else {
                 try await service.setAndSplit(
                     NSAttributedString(string: "").sendable(),
@@ -100,16 +103,19 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 try await enterForEmpty(text: text, info: info)
                 return
             }
+            // No scrollToTextViewIfNotVisible here: the editor reveals the created row
+            // synchronously during the focus handoff, and this delayed pass — aimed at the
+            // pre-split block's text view — would nudge the settled position a beat later.
             try await onEnterAtTheEndOfContent(info: info, text: text, range: range, action: action, newString: string.sendable())
-            editorCollectionController.scrollToTextViewIfNotVisible(textView: textView)
         case .enterAtTheBegining:
-            try await service.add(
+            let newBlockId = try await service.add(
                 info: .empty(content: .text(.empty(contentType: text.contentType))),
                 targetBlockId: info.id,
                 position: .top,
                 setFocus: false
             )
-            
+            registerUnanimatedArrival(newBlockId)
+
             editorCollectionController.scrollToTextViewIfNotVisible(textView: textView)
         case .delete:
             try await onDelete(text: text, info: info, parent: parent, textView: textView)
@@ -159,8 +165,9 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             logChangeBlockTextStyle()
             return
         }
-        
-        try await service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
+
+        let newBlockId = try await service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
+        registerUnanimatedArrival(newBlockId)
     }
     
     private func onEnterAtTheEndOfContent(
@@ -176,18 +183,21 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         
         if needChildForToggle {
             if info.childrenIds.isEmpty {
-                try await service.addChild(info: BlockInformation.emptyText, parentId: info.id)
+                let newBlockId = try await service.addChild(info: BlockInformation.emptyText, parentId: info.id)
+                registerUnanimatedArrival(newBlockId)
             } else {
                 let firstChildId = info.childrenIds[0]
-                try await service.add(info: BlockInformation.emptyText, targetBlockId: firstChildId, position: .top)
+                let newBlockId = try await service.add(info: BlockInformation.emptyText, targetBlockId: firstChildId, position: .top)
+                registerUnanimatedArrival(newBlockId)
             }
         } else if needChildForList {
             let firstChildId = info.childrenIds[0]
-            try await service.add(
+            let newBlockId = try await service.add(
                 info: BlockInformation.emptyText,
                 targetBlockId: firstChildId,
                 position: .top
             )
+            registerUnanimatedArrival(newBlockId)
         } else {
             let type = text.contentType.isList ? text.contentType : .text
 
@@ -200,6 +210,14 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             )
             logCreateBlock(with: type)
         }
+    }
+
+    /// A row created by a keyboard Enter appears right at the user's caret, often together with
+    /// an unanimated scroll that keeps the caret visible. Animating the row's expansion on top of
+    /// that reads as a jump — the row below shows through and is then slowly pushed away — so
+    /// Enter-created rows must arrive on screen instantly.
+    private func registerUnanimatedArrival(_ blockId: String) {
+        blockIdentitySwapStorage.register(newBlockId: blockId, replacingBlockId: nil, keyboardInsert: true)
     }
     
     private func logChangeBlockTextStyle() {
