@@ -12,7 +12,7 @@ final class EditorPageController: UIViewController {
     
     let bottomNavigationManager: any EditorBottomNavigationManagerProtocol
     private(set) lazy var dataSource = makeCollectionViewDataSource()
-    private weak var firstResponderView: UIView?
+    private(set) weak var firstResponderView: UIView?
     private let layout = EditorCollectionFlowLayout()
     @Injected(\.keyboardHeightListener)
     private var keyboardListener: KeyboardHeightListener
@@ -51,6 +51,22 @@ final class EditorPageController: UIViewController {
         recognizer.minimumPressDuration = 0.3
         return recognizer
     }()
+
+    // Watches a native selection-grabber drag leave the focused text block and escalates it
+    // into block multi-select. Recognizes alongside the system text-selection gestures without
+    // consuming their touches; see EditorPageController+SelectionEscalation.
+    lazy var selectionEscalationPan: UIPanGestureRecognizer = {
+        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(EditorPageController.handleSelectionEscalationPan))
+        recognizer.cancelsTouchesInView = false
+        recognizer.delaysTouchesBegan = false
+        recognizer.delegate = self
+        return recognizer
+    }()
+    var selectionEscalationAnchor: IndexPath?
+    var selectionEscalationPanContext: SelectionEscalationPanContext?
+    var selectionEscalationHandoffDeadline: CFTimeInterval = 0
+    var selectionEscalationAutoscroll: CADisplayLink?
+    var selectionEscalationLastTouchInView: CGPoint?
 
     private lazy var navigationBarHelper: EditorNavigationBarHelper = EditorNavigationBarHelper(
         navigationBarView: navigationBarView,
@@ -155,6 +171,9 @@ final class EditorPageController: UIViewController {
         UIApplication.shared.hideKeyboard()
         firstResponderView?.resignFirstResponder()
         view.endEditing(true)
+        // The autoscroll display link retains this controller and disables scrolling; an
+        // escalation drag interrupted by dismissal must not leave either behind.
+        stopEscalationAutoscroll()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -183,6 +202,13 @@ final class EditorPageController: UIViewController {
     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        // The controller becoming first responder in .selecting made motion events reachable
+        // there; shake-to-undo was only ever live while editing (text view first responder),
+        // so keep it that way.
+        guard case .editing = viewModel.blocksStateManager.editingState else {
+            shakeGestureStartDate = nil
+            return
+        }
         if motion == .motionShake && UIAccessibility.isShakeToUndoEnabled {
             if let startDate = shakeGestureStartDate {
                 defer { shakeGestureStartDate = nil }
@@ -215,7 +241,12 @@ final class EditorPageController: UIViewController {
             blocksSelectionOverlayView.isHidden = false
             collectionView.isLocked = false
             view.isUserInteractionEnabled = true
+            // With no text view active, the controller must sit at the head of the responder
+            // chain for the shift+arrow key commands that grow the block selection.
+            becomeFirstResponder()
         case .editing:
+            selectionEscalationAnchor = nil
+            stopEscalationAutoscroll()
             collectionView.deselectAllMovingItems()
             dividerCursorController.movingMode = .none
             setEditing(true, animated: true)
@@ -223,6 +254,7 @@ final class EditorPageController: UIViewController {
             collectionView.isLocked = false
             view.isUserInteractionEnabled = true
         case .moving(let indexPaths):
+            stopEscalationAutoscroll()
             dividerCursorController.movingMode = .drum
             setEditing(false, animated: true)
             indexPaths.forEach { indexPath in
@@ -232,6 +264,7 @@ final class EditorPageController: UIViewController {
             collectionView.isLocked = false
             view.isUserInteractionEnabled = true
         case .readonly:
+            stopEscalationAutoscroll()
             view.endEditing(true)
             collectionView.isLocked = true
             view.isUserInteractionEnabled = true
@@ -240,6 +273,7 @@ final class EditorPageController: UIViewController {
             view.endEditing(true)
             collectionView.isLocked = true
         case .loading:
+            stopEscalationAutoscroll()
             view.endEditing(true)
             view.isUserInteractionEnabled = false
         }
@@ -397,6 +431,17 @@ extension EditorPageController: EditorPageViewInput {
     
     func textBlockDidBeginEditing(firstResponderView: UIView) {
         self.firstResponderView = firstResponderView
+        // A selection display deactivated during a past Enter handoff (takeFocus) must come
+        // back the moment this block is edited again, in case UIKit does not re-activate it
+        // on its own — otherwise the block would edit with an invisible caret.
+        if let textView = firstResponderView as? UITextView {
+            setSelectionDisplay(true, for: textView)
+        }
+        if let textView = firstResponderView as? TextViewWithPlaceholder {
+            textView.onSelectionHandlePan = { [weak self] recognizer in
+                self?.handleSelectionEscalationPan(recognizer)
+            }
+        }
     }
 
     func itemDidChangeFrame(item: EditorItem) {
@@ -411,6 +456,85 @@ extension EditorPageController: EditorPageViewInput {
 
     func blockDidFinishEditing() {
         self.firstResponderView = nil
+    }
+
+    @discardableResult
+    func takeFocus(blockId: String, position: BlockFocusPosition) -> Bool {
+        guard let item = dataSourceItem(for: blockId),
+              let indexPath = dataSource.indexPath(for: item),
+              let cell = collectionView.cellForItem(at: indexPath),
+              let contentView = firstTextBlockContentView(in: cell) else { return false }
+        // Switch the outgoing selection UI off at the interaction level before the responder
+        // moves: the caret is a self-perpetuating interaction-owned animation that ignores
+        // transaction suppression, but a deactivated interaction has nothing left to fade.
+        // This is the documented whole-interaction switch — not the cursorView subview, whose
+        // direct mutation leaves ghost carets. Reactivation happens on the next begin-editing
+        // of that block (see textBlockDidBeginEditing).
+        if let oldTextView = firstResponderView as? UITextView {
+            setSelectionDisplay(false, for: oldTextView)
+        }
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        UIView.performWithoutAnimation {
+            contentView.takeFocus(at: position)
+        }
+        CATransaction.commit()
+        return true
+    }
+
+    func isFirstResponderNearBottom() -> Bool {
+        guard let firstResponderView else { return false }
+        let frame = firstResponderView.convert(firstResponderView.bounds, to: collectionView)
+        let visibleMaxY = collectionView.contentOffset.y + collectionView.bounds.height - collectionView.adjustedContentInset.bottom
+        // Room below the focused block for one more row of roughly its own height?
+        return frame.maxY + frame.height > visibleMaxY
+    }
+
+    private func setSelectionDisplay(_ activated: Bool, for textView: UITextView) {
+        guard #available(iOS 17.0, *) else { return }
+        for interaction in textView.interactions {
+            guard let selectionDisplay = interaction as? UITextSelectionDisplayInteraction,
+                  selectionDisplay.isActivated != activated else { continue }
+            selectionDisplay.isActivated = activated
+            selectionDisplay.setNeedsSelectionUpdate()
+        }
+    }
+
+    func revealBlock(blockId: String) {
+        guard let item = dataSourceItem(for: blockId),
+              let indexPath = dataSource.indexPath(for: item) else { return }
+        // Runs in the same runloop iteration as the updates it follows, so the scroll lands in
+        // the same render commit: UIKit's own first-responder reveal comes a tick later, which
+        // renders the row change and the scroll as two visible steps.
+        UIView.performWithoutAnimation {
+            collectionView.layoutIfNeeded()
+            guard let cellFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else { return }
+            let insets = collectionView.adjustedContentInset
+            let visibleMinY = collectionView.contentOffset.y + insets.top
+            let visibleMaxY = collectionView.contentOffset.y + collectionView.bounds.height - insets.bottom
+            var offsetY = collectionView.contentOffset.y
+            if cellFrame.maxY > visibleMaxY {
+                offsetY += cellFrame.maxY - visibleMaxY
+            } else if cellFrame.minY < visibleMinY {
+                offsetY -= visibleMinY - cellFrame.minY
+            }
+            // setContentOffset does not clamp: revealing a row near the document end would
+            // otherwise park the view overscrolled past the bottom inset.
+            let minOffsetY = -insets.top
+            let maxOffsetY = max(minOffsetY, collectionView.contentSize.height - collectionView.bounds.height + insets.bottom)
+            offsetY = min(max(offsetY, minOffsetY), maxOffsetY)
+            if offsetY != collectionView.contentOffset.y {
+                collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: offsetY), animated: false)
+            }
+        }
+    }
+
+    private func firstTextBlockContentView(in view: UIView) -> TextBlockContentView? {
+        if let view = view as? TextBlockContentView { return view }
+        for subview in view.subviews {
+            if let found = firstTextBlockContentView(in: subview) { return found }
+        }
+        return nil
     }
 
     // MARK: -
@@ -477,6 +601,7 @@ private extension EditorPageController {
         collectionView.addGestureRecognizer(listViewTapGestureRecognizer)
 
         collectionView.addGestureRecognizer(longTapGestureRecognizer)
+        collectionView.addGestureRecognizer(selectionEscalationPan)
     }
     
     func setupLayout() {

@@ -37,4 +37,16 @@ protocol EditorPageViewInput: EditorCollectionReloadable {
     func adjustContentOffset(relatively: UIView)
 
     func restoreEditingState()
+
+    /// Synchronously moves first responder into the on-screen text cell of `blockId`.
+    /// Returns false when the block's cell is not currently on screen.
+    @discardableResult
+    func takeFocus(blockId: String, position: BlockFocusPosition) -> Bool
+
+    /// Synchronously scrolls the block's row into the visible area without animation.
+    func revealBlock(blockId: String)
+
+    /// Whether a row inserted below the focused block would land past the visible bottom
+    /// (behind the keyboard), i.e. the insert will need a caret-visibility scroll.
+    func isFirstResponderNearBottom() -> Bool
 }

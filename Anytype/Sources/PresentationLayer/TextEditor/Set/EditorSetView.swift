@@ -114,7 +114,8 @@ struct EditorSetView: View {
                 model: model,
                 tableHeaderSize: $tableHeaderSize,
                 offset: $offset,
-                headerMinimizedSize: headerMinimizedSize
+                headerMinimizedSize: headerMinimizedSize,
+                fullHeaderHeight: tableHeaderFullSize.height
             )
         }
     }

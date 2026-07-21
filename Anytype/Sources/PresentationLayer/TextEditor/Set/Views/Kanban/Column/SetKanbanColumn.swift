@@ -9,44 +9,80 @@ struct SetKanbanColumn: View {
     let isGroupBackgroundColors: Bool
     let backgroundColor: BlockBackgroundColor
     let showPagingView: Bool
-    
+    // The first `collapseDistance` points of this column's scroll collapse the shared object
+    // header instead of moving cards: a same-height top spacer reserves that travel, and the
+    // coordinator mirrors the offset into the header overlays.
+    let collapseDistance: CGFloat
+    // Viewport height + collapseDistance, so even a short column can always scroll far enough
+    // to fully collapse the header.
+    let minContentHeight: CGFloat
+    let collapseCoordinator: KanbanCollapseCoordinator
+
+    // Every column of the board, for the card's "Move to" menu; this column filters itself out.
+    let moveTargets: [SetKanbanMoveTarget]
+
     let dragAndDropDelegate: any SetDragAndDropDelegate
     @Binding var dropData: SetCardDropData
-    
+
     let onShowMoreTap: () -> Void
     let onSettingsTap: () -> Void
     let onCreateTap: (() -> Void)?
+    let onMoveTap: ((_ configurationId: String, _ toGroupId: String) -> Void)?
 
     var body: some View {
-        VStack(spacing: 0) {
-            header
-                .padding(.horizontal, 8)
-                .background(
-                    columnBackgroundColor,
-                    in: .rect(topLeadingRadius: 4, topTrailingRadius: 4)
-                )
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 0) {
-                    column
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, configurations.isEmpty ? 0 : Constants.contentInset)
-                        .background(
-                            columnBackgroundColor,
-                            in: .rect(bottomLeadingRadius: 4, bottomTrailingRadius: 4)
-                        )
-                    if configurations.isEmpty {
-                        emptyDroppableArea
+        ScrollView(.vertical, showsIndicators: false) {
+            // The whole column is a drop target: without it, a release over the top spacer,
+            // the pinned header, the gaps between cards or the empty bottom area performs no
+            // drop - the card stays dimmed and the move never persists.
+            SetDragAndDropView(
+                dropData: $dropData,
+                configuration: nil,
+                groupId: groupId,
+                dragAndDropDelegate: dragAndDropDelegate,
+                content: {
+                    VStack(spacing: 0) {
+                        Spacer.fixedHeight(collapseDistance)
+                        LazyVStack(spacing: 8, pinnedViews: [.sectionHeaders]) {
+                            Section(header: pinnedHeader) {
+                                cards
+                            }
+                        }
+                        .padding(.bottom, configurations.isEmpty ? 0 : Constants.contentInset)
+                        .background(columnBackgroundColor, in: .rect(cornerRadius: 4))
+                        // Room to scroll the last card and the create button clear of the
+                        // floating home panel, whose blur intercepts touches full-width.
+                        AnytypeNavigationSpacer()
                     }
-                    // Room to scroll the last card and the create button clear of the floating
-                    // home panel, whose blur intercepts touches across the full width.
-                    AnytypeNavigationSpacer()
+                    .frame(minHeight: minContentHeight, alignment: .top)
                 }
-                .scrollAxisLock(.vertical)
-            }
-            .scrollBounceBehavior(.basedOnSize)
-            .overlay(alignment: .top) { topFade }
+            )
+            .scrollAxisLock(.vertical)
+            .kanbanCollapseSync(collapseCoordinator)
         }
+        .scrollBounceBehavior(.basedOnSize)
         .frame(width: 270)
+    }
+
+    // Stays inside the scroll view so drags starting on it still drive the collapse, and pins to
+    // the column viewport top once the header travel is consumed.
+    private var pinnedHeader: some View {
+        header
+            .padding(.horizontal, 8)
+            .background {
+                // Opaque even when the group tint is translucent - cards scroll under the
+                // pinned header.
+                ZStack {
+                    headerBackgroundShape.fill(Color.Background.primary)
+                    headerBackgroundShape.fill(columnBackgroundColor)
+                }
+            }
+            .overlay(alignment: .bottom) {
+                topFade.offset(y: Constants.contentInset)
+            }
+    }
+
+    private var headerBackgroundShape: UnevenRoundedRectangle {
+        UnevenRoundedRectangle(topLeadingRadius: 4, topTrailingRadius: 4)
     }
 
     private var columnBackgroundColor: Color {
@@ -55,9 +91,10 @@ struct SetKanbanColumn: View {
         Color.Background.primary
     }
 
-    // Softens the hard clip under the header: cards dissolve into the column's own color instead
-    // of being cut off. The group tint is translucent, so the fade has to be its composite over
-    // the board background - fading to the tint alone would leave cards showing through it.
+    // Softens the hard clip under the pinned header: cards dissolve into the column's own color
+    // instead of being cut off. The group tint is translucent, so the fade has to be its
+    // composite over the board background - fading to the tint alone would leave cards showing
+    // through it.
     private var topFade: some View {
         ZStack {
             Color.Background.primary
@@ -70,27 +107,52 @@ struct SetKanbanColumn: View {
         .allowsHitTesting(false)
     }
 
-    private var column: some View {
-        LazyVStack(spacing: 8) {
-            ForEach(configurations) { configuration in
-                SetDragAndDropView(
-                    dropData: $dropData,
-                    configuration: configuration,
-                    groupId: groupId,
-                    dragAndDropDelegate: dragAndDropDelegate,
-                    content: {
-                        SetGalleryViewCell(configuration: configuration)
+    @ViewBuilder
+    private var cards: some View {
+        ForEach(configurations) { configuration in
+            SetDragAndDropView(
+                dropData: $dropData,
+                configuration: configuration,
+                groupId: groupId,
+                dragAndDropDelegate: dragAndDropDelegate,
+                content: {
+                    SetGalleryViewCell(configuration: configuration)
+                }
+            )
+            // A stationary long press opens the menu; moving during the press still starts
+            // the drag - the underlying UIKit interactions arbitrate between the two.
+            .ifLet(onMoveTap) { view, onMoveTap in
+                view.contextMenu {
+                    moveMenu(for: configuration, onMoveTap: onMoveTap)
+                }
+            }
+            .padding(.horizontal, 8)
+        }
+        if showPagingView {
+            pagingView
+                .padding(.horizontal, 8)
+        }
+        if let onCreateTap {
+            createView(onCreateTap)
+                .padding(.horizontal, 8)
+        }
+    }
+
+    @ViewBuilder
+    private func moveMenu(
+        for configuration: SetContentViewItemConfiguration,
+        onMoveTap: @escaping (_ configurationId: String, _ toGroupId: String) -> Void
+    ) -> some View {
+        let targets = moveTargets.filter { $0.id != groupId }
+        if !targets.isEmpty {
+            Menu(Loc.moveTo) {
+                ForEach(targets) { target in
+                    Button(target.title) {
+                        onMoveTap(configuration.id, target.id)
                     }
-                )
-            }
-            if showPagingView {
-                pagingView
-            }
-            if let onCreateTap {
-                createView(onCreateTap)
+                }
             }
         }
-        .frame(width: 254)
     }
 
     private func createView(_ onTap: @escaping () -> Void) -> some View {
@@ -118,7 +180,7 @@ struct SetKanbanColumn: View {
             }
         )
     }
-    
+
     private var header: some View {
         Button {
             onSettingsTap()
@@ -129,7 +191,7 @@ struct SetKanbanColumn: View {
         .frame(height: 44)
         .buttonStyle(LightDimmingButtonStyle())
     }
-    
+
     private var headerContent: some View {
         HStack(spacing: 0) {
             switch headerType {
@@ -172,7 +234,7 @@ struct SetKanbanColumn: View {
         }
         .padding(.horizontal, 10)
     }
-    
+
     private var pagingView: some View {
         Button {
             onShowMoreTap()
@@ -196,20 +258,7 @@ struct SetKanbanColumn: View {
             }
         }
     }
-    
-    private var emptyDroppableArea: some View {
-        SetDragAndDropView(
-            dropData: $dropData,
-            configuration: nil,
-            groupId: groupId,
-            dragAndDropDelegate: dragAndDropDelegate,
-            content: {
-                Rectangle()
-                    .fill(Color.Background.primary)
-                    .frame(height: 44)
-            }
-        )
-    }
+
 }
 
 extension SetKanbanColumn {
