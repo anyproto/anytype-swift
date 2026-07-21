@@ -204,7 +204,7 @@ final class TextViewWithPlaceholder: UITextView {
         addGestureRecognizer(selectionProbe)
     }
 
-    @objc fileprivate func handleSelectionHandlePan(_ recognizer: UIPanGestureRecognizer) {
+    fileprivate func handleSelectionHandlePan(_ recognizer: UIPanGestureRecognizer) {
         onSelectionHandlePan?(recognizer)
     }
 
@@ -279,6 +279,7 @@ extension TextViewWithPlaceholder: NSTextStorageDelegate {
 // implemented on the text view itself. For every touch the probe participates in, UIKit asks
 // about each peer recognizer — including private system ones — and that callback is the only
 // public place a reference to the selection-handle drag recognizer can be obtained.
+@MainActor
 private final class SelectionHandleSniffer: NSObject, UIGestureRecognizerDelegate {
     weak var textView: TextViewWithPlaceholder?
     private let observedRecognizers = NSHashTable<UIGestureRecognizer>.weakObjects()
@@ -292,13 +293,20 @@ private final class SelectionHandleSniffer: NSObject, UIGestureRecognizerDelegat
     }
 
     private func sniff(_ recognizer: UIGestureRecognizer) {
-        guard let textView, !observedRecognizers.contains(recognizer) else { return }
+        guard textView != nil, !observedRecognizers.contains(recognizer) else { return }
         let className = String(describing: type(of: recognizer))
         let rangeAdjustmentClass = NSClassFromString("UITextRangeAdjustmentGestureRecognizer")
         let matchesClass = rangeAdjustmentClass.map { recognizer.isKind(of: $0) } ?? false
         guard matchesClass || className.contains("RangeAdjustment") else { return }
-        recognizer.addTarget(textView, action: #selector(TextViewWithPlaceholder.handleSelectionHandlePan(_:)))
+        // The target must not be the text view: the system recognizer is attached to that same
+        // text view and addTarget retains its target, which would close a retain cycle
+        // (textView → recognizer → textView). The sniffer only holds the text view weakly.
+        recognizer.addTarget(self, action: #selector(handleObservedRecognizer(_:)))
         observedRecognizers.add(recognizer)
+    }
+
+    @objc private func handleObservedRecognizer(_ recognizer: UIPanGestureRecognizer) {
+        textView?.handleSelectionHandlePan(recognizer)
     }
 }
 
