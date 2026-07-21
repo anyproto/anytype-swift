@@ -47,11 +47,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private var didScrollToInitialBlock = false
     private var publishState: PublishState?
     private var trailingBlockPlaceholder: (session: VirtualTrailingBlockSession, item: EditorItem)?
-    // Old rows of just-consumed identity forks, kept in the snapshot until the replacing
-    // block's cell takes first responder over; see retainStaleForkRows.
-    private var staleForkHandoffs = [ForkFocusHandoff]()
+    // Focus handoffs for just-consumed arrivals (empty-block identity forks, Enter-created
+    // rows), completed synchronously right after the apply; fork entries additionally keep
+    // their old row in the snapshot meanwhile. See finishArrivalFocusHandoffs.
+    private var pendingFocusHandoffs = [ArrivalFocusHandoff]()
 
-    private struct ForkFocusHandoff {
+    private struct ArrivalFocusHandoff {
         let swap: BlockIdentitySwap
         let focusPosition: BlockFocusPosition
     }
@@ -160,11 +161,16 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     }
     
     private func handleUpdate(ids: [String]) {
-        // An identity swap (virtual placeholder → real block, empty-block fork) must not be
-        // rendered as an animated delete+insert of the same visible content.
+        // An identity swap (virtual placeholder → real block, empty-block fork) must not render
+        // as an animated delete+insert of the same visible content. An Enter-created row keeps
+        // UIKit's native animated insert and caret move except at the bottom edge, where the
+        // insert competes with the caret-visibility scroll and renders as a jump — only there
+        // the unanimated one-commit pipeline takes over.
         let identitySwaps = blockIdentitySwapStorage.consumeSwaps(in: ids)
+        let needsBottomHandling = identitySwaps.contains(where: \.isKeyboardInsert) && viewInput?.isFirstResponderNearBottom() == true
+        let activeSwaps = identitySwaps.filter { !$0.isKeyboardInsert || needsBottomHandling }
         var blocksViewModels = blockBuilder.buildEditorItems(infos: ids, ignoreCache: false)
-        retainStaleForkRows(newSwaps: identitySwaps, in: &blocksViewModels)
+        retainStaleForkRows(newSwaps: activeSwaps, in: &blocksViewModels)
         if let trailingBlockPlaceholder {
             if let materializedId = trailingBlockPlaceholder.session.materializedBlockId,
                ids.contains(materializedId),
@@ -198,32 +204,34 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             return
         }
 
-        viewInput?.update(changes: difference, allModels: modelsHolder.items, isRealData: true, animated: identitySwaps.isEmpty) { [weak self] in
+        viewInput?.update(changes: difference, allModels: modelsHolder.items, isRealData: true, animated: activeSwaps.isEmpty) { [weak self] in
             guard let self else { return }
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
             initialScrollToBlockIfNeeded()
             removeStaleForkRowsAfterFocusHandoff()
         }
-        finishForkFocusHandoffs()
+        finishArrivalFocusHandoffs()
     }
 
     /// The empty-block identity fork replaces the focused block's row with a fresh id. Deleting
     /// the first responder's cell in that apply briefly dismisses the keyboard, so while a focus
     /// handoff to the forked id is pending, the old row stays in the snapshot — the trailing
-    /// placeholder's awaitingFocusHandoff trick. finishForkFocusHandoffs completes the swap right
-    /// after the apply, within the same render commit.
+    /// placeholder's awaitingFocusHandoff trick. finishArrivalFocusHandoffs completes the swap
+    /// right after the apply, within the same render commit.
     private func retainStaleForkRows(newSwaps: [BlockIdentitySwap], in items: inout [EditorItem]) {
-        // A pending focus for the new id means the old block's cell holds the keyboard; without
-        // it there is nothing to hand off (e.g. the fork ran on defocus).
+        // A pending focus for the new id means the arrival wants the keyboard: the old block's
+        // cell holds it (fork), or the caret is about to move into the created row (Enter).
         if let blockFocus = cursorManager.blockFocus {
-            staleForkHandoffs += newSwaps
-                .filter { $0.oldBlockId.isNotNil && blockFocus.id == $0.newBlockId }
-                .map { ForkFocusHandoff(swap: $0, focusPosition: blockFocus.position) }
+            pendingFocusHandoffs += newSwaps
+                .filter { blockFocus.id == $0.newBlockId }
+                .map { ArrivalFocusHandoff(swap: $0, focusPosition: blockFocus.position) }
         }
-        guard staleForkHandoffs.isNotEmpty else { return }
-        staleForkHandoffs.removeAll { handoff in
-            guard let oldBlockId = handoff.swap.oldBlockId,
-                  let oldModel = modelsHolder.blocksMapping[oldBlockId],
+        guard pendingFocusHandoffs.isNotEmpty else { return }
+        pendingFocusHandoffs.removeAll { handoff in
+            // Only fork rows have an old row to keep alive; Enter-created rows just wait for
+            // their synchronous focus in finishArrivalFocusHandoffs.
+            guard let oldBlockId = handoff.swap.oldBlockId else { return false }
+            guard let oldModel = modelsHolder.blocksMapping[oldBlockId],
                   items.firstIndex(blockId: oldBlockId) == nil,
                   let newIndex = items.firstIndex(blockId: handoff.swap.newBlockId) else { return true }
             // The old row keeps its position; the new block's row slides into it on removal.
@@ -232,42 +240,49 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         }
     }
 
-    /// Runs right after the unanimated snapshot apply that inserted the replacing cells — the
-    /// apply is synchronous on the main queue, so the new cells are already on screen but nothing
-    /// has been committed to the render server yet. Moving first responder into the new cell and
-    /// dropping the stale row here keeps the whole swap inside one render commit: the transient
-    /// two-row layout never reaches the screen and the keyboard never dips.
-    private func finishForkFocusHandoffs() {
-        guard staleForkHandoffs.isNotEmpty, let viewInput else { return }
+    /// Runs right after the unanimated snapshot apply that inserted the arrived cells — the
+    /// apply is synchronous on the main queue, so the new cells are already on screen but
+    /// nothing has been committed to the render server yet. Moving first responder into the new
+    /// cell (with its caret scrolled visible) and dropping a fork's stale row here keeps the
+    /// whole arrival inside one render commit: no transient two-row layout, no keyboard dip,
+    /// and no separate insert-then-scroll step.
+    private func finishArrivalFocusHandoffs() {
+        guard pendingFocusHandoffs.isNotEmpty, let viewInput else { return }
         var removedIds = Set<String>()
-        staleForkHandoffs.removeAll { handoff in
-            guard let oldBlockId = handoff.swap.oldBlockId else { return true }
+        var focusedIds = [String]()
+        pendingFocusHandoffs.removeAll { handoff in
             guard viewInput.takeFocus(blockId: handoff.swap.newBlockId, position: handoff.focusPosition) else {
-                // Cell not on screen — removeStaleForkRowsAfterFocusHandoff picks it up.
-                return false
+                // Cell not on screen: the deferred initial focus covers Enter rows; fork rows
+                // stay pending for removeStaleForkRowsAfterFocusHandoff.
+                return handoff.swap.oldBlockId == nil
             }
-            removedIds.insert(oldBlockId)
+            handoff.swap.oldBlockId.map { removedIds.insert($0) }
+            focusedIds.append(handoff.swap.newBlockId)
             return true
         }
-        guard removedIds.isNotEmpty else { return }
-        let items = modelsHolder.items.filter { !removedIds.contains($0.blockId) }
-        guard items.count != modelsHolder.items.count else { return }
-        modelsHolder.items = items
-        guard document.isOpened else { return }
-        viewInput.update(changes: nil, allModels: items, isRealData: true, animated: false, completion: {})
+        if removedIds.isNotEmpty {
+            let items = modelsHolder.items.filter { !removedIds.contains($0.blockId) }
+            if items.count != modelsHolder.items.count, document.isOpened {
+                modelsHolder.items = items
+                viewInput.update(changes: nil, allModels: items, isRealData: true, animated: false, completion: {})
+            }
+        }
+        // Reveal only after the stale fork rows are gone: measuring the focused cell against a
+        // layout still inflated by a retained duplicate row scrolls one row too far.
+        focusedIds.forEach { viewInput.revealBlock(blockId: $0) }
     }
 
-    /// Fallback for handoffs finishForkFocusHandoffs could not complete synchronously (the new
-    /// cell was not on screen). Runs in the apply's completion: the new cell's deferred initial
-    /// focus was enqueued on the main queue during that apply, so after one more hop the old
-    /// text view has already handed first responder over and its row can be deleted without
+    /// Fallback for fork handoffs finishArrivalFocusHandoffs could not complete synchronously
+    /// (the new cell was not on screen). Runs in the apply's completion: the new cell's deferred
+    /// initial focus was enqueued on the main queue during that apply, so after one more hop the
+    /// old text view has already handed first responder over and its row can be deleted without
     /// touching the keyboard.
     private func removeStaleForkRowsAfterFocusHandoff() {
-        guard staleForkHandoffs.isNotEmpty else { return }
+        guard pendingFocusHandoffs.isNotEmpty else { return }
         DispatchQueue.main.async { [weak self] in
-            guard let self, staleForkHandoffs.isNotEmpty else { return }
-            let staleIds = Set(staleForkHandoffs.compactMap(\.swap.oldBlockId))
-            staleForkHandoffs.removeAll()
+            guard let self, pendingFocusHandoffs.isNotEmpty else { return }
+            let staleIds = Set(pendingFocusHandoffs.compactMap(\.swap.oldBlockId))
+            pendingFocusHandoffs.removeAll()
             let items = modelsHolder.items.filter { !staleIds.contains($0.blockId) }
             guard items.count != modelsHolder.items.count else { return }
             modelsHolder.items = items

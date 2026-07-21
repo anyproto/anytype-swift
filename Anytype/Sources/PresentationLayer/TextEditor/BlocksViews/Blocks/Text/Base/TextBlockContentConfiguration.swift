@@ -31,6 +31,8 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let toggleCheckBox: () -> Void
         let toggleDropDown: () -> Void
         let tapOnCalloutIcon: () -> Void
+
+        let escalateToBlockSelection: () -> Void
     }
     
     var blockId: String
@@ -138,7 +140,8 @@ extension TextBlockContentConfiguration {
             textViewShouldReplaceText: { _, _, _ in false },
             toggleCheckBox: { },
             toggleDropDown: { },
-            tapOnCalloutIcon: { }
+            tapOnCalloutIcon: { },
+            escalateToBlockSelection: { }
         )
     )
 }

@@ -144,7 +144,10 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol, 
             },
             tapOnCalloutIcon: { [weak self] in
                 self?.showTextIconPicker()
-            }
+            },
+            // Table cell text lives inside the table's own selection model; boundary escalation
+            // to page-level block multi-select does not apply here.
+            escalateToBlockSelection: { }
         )
     }
     
