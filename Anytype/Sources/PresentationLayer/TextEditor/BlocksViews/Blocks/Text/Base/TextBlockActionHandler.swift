@@ -306,7 +306,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     }
 
     private func escalateToBlockSelection() {
-        guard FeatureFlags.crossBlockSelectionEscalation, !isVirtualUnmaterialized else { return }
+        guard !isVirtualUnmaterialized else { return }
         guard info.content.type != .text(.title), info.content.type != .text(.description) else { return }
         onEnterSelectionMode(info)
     }

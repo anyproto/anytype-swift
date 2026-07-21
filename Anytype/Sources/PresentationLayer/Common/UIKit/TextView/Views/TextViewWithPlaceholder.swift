@@ -141,7 +141,6 @@ final class TextViewWithPlaceholder: UITextView {
     // has nothing left to extend inside this block.
     override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
-        guard FeatureFlags.crossBlockSelectionEscalation else { return commands }
         if canEscalateSelection(down: true) {
             commands.append(escalationCommand(input: UIKeyCommand.inputDownArrow))
         }
@@ -198,7 +197,6 @@ final class TextViewWithPlaceholder: UITextView {
     var onSelectionHandlePan: ((UIPanGestureRecognizer) -> Void)?
 
     private func setupSelectionHandleSniffer() {
-        guard FeatureFlags.crossBlockSelectionEscalation else { return }
         handleSniffer.textView = self
         selectionProbe.cancelsTouchesInView = false
         selectionProbe.delaysTouchesBegan = false

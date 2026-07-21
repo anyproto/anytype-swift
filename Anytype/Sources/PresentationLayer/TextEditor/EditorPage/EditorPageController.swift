@@ -231,11 +231,9 @@ final class EditorPageController: UIViewController {
             blocksSelectionOverlayView.isHidden = false
             collectionView.isLocked = false
             view.isUserInteractionEnabled = true
-            if FeatureFlags.crossBlockSelectionEscalation {
-                // With no text view active, the controller must sit at the head of the responder
-                // chain for the shift+arrow key commands that grow the block selection.
-                becomeFirstResponder()
-            }
+            // With no text view active, the controller must sit at the head of the responder
+            // chain for the shift+arrow key commands that grow the block selection.
+            becomeFirstResponder()
         case .editing:
             selectionEscalationAnchor = nil
             collectionView.deselectAllMovingItems()
@@ -425,8 +423,7 @@ extension EditorPageController: EditorPageViewInput {
         if let textView = firstResponderView as? UITextView {
             setSelectionDisplay(true, for: textView)
         }
-        if FeatureFlags.crossBlockSelectionEscalation,
-           let textView = firstResponderView as? TextViewWithPlaceholder {
+        if let textView = firstResponderView as? TextViewWithPlaceholder {
             textView.onSelectionHandlePan = { [weak self] recognizer in
                 self?.handleSelectionEscalationPan(recognizer)
             }
@@ -590,10 +587,7 @@ private extension EditorPageController {
         collectionView.addGestureRecognizer(listViewTapGestureRecognizer)
 
         collectionView.addGestureRecognizer(longTapGestureRecognizer)
-
-        if FeatureFlags.crossBlockSelectionEscalation {
-            collectionView.addGestureRecognizer(selectionEscalationPan)
-        }
+        collectionView.addGestureRecognizer(selectionEscalationPan)
     }
     
     func setupLayout() {

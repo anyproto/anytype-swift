@@ -1,5 +1,4 @@
 import UIKit
-import AnytypeCore
 
 // Escalates an in-block text selection into block multi-select at the block boundary
 // (cross-block selection, phase 0). Entry points:
@@ -236,12 +235,11 @@ extension EditorPageController {
     // MARK: - Keyboard extension while selecting
 
     override var canBecomeFirstResponder: Bool {
-        FeatureFlags.crossBlockSelectionEscalation
+        true
     }
 
     override var keyCommands: [UIKeyCommand]? {
-        guard FeatureFlags.crossBlockSelectionEscalation,
-              case .selecting = viewModel.blocksStateManager.editingState else { return super.keyCommands }
+        guard case .selecting = viewModel.blocksStateManager.editingState else { return super.keyCommands }
         let commands = [
             UIKeyCommand(input: UIKeyCommand.inputDownArrow, modifierFlags: .shift, action: #selector(extendBlockSelectionDown)),
             UIKeyCommand(input: UIKeyCommand.inputUpArrow, modifierFlags: .shift, action: #selector(extendBlockSelectionUp))
