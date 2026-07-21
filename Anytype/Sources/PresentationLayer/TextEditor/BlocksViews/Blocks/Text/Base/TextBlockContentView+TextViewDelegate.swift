@@ -49,6 +49,10 @@ extension TextBlockContentView: CustomTextViewDelegate {
     func keyboardAction(_ action: CustomTextView.KeyboardAction) {
         actions?.handleKeyboardAction(action, textView.textView)
     }
+
+    func escalateToBlockSelection() {
+        actions?.escalateToBlockSelection()
+    }
     
     func showObject(objectId: String) {
         actions?.showObject(objectId)

@@ -32,6 +32,14 @@ final class TextViewWithPlaceholder: UITextView {
         }
     }
     var isLockedForEditing = false
+
+    // Where the selection is pinned while the user shift+arrows: UITextView exposes only the
+    // NSRange, so without the anchor a shift+Down that natively shrinks an upward selection is
+    // indistinguishable from one that has nothing left to extend and should escalate.
+    private var selectionAnchorLocation: Int?
+    private var previousSelectedRange: NSRange?
+    private let selectionProbe = UIPanGestureRecognizer()
+    private let handleSniffer = SelectionHandleSniffer()
     
     // MARK: - Internal variables
     
@@ -123,10 +131,85 @@ final class TextViewWithPlaceholder: UITextView {
         guard let customTextViewDelegate else {
             return super.copy(sender)
         }
-        
+
         customTextViewDelegate.cut(range: selectedRange)
     }
-    
+
+    // Arrow keys are "system behavior" inside a text view — the text input system consumes
+    // them before press events, so interception must happen at the key-command layer. UIKit
+    // queries this property per key press; the commands are offered only when the selection
+    // has nothing left to extend inside this block.
+    override var keyCommands: [UIKeyCommand]? {
+        var commands = super.keyCommands ?? []
+        guard FeatureFlags.crossBlockSelectionEscalation else { return commands }
+        if canEscalateSelection(down: true) {
+            commands.append(escalationCommand(input: UIKeyCommand.inputDownArrow))
+        }
+        if canEscalateSelection(down: false) {
+            commands.append(escalationCommand(input: UIKeyCommand.inputUpArrow))
+        }
+        return commands
+    }
+
+    private func escalationCommand(input: String) -> UIKeyCommand {
+        let command = UIKeyCommand(input: input, modifierFlags: .shift, action: #selector(escalateSelectionBeyondBoundary))
+        command.wantsPriorityOverSystemBehavior = true
+        return command
+    }
+
+    @objc private func escalateSelectionBeyondBoundary() {
+        customTextViewDelegate?.escalateToBlockSelection()
+    }
+
+    private func canEscalateSelection(down: Bool) -> Bool {
+        let selection = selectedRange
+        if down {
+            guard selection.location + selection.length == textStorage.length else { return false }
+            return selection.length == 0 || selectionAnchorLocation == selection.location
+        } else {
+            guard selection.location == 0 else { return false }
+            return selection.length == 0 || selectionAnchorLocation == selection.location + selection.length
+        }
+    }
+
+    func trackSelectionAnchor() {
+        let new = selectedRange
+        let old = previousSelectedRange
+        previousSelectedRange = new
+        if new.length == 0 {
+            selectionAnchorLocation = new.location
+        } else if let old, old.location == new.location {
+            selectionAnchorLocation = new.location
+        } else if let old, old.location + old.length == new.location + new.length {
+            selectionAnchorLocation = new.location + new.length
+        } else {
+            // A fresh selection (double-tap word, programmatic set) has no history; treating the
+            // start as the anchor matches how a subsequent shift+Down extends it natively.
+            selectionAnchorLocation = new.location
+        }
+    }
+
+    // MARK: - Selection handle escalation
+
+    /// The system's selection-handle drags never reach recognizers added to the editor view
+    /// hierarchy, but UIKit does consult a probe recognizer attached to the text view about
+    /// simultaneous recognition — handing over a live reference to the private range-adjustment
+    /// recognizer, which public `addTarget` can then observe. (Runestone/Steve Shepard pattern.)
+    var onSelectionHandlePan: ((UIPanGestureRecognizer) -> Void)?
+
+    private func setupSelectionHandleSniffer() {
+        guard FeatureFlags.crossBlockSelectionEscalation else { return }
+        handleSniffer.textView = self
+        selectionProbe.cancelsTouchesInView = false
+        selectionProbe.delaysTouchesBegan = false
+        selectionProbe.delegate = handleSniffer
+        addGestureRecognizer(selectionProbe)
+    }
+
+    @objc fileprivate func handleSelectionHandlePan(_ recognizer: UIPanGestureRecognizer) {
+        onSelectionHandlePan?(recognizer)
+    }
+
     // MARK: - Initialization
     override init(
         frame: CGRect,
@@ -155,6 +238,7 @@ private extension TextViewWithPlaceholder {
     
     func setup() {
         textStorage.delegate = self
+        setupSelectionHandleSniffer()
         addSubview(placeholderLabel)
         
         placeholderLabel.layoutUsing.anchors {
@@ -190,6 +274,33 @@ extension TextViewWithPlaceholder: NSTextStorageDelegate {
         Task { @MainActor in
             syncPlaceholder()
         }
+    }
+}
+
+// The scroll view is the delegate of its own internal recognizers, so this must not be
+// implemented on the text view itself. For every touch the probe participates in, UIKit asks
+// about each peer recognizer — including private system ones — and that callback is the only
+// public place a reference to the selection-handle drag recognizer can be obtained.
+private final class SelectionHandleSniffer: NSObject, UIGestureRecognizerDelegate {
+    weak var textView: TextViewWithPlaceholder?
+    private let observedRecognizers = NSHashTable<UIGestureRecognizer>.weakObjects()
+
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+    ) -> Bool {
+        sniff(otherGestureRecognizer)
+        return true
+    }
+
+    private func sniff(_ recognizer: UIGestureRecognizer) {
+        guard let textView, !observedRecognizers.contains(recognizer) else { return }
+        let className = String(describing: type(of: recognizer))
+        let rangeAdjustmentClass = NSClassFromString("UITextRangeAdjustmentGestureRecognizer")
+        let matchesClass = rangeAdjustmentClass.map { recognizer.isKind(of: $0) } ?? false
+        guard matchesClass || className.contains("RangeAdjustment") else { return }
+        recognizer.addTarget(textView, action: #selector(TextViewWithPlaceholder.handleSelectionHandlePan(_:)))
+        observedRecognizers.add(recognizer)
     }
 }
 

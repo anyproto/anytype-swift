@@ -298,8 +298,17 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
             },
             tapOnCalloutIcon: { [weak self] in
                 self?.showTextIconPicker()
+            },
+            escalateToBlockSelection: { [weak self] in
+                self?.escalateToBlockSelection()
             }
         )
+    }
+
+    private func escalateToBlockSelection() {
+        guard FeatureFlags.crossBlockSelectionEscalation, !isVirtualUnmaterialized else { return }
+        guard info.content.type != .text(.title), info.content.type != .text(.description) else { return }
+        onEnterSelectionMode(info)
     }
 
     private func accessoryConfiguration(using textView: UITextView) -> TextViewAccessoryConfiguration {

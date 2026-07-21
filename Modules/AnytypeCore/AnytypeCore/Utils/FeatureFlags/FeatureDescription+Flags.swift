@@ -65,6 +65,13 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
+    static let crossBlockSelectionEscalation = FeatureDescription(
+        title: "Escalate text selection at a block boundary into block multi-select",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "?"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(

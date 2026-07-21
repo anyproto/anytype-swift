@@ -24,4 +24,6 @@ protocol CustomTextViewDelegate: AnyObject {
     func shouldPaste(range: NSRange) -> Bool
     func copy(range: NSRange)
     func cut(range: NSRange)
+
+    func escalateToBlockSelection()
 }

@@ -12,7 +12,7 @@ final class EditorPageController: UIViewController {
     
     let bottomNavigationManager: any EditorBottomNavigationManagerProtocol
     private(set) lazy var dataSource = makeCollectionViewDataSource()
-    private weak var firstResponderView: UIView?
+    private(set) weak var firstResponderView: UIView?
     private let layout = EditorCollectionFlowLayout()
     @Injected(\.keyboardHeightListener)
     private var keyboardListener: KeyboardHeightListener
@@ -51,6 +51,22 @@ final class EditorPageController: UIViewController {
         recognizer.minimumPressDuration = 0.3
         return recognizer
     }()
+
+    // Watches a native selection-grabber drag leave the focused text block and escalates it
+    // into block multi-select. Recognizes alongside the system text-selection gestures without
+    // consuming their touches; see EditorPageController+SelectionEscalation.
+    lazy var selectionEscalationPan: UIPanGestureRecognizer = {
+        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(EditorPageController.handleSelectionEscalationPan))
+        recognizer.cancelsTouchesInView = false
+        recognizer.delaysTouchesBegan = false
+        recognizer.delegate = self
+        return recognizer
+    }()
+    var selectionEscalationAnchor: IndexPath?
+    var selectionEscalationPanContext: SelectionEscalationPanContext?
+    var selectionEscalationHandoffDeadline: CFTimeInterval = 0
+    var selectionEscalationAutoscroll: CADisplayLink?
+    var selectionEscalationLastTouchInView: CGPoint?
 
     private lazy var navigationBarHelper: EditorNavigationBarHelper = EditorNavigationBarHelper(
         navigationBarView: navigationBarView,
@@ -215,7 +231,13 @@ final class EditorPageController: UIViewController {
             blocksSelectionOverlayView.isHidden = false
             collectionView.isLocked = false
             view.isUserInteractionEnabled = true
+            if FeatureFlags.crossBlockSelectionEscalation {
+                // With no text view active, the controller must sit at the head of the responder
+                // chain for the shift+arrow key commands that grow the block selection.
+                becomeFirstResponder()
+            }
         case .editing:
+            selectionEscalationAnchor = nil
             collectionView.deselectAllMovingItems()
             dividerCursorController.movingMode = .none
             setEditing(true, animated: true)
@@ -403,6 +425,12 @@ extension EditorPageController: EditorPageViewInput {
         if let textView = firstResponderView as? UITextView {
             setSelectionDisplay(true, for: textView)
         }
+        if FeatureFlags.crossBlockSelectionEscalation,
+           let textView = firstResponderView as? TextViewWithPlaceholder {
+            textView.onSelectionHandlePan = { [weak self] recognizer in
+                self?.handleSelectionEscalationPan(recognizer)
+            }
+        }
     }
 
     func itemDidChangeFrame(item: EditorItem) {
@@ -562,6 +590,10 @@ private extension EditorPageController {
         collectionView.addGestureRecognizer(listViewTapGestureRecognizer)
 
         collectionView.addGestureRecognizer(longTapGestureRecognizer)
+
+        if FeatureFlags.crossBlockSelectionEscalation {
+            collectionView.addGestureRecognizer(selectionEscalationPan)
+        }
     }
     
     func setupLayout() {
