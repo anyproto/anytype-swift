@@ -17,6 +17,7 @@ extension CustomTextView: UITextViewDelegate {
     }
 
     func textViewDidChangeSelection(_ textView: UITextView) {
+        (textView as? TextViewWithPlaceholder)?.trackSelectionAnchor()
         if textView.isFirstResponder {
             delegate?.changeCaretPosition(textView.selectedRange)
         }
