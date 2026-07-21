@@ -19,6 +19,7 @@ extension EditorPageController {
         static let escapeThreshold: CGFloat = 32
         static let autoscrollBand: CGFloat = 100
         static let autoscrollMaxStep: CGFloat = 10
+        static let handoffProximity: CGFloat = 140
     }
 
     // MARK: - Grabber-drag escalation
@@ -63,17 +64,26 @@ extension EditorPageController {
     }
 
     private func beginEscalationContext(with recognizer: UIPanGestureRecognizer, isSystemHandleDrag: Bool) {
+        // A second recognizer joining the same touch (e.g. the collection pan beginning while
+        // the system drag is still escalated) must not clobber live escalation state.
+        guard selectionEscalationPanContext?.isEscalated != true else { return }
         selectionEscalationPanContext = SelectionEscalationPanContext(
             startedNearSelectionEdge: isSystemHandleDrag || panStartedNearSelectionEdge(recognizer),
             isEscalated: false
         )
-        adoptContinuationPanIfHandingOff()
+        adoptContinuationPanIfHandingOff(with: recognizer)
     }
 
-    private func adoptContinuationPanIfHandingOff() {
+    private func adoptContinuationPanIfHandingOff(with recognizer: UIPanGestureRecognizer) {
         guard CACurrentMediaTime() < selectionEscalationHandoffDeadline,
               selectionEscalationAnchor != nil,
               case .selecting = viewModel.blocksStateManager.editingState else { return }
+        // Only the resurfaced touch continues the drag: it reappears where the escalating drag
+        // last was. A stray tap elsewhere inside the window must not hijack the selection.
+        if let lastTouch = selectionEscalationLastTouchInView {
+            let location = recognizer.location(in: view)
+            guard hypot(location.x - lastTouch.x, location.y - lastTouch.y) < EscalationConstants.handoffProximity else { return }
+        }
         selectionEscalationHandoffDeadline = 0
         selectionEscalationPanContext?.isEscalated = true
         startEscalationAutoscroll()
@@ -193,7 +203,7 @@ extension EditorPageController {
         selectionEscalationAutoscroll = link
     }
 
-    private func stopEscalationAutoscroll() {
+    func stopEscalationAutoscroll() {
         selectionEscalationAutoscroll?.invalidate()
         selectionEscalationAutoscroll = nil
         selectionEscalationLastTouchInView = nil
@@ -202,9 +212,12 @@ extension EditorPageController {
 
     @objc private func escalationAutoscrollTick() {
         guard selectionEscalationPanContext?.isEscalated == true else {
-            // The handoff never arrived (finger lifted between teardown and adoption): restore
-            // scrolling once the window has lapsed.
-            if CACurrentMediaTime() > selectionEscalationHandoffDeadline {
+            // A stationary finger produces no pan events, so the handoff cannot be adopted by
+            // an event while the user pauses mid-drag. The collection pan still tracks the
+            // touch, so keep the window open while it lives; self-heal once the touch is gone.
+            if selectionEscalationPan.numberOfTouches > 0 {
+                selectionEscalationHandoffDeadline = CACurrentMediaTime() + 0.25
+            } else if CACurrentMediaTime() > selectionEscalationHandoffDeadline {
                 stopEscalationAutoscroll()
             }
             return

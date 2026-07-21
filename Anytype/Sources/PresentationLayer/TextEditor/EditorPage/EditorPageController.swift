@@ -171,6 +171,9 @@ final class EditorPageController: UIViewController {
         UIApplication.shared.hideKeyboard()
         firstResponderView?.resignFirstResponder()
         view.endEditing(true)
+        // The autoscroll display link retains this controller and disables scrolling; an
+        // escalation drag interrupted by dismissal must not leave either behind.
+        stopEscalationAutoscroll()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -199,6 +202,13 @@ final class EditorPageController: UIViewController {
     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        // The controller becoming first responder in .selecting made motion events reachable
+        // there; shake-to-undo was only ever live while editing (text view first responder),
+        // so keep it that way.
+        guard case .editing = viewModel.blocksStateManager.editingState else {
+            shakeGestureStartDate = nil
+            return
+        }
         if motion == .motionShake && UIAccessibility.isShakeToUndoEnabled {
             if let startDate = shakeGestureStartDate {
                 defer { shakeGestureStartDate = nil }
@@ -236,6 +246,7 @@ final class EditorPageController: UIViewController {
             becomeFirstResponder()
         case .editing:
             selectionEscalationAnchor = nil
+            stopEscalationAutoscroll()
             collectionView.deselectAllMovingItems()
             dividerCursorController.movingMode = .none
             setEditing(true, animated: true)
@@ -243,6 +254,7 @@ final class EditorPageController: UIViewController {
             collectionView.isLocked = false
             view.isUserInteractionEnabled = true
         case .moving(let indexPaths):
+            stopEscalationAutoscroll()
             dividerCursorController.movingMode = .drum
             setEditing(false, animated: true)
             indexPaths.forEach { indexPath in
@@ -252,6 +264,7 @@ final class EditorPageController: UIViewController {
             collectionView.isLocked = false
             view.isUserInteractionEnabled = true
         case .readonly:
+            stopEscalationAutoscroll()
             view.endEditing(true)
             collectionView.isLocked = true
             view.isUserInteractionEnabled = true
@@ -260,6 +273,7 @@ final class EditorPageController: UIViewController {
             view.endEditing(true)
             collectionView.isLocked = true
         case .loading:
+            stopEscalationAutoscroll()
             view.endEditing(true)
             view.isUserInteractionEnabled = false
         }
