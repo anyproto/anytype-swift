@@ -413,6 +413,24 @@ extension EditorPageController: EditorPageViewInput {
         self.firstResponderView = nil
     }
 
+    @discardableResult
+    func takeFocus(blockId: String, position: BlockFocusPosition) -> Bool {
+        guard let item = dataSourceItem(for: blockId),
+              let indexPath = dataSource.indexPath(for: item),
+              let cell = collectionView.cellForItem(at: indexPath),
+              let contentView = firstTextBlockContentView(in: cell) else { return false }
+        contentView.takeFocus(at: position)
+        return true
+    }
+
+    private func firstTextBlockContentView(in view: UIView) -> TextBlockContentView? {
+        if let view = view as? TextBlockContentView { return view }
+        for subview in view.subviews {
+            if let found = firstTextBlockContentView(in: subview) { return found }
+        }
+        return nil
+    }
+
     // MARK: -
     func endEditing() {
         view.endEditing(true)

@@ -37,4 +37,9 @@ protocol EditorPageViewInput: EditorCollectionReloadable {
     func adjustContentOffset(relatively: UIView)
 
     func restoreEditingState()
+
+    /// Synchronously moves first responder into the on-screen text cell of `blockId`.
+    /// Returns false when the block's cell is not currently on screen.
+    @discardableResult
+    func takeFocus(blockId: String, position: BlockFocusPosition) -> Bool
 }

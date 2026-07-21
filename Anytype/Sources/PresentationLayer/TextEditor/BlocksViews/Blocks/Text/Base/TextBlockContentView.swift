@@ -90,6 +90,13 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
     
     // MARK: - Apply configuration
     
+    /// Synchronous first-responder grab for the fork focus handoff. Runs right after the apply
+    /// that inserted this cell — outside the dequeue pass, where a synchronous
+    /// becomeFirstResponder is unsafe (see applyNewConfiguration).
+    func takeFocus(at position: BlockFocusPosition) {
+        textView.textView.setFocus(position)
+    }
+
     private func applyNewConfiguration(configuration: TextBlockContentConfiguration) {
         textView.textView.textStorage.setAttributedString(configuration.attributedString)
                 

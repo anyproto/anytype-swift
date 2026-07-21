@@ -47,6 +47,14 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private var didScrollToInitialBlock = false
     private var publishState: PublishState?
     private var trailingBlockPlaceholder: (session: VirtualTrailingBlockSession, item: EditorItem)?
+    // Old rows of just-consumed identity forks, kept in the snapshot until the replacing
+    // block's cell takes first responder over; see retainStaleForkRows.
+    private var staleForkHandoffs = [ForkFocusHandoff]()
+
+    private struct ForkFocusHandoff {
+        let swap: BlockIdentitySwap
+        let focusPosition: BlockFocusPosition
+    }
 
     @Published var bottomPanelHidden: Bool = false
     @Published var bottomPanelHiddenAnimated: Bool = true
@@ -154,8 +162,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private func handleUpdate(ids: [String]) {
         // An identity swap (virtual placeholder → real block, empty-block fork) must not be
         // rendered as an animated delete+insert of the same visible content.
-        let containsIdentitySwap = blockIdentitySwapStorage.consumeSwap(in: ids)
+        let identitySwaps = blockIdentitySwapStorage.consumeSwaps(in: ids)
         var blocksViewModels = blockBuilder.buildEditorItems(infos: ids, ignoreCache: false)
+        retainStaleForkRows(newSwaps: identitySwaps, in: &blocksViewModels)
         if let trailingBlockPlaceholder {
             if let materializedId = trailingBlockPlaceholder.session.materializedBlockId,
                ids.contains(materializedId),
@@ -189,10 +198,81 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             return
         }
 
-        viewInput?.update(changes: difference, allModels: modelsHolder.items, isRealData: true, animated: !containsIdentitySwap) { [weak self] in
+        viewInput?.update(changes: difference, allModels: modelsHolder.items, isRealData: true, animated: identitySwaps.isEmpty) { [weak self] in
             guard let self else { return }
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
             initialScrollToBlockIfNeeded()
+            removeStaleForkRowsAfterFocusHandoff()
+        }
+        finishForkFocusHandoffs()
+    }
+
+    /// The empty-block identity fork replaces the focused block's row with a fresh id. Deleting
+    /// the first responder's cell in that apply briefly dismisses the keyboard, so while a focus
+    /// handoff to the forked id is pending, the old row stays in the snapshot — the trailing
+    /// placeholder's awaitingFocusHandoff trick. finishForkFocusHandoffs completes the swap right
+    /// after the apply, within the same render commit.
+    private func retainStaleForkRows(newSwaps: [BlockIdentitySwap], in items: inout [EditorItem]) {
+        // A pending focus for the new id means the old block's cell holds the keyboard; without
+        // it there is nothing to hand off (e.g. the fork ran on defocus).
+        if let blockFocus = cursorManager.blockFocus {
+            staleForkHandoffs += newSwaps
+                .filter { $0.oldBlockId.isNotNil && blockFocus.id == $0.newBlockId }
+                .map { ForkFocusHandoff(swap: $0, focusPosition: blockFocus.position) }
+        }
+        guard staleForkHandoffs.isNotEmpty else { return }
+        staleForkHandoffs.removeAll { handoff in
+            guard let oldBlockId = handoff.swap.oldBlockId,
+                  let oldModel = modelsHolder.blocksMapping[oldBlockId],
+                  items.firstIndex(blockId: oldBlockId) == nil,
+                  let newIndex = items.firstIndex(blockId: handoff.swap.newBlockId) else { return true }
+            // The old row keeps its position; the new block's row slides into it on removal.
+            items.insert(.block(oldModel), at: newIndex)
+            return false
+        }
+    }
+
+    /// Runs right after the unanimated snapshot apply that inserted the replacing cells — the
+    /// apply is synchronous on the main queue, so the new cells are already on screen but nothing
+    /// has been committed to the render server yet. Moving first responder into the new cell and
+    /// dropping the stale row here keeps the whole swap inside one render commit: the transient
+    /// two-row layout never reaches the screen and the keyboard never dips.
+    private func finishForkFocusHandoffs() {
+        guard staleForkHandoffs.isNotEmpty, let viewInput else { return }
+        var removedIds = Set<String>()
+        staleForkHandoffs.removeAll { handoff in
+            guard let oldBlockId = handoff.swap.oldBlockId else { return true }
+            guard viewInput.takeFocus(blockId: handoff.swap.newBlockId, position: handoff.focusPosition) else {
+                // Cell not on screen — removeStaleForkRowsAfterFocusHandoff picks it up.
+                return false
+            }
+            removedIds.insert(oldBlockId)
+            return true
+        }
+        guard removedIds.isNotEmpty else { return }
+        let items = modelsHolder.items.filter { !removedIds.contains($0.blockId) }
+        guard items.count != modelsHolder.items.count else { return }
+        modelsHolder.items = items
+        guard document.isOpened else { return }
+        viewInput.update(changes: nil, allModels: items, isRealData: true, animated: false, completion: {})
+    }
+
+    /// Fallback for handoffs finishForkFocusHandoffs could not complete synchronously (the new
+    /// cell was not on screen). Runs in the apply's completion: the new cell's deferred initial
+    /// focus was enqueued on the main queue during that apply, so after one more hop the old
+    /// text view has already handed first responder over and its row can be deleted without
+    /// touching the keyboard.
+    private func removeStaleForkRowsAfterFocusHandoff() {
+        guard staleForkHandoffs.isNotEmpty else { return }
+        DispatchQueue.main.async { [weak self] in
+            guard let self, staleForkHandoffs.isNotEmpty else { return }
+            let staleIds = Set(staleForkHandoffs.compactMap(\.swap.oldBlockId))
+            staleForkHandoffs.removeAll()
+            let items = modelsHolder.items.filter { !staleIds.contains($0.blockId) }
+            guard items.count != modelsHolder.items.count else { return }
+            modelsHolder.items = items
+            guard document.isOpened else { return }
+            viewInput?.update(changes: nil, allModels: items, isRealData: true, animated: false, completion: {})
         }
     }
     
