@@ -13,10 +13,13 @@ import UIKit
 /// Columns sitting exactly on the page line follow it in both directions - that is the
 /// whole-page scroll illusion, and it is what brings every synced column back to its own top
 /// when the page re-expands. Columns scrolled deeper keep their position until the page line
-/// catches them. Over-dragging past fully expanded bounces only the dragged column under a
-/// static header: followers cannot mirror a rubber band (UIKit re-clamps a non-interacting
-/// scroll view's out-of-range offset on every layout pass, which reads as flicker), so the
-/// header does not follow it either.
+/// catches them. Collapse engages from any depth, but expansion only near the column's top:
+/// scrolling back from deep content first scrolls cards alone, and the header re-appears over
+/// the column's final stretch - the same region where collapsing happens, matching how Grid's
+/// header only shows near the top of its content. Over-dragging past fully expanded bounces
+/// only the dragged column under a static header: followers cannot mirror a rubber band (UIKit
+/// re-clamps a non-interacting scroll view's out-of-range offset on every layout pass, which
+/// reads as flicker), so the header does not follow it either.
 ///
 /// TODO: IOS-6595 - the introspection + KVO + setContentOffset plumbing exists only because
 /// SwiftUI on iOS 17 exposes neither scroll offsets nor pixel-level scroll control. Once the
@@ -110,11 +113,20 @@ final class KanbanCollapseCoordinator {
 
         let rel = relativeOffset(scrollView)
         var newTravel = headerTravel
-        // Upward deltas coming out of the top rubber band are dropped: the snap-back must not
-        // re-collapse what the stretch just expanded, or a column with no scroll range left
-        // could never finish expanding the header.
-        if delta < 0 || rel - delta >= 0 {
-            newTravel += delta
+        if delta > 0 {
+            // Collapsing: from any depth - except the top rubber band's snap-back, which must
+            // not re-collapse what the stretch just expanded.
+            if rel - delta >= 0 {
+                newTravel += delta
+            }
+        } else {
+            // Expanding: only once the column has scrolled back up to where the header state
+            // is - like Grid, where the header re-appears only near the very top of the
+            // content. A deeper column scrolls its cards without moving the header until it
+            // catches up (the `min` floors expansion at the current travel), then travel locks
+            // to `rel` for the final stretch. The rubber band below zero still ratchets travel
+            // down so a range-exhausted column can finish expanding.
+            newTravel = max(newTravel + delta, min(rel, newTravel))
         }
         applyTravel(min(max(newTravel, 0), headerTravelDistance), driver: scrollView)
     }
