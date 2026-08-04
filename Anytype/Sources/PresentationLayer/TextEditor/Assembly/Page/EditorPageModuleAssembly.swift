@@ -81,6 +81,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let modelsHolder = EditorMainItemModelsHolder()
         let markupChanger = BlockMarkupChanger()
         let focusSubjectHolder = FocusSubjectsHolder()
+        let rowIdentityMap = BlockRowIdentityMap()
         
         let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
         let blockActionService = BlockActionService(
@@ -172,6 +173,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             subjectsHolder: focusSubjectHolder,
             infoContainer: document.infoContainer,
             modelsHolder: modelsHolder,
+            rowIdentityMap: rowIdentityMap,
             blockCollectionController: .init(viewInput: viewInput),
             accessoryStateManager: accessoryState.0,
             cursorManager: cursorManager,
@@ -194,6 +196,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             router: router,
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,
+            rowIdentityMap: rowIdentityMap,
             actionHandler: actionHandler,
             headerModel: headerModel,
             blocksStateManager: blocksStateManager,

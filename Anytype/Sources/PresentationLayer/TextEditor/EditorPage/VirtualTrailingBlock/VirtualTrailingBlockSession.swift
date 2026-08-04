@@ -50,6 +50,12 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
 
     private var state = State.active
     private var isInvalidated = false
+    // The editor rebound the placeholder's model to the created block in place: the cell —
+    // still first responder — continues as the real block's cell, so the focus handoff is
+    // complete and applyFocus must not re-apply a stale caret. Focus handling below stays
+    // unconditional otherwise: whenever the rebind declines, for any reason, the fallback
+    // handoff is what keeps the keyboard alive.
+    private var handoffCompletedByRebind = false
     // True while the focused placeholder cell must stay alive: removing it before the created
     // block's text view takes first responder briefly dismisses the keyboard (the accessory
     // bar visibly slides down). Cleared when the placeholder's text view resigns.
@@ -106,6 +112,14 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
         onFinish()
     }
 
+    /// Called by the editor when it rebound the placeholder's model to the created block in
+    /// place: the still-focused cell continues as the real block's cell, so no handoff is
+    /// pending and a later applyFocus must not re-apply the materialization-time caret.
+    func focusHandoffCompletedByRebind() {
+        handoffCompletedByRebind = true
+        awaitingFocusHandoff = false
+    }
+
     func materialize(carrying content: BlockText, focusAt: BlockFocusPosition?) async throws -> VirtualTrailingBlockMaterialization {
         switch state {
         case let .materialized(info):
@@ -118,7 +132,7 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
             do {
                 let info = try await task.value
                 state = .materialized(info)
-                if !isInvalidated {
+                if !isInvalidated, !handoffCompletedByRebind {
                     awaitingFocusHandoff = focusAt.isNotNil
                     applyFocus(focusAt, blockId: info.id)
                 }
@@ -154,7 +168,16 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
             position: .bottom
         )
         SessionCreatedBlockIdsStorage.shared.register(blockId)
-        blockIdentitySwapStorage.register(newBlockId: blockId, replacingBlockId: nil, keyboardInsert: false)
+        // The materialization is an in-place replace of the placeholder row: carrying the
+        // virtual id lets the editor rebind the placeholder's model to the created block
+        // instead of swapping rows under the keyboard. When the rebind declines — or the
+        // stable-row-identity flag is off — the editor strips this back to nil and the
+        // session-managed fallback runs unchanged.
+        blockIdentitySwapStorage.register(
+            newBlockId: blockId,
+            replacingBlockId: virtualId,
+            keyboardInsert: false
+        )
         if let containerInfo = document.infoContainer.get(id: blockId),
            containerInfo.configurationData.parentId.isNotNil {
             return containerInfo

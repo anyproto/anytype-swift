@@ -13,6 +13,9 @@ final class BlockViewModelBuilder {
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
     private let infoContainer: any InfoContainerProtocol
     private let modelsHolder: EditorMainItemModelsHolder
+    // Fork/materialization aliases for this page; consulted at build time so a rebuilt model
+    // for a swapped-in id lands on the replaced row's identity. See BlockRowIdentityMap.
+    private let rowIdentityMap: BlockRowIdentityMap
     private let blockCollectionController: EditorBlockCollectionController
     private let accessoryStateManager: any AccessoryViewStateManager
     private let cursorManager: EditorCursorManager
@@ -45,6 +48,7 @@ final class BlockViewModelBuilder {
         subjectsHolder: FocusSubjectsHolder,
         infoContainer: some InfoContainerProtocol,
         modelsHolder: EditorMainItemModelsHolder,
+        rowIdentityMap: BlockRowIdentityMap,
         blockCollectionController: EditorBlockCollectionController,
         accessoryStateManager: some AccessoryViewStateManager,
         cursorManager: EditorCursorManager,
@@ -63,6 +67,7 @@ final class BlockViewModelBuilder {
         self.subjectsHolder = subjectsHolder
         self.infoContainer = infoContainer
         self.modelsHolder = modelsHolder
+        self.rowIdentityMap = rowIdentityMap
         self.blockCollectionController = blockCollectionController
         self.accessoryStateManager = accessoryStateManager
         self.cursorManager = cursorManager
@@ -231,6 +236,7 @@ final class BlockViewModelBuilder {
             blockInformationProvider: blockInformationProvider,
             actionHandler: textBlockActionHandler,
             cursorManager: cursorManager,
+            rowIdentity: rowIdentityMap.rowId(for: info.id),
             collectionController: blockCollectionController
         )
 

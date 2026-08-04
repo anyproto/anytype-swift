@@ -23,6 +23,14 @@ final class BlockModelInfomationProvider: @unchecked Sendable {
         subscription = document.subscribeForBlockInfo(blockId: info.id)
             .sinkOnMain { [weak self] in self?.info = $0 }
     }
+
+    /// Points this provider at the block that replaced `info.id` in place (empty-block
+    /// identity fork, placeholder materialization). The old subscription targets a deleted
+    /// id and would never fire again.
+    func rebind(to info: BlockInformation) {
+        self.info = info
+        setupPublisher()
+    }
 }
 
 @MainActor
@@ -45,15 +53,23 @@ final class TextBlockViewModel: BlockViewModelProtocol {
     private var cursorManager: EditorCursorManager
     
     let className = "TextBlockViewModel"
-    
+    // The row this model renders into, fixed for the model's lifetime: the block id it was
+    // built for, resolved through fork/materialization aliases (BlockRowIdentityMap). Kept
+    // stable across rebind(to:) so the diffable identifier — and with it the live cell and
+    // its keyboard input session — survives the in-place id swap.
+    nonisolated let rowIdentity: String
+
+    nonisolated var hashable: AnyHashable { className + rowIdentity }
+
     private var cancellables = [AnyCancellable]()
-    
-    
+
+
     init(
         document: some BaseDocumentProtocol,
         blockInformationProvider: BlockModelInfomationProvider,
         actionHandler: some TextBlockActionHandlerProtocol,
         cursorManager: EditorCursorManager,
+        rowIdentity: String,
         customBackgroundColor: UIColor? = nil,
         collectionController: EditorBlockCollectionController? = nil
     ) {
@@ -61,6 +77,7 @@ final class TextBlockViewModel: BlockViewModelProtocol {
         self.document = document
         self.actionHandler = actionHandler
         self.cursorManager = cursorManager
+        self.rowIdentity = rowIdentity
         self.customBackgroundColor = customBackgroundColor
         
         document.detailsPublisher.receiveOnMain().sink { [weak self] objectDetails in
@@ -75,6 +92,22 @@ final class TextBlockViewModel: BlockViewModelProtocol {
         
     func set(focus: BlockFocusPosition) {
         actionHandler.focusSubject.send(focus)
+    }
+
+    /// Rebinds this row to the block that replaced its current one in place. The instance —
+    /// and with it the diffable identifier (`rowIdentity`) and the live cell wired to its
+    /// action handler — stays; only the backing block changes. The handler rebinds its own
+    /// `info` when its fork/materialization task completes.
+    func rebind(to info: BlockInformation) {
+        blockInformationProvider.rebind(to: info)
+    }
+
+    /// Inverse of `rebind(to:)` for undo: the replaced block was restored and this row must
+    /// carry it again. The handler's completed fork points at the now-deleted id and is reset
+    /// so a later first fill forks fresh instead of rebinding edits to that id.
+    func rebindAfterIdentityUndo(to info: BlockInformation) {
+        blockInformationProvider.rebind(to: info)
+        actionHandler.resetEmptyBlockFork()
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}

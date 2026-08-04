@@ -163,7 +163,10 @@ final class SimpleTableCellsBuilder {
             document: document,
             blockInformationProvider: BlockModelInfomationProvider(document: document, info: information),
             actionHandler: textBlockActionHandler,
-            cursorManager: cursorManager
+            cursorManager: cursorManager,
+            // Table cells live in their own data source; the editor's identity-swap rebind
+            // does not reach them, so the block id is the row identity.
+            rowIdentity: information.id
         )
         
         textBlocksMapping[information.id] = .block(textBlockViewModel)

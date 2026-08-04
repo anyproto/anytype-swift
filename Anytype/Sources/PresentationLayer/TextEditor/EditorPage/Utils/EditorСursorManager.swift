@@ -60,6 +60,14 @@ final class EditorCursorManager {
 
         focusSubject.send(position)
     }
+
+    func aliasFocusSubject(oldId: String, newId: String) {
+        focusSubjectHolder.alias(oldId: oldId, newId: newId)
+    }
+
+    func removeFocusSubjectAlias(oldId: String, newId: String) {
+        focusSubjectHolder.removeAlias(oldId: oldId, newId: newId)
+    }
     
     func didChangeCursorPosition(at blockId: String, position: BlockFocusPosition) {
         lastBlockFocus = BlockFocus(id: blockId, position: position)

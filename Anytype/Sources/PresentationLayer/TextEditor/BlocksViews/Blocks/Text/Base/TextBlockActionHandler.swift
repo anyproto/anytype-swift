@@ -49,11 +49,14 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     // Set only for the trailing "tap to type" placeholder. While unmaterialized, mutating
     // paths must not target `info.id` — the block does not exist in the middleware yet.
     private let virtualBlockSession: (any VirtualTrailingBlockSessionProtocol)?
-    // Refreshes the live on-screen cell for a block id from current model state. After the
-    // empty-block identity fork or the virtual-placeholder materialization, the visible cell is
-    // a freshly built handler; this handler's own `resetSubject` drives the replaced (dead) cell.
-    // A programmatic text write from the paste menu must therefore refresh the live cell
-    // explicitly — this also re-syncs its text view before the next keystroke can read stale text.
+    // Refreshes the live on-screen cell for a block id from current model state. In the
+    // fallback pipeline (stableRowIdentityOnFork off, or a refused rebind) the visible cell
+    // after the empty-block identity fork or the virtual-placeholder materialization belongs
+    // to a freshly built handler, and this handler's own `resetSubject` drives the replaced
+    // (dead) cell; under an in-place rebind the handler keeps its cell and this is just an
+    // ordinary reconfigure. A programmatic text write from the paste menu must refresh the
+    // live cell explicitly either way — this also re-syncs its text view before the next
+    // keystroke can read stale text.
     private let reconfigureLiveBlock: @MainActor (String) -> Void
 
     @Injected(\.linkToSearchHelper)
@@ -77,9 +80,12 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
 
     // First fill of an existing empty block replaces it with a fresh identity; see
     // forkEmptyBlockIfNeeded. Kept for the handler's lifetime — once forked, later calls
-    // only rebind to the already-created block.
+    // only rebind to the already-created block. The generation counter invalidates awaits
+    // that were in flight when resetEmptyBlockFork dissolved the fork: their resumed
+    // continuation must not re-point `info` at the forked (deleted) id.
     private var emptyBlockFork: Task<BlockInformation, any Error>?
     private var pendingForkOldId: String?
+    private var forkGeneration = 0
 
     init(
         document: some BaseDocumentProtocol,
@@ -209,7 +215,11 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     @discardableResult
     private func forkEmptyBlockIfNeeded(carrying attrText: NSAttributedString, focusAt: BlockFocusPosition?) async throws -> Bool {
         if let emptyBlockFork {
+            let generation = forkGeneration
             let newInfo = try await emptyBlockFork.value
+            // A reset (undo restored the replaced block) while this await was suspended means
+            // newInfo points at a deleted id — rebinding to it would route edits nowhere.
+            guard generation == forkGeneration else { return false }
             // Rebind only while still pointing at the replaced id — repeated calls must not
             // keep resetting `info` to the fork-time snapshot.
             if info.id != newInfo.id {
@@ -221,11 +231,15 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
 
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: attrText)
         let oldInfo = info
+        let generation = forkGeneration
         let task = Task { try await actionHandler.replaceEmptyBlock(info: oldInfo, middlewareString: middlewareString, focusAt: focusAt) }
         emptyBlockFork = task
         pendingForkOldId = oldInfo.id
         do {
-            info = try await task.value
+            let newInfo = try await task.value
+            // The replace request carried the content either way; only the rebind is stale.
+            guard generation == forkGeneration else { return true }
+            info = newInfo
             return true
         } catch {
             emptyBlockFork = nil
@@ -233,6 +247,15 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
             anytypeAssertionFailure("Empty block identity fork failed", info: ["error": error.localizedDescription])
             throw error
         }
+    }
+
+    /// Undo restored the block this handler forked away from: the completed fork task points
+    /// at a now-deleted id and must not rebind future edits — or a fresh first fill — to it.
+    /// Bumping the generation also invalidates any fork await suspended right now.
+    func resetEmptyBlockFork() {
+        emptyBlockFork = nil
+        pendingForkOldId = nil
+        forkGeneration += 1
     }
 
     /// Ensures a concrete middleware block carries `attrText` before a text mutation: first via the
@@ -590,6 +613,14 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
             if pasteResult.isSameBlockCaret || pasteResult.blockIds.isEmpty {
                 let range = NSRange(location: pasteResult.caretPosition, length: 0)
                 textView.setFocus(.at(range))
+                // The response outruns the middleware echo that carries the pasted characters,
+                // so the caret offset is still past the end of the text view's text and lands
+                // clamped. Recording it as the block's pending focus re-applies it on the
+                // reconfigure that brings the text in — after `setFocus`, whose selection
+                // change would otherwise overwrite it with the clamped position.
+                if let self {
+                    cursorManager.blockFocus = BlockFocus(id: info.id, position: .at(range))
+                }
             }
 
             SharingTip.didCopyText = true

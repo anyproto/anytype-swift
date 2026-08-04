@@ -46,6 +46,10 @@ public extension FeatureFlags {
         value(for: .forkEmptyBlockOnFill)
     }
 
+    static var stableRowIdentityOnFork: Bool {
+        value(for: .stableRowIdentityOnFork)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -142,6 +146,7 @@ public extension FeatureFlags {
         .preferredSpaceOnColdStart,
         .virtualTrailingBlock,
         .forkEmptyBlockOnFill,
+        .stableRowIdentityOnFork,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

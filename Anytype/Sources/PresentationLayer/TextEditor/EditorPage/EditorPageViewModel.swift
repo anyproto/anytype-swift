@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import UIKit
 @preconcurrency import Combine
 import os
 import Services
@@ -34,10 +35,16 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private var publishedUrlBuilder: any PublishedUrlBuilderProtocol
     @Injected(\.blockIdentitySwapStorage)
     private var blockIdentitySwapStorage: any BlockIdentitySwapStorageProtocol
+    // Latched at page open: the pipeline choice must stay consistent for the page's lifetime —
+    // models rebound under one identity scheme must not meet the other's swap handling. This
+    // is the only production read of the flag; every refusal path degrades to the fallback
+    // handoff pipeline, which keeps the keyboard alive on its own.
+    private let stableRowIdentityOnFork = FeatureFlags.stableRowIdentityOnFork
     
     
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
+    private let rowIdentityMap: BlockRowIdentityMap
     private let headerModel: ObjectHeaderViewModel
     private let editorPageTemplatesHandler: any EditorPageTemplatesHandlerProtocol
     private let configuration: EditorPageViewModelConfiguration
@@ -70,6 +77,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         router: some EditorRouterProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blockBuilder: BlockViewModelBuilder,
+        rowIdentityMap: BlockRowIdentityMap,
         actionHandler: BlockActionHandler,
         headerModel: ObjectHeaderViewModel,
         blocksStateManager: some EditorPageBlocksStateManagerProtocol,
@@ -83,6 +91,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         self.router = router
         self.modelsHolder = modelsHolder
         self.blockBuilder = blockBuilder
+        self.rowIdentityMap = rowIdentityMap
         self.headerModel = headerModel
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
@@ -161,18 +170,40 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     }
     
     private func handleUpdate(ids: [String]) {
-        // An identity swap (virtual placeholder → real block, empty-block fork) must not render
-        // as an animated delete+insert of the same visible content. An Enter-created row keeps
-        // UIKit's native animated insert and caret move except at the bottom edge, where the
-        // insert competes with the caret-visibility scroll and renders as a jump — only there
-        // the unanimated one-commit pipeline takes over.
+        // Consumed identity swaps (virtual placeholder → real block, empty-block fork) are
+        // normally rebound in place and render as nothing — see rebindIdentitySwaps. When a
+        // rebind declines, the swap must still not render as an animated delete+insert of the
+        // same visible content, so it stays in activeSwaps and forces an unanimated apply. An
+        // Enter-created row keeps UIKit's native animated insert and caret move except at the
+        // bottom edge, where the insert competes with the caret-visibility scroll and renders
+        // as a jump — only there the unanimated one-commit pipeline takes over.
         let identitySwaps = blockIdentitySwapStorage.consumeSwaps(in: ids)
+        let idsSet = Set(ids)
+        rebindUndoneIdentitySwaps(ids: idsSet)
+        let reboundOldIds = rebindIdentitySwaps(identitySwaps, ids: idsSet)
         let needsBottomHandling = identitySwaps.contains(where: \.isKeyboardInsert) && viewInput?.isFirstResponderNearBottom() == true
-        let activeSwaps = identitySwaps.filter { !$0.isKeyboardInsert || needsBottomHandling }
+        let activeSwaps = identitySwaps.compactMap { swap -> BlockIdentitySwap? in
+            if let oldId = swap.oldBlockId, reboundOldIds.contains(oldId) { return nil }
+            if swap.isKeyboardInsert, !needsBottomHandling { return nil }
+            // A placeholder swap the rebind refused takes the session-managed path the
+            // fallback pipeline expects (oldBlockId nil): its old row is not a document
+            // block, and retaining it would duplicate the appended placeholder item.
+            if let oldId = swap.oldBlockId, oldId.hasPrefix(TrailingBlockPlaceholderConstants.idPrefix) {
+                return BlockIdentitySwap(newBlockId: swap.newBlockId, oldBlockId: nil, isKeyboardInsert: swap.isKeyboardInsert)
+            }
+            return swap
+        }
         var blocksViewModels = blockBuilder.buildEditorItems(infos: ids, ignoreCache: false)
         retainStaleForkRows(newSwaps: activeSwaps, in: &blocksViewModels)
         if let trailingBlockPlaceholder {
-            if let materializedId = trailingBlockPlaceholder.session.materializedBlockId,
+            if reboundOldIds.contains(trailingBlockPlaceholder.session.virtualId) {
+                // The placeholder's model was just rebound to the created block: the cell —
+                // still first responder — continues as the real block's cell. Tell the session
+                // its handoff is complete (a later applyFocus must not re-apply a stale caret),
+                // then the bookkeeping can go without touching the cell.
+                trailingBlockPlaceholder.session.focusHandoffCompletedByRebind()
+                cleanupTrailingBlockPlaceholder()
+            } else if let materializedId = trailingBlockPlaceholder.session.materializedBlockId,
                ids.contains(materializedId),
                !trailingBlockPlaceholder.session.awaitingFocusHandoff {
                 cleanupTrailingBlockPlaceholder()
@@ -213,6 +244,108 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         finishArrivalFocusHandoffs()
     }
 
+    /// Consumed identity swaps whose replaced row is live in this editor are applied in place:
+    /// the row's existing view model rebinds to the new block id while its `rowIdentity` keeps
+    /// the diffable identifier constant. The swap then diffs as an empty change — no
+    /// delete+insert, no responder move — so the keyboard input session (autocorrect's
+    /// per-word buffer) survives the first character typed into an empty block. Swaps this
+    /// cannot take (flag off, model not in the holder — e.g. simple-table cells — or
+    /// Enter-created rows) fall through to the arrival-handoff pipeline below.
+    /// Returns the old ids that were rebound.
+    private func rebindIdentitySwaps(_ swaps: [BlockIdentitySwap], ids: Set<String>) -> Set<String> {
+        guard stableRowIdentityOnFork else { return [] }
+        var reboundOldIds = Set<String>()
+        var reboundItems = [EditorItem]()
+        for swap in swaps {
+            guard !swap.isKeyboardInsert, let oldId = swap.oldBlockId else { continue }
+            // Two swaps against one old id would resolve the same model twice and collide a
+            // later rebuild of the intermediate id on its row identity.
+            guard !reboundOldIds.contains(oldId) else { continue }
+            // While the old block is still present the swap event has not fully applied; a
+            // snapshot holding both ids under one row identity would contain duplicate
+            // identifiers, so leave such a swap to the fallback pipeline.
+            guard !ids.contains(oldId) else { continue }
+            // Same when a row for the new id already exists — its event batch outran the swap
+            // registration; aliasing it now would collide two rows under one identity.
+            guard modelsHolder.blocksMapping[swap.newBlockId] == nil else { continue }
+            guard let model = modelsHolder.blocksMapping[oldId] as? TextBlockViewModel,
+                  let newInfo = document.infoContainer.get(id: swap.newBlockId) else { continue }
+            // Alias before buildEditorItems runs, so a model built for the new id in this very
+            // pass — or by a later ignoreCache reset — lands on the replaced row's identity.
+            // A declined registration means the new id already belongs to another row: rebind
+            // nothing, fall back.
+            guard rowIdentityMap.alias(newBlockId: swap.newBlockId, toRowOf: oldId) else { continue }
+            model.rebind(to: newInfo)
+            cursorManager.aliasFocusSubject(oldId: oldId, newId: swap.newBlockId)
+            // The fork-time pending focus has no consumer on this path — the cell keeps first
+            // responder throughout — and left in place it would poison a later reconfigure
+            // with a stale caret write.
+            if cursorManager.blockFocus?.id == swap.newBlockId {
+                cursorManager.blockFocus = nil
+            }
+            reboundOldIds.insert(oldId)
+            reboundItems.append(.block(model))
+        }
+        if reboundOldIds.isNotEmpty {
+            // Re-key blocksMapping to the new ids before buildEditorItems consults its cache.
+            modelsHolder.updateMappings()
+            // Refresh the live cell from the rebound model: the empty diff will never
+            // reconfigure it, and its configuration still carries the replaced id (drag id,
+            // leading-view key). applyNewConfiguration skips the text-storage write while the
+            // text is identical, so the keyboard input session survives this refresh.
+            // Unanimated: this targets the focused cell mid-swap — a height change animating
+            // around the caret is exactly what the swap pipeline exists to prevent.
+            UIView.performWithoutAnimation {
+                viewInput?.reconfigure(items: reboundItems)
+            }
+        }
+        return reboundOldIds
+    }
+
+    /// Undo can restore a block an in-place rebind replaced: the live row then carries a
+    /// deleted id while its predecessor reappears in `ids`. Rebind the row back and drop the
+    /// alias so the restored block renders through its own identity again — without this the
+    /// empty diff keeps the stale row on screen and routes edits to the deleted id. Runs
+    /// regardless of the flag latch: aliases recorded earlier must stay reversible.
+    private func rebindUndoneIdentitySwaps(ids: Set<String>) {
+        let undone = rowIdentityMap.undoneAliases(presentIds: ids)
+        guard undone.isNotEmpty else { return }
+        var reboundItems = [EditorItem]()
+        for alias in undone {
+            guard let model = modelsHolder.blocksMapping[alias.newBlockId] as? TextBlockViewModel else {
+                // No live row carries the forked id — nothing to rebind back; drop the alias
+                // so the scan stops matching it.
+                rowIdentityMap.removeAlias(newBlockId: alias.newBlockId)
+                continue
+            }
+            guard modelsHolder.blocksMapping[alias.replacedBlockId] == nil,
+                  let restoredInfo = document.infoContainer.get(id: alias.replacedBlockId) else {
+                // Keep the alias: consuming it on a failed rebind would leave the live row
+                // stranded on the deleted id with no way back. The scan retries next pass.
+                continue
+            }
+            rowIdentityMap.removeAlias(newBlockId: alias.newBlockId)
+            model.rebindAfterIdentityUndo(to: restoredInfo)
+            cursorManager.removeFocusSubjectAlias(oldId: alias.replacedBlockId, newId: alias.newBlockId)
+            if cursorManager.blockFocus?.id == alias.newBlockId {
+                cursorManager.blockFocus = nil
+            }
+            reboundItems.append(.block(model))
+        }
+        guard reboundItems.isNotEmpty else { return }
+        modelsHolder.updateMappings()
+        // The restored text differs from the typed one, so this reconfigure intentionally
+        // rewrites the text storage — undo is expected to reset the typing session. The row
+        // itself never leaves the snapshot: the same cell keeps first responder throughout.
+        UIView.performWithoutAnimation {
+            viewInput?.reconfigure(items: reboundItems)
+        }
+    }
+
+    /// Fallback pipeline: under stableRowIdentityOnFork consumed fork swaps are normally
+    /// rebound in place (rebindIdentitySwaps) and never reach this path; it still serves
+    /// Enter-created rows, refused rebinds and the flag-off configuration.
+    ///
     /// The empty-block identity fork replaces the focused block's row with a fresh id. Deleting
     /// the first responder's cell in that apply briefly dismisses the keyboard, so while a focus
     /// handoff to the forked id is pending, the old row stays in the snapshot — the trailing

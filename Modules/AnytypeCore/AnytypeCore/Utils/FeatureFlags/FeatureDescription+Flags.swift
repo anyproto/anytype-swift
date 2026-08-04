@@ -65,6 +65,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
+    static let stableRowIdentityOnFork = FeatureDescription(
+        title: "Keep editor row identity across the empty-block fork and placeholder materialization",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "0.50.0"),
+        defaultValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(

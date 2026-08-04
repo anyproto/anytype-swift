@@ -3,8 +3,10 @@ import Factory
 
 struct BlockIdentitySwap: Equatable {
     let newBlockId: String
-    /// Id of the document block the new one replaced in place. Nil when the swapped-out row is
-    /// not a document block (virtual trailing placeholder — its row removal is session-managed).
+    /// Id of the row the new block replaced in place — a document block (empty-block fork) or
+    /// the virtual trailing placeholder's local id. Nil for the placeholder when
+    /// stableRowIdentityOnFork is off (its row removal is then session-managed) and for
+    /// Enter-created rows, which replace nothing.
     let oldBlockId: String?
     /// True for rows created by a keyboard Enter. Unlike identity swaps — which must always
     /// render unanimated — these look right with UIKit's native animated insert, except at the
@@ -26,9 +28,10 @@ protocol BlockIdentitySwapStorageProtocol: AnyObject {
 ///
 /// The collection view renders an id change as an animated delete+insert — the old row fades
 /// out below the new one — and an Enter-created row as a slow expansion over the row below.
-/// The editor consumes these ids to apply the snapshot without animation; a consumed swap's
-/// `oldBlockId` also lets the editor keep the old — still focused — row alive until the new
-/// cell takes the keyboard over.
+/// The editor consumes these ids to apply the snapshot without animation. A consumed swap's
+/// `oldBlockId` lets the editor rebind the old row to the new id in place
+/// (stableRowIdentityOnFork); in the fallback pipeline it instead keeps the old — still
+/// focused — row alive until the new cell takes the keyboard over.
 ///
 /// Ids are normally consumed on the very next update batch. `consumeSwaps` may never see one
 /// (the editor tears down before the create/replace event round-trips), so registration is
