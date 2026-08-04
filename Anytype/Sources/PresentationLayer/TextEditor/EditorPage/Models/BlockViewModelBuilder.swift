@@ -13,6 +13,12 @@ final class BlockViewModelBuilder {
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
     private let infoContainer: any InfoContainerProtocol
     private let modelsHolder: EditorMainItemModelsHolder
+    // Fork aliases for this page; consulted at build time so a stale id resolves to the
+    // block living on its row and a rebuilt model lands on the replaced row's identity.
+    private let rowIdentityMap: BlockRowIdentityMap
+    // Applies/reverts the empty-block identity fork on the live row; handed to every text
+    // block handler, which initiates the fork synchronously at the first keystroke.
+    private let forkRebinder: BlockForkRebinder
     private let blockCollectionController: EditorBlockCollectionController
     private let accessoryStateManager: any AccessoryViewStateManager
     private let cursorManager: EditorCursorManager
@@ -45,6 +51,8 @@ final class BlockViewModelBuilder {
         subjectsHolder: FocusSubjectsHolder,
         infoContainer: some InfoContainerProtocol,
         modelsHolder: EditorMainItemModelsHolder,
+        rowIdentityMap: BlockRowIdentityMap,
+        forkRebinder: BlockForkRebinder,
         blockCollectionController: EditorBlockCollectionController,
         accessoryStateManager: some AccessoryViewStateManager,
         cursorManager: EditorCursorManager,
@@ -63,6 +71,8 @@ final class BlockViewModelBuilder {
         self.subjectsHolder = subjectsHolder
         self.infoContainer = infoContainer
         self.modelsHolder = modelsHolder
+        self.rowIdentityMap = rowIdentityMap
+        self.forkRebinder = forkRebinder
         self.blockCollectionController = blockCollectionController
         self.accessoryStateManager = accessoryStateManager
         self.cursorManager = cursorManager
@@ -143,8 +153,8 @@ final class BlockViewModelBuilder {
         return .system(shimmeringViewModel)
     }
 
-    func buildVirtualTrailingItem(virtualId: String, session: some VirtualTrailingBlockSessionProtocol) -> EditorItem? {
-        guard let info = infoContainer.get(id: virtualId) else { return nil }
+    func buildVirtualTrailingItem(blockId: String, session: some VirtualTrailingBlockSessionProtocol) -> EditorItem? {
+        guard let info = infoContainer.get(id: blockId) else { return nil }
         let blockInformationProvider = BlockModelInfomationProvider(document: document, info: info)
         let viewModel = makeTextBlockViewModel(
             info: info,
@@ -221,6 +231,12 @@ final class BlockViewModelBuilder {
                 self?.output?.showLinkToObject(data: data)
             },
             virtualBlockSession: virtualBlockSession,
+            rebindForkedBlock: { [weak forkRebinder] oldInfo, replacement in
+                forkRebinder?.rebind(oldInfo: oldInfo, to: replacement) ?? false
+            },
+            rollbackForkedBlockRebind: { [weak forkRebinder] replacementId, oldId in
+                forkRebinder?.rollbackFailedFork(replacementId: replacementId, oldId: oldId)
+            },
             reconfigureLiveBlock: { [weak modelsHolder, weak blockCollectionController] blockId in
                 guard let model = modelsHolder?.blocksMapping[blockId] else { return }
                 blockCollectionController?.reconfigure(items: [.block(model)])
@@ -231,6 +247,7 @@ final class BlockViewModelBuilder {
             blockInformationProvider: blockInformationProvider,
             actionHandler: textBlockActionHandler,
             cursorManager: cursorManager,
+            rowIdentity: rowIdentityMap.rowId(for: info.id),
             collectionController: blockCollectionController
         )
 
@@ -247,10 +264,14 @@ final class BlockViewModelBuilder {
     }
     
     func build(blockId: String, ignoreCache: Bool) -> (any BlockViewModelProtocol)? {
+        // A just-forked block can still be requested under its replaced id (the replace
+        // event has not applied yet); the fork chain resolves any stale id to the block
+        // living on that row now — for the cache, the info lookup and the row identity.
+        let blockId = rowIdentityMap.latestId(for: blockId)
         if !ignoreCache, let model = modelsHolder.blocksMapping[blockId] {
             return model
         }
-        
+
         guard let info = infoContainer.get(id: blockId) else {
             return nil
         }

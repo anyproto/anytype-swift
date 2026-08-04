@@ -134,9 +134,13 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func replaceEmptyBlock(info: BlockInformation, middlewareString: MiddlewareString, focusAt: BlockFocusPosition?) async throws -> BlockInformation {
+    func makeEmptyBlockReplacement(info: BlockInformation, middlewareString: MiddlewareString) -> BlockInformation? {
         assertionFailure()
-        return info
+        return nil
+    }
+
+    func replaceEmptyBlock(replacement: BlockInformation, replacingBlockId: String) async throws {
+        assertionFailure()
     }
     
     var changeTextStub = false

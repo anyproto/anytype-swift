@@ -163,7 +163,9 @@ final class SimpleTableCellsBuilder {
             document: document,
             blockInformationProvider: BlockModelInfomationProvider(document: document, info: information),
             actionHandler: textBlockActionHandler,
-            cursorManager: cursorManager
+            cursorManager: cursorManager,
+            // Table cells never fork identity on first fill; their row is their block id.
+            rowIdentity: information.id
         )
         
         textBlocksMapping[information.id] = .block(textBlockViewModel)

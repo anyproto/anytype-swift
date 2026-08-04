@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 import Services
+import AnytypeCore
 
 
 final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, FirstResponder {
@@ -90,16 +91,16 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
     
     // MARK: - Apply configuration
     
-    /// Synchronous first-responder grab for the fork focus handoff. Runs right after the apply
-    /// that inserted this cell — outside the dequeue pass, where a synchronous
+    /// Synchronous first-responder grab for the Enter-created row focus handoff. Runs right
+    /// after the apply that inserted this cell — outside the dequeue pass, where a synchronous
     /// becomeFirstResponder is unsafe (see applyNewConfiguration).
     func takeFocus(at position: BlockFocusPosition) {
         textView.textView.setFocus(position)
     }
 
     private func applyNewConfiguration(configuration: TextBlockContentConfiguration) {
-        textView.textView.textStorage.setAttributedString(configuration.attributedString)
-                
+        applyTextStorage(configuration.attributedString)
+
         textBlockLeadingView.update(blockId: configuration.blockId, style: TextBlockLeadingStyle(with: configuration))
     
         let restrictions = BlockRestrictionsBuilder.build(textContentType: configuration.content.contentType)
@@ -136,7 +137,62 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
             }
         }
     }
-    
+
+    /// Applies `incoming` to the text storage without needlessly rebuilding the keyboard's
+    /// input session. Reconfiguring the cell being typed in (the fork-time identity-rebind
+    /// refresh, a remote echo of the local text) with `setAttributedString` resets
+    /// autocorrect's word buffer even when nothing changed, so:
+    /// - identical characters, identical attributes: no write at all;
+    /// - identical characters, different attributes: attributes are applied in place — an
+    ///   attribute edit does not touch the word buffer. Characters are compared by `string`,
+    ///   not `isEqual(to:)`: UIKit decorates live text with private attributes (e.g.
+    ///   NSOriginalFont on font substitution), and a spuriously unequal comparison would
+    ///   silently reinstate the session reset;
+    /// - different characters: full write — except during an IME composition when `incoming`
+    ///   is a stale prefix of the live text (the view is legitimately ahead by the uncommitted
+    ///   marked text; the commit syncs view → model, so nothing is lost by skipping). A
+    ///   genuinely different non-empty text (undo, a remote edit) still takes the write:
+    ///   losing the composition is the lesser damage.
+    private func applyTextStorage(_ incoming: NSAttributedString) {
+        let liveTextView = textView.textView
+        guard liveTextView.isFirstResponder else {
+            liveTextView.textStorage.setAttributedString(incoming)
+            return
+        }
+        let liveText: NSAttributedString = liveTextView.attributedText ?? NSAttributedString()
+        if liveTextView.markedTextRange != nil {
+            guard incoming.string.isNotEmpty, liveText.string.hasPrefix(incoming.string) else {
+                setAttributedTextKeepingCaret(incoming, in: liveTextView)
+                return
+            }
+            return
+        }
+        guard liveText.string == incoming.string else {
+            setAttributedTextKeepingCaret(incoming, in: liveTextView)
+            return
+        }
+        guard !liveText.isEqual(to: incoming) else { return }
+        let storage = liveTextView.textStorage
+        storage.beginEditing()
+        incoming.enumerateAttributes(in: NSRange(location: 0, length: incoming.length), options: []) { attributes, range, _ in
+            storage.setAttributes(attributes, range: range)
+        }
+        storage.endEditing()
+    }
+
+    /// Replacing the whole storage collapses the selection to the start of the block. While the
+    /// view is first responder that reads as the caret jumping to the beginning — a paste is
+    /// the common case: its response places the caret after the pasted text, then the middleware
+    /// echo reconfigures the cell and the write drops it. Reinstating the offset (clamped to the
+    /// new text) keeps the caret where the edit that caused the write left it.
+    private func setAttributedTextKeepingCaret(_ incoming: NSAttributedString, in textView: UITextView) {
+        let caret = textView.selectedRange
+        textView.textStorage.setAttributedString(incoming)
+        let location = min(caret.location, incoming.length)
+        let length = min(caret.length, incoming.length - location)
+        textView.selectedRange = NSRange(location: location, length: length)
+    }
+
     private func updateAllConstraint(configuration: TextBlockContentConfiguration) {
         let contentInset = TextBlockLayout.contentInset(textBlockStyle: configuration.content.contentType)
         

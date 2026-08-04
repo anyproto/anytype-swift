@@ -21,9 +21,17 @@ public extension BlockFocusPosition {
             return .init(location: text.length, length: 0)
 
         case let .at(range):
+            guard range.location != NSNotFound else { return .init(location: 0, length: 0) }
             let textRange = NSRange(location: 0, length: text.length + 1)
-            let validSelectedRange = range.intersection(textRange)
-            return validSelectedRange ?? .init(location: 0, length: 0)
+            if let validSelectedRange = range.intersection(textRange) {
+                return validSelectedRange
+            }
+            // A position entirely past the end means the text it was computed for has not been
+            // applied yet — a paste response reaches the text view before the middleware echo
+            // carrying the pasted characters. Clamping to the end keeps the intent; answering
+            // "put the caret at offset N" with offset 0 reads as the caret jumping to the top
+            // of the block.
+            return .init(location: text.length, length: 0)
         }
     }
 }
