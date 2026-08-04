@@ -25,8 +25,8 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     
     @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
-    @Injected(\.blockIdentitySwapStorage)
-    private var blockIdentitySwapStorage: any BlockIdentitySwapStorageProtocol
+    @Injected(\.keyboardInsertedBlocksStorage)
+    private var keyboardInsertedBlocksStorage: any KeyboardInsertedBlocksStorageProtocol
 
 
     init(
@@ -217,7 +217,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     /// that reads as a jump — the row below shows through and is then slowly pushed away — so
     /// Enter-created rows must arrive on screen instantly.
     private func registerUnanimatedArrival(_ blockId: String) {
-        blockIdentitySwapStorage.register(newBlockId: blockId, replacingBlockId: nil, keyboardInsert: true)
+        keyboardInsertedBlocksStorage.register(blockId: blockId)
     }
     
     private func logChangeBlockTextStyle() {

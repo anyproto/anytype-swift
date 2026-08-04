@@ -111,8 +111,9 @@ final class BlockService: BlockServiceProtocol {
         }).invoke()
     }
 
-    // BlockReplace: atomic remove(old) + create(new) in one change. The returned id is fresh —
-    // the request block carries no id.
+    // BlockReplace: atomic remove(old) + create(new) in one change. The middleware honors a
+    // client-supplied id on the request block and generates one only when it is empty; the
+    // response echoes the created id either way.
     public func replaceBlock(contextId: String, blockId: String, info: BlockInformation) async throws -> String {
         guard let block = BlockInformationConverter.convert(information: info) else {
             anytypeAssertionFailure("replaceBlockIsNotParsed")

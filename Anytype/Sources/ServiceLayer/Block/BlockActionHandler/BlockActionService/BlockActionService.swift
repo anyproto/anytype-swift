@@ -22,8 +22,8 @@ final class BlockActionService: BlockActionServiceProtocol {
     private var fileService: any FileActionsServiceProtocol
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.blockIdentitySwapStorage)
-    private var blockIdentitySwapStorage: any BlockIdentitySwapStorageProtocol
+    @Injected(\.keyboardInsertedBlocksStorage)
+    private var keyboardInsertedBlocksStorage: any KeyboardInsertedBlocksStorageProtocol
 
     private weak var modelsHolder: EditorMainItemModelsHolder?
 
@@ -54,15 +54,9 @@ final class BlockActionService: BlockActionServiceProtocol {
         return blockId
     }
 
-    func replaceBlock(info: BlockInformation, blockId: String, focusAt: BlockFocusPosition?) async throws -> String {
+    func replaceBlock(info: BlockInformation, blockId: String) async throws -> String {
         let newBlockId = try await blockService.replaceBlock(contextId: documentId, blockId: blockId, info: info)
         SessionCreatedBlockIdsStorage.shared.register(newBlockId)
-        blockIdentitySwapStorage.register(newBlockId: newBlockId, replacingBlockId: blockId, keyboardInsert: false)
-
-        if let focusAt {
-            cursorManager.blockFocus = BlockFocus(id: newBlockId, position: focusAt)
-        }
-
         return newBlockId
     }
 
@@ -89,10 +83,10 @@ final class BlockActionService: BlockActionServiceProtocol {
         SessionCreatedBlockIdsStorage.shared.register(blockId)
 
         // The events bunch below renders the created row while this task is suspended, so the
-        // unanimated-arrival registration and the focus intent must both be in place first —
+        // keyboard-insert registration and the focus intent must both be in place first —
         // the editor then shows the row, moves the caret into it and scrolls it visible in one
         // render commit instead of three visible steps.
-        blockIdentitySwapStorage.register(newBlockId: blockId, replacingBlockId: nil, keyboardInsert: true)
+        keyboardInsertedBlocksStorage.register(blockId: blockId)
         cursorManager.focus(at: blockId, position: .beginning)
         cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
 
