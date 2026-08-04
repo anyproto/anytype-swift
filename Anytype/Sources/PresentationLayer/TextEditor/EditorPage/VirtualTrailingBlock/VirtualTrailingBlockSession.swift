@@ -13,18 +13,20 @@ struct VirtualTrailingBlockMaterialization {
 /// One activation of the trailing "tap to type" placeholder.
 ///
 /// The placeholder renders the standard text block UI over a locally fabricated
-/// `BlockInformation` that never reaches the middleware. The block becomes real only on first
-/// input, when `materialize` sends a single BlockCreate already carrying that input.
+/// `BlockInformation` carrying a client-minted id — the same id the block keeps once it is
+/// real. The block reaches the middleware only on first input, when `materialize` sends a
+/// single BlockCreate already carrying that input and the minted id. Because the id never
+/// changes, the row's identity, its cell, and the keyboard input session all survive
+/// materialization untouched.
 @MainActor
 protocol VirtualTrailingBlockSessionProtocol: AnyObject {
-    var virtualId: String { get }
+    var blockId: String { get }
     var isMaterialized: Bool { get }
     var isMaterializing: Bool { get }
 
-    func materialize(carrying content: BlockText, focusAt: BlockFocusPosition?) async throws -> VirtualTrailingBlockMaterialization
+    func materialize(carrying content: BlockText) async throws -> VirtualTrailingBlockMaterialization
     func dismiss()
     func dismissAndFocusPreviousBlock()
-    func completeFocusHandoff()
 }
 
 @MainActor
@@ -35,40 +37,40 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
         case materialized(BlockInformation)
     }
 
-    let virtualId: String
+    /// The block's final, client-minted id — identical before and after materialization.
+    let blockId: String
 
     private let document: any BaseDocumentProtocol
     private let cursorManager: EditorCursorManager
-    private let modelsHolder: EditorMainItemModelsHolder
-    private let collectionController: EditorBlockCollectionController
-    private let onFinish: () -> Void
+    /// The placeholder was dismissed without a block ever being created.
+    private let onDismiss: () -> Void
+    /// Backspace dismissal: the row goes and the caret must continue in the previous text
+    /// block. The editor moves first responder there *before* removing the row — removing
+    /// the focused cell first briefly dismisses the keyboard.
+    private let onDismissAndFocusPreviousBlock: () -> Void
+    /// A BlockCreate attempt failed; the session is `.active` again. The editor decides
+    /// whether the row stays (still editing — the next input retries) or goes.
+    private let onMaterializationFailed: () -> Void
 
     @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
-    @Injected(\.blockIdentitySwapStorage)
-    private var blockIdentitySwapStorage: any BlockIdentitySwapStorageProtocol
 
     private var state = State.active
-    private var isInvalidated = false
-    // True while the focused placeholder cell must stay alive: removing it before the created
-    // block's text view takes first responder briefly dismisses the keyboard (the accessory
-    // bar visibly slides down). Cleared when the placeholder's text view resigns.
-    private(set) var awaitingFocusHandoff = false
 
     init(
-        virtualId: String,
+        blockId: String,
         document: some BaseDocumentProtocol,
         cursorManager: EditorCursorManager,
-        modelsHolder: EditorMainItemModelsHolder,
-        collectionController: EditorBlockCollectionController,
-        onFinish: @escaping () -> Void
+        onDismiss: @escaping () -> Void,
+        onDismissAndFocusPreviousBlock: @escaping () -> Void,
+        onMaterializationFailed: @escaping () -> Void
     ) {
-        self.virtualId = virtualId
+        self.blockId = blockId
         self.document = document
         self.cursorManager = cursorManager
-        self.modelsHolder = modelsHolder
-        self.collectionController = collectionController
-        self.onFinish = onFinish
+        self.onDismiss = onDismiss
+        self.onDismissAndFocusPreviousBlock = onDismissAndFocusPreviousBlock
+        self.onMaterializationFailed = onMaterializationFailed
     }
 
     var isMaterialized: Bool {
@@ -81,32 +83,16 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
         return false
     }
 
-    var materializedBlockId: String? {
-        if case let .materialized(info) = state { return info.id }
-        return nil
-    }
-
     /// Called when the placeholder is torn down externally (e.g. the editor leaves editing
     /// mode). An in-flight creation still completes — the typed content must not be lost —
-    /// but it must no longer grab focus.
+    /// but a pending focus for the placeholder must not fire afterwards.
     func invalidate() {
-        isInvalidated = true
-        awaitingFocusHandoff = false
-        if let materializedBlockId, cursorManager.blockFocus?.id == materializedBlockId {
+        if cursorManager.blockFocus?.id == blockId {
             cursorManager.blockFocus = nil
         }
     }
 
-    /// Called when the placeholder's text view resigned first responder after materialization —
-    /// the created block's cell has taken over and the placeholder can be removed without
-    /// touching the keyboard.
-    func completeFocusHandoff() {
-        guard case .materialized = state, awaitingFocusHandoff else { return }
-        awaitingFocusHandoff = false
-        onFinish()
-    }
-
-    func materialize(carrying content: BlockText, focusAt: BlockFocusPosition?) async throws -> VirtualTrailingBlockMaterialization {
+    func materialize(carrying content: BlockText) async throws -> VirtualTrailingBlockMaterialization {
         switch state {
         case let .materialized(info):
             return VirtualTrailingBlockMaterialization(info: info, contentCarried: false)
@@ -118,15 +104,13 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
             do {
                 let info = try await task.value
                 state = .materialized(info)
-                if !isInvalidated {
-                    awaitingFocusHandoff = focusAt.isNotNil
-                    applyFocus(focusAt, blockId: info.id)
-                }
-                onFinish()
+                // Success needs no callback: the row already carries the created block's id
+                // and the editor drops the session bookkeeping when the event lands.
                 return VirtualTrailingBlockMaterialization(info: info, contentCarried: true)
             } catch {
                 state = .active
                 anytypeAssertionFailure("Trailing block materialization failed", info: ["error": error.localizedDescription])
+                onMaterializationFailed()
                 throw error
             }
         }
@@ -134,33 +118,33 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
 
     func dismiss() {
         guard case .active = state else { return }
-        onFinish()
+        onDismiss()
     }
 
     func dismissAndFocusPreviousBlock() {
         guard case .active = state else { return }
-        let previousModel = modelsHolder.findModel(beforeBlockId: virtualId, acceptingTypes: BlockContentType.allTextTypes)
-        onFinish()
-        previousModel?.set(focus: .end)
+        onDismissAndFocusPreviousBlock()
     }
 
     private func createBlock(carrying content: BlockText) async throws -> BlockInformation {
-        let info = BlockInformation.empty(content: .text(content))
+        let info = BlockInformation.empty(id: blockId, content: .text(content))
         AnytypeAnalytics.instance().logCreateBlock(type: info.content.type, spaceId: document.spaceId)
-        let blockId = try await blockService.add(
+        let createdId = try await blockService.add(
             contextId: document.objectId,
             targetId: "",
             info: info,
             position: .bottom
         )
-        SessionCreatedBlockIdsStorage.shared.register(blockId)
-        blockIdentitySwapStorage.register(newBlockId: blockId, replacingBlockId: nil, keyboardInsert: false)
-        if let containerInfo = document.infoContainer.get(id: blockId),
-           containerInfo.configurationData.parentId.isNotNil {
-            return containerInfo
+        if createdId != blockId {
+            anytypeAssertionFailure(
+                "BlockCreate did not echo the client-minted id",
+                info: ["minted": blockId, "created": createdId]
+            )
         }
+        SessionCreatedBlockIdsStorage.shared.register(blockId)
         // The creation event may not be applied yet when the response returns; downstream
-        // consumers (keyboard handler) need at least id and parentId.
+        // consumers (keyboard handler, the handler's own info) need id, parentId and the
+        // carried content.
         return BlockInformation(
             id: blockId,
             content: .text(content),
@@ -170,15 +154,5 @@ final class VirtualTrailingBlockSession: VirtualTrailingBlockSessionProtocol {
             configurationData: BlockInformationMetadata(parentId: document.objectId, backgroundColor: .default),
             fields: [:]
         )
-    }
-
-    private func applyFocus(_ position: BlockFocusPosition?, blockId: String) {
-        guard let position else { return }
-        cursorManager.blockFocus = BlockFocus(id: blockId, position: position)
-        // If the created block's cell is already built, force a reconfigure so the pending
-        // focus is consumed now instead of on some later unrelated reconfigure.
-        if let model = modelsHolder.blocksMapping[blockId] {
-            collectionController.reconfigure(items: [.block(model)])
-        }
     }
 }

@@ -32,30 +32,24 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private var participantStorage: any ParticipantsStorageProtocol
     @Injected(\.publishedUrlBuilder)
     private var publishedUrlBuilder: any PublishedUrlBuilderProtocol
-    @Injected(\.blockIdentitySwapStorage)
-    private var blockIdentitySwapStorage: any BlockIdentitySwapStorageProtocol
-    
-    
+    @Injected(\.keyboardInsertedBlocksStorage)
+    private var keyboardInsertedBlocksStorage: any KeyboardInsertedBlocksStorageProtocol
+
+
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
+    // Rebinds rows whose forked id was undone; the fork itself is applied synchronously at
+    // the keystroke by the text block handlers (see BlockForkRebinder).
+    private let forkRebinder: BlockForkRebinder
     private let headerModel: ObjectHeaderViewModel
     private let editorPageTemplatesHandler: any EditorPageTemplatesHandlerProtocol
     private let configuration: EditorPageViewModelConfiguration
-    
+
     private weak var output: (any EditorPageModuleOutput)?
     lazy var subscriptions = [AnyCancellable]()
     private var didScrollToInitialBlock = false
     private var publishState: PublishState?
     private var trailingBlockPlaceholder: (session: VirtualTrailingBlockSession, item: EditorItem)?
-    // Focus handoffs for just-consumed arrivals (empty-block identity forks, Enter-created
-    // rows), completed synchronously right after the apply; fork entries additionally keep
-    // their old row in the snapshot meanwhile. See finishArrivalFocusHandoffs.
-    private var pendingFocusHandoffs = [ArrivalFocusHandoff]()
-
-    private struct ArrivalFocusHandoff {
-        let swap: BlockIdentitySwap
-        let focusPosition: BlockFocusPosition
-    }
 
     @Published var bottomPanelHidden: Bool = false
     @Published var bottomPanelHiddenAnimated: Bool = true
@@ -70,6 +64,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         router: some EditorRouterProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blockBuilder: BlockViewModelBuilder,
+        forkRebinder: BlockForkRebinder,
         actionHandler: BlockActionHandler,
         headerModel: ObjectHeaderViewModel,
         blocksStateManager: some EditorPageBlocksStateManagerProtocol,
@@ -83,6 +78,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         self.router = router
         self.modelsHolder = modelsHolder
         self.blockBuilder = blockBuilder
+        self.forkRebinder = forkRebinder
         self.headerModel = headerModel
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
@@ -118,9 +114,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         blocksStateManager.editorEditingStatePublisher.receiveOnMain().sink { [weak self] state in
             guard let self, let trailingBlockPlaceholder else { return }
             if case .editing = state { return }
-            // An in-flight creation must not grab focus once the editor left editing mode.
+            // A pending placeholder focus must not fire once the editor left editing mode.
+            // An unmaterialized placeholder disappears; a materializing or materialized one
+            // is (about to be) a real block, so its row stays.
             trailingBlockPlaceholder.session.invalidate()
-            deactivateTrailingBlockPlaceholder(waitForMaterializedBlock: false)
+            if !trailingBlockPlaceholder.session.isMaterialized, !trailingBlockPlaceholder.session.isMaterializing {
+                removeTrailingBlockPlaceholder()
+            }
         }.store(in: &subscriptions)
         
         headerModel.$header.receiveOnMain().sink { [weak self] value in
@@ -161,26 +161,28 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     }
     
     private func handleUpdate(ids: [String]) {
-        // An identity swap (virtual placeholder → real block, empty-block fork) must not render
-        // as an animated delete+insert of the same visible content. An Enter-created row keeps
-        // UIKit's native animated insert and caret move except at the bottom edge, where the
-        // insert competes with the caret-visibility scroll and renders as a jump — only there
-        // the unanimated one-commit pipeline takes over.
-        let identitySwaps = blockIdentitySwapStorage.consumeSwaps(in: ids)
-        let needsBottomHandling = identitySwaps.contains(where: \.isKeyboardInsert) && viewInput?.isFirstResponderNearBottom() == true
-        let activeSwaps = identitySwaps.filter { !$0.isKeyboardInsert || needsBottomHandling }
+        let idsSet = Set(ids)
+        // Rows whose forked id was undone rebind back to the restored block before the build
+        // below consults the fork chain.
+        forkRebinder.rebindUndoneForks(presentIds: idsSet)
+        // An Enter-created row keeps UIKit's native animated insert and caret move except at
+        // the bottom edge, where the insert competes with the caret-visibility scroll and
+        // renders as a jump — only there the unanimated one-commit pipeline takes over.
+        let keyboardInsertedIds = keyboardInsertedBlocksStorage.consume(in: ids)
+        let needsBottomHandling = !keyboardInsertedIds.isEmpty && viewInput?.isFirstResponderNearBottom() == true
+        // The synchronous focus handoff pairs with the unanimated apply: only at the bottom
+        // edge. Elsewhere the row's deferred initial focus moves the caret, and grabbing
+        // first responder mid animated apply would fight the insert animation.
+        let enterFocusHandoffs = needsBottomHandling ? enterRowFocusHandoffs(for: keyboardInsertedIds) : []
         var blocksViewModels = blockBuilder.buildEditorItems(infos: ids, ignoreCache: false)
-        retainStaleForkRows(newSwaps: activeSwaps, in: &blocksViewModels)
         if let trailingBlockPlaceholder {
-            if let materializedId = trailingBlockPlaceholder.session.materializedBlockId,
-               ids.contains(materializedId),
-               !trailingBlockPlaceholder.session.awaitingFocusHandoff {
-                cleanupTrailingBlockPlaceholder()
+            if idsSet.contains(trailingBlockPlaceholder.session.blockId) {
+                // The created block reached the document under the same id the placeholder
+                // row already carries: the build above reused the placeholder's model, so
+                // the row — and its focused cell — continue seamlessly. Only the session
+                // bookkeeping goes; the block's info is real now and stays.
+                self.trailingBlockPlaceholder = nil
             } else {
-                // While a focus handoff is pending, the focused placeholder cell must survive
-                // the apply that inserts the created block: deleting the first responder's
-                // cell briefly dismisses the keyboard (the accessory bar slides down). The
-                // placeholder is removed when its text view resigns.
                 blocksViewModels.append(trailingBlockPlaceholder.item)
             }
         }
@@ -204,90 +206,32 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             return
         }
 
-        viewInput?.update(changes: difference, allModels: modelsHolder.items, isRealData: true, animated: activeSwaps.isEmpty) { [weak self] in
+        viewInput?.update(changes: difference, allModels: modelsHolder.items, isRealData: true, animated: !needsBottomHandling) { [weak self] in
             guard let self else { return }
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
             initialScrollToBlockIfNeeded()
-            removeStaleForkRowsAfterFocusHandoff()
         }
-        finishArrivalFocusHandoffs()
+        finishEnterRowFocusHandoffs(enterFocusHandoffs)
     }
 
-    /// The empty-block identity fork replaces the focused block's row with a fresh id. Deleting
-    /// the first responder's cell in that apply briefly dismisses the keyboard, so while a focus
-    /// handoff to the forked id is pending, the old row stays in the snapshot — the trailing
-    /// placeholder's awaitingFocusHandoff trick. finishArrivalFocusHandoffs completes the swap
-    /// right after the apply, within the same render commit.
-    private func retainStaleForkRows(newSwaps: [BlockIdentitySwap], in items: inout [EditorItem]) {
-        // A pending focus for the new id means the arrival wants the keyboard: the old block's
-        // cell holds it (fork), or the caret is about to move into the created row (Enter).
-        if let blockFocus = cursorManager.blockFocus {
-            pendingFocusHandoffs += newSwaps
-                .filter { blockFocus.id == $0.newBlockId }
-                .map { ArrivalFocusHandoff(swap: $0, focusPosition: blockFocus.position) }
-        }
-        guard pendingFocusHandoffs.isNotEmpty else { return }
-        pendingFocusHandoffs.removeAll { handoff in
-            // Only fork rows have an old row to keep alive; Enter-created rows just wait for
-            // their synchronous focus in finishArrivalFocusHandoffs.
-            guard let oldBlockId = handoff.swap.oldBlockId else { return false }
-            guard let oldModel = modelsHolder.blocksMapping[oldBlockId],
-                  items.firstIndex(blockId: oldBlockId) == nil,
-                  let newIndex = items.firstIndex(blockId: handoff.swap.newBlockId) else { return true }
-            // The old row keeps its position; the new block's row slides into it on removal.
-            items.insert(.block(oldModel), at: newIndex)
-            return false
-        }
+    /// A pending focus for a just-arrived keyboard-inserted id means the caret is about to
+    /// move into the created row.
+    private func enterRowFocusHandoffs(for arrivedIds: [String]) -> [(blockId: String, position: BlockFocusPosition)] {
+        guard let blockFocus = cursorManager.blockFocus else { return [] }
+        return arrivedIds.filter { $0 == blockFocus.id }.map { ($0, blockFocus.position) }
     }
 
-    /// Runs right after the unanimated snapshot apply that inserted the arrived cells — the
-    /// apply is synchronous on the main queue, so the new cells are already on screen but
-    /// nothing has been committed to the render server yet. Moving first responder into the new
-    /// cell (with its caret scrolled visible) and dropping a fork's stale row here keeps the
-    /// whole arrival inside one render commit: no transient two-row layout, no keyboard dip,
-    /// and no separate insert-then-scroll step.
-    private func finishArrivalFocusHandoffs() {
-        guard pendingFocusHandoffs.isNotEmpty, let viewInput else { return }
-        var removedIds = Set<String>()
-        var focusedIds = [String]()
-        pendingFocusHandoffs.removeAll { handoff in
-            guard viewInput.takeFocus(blockId: handoff.swap.newBlockId, position: handoff.focusPosition) else {
-                // Cell not on screen: the deferred initial focus covers Enter rows; fork rows
-                // stay pending for removeStaleForkRowsAfterFocusHandoff.
-                return handoff.swap.oldBlockId == nil
-            }
-            handoff.swap.oldBlockId.map { removedIds.insert($0) }
-            focusedIds.append(handoff.swap.newBlockId)
-            return true
-        }
-        if removedIds.isNotEmpty {
-            let items = modelsHolder.items.filter { !removedIds.contains($0.blockId) }
-            if items.count != modelsHolder.items.count, document.isOpened {
-                modelsHolder.items = items
-                viewInput.update(changes: nil, allModels: items, isRealData: true, animated: false, completion: {})
-            }
-        }
-        // Reveal only after the stale fork rows are gone: measuring the focused cell against a
-        // layout still inflated by a retained duplicate row scrolls one row too far.
-        focusedIds.forEach { viewInput.revealBlock(blockId: $0) }
-    }
-
-    /// Fallback for fork handoffs finishArrivalFocusHandoffs could not complete synchronously
-    /// (the new cell was not on screen). Runs in the apply's completion: the new cell's deferred
-    /// initial focus was enqueued on the main queue during that apply, so after one more hop the
-    /// old text view has already handed first responder over and its row can be deleted without
-    /// touching the keyboard.
-    private func removeStaleForkRowsAfterFocusHandoff() {
-        guard pendingFocusHandoffs.isNotEmpty else { return }
-        DispatchQueue.main.async { [weak self] in
-            guard let self, pendingFocusHandoffs.isNotEmpty else { return }
-            let staleIds = Set(pendingFocusHandoffs.compactMap(\.swap.oldBlockId))
-            pendingFocusHandoffs.removeAll()
-            let items = modelsHolder.items.filter { !staleIds.contains($0.blockId) }
-            guard items.count != modelsHolder.items.count else { return }
-            modelsHolder.items = items
-            guard document.isOpened else { return }
-            viewInput?.update(changes: nil, allModels: items, isRealData: true, animated: false, completion: {})
+    /// Runs right after the snapshot apply that inserted the Enter-created cells — the apply
+    /// is synchronous on the main queue, so the new cells are already on screen but nothing
+    /// has been committed to the render server yet. Moving first responder into the new cell
+    /// (with its caret scrolled visible) here keeps the arrival inside one render commit: no
+    /// keyboard dip and no separate insert-then-scroll step.
+    private func finishEnterRowFocusHandoffs(_ handoffs: [(blockId: String, position: BlockFocusPosition)]) {
+        guard !handoffs.isEmpty, let viewInput else { return }
+        for handoff in handoffs {
+            // Cell not on screen: the deferred initial focus covers it.
+            guard viewInput.takeFocus(blockId: handoff.blockId, position: handoff.position) else { continue }
+            viewInput.revealBlock(blockId: handoff.blockId)
         }
     }
     
@@ -368,7 +312,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         guard isBelowContent, document.permissions.canEditBlocks else { return }
 
         if let trailingBlockPlaceholder {
-            cursorManager.focus(at: trailingBlockPlaceholder.session.virtualId, position: .beginning)
+            cursorManager.focus(at: trailingBlockPlaceholder.session.blockId, position: .beginning)
             return
         }
 
@@ -394,9 +338,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     }
 
     private func activateTrailingBlockPlaceholder() {
-        let virtualId = TrailingBlockPlaceholderConstants.idPrefix + UUID().uuidString
+        // The placeholder is born with the block's final id: materialization sends this id
+        // in the BlockCreate request, so becoming real never changes the row's identity —
+        // the focused cell and its keyboard input session continue untouched.
+        let blockId = BlockIdGenerator.mint()
         let info = BlockInformation(
-            id: virtualId,
+            id: blockId,
             content: .text(.empty(contentType: .text)),
             backgroundColor: nil,
             horizontalAlignment: .left,
@@ -407,65 +354,84 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         document.infoContainer.add(info)
 
         let session = VirtualTrailingBlockSession(
-            virtualId: virtualId,
+            blockId: blockId,
             document: document,
             cursorManager: cursorManager,
-            modelsHolder: modelsHolder,
-            collectionController: EditorBlockCollectionController(viewInput: viewInput),
-            onFinish: { [weak self] in
-                self?.deactivateTrailingBlockPlaceholder()
+            onDismiss: { [weak self] in
+                self?.removeTrailingBlockPlaceholder()
+            },
+            onDismissAndFocusPreviousBlock: { [weak self] in
+                self?.removeTrailingBlockPlaceholderFocusingPreviousBlock()
+            },
+            onMaterializationFailed: { [weak self] in
+                self?.trailingBlockPlaceholderMaterializationDidFail()
             }
         )
 
-        guard let item = blockBuilder.buildVirtualTrailingItem(virtualId: virtualId, session: session) else {
-            document.infoContainer.remove(id: virtualId)
+        guard let item = blockBuilder.buildVirtualTrailingItem(blockId: blockId, session: session) else {
+            document.infoContainer.remove(id: blockId)
             return
         }
 
         trailingBlockPlaceholder = (session, item)
-        cursorManager.blockFocus = BlockFocus(id: virtualId, position: .beginning)
-        refreshTrailingBlockPlaceholder()
+        cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
+        appendTrailingBlockPlaceholderItem()
     }
 
-    private func deactivateTrailingBlockPlaceholder(waitForMaterializedBlock: Bool = true) {
-        guard let trailingBlockPlaceholder else { return }
-        if waitForMaterializedBlock {
-            // While the placeholder's text view is still first responder, removing its cell
-            // briefly dismisses the keyboard; completeFocusHandoff finishes the removal.
-            if trailingBlockPlaceholder.session.awaitingFocusHandoff { return }
-            if let materializedId = trailingBlockPlaceholder.session.materializedBlockId,
-               modelsHolder.items.firstIndex(blockId: materializedId) == nil {
-                // The create event hasn't produced the real item yet. handleUpdate swaps the
-                // placeholder for it in one snapshot; removing it now would tear down the
-                // focused text view before the real cell can take over.
-                return
-            }
-        }
-        cleanupTrailingBlockPlaceholder()
-        refreshTrailingBlockPlaceholder()
+    /// A BlockCreate attempt failed and the session is active again. While the editor is
+    /// still editing the row stays — the next input retries the create, and removing it
+    /// would throw away the typed text. Once editing ended nothing can retry, so the
+    /// placeholder must not linger as a ghost row over a block that was never created.
+    private func trailingBlockPlaceholderMaterializationDidFail() {
+        guard trailingBlockPlaceholder != nil else { return }
+        if case .editing = blocksStateManager.editingState { return }
+        removeTrailingBlockPlaceholder()
     }
 
-    private func cleanupTrailingBlockPlaceholder() {
+    /// Removes a never-materialized placeholder: its fabricated info, its pending focus and
+    /// its row.
+    private func removeTrailingBlockPlaceholder() {
         guard let trailingBlockPlaceholder else { return }
         self.trailingBlockPlaceholder = nil
-        document.infoContainer.remove(id: trailingBlockPlaceholder.session.virtualId)
-        if cursorManager.blockFocus?.id == trailingBlockPlaceholder.session.virtualId {
+        let blockId = trailingBlockPlaceholder.session.blockId
+        document.infoContainer.remove(id: blockId)
+        if cursorManager.blockFocus?.id == blockId {
             cursorManager.blockFocus = nil
+        }
+        let items = modelsHolder.items.filter { $0.blockId != blockId }
+        guard items.count != modelsHolder.items.count else { return }
+        modelsHolder.items = items
+        guard document.isOpened else { return }
+        // The placeholder is a blank line; removing it must be instant.
+        viewInput?.update(changes: nil, allModels: items, isRealData: true, animated: false, completion: { })
+    }
+
+    /// Backspace dismissal: the previous text block takes first responder *before* the
+    /// placeholder row leaves the snapshot — removing the focused cell first briefly
+    /// dismisses the keyboard (the invariant from IOS-6594: no row holding first responder
+    /// is removed unless a replacement has already taken it).
+    private func removeTrailingBlockPlaceholderFocusingPreviousBlock() {
+        guard let trailingBlockPlaceholder else { return }
+        let previousModel = modelsHolder.findModel(
+            beforeBlockId: trailingBlockPlaceholder.session.blockId,
+            acceptingTypes: BlockContentType.allTextTypes
+        )
+        let focusTaken = previousModel.map { viewInput?.takeFocus(blockId: $0.blockId, position: .end) == true } ?? false
+        removeTrailingBlockPlaceholder()
+        if let previousModel, !focusTaken {
+            // Cell not on screen: fall back to the deferred focus path; the keyboard blips,
+            // but the caret still lands in the right block.
+            previousModel.set(focus: .end)
         }
     }
 
-    private func refreshTrailingBlockPlaceholder() {
-        var items = modelsHolder.items.filter {
-            !$0.blockId.hasPrefix(TrailingBlockPlaceholderConstants.idPrefix)
-        }
-        if let trailingBlockPlaceholder {
-            items.append(trailingBlockPlaceholder.item)
-        }
-
+    private func appendTrailingBlockPlaceholderItem() {
+        guard let trailingBlockPlaceholder else { return }
+        let items = modelsHolder.items + [trailingBlockPlaceholder.item]
         modelsHolder.items = items
         guard document.isOpened else { return }
-        // The placeholder is a blank line; showing or removing it must be instant — animating
-        // its removal after materialization would double-render the just-created block.
+        // Showing the placeholder must be instant — it renders as the caret landing on a
+        // blank line, not as a row animating in.
         viewInput?.update(changes: nil, allModels: items, isRealData: true, animated: false, completion: { })
     }
     
@@ -591,10 +557,6 @@ extension EditorPageViewModel {
     func cursorFocus(blockId: String) {
         cursorManager.restoreLastFocus(at: blockId)
     }
-}
-
-private enum TrailingBlockPlaceholderConstants {
-    static let idPrefix = "virtual-trailing-block-"
 }
 
 // MARK: - Debug

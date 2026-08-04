@@ -89,7 +89,10 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol, 
         self.responderScrollViewHelper = responderScrollViewHelper
         self.openLinkToObject = openLinkToObject
     }
-    
+
+    // Table cells never fork identity on first fill.
+    func resetEmptyBlockFork() { }
+
     func textBlockActions() -> TextBlockContentConfiguration.Actions {
         TextBlockContentConfiguration.Actions(
             shouldPaste: { [weak self] range, textView in

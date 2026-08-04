@@ -13,7 +13,7 @@ protocol BlockActionServiceProtocol {
     func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) async throws -> String
     @discardableResult
     func addChild(info: BlockInformation, parentId: String) async throws -> String
-    func replaceBlock(info: BlockInformation, blockId: String, focusAt: BlockFocusPosition?) async throws -> String
+    func replaceBlock(info: BlockInformation, blockId: String) async throws -> String
     func delete(blockIds: [String])
     func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> String
     func setAndSplit(
