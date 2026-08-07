@@ -46,10 +46,6 @@ public extension FeatureFlags {
         value(for: .forkEmptyBlockOnFill)
     }
 
-    static var chatMessageSearch: Bool {
-        value(for: .chatMessageSearch)
-    }
-
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -146,7 +142,6 @@ public extension FeatureFlags {
         .preferredSpaceOnColdStart,
         .virtualTrailingBlock,
         .forkEmptyBlockOnFill,
-        .chatMessageSearch,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

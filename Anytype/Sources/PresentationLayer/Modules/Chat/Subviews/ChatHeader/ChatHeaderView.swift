@@ -1,7 +1,6 @@
 import Foundation
 import SwiftUI
 import Services
-import AnytypeCore
 
 struct ChatHeaderView: View {
 
@@ -146,19 +145,16 @@ struct ChatHeaderView: View {
         .glassEffectInteractiveIOS26(in: Circle())
     }
 
-    @ViewBuilder
     private var searchMenuItem: some View {
-        if FeatureFlags.chatMessageSearch {
-            Button {
-                model.tapOpenSearch()
-            } label: {
-                Label {
-                    Text(Loc.Chat.messageSearch)
-                } icon: {
-                    Image(asset: .X24.search)
-                        .renderingMode(.template)
-                        .foregroundStyle(Color.Text.primary)
-                }
+        Button {
+            model.tapOpenSearch()
+        } label: {
+            Label {
+                Text(Loc.Chat.messageSearch)
+            } icon: {
+                Image(asset: .X24.search)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.Text.primary)
             }
         }
     }
