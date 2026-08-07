@@ -12,6 +12,8 @@ public typealias ChatUpdateState = Anytype_Event.Chat.UpdateState
 public typealias ChatAddData = Anytype_Event.Chat.Add
 public typealias ChatDeleteData = Anytype_Event.Chat.Delete
 public typealias ChatUpdateMessageCountData = Anytype_Event.Chat.UpdateMessageCount
+public typealias ChatMessageSearchResult = Anytype_Model_Search.Message.Result
+public typealias ChatMessageSearchSort = Anytype_Model_Search.Message.Sort
 
 public extension ChatMessage {
     var createdAtDate: Date {

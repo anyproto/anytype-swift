@@ -65,6 +65,13 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
+    static let chatMessageSearch = FeatureDescription(
+        title: "Chat message search - IOS-5760",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "0.50.0"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(

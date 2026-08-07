@@ -46,6 +46,8 @@ final class ChatHeaderViewModel {
     @ObservationIgnored
     private let onTapOpenSpaceSettings: () -> Void
     @ObservationIgnored
+    private let onTapOpenSearch: () -> Void
+    @ObservationIgnored
     private let chatObject: any BaseDocumentProtocol
 
     @ObservationIgnored
@@ -65,12 +67,14 @@ final class ChatHeaderViewModel {
         spaceId: String,
         chatId: String,
         onTapOpenWidgets: @escaping () -> Void,
-        onTapOpenSpaceSettings: @escaping () -> Void
+        onTapOpenSpaceSettings: @escaping () -> Void,
+        onTapOpenSearch: @escaping () -> Void
     ) {
         self.spaceId = spaceId
         self.chatId = chatId
         self.onTapOpenWidgets = onTapOpenWidgets
         self.onTapOpenSpaceSettings = onTapOpenSpaceSettings
+        self.onTapOpenSearch = onTapOpenSearch
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
     }
     
@@ -87,6 +91,8 @@ final class ChatHeaderViewModel {
     func tapOpenWidgets() { onTapOpenWidgets() }
 
     func tapOpenSpaceSettings() { onTapOpenSpaceSettings() }
+
+    func tapOpenSearch() { onTapOpenSearch() }
 
     func toggleMute() async {
         await changeNotificationMode(notificationMode.toggled(isOneToOne: isOneToOne))

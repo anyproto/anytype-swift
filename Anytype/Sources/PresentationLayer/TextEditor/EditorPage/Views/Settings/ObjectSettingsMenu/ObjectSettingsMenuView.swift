@@ -2,29 +2,40 @@ import SwiftUI
 import AnytypeCore
 import Services
 
-struct ObjectSettingsMenuView<LabelView: View>: View {
+struct ObjectSettingsMenuView<LabelView: View, AdditionalMenuItems: View>: View {
 
     @State private var viewModel: ObjectSettingsMenuViewModel
     private let labelView: LabelView
+    private let additionalMenuItems: AdditionalMenuItems
 
     init(
         objectId: String,
         spaceId: String,
         output: some ObjectSettingsModelOutput,
-        @ViewBuilder labelView: () -> LabelView
+        @ViewBuilder labelView: () -> LabelView,
+        @ViewBuilder additionalMenuItems: () -> AdditionalMenuItems
     ) {
         let vm = ObjectSettingsViewModel(objectId: objectId, spaceId: spaceId, output: output)
         self._viewModel = State(wrappedValue: ObjectSettingsMenuViewModel(viewModel: vm))
         self.labelView = labelView()
+        self.additionalMenuItems = additionalMenuItems()
     }
 
     var body: some View {
         Menu {
-            ForEach(viewModel.menuConfig.sections) { section in
+            let sections = viewModel.menuConfig.sections
+            let additionalItemsIndex = sections.firstIndex { $0.layout != .horizontal }
+            ForEach(Array(sections.enumerated()), id: \.element.id) { index, section in
                 if section.showDividerBefore {
                     Divider()
                 }
+                if index == additionalItemsIndex {
+                    additionalMenuItems
+                }
                 renderSection(section)
+            }
+            if additionalItemsIndex == nil {
+                additionalMenuItems
             }
         } label: {
             labelView
