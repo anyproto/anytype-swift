@@ -5710,6 +5710,29 @@ extension Anytype_Rpc.Object.DateByTimestamp.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Object.DeletionAudit.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Object.DeletionAudit.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Object.DiscussionAdd.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

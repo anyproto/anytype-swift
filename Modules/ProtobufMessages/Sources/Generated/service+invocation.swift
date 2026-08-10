@@ -954,6 +954,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectDeletionAudit(
+        _ request: Anytype_Rpc.Object.DeletionAudit.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.DeletionAudit.Request, Anytype_Rpc.Object.DeletionAudit.Response> {
+        return Invocation(messageName: "ObjectDeletionAudit", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectDeletionAudit(requestData) ?? Data()
+            return try Anytype_Rpc.Object.DeletionAudit.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func objectListSetIsFavorite(
         _ request: Anytype_Rpc.Object.ListSetIsFavorite.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.ListSetIsFavorite.Request, Anytype_Rpc.Object.ListSetIsFavorite.Response> {
