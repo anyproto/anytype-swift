@@ -202,6 +202,10 @@ public protocol BundledPropertiesValueProvider {
     var spaceType: Int? { get }
     var homepage: String { get }
     var templatePlaceholders: [String: [RelationPlaceholder]]? { get }
+    var deletedBy: ObjectId { get }
+    var deletedDate: Date? { get }
+    var deletionChangeId: String { get }
+    var deletedSnapshot: [String: [RelationPlaceholder]]? { get }
 } 
 
 public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
@@ -948,5 +952,21 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Dynamic placeholder mappings for template relation default values
     var templatePlaceholders: [String: [RelationPlaceholder]]? {
         return value(for: BundledPropertyKey.templatePlaceholders.rawValue)
+    }
+    /// Human who permanently deleted this object
+    var deletedBy: ObjectId {
+        return value(for: BundledPropertyKey.deletedBy.rawValue)
+    }
+    /// Date when the object was permanently deleted
+    var deletedDate: Date? {
+        return value(for: BundledPropertyKey.deletedDate.rawValue)
+    }
+    /// Id of the space settings tree change that deleted this object. Objects deleted in one operation share it
+    var deletionChangeId: String {
+        return value(for: BundledPropertyKey.deletionChangeId.rawValue)
+    }
+    /// What the object was, captured when it was deleted. Nested so its keys stay out of the objectstore indexes
+    var deletedSnapshot: [String: [RelationPlaceholder]]? {
+        return value(for: BundledPropertyKey.deletedSnapshot.rawValue)
     }
 }

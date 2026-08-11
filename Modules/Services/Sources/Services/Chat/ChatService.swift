@@ -25,6 +25,7 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
     func addDiscussion(objectId: String) async throws -> String
     func addNotificationSubscriber(chatObjectId: String, identity: String) async throws
     func removeNotificationSubscriber(chatObjectId: String, identity: String) async throws
+    func searchMessages(spaceId: String, chatObjectId: String, query: String, sorts: [ChatMessageSearchSort], offset: Int, limit: Int) async throws -> [ChatMessageSearchResult]
 }
 
 public extension ChatServiceProtocol {
@@ -169,5 +170,17 @@ final class ChatService: ChatServiceProtocol {
             $0.chatObjectID = chatObjectId
             $0.identity = identity
         }).invoke()
+    }
+
+    func searchMessages(spaceId: String, chatObjectId: String, query: String, sorts: [ChatMessageSearchSort], offset: Int, limit: Int) async throws -> [ChatMessageSearchResult] {
+        let result = try await ClientCommands.chatSearch(.with {
+            $0.spaceID = spaceId
+            $0.chatID = chatObjectId
+            $0.sorts = sorts
+            $0.fullText = query
+            $0.offset = Int32(offset)
+            $0.limit = Int32(limit)
+        }).invoke()
+        return result.results
     }
 }

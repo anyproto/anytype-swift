@@ -6704,6 +6704,17 @@
         }
       }
     },
+    "Chat.MessageSearch" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        }
+      }
+    },
     "Chat.NewMessages" : {
       "extractionState" : "manual",
       "localizations" : {

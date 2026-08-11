@@ -555,4 +555,16 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Dynamic placeholder mappings for template relation default values
     case templatePlaceholders = "templatePlaceholders"
+
+    /// Human who permanently deleted this object
+    case deletedBy = "deletedBy"
+
+    /// Date when the object was permanently deleted
+    case deletedDate = "deletedDate"
+
+    /// Id of the space settings tree change that deleted this object. Objects deleted in one operation share it
+    case deletionChangeId = "deletionChangeId"
+
+    /// What the object was, captured when it was deleted. Nested so its keys stay out of the objectstore indexes
+    case deletedSnapshot = "deletedSnapshot"
 }

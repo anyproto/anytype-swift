@@ -138,8 +138,20 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     @ObservationIgnored
     var participantPermissions: ParticipantPermissions? { participantSpaceView?.participant?.permission }
 
+    // Message Search
+
+    var searchMode: ChatMessageSearchMode = .hidden
+    var searchQuery = ""
+    var searchResults: [ChatMessageSearchResultData] = []
+    var searchInProgress = false
+    var searchSelectedIndex: Int?
+    @ObservationIgnored
+    private var lastSearchQuery: String?
+    @ObservationIgnored
+    private let searchDateFormatter = HistoryDateFormatter()
+
     // Alerts
-    
+
     var deleteMessageConfirmation: MessageViewData?
     var showSendLimitAlert = false
     var toastBarData: ToastBarData?
@@ -239,7 +251,122 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         guard let url = qrCodeInviteUrl else { return }
         output?.onShowQrCodeSelected(url: url)
     }
-    
+
+    // MARK: - Message Search
+
+    func onTapOpenSearch() {
+        inputFocused = false
+        searchMode = .fullscreen
+    }
+
+    func onTapCloseSearch() {
+        searchMode = .hidden
+        searchQuery = ""
+        searchResults = []
+        searchSelectedIndex = nil
+        searchInProgress = false
+        lastSearchQuery = nil
+    }
+
+    func onTapInlineSearchBar() {
+        searchMode = .fullscreen
+    }
+
+    func searchMessages() async {
+        let query = searchQuery
+        guard query.isNotEmpty else {
+            searchResults = []
+            searchSelectedIndex = nil
+            searchInProgress = false
+            lastSearchQuery = nil
+            return
+        }
+        guard query != lastSearchQuery else {
+            searchInProgress = false
+            return
+        }
+        searchInProgress = true
+        do {
+            try await Task.sleep(seconds: 0.3)
+            let results = try await chatService.searchMessages(
+                spaceId: spaceId,
+                chatObjectId: chatId,
+                query: query,
+                sorts: [ChatMessageSearchSort.with { $0.key = .orderID; $0.type = .desc }],
+                offset: 0,
+                limit: 100
+            )
+            guard query == searchQuery else { return }
+            lastSearchQuery = query
+            searchResults = results.filter(\.hasMessage).map { buildSearchResultData($0) }
+            searchSelectedIndex = nil
+            searchInProgress = false
+        } catch is CancellationError {
+            // A newer search owns the state
+        } catch {
+            guard query == searchQuery else { return }
+            // Not cached, so the failed query (or a revert to the previous one) retries on the next task run
+            lastSearchQuery = nil
+            searchResults = []
+            searchSelectedIndex = nil
+            searchInProgress = false
+        }
+    }
+
+    func onSelectSearchResult(_ data: ChatMessageSearchResultData) {
+        guard let index = searchResults.firstIndex(where: { $0.id == data.id }) else { return }
+        searchSelectedIndex = index
+        searchMode = .inline
+        scrollToMessage(messageId: data.id)
+    }
+
+    // Results are sorted from newest to oldest, so the next index is an older message
+    var canGoToOlderSearchResult: Bool {
+        (searchSelectedIndex ?? -1) < searchResults.count - 1
+    }
+
+    var canGoToNewerSearchResult: Bool {
+        (searchSelectedIndex ?? 0) > 0
+    }
+
+    func onTapOlderSearchResult() {
+        guard let index = searchSelectedIndex, index < searchResults.count - 1 else { return }
+        searchSelectedIndex = index + 1
+        scrollToMessage(messageId: searchResults[index + 1].id)
+    }
+
+    func onTapNewerSearchResult() {
+        guard let index = searchSelectedIndex, index > 0 else { return }
+        searchSelectedIndex = index - 1
+        scrollToMessage(messageId: searchResults[index - 1].id)
+    }
+
+    private func buildSearchResultData(_ result: ChatMessageSearchResult) -> ChatMessageSearchResultData {
+        let message = result.message
+        let participant = participants.first { $0.identity == message.creator }
+        let snippet: AttributedString
+        if result.highlight.isNotEmpty {
+            var highlighted = AttributedString(result.highlight)
+            // Ranges are utf-16 offsets valid only against the highlight string
+            for range in result.highlightRanges where range.from < range.to {
+                let nsRange = NSRange(location: Int(range.from), length: Int(range.to - range.from))
+                if let attrRange = Range<AttributedString.Index>(nsRange, in: highlighted) {
+                    highlighted[attrRange].foregroundColor = Color.Pure.blue
+                }
+            }
+            snippet = highlighted
+        } else {
+            snippet = AttributedString(messageTextBuilder.makeMessaeWithoutStyle(content: message.message))
+        }
+        return ChatMessageSearchResultData(
+            id: message.id,
+            authorIcon: participant?.icon.map { .object($0) } ?? .object(.profile(.placeholder)),
+            authorName: participant?.title ?? "",
+            snippet: snippet,
+            dateText: searchDateFormatter.localizedDateString(for: message.createdAtDate)
+        )
+    }
+
     func startSubscriptions() async {
         async let permissionsSub: () = subscribeOnPermissions()
         async let participantsSub: () = subscribeOnParticipants()

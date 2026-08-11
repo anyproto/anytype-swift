@@ -207,41 +207,21 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         return newText
     }
     
-    // First content into an existing empty block forks its identity: BlockReplace removes the
-    // old id and creates a fresh one carrying the content in a single atomic change, so two
-    // clients filling the same empty block concurrently end up with two blocks instead of one
-    // last-writer-wins text.
-    func replaceEmptyBlock(info: BlockInformation, middlewareString: MiddlewareString, focusAt: BlockFocusPosition?) async throws -> BlockInformation {
+    // The block that replaces an empty block on first fill. The id is minted client-side, so
+    // the caller knows the block's final identity synchronously — before the replace
+    // round-trips. Everything else the empty block had (style, checked, color, background,
+    // align) is carried over. `fields` is set on the model but BlockInformationConverter
+    // currently drops it from the wire request.
+    func makeEmptyBlockReplacement(info: BlockInformation, middlewareString: MiddlewareString) -> BlockInformation? {
         guard var content = info.textContent else {
             anytypeAssertionFailure("Replace of a non-text block")
-            throw CommonError.undefined
+            return nil
         }
         content.text = middlewareString.text
         content.marks = middlewareString.marks
 
-        // No id — the middleware generates a fresh one. Everything else the empty block had
-        // (style, checked, color, background, align) is carried over. `fields` is set on the
-        // model but BlockInformationConverter currently drops it from the wire request.
-        let replacement = BlockInformation(
-            id: "",
-            content: .text(content),
-            backgroundColor: info.backgroundColor,
-            horizontalAlignment: info.horizontalAlignment,
-            childrenIds: [],
-            configurationData: info.configurationData,
-            fields: info.fields
-        )
-
-        let newBlockId = try await service.replaceBlock(info: replacement, blockId: info.id, focusAt: focusAt)
-
-        if let containerInfo = document.infoContainer.get(id: newBlockId),
-           containerInfo.configurationData.parentId.isNotNil {
-            return containerInfo
-        }
-        // The replace event may not be applied yet when the response returns; downstream
-        // consumers (keyboard handler) need at least id and parentId.
         return BlockInformation(
-            id: newBlockId,
+            id: BlockIdGenerator.mint(),
             content: .text(content),
             backgroundColor: info.backgroundColor,
             horizontalAlignment: info.horizontalAlignment,
@@ -249,6 +229,20 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
             configurationData: info.configurationData,
             fields: info.fields
         )
+    }
+
+    // First content into an existing empty block forks its identity: BlockReplace removes the
+    // old id and creates the replacement carrying the content in a single atomic change, so
+    // two clients filling the same empty block concurrently end up with two blocks instead of
+    // one last-writer-wins text.
+    func replaceEmptyBlock(replacement: BlockInformation, replacingBlockId: String) async throws {
+        let newBlockId = try await service.replaceBlock(info: replacement, blockId: replacingBlockId)
+        if newBlockId != replacement.id {
+            anytypeAssertionFailure(
+                "BlockReplace did not echo the client-minted id",
+                info: ["minted": replacement.id, "created": newBlockId]
+            )
+        }
     }
 
     func changeText(_ text: SafeNSAttributedString, blockId: String) async throws {

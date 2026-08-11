@@ -81,8 +81,18 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let modelsHolder = EditorMainItemModelsHolder()
         let markupChanger = BlockMarkupChanger()
         let focusSubjectHolder = FocusSubjectsHolder()
-        
+        let rowIdentityMap = BlockRowIdentityMap()
+        let blockCollectionController = EditorBlockCollectionController(viewInput: viewInput)
+
         let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
+        let forkRebinder = BlockForkRebinder(
+            modelsHolder: modelsHolder,
+            rowIdentityMap: rowIdentityMap,
+            infoContainer: document.infoContainer,
+            focusSubjectHolder: focusSubjectHolder,
+            cursorManager: cursorManager,
+            collectionController: blockCollectionController
+        )
         let blockActionService = BlockActionService(
             documentId: document.objectId,
             modelsHolder: modelsHolder,
@@ -172,7 +182,9 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             subjectsHolder: focusSubjectHolder,
             infoContainer: document.infoContainer,
             modelsHolder: modelsHolder,
-            blockCollectionController: .init(viewInput: viewInput),
+            rowIdentityMap: rowIdentityMap,
+            forkRebinder: forkRebinder,
+            blockCollectionController: blockCollectionController,
             accessoryStateManager: accessoryState.0,
             cursorManager: cursorManager,
             keyboardActionHandler: keyboardHandler,
@@ -194,6 +206,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             router: router,
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,
+            forkRebinder: forkRebinder,
             actionHandler: actionHandler,
             headerModel: headerModel,
             blocksStateManager: blocksStateManager,

@@ -51,7 +51,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol, @unchecked Senda
     var replaceBlockInfo: BlockInformation?
     var replaceBlockTargetId: String?
     var replaceBlockReturnId = ""
-    func replaceBlock(info: BlockInformation, blockId: String, focusAt: BlockFocusPosition?) async throws -> String {
+    func replaceBlock(info: BlockInformation, blockId: String) async throws -> String {
         if replaceBlockStub {
             replaceBlockNumberOfCalls += 1
             replaceBlockInfo = info

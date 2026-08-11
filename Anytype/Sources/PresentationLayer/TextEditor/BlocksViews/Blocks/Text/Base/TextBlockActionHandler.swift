@@ -46,14 +46,24 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     
     private let cursorManager: EditorCursorManager
     private let accessoryViewStateManager: any AccessoryViewStateManager
-    // Set only for the trailing "tap to type" placeholder. While unmaterialized, mutating
-    // paths must not target `info.id` — the block does not exist in the middleware yet.
-    private let virtualBlockSession: (any VirtualTrailingBlockSessionProtocol)?
-    // Refreshes the live on-screen cell for a block id from current model state. After the
-    // empty-block identity fork or the virtual-placeholder materialization, the visible cell is
-    // a freshly built handler; this handler's own `resetSubject` drives the replaced (dead) cell.
-    // A programmatic text write from the paste menu must therefore refresh the live cell
-    // explicitly — this also re-syncs its text view before the next keystroke can read stale text.
+    // Set only for the trailing "tap to type" placeholder, and only until it materializes.
+    // While unmaterialized, mutating paths must not target `info.id` — the block does not
+    // exist in the middleware yet. Cleared on materialization so the block behaves as an
+    // ordinary text block from then on — in particular, a later refill of the (emptied)
+    // block must fork its identity like any other empty block would (IOS-6572).
+    private var virtualBlockSession: (any VirtualTrailingBlockSessionProtocol)?
+    // Applies the empty-block identity fork to the live editor row in the caller's turn:
+    // aliases the row identity, rebinds the row's model to the replacement and refreshes its
+    // cell. Returns false when there is no live row to rebind (the model is not part of the
+    // editor's list — e.g. a simple-table cell); the fork then falls back to a pending focus
+    // for the freshly rendered row.
+    private let rebindForkedBlock: @MainActor (_ oldInfo: BlockInformation, _ replacement: BlockInformation) -> Bool
+    // Inverse of `rebindForkedBlock` for the replace RPC failing: the middleware never saw
+    // the replacement, so the row must return to the still-existing old block.
+    private let rollbackForkedBlockRebind: @MainActor (_ replacementId: String, _ oldId: String) -> Void
+    // Refreshes the live on-screen cell for a block id from current model state. A
+    // programmatic text write from the paste menu must refresh the live cell explicitly —
+    // this re-syncs its text view before the next keystroke can read stale text back.
     private let reconfigureLiveBlock: @MainActor (String) -> Void
 
     @Injected(\.linkToSearchHelper)
@@ -76,10 +86,12 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     var accessoryState: AccessoryViewInputState = .none
 
     // First fill of an existing empty block replaces it with a fresh identity; see
-    // forkEmptyBlockIfNeeded. Kept for the handler's lifetime — once forked, later calls
-    // only rebind to the already-created block.
-    private var emptyBlockFork: Task<BlockInformation, any Error>?
-    private var pendingForkOldId: String?
+    // forkEmptyBlockIfNeeded. Kept for the handler's lifetime — once forked, later fills
+    // only await the in-flight replace. The generation counter invalidates awaits that were
+    // in flight when resetEmptyBlockFork dissolved the fork (undo restored the replaced
+    // block): their resumed continuation must not act on the forked (deleted) id.
+    private var emptyBlockFork: Task<Void, any Error>?
+    private var forkGeneration = 0
 
     init(
         document: some BaseDocumentProtocol,
@@ -108,6 +120,10 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         slashMenuActionHandler: SlashMenuActionHandler,
         openLinkToObject: @MainActor @escaping (LinkToObjectSearchModuleData) -> Void,
         virtualBlockSession: (any VirtualTrailingBlockSessionProtocol)? = nil,
+        // No defaults: a construction site that forgot these would fork without rebinding
+        // the row — the delete+insert keyboard dip this wiring exists to prevent.
+        rebindForkedBlock: @MainActor @escaping (_ oldInfo: BlockInformation, _ replacement: BlockInformation) -> Bool,
+        rollbackForkedBlockRebind: @MainActor @escaping (_ replacementId: String, _ oldId: String) -> Void,
         reconfigureLiveBlock: @MainActor @escaping (String) -> Void = { _ in }
     ) {
         self.document = document
@@ -136,6 +152,8 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         self.slashMenuActionHandler = slashMenuActionHandler
         self.openLinkToObject = openLinkToObject
         self.virtualBlockSession = virtualBlockSession
+        self.rebindForkedBlock = rebindForkedBlock
+        self.rollbackForkedBlockRebind = rollbackForkedBlockRebind
         self.reconfigureLiveBlock = reconfigureLiveBlock
     }
 
@@ -147,13 +165,13 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     }
 
     /// Creates the real trailing block carrying `attrText` and rebinds this handler to it.
+    /// The block keeps the id the placeholder row was born with, so nothing else changes.
     /// Returns true when this call's content was carried by the BlockCreate request, so no
     /// follow-up text sync is needed.
     @discardableResult
     private func materializeVirtualBlock(
         carrying attrText: NSAttributedString,
-        style: BlockText.Style? = nil,
-        focusAt: BlockFocusPosition?
+        style: BlockText.Style? = nil
     ) async throws -> Bool {
         guard let virtualBlockSession, !virtualBlockSession.isMaterialized else { return false }
         guard var content = info.textContent else { return false }
@@ -163,8 +181,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         if let style {
             content.contentType = style
         }
-        let materialization = try await virtualBlockSession.materialize(carrying: content, focusAt: focusAt)
+        let materialization = try await virtualBlockSession.materialize(carrying: content)
         info = materialization.info
+        self.virtualBlockSession = nil
         return materialization.contentCarried
     }
 
@@ -204,35 +223,62 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
 
     /// First content into an existing empty block forks its identity via BlockReplace: two
     /// clients filling the same empty block concurrently end up with two blocks — both texts
-    /// survive — instead of one whole-value last-writer-wins text. Returns true when this
-    /// call's content was carried by the replace request.
+    /// survive — instead of one whole-value last-writer-wins text (the IOS-6572 guarantee).
+    ///
+    /// The replacement's id is minted client-side, so the whole identity change applies
+    /// synchronously in this turn: the live row rebinds before the RPC is sent and no event
+    /// can observe an intermediate state. Returns true when this call's content was carried
+    /// by the replace request.
     @discardableResult
     private func forkEmptyBlockIfNeeded(carrying attrText: NSAttributedString, focusAt: BlockFocusPosition?) async throws -> Bool {
         if let emptyBlockFork {
-            let newInfo = try await emptyBlockFork.value
-            // Rebind only while still pointing at the replaced id — repeated calls must not
-            // keep resetting `info` to the fork-time snapshot.
-            if info.id != newInfo.id {
-                info = newInfo
-            }
+            // The rebind already happened synchronously at initiation; racing callers only
+            // wait for the middleware to commit the replace, ordering their own follow-up
+            // mutations after the block exists.
+            try await emptyBlockFork.value
             return false
         }
         guard canForkEmptyBlockOnFill(attrText) else { return false }
 
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: attrText)
         let oldInfo = info
-        let task = Task { try await actionHandler.replaceEmptyBlock(info: oldInfo, middlewareString: middlewareString, focusAt: focusAt) }
+        guard let replacement = actionHandler.makeEmptyBlockReplacement(info: oldInfo, middlewareString: middlewareString) else {
+            return false
+        }
+        if !rebindForkedBlock(oldInfo, replacement), let focusAt {
+            // No live row to rebind: the replace event renders as a fresh row; a pending
+            // focus moves the caret into it when its cell configures.
+            cursorManager.blockFocus = BlockFocus(id: replacement.id, position: focusAt)
+        }
+        info = replacement
+        let generation = forkGeneration
+        let task = Task { try await actionHandler.replaceEmptyBlock(replacement: replacement, replacingBlockId: oldInfo.id) }
         emptyBlockFork = task
-        pendingForkOldId = oldInfo.id
         do {
-            info = try await task.value
+            try await task.value
             return true
         } catch {
-            emptyBlockFork = nil
-            pendingForkOldId = nil
             anytypeAssertionFailure("Empty block identity fork failed", info: ["error": error.localizedDescription])
+            // A reset (undo restored the replaced block) while this await was suspended
+            // already put the row back; rolling back again would fight it.
+            guard generation == forkGeneration else { throw error }
+            emptyBlockFork = nil
+            // The middleware never saw the replacement: put the row back on the old id so
+            // edits keep routing to a block that exists.
+            rollbackForkedBlockRebind(replacement.id, oldInfo.id)
+            if info.id == replacement.id {
+                info = oldInfo
+            }
             throw error
         }
+    }
+
+    /// Undo restored the block this handler forked away from: the completed fork must not
+    /// gate a fresh first fill. Bumping the generation also invalidates any fork await
+    /// suspended right now — its resumed continuation must not act on the forked (deleted) id.
+    func resetEmptyBlockFork() {
+        emptyBlockFork = nil
+        forkGeneration += 1
     }
 
     /// Ensures a concrete middleware block carries `attrText` before a text mutation: first via the
@@ -240,7 +286,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     /// no-op when it doesn't apply. Returns true when one of them carried the content, so the caller
     /// can skip its own text sync.
     private func carryOrSync(_ attrText: NSAttributedString, focusAt: BlockFocusPosition?) async throws -> Bool {
-        if try await materializeVirtualBlock(carrying: attrText, focusAt: focusAt) { return true }
+        if try await materializeVirtualBlock(carrying: attrText) { return true }
         return try await forkEmptyBlockIfNeeded(carrying: attrText, focusAt: focusAt)
     }
 
@@ -368,6 +414,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
                     try await setNewText(attributedString: newText.sendable())
                     try await actionHandler.addBlock(type, blockId: info.id, blockText: newText.sendable(), position: .top)
                     resetSubject.send(nil)
+                    textView.setFocus(.beginning)
                 }
             case let .addStyle(style, currentText, styleRange, focusRange):
                 Task { @MainActor in
@@ -392,18 +439,28 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
     }
 
     private func handleVirtualMarkdownChange(_ markdownChange: MarkdownChange) {
+        // The placeholder cell keeps first responder through materialization, so the caret
+        // correction happens synchronously right after the reset rewrite — the same way the
+        // non-virtual markdown branches set it, not one round trip later. Caret tracking
+        // has recorded a pre-markdown pending focus for this id; consumed by the reset's
+        // configuration it would race the correction below, so drop it first.
+        if cursorManager.blockFocus?.id == info.id {
+            cursorManager.blockFocus = nil
+        }
         switch markdownChange {
         case let .turnInto(style, newText):
             guard let content = info.textContent, content.contentType != style else { return }
             guard BlockRestrictionsBuilder.build(content: info.content).canApplyTextStyle(style) else { return }
             resetSubject.send(newText)
+            focusSubject.send(.beginning)
             Task { @MainActor in
-                try await materializeVirtualBlock(carrying: newText, style: style, focusAt: .beginning)
+                try await materializeVirtualBlock(carrying: newText, style: style)
             }
         case let .addBlock(type, newText):
             resetSubject.send(newText)
+            focusSubject.send(.beginning)
             Task { @MainActor in
-                try await materializeVirtualBlock(carrying: newText, focusAt: .beginning)
+                try await materializeVirtualBlock(carrying: newText)
                 try await actionHandler.addBlock(type, blockId: info.id, blockText: newText.sendable(), position: .top)
             }
         case let .addStyle(style, currentText, styleRange, focusRange):
@@ -414,8 +471,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
                 contentType: info.content.type
             )
             resetSubject.send(styledText)
+            focusSubject.send(.at(focusRange))
             Task { @MainActor in
-                try await materializeVirtualBlock(carrying: styledText, focusAt: .at(focusRange))
+                try await materializeVirtualBlock(carrying: styledText)
             }
         }
     }
@@ -563,7 +621,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
 
         if isVirtualUnmaterialized {
             Task { @MainActor in
-                try await materializeVirtualBlock(carrying: textView.attributedText, focusAt: .beginning)
+                try await materializeVirtualBlock(carrying: textView.attributedText)
                 performPaste(range: range, textView: textView)
             }
             return false
@@ -623,7 +681,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
                     virtualBlockSession?.dismissAndFocusPreviousBlock()
                     return
                 }
-                try await materializeVirtualBlock(carrying: textView.attributedText, focusAt: endOfTextFocus(textView.attributedText))
+                try await materializeVirtualBlock(carrying: textView.attributedText)
             }
             // A keyboard action racing ahead of the first keystroke's task can become the fork
             // initiator; carry a real focus so the caret survives either ordering. Actions that
@@ -660,13 +718,19 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
                 // buttons insert their trigger symbol first and open the search session
                 // right after this callback, and that session must stay on this text view.
                 guard let textView, virtualBlockCanSyncTextChange(textView) else { return }
-                let contentCarried = try await materializeVirtualBlock(carrying: text.value, focusAt: .at(caret))
+                let contentCarried = try await materializeVirtualBlock(carrying: text.value)
                 guard !contentCarried else { return }
                 try await actionHandler.changeText(text, blockId: info.id)
             }
             return
         }
         Task { [weak textView] in
+            // Re-read at execution: a second change delivered before this task ran
+            // (dictation, a predictive-bar insert) must not fork with — and have the
+            // fork-time cell refresh rewrite the live view back to — stale text. Read
+            // before the deferral gate below, so the gate judges the same text the fork
+            // would carry.
+            let (text, caret) = textView.map { ($0.attributedText.sendable(), $0.selectedRange) } ?? (text, caret)
             if emptyBlockFork == nil, canForkEmptyBlockOnFill(text.value) {
                 // Defer the fork to the IME/search-session commit; nothing syncs meanwhile,
                 // so the shared empty register is never written. Checked after the call
@@ -699,7 +763,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
             if text.value.length > 0 {
                 // Keep text typed during a still-open slash/mention session or an abandoned
                 // IME composition — losing it on defocus would be worse than creating the block.
-                Task { try await materializeVirtualBlock(carrying: text.value, focusAt: nil) }
+                Task { try await materializeVirtualBlock(carrying: text.value) }
             } else {
                 virtualBlockSession?.dismiss()
             }
@@ -709,11 +773,6 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
             let text = textView.attributedText.sendable()
             Task { try await forkEmptyBlockIfNeeded(carrying: text.value, focusAt: nil) }
         }
-        if let virtualBlockSession, virtualBlockSession.isMaterialized {
-            // The created block's cell has taken first responder over from this placeholder;
-            // the placeholder row can now be removed without touching the keyboard.
-            virtualBlockSession.completeFocusHandoff()
-        }
         let configuration = accessoryConfiguration(using: textView)
 
         collectionController.blockDidFinishEditing()
@@ -722,17 +781,11 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
 
     @MainActor
     private func textViewDidChangeCaretPosition(textView: UITextView, range: NSRange) {
-        // A cleared selection (selectedTextRange = nil during the Enter/fork focus handoff) is
+        // A cleared selection (selectedTextRange = nil during the Enter focus handoff) is
         // not a caret position: recording NSNotFound would leave a poisoned pending focus that
         // a later reconfigure consumes, stealing first responder back with an invalid caret.
         guard range.location != NSNotFound else { return }
         accessoryViewStateManager.selectionDidChange(range: range)
-        // A pending focus for a not-yet-created block would shadow the focus handoff to the
-        // real block set during materialization.
-        guard !isVirtualUnmaterialized else { return }
-        // Same for the old id of an in-flight identity fork; after the rebind info.id is the
-        // new id and caret tracking resumes.
-        guard pendingForkOldId != info.id else { return }
         cursorManager.blockFocus = BlockFocus(id: info.id, position: .at(range))
 //        cursorManager.didChangeCursorPosition(at: data.info.id, position: .at(range)) // DO WE NEED IT? WHY?
     }
@@ -881,7 +934,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     func didSelectEditButton() {
         if isVirtualUnmaterialized {
             Task { @MainActor in
-                try await materializeVirtualBlock(carrying: NSAttributedString(), focusAt: nil)
+                try await materializeVirtualBlock(carrying: NSAttributedString())
                 onEnterSelectionMode(info)
             }
             return
@@ -892,7 +945,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     func didSelectShowStyleMenu() {
         if isVirtualUnmaterialized {
             Task { @MainActor in
-                try await materializeVirtualBlock(carrying: NSAttributedString(), focusAt: nil)
+                try await materializeVirtualBlock(carrying: NSAttributedString())
                 onShowStyleMenu(info)
             }
             return
@@ -927,11 +980,11 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     }
 
     /// Like `setNewTextSync`, but after the write refreshes the live cell for the current block id.
-    /// The paste-menu callbacks run on the pre-fork handler: if the empty-block identity fork or the
-    /// virtual-placeholder materialization has swapped this block's identity, `setNewText`'s
-    /// `resetSubject` only reaches this handler's now-replaced cell. Reconfiguring the live cell from
-    /// the freshly written model both shows the new value and re-syncs its text view, so the next
-    /// keystroke cannot read the stale link back and overwrite the plain text.
+    /// The paste-menu callbacks can outlive this handler's cell: an ignoreCache rebuild rewires the
+    /// cell to a fresh handler, after which this handler's `resetSubject` reaches nothing.
+    /// Reconfiguring the live cell from the freshly written model both shows the new value and
+    /// re-syncs its text view, so the next keystroke cannot read the stale link back and overwrite
+    /// the plain text.
     private func setNewTextRefreshingLiveBlock(attributedString: NSAttributedString) {
         Task { @MainActor in
             try await setNewText(attributedString: attributedString.sendable())
