@@ -305,7 +305,8 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             // A newer search owns the state
         } catch {
             guard query == searchQuery else { return }
-            lastSearchQuery = query
+            // Not cached, so the failed query (or a revert to the previous one) retries on the next task run
+            lastSearchQuery = nil
             searchResults = []
             searchSelectedIndex = nil
             searchInProgress = false
