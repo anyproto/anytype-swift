@@ -12,13 +12,15 @@ struct ChatHeaderView: View {
         chatId: String,
         settingsOutput: (any ObjectSettingsCoordinatorOutput)?,
         onTapOpenWidgets: @escaping () -> Void,
-        onTapOpenSpaceSettings: @escaping () -> Void
+        onTapOpenSpaceSettings: @escaping () -> Void,
+        onTapOpenSearch: @escaping () -> Void
     ) {
         _model = State(initialValue: ChatHeaderViewModel(
             spaceId: spaceId,
             chatId: chatId,
             onTapOpenWidgets: onTapOpenWidgets,
-            onTapOpenSpaceSettings: onTapOpenSpaceSettings
+            onTapOpenSpaceSettings: onTapOpenSpaceSettings,
+            onTapOpenSearch: onTapOpenSearch
         ))
         self.settingsOutput = settingsOutput
     }
@@ -106,14 +108,20 @@ struct ChatHeaderView: View {
                 ObjectSettingsMenuContainer(
                     objectId: model.chatId,
                     spaceId: model.spaceId,
-                    output: settingsOutput
-                ) {
-                    Image(asset: .X24.more)
-                        .foregroundStyle(Color.Control.primary)
-                        .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
-                }
+                    output: settingsOutput,
+                    label: {
+                        Image(asset: .X24.more)
+                            .foregroundStyle(Color.Control.primary)
+                            .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+                    },
+                    additionalMenuItems: {
+                        searchMenuItem
+                    }
+                )
             } else {
                 Menu {
+                    searchMenuItem
+
                     Button {
                         model.tapOpenSpaceSettings()
                     } label: {
@@ -135,5 +143,19 @@ struct ChatHeaderView: View {
             }
         }
         .glassEffectInteractiveIOS26(in: Circle())
+    }
+
+    private var searchMenuItem: some View {
+        Button {
+            model.tapOpenSearch()
+        } label: {
+            Label {
+                Text(Loc.Chat.messageSearch)
+            } icon: {
+                Image(asset: .X24.search)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.Text.primary)
+            }
+        }
     }
 }
