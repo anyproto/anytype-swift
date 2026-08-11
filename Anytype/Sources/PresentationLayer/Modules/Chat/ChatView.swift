@@ -32,6 +32,9 @@ struct ChatView: View {
                 },
                 onTapOpenSpaceSettings: {
                     model.onTapSpaceSettings()
+                },
+                onTapOpenSearch: {
+                    model.onTapOpenSearch()
                 }
             )
         }
@@ -63,13 +66,29 @@ struct ChatView: View {
         .anytypeSheet(isPresented: $model.showSendLimitAlert) {
             ChatSendLimitAlert()
         }
+        .fullScreenCover(isPresented: Binding(
+            get: { model.searchMode == .fullscreen },
+            set: { newValue in
+                if !newValue, model.searchMode == .fullscreen {
+                    model.onTapCloseSearch()
+                }
+            }
+        )) {
+            ChatSearchOverlayView(model: model)
+        }
         .snackbar(toastBarData: $model.toastBarData)
         .homeBottomPanelHidden(true)
     }
     
     @ViewBuilder
     private var bottomPanel: some View {
-        if model.canEdit {
+        if model.searchMode == .inline {
+            ChatSearchInlineBar(
+                text: model.searchQuery,
+                onTap: { model.onTapInlineSearchBar() },
+                onTapClose: { model.onTapCloseSearch() }
+            )
+        } else if model.canEdit {
             ChatInputPanel(model: model, actionState: $actionState)
         }
     }
@@ -90,15 +109,25 @@ struct ChatView: View {
         }
     }
     
+    @ViewBuilder
     private var actionView: some View {
-        ChatActionPanelView(model: model.actionModel) {
-            model.onTapScrollToBottom()
-        } onTapMention: {
-            model.onTapMention()
-        } onTapReaction: {
-            model.onTapReaction()
+        if model.searchMode == .inline {
+            ChatSearchNavigationPanel(
+                canGoOlder: model.canGoToOlderSearchResult,
+                canGoNewer: model.canGoToNewerSearchResult,
+                onTapOlder: { model.onTapOlderSearchResult() },
+                onTapNewer: { model.onTapNewerSearchResult() }
+            )
+        } else {
+            ChatActionPanelView(model: model.actionModel) {
+                model.onTapScrollToBottom()
+            } onTapMention: {
+                model.onTapMention()
+            } onTapReaction: {
+                model.onTapReaction()
+            }
+            .equatable()
         }
-        .equatable()
     }
     
     @ViewBuilder

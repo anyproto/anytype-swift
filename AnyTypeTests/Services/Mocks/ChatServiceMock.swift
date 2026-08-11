@@ -100,4 +100,8 @@ final class ChatServiceMock: ChatServiceProtocol, @unchecked Sendable {
     func removeNotificationSubscriber(chatObjectId: String, identity: String) async throws {
         fatalError("ChatServiceMock.removeNotificationSubscriber not stubbed")
     }
+
+    func searchMessages(spaceId: String, chatObjectId: String, query: String, sorts: [ChatMessageSearchSort], offset: Int, limit: Int) async throws -> [ChatMessageSearchResult] {
+        fatalError("ChatServiceMock.searchMessages not stubbed")
+    }
 }
