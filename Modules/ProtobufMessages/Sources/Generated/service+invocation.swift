@@ -774,6 +774,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectCrossSpaceSearch(
+        _ request: Anytype_Rpc.Object.CrossSpaceSearch.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.CrossSpaceSearch.Request, Anytype_Rpc.Object.CrossSpaceSearch.Response> {
+        return Invocation(messageName: "ObjectCrossSpaceSearch", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectCrossSpaceSearch(requestData) ?? Data()
+            return try Anytype_Rpc.Object.CrossSpaceSearch.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func objectCrossSpaceSearchSubscribe(
         _ request: Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Request, Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response> {

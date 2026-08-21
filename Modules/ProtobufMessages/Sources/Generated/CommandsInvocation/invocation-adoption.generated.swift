@@ -1130,6 +1130,11 @@ extension Anytype_Rpc.Object.CreateSet.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Object.CrossSpaceSearch.Response: ResultWithError {}
+extension Anytype_Rpc.Object.CrossSpaceSearch.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response: ResultWithError {}
 extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
