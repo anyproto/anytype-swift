@@ -39,6 +39,9 @@ struct SpaceHubCoordinatorView: View {
             .sheet(item: $model.showGlobalSearchData) {
                 GlobalSearchView(data: $0)
             }
+            .sheet(item: $model.showUnifiedSearchData) {
+                UnifiedSearchView(data: $0)
+            }
             .anytypeSheet(item: $model.spaceJoinData) {
                 SpaceJoinView(data: $0, onManageSpaces: {
                     model.onManageSpacesSelected()

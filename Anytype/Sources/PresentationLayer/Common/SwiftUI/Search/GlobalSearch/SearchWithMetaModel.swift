@@ -10,6 +10,13 @@ struct SearchWithMetaModel: Identifiable, Hashable {
     let editorScreenData: ScreenData
     let score: String
     let canArchive: Bool
+    // Set for cross-space results in global search - "in <Space>" caption
+    let spaceCaption: SearchSpaceCaption?
+}
+
+struct SearchSpaceCaption: Hashable {
+    let spaceId: String
+    let name: String
 }
 
 enum HighlightsData: Identifiable, Hashable {

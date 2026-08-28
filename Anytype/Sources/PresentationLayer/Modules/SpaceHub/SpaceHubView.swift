@@ -54,7 +54,15 @@ struct SpaceHubView: View {
                 .scrollEdgeEffectStyleIOS26(.soft, for: .top)
                 .toolbar { toolbarItems }
                 .if(!isEmptyState) { view in
-                    view.searchable(text: $model.searchText)
+                    view
+                        .if(FeatureFlags.unifiedSearch) {
+                            $0.background {
+                                VaultSearchActivationDetector {
+                                    model.onSearchTap()
+                                }
+                            }
+                        }
+                        .searchable(text: $model.searchText)
                 }
                 .onChange(of: model.searchText) {
                     model.searchTextUpdated()
@@ -80,6 +88,25 @@ struct SpaceHubView: View {
                 model.onTapSettings()
             }
         )
+    }
+}
+
+// With unified search, the vault search bar is only an entry point - activating it
+// opens the search surface instead of filtering space cards. Sits inside the
+// searchable hierarchy to read isSearching (searchFocused needs iOS 18).
+private struct VaultSearchActivationDetector: View {
+    @Environment(\.isSearching) private var isSearching
+    @Environment(\.dismissSearch) private var dismissSearch
+
+    let onActivate: () -> Void
+
+    var body: some View {
+        Color.clear
+            .onChange(of: isSearching) { _, searching in
+                guard searching else { return }
+                dismissSearch()
+                onActivate()
+            }
     }
 }
 

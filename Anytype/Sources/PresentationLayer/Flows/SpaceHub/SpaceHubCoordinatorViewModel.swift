@@ -25,6 +25,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var spaceJoinData: SpaceJoinModuleData?
     var membershipNameFinalizationData: MembershipTier?
     var showGlobalSearchData: GlobalSearchModuleData?
+    var showUnifiedSearchData: UnifiedSearchModuleData?
     var toastBarData: ToastBarData?
     var chatProvider = ChatActionProvider()
     var bookmarkScreenData: BookmarkScreenData?
@@ -291,6 +292,22 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     
     func onSelectSpace(spaceId: String) {
         Task { await showSpace(spaceId: spaceId) }
+    }
+
+    func onSelectSearch() {
+        showUnifiedSearch(currentSpaceId: nil)
+    }
+
+    private func showUnifiedSearch(currentSpaceId: String?) {
+        showUnifiedSearchData = UnifiedSearchModuleData(
+            currentSpaceId: currentSpaceId,
+            onSelect: { [weak self] screenData in
+                self?.showScreenSync(data: screenData)
+            },
+            onOpenSpace: { [weak self] spaceId in
+                self?.onSelectSpace(spaceId: spaceId)
+            }
+        )
     }
 
     func onSpaceJoined(spaceId: String, spaceType: SpaceType) {
@@ -778,12 +795,16 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     func onSearchSelected() {
         guard let spaceInfo else { return }
 
-        showGlobalSearchData = GlobalSearchModuleData(
-            spaceId: spaceInfo.accountSpaceId,
-            onSelect: { [weak self] screenData in
-                self?.showScreenSync(data: screenData)
-            }
-        )
+        if FeatureFlags.unifiedSearch {
+            showUnifiedSearch(currentSpaceId: spaceInfo.accountSpaceId)
+        } else {
+            showGlobalSearchData = GlobalSearchModuleData(
+                spaceId: spaceInfo.accountSpaceId,
+                onSelect: { [weak self] screenData in
+                    self?.showScreenSync(data: screenData)
+                }
+            )
+        }
     }
 
     func onCreateObjectSelected(screenData: ScreenData) {

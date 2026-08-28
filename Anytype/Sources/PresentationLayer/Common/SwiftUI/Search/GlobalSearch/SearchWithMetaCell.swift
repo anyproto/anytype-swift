@@ -4,8 +4,10 @@ import Services
 
 
 struct SearchWithMetaCell: View {
-    
+
     let model: SearchWithMetaModel
+    // Tapping the "in <Space>" caption scopes the search to that space
+    var onSpaceCaptionTap: (() -> Void)? = nil
 
     var body: some View {
         HStack(alignment: model.highlights.isEmpty ? .center : .top, spacing: 12) {
@@ -37,12 +39,16 @@ struct SearchWithMetaCell: View {
             
             highlights
             
-            if model.objectTypeName.isNotEmpty {
+            if model.objectTypeName.isNotEmpty || model.spaceCaption.isNotNil {
                 HStack(spacing: 0) {
                     AnytypeText(model.objectTypeName, style: .relation2Regular)
                         .foregroundStyle(Color.Text.secondary)
                         .lineLimit(1)
-                    
+
+                    if let spaceCaption = model.spaceCaption {
+                        spaceCaptionView(spaceCaption)
+                    }
+
                     if FeatureFlags.showGlobalSearchScore, model.score.isNotEmpty {
                         Spacer()
                         AnytypeText(model.score, style: .relation2Regular)
@@ -56,6 +62,31 @@ struct SearchWithMetaCell: View {
         }
     }
     
+    @ViewBuilder
+    private func spaceCaptionView(_ spaceCaption: SearchSpaceCaption) -> some View {
+        let caption = HStack(spacing: 4) {
+            if model.objectTypeName.isNotEmpty {
+                AnytypeText("·", style: .relation2Regular)
+                    .foregroundStyle(Color.Text.secondary)
+            }
+            AnytypeText(Loc.UnifiedSearch.inSpace(spaceCaption.name), style: .relation2Regular)
+                .foregroundStyle(Color.Text.secondary)
+                .lineLimit(1)
+        }
+        .padding(.leading, model.objectTypeName.isNotEmpty ? 4 : 0)
+
+        if let onSpaceCaptionTap {
+            Button {
+                onSpaceCaptionTap()
+            } label: {
+                caption.fixTappableArea()
+            }
+            .buttonStyle(.plain)
+        } else {
+            caption
+        }
+    }
+
     private var highlights: some View {
         ForEach(model.highlights) { data in
             switch data {

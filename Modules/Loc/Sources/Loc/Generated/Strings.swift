@@ -1318,6 +1318,16 @@ public enum Loc {
   public enum ToggleEmpty {
     public static let tapToCreateBlock = Loc.tr("UI", "Toggle empty. Tap to create block.", fallback: "Toggle empty. Tap to create block.")
   }
+  public enum UnifiedSearch {
+    public static func inSpace(_ p1: Any) -> String {
+      return Loc.tr("UI", "UnifiedSearch.inSpace", String(describing: p1), fallback: "in %@")
+    }
+    public enum Section {
+      public static let channels = Loc.tr("UI", "UnifiedSearch.Section.channels", fallback: "Channels")
+      public static let objects = Loc.tr("UI", "UnifiedSearch.Section.objects", fallback: "Objects")
+      public static let recentObjects = Loc.tr("UI", "UnifiedSearch.Section.recentObjects", fallback: "Recent Objects")
+    }
+  }
   public enum VersionHistory {
     public static let title = Loc.tr("UI", "VersionHistory.Title", fallback: "Version History")
     public enum Toast {

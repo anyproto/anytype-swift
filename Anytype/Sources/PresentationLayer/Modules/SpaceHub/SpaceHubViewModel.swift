@@ -54,6 +54,10 @@ final class SpaceHubViewModel {
         output?.onSelectAppSettings()
     }
 
+    func onSearchTap() {
+        output?.onSelectSearch()
+    }
+
     func onTapCreatePersonalChannel() {
         AnytypeAnalytics.instance().logClickVaultCreateMenuSpace()
         output?.onSelectCreatePersonalChannel()

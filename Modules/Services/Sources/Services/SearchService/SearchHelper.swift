@@ -92,6 +92,14 @@ public class SearchHelper {
         return filter
     }
 
+    public static func spaceIdFilter(_ spaceId: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = spaceId.protobufValue
+        filter.relationKey = BundledPropertyKey.spaceId.rawValue
+        return filter
+    }
+
     public static func objectsIds(_ objectsIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
