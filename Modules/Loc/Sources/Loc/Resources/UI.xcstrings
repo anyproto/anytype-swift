@@ -75798,6 +75798,39 @@
         }
       }
     },
+    "QuickCapture.clearDraft" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear draft"
+          }
+        }
+      }
+    },
+    "QuickCapture.typeCreatedIn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ created in %2$@"
+          }
+        }
+      }
+    },
+    "QuickCapture.viewType" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View %@"
+          }
+        }
+      }
+    },
     "Random" : {
       "extractionState" : "manual",
       "localizations" : {

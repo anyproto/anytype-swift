@@ -17,6 +17,7 @@ public enum BundledDetails: Sendable {
     case recommendedLayout(Int)
     case lastUsedDate(Date)
     case templateNamePrefillType(Int)
+    case isHidden(Bool)
 }
 
 extension BundledDetails {
@@ -36,6 +37,7 @@ extension BundledDetails {
         case .recommendedLayout: BundledPropertyKey.recommendedLayout.rawValue
         case .lastUsedDate: BundledPropertyKey.lastUsedDate.rawValue
         case .templateNamePrefillType: BundledPropertyKey.templateNamePrefillType.rawValue
+        case .isHidden: BundledPropertyKey.isHidden.rawValue
         }
     }
 
@@ -54,6 +56,7 @@ extension BundledDetails {
         case .recommendedLayout(let layout): layout.protobufValue
         case .lastUsedDate(let date): date.protobufValue
         case .templateNamePrefillType(let int): int.protobufValue
+        case .isHidden(let bool): bool.protobufValue
         }
     }
 

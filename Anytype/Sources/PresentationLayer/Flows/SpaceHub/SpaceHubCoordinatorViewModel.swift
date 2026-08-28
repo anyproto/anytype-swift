@@ -35,6 +35,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var showGroupChannelCreate = false
     var shouldScanQrCode = false
     var showAppSettings = false
+    var showQuickCapture = false
+    var quickCaptureCreated: QuickCaptureCreatedBanner?
     
     var photosItems: [PhotosPickerItem] = []
     var showPhotosPicker = false
@@ -303,6 +305,25 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     
     func onSelectAppSettings() {
         showAppSettings = true
+    }
+
+    func onSelectQuickCapture() {
+        showQuickCapture = true
+    }
+
+    func quickCaptureDidCreate(_ banner: QuickCaptureCreatedBanner) {
+        showQuickCapture = false
+        quickCaptureCreated = banner
+    }
+
+    func onTapQuickCaptureCreated() {
+        guard let banner = quickCaptureCreated else { return }
+        quickCaptureCreated = nil
+        appActionsStorage.action = .deepLink(.object(objectId: banner.objectId, spaceId: banner.spaceId), .internal)
+    }
+
+    func quickCaptureBannerTimeout() {
+        quickCaptureCreated = nil
     }
     
     func photosPickerFinished() {

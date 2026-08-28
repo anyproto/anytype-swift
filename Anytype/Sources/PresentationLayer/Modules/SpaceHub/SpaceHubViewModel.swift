@@ -54,6 +54,10 @@ final class SpaceHubViewModel {
         output?.onSelectAppSettings()
     }
 
+    func onTapQuickCapture() {
+        output?.onSelectQuickCapture()
+    }
+
     func onTapCreatePersonalChannel() {
         AnytypeAnalytics.instance().logClickVaultCreateMenuSpace()
         output?.onSelectCreatePersonalChannel()

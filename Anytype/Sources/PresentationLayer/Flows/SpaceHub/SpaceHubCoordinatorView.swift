@@ -92,6 +92,22 @@ struct SpaceHubCoordinatorView: View {
                 SettingsCoordinatorView()
                     .pageNavigation(model.pageNavigation)
             }
+            .sheet(isPresented: $model.showQuickCapture) {
+                QuickCaptureCoordinatorView(onCreated: { model.quickCaptureDidCreate($0) })
+            }
+            .overlay(alignment: .bottom) {
+                if let banner = model.quickCaptureCreated {
+                    QuickCaptureCreatedBannerView(banner: banner) {
+                        model.onTapQuickCaptureCreated()
+                    }
+                    .padding(.bottom, 56)
+                }
+            }
+            .task(item: model.quickCaptureCreated) { _ in
+                try? await Task.sleep(for: .seconds(6))
+                await model.quickCaptureBannerTimeout()
+            }
+            .animation(.default, value: model.quickCaptureCreated)
         
             // load photos
             .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)

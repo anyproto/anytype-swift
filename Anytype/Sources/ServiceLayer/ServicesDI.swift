@@ -387,6 +387,18 @@ extension Container {
     var globalSearchSavedStatesService: Factory<any GlobalSearchSavedStatesServiceProtocol> {
         self { GlobalSearchSavedStatesService() }.shared
     }
+
+    var spaceRecencyStorage: Factory<any SpaceRecencyStorageProtocol> {
+        self { SpaceRecencyStorage() }.singleton
+    }
+
+    var quickCaptureDraftStorage: Factory<any QuickCaptureDraftStorageProtocol> {
+        self { QuickCaptureDraftStorage() }.singleton
+    }
+
+    var quickCaptureService: Factory<any QuickCaptureServiceProtocol> {
+        self { QuickCaptureService() }.shared
+    }
     
     var userDefaultsStorage: Factory< any UserDefaultsStorageProtocol> {
         self { UserDefaultsStorage() }.singleton

@@ -54,7 +54,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             bottomNavigationManager: bottomNavigationManager,
             configuration: EditorPageViewModelConfiguration(
                 blockId: data.blockId,
-                usecase: data.usecase
+                usecase: data.usecase,
+                quickCapture: data.quickCapture
             ),
             output: output
         )
@@ -128,7 +129,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,
             router: router,
-            document: document
+            document: document,
+            quickCapture: configuration.quickCapture
         )
         
         let markdownListener = MarkdownListenerImpl(

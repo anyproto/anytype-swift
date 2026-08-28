@@ -67,6 +67,7 @@ struct SpaceHubView: View {
             profileIcon: model.profileIcon,
             notificationsNotDetermined: model.notificationsNotDetermined,
             hideCreateButton: isEmptyState,
+            quickCaptureEnabled: FeatureFlags.quickCapture,
             onTapCreatePersonalChannel: {
                 model.onTapCreatePersonalChannel()
             },
@@ -78,6 +79,9 @@ struct SpaceHubView: View {
             },
             onTapSettings: {
                 model.onTapSettings()
+            },
+            onTapQuickCapture: {
+                model.onTapQuickCapture()
             }
         )
     }

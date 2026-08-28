@@ -1071,6 +1071,15 @@ public enum Loc {
       return Loc.tr("UI", "QuickAction.create", String(describing: p1), fallback: "Create %@")
     }
   }
+  public enum QuickCapture {
+    public static let clearDraft = Loc.tr("UI", "QuickCapture.clearDraft", fallback: "Clear draft")
+    public static func typeCreatedIn(_ p1: Any, _ p2: Any) -> String {
+      return Loc.tr("UI", "QuickCapture.typeCreatedIn", String(describing: p1), String(describing: p2), fallback: "%1$@ created in %2$@")
+    }
+    public static func viewType(_ p1: Any) -> String {
+      return Loc.tr("UI", "QuickCapture.viewType", String(describing: p1), fallback: "View %@")
+    }
+  }
   public enum RedactedText {
     public static let pageTitle = Loc.tr("UI", "RedactedText.pageTitle", fallback: "Wake up, Neo")
     public static let pageType = Loc.tr("UI", "RedactedText.pageType", fallback: "Red pill")

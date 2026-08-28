@@ -65,6 +65,13 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
+    static let quickCapture = FeatureDescription(
+        title: "Quick Capture from Space Hub - IOS-6617",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "?"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(

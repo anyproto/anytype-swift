@@ -12,23 +12,28 @@ final class ChangeTypeAccessoryViewModel {
     var onDoneButtonTap: (() -> Void)?
     var onTypeSelected: ((TypeSelectionResult) -> Void)?
 
+    let quickCapture: Bool
+
     private let router: any EditorRouterProtocol
     private let handler: any BlockActionHandlerProtocol
     private let document: any BaseDocumentProtocol
 
     @Injected(\.typesService)
     private var typesService: any TypesServiceProtocol
-    
+
     private var cancellables = [AnyCancellable]()
 
     init(
         router: some EditorRouterProtocol,
         handler: some BlockActionHandlerProtocol,
-        document: some BaseDocumentProtocol
+        document: some BaseDocumentProtocol,
+        quickCapture: Bool = false
     ) {
         self.router = router
         self.handler = handler
         self.document = document
+        self.quickCapture = quickCapture
+        self.isTypesViewVisible = quickCapture
 
         subscribeOnDocumentChanges()
     }
@@ -66,23 +71,27 @@ final class ChangeTypeAccessoryViewModel {
     }
     
     private func fetchSupportedTypes() async -> [TypeItem]? {
-        let supportedTypes = try? await typesService
+        var types = try? await typesService
             .searchObjectTypes(
                 text: "",
                 includePins: true,
-                includeLists: true,
+                // Sets and collections are containers, not capture targets
+                includeLists: !quickCapture,
                 includeBookmarks: true,
                 includeFiles: false,
                 includeChat: false,
                 includeTemplates: false,
                 incudeNotForCreation: false,
                 spaceId: document.spaceId
-            ).map { type in
-                TypeItem(from: type, handler: { [weak self] in
-                    self?.onTypeSelected(result: .objectType(type: ObjectType(details: type)))
-                })
-            }
-        return supportedTypes
+            )
+        if quickCapture {
+            types = types?.sorted { ($0.lastUsedDate ?? .distantPast) > ($1.lastUsedDate ?? .distantPast) }
+        }
+        return types?.map { type in
+            TypeItem(from: type, handler: { [weak self] in
+                self?.onTypeSelected(result: .objectType(type: ObjectType(details: type)))
+            })
+        }
     }
 }
 
