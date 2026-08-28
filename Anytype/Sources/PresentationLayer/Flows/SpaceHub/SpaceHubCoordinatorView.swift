@@ -39,9 +39,6 @@ struct SpaceHubCoordinatorView: View {
             .sheet(item: $model.showGlobalSearchData) {
                 GlobalSearchView(data: $0)
             }
-            .sheet(item: $model.showUnifiedSearchData) {
-                UnifiedSearchView(data: $0)
-            }
             .anytypeSheet(item: $model.spaceJoinData) {
                 SpaceJoinView(data: $0, onManageSpaces: {
                     model.onManageSpacesSelected()
@@ -175,8 +172,21 @@ struct SpaceHubCoordinatorView: View {
                 }
             )
 
+            // In-space search overlay: covers the current screen in place; kept
+            // mounted (dimmed out) while a pushed result is on top, so returning
+            // restores it instantly with its state and without refocusing
+            if let searchData = model.inSpaceSearchData {
+                UnifiedSearchView(data: searchData)
+                    .opacity(model.inSpaceSearchOnTop ? 1 : 0)
+                    .allowsHitTesting(model.inSpaceSearchOnTop)
+                    // The bar expansion carries the motion - the overlay itself fades
+                    .transition(.opacity)
+                    .zIndex(1)
+            }
+
             NotificationCoordinatorView()
         }
+        .animation(.easeInOut(duration: 0.25), value: model.inSpaceSearchData.isNotNil)
         .widgetsAnimationNamespace(namespace)
         .animation(.easeInOut, value: model.spaceInfo)
         .pageNavigation(model.pageNavigation)

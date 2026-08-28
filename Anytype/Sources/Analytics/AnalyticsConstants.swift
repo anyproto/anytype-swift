@@ -391,6 +391,28 @@ enum SearchInputRoute: String {
     case library = "Library"
 }
 
+enum SearchTokenType: String {
+    case space = "Space"
+    case kind = "Kind"
+    case type = "Type"
+    case creator = "Creator"
+}
+
+enum SearchTokenAction: String {
+    case add = "Add"
+    case remove = "Remove"
+    case replace = "Replace"
+}
+
+enum SearchTokenSource: String {
+    case chip = "Chip"
+    case row = "Row"
+    case caption = "Caption"
+    case entry = "Entry"
+    case token = "Token"
+    case backspace = "Backspace"
+}
+
 enum StyleObjectType: String {
     case date = "Date"
     case custom = "Custom"

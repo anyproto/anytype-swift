@@ -1322,9 +1322,19 @@ public enum Loc {
     public static func inSpace(_ p1: Any) -> String {
       return Loc.tr("UI", "UnifiedSearch.inSpace", String(describing: p1), fallback: "in %@")
     }
+    public enum Chip {
+      public static func by(_ p1: Any) -> String {
+        return Loc.tr("UI", "UnifiedSearch.Chip.by", String(describing: p1), fallback: "By %@")
+      }
+      public static let byMe = Loc.tr("UI", "UnifiedSearch.Chip.byMe", fallback: "By me")
+      public static let inThisChannel = Loc.tr("UI", "UnifiedSearch.Chip.inThisChannel", fallback: "In this Channel")
+      public static let messages = Loc.tr("UI", "UnifiedSearch.Chip.messages", fallback: "Messages")
+      public static let people = Loc.tr("UI", "UnifiedSearch.Chip.people", fallback: "People")
+    }
     public enum Section {
       public static let channels = Loc.tr("UI", "UnifiedSearch.Section.channels", fallback: "Channels")
       public static let objects = Loc.tr("UI", "UnifiedSearch.Section.objects", fallback: "Objects")
+      public static let recentMessages = Loc.tr("UI", "UnifiedSearch.Section.recentMessages", fallback: "Recent Messages")
       public static let recentObjects = Loc.tr("UI", "UnifiedSearch.Section.recentObjects", fallback: "Recent Objects")
     }
   }

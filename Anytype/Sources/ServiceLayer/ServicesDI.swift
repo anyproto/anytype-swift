@@ -36,6 +36,14 @@ extension Container {
         self { CrossSpaceTypesSubscriptionBuilder() }.shared
     }
 
+    var crossSpaceParticipantsStorage: Factory<any CrossSpaceParticipantsStorageProtocol> {
+        self { CrossSpaceParticipantsStorage() }.singleton
+    }
+
+    var crossSpaceParticipantsSubscriptionBuilder: Factory<any CrossSpaceParticipantsSubscriptionBuilderProtocol> {
+        self { CrossSpaceParticipantsSubscriptionBuilder() }.shared
+    }
+
     var objectsWithUnreadDiscussionsSubscription: Factory<any ObjectsWithUnreadDiscussionsSubscriptionProtocol> {
         self { ObjectsWithUnreadDiscussionsSubscription() }.singleton
     }

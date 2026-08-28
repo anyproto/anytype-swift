@@ -105070,6 +105070,61 @@
         }
       }
     },
+    "UnifiedSearch.Chip.by" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By %@"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Chip.byMe" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By me"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Chip.inThisChannel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In this Channel"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Chip.messages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Messages"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Chip.people" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "People"
+          }
+        }
+      }
+    },
     "UnifiedSearch.Section.channels" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -105088,6 +105143,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Objects"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Section.recentMessages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recent Messages"
           }
         }
       }

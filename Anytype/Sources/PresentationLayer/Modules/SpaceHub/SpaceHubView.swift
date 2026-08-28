@@ -11,7 +11,17 @@ struct SpaceHubView: View {
     }
     
     var body: some View {
-        content
+        ZStack {
+            content
+            // Search overlays the vault in place (no history entry),
+            // full height, sliding up from the bottom
+            if let searchData = model.unifiedSearchData {
+                UnifiedSearchView(data: searchData)
+                    .transition(.move(edge: .bottom))
+                    .zIndex(1)
+            }
+        }
+        .animation(.easeInOut(duration: 0.25), value: model.unifiedSearchData.isNotNil)
             .onAppear { model.onAppear() }
             .taskWithMemoryScope { await model.startSubscriptions() }
             .task(item: model.spaceMuteData) { data in
@@ -53,16 +63,18 @@ struct SpaceHubView: View {
                 .navigationTitle(Loc.myChannels)
                 .scrollEdgeEffectStyleIOS26(.soft, for: .top)
                 .toolbar { toolbarItems }
-                .if(!isEmptyState) { view in
-                    view
-                        .if(FeatureFlags.unifiedSearch) {
-                            $0.background {
-                                VaultSearchActivationDetector {
-                                    model.onSearchTap()
-                                }
-                            }
-                        }
-                        .searchable(text: $model.searchText)
+                .if(!isEmptyState && !FeatureFlags.unifiedSearch) { view in
+                    view.searchable(text: $model.searchText)
+                }
+                .if(!isEmptyState && FeatureFlags.unifiedSearch) { view in
+                    view.safeAreaBarIOS26(edge: .bottom, spacing: 0) {
+                        VaultSearchBottomBar(
+                            onTapSearch: { model.onSearchTap() },
+                            onTapCreatePersonalChannel: { model.onTapCreatePersonalChannel() },
+                            onTapCreateGroupChannel: { model.onTapCreateGroupChannel() },
+                            onTapJoinViaQrCode: { model.onTapJoinViaQrCode() }
+                        )
+                    }
                 }
                 .onChange(of: model.searchText) {
                     model.searchTextUpdated()
@@ -75,6 +87,7 @@ struct SpaceHubView: View {
             profileIcon: model.profileIcon,
             notificationsNotDetermined: model.notificationsNotDetermined,
             hideCreateButton: isEmptyState,
+            unifiedSearchEnabled: FeatureFlags.unifiedSearch,
             onTapCreatePersonalChannel: {
                 model.onTapCreatePersonalChannel()
             },
@@ -88,25 +101,6 @@ struct SpaceHubView: View {
                 model.onTapSettings()
             }
         )
-    }
-}
-
-// With unified search, the vault search bar is only an entry point - activating it
-// opens the search surface instead of filtering space cards. Sits inside the
-// searchable hierarchy to read isSearching (searchFocused needs iOS 18).
-private struct VaultSearchActivationDetector: View {
-    @Environment(\.isSearching) private var isSearching
-    @Environment(\.dismissSearch) private var dismissSearch
-
-    let onActivate: () -> Void
-
-    var body: some View {
-        Color.clear
-            .onChange(of: isSearching) { _, searching in
-                guard searching else { return }
-                dismissSearch()
-                onActivate()
-            }
     }
 }
 

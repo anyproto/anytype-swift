@@ -25,7 +25,12 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var spaceJoinData: SpaceJoinModuleData?
     var membershipNameFinalizationData: MembershipTier?
     var showGlobalSearchData: GlobalSearchModuleData?
-    var showUnifiedSearchData: UnifiedSearchModuleData?
+    // In-space search overlay: covers the current screen in place; an opened
+    // same-space result pushes over it and back returns to it (tracked by the
+    // path depth at open time)
+    var inSpaceSearchData: UnifiedSearchModuleData?
+    @ObservationIgnored
+    private var inSpaceSearchOriginPathCount = 0
     var toastBarData: ToastBarData?
     var chatProvider = ChatActionProvider()
     var bookmarkScreenData: BookmarkScreenData?
@@ -294,19 +299,42 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         Task { await showSpace(spaceId: spaceId) }
     }
 
-    func onSelectSearch() {
-        showUnifiedSearch(currentSpaceId: nil)
+    // Vault entry: the search is an in-place overlay on the hub
+    func vaultSearchModuleData(onClose: @escaping () -> Void) -> UnifiedSearchModuleData {
+        searchModuleData(currentSpaceId: nil, onClose: onClose, animatesBarExpansion: false)
     }
 
-    private func showUnifiedSearch(currentSpaceId: String?) {
-        showUnifiedSearchData = UnifiedSearchModuleData(
+    private func searchModuleData(currentSpaceId: String?, onClose: (() -> Void)?, animatesBarExpansion: Bool) -> UnifiedSearchModuleData {
+        UnifiedSearchModuleData(
             currentSpaceId: currentSpaceId,
             onSelect: { [weak self] screenData in
-                self?.showScreenSync(data: screenData)
+                // Drop the keyboard before covering the search - a keyboard raised
+                // while the search's hosting view is off-window desyncs its
+                // keyboard avoidance, hiding the field behind the keyboard on return
+                self?.keyboardDismiss?()
+                // A cross-space result rebuilds the stack, so the origin screen
+                // the overlay lives over is gone - close it
+                if screenData.spaceId != self?.currentSpaceId {
+                    self?.inSpaceSearchData = nil
+                }
+                self?.showScreenSync(data: screenData, searchOrigin: true)
             },
             onOpenSpace: { [weak self] spaceId in
+                self?.keyboardDismiss?()
+                self?.inSpaceSearchData = nil
                 self?.onSelectSpace(spaceId: spaceId)
-            }
+            },
+            onOpenMessage: { [weak self] chatObjectId, spaceId, messageId in
+                self?.keyboardDismiss?()
+                if spaceId != self?.currentSpaceId {
+                    self?.inSpaceSearchData = nil
+                }
+                Task {
+                    await self?.handleChatMessageDeepLink(chatObjectId: chatObjectId, spaceId: spaceId, messageId: messageId, searchOrigin: true)
+                }
+            },
+            onClose: onClose,
+            animatesBarExpansion: animatesBarExpansion
         )
     }
 
@@ -358,8 +386,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     
     // MARK: - Navigation
     
-    private func showScreenSync(data: ScreenData) {
-        Task { try await showScreen(data: data) }
+    private func showScreenSync(data: ScreenData, searchOrigin: Bool = false) {
+        Task { try await showScreen(data: data, searchOrigin: searchOrigin) }
     }
     
     private func homeObjectScreenData(spaceId: String, spaceType: SpaceType? = nil) async -> AnyHashable {
@@ -398,10 +426,18 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
 
     /// Builds the home path for a space without committing to navigationPath.
     /// Returns nil if already in the target space.
-    private func prepareSpacePath(spaceId: String, spaceType: SpaceType? = nil) async -> HomePath? {
+    /// When the switch originates from search (preserveSearchOrigin), the opened
+    /// result sits directly on the hub - the destination space's home screen is
+    /// not injected under it.
+    private func prepareSpacePath(spaceId: String, spaceType: SpaceType? = nil, preserveSearchOrigin: Bool = false) async -> HomePath? {
         guard currentSpaceId != spaceId else { return nil }
 
         setActiveSpace(spaceId: spaceId)
+
+        if preserveSearchOrigin {
+            return HomePath(initialPath: [AnyHashable(SpaceHubNavigationItem())])
+        }
+
         let homeObject = await homeObjectScreenData(spaceId: spaceId, spaceType: spaceType)
 
         let path: [AnyHashable] = .builder {
@@ -413,7 +449,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
 
     private func showSpace(spaceId: String, spaceType: SpaceType? = nil) async {
-        guard let newPath = await prepareSpacePath(spaceId: spaceId, spaceType: spaceType) else { return }
+        guard let newPath = await prepareSpacePath(spaceId: spaceId, spaceType: spaceType, preserveSearchOrigin: false) else { return }
         if navigationPath != newPath {
             await dismissAllPresented?()
             navigationPath = newPath
@@ -421,13 +457,13 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
 
     // main show screen logic
-    private func showScreen(data: ScreenData) async throws {
+    private func showScreen(data: ScreenData, searchOrigin: Bool = false) async throws {
         guard try await checkIsDataSupportedForOpening(data) else { return }
 
         // Build space path without committing — showScreen will commit once with final state
         var currentPath: HomePath
         let isSwitchingSpace: Bool
-        if let spacePath = await prepareSpacePath(spaceId: data.spaceId) {
+        if let spacePath = await prepareSpacePath(spaceId: data.spaceId, preserveSearchOrigin: searchOrigin) {
             currentPath = spacePath
             isSwitchingSpace = true
         } else {
@@ -629,7 +665,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         }
     }
 
-    private func handleChatMessageDeepLink(chatObjectId: String, spaceId: String, messageId: String) async {
+    private func handleChatMessageDeepLink(chatObjectId: String, spaceId: String, messageId: String, searchOrigin: Bool = false) async {
         let document = documentsProvider.document(objectId: chatObjectId, spaceId: spaceId, mode: .preview)
         do {
             try await document.open()
@@ -641,13 +677,13 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             if details.editorViewType == .chat {
                 let chatId = details.resolvedLayoutValue == .chatDerived ? details.id : details.chatId
                 let data = ChatCoordinatorData(chatId: chatId, spaceId: spaceId, messageId: messageId)
-                try? await showScreen(data: .chat(data))
+                try? await showScreen(data: .chat(data), searchOrigin: searchOrigin)
             } else if details.editorViewType == .discussion || details.discussionId.isNotEmpty {
                 // Standalone discussion objects use their own id; objects with a discussion property use discussionId
                 let discussionId = details.editorViewType == .discussion ? details.id : details.discussionId
                 var currentPath: HomePath
                 let isSwitchingSpace: Bool
-                if let spacePath = await prepareSpacePath(spaceId: spaceId) {
+                if let spacePath = await prepareSpacePath(spaceId: spaceId, preserveSearchOrigin: searchOrigin) {
                     currentPath = spacePath
                     isSwitchingSpace = true
                 } else {
@@ -796,7 +832,14 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         guard let spaceInfo else { return }
 
         if FeatureFlags.unifiedSearch {
-            showUnifiedSearch(currentSpaceId: spaceInfo.accountSpaceId)
+            inSpaceSearchOriginPathCount = navigationPath.count
+            inSpaceSearchData = searchModuleData(
+                currentSpaceId: spaceInfo.accountSpaceId,
+                onClose: { [weak self] in
+                    self?.inSpaceSearchData = nil
+                },
+                animatesBarExpansion: true
+            )
         } else {
             showGlobalSearchData = GlobalSearchModuleData(
                 spaceId: spaceInfo.accountSpaceId,
@@ -805,6 +848,12 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
                 }
             )
         }
+    }
+
+    // The overlay yields the screen to a pushed result and returns when the
+    // path is back at its origin depth
+    var inSpaceSearchOnTop: Bool {
+        navigationPath.count <= inSpaceSearchOriginPathCount
     }
 
     func onCreateObjectSelected(screenData: ScreenData) {

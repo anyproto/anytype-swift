@@ -10,10 +10,16 @@ protocol CrossSpaceSearchServiceProtocol: AnyObject, Sendable {
         text: String,
         layouts: [DetailsLayout],
         excludedLayouts: [DetailsLayout],
+        typeUniqueKey: String?,
+        creators: [String],
         spaceId: String?,
         offset: Int,
         limit: Int
     ) async throws -> CrossSpaceSearchResult
+
+    // Raw by-ids fetch across spaces - one batch per result page (message container
+    // attribution), never per row
+    func objects(ids: [String]) async throws -> [ObjectDetails]
 }
 
 final class CrossSpaceSearchService: CrossSpaceSearchServiceProtocol, Sendable {
@@ -24,6 +30,8 @@ final class CrossSpaceSearchService: CrossSpaceSearchServiceProtocol, Sendable {
         text: String,
         layouts: [DetailsLayout],
         excludedLayouts: [DetailsLayout],
+        typeUniqueKey: String?,
+        creators: [String],
         spaceId: String?,
         offset: Int,
         limit: Int
@@ -39,6 +47,12 @@ final class CrossSpaceSearchService: CrossSpaceSearchServiceProtocol, Sendable {
             if excludedLayouts.isNotEmpty {
                 SearchHelper.excludedLayoutFilter(excludedLayouts)
             }
+            if let typeUniqueKey {
+                SearchHelper.typeUniqueKeyFilter(typeUniqueKey)
+            }
+            if creators.isNotEmpty {
+                SearchHelper.creatorsFilter(creators)
+            }
             if let spaceId {
                 SearchHelper.spaceIdFilter(spaceId)
             }
@@ -50,5 +64,13 @@ final class CrossSpaceSearchService: CrossSpaceSearchServiceProtocol, Sendable {
             offset: offset,
             limit: limit
         )
+    }
+
+    func objects(ids: [String]) async throws -> [ObjectDetails] {
+        guard ids.isNotEmpty else { return [] }
+        return try await crossSpaceSearchMiddleService.search(
+            filters: [SearchHelper.objectsIds(ids)],
+            limit: ids.count
+        ).records
     }
 }

@@ -5,6 +5,9 @@ struct SpaceHubToolbar: ToolbarContent {
     let profileIcon: Icon?
     let notificationsNotDetermined: Bool
     let hideCreateButton: Bool
+    // With unified search, the bottom row (search + create) is a custom bar
+    // owned by SpaceHubView - the toolbar keeps only the profile item
+    let unifiedSearchEnabled: Bool
 
     let onTapCreatePersonalChannel: () -> Void
     let onTapCreateGroupChannel: () -> Void
@@ -68,7 +71,7 @@ struct SpaceHubToolbar: ToolbarContent {
         }
         .sharedBackgroundVisibility(.hidden)
 
-        if !hideCreateButton {
+        if !hideCreateButton, !unifiedSearchEnabled {
             DefaultToolbarItem(kind: .search, placement: .bottomBar)
 
             ToolbarSpacer(placement: .bottomBar)

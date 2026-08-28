@@ -47,6 +47,8 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let spaceFileUploadService: any SpaceFileUploadServiceProtocol = Container.shared.spaceFileUploadService()
     private let appIconBadgeService: any AppIconBadgeServiceProtocol = Container.shared.appIconBadgeService()
     private let chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol = Container.shared.chatMessagesPreviewsStorage()
+    private let crossSpaceTypesStorage: any CrossSpaceTypesStorageProtocol = Container.shared.crossSpaceTypesStorage()
+    private let crossSpaceParticipantsStorage: any CrossSpaceParticipantsStorageProtocol = Container.shared.crossSpaceParticipantsStorage()
     private let thermalProfilerTrigger: any ThermalProfilerTriggerProtocol = Container.shared.thermalProfilerTrigger()
     private let memoryPressureProfilerTrigger: any MemoryPressureProfilerTriggerProtocol = Container.shared.memoryPressureProfilerTrigger()
     private let debugProfileEventHandler: any DebugProfileEventHandlerProtocol = Container.shared.debugProfileEventHandler()
@@ -97,6 +99,12 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await accountParticipantsStorage.startSubscription()
         await objectsWithUnreadDiscussionsSubscription.startSubscription()
         await participantSpacesStorage.startSubscription()
+        if FeatureFlags.unifiedSearch {
+            // Search deps (type captions, person chips, author attribution) - kept
+            // alive for the account lifetime, updates are rare
+            await crossSpaceTypesStorage.startSubscription()
+            await crossSpaceParticipantsStorage.startSubscription()
+        }
         await networkConnectionStatusDaemon.start()
         await storeKitService.startListenForTransactions()
         await profileStorage.startSubscription()
@@ -122,6 +130,8 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await accountParticipantsStorage.stopSubscription()
         await objectsWithUnreadDiscussionsSubscription.stopSubscription()
         await participantSpacesStorage.stopSubscription()
+        await crossSpaceTypesStorage.stopSubscription()
+        await crossSpaceParticipantsStorage.stopSubscription()
         await membershipStatusStorage.stopSubscriptionAndClean()
         await syncStatusStorage.stopSubscriptionAndClean()
         await p2pStatusStorage.stopSubscriptionAndClean()

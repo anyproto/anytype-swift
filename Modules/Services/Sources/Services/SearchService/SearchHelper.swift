@@ -100,6 +100,23 @@ public class SearchHelper {
         return filter
     }
 
+    // uniqueKey is stable across spaces, so the filter matches the type in every space
+    public static func typeUniqueKeyFilter(_ uniqueKey: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.relationKey = "\(BundledPropertyKey.type.rawValue).\(BundledPropertyKey.uniqueKey.rawValue)"
+        filter.value = uniqueKey.protobufValue
+        return filter
+    }
+
+    public static func creatorsFilter(_ ids: [String]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = ids.protobufValue
+        filter.relationKey = BundledPropertyKey.creator.rawValue
+        return filter
+    }
+
     public static func objectsIds(_ objectsIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in

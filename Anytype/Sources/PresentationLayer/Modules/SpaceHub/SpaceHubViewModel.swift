@@ -21,6 +21,7 @@ final class SpaceHubViewModel {
     private var allSpaceCardModels: [SpaceCardModel] = []
 
     var notificationsNotDetermined = false
+    var unifiedSearchData: UnifiedSearchModuleData?
     var spaceMuteData: SpaceMuteData?
     var profileIcon: Icon?
     var spaceToDelete: StringIdentifiable?
@@ -54,8 +55,12 @@ final class SpaceHubViewModel {
         output?.onSelectAppSettings()
     }
 
+    // Search is an in-place overlay on the vault screen, not a
+    // navigation entry - opened results push over it, back returns to it
     func onSearchTap() {
-        output?.onSelectSearch()
+        unifiedSearchData = output?.vaultSearchModuleData(onClose: { [weak self] in
+            self?.unifiedSearchData = nil
+        })
     }
 
     func onTapCreatePersonalChannel() {
