@@ -75820,17 +75820,6 @@
         }
       }
     },
-    "QuickCapture.viewType" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "View %@"
-          }
-        }
-      }
-    },
     "Random" : {
       "extractionState" : "manual",
       "localizations" : {

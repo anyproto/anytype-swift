@@ -28,6 +28,8 @@ final class QuickCaptureCoordinatorViewModel {
     private var appActionStorage: AppActionStorage
     @ObservationIgnored @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @ObservationIgnored @Injected(\.quickCaptureTypeSuggestionService)
+    private var typeSuggestionService: any QuickCaptureTypeSuggestionServiceProtocol
     @ObservationIgnored
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
 
@@ -96,6 +98,7 @@ final class QuickCaptureCoordinatorViewModel {
 
     func onAppear() async {
         guard editorData.isNil else { return }
+        typeSuggestionService.prewarm()
         guard let targetSpace = sortedEditableSpaces.first else {
             dismiss?()
             return

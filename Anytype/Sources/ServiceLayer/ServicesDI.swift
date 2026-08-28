@@ -399,6 +399,10 @@ extension Container {
     var quickCaptureService: Factory<any QuickCaptureServiceProtocol> {
         self { QuickCaptureService() }.shared
     }
+
+    var quickCaptureTypeSuggestionService: Factory<any QuickCaptureTypeSuggestionServiceProtocol> {
+        self { QuickCaptureTypeSuggestionService() }.shared
+    }
     
     var userDefaultsStorage: Factory< any UserDefaultsStorageProtocol> {
         self { UserDefaultsStorage() }.singleton

@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .quickCapture)
     }
 
+    static var quickCaptureTypeSuggestions: Bool {
+        value(for: .quickCaptureTypeSuggestions)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -147,6 +151,7 @@ public extension FeatureFlags {
         .virtualTrailingBlock,
         .forkEmptyBlockOnFill,
         .quickCapture,
+        .quickCaptureTypeSuggestions,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

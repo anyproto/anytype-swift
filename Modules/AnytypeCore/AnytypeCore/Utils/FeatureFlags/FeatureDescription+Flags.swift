@@ -72,6 +72,13 @@ public extension FeatureDescription {
         debugValue: true
     )
 
+    static let quickCaptureTypeSuggestions = FeatureDescription(
+        title: "Quick Capture - on-device AI type suggestions - IOS-6617",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "?"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(

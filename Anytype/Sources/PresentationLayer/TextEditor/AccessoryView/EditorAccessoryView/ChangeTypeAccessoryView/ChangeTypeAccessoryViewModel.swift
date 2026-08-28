@@ -20,8 +20,13 @@ final class ChangeTypeAccessoryViewModel {
 
     @Injected(\.typesService)
     private var typesService: any TypesServiceProtocol
+    @Injected(\.quickCaptureTypeSuggestionService)
+    private var suggestionService: any QuickCaptureTypeSuggestionServiceProtocol
 
     private var cancellables = [AnyCancellable]()
+    private var lastFetchedTypes = [ObjectDetails]()
+    private var suggestedTypeName: String?
+    private var lastClassifiedText = ""
 
     init(
         router: some EditorRouterProtocol,
@@ -36,6 +41,9 @@ final class ChangeTypeAccessoryViewModel {
         self.isTypesViewVisible = quickCapture
 
         subscribeOnDocumentChanges()
+        if quickCapture {
+            subscribeOnContentForSuggestions()
+        }
     }
 
     func handleDoneButtonTap() {
@@ -87,11 +95,62 @@ final class ChangeTypeAccessoryViewModel {
         if quickCapture {
             types = types?.sorted { ($0.lastUsedDate ?? .distantPast) > ($1.lastUsedDate ?? .distantPast) }
         }
-        return types?.map { type in
-            TypeItem(from: type, handler: { [weak self] in
-                self?.onTypeSelected(result: .objectType(type: ObjectType(details: type)))
-            })
+        guard let types else { return nil }
+        lastFetchedTypes = types
+        return buildItems(from: types)
+    }
+
+    private func buildItems(from types: [ObjectDetails]) -> [TypeItem] {
+        var ordered = types
+        if let suggestedTypeName, let index = ordered.firstIndex(where: { $0.name == suggestedTypeName }) {
+            let suggested = ordered.remove(at: index)
+            ordered.insert(suggested, at: 0)
         }
+        return ordered.map { type in
+            TypeItem(
+                from: type,
+                isSuggested: type.name == suggestedTypeName,
+                handler: { [weak self] in
+                    self?.onTypeSelected(result: .objectType(type: ObjectType(details: type)))
+                }
+            )
+        }
+    }
+
+    // MARK: - Quick capture type suggestions (on-device AFM)
+
+    private func subscribeOnContentForSuggestions() {
+        guard suggestionService.isAvailable else { return }
+        document.syncPublisher
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+            .sink { [weak self] _ in
+                Task { @MainActor [weak self] in
+                    await self?.suggestTypeIfNeeded()
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    private func suggestTypeIfNeeded() async {
+        let text = draftText()
+        guard text != lastClassifiedText else { return }
+        lastClassifiedText = text
+        let typeNames = lastFetchedTypes.map(\.name)
+        guard let suggestion = await suggestionService.suggestType(text: text, typeNames: typeNames) else { return }
+        guard suggestion != suggestedTypeName else { return }
+        suggestedTypeName = suggestion
+        supportedTypes = buildItems(from: lastFetchedTypes)
+    }
+
+    private func draftText() -> String {
+        let title = document.details?.name ?? ""
+        let body = document.children
+            .compactMap { info -> String? in
+                if case let .text(textContent) = info.content { return textContent.text }
+                return nil
+            }
+            .joined(separator: "\n")
+        return title + "\n" + body
     }
 }
 
