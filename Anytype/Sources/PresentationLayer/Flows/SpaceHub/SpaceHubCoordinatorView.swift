@@ -115,9 +115,14 @@ struct SpaceHubCoordinatorView: View {
 
             // widgets overlay
             .fullScreenCover(item: $model.overlayWidgetsData) { data in
-                HomeWidgetsCoordinatorView(data: data, context: .overlay)
+                SearchOverlayHost(model: model, item: AnyHashable(data), content: HomeWidgetsCoordinatorView(data: data, context: .overlay))
                     .pageNavigation(model.pageNavigation)
                     .navigationZoomTransition(sourceID: "widgetsOverlay", in: namespace)
+            }
+            .onChange(of: model.overlayWidgetsData) { old, new in
+                if new == nil {
+                    model.onWidgetsOverlayDismissed(old)
+                }
             }
     }
     

@@ -66,7 +66,7 @@ struct UnifiedSearchChipsRowView: View {
                         .frame(width: 16, height: 16)
                 }
                 AnytypeText(chip.title, style: .uxTitle2Medium)
-                    .foregroundStyle(Color.Text.secondary)
+                    .foregroundStyle(Color.Text.primary)
             }
             .padding(.vertical, 6)
             .padding(.horizontal, 10)
@@ -89,7 +89,7 @@ struct SearchChipIconView: View {
             Image(asset: asset)
                 .resizable()
                 .scaledToFit()
-                .foregroundStyle(Color.Text.secondary)
+                .foregroundStyle(Color.Text.primary)
         default:
             IconView(icon: icon)
         }

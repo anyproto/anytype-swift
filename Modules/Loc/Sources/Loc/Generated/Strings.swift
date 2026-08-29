@@ -1338,9 +1338,17 @@ public enum Loc {
       public static let people = Loc.tr("UI", "UnifiedSearch.Chip.people", fallback: "People")
       public static let types = Loc.tr("UI", "UnifiedSearch.Chip.types", fallback: "Types")
     }
+    public enum Person {
+      public static let createOneToOne = Loc.tr("UI", "UnifiedSearch.Person.createOneToOne", fallback: "Create 1-1 Channel")
+      public static func memberInChannels(_ p1: Int) -> String {
+        return Loc.tr("UI", "UnifiedSearch.Person.memberInChannels", p1, fallback: "member in %d Channels")
+      }
+      public static let memberInOneChannel = Loc.tr("UI", "UnifiedSearch.Person.memberInOneChannel", fallback: "member in 1 Channel")
+    }
     public enum Section {
       public static let channels = Loc.tr("UI", "UnifiedSearch.Section.channels", fallback: "Channels")
       public static let objects = Loc.tr("UI", "UnifiedSearch.Section.objects", fallback: "Objects")
+      public static let people = Loc.tr("UI", "UnifiedSearch.Section.people", fallback: "People")
       public static let recentMessages = Loc.tr("UI", "UnifiedSearch.Section.recentMessages", fallback: "Recent Messages")
       public static let recentObjects = Loc.tr("UI", "UnifiedSearch.Section.recentObjects", fallback: "Recent Objects")
     }

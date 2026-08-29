@@ -122,7 +122,7 @@ struct UnifiedSearchView: View {
     private var content: some View {
         if model.isInitial {
             Spacer()
-        } else if model.channelRows.isEmpty && model.rows.isEmpty && model.messageRows.isEmpty {
+        } else if model.channelRows.isEmpty && model.personRows.isEmpty && model.rows.isEmpty && model.messageRows.isEmpty {
             emptyState
         } else {
             searchResults
@@ -143,12 +143,26 @@ struct UnifiedSearchView: View {
                 }
             }
 
-            if model.rows.isNotEmpty {
-                if let objectsSectionTitle {
-                    ListSectionHeaderView(title: objectsSectionTitle)
+            if model.personRows.isNotEmpty {
+                ListSectionHeaderView(title: Loc.UnifiedSearch.Section.people)
+                    .padding(.horizontal, 16)
+                ForEach(model.personRows) { row in
+                    UnifiedSearchPersonRowView(
+                        row: row,
+                        onTap: { model.onSelectPersonRow(row) },
+                        onDrill: { model.onDrillPersonRow(row) }
+                    )
+                }
+            }
+
+            ForEach(model.rowSections) { section in
+                if let title = section.data ?? objectsSectionTitle {
+                    // The result cells carry their own top inset - a tight header
+                    // bottom keeps the group visually attached to its rows
+                    ListSectionHeaderView(title: title, bottomPadding: 0)
                         .padding(.horizontal, 16)
                 }
-                ForEach(model.rows) { rowModel in
+                ForEach(section.rows) { rowModel in
                     itemRow(for: rowModel)
                 }
             }
@@ -165,16 +179,22 @@ struct UnifiedSearchView: View {
                     )
                 }
             }
+
+            // Appears when scrolled to the end - loads the next page
+            Color.clear
+                .frame(height: 1)
+                .onAppear { model.onReachedBottom() }
+                .id("load-more-\(model.loadMoreSentinelId)")
         }
         .scrollIndicators(.never)
         .scrollDismissesKeyboard(.immediately)
         .id(model.state.tokens)
     }
 
+    // The empty browse titles itself with day groups; a text search shows one
+    // "Objects" header only when channel/person rows precede it
     private var objectsSectionTitle: String? {
-        if model.state.searchText.isEmpty {
-            Loc.UnifiedSearch.Section.recentObjects
-        } else if model.channelRows.isNotEmpty {
+        if model.channelRows.isNotEmpty || model.personRows.isNotEmpty {
             Loc.UnifiedSearch.Section.objects
         } else {
             nil

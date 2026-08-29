@@ -85,6 +85,9 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
                 navigationPath.push(data)
             }
         },
+        openSearch: { [weak self] in
+            self?.onSearchSelected()
+        },
         replaceHome: { [weak self] spaceId, newData in
             guard let self, FeatureFlags.fixChannelHomeBackNavigation else { return }
             // Guard against a space switch that happened while the picker was awaiting setHomepage.
@@ -323,7 +326,11 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
                 // while the search's hosting view is off-window desyncs its
                 // keyboard avoidance, hiding the field behind the keyboard on return
                 self?.keyboardDismiss?()
-                self?.closeSearchOverlayIfOriginLost(targetSpaceId: screenData.spaceId)
+                // Alerts (participant profile) present as sheets over the search -
+                // nothing navigates, the overlay stays
+                if case .alert = screenData {} else {
+                    self?.closeSearchOverlayIfOriginLost(targetSpaceId: screenData.spaceId)
+                }
                 self?.showScreenSync(data: screenData, searchOrigin: true)
             },
             onOpenSpace: { [weak self] spaceId in
@@ -838,7 +845,9 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
 
         if FeatureFlags.unifiedSearch {
             searchOverlayOriginPathCount = navigationPath.count
-            searchOverlayOriginItem = navigationPath.path.last
+            // The widgets fullScreenCover sits above the navigation stack - when
+            // it is up, the search must live inside it, not under it
+            searchOverlayOriginItem = overlayWidgetsData.map { AnyHashable($0) } ?? navigationPath.path.last
             searchOverlayData = searchModuleData(
                 currentSpaceId: spaceInfo.accountSpaceId,
                 onClose: { [weak self] in
@@ -860,6 +869,13 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     // The origin screen shows its bottom panel again only once the search closes
     var hidesBottomPanelForSearch: Bool {
         searchOverlayData != nil && navigationPath.path.last == searchOverlayOriginItem
+    }
+
+    // A search hosted in the widgets cover cannot outlive it
+    func onWidgetsOverlayDismissed(_ dismissed: HomeWidgetData?) {
+        guard let dismissed, searchOverlayOriginItem == AnyHashable(dismissed) else { return }
+        searchOverlayData = nil
+        searchOverlayOriginItem = nil
     }
 
     // The overlay survives while its host screen survives: the hub (origin depth 1)

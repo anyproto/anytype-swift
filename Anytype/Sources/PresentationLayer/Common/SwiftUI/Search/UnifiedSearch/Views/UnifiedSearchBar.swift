@@ -35,7 +35,7 @@ struct UnifiedSearchBar: View {
     private var barContent: some View {
         HStack(spacing: 8) {
             Image(asset: .X18.search)
-                .foregroundStyle(Color.Control.secondary)
+                .foregroundStyle(Color.Control.primary)
 
             ForEach(tokens) { token in
                 tokenPill(token)
@@ -55,7 +55,7 @@ struct UnifiedSearchBar: View {
             } label: {
                 Image(asset: .multiplyCircleFill)
                     .renderingMode(.template)
-                    .foregroundStyle(Color.Control.secondary)
+                    .foregroundStyle(Color.Control.primary)
                     .fixTappableArea()
             }
             .buttonStyle(.plain)

@@ -12,9 +12,10 @@ public extension SearchWithMetaMiddleServiceProtocol {
         sorts: [DataviewSort] = [],
         fullText: String = "",
         keys: [String] = [],
+        offset: Int = 0,
         limit: Int = 0
     ) async throws -> [SearchResultWithMeta] {
-        try await search(data: SearchRequest(spaceId: spaceId, filters: filters, sorts: sorts, fullText: fullText, keys: keys, limit: limit))
+        try await search(data: SearchRequest(spaceId: spaceId, filters: filters, sorts: sorts, fullText: fullText, keys: keys, offset: offset, limit: limit))
     }
 }
 
@@ -28,6 +29,7 @@ final class SearchWithMetaMiddleService: SearchWithMetaMiddleServiceProtocol {
             $0.filters = data.filters
             $0.sorts = data.sorts.map { $0.fixIncludeTime() }
             $0.fullText = data.fullText
+            $0.offset = Int32(data.offset)
             $0.limit = Int32(data.limit)
             $0.keys = data.keys
             $0.returnMeta = true

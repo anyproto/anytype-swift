@@ -44,7 +44,8 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
             editorScreenData: ScreenData(details: details, blockId: meta.first?.blockID),
             score: score,
             canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive,
-            spaceCaption: nil
+            spaceCaption: nil,
+            lastModifiedDate: details.lastModifiedDate
         )
     }
 
@@ -58,7 +59,8 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
             editorScreenData: ScreenData(details: details, blockId: nil),
             score: "",
             canArchive: false,
-            spaceCaption: spaceCaption
+            spaceCaption: spaceCaption,
+            lastModifiedDate: details.lastModifiedDate
         )
     }
     

@@ -11,7 +11,8 @@ protocol SearchWithMetaServiceProtocol: AnyObject, Sendable {
         typeUniqueKey: String?,
         creators: [String],
         sorts: [DataviewSort],
-        excludedObjectIds: [String]
+        excludedObjectIds: [String],
+        offset: Int
     ) async throws -> [SearchResultWithMeta]
 }
 
@@ -31,7 +32,8 @@ extension SearchWithMetaServiceProtocol {
             typeUniqueKey: nil,
             creators: [],
             sorts: sorts,
-            excludedObjectIds: excludedObjectIds
+            excludedObjectIds: excludedObjectIds,
+            offset: 0
         )
     }
 }
@@ -51,7 +53,8 @@ final class SearchWithMetaService: SearchWithMetaServiceProtocol, Sendable {
         typeUniqueKey: String?,
         creators: [String],
         sorts: [DataviewSort],
-        excludedObjectIds: [String]
+        excludedObjectIds: [String],
+        offset: Int
     ) async throws -> [SearchResultWithMeta] {
 
         let spaceType = spaceViewsStorage.spaceView(spaceId: spaceId)?.spaceType
@@ -69,6 +72,6 @@ final class SearchWithMetaService: SearchWithMetaServiceProtocol, Sendable {
             }
         }
 
-        return try await searchWithMetaMiddleService.search(spaceId: spaceId, filters: filters, sorts: sorts, fullText: text, limit: SearchDefaults.objectsLimit)
+        return try await searchWithMetaMiddleService.search(spaceId: spaceId, filters: filters, sorts: sorts, fullText: text, offset: offset, limit: SearchDefaults.objectsLimit)
     }
 }

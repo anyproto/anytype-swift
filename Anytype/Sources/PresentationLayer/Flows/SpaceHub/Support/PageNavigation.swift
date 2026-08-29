@@ -7,6 +7,9 @@ struct PageNavigation {
     let pop: () -> Void
     let popToFirstInSpace: () -> Void
     let replace: (EditorScreenData) -> Void
+    // Opens the unified search overlay over the current screen - one owner
+    // (the hub coordinator), reachable from any screen's search affordance
+    var openSearch: () -> Void = { }
     let replaceHome: (String, AnyHashable) -> Void
 }
 

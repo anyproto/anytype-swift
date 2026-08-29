@@ -105158,6 +105158,50 @@
         }
       }
     },
+    "UnifiedSearch.Person.createOneToOne" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create 1-1 Channel"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Person.memberInChannels" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "member in %d Channels"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Person.memberInOneChannel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "member in 1 Channel"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Section.people" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "People"
+          }
+        }
+      }
+    },
     "UnifiedSearch.Section.channels" : {
       "extractionState" : "manual",
       "localizations" : {
