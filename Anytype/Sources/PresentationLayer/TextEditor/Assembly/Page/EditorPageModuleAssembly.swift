@@ -54,7 +54,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             bottomNavigationManager: bottomNavigationManager,
             configuration: EditorPageViewModelConfiguration(
                 blockId: data.blockId,
-                usecase: data.usecase
+                usecase: data.usecase,
+                headerHint: data.headerHint
             ),
             output: output
         )

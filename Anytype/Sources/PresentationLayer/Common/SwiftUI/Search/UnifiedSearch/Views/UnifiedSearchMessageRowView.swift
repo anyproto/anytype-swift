@@ -20,7 +20,6 @@ struct UnifiedSearchMessageRowView: View {
 
     let row: UnifiedSearchMessageRow
     let onTap: () -> Void
-    var onSpaceCaptionTap: (() -> Void)? = nil
 
     var body: some View {
         Button {
@@ -79,21 +78,9 @@ struct UnifiedSearchMessageRowView: View {
         }
     }
 
-    @ViewBuilder
     private func spaceCaptionView(_ spaceCaption: SearchSpaceCaption) -> some View {
-        let text = AnytypeText(Loc.UnifiedSearch.inSpace(spaceCaption.name), style: .relation2Regular)
+        AnytypeText(Loc.UnifiedSearch.inSpace(spaceCaption.name), style: .relation2Regular)
             .foregroundStyle(Color.Text.secondary)
             .lineLimit(1)
-
-        if let onSpaceCaptionTap {
-            Button {
-                onSpaceCaptionTap()
-            } label: {
-                text.fixTappableArea()
-            }
-            .buttonStyle(.plain)
-        } else {
-            text
-        }
     }
 }

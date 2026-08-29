@@ -43,6 +43,9 @@ struct UnifiedSearchView: View {
             await model.observeChats()
         }
         .task {
+            await model.observeSpaces()
+        }
+        .task {
             await model.startParticipantTask()
         }
         .task(id: model.state) {
@@ -152,10 +155,7 @@ struct UnifiedSearchView: View {
                 ForEach(model.messageRows) { row in
                     UnifiedSearchMessageRowView(
                         row: row,
-                        onTap: { model.onSelectMessage(row) },
-                        onSpaceCaptionTap: row.spaceCaption.map { caption in
-                            { model.onScopeToSpace(caption.spaceId, source: .caption) }
-                        }
+                        onTap: { model.onSelectMessage(row) }
                     )
                 }
             }
@@ -179,13 +179,8 @@ struct UnifiedSearchView: View {
         Button {
             model.onSelect(searchData: rowModel)
         } label: {
-            SearchWithMetaCell(
-                model: rowModel,
-                onSpaceCaptionTap: rowModel.spaceCaption.map { caption in
-                    { model.onScopeToSpace(caption.spaceId, source: .caption) }
-                }
-            )
-            .fixTappableArea()
+            SearchWithMetaCell(model: rowModel)
+                .fixTappableArea()
         }
         .buttonStyle(.plain)
         .if(rowModel.canArchive) {

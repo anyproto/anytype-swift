@@ -25,12 +25,14 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var spaceJoinData: SpaceJoinModuleData?
     var membershipNameFinalizationData: MembershipTier?
     var showGlobalSearchData: GlobalSearchModuleData?
-    // In-space search overlay: covers the current screen in place; an opened
-    // same-space result pushes over it and back returns to it (tracked by the
-    // path depth at open time)
-    var inSpaceSearchData: UnifiedSearchModuleData?
+    // Search overlay state. The overlay renders inside its ORIGIN screen's own
+    // hierarchy (the screen it was opened over), so pushed results stack above it
+    // and an interactive pop reveals it as part of that screen - exactly like the
+    // platform's search-behind-detail behavior.
+    var searchOverlayData: UnifiedSearchModuleData?
+    var searchOverlayOriginItem: AnyHashable?
     @ObservationIgnored
-    private var inSpaceSearchOriginPathCount = 0
+    private var searchOverlayOriginPathCount = 0
     var toastBarData: ToastBarData?
     var chatProvider = ChatActionProvider()
     var bookmarkScreenData: BookmarkScreenData?
@@ -299,9 +301,18 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         Task { await showSpace(spaceId: spaceId) }
     }
 
-    // Vault entry: the search is an in-place overlay on the hub
-    func vaultSearchModuleData(onClose: @escaping () -> Void) -> UnifiedSearchModuleData {
-        searchModuleData(currentSpaceId: nil, onClose: onClose, animatesBarExpansion: false)
+    // Vault entry: the same overlay, global scope
+    func onSelectSearch() {
+        searchOverlayOriginPathCount = navigationPath.count
+        searchOverlayOriginItem = navigationPath.path.last
+        searchOverlayData = searchModuleData(
+            currentSpaceId: nil,
+            onClose: { [weak self] in
+                self?.searchOverlayData = nil
+                self?.searchOverlayOriginItem = nil
+            },
+            animatesBarExpansion: false
+        )
     }
 
     private func searchModuleData(currentSpaceId: String?, onClose: (() -> Void)?, animatesBarExpansion: Bool) -> UnifiedSearchModuleData {
@@ -312,23 +323,17 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
                 // while the search's hosting view is off-window desyncs its
                 // keyboard avoidance, hiding the field behind the keyboard on return
                 self?.keyboardDismiss?()
-                // A cross-space result rebuilds the stack, so the origin screen
-                // the overlay lives over is gone - close it
-                if screenData.spaceId != self?.currentSpaceId {
-                    self?.inSpaceSearchData = nil
-                }
+                self?.closeSearchOverlayIfOriginLost(targetSpaceId: screenData.spaceId)
                 self?.showScreenSync(data: screenData, searchOrigin: true)
             },
             onOpenSpace: { [weak self] spaceId in
                 self?.keyboardDismiss?()
-                self?.inSpaceSearchData = nil
+                self?.closeSearchOverlayIfOriginLost(targetSpaceId: spaceId)
                 self?.onSelectSpace(spaceId: spaceId)
             },
             onOpenMessage: { [weak self] chatObjectId, spaceId, messageId in
                 self?.keyboardDismiss?()
-                if spaceId != self?.currentSpaceId {
-                    self?.inSpaceSearchData = nil
-                }
+                self?.closeSearchOverlayIfOriginLost(targetSpaceId: spaceId)
                 Task {
                     await self?.handleChatMessageDeepLink(chatObjectId: chatObjectId, spaceId: spaceId, messageId: messageId, searchOrigin: true)
                 }
@@ -832,11 +837,13 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         guard let spaceInfo else { return }
 
         if FeatureFlags.unifiedSearch {
-            inSpaceSearchOriginPathCount = navigationPath.count
-            inSpaceSearchData = searchModuleData(
+            searchOverlayOriginPathCount = navigationPath.count
+            searchOverlayOriginItem = navigationPath.path.last
+            searchOverlayData = searchModuleData(
                 currentSpaceId: spaceInfo.accountSpaceId,
                 onClose: { [weak self] in
-                    self?.inSpaceSearchData = nil
+                    self?.searchOverlayData = nil
+                    self?.searchOverlayOriginItem = nil
                 },
                 animatesBarExpansion: true
             )
@@ -850,10 +857,19 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         }
     }
 
-    // The overlay yields the screen to a pushed result and returns when the
-    // path is back at its origin depth
-    var inSpaceSearchOnTop: Bool {
-        navigationPath.count <= inSpaceSearchOriginPathCount
+    // The origin screen shows its bottom panel again only once the search closes
+    var hidesBottomPanelForSearch: Bool {
+        searchOverlayData != nil && navigationPath.path.last == searchOverlayOriginItem
+    }
+
+    // The overlay survives while its host screen survives: the hub (origin depth 1)
+    // always does; an in-space origin is destroyed by a cross-space stack reset
+    private func closeSearchOverlayIfOriginLost(targetSpaceId: String?) {
+        guard searchOverlayData != nil else { return }
+        if targetSpaceId != currentSpaceId, searchOverlayOriginPathCount > 1 {
+            searchOverlayData = nil
+            searchOverlayOriginItem = nil
+        }
     }
 
     func onCreateObjectSelected(screenData: ScreenData) {

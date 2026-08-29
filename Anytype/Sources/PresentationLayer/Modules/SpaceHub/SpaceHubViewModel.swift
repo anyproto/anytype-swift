@@ -21,7 +21,6 @@ final class SpaceHubViewModel {
     private var allSpaceCardModels: [SpaceCardModel] = []
 
     var notificationsNotDetermined = false
-    var unifiedSearchData: UnifiedSearchModuleData?
     var spaceMuteData: SpaceMuteData?
     var profileIcon: Icon?
     var spaceToDelete: StringIdentifiable?
@@ -55,12 +54,8 @@ final class SpaceHubViewModel {
         output?.onSelectAppSettings()
     }
 
-    // Search is an in-place overlay on the vault screen, not a
-    // navigation entry - opened results push over it, back returns to it
     func onSearchTap() {
-        unifiedSearchData = output?.vaultSearchModuleData(onClose: { [weak self] in
-            self?.unifiedSearchData = nil
-        })
+        output?.onSelectSearch()
     }
 
     func onTapCreatePersonalChannel() {
@@ -171,66 +166,9 @@ final class SpaceHubViewModel {
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
-            self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
+            self.spaces = spaces.sortedForSpaceHub()
             await updateFilteredSpaces()
             self.dataLoaded = true
-        }
-    }
-    
-    private func sortSpacesForPinnedFeature(_ lhs: ParticipantSpaceViewDataWithPreview, _ rhs: ParticipantSpaceViewDataWithPreview) -> Bool {
-        switch (lhs.spaceView.isPinned, rhs.spaceView.isPinned) {
-        case (true, true):
-            return lhs.spaceView.spaceOrder < rhs.spaceView.spaceOrder
-        case (true, false):
-            return true
-        case (false, true):
-            return false
-        case (false, false):
-            let lhsMessageDate = lhs.latestPreview.lastMessage?.createdAt
-            let rhsMessageDate = rhs.latestPreview.lastMessage?.createdAt
-            let lhsJoinDate = lhs.spaceView.joinDate
-            let rhsJoinDate = rhs.spaceView.joinDate
-            
-            // Determine effective date for lhs (use joinDate if no message, or more recent of the two)
-            let lhsEffectiveDate: Date? = {
-                switch (lhsMessageDate, lhsJoinDate) {
-                case let (messageDate?, joinDate?):
-                    return max(messageDate, joinDate)
-                case (let messageDate?, nil):
-                    return messageDate
-                case (nil, let joinDate?):
-                    return joinDate
-                case (nil, nil):
-                    return nil
-                }
-            }()
-            
-            // Determine effective date for rhs (use joinDate if no message, or more recent of the two)
-            let rhsEffectiveDate: Date? = {
-                switch (rhsMessageDate, rhsJoinDate) {
-                case let (messageDate?, joinDate?):
-                    return max(messageDate, joinDate)
-                case (let messageDate?, nil):
-                    return messageDate
-                case (nil, let joinDate?):
-                    return joinDate
-                case (nil, nil):
-                    return nil
-                }
-            }()
-            
-            switch (lhsEffectiveDate, rhsEffectiveDate) {
-            case let (date1?, date2?):
-                return date1 > date2
-            case (_?, nil):
-                return true
-            case (nil, _?):
-                return false
-            case (nil, nil):
-                let lhsCreatedDate = lhs.spaceView.createdDate ?? .distantPast
-                let rhsCreatedDate = rhs.spaceView.createdDate ?? .distantPast
-                return lhsCreatedDate > rhsCreatedDate
-            }
         }
     }
     

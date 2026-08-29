@@ -11,17 +11,7 @@ struct SpaceHubView: View {
     }
     
     var body: some View {
-        ZStack {
-            content
-            // Search overlays the vault in place (no history entry),
-            // full height, sliding up from the bottom
-            if let searchData = model.unifiedSearchData {
-                UnifiedSearchView(data: searchData)
-                    .transition(.move(edge: .bottom))
-                    .zIndex(1)
-            }
-        }
-        .animation(.easeInOut(duration: 0.25), value: model.unifiedSearchData.isNotNil)
+        content
             .onAppear { model.onAppear() }
             .taskWithMemoryScope { await model.startSubscriptions() }
             .task(item: model.spaceMuteData) { data in

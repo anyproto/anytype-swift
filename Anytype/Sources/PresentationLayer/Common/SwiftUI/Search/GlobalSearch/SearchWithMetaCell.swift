@@ -6,8 +6,6 @@ import Services
 struct SearchWithMetaCell: View {
 
     let model: SearchWithMetaModel
-    // Tapping the "in <Space>" caption scopes the search to that space
-    var onSpaceCaptionTap: (() -> Void)? = nil
 
     var body: some View {
         HStack(alignment: model.highlights.isEmpty ? .center : .top, spacing: 12) {
@@ -62,9 +60,8 @@ struct SearchWithMetaCell: View {
         }
     }
     
-    @ViewBuilder
     private func spaceCaptionView(_ spaceCaption: SearchSpaceCaption) -> some View {
-        let caption = HStack(spacing: 4) {
+        HStack(spacing: 4) {
             if model.objectTypeName.isNotEmpty {
                 AnytypeText("·", style: .relation2Regular)
                     .foregroundStyle(Color.Text.secondary)
@@ -74,17 +71,6 @@ struct SearchWithMetaCell: View {
                 .lineLimit(1)
         }
         .padding(.leading, model.objectTypeName.isNotEmpty ? 4 : 0)
-
-        if let onSpaceCaptionTap {
-            Button {
-                onSpaceCaptionTap()
-            } label: {
-                caption.fixTappableArea()
-            }
-            .buttonStyle(.plain)
-        } else {
-            caption
-        }
     }
 
     private var highlights: some View {

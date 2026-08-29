@@ -56,6 +56,9 @@ final class UnifiedSearchViewModel {
     @ObservationIgnored
     @Injected(\.messageTextBuilder)
     private var messageTextBuilder: any MessageTextBuilderProtocol
+    @ObservationIgnored
+    @Injected(\.spaceHubSpacesStorage)
+    private var spaceHubSpacesStorage: any SpaceHubSpacesStorageProtocol
 
     @ObservationIgnored
     private let moduleData: UnifiedSearchModuleData
@@ -79,6 +82,8 @@ final class UnifiedSearchViewModel {
     private var allParticipants = [Participant]()
     @ObservationIgnored
     private var allChats = [ObjectDetails]()
+    @ObservationIgnored
+    private var hubSpaceViews = [SpaceView]()
     // Resolved message containers (chats + thread-parent pages), accumulated
     @ObservationIgnored
     private var containersById = [String: ObjectDetails]()
@@ -96,6 +101,8 @@ final class UnifiedSearchViewModel {
         // Resign with the tap so the keyboard drops together with the overlay,
         // not after it (the field only resigns on window removal otherwise)
         UIApplication.shared.hideKeyboard()
+        // An explicit close discards the search - reopening starts fresh
+        unifiedSearchStateService.clear()
         moduleData.onClose?()
     }
 
@@ -133,6 +140,21 @@ final class UnifiedSearchViewModel {
             // Author names/avatars on message rows resolve from participants
             rebuildMessageRows()
         }
+    }
+
+    // Channel rows and the 1:1 person ordering must match the Space Hub exactly,
+    // which sorts with live message recency - same store, same comparator
+    func observeSpaces() async {
+        for await spaces in await spaceHubSpacesStorage.spacesStream {
+            hubSpaceViews = spaces.sortedForSpaceHub().map(\.spaceView)
+            updateChannelRows()
+            rebuildChips()
+        }
+    }
+
+    // The hub-ordered list once the stream delivers; the plain store as a cold-start fallback
+    private var orderedSpaceViews: [SpaceView] {
+        hubSpaceViews.isNotEmpty ? hubSpaceViews : spaceViewsStorage.allSpaceViews
     }
 
     // Chat containers gate the Messages chip and caption message results
@@ -487,7 +509,7 @@ final class UnifiedSearchViewModel {
     }
 
     private func matchingSpaceRows(limit: Int?) -> [UnifiedSearchChannelRow] {
-        var spaceViews = spaceViewsStorage.allSpaceViews
+        var spaceViews = orderedSpaceViews
         if state.searchText.isNotEmpty {
             spaceViews = spaceViews.filter { $0.title.localizedStandardContains(state.searchText) }
         }
@@ -570,14 +592,21 @@ final class UnifiedSearchViewModel {
 
         if byMeOnly {
             let own = people.first { $0.identity == ownIdentity }
-            return [UnifiedSearchChipModel(
-                token: .creator(identity: ownIdentity),
-                title: Loc.UnifiedSearch.Chip.byMe,
-                icon: own?.icon.map { Icon.object($0) }
-            )]
+            return [
+                UnifiedSearchChipModel(
+                    token: .creator(identity: ownIdentity),
+                    title: Loc.UnifiedSearch.Chip.byMe,
+                    icon: own?.icon.map { Icon.object($0) }
+                ),
+                UnifiedSearchChipModel(
+                    action: .openPeoplePicker,
+                    title: Loc.UnifiedSearch.Chip.people,
+                    icon: .asset(ImageAsset.CustomIcons.people)
+                )
+            ]
         }
 
-        var members = people
+        return people
             .filter { $0.identity != ownIdentity }
             .prefix(Constants.memberChipsLimit)
             .map { participant in
@@ -587,15 +616,6 @@ final class UnifiedSearchViewModel {
                     icon: participant.icon.map { Icon.object($0) } ?? .object(.profile(.placeholder))
                 )
             }
-        // The full browse behind the inline cap
-        if people.count - 1 > Constants.memberChipsLimit {
-            members.append(UnifiedSearchChipModel(
-                action: .openPeoplePicker,
-                title: Loc.UnifiedSearch.Chip.people,
-                icon: .asset(ImageAsset.CustomIcons.people)
-            ))
-        }
-        return Array(members)
     }
 
     // People deduped by identity in the vault's 1:1-first order: partners of 1:1
@@ -620,7 +640,7 @@ final class UnifiedSearchViewModel {
         }
 
         var oneToOneOrder = [String: Int]()
-        for spaceView in spaceViewsStorage.allSpaceViews where spaceView.isOneToOne {
+        for spaceView in orderedSpaceViews where spaceView.isOneToOne {
             let identity = spaceView.oneToOneIdentity
             guard identity.isNotEmpty, oneToOneOrder[identity] == nil else { continue }
             oneToOneOrder[identity] = oneToOneOrder.count
