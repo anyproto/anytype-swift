@@ -53,8 +53,18 @@ struct SpaceHubView: View {
                 .navigationTitle(Loc.myChannels)
                 .scrollEdgeEffectStyleIOS26(.soft, for: .top)
                 .toolbar { toolbarItems }
-                .if(!isEmptyState) { view in
+                .if(!isEmptyState && !FeatureFlags.unifiedSearch) { view in
                     view.searchable(text: $model.searchText)
+                }
+                .if(!isEmptyState && FeatureFlags.unifiedSearch) { view in
+                    view.safeAreaBarIOS26(edge: .bottom, spacing: 0) {
+                        VaultSearchBottomBar(
+                            onTapSearch: { model.onSearchTap() },
+                            onTapCreatePersonalChannel: { model.onTapCreatePersonalChannel() },
+                            onTapCreateGroupChannel: { model.onTapCreateGroupChannel() },
+                            onTapJoinViaQrCode: { model.onTapJoinViaQrCode() }
+                        )
+                    }
                 }
                 .onChange(of: model.searchText) {
                     model.searchTextUpdated()
@@ -67,6 +77,7 @@ struct SpaceHubView: View {
             profileIcon: model.profileIcon,
             notificationsNotDetermined: model.notificationsNotDetermined,
             hideCreateButton: isEmptyState,
+            unifiedSearchEnabled: FeatureFlags.unifiedSearch,
             onTapCreatePersonalChannel: {
                 model.onTapCreatePersonalChannel()
             },

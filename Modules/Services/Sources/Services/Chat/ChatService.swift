@@ -25,10 +25,16 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
     func addDiscussion(objectId: String) async throws -> String
     func addNotificationSubscriber(chatObjectId: String, identity: String) async throws
     func removeNotificationSubscriber(chatObjectId: String, identity: String) async throws
-    func searchMessages(spaceId: String, chatObjectId: String, query: String, sorts: [ChatMessageSearchSort], offset: Int, limit: Int) async throws -> [ChatMessageSearchResult]
+    // Scope widens as ids are left empty: both set = one chat, empty chatObjectId = all chats
+    // in the space, both empty = all chats in all spaces. Never pass an orderId sort outside
+    // single-chat scope. creators (participant identities) narrows results by author.
+    func searchMessages(spaceId: String, chatObjectId: String, query: String, sorts: [ChatMessageSearchSort], creators: [String], offset: Int, limit: Int) async throws -> [ChatMessageSearchResult]
 }
 
 public extension ChatServiceProtocol {
+    func searchMessages(spaceId: String, chatObjectId: String, query: String, sorts: [ChatMessageSearchSort], offset: Int, limit: Int) async throws -> [ChatMessageSearchResult] {
+        try await searchMessages(spaceId: spaceId, chatObjectId: chatObjectId, query: query, sorts: sorts, creators: [], offset: offset, limit: limit)
+    }
     func getMessages(chatObjectId: String, beforeOrderId: String, limit: Int, includeBoundary: Bool = false) async throws -> [ChatMessage] {
         try await getMessages(chatObjectId: chatObjectId, beforeOrderId: beforeOrderId, afterOrderId: nil, limit: limit, includeBoundary: includeBoundary)
     }
@@ -172,12 +178,13 @@ final class ChatService: ChatServiceProtocol {
         }).invoke()
     }
 
-    func searchMessages(spaceId: String, chatObjectId: String, query: String, sorts: [ChatMessageSearchSort], offset: Int, limit: Int) async throws -> [ChatMessageSearchResult] {
+    func searchMessages(spaceId: String, chatObjectId: String, query: String, sorts: [ChatMessageSearchSort], creators: [String], offset: Int, limit: Int) async throws -> [ChatMessageSearchResult] {
         let result = try await ClientCommands.chatSearch(.with {
             $0.spaceID = spaceId
             $0.chatID = chatObjectId
             $0.sorts = sorts
             $0.fullText = query
+            $0.creators = creators
             $0.offset = Int32(offset)
             $0.limit = Int32(limit)
         }).invoke()

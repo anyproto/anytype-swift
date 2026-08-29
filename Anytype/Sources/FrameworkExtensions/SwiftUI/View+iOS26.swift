@@ -66,6 +66,17 @@ extension View {
         }
     }
 
+    // safeAreaBar extends the scroll-edge effect under the floating bar,
+    // which safeAreaInset does not
+    @ViewBuilder
+    public func safeAreaBarIOS26<Content: View>(edge: VerticalEdge, spacing: CGFloat? = nil, @ViewBuilder content: @escaping () -> Content) -> some View {
+        if #available(iOS 26.0, *) {
+            self.safeAreaBar(edge: edge, spacing: spacing, content: content)
+        } else {
+            self.safeAreaInset(edge: edge, spacing: spacing, content: content)
+        }
+    }
+
     @ViewBuilder
     public func toolbarNavigationBarOpaqueBackgroundLegacy() -> some View {
         if #available(iOS 26.0, *) {

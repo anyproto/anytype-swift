@@ -5,13 +5,15 @@ struct SectionHeaderView<Content>: View where Content: View {
     let title: String
     let titleColor: Color
     let increasedTopPadding: Bool
+    var bottomPadding: CGFloat = 12
     let hasRightContent: Bool
     let rightContent: () -> Content
     
-    init(title: String, titleColor: Color = .Text.transparentSecondary, increasedTopPadding: Bool = true, @ViewBuilder rightContent: @escaping () -> Content) {
+    init(title: String, titleColor: Color = .Text.transparentSecondary, increasedTopPadding: Bool = true, bottomPadding: CGFloat = 12, @ViewBuilder rightContent: @escaping () -> Content) {
         self.title = title
         self.titleColor = titleColor
         self.increasedTopPadding = increasedTopPadding
+        self.bottomPadding = bottomPadding
         self.hasRightContent = true
         self.rightContent = rightContent
     }
@@ -32,15 +34,16 @@ struct SectionHeaderView<Content>: View where Content: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.top, increasedTopPadding ? 22 : 8)
-        .padding(.bottom, 12)
+        .padding(.bottom, bottomPadding)
     }
 }
 
 extension SectionHeaderView where Content == EmptyView {
-    init(title: String, titleColor: Color = .Text.transparentSecondary, increasedTopPadding: Bool = true) {
+    init(title: String, titleColor: Color = .Text.transparentSecondary, increasedTopPadding: Bool = true, bottomPadding: CGFloat = 12) {
         self.title = title
         self.titleColor = titleColor
         self.increasedTopPadding = increasedTopPadding
+        self.bottomPadding = bottomPadding
         self.hasRightContent = false
         self.rightContent = { EmptyView() }
     }

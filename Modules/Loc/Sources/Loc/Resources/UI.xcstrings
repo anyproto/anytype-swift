@@ -105070,6 +105070,292 @@
         }
       }
     },
+    "UnifiedSearch.Chip.by" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By %@"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Chip.byMe" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By me"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Chip.inThisChannel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In this Channel"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Chip.chats" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chats"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Chip.messages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Messages"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Chip.people" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "People"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Chip.types" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Types"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Sort.created" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recently created"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Sort.edited" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recently edited"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.inSpacePlusMany" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in %@ + %d other Channels"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.inSpacePlusOne" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in %@ + 1 other Channel"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Focus.personSection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter by objects created in Channels"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Focus.searchCreatorAll" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search by %@ in all Channels"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Focus.searchTypeAll" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search %@ in all Channels"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Onboarding.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Narrow results by type, person or Channel with the chips above the search field - or search everything at once."
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Onboarding.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meet the new search"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Person.createOneToOne" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create 1-1 Channel"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Person.memberInChannels" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "member in %d Channels"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Person.memberInOneChannel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "member in 1 Channel"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Section.people" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "People"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Person.oneToOneChannel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1-1 Channel"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Section.channels" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Channels"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Section.objects" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Objects"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Section.recentMessages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recent Messages"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Section.recentObjects" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recent Objects"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.inSpace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in %@"
+          }
+        }
+      }
+    },
     "Unknown" : {
       "extractionState" : "manual",
       "localizations" : {
