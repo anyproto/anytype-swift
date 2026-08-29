@@ -23,6 +23,7 @@ struct VaultSearchBottomBar: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
         }
+        .fitIPadToReadableContentGuide()
     }
 
     private var searchButton: some View {

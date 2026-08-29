@@ -105103,6 +105103,17 @@
         }
       }
     },
+    "UnifiedSearch.Chip.chats" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chats"
+          }
+        }
+      }
+    },
     "UnifiedSearch.Chip.messages" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -105136,6 +105147,28 @@
         }
       }
     },
+    "UnifiedSearch.Sort.created" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recently created"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Sort.edited" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recently edited"
+          }
+        }
+      }
+    },
     "UnifiedSearch.inSpacePlusMany" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -105154,6 +105187,61 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "in %@ + 1 other Channel"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Focus.personSection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter by objects created in Channels"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Focus.searchCreatorAll" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search by %@ in all Channels"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Focus.searchTypeAll" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search %@ in all Channels"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Onboarding.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Narrow results by type, person or Channel with the chips above the search field - or search everything at once."
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Onboarding.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meet the new search"
           }
         }
       }
@@ -105198,6 +105286,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "People"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.Person.oneToOneChannel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1-1 Channel"
           }
         }
       }

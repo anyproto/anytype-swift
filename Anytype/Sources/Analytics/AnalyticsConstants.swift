@@ -389,6 +389,8 @@ enum ScreenSearchType: String {
 
 enum SearchInputRoute: String {
     case library = "Library"
+    case vault = "Vault"
+    case space = "Space"
 }
 
 enum SearchTokenType: String {
@@ -411,6 +413,8 @@ enum SearchTokenSource: String {
     case entry = "Entry"
     case token = "Token"
     case backspace = "Backspace"
+    case group = "Group"
+    case focus = "Focus"
 }
 
 enum StyleObjectType: String {

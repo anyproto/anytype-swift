@@ -12,8 +12,9 @@ struct SearchWithMetaModel: Identifiable, Hashable {
     let canArchive: Bool
     // Set for cross-space results in global search - "in <Space>" caption
     let spaceCaption: SearchSpaceCaption?
-    // Groups the empty-query browse by day
+    // Group the empty-query browse by day on the active recency order
     let lastModifiedDate: Date?
+    let createdDate: Date?
 }
 
 struct SearchSpaceCaption: Hashable {

@@ -12,6 +12,17 @@ protocol CrossSpaceSearchServiceProtocol: AnyObject, Sendable {
         excludedLayouts: [DetailsLayout],
         typeUniqueKey: String?,
         creators: [String],
+        sorts: [DataviewSort],
+        spaceId: String?,
+        offset: Int,
+        limit: Int
+    ) async throws -> CrossSpaceSearchResult
+
+    // Chat containers are not in the fulltext index - a text query on the Chats
+    // bucket filters by name Like instead, sorted by last message
+    func searchChats(
+        nameQuery: String?,
+        creators: [String],
         spaceId: String?,
         offset: Int,
         limit: Int
@@ -37,6 +48,7 @@ final class CrossSpaceSearchService: CrossSpaceSearchServiceProtocol, Sendable {
         excludedLayouts: [DetailsLayout],
         typeUniqueKey: String?,
         creators: [String],
+        sorts: [DataviewSort],
         spaceId: String?,
         offset: Int,
         limit: Int
@@ -65,7 +77,37 @@ final class CrossSpaceSearchService: CrossSpaceSearchServiceProtocol, Sendable {
 
         return try await crossSpaceSearchMiddleService.search(
             filters: filters,
+            sorts: sorts,
             fullText: text,
+            offset: offset,
+            limit: limit
+        )
+    }
+
+    func searchChats(
+        nameQuery: String?,
+        creators: [String],
+        spaceId: String?,
+        offset: Int,
+        limit: Int
+    ) async throws -> CrossSpaceSearchResult {
+        let filters: [DataviewFilter] = .builder {
+            SearchFiltersBuilder.build(isArchived: false)
+            SearchHelper.layoutFilter([.chatDerived])
+            if let nameQuery {
+                SearchHelper.name(nameQuery)
+            }
+            if creators.isNotEmpty {
+                SearchHelper.creatorsFilter(creators)
+            }
+            if let spaceId {
+                SearchHelper.spaceIdFilter(spaceId)
+            }
+        }
+        let sorts = [SearchHelper.sort(relation: .lastMessageDate, type: .desc)]
+        return try await crossSpaceSearchMiddleService.search(
+            filters: filters,
+            sorts: sorts,
             offset: offset,
             limit: limit
         )

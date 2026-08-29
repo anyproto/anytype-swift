@@ -346,6 +346,15 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
                 }
             },
             onClose: onClose,
+            onCreatePersonalChannel: { [weak self] in
+                self?.onSelectCreatePersonalChannel()
+            },
+            onCreateGroupChannel: { [weak self] in
+                self?.onSelectCreateGroupChannel()
+            },
+            onJoinQrCode: { [weak self] in
+                self?.onSelectQrCodeJoin()
+            },
             animatesBarExpansion: animatesBarExpansion
         )
     }

@@ -10,6 +10,10 @@ enum UnifiedSearchToken: Equatable, Hashable, Codable, Identifiable {
     case kind(UnifiedSearchKindBucket)
     case type(uniqueKey: String)
     case creator(identity: String)
+    // Focus (a grouped lead row was tapped): the list shows the focused thing's
+    // per-space instances instead of filtered objects. Occupies the what slot.
+    case typeFocus(uniqueKey: String)
+    case personFocus(identity: String)
 
     enum Group: Equatable {
         case scope
@@ -27,6 +31,10 @@ enum UnifiedSearchToken: Equatable, Hashable, Codable, Identifiable {
             "type:\(uniqueKey)"
         case .creator(let identity):
             "creator:\(identity)"
+        case .typeFocus(let uniqueKey):
+            "typeFocus:\(uniqueKey)"
+        case .personFocus(let identity):
+            "personFocus:\(identity)"
         }
     }
 
@@ -34,7 +42,7 @@ enum UnifiedSearchToken: Equatable, Hashable, Codable, Identifiable {
         switch self {
         case .space:
             .scope
-        case .kind, .type:
+        case .kind, .type, .typeFocus, .personFocus:
             .what
         case .creator:
             .who
@@ -51,6 +59,7 @@ enum UnifiedSearchKindBucket: String, Equatable, Codable, CaseIterable {
     case bookmarks
     case collections
     case queries
+    case chats
     case channels
 
     // Per-space types replace the global buckets inside a space scope
@@ -58,7 +67,7 @@ enum UnifiedSearchKindBucket: String, Equatable, Codable, CaseIterable {
         switch self {
         case .messages, .media:
             false
-        case .pages, .bookmarks, .collections, .queries, .channels:
+        case .pages, .bookmarks, .collections, .queries, .chats, .channels:
             true
         }
     }
@@ -75,6 +84,8 @@ enum UnifiedSearchKindBucket: String, Equatable, Codable, CaseIterable {
             [.collection]
         case .queries:
             [.set]
+        case .chats:
+            [.chatDerived]
         case .messages, .channels:
             [] // messages use the Chat.Search loader; channels the in-memory space list
         }
@@ -94,6 +105,8 @@ enum UnifiedSearchKindBucket: String, Equatable, Codable, CaseIterable {
             Loc.collections
         case .queries:
             Loc.sets
+        case .chats:
+            Loc.UnifiedSearch.Chip.chats
         case .channels:
             Loc.UnifiedSearch.Section.channels
         }

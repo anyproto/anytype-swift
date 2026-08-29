@@ -6,6 +6,8 @@ import UIKit
 struct UnifiedSearchTextField: UIViewRepresentable {
 
     let placeholder: String
+    // Bumped by the model to summon the keyboard (a selected token needs it)
+    let focusRequestId: Int
     @Binding var text: String
     let onBackspaceWhenEmpty: () -> Void
     let onSubmit: () -> Void
@@ -35,6 +37,12 @@ struct UnifiedSearchTextField: UIViewRepresentable {
         field.placeholder = placeholder
         context.coordinator.parent = self
         field.onBackspaceWhenEmpty = onBackspaceWhenEmpty
+        if context.coordinator.lastFocusRequestId != focusRequestId {
+            context.coordinator.lastFocusRequestId = focusRequestId
+            if !field.isFirstResponder {
+                field.becomeFirstResponder()
+            }
+        }
     }
 
     func makeCoordinator() -> Coordinator {
@@ -43,6 +51,7 @@ struct UnifiedSearchTextField: UIViewRepresentable {
 
     final class Coordinator: NSObject, UITextFieldDelegate {
         var parent: UnifiedSearchTextField
+        var lastFocusRequestId = 0
 
         init(parent: UnifiedSearchTextField) {
             self.parent = parent

@@ -45,7 +45,8 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
             score: score,
             canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive,
             spaceCaption: nil,
-            lastModifiedDate: details.lastModifiedDate
+            lastModifiedDate: details.lastModifiedDate,
+            createdDate: details.createdDate
         )
     }
 
@@ -60,7 +61,8 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
             score: "",
             canArchive: false,
             spaceCaption: spaceCaption,
-            lastModifiedDate: details.lastModifiedDate
+            lastModifiedDate: details.lastModifiedDate,
+            createdDate: details.createdDate
         )
     }
     

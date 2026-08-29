@@ -11,6 +11,10 @@ struct UnifiedSearchModuleData: Identifiable, Hashable {
     // Set when the surface is an in-place overlay - shows the
     // Cancel button; nil when the surface is a pushed screen with a back button
     @EquatableNoop var onClose: (() -> Void)?
+    // Create Channel under the Channels bucket
+    @EquatableNoop var onCreatePersonalChannel: () -> Void
+    @EquatableNoop var onCreateGroupChannel: () -> Void
+    @EquatableNoop var onJoinQrCode: () -> Void
     // True when the entry control is a compact button: the bar springs open from
     // it. The vault's entry is already bar-shaped, so it appears in place.
     let animatesBarExpansion: Bool

@@ -19,6 +19,7 @@ struct UnifiedSearchBar: View {
     // While the user types, pills with an icon collapse to the icon alone
     // (a space token collapses to the space icon, a person to the avatar)
     let collapsesToIcons: Bool
+    let focusRequestId: Int
     @Binding var text: String
     let onTokenTap: (UnifiedSearchToken) -> Void
     let onRemoveToken: (UnifiedSearchToken) -> Void
@@ -43,6 +44,7 @@ struct UnifiedSearchBar: View {
 
             UnifiedSearchTextField(
                 placeholder: Loc.search,
+                focusRequestId: focusRequestId,
                 text: $text,
                 onBackspaceWhenEmpty: onBackspaceWhenEmpty,
                 onSubmit: onSubmit

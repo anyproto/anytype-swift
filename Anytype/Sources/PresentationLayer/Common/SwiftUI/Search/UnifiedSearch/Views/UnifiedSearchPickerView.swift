@@ -23,6 +23,7 @@ struct UnifiedSearchPickerView: View {
             DragIndicator()
             SearchBar(text: $searchText, focused: false, shouldShowDivider: false)
             list
+                .fitIPadToReadableContentGuide()
         }
         .background(Color.Background.secondary)
     }

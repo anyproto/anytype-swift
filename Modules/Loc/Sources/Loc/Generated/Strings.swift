@@ -1333,10 +1333,24 @@ public enum Loc {
         return Loc.tr("UI", "UnifiedSearch.Chip.by", String(describing: p1), fallback: "By %@")
       }
       public static let byMe = Loc.tr("UI", "UnifiedSearch.Chip.byMe", fallback: "By me")
+      public static let chats = Loc.tr("UI", "UnifiedSearch.Chip.chats", fallback: "Chats")
       public static let inThisChannel = Loc.tr("UI", "UnifiedSearch.Chip.inThisChannel", fallback: "In this Channel")
       public static let messages = Loc.tr("UI", "UnifiedSearch.Chip.messages", fallback: "Messages")
       public static let people = Loc.tr("UI", "UnifiedSearch.Chip.people", fallback: "People")
       public static let types = Loc.tr("UI", "UnifiedSearch.Chip.types", fallback: "Types")
+    }
+    public enum Focus {
+      public static let personSection = Loc.tr("UI", "UnifiedSearch.Focus.personSection", fallback: "Filter by objects created in Channels")
+      public static func searchCreatorAll(_ p1: Any) -> String {
+        return Loc.tr("UI", "UnifiedSearch.Focus.searchCreatorAll", String(describing: p1), fallback: "Search by %@ in all Channels")
+      }
+      public static func searchTypeAll(_ p1: Any) -> String {
+        return Loc.tr("UI", "UnifiedSearch.Focus.searchTypeAll", String(describing: p1), fallback: "Search %@ in all Channels")
+      }
+    }
+    public enum Onboarding {
+      public static let subtitle = Loc.tr("UI", "UnifiedSearch.Onboarding.subtitle", fallback: "Narrow results by type, person or Channel with the chips above the search field - or search everything at once.")
+      public static let title = Loc.tr("UI", "UnifiedSearch.Onboarding.title", fallback: "Meet the new search")
     }
     public enum Person {
       public static let createOneToOne = Loc.tr("UI", "UnifiedSearch.Person.createOneToOne", fallback: "Create 1-1 Channel")
@@ -1344,6 +1358,7 @@ public enum Loc {
         return Loc.tr("UI", "UnifiedSearch.Person.memberInChannels", p1, fallback: "member in %d Channels")
       }
       public static let memberInOneChannel = Loc.tr("UI", "UnifiedSearch.Person.memberInOneChannel", fallback: "member in 1 Channel")
+      public static let oneToOneChannel = Loc.tr("UI", "UnifiedSearch.Person.oneToOneChannel", fallback: "1-1 Channel")
     }
     public enum Section {
       public static let channels = Loc.tr("UI", "UnifiedSearch.Section.channels", fallback: "Channels")
@@ -1351,6 +1366,10 @@ public enum Loc {
       public static let people = Loc.tr("UI", "UnifiedSearch.Section.people", fallback: "People")
       public static let recentMessages = Loc.tr("UI", "UnifiedSearch.Section.recentMessages", fallback: "Recent Messages")
       public static let recentObjects = Loc.tr("UI", "UnifiedSearch.Section.recentObjects", fallback: "Recent Objects")
+    }
+    public enum Sort {
+      public static let created = Loc.tr("UI", "UnifiedSearch.Sort.created", fallback: "Recently created")
+      public static let edited = Loc.tr("UI", "UnifiedSearch.Sort.edited", fallback: "Recently edited")
     }
   }
   public enum VersionHistory {

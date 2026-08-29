@@ -44,7 +44,8 @@ struct UnifiedSearchChipsRowView: View {
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
+            // Lazy: only visible chips materialize their glass
+            LazyHStack(spacing: 8) {
                 ForEach(chips) { chip in
                     chipView(chip)
                 }

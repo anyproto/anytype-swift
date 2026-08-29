@@ -13,11 +13,11 @@ final class UnifiedSearchViewModel {
         static let browseLimit = 20
         static let searchLimit = 100
         static let channelRowsLimit = 3
-        // A short query matches half the vault; three letters can usually name
-        // a person - then show the full hand
+        // A short query (up to three letters) matches half the vault - keep the
+        // injected groups to a taste; from four letters show the full hand
         static let personRowsLimitShort = 3
         static let personRowsLimitFull = 10
-        static let personRowsFullQueryLength = 3
+        static let personRowsFullQueryLength = 4
         static let typeChipsLimit = 8
         static let memberChipsLimit = 3
         // Covered by other chips (Media) or never useful as a type filter
@@ -78,8 +78,19 @@ final class UnifiedSearchViewModel {
     var chips = [UnifiedSearchChipModel]()
     var channelRows = [UnifiedSearchChannelRow]()
     var personRows = [UnifiedSearchPersonRow]()
+    var typeRows = [UnifiedSearchPickerRow]()
+    // Focused listing (a grouped row was tapped): per-space instances of the
+    // focused type/person, served synchronously from the vault-wide stores
+    var focusRows = [UnifiedSearchFocusRow]()
+    var focusSuggestions = [UnifiedSearchFocusSuggestion]()
+    var focusSectionTitle: String?
+    @ObservationIgnored
+    private var snapshots = [UnifiedSearchSnapshot]()
     var rows = [SearchWithMetaModel]() {
-        didSet { updateRowSections() }
+        didSet {
+            guard rows != oldValue else { return }
+            updateRowSections()
+        }
     }
     // The empty-query browse groups by day; a text search stays one ranked list
     var rowSections = [ListSectionData<String?, SearchWithMetaModel>]()
@@ -87,11 +98,23 @@ final class UnifiedSearchViewModel {
     var selectedTokenId: String?
     var showPeoplePicker = false
     var showTypesPicker = false
+    var showOnboarding = false
     var isInitial = true
+
+    @ObservationIgnored
+    @UserDefault("UserData.UnifiedSearchOnboardingSeen", defaultValue: false)
+    private var onboardingSeen: Bool
 
     private var participantCanEdit = false
     @ObservationIgnored
     private var typesById = [String: ObjectDetails]()
+    // Derived indexes, rebuilt once per types tick (see rebuildTypeIndexes)
+    @ObservationIgnored
+    private var typesByUniqueKeyAndSpace = [String: [String: ObjectDetails]]()
+    @ObservationIgnored
+    private var typeCountByUniqueKey = [String: Int]()
+    @ObservationIgnored
+    private var sortedGlobalTypes = [ObjectDetails]()
     @ObservationIgnored
     private var allParticipants = [Participant]()
     @ObservationIgnored
@@ -102,6 +125,8 @@ final class UnifiedSearchViewModel {
     @ObservationIgnored
     private var containersById = [String: ObjectDetails]()
     @ObservationIgnored
+    private var unresolvableContainerIds = Set<String>()
+    @ObservationIgnored
     private var lastCrossSpaceRecords: [ObjectDetails]?
     @ObservationIgnored
     private var lastMessageResults: [ChatMessageSearchResult]?
@@ -111,17 +136,38 @@ final class UnifiedSearchViewModel {
     private var canLoadMore = false
     @ObservationIgnored
     private var isLoadingMore = false
+    @ObservationIgnored
+    private var isClosed = false
     // Re-arms the bottom sentinel's onAppear after each applied page
     var loadMoreSentinelId = 0
+    // Bumped to summon the keyboard: a token selected by tap is removed with
+    // backspace, which needs the field focused even after a scroll dismissed it
+    var fieldFocusRequestId = 0
 
     var isGlobal: Bool { state.spaceScopeId == nil }
     var animatesBarExpansion: Bool { moduleData.animatesBarExpansion }
+    // Create Channel is the Channels bucket's one action
+    var showsCreateChannelAction: Bool { isGlobal && state.whatBucket == .channels }
+
+    func onCreatePersonalChannel() {
+        moduleData.onCreatePersonalChannel()
+    }
+
+    func onCreateGroupChannel() {
+        moduleData.onCreateGroupChannel()
+    }
+
+    func onJoinQrCode() {
+        moduleData.onJoinQrCode()
+    }
 
     func onCancel() {
         // Resign with the tap so the keyboard drops together with the overlay,
         // not after it (the field only resigns on window removal otherwise)
         UIApplication.shared.hideKeyboard()
-        // An explicit close discards the search - reopening starts fresh
+        // An explicit close discards the search - reopening starts fresh; the
+        // flag keeps an in-flight search() from re-persisting what x discarded
+        isClosed = true
         unifiedSearchStateService.clear()
         moduleData.onClose?()
     }
@@ -137,6 +183,14 @@ final class UnifiedSearchViewModel {
         self.state.setSpaceScope(data.currentSpaceId)
         self.updateTokenModels()
         self.rebuildChips()
+        self.showOnboarding = !onboardingSeen
+    }
+
+    // Any tap or keypress counts as seen
+    func dismissOnboarding() {
+        guard showOnboarding else { return }
+        onboardingSeen = true
+        showOnboarding = false
     }
 
     // The vault-wide types/participants/chats subscriptions live for the account
@@ -146,10 +200,45 @@ final class UnifiedSearchViewModel {
     func observeTypes() async {
         for await types in await crossSpaceTypesStorage.allTypesSequence {
             typesById = Dictionary(types.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+            rebuildTypeIndexes()
             updateTokenModels()
             rebuildChips()
+            updateTypeRows()
+            updateFocusListing()
             rebuildCrossSpaceRows()
         }
+    }
+
+    // One pass per types tick replaces the O(spaces x types) scans on the
+    // keystroke/chip/picker paths
+    private func rebuildTypeIndexes() {
+        var bySpace = [String: [String: ObjectDetails]]()
+        var counts = [String: Int]()
+        for type in typesById.values where !type.isHidden {
+            bySpace[type.uniqueKey, default: [:]][type.spaceId] = type
+            counts[type.uniqueKey, default: 0] += 1
+        }
+        typesByUniqueKeyAndSpace = bySpace
+        typeCountByUniqueKey = counts
+
+        // Deduped by uniqueKey, representative = current space when available,
+        // name-sorted once (decorated - the title accessor allocates)
+        var byUniqueKey = [String: ObjectDetails]()
+        let representativeSpaceId = moduleData.currentSpaceId
+        for type in typesById.values {
+            guard !type.isHidden, !Constants.excludedTypeChipKeys.contains(type.uniqueKeyValue) else { continue }
+            if let existing = byUniqueKey[type.uniqueKey] {
+                if type.spaceId == representativeSpaceId, existing.spaceId != representativeSpaceId {
+                    byUniqueKey[type.uniqueKey] = type
+                }
+            } else {
+                byUniqueKey[type.uniqueKey] = type
+            }
+        }
+        sortedGlobalTypes = byUniqueKey.values
+            .map { ($0.title, $0) }
+            .sorted { $0.0.localizedCaseInsensitiveCompare($1.0) == .orderedAscending }
+            .map(\.1)
     }
 
     func observeMembers() async {
@@ -158,6 +247,7 @@ final class UnifiedSearchViewModel {
             updateTokenModels()
             rebuildChips()
             updatePersonRows()
+            updateFocusListing()
             // Author names/avatars on message rows resolve from participants
             rebuildMessageRows()
         }
@@ -167,7 +257,11 @@ final class UnifiedSearchViewModel {
     // which sorts with live message recency - same store, same comparator
     func observeSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
-            hubSpaceViews = spaces.sortedForSpaceHub().map(\.spaceView)
+            // The stream ticks on every incoming message anywhere (previews are
+            // part of its value) - rebuild only when the order actually changed
+            let views = spaces.sortedForSpaceHub().map(\.spaceView)
+            guard views != hubSpaceViews else { continue }
+            hubSpaceViews = views
             updateChannelRows()
             rebuildChips()
         }
@@ -202,6 +296,11 @@ final class UnifiedSearchViewModel {
             // Channel rows come from the in-memory space store - update them
             // instantly on every keystroke, before the debounce
             updateChannelRows()
+            // Don't hold the whole screen for the first RPC when the instant
+            // lead rows already have something to show
+            if isInitial, channelRows.isNotEmpty || personRows.isNotEmpty || typeRows.isNotEmpty {
+                isInitial = false
+            }
 
             if isGlobal, state.whatBucket == .channels {
                 // The Channels bucket browses the space list itself - no RPC
@@ -214,6 +313,22 @@ final class UnifiedSearchViewModel {
                 storeState()
                 return
             }
+
+            if state.focusedTypeKey != nil || state.focusedPersonIdentity != nil {
+                // Focused listings are local - no RPC, no debounce
+                updateFocusListing()
+                rows = []
+                messageRows = []
+                lastCrossSpaceRecords = nil
+                lastMessageResults = nil
+                canLoadMore = false
+                isInitial = false
+                storeState()
+                return
+            }
+            focusRows = []
+            focusSuggestions = []
+            focusSectionTitle = nil
 
             if needDelay() {
                 try await Task.sleep(seconds: 0.3)
@@ -232,9 +347,14 @@ final class UnifiedSearchViewModel {
         } catch is CancellationError {
             // Ignore cancellations. That means we was run new search.
         } catch {
+            // Degrade to the empty state - never a blank surface, and never
+            // stale rows resurrected by a later stream tick
             rows = []
             messageRows = []
             lastMessageResults = nil
+            lastCrossSpaceRecords = nil
+            canLoadMore = false
+            isInitial = false
         }
     }
 
@@ -242,7 +362,8 @@ final class UnifiedSearchViewModel {
     func onReachedBottom() {
         guard canLoadMore, !isLoadingMore else { return }
         isLoadingMore = true
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             defer { isLoadingMore = false }
             do {
                 if state.whatBucket == .messages {
@@ -260,13 +381,23 @@ final class UnifiedSearchViewModel {
 
     func onSearchTextChanged() {
         // Typing deselects a selected token
-        selectedTokenId = nil
-        AnytypeAnalytics.instance().logSearchInput()
+        if selectedTokenId != nil {
+            selectedTokenId = nil
+        }
+        // Clearing the field (x button or backspacing out) returns to the
+        // browse without paying the debounce
+        if state.searchText.isEmpty {
+            skipDebounceOnce = true
+        }
+        AnytypeAnalytics.instance().logSearchInput(route: moduleData.currentSpaceId == nil ? .vault : .space)
     }
 
     func onTokenTap(_ token: UnifiedSearchToken) {
         UISelectionFeedbackGenerator().selectionChanged()
         selectedTokenId = selectedTokenId == token.id ? nil : token.id
+        if selectedTokenId != nil {
+            fieldFocusRequestId += 1
+        }
     }
 
     // Backspace on an empty field: first press selects the last token,
@@ -275,7 +406,9 @@ final class UnifiedSearchViewModel {
         if let selectedTokenId, let token = state.tokens.first(where: { $0.id == selectedTokenId }) {
             logToken(token, action: .remove, source: .backspace)
             skipDebounceOnce = true
-            state.removeToken(token)
+            if !restoreSnapshotIfOwned(removedToken: token) {
+                state.removeToken(token)
+            }
             self.selectedTokenId = nil
             updateTokenModels()
             rebuildChips()
@@ -347,7 +480,7 @@ final class UnifiedSearchViewModel {
 
     private func typeChannelsCaption(_ type: ObjectDetails) -> String? {
         guard let spaceName = spaceViewsStorage.spaceView(spaceId: type.spaceId)?.title else { return nil }
-        let otherCount = typesById.values.count { $0.uniqueKey == type.uniqueKey && !$0.isHidden } - 1
+        let otherCount = (typeCountByUniqueKey[type.uniqueKey] ?? 1) - 1
         switch otherCount {
         case ..<1:
             return Loc.UnifiedSearch.inSpace(spaceName)
@@ -367,6 +500,7 @@ final class UnifiedSearchViewModel {
         skipDebounceOnce = true
         selectedTokenId = nil
         state.addToken(token)
+        pruneOrphanedSnapshots()
         updateTokenModels()
         rebuildChips()
     }
@@ -378,6 +512,7 @@ final class UnifiedSearchViewModel {
         skipDebounceOnce = true
         selectedTokenId = nil
         state.setSpaceScope(spaceId)
+        pruneOrphanedSnapshots()
         updateTokenModels()
         rebuildChips()
     }
@@ -387,7 +522,9 @@ final class UnifiedSearchViewModel {
         logToken(token, action: .remove, source: .token)
         skipDebounceOnce = true
         selectedTokenId = nil
-        state.removeToken(token)
+        if !restoreSnapshotIfOwned(removedToken: token) {
+            state.removeToken(token)
+        }
         updateTokenModels()
         rebuildChips()
     }
@@ -409,7 +546,7 @@ final class UnifiedSearchViewModel {
 
         let sorts: [DataviewSort] = .builder {
             if state.searchText.isEmpty {
-                ObjectSort(relation: .dateUpdated).asDataviewSort()
+                ObjectSort(relation: state.browseSort == .created ? .dateCreated : .dateUpdated).asDataviewSort()
             } else {
                 SearchHelper.sort(relation: BundledPropertyKey.lastOpenedDate, type: .desc)
             }
@@ -428,7 +565,6 @@ final class UnifiedSearchViewModel {
         )
 
         guard requestState == state else { return }
-        canLoadMore = results.count >= Constants.searchLimit
 
         lastCrossSpaceRecords = nil
         messageRows = []
@@ -438,21 +574,31 @@ final class UnifiedSearchViewModel {
         }
         if offset > 0 {
             let existingIds = Set(rows.map(\.id))
-            rows += newRows.filter { !existingIds.contains($0.id) }
+            let added = newRows.filter { !existingIds.contains($0.id) }
+            // A full page of duplicates must not re-arm the sentinel at the
+            // same offset - progress is the loop condition
+            canLoadMore = results.count >= Constants.searchLimit && added.isNotEmpty
+            rows += added
         } else {
+            canLoadMore = results.count >= Constants.searchLimit
             rows = newRows
         }
         loadMoreSentinelId += 1
     }
 
     private func searchCrossSpace(spaceId: String?, offset: Int = 0) async throws {
+        if state.whatBucket == .chats {
+            try await searchChats(spaceId: spaceId, offset: offset)
+            return
+        }
         let requestState = state
-        let browse = state.searchText.isEmpty
+        let browse = state.searchText.trimmed.isEmpty
 
-        // Type objects are noise in the generic empty browse only - with a what
-        // token or a text query they are legitimate results
+        // Type objects are excluded from the generic empty browse (noise) and
+        // from a plain text query while the Types lead group is injected (the
+        // group replaces per-space type rows); tokened searches keep them
         var excludedLayouts = creatorChatExclusion()
-        if browse, state.whatBucket == nil, state.typeUniqueKey == nil {
+        if state.whatBucket == nil, state.typeUniqueKey == nil, browse || showsLeadRows {
             excludedLayouts.append(.objectType)
         }
 
@@ -461,26 +607,38 @@ final class UnifiedSearchViewModel {
 
         // allStoresLoaded == false right after app start - render the partial
         // result as is, every keystroke re-queries and self-heals. No retry loop.
+        // The browse follows the recency toggle - explicit on both orders so the
+        // server's sort field always matches the client's day-grouping field;
+        // text queries trust the backend's relevance
+        let sorts: [DataviewSort] = .builder {
+            if browse {
+                SearchHelper.sort(relation: state.browseSort == .created ? .createdDate : .lastModifiedDate, type: .desc)
+            }
+        }
+
         let result = try await crossSpaceSearchService.search(
             text: state.searchText,
             layouts: state.whatBucket?.layouts ?? [],
             excludedLayouts: excludedLayouts,
             typeUniqueKey: state.typeUniqueKey,
             creators: creatorFilterIds(scopeSpaceId: spaceId),
+            sorts: sorts,
             spaceId: spaceId,
             offset: offset,
             limit: limit
         )
 
         guard requestState == state else { return }
-        canLoadMore = result.records.count >= limit
 
         messageRows = []
         lastMessageResults = nil
         if offset > 0, let existing = lastCrossSpaceRecords {
             let existingIds = Set(existing.map(\.id))
-            lastCrossSpaceRecords = existing + result.records.filter { !existingIds.contains($0.id) }
+            let added = result.records.filter { !existingIds.contains($0.id) }
+            canLoadMore = result.records.count >= limit && added.isNotEmpty
+            lastCrossSpaceRecords = existing + added
         } else {
+            canLoadMore = result.records.count >= limit
             lastCrossSpaceRecords = result.records
         }
         rebuildCrossSpaceRows()
@@ -494,7 +652,7 @@ final class UnifiedSearchViewModel {
     private func searchMessages(spaceId: String?, offset: Int = 0) async throws {
         let requestState = state
         // The first browse page is small; every following page is full-size
-        let limit = (state.searchText.isEmpty && offset == 0) ? Constants.browseLimit : Constants.searchLimit
+        let limit = (state.searchText.trimmed.isEmpty && offset == 0) ? Constants.browseLimit : Constants.searchLimit
         let results = try await chatService.searchMessages(
             spaceId: spaceId ?? "",
             chatObjectId: "",
@@ -510,14 +668,16 @@ final class UnifiedSearchViewModel {
         try await resolveContainers(ids: filtered.map(\.chatID))
 
         guard requestState == state else { return }
-        canLoadMore = results.count >= limit
 
         rows = []
         lastCrossSpaceRecords = nil
         if offset > 0, let existing = lastMessageResults {
             let existingIds = Set(existing.map(\.messageID))
-            lastMessageResults = existing + filtered.filter { !existingIds.contains($0.messageID) }
+            let added = filtered.filter { !existingIds.contains($0.messageID) }
+            canLoadMore = results.count >= limit && added.isNotEmpty
+            lastMessageResults = existing + added
         } else {
+            canLoadMore = results.count >= limit
             lastMessageResults = filtered
         }
         rebuildMessageRows()
@@ -532,8 +692,23 @@ final class UnifiedSearchViewModel {
             containersById[chat.id] = chat
         }
         let showSpaceCaption = isGlobal
+        // One pass over the participants store per rebuild, not per row
+        var participantBySpacedIdentity = [String: Participant]()
+        var participantByIdentity = [String: Participant]()
+        for participant in allParticipants {
+            participantBySpacedIdentity["\(participant.identity)|\(participant.spaceId)"] = participant
+            if participantByIdentity[participant.identity] == nil {
+                participantByIdentity[participant.identity] = participant
+            }
+        }
         messageRows = results.map { result in
-            buildMessageRow(result, spaceCaption: showSpaceCaption ? spaceCaption(spaceId: result.spaceID) : nil)
+            let participant = participantBySpacedIdentity["\(result.message.creator)|\(result.spaceID)"]
+                ?? participantByIdentity[result.message.creator]
+            return buildMessageRow(
+                result,
+                participant: participant,
+                spaceCaption: showSpaceCaption ? spaceCaption(spaceId: result.spaceID) : nil
+            )
         }
     }
 
@@ -547,7 +722,7 @@ final class UnifiedSearchViewModel {
         for chat in allChats {
             containersById[chat.id] = chat
         }
-        var unresolved = Set(ids).filter { containersById[$0] == nil }
+        var unresolved = Set(ids).filter { containersById[$0] == nil && !unresolvableContainerIds.contains($0) }
         guard unresolved.isNotEmpty else { return }
 
         let parents = (try? await crossSpaceSearchService.discussionParents(discussionIds: Array(unresolved))) ?? []
@@ -560,13 +735,14 @@ final class UnifiedSearchViewModel {
         let fetched = (try? await crossSpaceSearchService.objects(ids: Array(unresolved))) ?? []
         for details in fetched where details.resolvedLayoutValue == .chatDerived {
             containersById[details.id] = details
+            unresolved.remove(details.id)
         }
+        // What neither step resolved never will - don't re-query it every page
+        unresolvableContainerIds.formUnion(unresolved)
     }
 
-    private func buildMessageRow(_ result: ChatMessageSearchResult, spaceCaption: SearchSpaceCaption?) -> UnifiedSearchMessageRow {
+    private func buildMessageRow(_ result: ChatMessageSearchResult, participant: Participant?, spaceCaption: SearchSpaceCaption?) -> UnifiedSearchMessageRow {
         let message = result.message
-        let participant = allParticipants.first { $0.identity == message.creator && $0.spaceId == result.spaceID }
-            ?? allParticipants.first { $0.identity == message.creator }
 
         let snippet: AttributedString
         if result.highlight.isNotEmpty {
@@ -613,6 +789,36 @@ final class UnifiedSearchViewModel {
             containerName: containersById[result.chatID]?.title,
             spaceCaption: spaceCaption
         )
+    }
+
+    private func searchChats(spaceId: String?, offset: Int) async throws {
+        let requestState = state
+        let query = state.searchText.trimmed
+        let limit = (query.isEmpty && offset == 0) ? Constants.browseLimit : Constants.searchLimit
+
+        let result = try await crossSpaceSearchService.searchChats(
+            nameQuery: query.isNotEmpty ? query : nil,
+            creators: creatorFilterIds(scopeSpaceId: spaceId),
+            spaceId: spaceId,
+            offset: offset,
+            limit: limit
+        )
+
+        guard requestState == state else { return }
+
+        messageRows = []
+        lastMessageResults = nil
+        if offset > 0, let existing = lastCrossSpaceRecords {
+            let existingIds = Set(existing.map(\.id))
+            let added = result.records.filter { !existingIds.contains($0.id) }
+            canLoadMore = result.records.count >= limit && added.isNotEmpty
+            lastCrossSpaceRecords = existing + added
+        } else {
+            canLoadMore = result.records.count >= limit
+            lastCrossSpaceRecords = result.records
+        }
+        rebuildCrossSpaceRows()
+        loadMoreSentinelId += 1
     }
 
     private func rebuildCrossSpaceRows() {
@@ -668,6 +874,7 @@ final class UnifiedSearchViewModel {
     // Person rows follow the channel matches: typing a person's name should
     // reach the person, not only the objects they created
     private func updatePersonRows() {
+        defer { updateTypeRows() }
         guard showsLeadRows, state.whatBucket != .channels else {
             personRows = []
             return
@@ -703,11 +910,46 @@ final class UnifiedSearchViewModel {
                     participantObjectId: participant.id,
                     spaceId: participant.spaceId,
                     title: participant.title,
+                    globalName: participant.globalName,
                     icon: participant.icon.map { Icon.object($0) } ?? .object(.profile(.placeholder)),
                     sharedChannelCount: sharedSpaceIds.count,
                     hasOneToOne: oneToOneSpaceId != nil
                 )
             }
+    }
+
+    // The Types group follows People: typing a type's name should reach the
+    // type itself. Same cap rule as People; deduped by uniqueKey.
+    private func updateTypeRows() {
+        guard showsLeadRows, state.whatBucket != .channels else {
+            typeRows = []
+            return
+        }
+        let query = state.searchText.trimmed
+        let limit = query.count >= Constants.personRowsFullQueryLength ? Constants.personRowsLimitFull : Constants.personRowsLimitShort
+
+        typeRows = typesBrowseList(scopeSpaceId: nil)
+            .filter { $0.title.localizedStandardContains(query) }
+            .prefix(limit)
+            .map { type in
+                UnifiedSearchPickerRow(
+                    id: type.uniqueKey,
+                    title: type.title,
+                    icon: type.objectIconImage,
+                    subtitle: typeChannelsCaption(type)
+                )
+            }
+    }
+
+    // A grouped type row expands into the focused per-space listing; the drill
+    // filters objects by the type across every channel
+    func onSelectTypeRow(_ row: UnifiedSearchPickerRow) {
+        addFocusToken(.typeFocus(uniqueKey: row.id))
+    }
+
+    func onDrillTypeRow(_ row: UnifiedSearchPickerRow) {
+        UISelectionFeedbackGenerator().selectionChanged()
+        addDrillToken(.type(uniqueKey: row.id))
     }
 
     private func activeSpaceIdsByIdentity() -> [String: Set<String>] {
@@ -718,23 +960,236 @@ final class UnifiedSearchViewModel {
         return result
     }
 
+    // A grouped person row expands into the focused per-space listing; the
+    // participant profile stays one level deeper (rows outside the listing,
+    // or the create suggestion inside it)
     func onSelectPersonRow(_ row: UnifiedSearchPersonRow) {
-        AnytypeAnalytics.instance().logSearchResult()
-        moduleData.onSelect(.alert(.spaceMember(ObjectInfo(objectId: row.participantObjectId, spaceId: row.spaceId))))
+        addFocusToken(.personFocus(identity: row.identity))
     }
 
     func onDrillPersonRow(_ row: UnifiedSearchPersonRow) {
         UISelectionFeedbackGenerator().selectionChanged()
-        // A drill is about the drilled person - the old query found the row,
-        // the new search starts clean
+        addDrillToken(.creator(identity: row.identity))
+    }
+
+    // MARK: - Focus
+
+    private func addFocusToken(_ token: UnifiedSearchToken) {
+        UISelectionFeedbackGenerator().selectionChanged()
+        logToken(token, action: replacesInGroup(token) ? .replace : .add, source: .group)
+        pushSnapshot(ownerTokenId: token.id)
+        skipDebounceOnce = true
+        selectedTokenId = nil
         state.searchText = ""
-        addPickedToken(.creator(identity: row.identity), source: .row)
+        state.addToken(token)
+        updateTokenModels()
+        rebuildChips()
+    }
+
+    // A drill is about the drilled thing - the old query found the row, the new
+    // search starts clean; removing the token restores it
+    private func addDrillToken(_ token: UnifiedSearchToken) {
+        pushSnapshot(ownerTokenId: token.id)
+        state.searchText = ""
+        addPickedToken(token, source: .row)
+    }
+
+    private func updateFocusListing() {
+        if let uniqueKey = state.focusedTypeKey {
+            updateTypeFocusListing(uniqueKey: uniqueKey)
+        } else if let identity = state.focusedPersonIdentity {
+            updatePersonFocusListing(identity: identity)
+        }
+    }
+
+    // Every space's instance of the focused type, vault order. Typing filters by
+    // type or channel name - "which space's Tasks" is the question being answered.
+    private func updateTypeFocusListing(uniqueKey: String) {
+        let query = state.searchText.trimmed
+        focusSectionTitle = nil
+        focusSuggestions = []
+
+        let instancesBySpace = typesByUniqueKeyAndSpace[uniqueKey] ?? [:]
+        let instances = orderedSpaceViews.compactMap { spaceView -> UnifiedSearchFocusRow? in
+            guard let type = instancesBySpace[spaceView.targetSpaceId] else { return nil }
+            let spaceName = spaceView.title
+            if query.isNotEmpty, !type.title.localizedStandardContains(query), !spaceName.localizedStandardContains(query) {
+                return nil
+            }
+            return UnifiedSearchFocusRow(
+                kind: .typeInstance,
+                objectId: type.id,
+                spaceId: type.spaceId,
+                title: type.title,
+                icon: type.objectIconImage,
+                caption: Loc.UnifiedSearch.inSpace(spaceName)
+            )
+        }
+        focusRows = instances
+
+        if let name = typesById.values.first(where: { $0.uniqueKey == uniqueKey })?.title {
+            focusSectionTitle = name
+            focusSuggestions = [.searchTypeEverywhere(uniqueKey: uniqueKey, name: name)]
+        }
+    }
+
+    // The focused person's membership in every shared space, the 1:1 channel
+    // hoisted to the top. Rows filter ("pick the Channel to filter their
+    // objects in"), the top suggestion covers all Channels.
+    private func updatePersonFocusListing(identity: String) {
+        let query = state.searchText.trimmed
+        focusSectionTitle = Loc.UnifiedSearch.Focus.personSection
+
+        let oneToOneSpaceView = orderedSpaceViews.first { $0.isOneToOne && $0.oneToOneIdentity == identity }
+        let participantsBySpace = Dictionary(
+            allParticipants.filter { $0.identity == identity && $0.status == .active }.map { ($0.spaceId, $0) },
+            uniquingKeysWith: { first, _ in first }
+        )
+        let personName = participantsBySpace.values.first?.title ?? ""
+
+        // Every row is the person; the caption says which membership it is -
+        // the listing answers "pick the Channel to filter their objects in"
+        let personIcon = participantsBySpace.values.first?.icon.map { Icon.object($0) } ?? .object(.profile(.placeholder))
+        var rows = [UnifiedSearchFocusRow]()
+        if let oneToOneSpaceView {
+            rows.append(UnifiedSearchFocusRow(
+                kind: .oneToOneChannel,
+                objectId: oneToOneSpaceView.id,
+                spaceId: oneToOneSpaceView.targetSpaceId,
+                title: personName,
+                icon: personIcon,
+                caption: Loc.UnifiedSearch.Person.oneToOneChannel
+            ))
+        }
+        for spaceView in orderedSpaceViews where spaceView.targetSpaceId != oneToOneSpaceView?.targetSpaceId {
+            guard let participant = participantsBySpace[spaceView.targetSpaceId] else { continue }
+            rows.append(UnifiedSearchFocusRow(
+                kind: .personInstance,
+                objectId: participant.id,
+                spaceId: participant.spaceId,
+                title: personName,
+                icon: participant.icon.map { Icon.object($0) } ?? personIcon,
+                caption: Loc.UnifiedSearch.inSpace(spaceView.title)
+            ))
+        }
+        if query.isNotEmpty {
+            // The person is constant - typing narrows by channel (title covers
+            // the 1:1 row, whose caption is the static "1-1 Channel")
+            rows = rows.filter {
+                $0.title.localizedStandardContains(query) || $0.caption?.localizedStandardContains(query) == true
+            }
+        }
+        focusRows = rows
+
+        var suggestions: [UnifiedSearchFocusSuggestion] = [.searchCreatorEverywhere(identity: identity, name: personName)]
+        if oneToOneSpaceView == nil {
+            suggestions.append(.createOneToOne(identity: identity))
+        }
+        focusSuggestions = suggestions
+    }
+
+    func onSelectFocusRow(_ row: UnifiedSearchFocusRow) {
+        switch row.kind {
+        case .typeInstance:
+            // A type instance opens
+            AnytypeAnalytics.instance().logSearchResult()
+            guard let details = typesById[row.objectId] else { return }
+            moduleData.onSelect(ScreenData(details: details))
+        case .personInstance, .oneToOneChannel:
+            // A person's rows filter, never open: creator + that row's channel
+            // scope in one gesture, one undo (the snapshot rides the newest token
+            // and removes the whole gesture)
+            guard let identity = state.focusedPersonIdentity else { return }
+            UISelectionFeedbackGenerator().selectionChanged()
+            let creatorToken = UnifiedSearchToken.creator(identity: identity)
+            let scopeToken = UnifiedSearchToken.space(spaceId: row.spaceId)
+            pushSnapshot(ownerTokenId: scopeToken.id, gestureTokenIds: [scopeToken.id, creatorToken.id])
+            skipDebounceOnce = true
+            selectedTokenId = nil
+            state.searchText = ""
+            state.addToken(creatorToken)
+            state.setSpaceScope(row.spaceId)
+            pruneOrphanedSnapshots()
+            logToken(scopeToken, action: .add, source: .focus)
+            updateTokenModels()
+            rebuildChips()
+        }
+    }
+
+    func onSelectFocusSuggestion(_ suggestion: UnifiedSearchFocusSuggestion) {
+        switch suggestion {
+        case .searchTypeEverywhere(let uniqueKey, _):
+            // Snapshot before the swap - Back returns to the focused view
+            let token = UnifiedSearchToken.type(uniqueKey: uniqueKey)
+            pushSnapshot(ownerTokenId: token.id)
+            state.searchText = ""
+            state.removeToken(.typeFocus(uniqueKey: uniqueKey))
+            addPickedToken(token, source: .focus)
+        case .searchCreatorEverywhere(let identity, _):
+            let token = UnifiedSearchToken.creator(identity: identity)
+            pushSnapshot(ownerTokenId: token.id)
+            state.searchText = ""
+            state.removeToken(.personFocus(identity: identity))
+            addPickedToken(token, source: .focus)
+        case .createOneToOne(let identity):
+            // Opens the profile - the 1:1 is created only from its own button
+            guard let participant = allParticipants.first(where: { $0.identity == identity }) else { return }
+            moduleData.onSelect(.alert(.spaceMember(ObjectInfo(objectId: participant.id, spaceId: participant.spaceId))))
+        }
+    }
+
+    // MARK: - Snapshots
+
+    private func pushSnapshot(ownerTokenId: String, gestureTokenIds: Set<String>? = nil) {
+        snapshots.append(UnifiedSearchSnapshot(
+            tokens: state.tokens,
+            searchText: state.searchText,
+            ownerTokenId: ownerTokenId,
+            gestureTokenIds: gestureTokenIds ?? [ownerTokenId]
+        ))
+        // Unmatched snapshots accumulate across repeated drills - keep a sane depth
+        if snapshots.count > 20 {
+            snapshots.removeFirst(snapshots.count - 20)
+        }
+    }
+
+    // Removing a row-added token restores the pre-drill search; an explicit
+    // removal of any other token also strips it from remaining snapshots - an
+    // undo must not resurrect what was removed by hand
+    private func restoreSnapshotIfOwned(removedToken: UnifiedSearchToken) -> Bool {
+        guard let index = snapshots.lastIndex(where: { $0.ownerTokenId == removedToken.id }) else {
+            for i in snapshots.indices {
+                snapshots[i].tokens.removeAll { $0 == removedToken }
+            }
+            return false
+        }
+        let snapshot = snapshots[index]
+        snapshots.removeSubrange(index...)
+        // Merge, don't overwrite: the undo removes everything its gesture added,
+        // tokens from later separate gestures survive, and snapshot tokens
+        // return into the freed groups
+        var restored = state.tokens.filter { !snapshot.gestureTokenIds.contains($0.id) && $0 != removedToken }
+        for token in snapshot.tokens where !restored.contains(where: { $0.group == token.group }) {
+            restored.append(token)
+        }
+        state.tokens = restored
+        state.searchText = snapshot.searchText
+        return true
+    }
+
+    // A yield rule can remove a token another snapshot rides on - the snapshot
+    // is then unreachable and must not linger
+    private func pruneOrphanedSnapshots() {
+        snapshots.removeAll { snapshot in
+            !state.tokens.contains { $0.id == snapshot.ownerTokenId }
+        }
     }
 
     private func matchingSpaceRows(limit: Int?) -> [UnifiedSearchChannelRow] {
         var spaceViews = orderedSpaceViews
-        if state.searchText.isNotEmpty {
-            spaceViews = spaceViews.filter { $0.title.localizedStandardContains(state.searchText) }
+        let query = state.searchText.trimmed
+        if query.isNotEmpty {
+            spaceViews = spaceViews.filter { $0.title.localizedStandardContains(query) }
         }
         if let limit {
             spaceViews = Array(spaceViews.prefix(limit))
@@ -747,24 +1202,45 @@ final class UnifiedSearchViewModel {
         return SearchSpaceCaption(spaceId: spaceId, name: spaceView.title)
     }
 
-    // Rows arrive date-sorted, so day grouping is an order-preserving pass
+    // Rows arrive date-sorted, so day grouping is an order-preserving pass on
+    // the active recency order's own field. The Chats bucket sorts by last
+    // message - a foreign field would interleave its buckets - so it stays flat.
     private func updateRowSections() {
         guard rows.isNotEmpty else {
             rowSections = []
             return
         }
-        guard state.searchText.isEmpty else {
+        guard state.searchText.trimmed.isEmpty, state.whatBucket != .chats else {
             rowSections = [ListSectionData(id: "single_section", data: nil, rows: rows)]
             return
         }
         let today = Date()
+        let calendar = Calendar.current
+        // Paging regroups the whole accumulated list - memoize the bucket per
+        // day (the formatter re-templates internally, tens of us per call)
+        var titleByDay = [Date: String]()
         let grouped = OrderedDictionary(
             grouping: rows,
-            by: { browseDateFormatter.localizedString(for: $0.lastModifiedDate ?? today, relativeTo: today) }
+            by: { row in
+                let date = (state.browseSort == .created ? row.createdDate : row.lastModifiedDate) ?? today
+                let day = calendar.startOfDay(for: date)
+                if let cached = titleByDay[day] { return cached }
+                let title = browseDateFormatter.localizedString(for: date, relativeTo: today)
+                titleByDay[day] = title
+                return title
+            }
         )
         rowSections = grouped.map { (title, rows) in
             ListSectionData(id: title, data: title, rows: rows)
         }
+    }
+
+    // The recency toggle on the browse's first day header (persisted with the state)
+    func onToggleBrowseSort(_ sort: UnifiedSearchBrowseSort) {
+        guard sort != state.browseSort else { return }
+        UISelectionFeedbackGenerator().selectionChanged()
+        skipDebounceOnce = true
+        state.browseSort = sort
     }
 
     // MARK: - Chips
@@ -774,7 +1250,7 @@ final class UnifiedSearchViewModel {
     private func rebuildChips() {
         var result = [UnifiedSearchChipModel]()
         let scopeId = state.spaceScopeId
-        let whatFilled = state.whatBucket != nil || state.typeUniqueKey != nil
+        let whatFilled = state.tokens.contains { $0.group == .what }
 
         // Scope suggestion (global mode only): re-add the entry space.
         // Hidden under the Channels bucket - scoping cannot answer there.
@@ -814,7 +1290,7 @@ final class UnifiedSearchViewModel {
             } else {
                 result.append(UnifiedSearchChipModel(token: .kind(.media), title: UnifiedSearchKindBucket.media.title))
                 result.append(typesChip)
-                for bucket in [UnifiedSearchKindBucket.pages, .bookmarks, .collections, .queries] {
+                for bucket in [UnifiedSearchKindBucket.pages, .bookmarks, .collections, .queries, .chats] {
                     result.append(UnifiedSearchChipModel(token: .kind(bucket), title: bucket.title))
                 }
             }
@@ -833,28 +1309,28 @@ final class UnifiedSearchViewModel {
 
     // Types deduped by uniqueKey (stable across spaces), name order. The scope
     // space's instance represents the type when available - templates, hidden
-    // and system types excluded.
+    // and system types excluded. Global list is precomputed per types tick.
     private func typesBrowseList(scopeSpaceId: String?) -> [ObjectDetails] {
-        let representativeSpaceId = scopeSpaceId ?? moduleData.currentSpaceId
-        var byUniqueKey = [String: ObjectDetails]()
-        for type in typesById.values {
-            guard !type.isHidden, !Constants.excludedTypeChipKeys.contains(type.uniqueKeyValue) else { continue }
-            if let scopeSpaceId, type.spaceId != scopeSpaceId { continue }
-            if let existing = byUniqueKey[type.uniqueKey] {
-                if type.spaceId == representativeSpaceId, existing.spaceId != representativeSpaceId {
-                    byUniqueKey[type.uniqueKey] = type
-                }
-            } else {
-                byUniqueKey[type.uniqueKey] = type
-            }
-        }
-        return byUniqueKey.values.sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
+        guard let scopeSpaceId else { return sortedGlobalTypes }
+        return typesById.values
+            .filter { $0.spaceId == scopeSpaceId && !$0.isHidden && !Constants.excludedTypeChipKeys.contains($0.uniqueKeyValue) }
+            .map { ($0.title, $0) }
+            .sorted { $0.0.localizedCaseInsensitiveCompare($1.0) == .orderedAscending }
+            .map(\.1)
     }
 
     // "By me" leads the row, member chips close it (desktop order). The >1-member
     // gate covers the whole person section - filtering a solo space by "you" is a no-op.
+    // A creator filter has no effect on the channel browse or a focused type
+    // listing - offering the chips there would add a dead token
+    private var whoFilterApplies: Bool {
+        state.whatBucket != .channels && state.focusedTypeKey == nil
+    }
+
     private func personChips(scopeSpaceId: String?, byMeOnly: Bool) -> [UnifiedSearchChipModel] {
-        guard state.creatorIdentity == nil, let ownIdentity else { return [] }
+        // The who group is spoken for by a creator filter or a focused person -
+        // no person chips until it frees up
+        guard whoFilterApplies, state.creatorIdentity == nil, state.focusedPersonIdentity == nil, let ownIdentity else { return [] }
 
         let people = personBrowseList(scopeSpaceId: scopeSpaceId)
         guard people.count > 1 else { return [] }
@@ -950,6 +1426,17 @@ final class UnifiedSearchViewModel {
                 }
                 let title = participant.map { Loc.UnifiedSearch.Chip.by($0.title) } ?? "…"
                 return UnifiedSearchTokenViewModel(token: token, title: title, icon: icon)
+            case .typeFocus(let uniqueKey):
+                // The pill names the focused thing - it says what the listing shows
+                let typeDetails = typesById.values.first { $0.uniqueKey == uniqueKey }
+                return UnifiedSearchTokenViewModel(token: token, title: typeDetails?.title ?? "…", icon: typeDetails?.objectIconImage)
+            case .personFocus(let identity):
+                let participant = allParticipants.first { $0.identity == identity }
+                return UnifiedSearchTokenViewModel(
+                    token: token,
+                    title: participant?.title ?? "…",
+                    icon: participant?.icon.map { Icon.object($0) } ?? .object(.profile(.placeholder))
+                )
             }
         }
         // Only space tokens drop when unresolvable - the space store is always warm
@@ -988,6 +1475,7 @@ final class UnifiedSearchViewModel {
     }
 
     private func storeState() {
+        guard !isClosed else { return }
         unifiedSearchStateService.storeState(state)
     }
 }
@@ -997,7 +1485,8 @@ private extension UnifiedSearchToken {
         switch self {
         case .space: .space
         case .kind: .kind
-        case .type: .type
+        // A focus is a what-token variant of the type/member filter
+        case .type, .typeFocus, .personFocus: .type
         case .creator: .creator
         }
     }
