@@ -109,6 +109,14 @@ public class SearchHelper {
         return filter
     }
 
+    public static func discussionIdsFilter(_ ids: [String]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = ids.protobufValue
+        filter.relationKey = BundledPropertyKey.discussionId.rawValue
+        return filter
+    }
+
     public static func creatorsFilter(_ ids: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in

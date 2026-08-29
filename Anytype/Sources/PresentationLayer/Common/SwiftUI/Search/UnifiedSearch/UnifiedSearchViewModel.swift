@@ -73,6 +73,7 @@ final class UnifiedSearchViewModel {
     var messageRows = [UnifiedSearchMessageRow]()
     var selectedTokenId: String?
     var showPeoplePicker = false
+    var showTypesPicker = false
     var isInitial = true
 
     private var participantCanEdit = false
@@ -260,7 +261,7 @@ final class UnifiedSearchViewModel {
 
     func onSelectMessage(_ row: UnifiedSearchMessageRow) {
         AnytypeAnalytics.instance().logSearchResult()
-        moduleData.onOpenMessage(row.chatObjectId, row.spaceId, row.messageId)
+        moduleData.onOpenMessage(row.openObjectId, row.spaceId, row.messageId)
     }
 
     func onChipTap(_ chip: UnifiedSearchChipModel) {
@@ -274,17 +275,53 @@ final class UnifiedSearchViewModel {
             rebuildChips()
         case .openPeoplePicker:
             showPeoplePicker = true
+        case .openTypesPicker:
+            showTypesPicker = true
         }
     }
 
-    var peoplePickerRows: [UnifiedSearchPersonRow] {
+    var peoplePickerRows: [UnifiedSearchPickerRow] {
         personBrowseList(scopeSpaceId: state.spaceScopeId)
             .filter { $0.identity != ownIdentity }
-            .map { UnifiedSearchPersonRow(identity: $0.identity, title: $0.title, icon: $0.icon.map { Icon.object($0) } ?? .object(.profile(.placeholder))) }
+            .map { UnifiedSearchPickerRow(id: $0.identity, title: $0.title, icon: $0.icon.map { Icon.object($0) } ?? .object(.profile(.placeholder))) }
     }
 
-    func onSelectPerson(_ person: UnifiedSearchPersonRow) {
-        let token = UnifiedSearchToken.creator(identity: person.identity)
+    func onSelectPerson(_ person: UnifiedSearchPickerRow) {
+        addPickedToken(.creator(identity: person.id))
+    }
+
+    var typesPickerRows: [UnifiedSearchPickerRow] {
+        let scopeId = state.spaceScopeId
+        return typesBrowseList(scopeSpaceId: scopeId).map { type in
+            UnifiedSearchPickerRow(
+                id: type.uniqueKey,
+                title: type.title,
+                icon: type.objectIconImage,
+                // "in <Channel> + N other Channels" - global mode only; in a scope
+                // every type is from the scope space
+                subtitle: scopeId == nil ? typeChannelsCaption(type) : nil
+            )
+        }
+    }
+
+    private func typeChannelsCaption(_ type: ObjectDetails) -> String? {
+        guard let spaceName = spaceViewsStorage.spaceView(spaceId: type.spaceId)?.title else { return nil }
+        let otherCount = typesById.values.count { $0.uniqueKey == type.uniqueKey && !$0.isHidden } - 1
+        switch otherCount {
+        case ..<1:
+            return Loc.UnifiedSearch.inSpace(spaceName)
+        case 1:
+            return Loc.UnifiedSearch.inSpacePlusOne(spaceName)
+        default:
+            return Loc.UnifiedSearch.inSpacePlusMany(spaceName, otherCount)
+        }
+    }
+
+    func onSelectType(_ type: UnifiedSearchPickerRow) {
+        addPickedToken(.type(uniqueKey: type.id))
+    }
+
+    private func addPickedToken(_ token: UnifiedSearchToken) {
         logToken(token, action: replacesInGroup(token) ? .replace : .add, source: .chip)
         skipDebounceOnce = true
         selectedTokenId = nil
@@ -420,16 +457,28 @@ final class UnifiedSearchViewModel {
         }
     }
 
-    // Chats come from the vault-wide storage; thread-parent pages are batch-fetched
-    // once per result page. Unresolvable containers degrade to no caption.
+    // Container resolution, one batch per result page:
+    // 1. real chats from the vault-wide chats storage;
+    // 2. discussion ids resolve to the PARENT object carrying the discussionId
+    //    relation - the row captions with the attached object's name;
+    // 3. leftovers get one by-id fetch, accepted only when a real chat comes
+    //    back - a bare Discussion object deliberately renders no caption.
     private func resolveContainers(ids: [String]) async throws {
         for chat in allChats {
             containersById[chat.id] = chat
         }
-        let unresolved = Set(ids).filter { containersById[$0] == nil }
+        var unresolved = Set(ids).filter { containersById[$0] == nil }
         guard unresolved.isNotEmpty else { return }
+
+        let parents = (try? await crossSpaceSearchService.discussionParents(discussionIds: Array(unresolved))) ?? []
+        for parent in parents where parent.discussionId.isNotEmpty {
+            containersById[parent.discussionId] = parent
+            unresolved.remove(parent.discussionId)
+        }
+        guard unresolved.isNotEmpty else { return }
+
         let fetched = (try? await crossSpaceSearchService.objects(ids: Array(unresolved))) ?? []
-        for details in fetched {
+        for details in fetched where details.resolvedLayoutValue == .chatDerived {
             containersById[details.id] = details
         }
     }
@@ -451,12 +500,31 @@ final class UnifiedSearchViewModel {
             }
             snippet = highlighted
         } else {
-            snippet = AttributedString(messageTextBuilder.makeMessaeWithoutStyle(content: message.message))
+            let plainText = messageTextBuilder.makeMessaeWithoutStyle(content: message.message)
+            if plainText.isNotEmpty {
+                snippet = AttributedString(plainText)
+            } else {
+                // Discussion messages carry their text in content blocks, not in
+                // the plain message field
+                let blocksText = message.blocks
+                    .compactMap { block -> String? in
+                        guard case .text(let textBlock) = block.content else { return nil }
+                        return textBlock.text
+                    }
+                    .joined(separator: " ")
+                snippet = AttributedString(blocksText)
+            }
         }
+
+        // A discussion parent is keyed by the discussion's id but carries its own -
+        // opening it lands on the parent editor with the thread at the message
+        let container = containersById[result.chatID]
+        let openObjectId = (container?.id).flatMap { $0 != result.chatID ? $0 : nil } ?? result.chatID
 
         return UnifiedSearchMessageRow(
             messageId: message.id,
             chatObjectId: result.chatID,
+            openObjectId: openObjectId,
             spaceId: result.spaceID,
             authorIcon: participant?.icon.map { Icon.object($0) } ?? .object(.profile(.placeholder)),
             authorName: participant?.title ?? "",
@@ -559,11 +627,19 @@ final class UnifiedSearchViewModel {
         result.append(contentsOf: personChips(scopeSpaceId: scopeId, byMeOnly: true))
 
         if !whatFilled {
+            let typesChip = UnifiedSearchChipModel(
+                action: .openTypesPicker,
+                title: Loc.UnifiedSearch.Chip.types,
+                icon: .asset(ImageAsset.CustomIcons.shapes)
+            )
             if let scopeId {
                 result.append(UnifiedSearchChipModel(token: .kind(.media), title: UnifiedSearchKindBucket.media.title))
+                result.append(typesChip)
                 result.append(contentsOf: typeChips(spaceId: scopeId))
             } else {
-                for bucket in [UnifiedSearchKindBucket.media, .pages, .bookmarks, .collections, .queries] {
+                result.append(UnifiedSearchChipModel(token: .kind(.media), title: UnifiedSearchKindBucket.media.title))
+                result.append(typesChip)
+                for bucket in [UnifiedSearchKindBucket.pages, .bookmarks, .collections, .queries] {
                     result.append(UnifiedSearchChipModel(token: .kind(bucket), title: bucket.title))
                 }
             }
@@ -575,11 +651,29 @@ final class UnifiedSearchViewModel {
     }
 
     private func typeChips(spaceId: String) -> [UnifiedSearchChipModel] {
-        typesById.values
-            .filter { $0.spaceId == spaceId && !$0.isHidden && !Constants.excludedTypeChipKeys.contains($0.uniqueKeyValue) }
-            .sorted { $0.title < $1.title }
+        typesBrowseList(scopeSpaceId: spaceId)
             .prefix(Constants.typeChipsLimit)
             .map { UnifiedSearchChipModel(token: .type(uniqueKey: $0.uniqueKey), title: $0.title) }
+    }
+
+    // Types deduped by uniqueKey (stable across spaces), name order. The scope
+    // space's instance represents the type when available - templates, hidden
+    // and system types excluded.
+    private func typesBrowseList(scopeSpaceId: String?) -> [ObjectDetails] {
+        let representativeSpaceId = scopeSpaceId ?? moduleData.currentSpaceId
+        var byUniqueKey = [String: ObjectDetails]()
+        for type in typesById.values {
+            guard !type.isHidden, !Constants.excludedTypeChipKeys.contains(type.uniqueKeyValue) else { continue }
+            if let scopeSpaceId, type.spaceId != scopeSpaceId { continue }
+            if let existing = byUniqueKey[type.uniqueKey] {
+                if type.spaceId == representativeSpaceId, existing.spaceId != representativeSpaceId {
+                    byUniqueKey[type.uniqueKey] = type
+                }
+            } else {
+                byUniqueKey[type.uniqueKey] = type
+            }
+        }
+        return byUniqueKey.values.sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
     }
 
     // "By me" leads the row, member chips close it (desktop order). The >1-member
@@ -674,12 +768,13 @@ final class UnifiedSearchViewModel {
                 let typeDetails = typesById.values.first { $0.uniqueKey == uniqueKey }
                 return UnifiedSearchTokenViewModel(token: token, title: typeDetails?.title ?? "…", icon: typeDetails?.objectIconImage)
             case .creator(let identity):
-                if identity == ownIdentity {
-                    return UnifiedSearchTokenViewModel(token: token, title: Loc.UnifiedSearch.Chip.byMe, icon: nil)
-                }
                 let participant = allParticipants.first { $0.identity == identity }
+                let icon = participant?.icon.map { Icon.object($0) } ?? .object(.profile(.placeholder))
+                if identity == ownIdentity {
+                    return UnifiedSearchTokenViewModel(token: token, title: Loc.UnifiedSearch.Chip.byMe, icon: icon)
+                }
                 let title = participant.map { Loc.UnifiedSearch.Chip.by($0.title) } ?? "…"
-                return UnifiedSearchTokenViewModel(token: token, title: title, icon: participant?.icon.map { Icon.object($0) })
+                return UnifiedSearchTokenViewModel(token: token, title: title, icon: icon)
             }
         }
         // Only space tokens drop when unresolvable - the space store is always warm

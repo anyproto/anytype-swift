@@ -105125,6 +105125,39 @@
         }
       }
     },
+    "UnifiedSearch.Chip.types" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Types"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.inSpacePlusMany" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in %@ + %d other Channels"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.inSpacePlusOne" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in %@ + 1 other Channel"
+          }
+        }
+      }
+    },
     "UnifiedSearch.Section.channels" : {
       "extractionState" : "manual",
       "localizations" : {

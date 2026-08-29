@@ -53,8 +53,14 @@ struct UnifiedSearchView: View {
         }
         .onChange(of: model.state.searchText) { model.onSearchTextChanged() }
         .sheet(isPresented: $model.showPeoplePicker) {
-            UnifiedSearchPeoplePickerView(people: model.peoplePickerRows) {
+            UnifiedSearchPickerView(rows: model.peoplePickerRows) {
                 model.onSelectPerson($0)
+            }
+            .presentationDetents([.medium, .large])
+        }
+        .sheet(isPresented: $model.showTypesPicker) {
+            UnifiedSearchPickerView(rows: model.typesPickerRows) {
+                model.onSelectType($0)
             }
             .presentationDetents([.medium, .large])
         }

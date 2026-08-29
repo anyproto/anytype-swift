@@ -4,6 +4,9 @@ import Services
 struct UnifiedSearchMessageRow: Identifiable, Hashable {
     let messageId: String
     let chatObjectId: String
+    // What a tap opens: the chat itself, or - for discussion messages - the
+    // parent object the discussion is attached to (editor + thread at message)
+    let openObjectId: String
     let spaceId: String
     let authorIcon: Icon
     let authorName: String

@@ -20,6 +20,11 @@ protocol CrossSpaceSearchServiceProtocol: AnyObject, Sendable {
     // Raw by-ids fetch across spaces - one batch per result page (message container
     // attribution), never per row
     func objects(ids: [String]) async throws -> [ObjectDetails]
+
+    // Parent objects whose discussionId relation points at one of the given
+    // discussion ids - resolves discussion-message containers to the object the
+    // discussion is attached to (its name/icon captions the row)
+    func discussionParents(discussionIds: [String]) async throws -> [ObjectDetails]
 }
 
 final class CrossSpaceSearchService: CrossSpaceSearchServiceProtocol, Sendable {
@@ -71,6 +76,14 @@ final class CrossSpaceSearchService: CrossSpaceSearchServiceProtocol, Sendable {
         return try await crossSpaceSearchMiddleService.search(
             filters: [SearchHelper.objectsIds(ids)],
             limit: ids.count
+        ).records
+    }
+
+    func discussionParents(discussionIds: [String]) async throws -> [ObjectDetails] {
+        guard discussionIds.isNotEmpty else { return [] }
+        return try await crossSpaceSearchMiddleService.search(
+            filters: [SearchHelper.discussionIdsFilter(discussionIds)],
+            limit: discussionIds.count
         ).records
     }
 }

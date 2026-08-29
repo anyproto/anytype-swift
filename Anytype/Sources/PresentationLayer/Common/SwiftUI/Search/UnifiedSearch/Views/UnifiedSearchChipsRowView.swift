@@ -4,6 +4,7 @@ struct UnifiedSearchChipModel: Identifiable, Hashable {
     enum Action: Hashable {
         case addToken(UnifiedSearchToken)
         case openPeoplePicker
+        case openTypesPicker
     }
 
     let action: Action
@@ -26,6 +27,8 @@ struct UnifiedSearchChipModel: Identifiable, Hashable {
             token.id
         case .openPeoplePicker:
             "people-picker"
+        case .openTypesPicker:
+            "types-picker"
         }
     }
 }
