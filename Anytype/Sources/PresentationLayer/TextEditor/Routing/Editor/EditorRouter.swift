@@ -227,12 +227,13 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     
     func showTypeSearchForObjectCreation(
         selectedObjectId: String?,
+        settings: ObjectTypeSearchViewSettings,
         onSelect: @escaping (TypeSelectionResult) -> ()
     ) {
         let view = ObjectTypeSearchView(
             title: Loc.changeType,
             spaceId: document.spaceId,
-            settings: .newObjectCreation
+            settings: settings
         ) { [weak self] result in
             self?.navigationContext.dismissTopPresented()
             onSelect(result)

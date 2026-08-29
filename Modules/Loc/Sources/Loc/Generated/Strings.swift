@@ -1076,6 +1076,7 @@ public enum Loc {
     public static let clearDraftFailed = Loc.tr("UI", "QuickCapture.clearDraftFailed", fallback: "Couldn't clear the draft. It's still here.")
     public static let clearDraftTitle = Loc.tr("UI", "QuickCapture.clearDraftTitle", fallback: "Delete this draft?")
     public static let moveFailed = Loc.tr("UI", "QuickCapture.moveFailed", fallback: "Couldn't move the draft. Your note stayed where it was.")
+    public static let openObject = Loc.tr("UI", "QuickCapture.openObject", fallback: "Open")
     public static let replaceDraft = Loc.tr("UI", "QuickCapture.replaceDraft", fallback: "Replace")
     public static let replaceDraftMessage = Loc.tr("UI", "QuickCapture.replaceDraftMessage", fallback: "Its unsent draft will be deleted permanently.")
     public static func replaceDraftTitle(_ p1: Any) -> String {

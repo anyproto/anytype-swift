@@ -21,6 +21,18 @@ extension ObjectTypeSearchViewSettings {
         showPlusButton: false
     )
     
+    // Sets, collections and chats are containers, not capture targets
+    static let quickCaptureObjectCreation = ObjectTypeSearchViewSettings(
+        showPins: true,
+        showLists: false,
+        showFiles: false,
+        showChat: false,
+        showTemplates: false,
+        incudeNotForCreation: false,
+        allowPaste: true,
+        showPlusButton: false
+    )
+
     static let queryInSet = ObjectTypeSearchViewSettings(
         showPins: false,
         showLists: true,

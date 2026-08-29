@@ -105,6 +105,8 @@ struct SpaceHubCoordinatorView: View {
             }
             .task(item: model.quickCaptureCreated) { _ in
                 try? await Task.sleep(for: .seconds(6))
+                // A newer capture replaced this banner - its own timer is running now
+                guard !Task.isCancelled else { return }
                 await model.quickCaptureBannerTimeout()
             }
             .animation(.default, value: model.quickCaptureCreated)

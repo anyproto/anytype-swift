@@ -75875,6 +75875,17 @@
         }
       }
     },
+    "QuickCapture.openObject" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open"
+          }
+        }
+      }
+    },
     "QuickCapture.typeCreatedIn" : {
       "extractionState" : "manual",
       "localizations" : {

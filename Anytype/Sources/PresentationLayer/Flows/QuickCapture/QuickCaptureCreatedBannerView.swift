@@ -20,7 +20,7 @@ struct QuickCaptureCreatedBannerView: View {
                     .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
                 Spacer(minLength: 12)
-                AnytypeText(Loc.view, style: .uxCalloutMedium)
+                AnytypeText(Loc.QuickCapture.openObject, style: .uxCalloutMedium)
                     .foregroundStyle(Color.Text.secondary)
                     .lineLimit(1)
             }
