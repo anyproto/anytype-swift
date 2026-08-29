@@ -138,6 +138,9 @@ final class UnifiedSearchViewModel {
     private var isLoadingMore = false
     @ObservationIgnored
     private var isClosed = false
+    // attachToMessage: details of the listed objects, keyed by id
+    @ObservationIgnored
+    private var attachDetailsById = [String: ObjectDetails]()
     // Re-arms the bottom sentinel's onAppear after each applied page
     var loadMoreSentinelId = 0
     // Bumped to summon the keyboard: a token selected by tap is removed with
@@ -168,8 +171,17 @@ final class UnifiedSearchViewModel {
         // An explicit close discards the search - reopening starts fresh; the
         // flag keeps an in-flight search() from re-persisting what x discarded
         isClosed = true
-        unifiedSearchStateService.clear()
+        if moduleData.purpose == .navigation {
+            unifiedSearchStateService.clear()
+        }
         moduleData.onClose?()
+    }
+
+    // The attach picker's scope is fixed - its token is invisible and untouchable
+    private var removableTokens: [UnifiedSearchToken] {
+        moduleData.purpose == .attachToMessage
+            ? state.tokens.filter { $0.group != .scope }
+            : state.tokens
     }
 
     private var ownIdentity: String? {
@@ -178,12 +190,19 @@ final class UnifiedSearchViewModel {
 
     init(data: UnifiedSearchModuleData) {
         self.moduleData = data
-        self.restoreState()
+        // The picker is a one-off session - never continues or pollutes the
+        // navigation search's persisted state
+        if data.purpose == .navigation {
+            self.restoreState()
+        }
         // The entry point always overrides the scope slot on open
         self.state.setSpaceScope(data.currentSpaceId)
+        if let chatId = data.initialChatId, let spaceId = data.currentSpaceId {
+            self.state.addToken(.chat(chatId: chatId, spaceId: spaceId))
+        }
         self.updateTokenModels()
         self.rebuildChips()
-        self.showOnboarding = !onboardingSeen
+        self.showOnboarding = data.purpose == .navigation && !onboardingSeen
     }
 
     // Any tap or keypress counts as seen
@@ -334,7 +353,7 @@ final class UnifiedSearchViewModel {
                 try await Task.sleep(seconds: 0.3)
             }
 
-            if state.whatBucket == .messages {
+            if state.whatBucket == .messages || state.chatFilterId != nil {
                 try await searchMessages(spaceId: state.spaceScopeId)
             } else if let scopeId = state.spaceScopeId, scopeId == moduleData.currentSpaceId {
                 try await searchInCurrentSpace(spaceId: scopeId)
@@ -366,7 +385,7 @@ final class UnifiedSearchViewModel {
             guard let self else { return }
             defer { isLoadingMore = false }
             do {
-                if state.whatBucket == .messages {
+                if state.whatBucket == .messages || state.chatFilterId != nil {
                     try await searchMessages(spaceId: state.spaceScopeId, offset: lastMessageResults?.count ?? 0)
                 } else if let scopeId = state.spaceScopeId, scopeId == moduleData.currentSpaceId {
                     try await searchInCurrentSpace(spaceId: scopeId, offset: rows.count)
@@ -406,13 +425,11 @@ final class UnifiedSearchViewModel {
         if let selectedTokenId, let token = state.tokens.first(where: { $0.id == selectedTokenId }) {
             logToken(token, action: .remove, source: .backspace)
             skipDebounceOnce = true
-            if !restoreSnapshotIfOwned(removedToken: token) {
-                state.removeToken(token)
-            }
+            removeTokenOrRestore(token)
             self.selectedTokenId = nil
             updateTokenModels()
             rebuildChips()
-        } else if let lastToken = state.tokens.last {
+        } else if let lastToken = removableTokens.last {
             UISelectionFeedbackGenerator().selectionChanged()
             selectedTokenId = lastToken.id
         }
@@ -425,6 +442,11 @@ final class UnifiedSearchViewModel {
 
     func onSelect(searchData: SearchWithMetaModel) {
         AnytypeAnalytics.instance().logSearchResult()
+        if moduleData.purpose == .attachToMessage {
+            guard let details = attachDetailsById[searchData.id] else { return }
+            moduleData.onSelectDetails(details)
+            return
+        }
         moduleData.onSelect(searchData.editorScreenData)
     }
 
@@ -522,16 +544,30 @@ final class UnifiedSearchViewModel {
         logToken(token, action: .remove, source: .token)
         skipDebounceOnce = true
         selectedTokenId = nil
-        if !restoreSnapshotIfOwned(removedToken: token) {
-            state.removeToken(token)
-        }
+        removeTokenOrRestore(token)
         updateTokenModels()
         rebuildChips()
+    }
+
+    // Removal is an undo when a snapshot owns the token; a removed chat filter
+    // widens one step to the space's messages instead of vanishing
+    private func removeTokenOrRestore(_ token: UnifiedSearchToken) {
+        guard !restoreSnapshotIfOwned(removedToken: token) else { return }
+        state.removeToken(token)
+        if case .chat = token {
+            state.addToken(.kind(.messages))
+        }
     }
 
     func onRemove(objectId: String) {
         AnytypeAnalytics.instance().logMoveToBin(true)
         Task { try? await objectActionService.setArchive(objectIds: [objectId], true) }
+
+        // A destructive swipe action removes the row from the list
+        // optimistically - the data must follow in the same update, or the
+        // List's counts diverge and the next update crashes UIKit
+        rows.removeAll { $0.id == objectId }
+        lastCrossSpaceRecords?.removeAll { $0.id == objectId }
 
         UISelectionFeedbackGenerator().selectionChanged()
     }
@@ -560,18 +596,25 @@ final class UnifiedSearchViewModel {
             typeUniqueKey: state.typeUniqueKey,
             creators: creatorFilterIds(scopeSpaceId: spaceId),
             sorts: sorts,
-            excludedObjectIds: [],
+            excludedObjectIds: moduleData.excludedObjectIds,
             offset: offset
         )
 
         guard requestState == state else { return }
+
+        if moduleData.purpose == .attachToMessage {
+            // Selection hands ObjectDetails back - keep them reachable by row id
+            for result in results {
+                attachDetailsById[result.objectDetails.id] = result.objectDetails
+            }
+        }
 
         lastCrossSpaceRecords = nil
         messageRows = []
         lastMessageResults = nil
         let newRows = results.map {
             searchWithMetaModelBuilder.buildModel(with: $0, spaceId: spaceId, participantCanEdit: participantCanEdit)
-        }
+        }.uniqued(by: \.id)
         if offset > 0 {
             let existingIds = Set(rows.map(\.id))
             let added = newRows.filter { !existingIds.contains($0.id) }
@@ -618,7 +661,9 @@ final class UnifiedSearchViewModel {
 
         let result = try await crossSpaceSearchService.search(
             text: state.searchText,
-            layouts: state.whatBucket?.layouts ?? [],
+            // No bucket = the visible-object allowlist (the old search's "All"):
+            // keeps relations, relation options, dates etc. out of the results
+            layouts: state.whatBucket?.layouts ?? DetailsLayout.visibleLayoutsWithFiles(spaceType: nil),
             excludedLayouts: excludedLayouts,
             typeUniqueKey: state.typeUniqueKey,
             creators: creatorFilterIds(scopeSpaceId: spaceId),
@@ -630,16 +675,17 @@ final class UnifiedSearchViewModel {
 
         guard requestState == state else { return }
 
+        let records = result.records.uniqued(by: \.id)
         messageRows = []
         lastMessageResults = nil
         if offset > 0, let existing = lastCrossSpaceRecords {
             let existingIds = Set(existing.map(\.id))
-            let added = result.records.filter { !existingIds.contains($0.id) }
+            let added = records.filter { !existingIds.contains($0.id) }
             canLoadMore = result.records.count >= limit && added.isNotEmpty
             lastCrossSpaceRecords = existing + added
         } else {
             canLoadMore = result.records.count >= limit
-            lastCrossSpaceRecords = result.records
+            lastCrossSpaceRecords = records
         }
         rebuildCrossSpaceRows()
         loadMoreSentinelId += 1
@@ -654,8 +700,9 @@ final class UnifiedSearchViewModel {
         // The first browse page is small; every following page is full-size
         let limit = (state.searchText.trimmed.isEmpty && offset == 0) ? Constants.browseLimit : Constants.searchLimit
         let results = try await chatService.searchMessages(
-            spaceId: spaceId ?? "",
-            chatObjectId: "",
+            // The chat filter pins its own space even after the scope token is gone
+            spaceId: spaceId ?? state.chatFilterSpaceId ?? "",
+            chatObjectId: state.chatFilterId ?? "",
             query: state.searchText,
             sorts: [ChatMessageSearchSort.with { $0.key = .createdAt; $0.type = .desc }],
             creators: state.creatorIdentity.map { [$0] } ?? [],
@@ -664,7 +711,7 @@ final class UnifiedSearchViewModel {
         )
 
         // The page-size contract counts raw results - messageless ones drop after
-        let filtered = results.filter(\.hasMessage)
+        let filtered = results.filter(\.hasMessage).uniqued(by: \.messageID)
         try await resolveContainers(ids: filtered.map(\.chatID))
 
         guard requestState == state else { return }
@@ -806,16 +853,17 @@ final class UnifiedSearchViewModel {
 
         guard requestState == state else { return }
 
+        let records = result.records.uniqued(by: \.id)
         messageRows = []
         lastMessageResults = nil
         if offset > 0, let existing = lastCrossSpaceRecords {
             let existingIds = Set(existing.map(\.id))
-            let added = result.records.filter { !existingIds.contains($0.id) }
+            let added = records.filter { !existingIds.contains($0.id) }
             canLoadMore = result.records.count >= limit && added.isNotEmpty
             lastCrossSpaceRecords = existing + added
         } else {
             canLoadMore = result.records.count >= limit
-            lastCrossSpaceRecords = result.records
+            lastCrossSpaceRecords = records
         }
         rebuildCrossSpaceRows()
         loadMoreSentinelId += 1
@@ -1266,8 +1314,9 @@ final class UnifiedSearchViewModel {
         }
 
         // Messages chip only when the scope actually contains chat containers
+        // (and never in the attach picker - it searches objects only)
         let scopeHasChats = scopeId.map { id in allChats.contains { $0.spaceId == id } } ?? allChats.isNotEmpty
-        if !whatFilled, scopeHasChats {
+        if !whatFilled, scopeHasChats, moduleData.purpose == .navigation {
             result.append(UnifiedSearchChipModel(
                 token: .kind(.messages),
                 title: UnifiedSearchKindBucket.messages.title,
@@ -1407,12 +1456,26 @@ final class UnifiedSearchViewModel {
         tokenModels = state.tokens.compactMap { token in
             switch token {
             case .space(let spaceId):
+                // The attach picker's fixed scope never renders as a pill
+                guard moduleData.purpose == .navigation else { return nil }
                 // An unresolvable scope (left space, ...) is dropped silently below
                 guard let spaceView = spaceViewsStorage.spaceView(spaceId: spaceId) else { return nil }
                 return UnifiedSearchTokenViewModel(token: token, title: spaceView.title, icon: spaceView.objectIconImage)
             case .kind(let bucket):
                 let icon: Icon? = bucket == .messages ? .asset(ImageAsset.CustomIcons.chatbubble) : nil
                 return UnifiedSearchTokenViewModel(token: token, title: bucket.title, icon: icon)
+            case .chat(let chatId, _):
+                // The chat's own name when it has one (multi-chat spaces name
+                // their channels); unnamed space-level and 1:1 chats read as
+                // the space itself, so those pills wear the space's name
+                let chat = allChats.first { $0.id == chatId }
+                let spaceView = spaceViewsStorage.allSpaceViews.first { $0.chatId == chatId }
+                let chatName = chat?.name.trimmed ?? ""
+                return UnifiedSearchTokenViewModel(
+                    token: token,
+                    title: chatName.isNotEmpty ? chatName : (spaceView?.title ?? "…"),
+                    icon: chat?.objectIconImage ?? spaceView?.objectIconImage ?? .asset(ImageAsset.CustomIcons.chatbubble)
+                )
             case .type(let uniqueKey):
                 // The types map is cold right after open - keep the token and let
                 // the subscription resolve the title
@@ -1475,8 +1538,17 @@ final class UnifiedSearchViewModel {
     }
 
     private func storeState() {
-        guard !isClosed else { return }
+        guard !isClosed, moduleData.purpose == .navigation else { return }
         unifiedSearchStateService.storeState(state)
+    }
+}
+
+private extension Array {
+    // A duplicate id inside one applied page corrupts the List's diff
+    // (UIKit count-mismatch crash) - never trust a page to be unique
+    func uniqued(by id: (Element) -> String) -> [Element] {
+        var seen = Set<String>()
+        return filter { seen.insert(id($0)).inserted }
     }
 }
 
@@ -1485,6 +1557,8 @@ private extension UnifiedSearchToken {
         switch self {
         case .space: .space
         case .kind: .kind
+        // The chat filter is a narrowed messages kind
+        case .chat: .chat
         // A focus is a what-token variant of the type/member filter
         case .type, .typeFocus, .personFocus: .type
         case .creator: .creator

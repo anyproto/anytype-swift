@@ -32,6 +32,9 @@ final class CrossSpaceTypesSubscriptionBuilder: CrossSpaceTypesSubscriptionBuild
             BundledPropertyKey.recommendedLayout.rawValue,
             BundledPropertyKey.iconEmoji.rawValue,
             BundledPropertyKey.iconName.rawValue,
+            // iconName without iconOption renders every type in the default
+            // color - the icon builder needs both
+            BundledPropertyKey.iconOption.rawValue,
             BundledPropertyKey.isHidden.rawValue,
             BundledPropertyKey.isDeleted.rawValue
         ]

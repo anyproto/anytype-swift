@@ -213,6 +213,10 @@ private struct SearchOverlayHost<Content: View>: View {
     let item: AnyHashable
     let content: Content
 
+    private var searchIsOpenHere: Bool {
+        model.searchOverlayData != nil && model.searchOverlayOriginItem == item
+    }
+
     var body: some View {
         ZStack {
             content
@@ -223,6 +227,9 @@ private struct SearchOverlayHost<Content: View>: View {
             }
         }
         .animation(.easeInOut(duration: 0.25), value: model.searchOverlayData.isNotNil)
+        // Restores the screen's own panel-hidden claim at close START - the
+        // search's fade-out reveals a panel already in place
+        .homeBottomPanelOverlayHidden(searchIsOpenHere)
     }
 }
 

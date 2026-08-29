@@ -1,5 +1,13 @@
 import Services
 
+enum UnifiedSearchPurpose: Equatable, Hashable {
+    // The default surface: results navigate
+    case navigation
+    // In-space object picker (attach to a message): the scope is fixed and
+    // invisible, only objects are searched, selection hands the details back
+    case attachToMessage
+}
+
 struct UnifiedSearchModuleData: Identifiable, Hashable {
     // The space whose stores are warm (in-space entry) - seeds the scope token.
     // nil = vault entry, global scope.
@@ -18,6 +26,13 @@ struct UnifiedSearchModuleData: Identifiable, Hashable {
     // True when the entry control is a compact button: the bar springs open from
     // it. The vault's entry is already bar-shaped, so it appears in place.
     let animatesBarExpansion: Bool
+    var purpose: UnifiedSearchPurpose = .navigation
+    // Seeds a chat token on top of the space scope (in-chat search entry)
+    var initialChatId: String? = nil
+    // attachToMessage: objects already attached - hidden from results
+    var excludedObjectIds: [String] = []
+    // attachToMessage: replaces onSelect - the picked object's details
+    @EquatableNoop var onSelectDetails: (ObjectDetails) -> Void = { _ in }
 
     var id: Int { hashValue }
 }

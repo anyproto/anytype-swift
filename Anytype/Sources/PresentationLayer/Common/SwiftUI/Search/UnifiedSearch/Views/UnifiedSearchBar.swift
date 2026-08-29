@@ -26,11 +26,30 @@ struct UnifiedSearchBar: View {
     let onBackspaceWhenEmpty: () -> Void
     let onSubmit: () -> Void
 
+    @State private var barWidth: CGFloat = 0
+
     var body: some View {
         barContent
+            .readSize { barWidth = $0.width }
             .padding(.vertical, 9)
             .padding(.horizontal, 12)
             .glassCapsule
+    }
+
+    // Truncated pill text ("...") says nothing - when the full labels cannot
+    // fit next to a usable field, every pill drops to its icon instead
+    private var iconOnlyPills: Bool {
+        if collapsesToIcons { return true }
+        guard barWidth > 0, tokens.isNotEmpty else { return false }
+        let font = UIKitFontBuilder.uiKitFont(font: .uxTitle2Medium)
+        let pillsWidth = tokens.reduce(CGFloat.zero) { width, token in
+            let text = (token.title as NSString).size(withAttributes: [.font: font]).width
+            let icon: CGFloat = token.icon != nil ? 20 : 0
+            return width + ceil(text) + icon + 20
+        }
+        // Search glyph + clear button + a usable field + inter-item spacings
+        let reserved: CGFloat = 18 + 22 + 60 + CGFloat(tokens.count + 3) * 8
+        return pillsWidth > barWidth - reserved
     }
 
     private var barContent: some View {
@@ -67,7 +86,7 @@ struct UnifiedSearchBar: View {
 
     private func tokenPill(_ model: UnifiedSearchTokenViewModel) -> some View {
         let isSelected = model.id == selectedTokenId
-        let iconOnly = collapsesToIcons && model.icon != nil
+        let iconOnly = iconOnlyPills && model.icon != nil
         return Button {
             onTokenTap(model.token)
         } label: {

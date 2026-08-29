@@ -396,6 +396,7 @@ enum SearchInputRoute: String {
 enum SearchTokenType: String {
     case space = "Space"
     case kind = "Kind"
+    case chat = "Chat"
     case type = "Type"
     case creator = "Creator"
 }

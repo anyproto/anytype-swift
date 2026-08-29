@@ -28,6 +28,9 @@ struct DiscussionCoordinatorView: View {
             .sheet(item: $model.objectToMessageSearchData) {
                 ObjectSearchWithMetaCoordinatorView(data: $0)
             }
+            .sheet(item: $model.unifiedObjectPickerData) {
+                UnifiedSearchView(data: $0)
+            }
             .sheet(item: $model.showEmojiData) {
                 MessageReactionPickerView(data: $0)
             }

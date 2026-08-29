@@ -4,6 +4,7 @@ import Services
 @MainActor
 protocol ChatModuleOutput: AnyObject {
     func onLinkObjectSelected(data: ObjectSearchWithMetaModuleData)
+    func onUnifiedSearchSelected()
     func didSelectAddReaction(messageId: String)
     func didLongTapOnReaction(data: MessageParticipantsReactionData)
     func didSelectLinkToObject(data: LinkToObjectSearchModuleData)

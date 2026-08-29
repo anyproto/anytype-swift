@@ -8,6 +8,10 @@ import Services
 enum UnifiedSearchToken: Equatable, Hashable, Codable, Identifiable {
     case space(spaceId: String)
     case kind(UnifiedSearchKindBucket)
+    // One chat's messages - a narrowed Messages token (in-chat search entry).
+    // Removing it widens back to kind(.messages). Carries its space so the
+    // filter outlives the scope token and yields only to a different space.
+    case chat(chatId: String, spaceId: String)
     case type(uniqueKey: String)
     case creator(identity: String)
     // Focus (a grouped lead row was tapped): the list shows the focused thing's
@@ -27,6 +31,8 @@ enum UnifiedSearchToken: Equatable, Hashable, Codable, Identifiable {
             "space:\(spaceId)"
         case .kind(let bucket):
             "kind:\(bucket.rawValue)"
+        case .chat(let chatId, _):
+            "chat:\(chatId)"
         case .type(let uniqueKey):
             "type:\(uniqueKey)"
         case .creator(let identity):
@@ -42,7 +48,7 @@ enum UnifiedSearchToken: Equatable, Hashable, Codable, Identifiable {
         switch self {
         case .space:
             .scope
-        case .kind, .type, .typeFocus, .personFocus:
+        case .kind, .chat, .type, .typeFocus, .personFocus:
             .what
         case .creator:
             .who

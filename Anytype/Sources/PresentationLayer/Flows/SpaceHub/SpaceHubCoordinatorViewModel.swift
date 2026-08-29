@@ -88,6 +88,9 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         openSearch: { [weak self] in
             self?.onSearchSelected()
         },
+        openChatSearch: { [weak self] chatId in
+            self?.onChatSearchSelected(chatId: chatId)
+        },
         replaceHome: { [weak self] spaceId, newData in
             guard let self, FeatureFlags.fixChannelHomeBackNavigation else { return }
             // Guard against a space switch that happened while the picker was awaiting setHomepage.
@@ -159,12 +162,25 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     func onPathChange() {
+        closeSearchOverlayIfOriginPopped()
         if navigationPath.count == 1 {
             Task {
                 currentSpaceId = nil
                 try await activeSpaceManager.setActiveSpace(spaceId: nil)
             }
         }
+    }
+
+    // The overlay survives screens pushed above its origin (an interactive pop
+    // reveals the open search), but not the origin itself being popped - an
+    // equal item pushed later must not resurrect the search
+    private func closeSearchOverlayIfOriginPopped() {
+        guard searchOverlayData != nil, let origin = searchOverlayOriginItem else { return }
+        // The widgets cover hosts its own origin - path changes don't touch it
+        if let overlayWidgetsData, origin == AnyHashable(overlayWidgetsData) { return }
+        guard !navigationPath.path.contains(origin) else { return }
+        searchOverlayData = nil
+        searchOverlayOriginItem = nil
     }
     
     // MARK: - Setup
@@ -318,7 +334,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         )
     }
 
-    private func searchModuleData(currentSpaceId: String?, onClose: (() -> Void)?, animatesBarExpansion: Bool) -> UnifiedSearchModuleData {
+    private func searchModuleData(currentSpaceId: String?, initialChatId: String? = nil, onClose: (() -> Void)?, animatesBarExpansion: Bool) -> UnifiedSearchModuleData {
         UnifiedSearchModuleData(
             currentSpaceId: currentSpaceId,
             onSelect: { [weak self] screenData in
@@ -355,7 +371,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             onJoinQrCode: { [weak self] in
                 self?.onSelectQrCodeJoin()
             },
-            animatesBarExpansion: animatesBarExpansion
+            animatesBarExpansion: animatesBarExpansion,
+            initialChatId: initialChatId
         )
     }
 
@@ -873,6 +890,22 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
                 }
             )
         }
+    }
+
+    // In-chat entry: the overlay opens pre-filtered to that chat's messages
+    func onChatSearchSelected(chatId: String) {
+        guard FeatureFlags.unifiedSearch, let spaceInfo else { return }
+        searchOverlayOriginPathCount = navigationPath.count
+        searchOverlayOriginItem = overlayWidgetsData.map { AnyHashable($0) } ?? navigationPath.path.last
+        searchOverlayData = searchModuleData(
+            currentSpaceId: spaceInfo.accountSpaceId,
+            initialChatId: chatId,
+            onClose: { [weak self] in
+                self?.searchOverlayData = nil
+                self?.searchOverlayOriginItem = nil
+            },
+            animatesBarExpansion: true
+        )
     }
 
     // The origin screen shows its bottom panel again only once the search closes

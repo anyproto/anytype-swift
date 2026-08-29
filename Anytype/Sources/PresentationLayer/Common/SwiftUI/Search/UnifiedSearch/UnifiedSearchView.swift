@@ -26,7 +26,6 @@ struct UnifiedSearchView: View {
         // app switcher snapshots without a keyboard, and the underlying screen
         // must not show through the gap
         .background(Color.Background.secondary.ignoresSafeArea())
-        .homeBottomPanelHidden(true)
         .onAppear {
             guard model.animatesBarExpansion, !reduceMotion else {
                 barExpanded = true

@@ -37,6 +37,24 @@ struct UnifiedSearchState: Equatable, Hashable, Codable {
         return nil
     }
 
+    var chatFilterId: String? {
+        for token in tokens {
+            if case .chat(let chatId, _) = token {
+                return chatId
+            }
+        }
+        return nil
+    }
+
+    var chatFilterSpaceId: String? {
+        for token in tokens {
+            if case .chat(_, let spaceId) = token {
+                return spaceId
+            }
+        }
+        return nil
+    }
+
     var typeUniqueKey: String? {
         for token in tokens {
             if case .type(let uniqueKey) = token {
@@ -81,13 +99,17 @@ struct UnifiedSearchState: Equatable, Hashable, Codable {
         if case .creator = token {
             tokens.removeAll { if case .personFocus = $0 { true } else { false } }
         }
-        if case .space = token {
+        if case .space(let spaceId) = token {
             tokens = tokens.compactMap { existing in
                 switch existing {
                 case .personFocus:
                     return nil
                 case .typeFocus(let uniqueKey):
                     return .type(uniqueKey: uniqueKey)
+                // A chat belongs to one space - scoping elsewhere widens the
+                // filter to that scope's messages; its own space keeps it
+                case .chat(_, let chatSpaceId) where chatSpaceId != spaceId:
+                    return .kind(.messages)
                 case .kind(let bucket) where bucket.isGlobalOnly:
                     return nil
                 default:
