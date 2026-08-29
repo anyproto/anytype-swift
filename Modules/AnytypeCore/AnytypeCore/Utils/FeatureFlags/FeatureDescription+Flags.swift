@@ -94,8 +94,7 @@ public extension FeatureDescription {
     static let unifiedSearch = FeatureDescription(
         title: "Unified search - cross-space + scope tokens - IOS-6619",
         category: .productFeature(author: "requilence@gmail.com", targetRelease: "0.50.0"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true
     )
 
     // MARK: - Debug
