@@ -38,8 +38,10 @@ final class QuickCaptureCoordinatorViewModel {
     var spaceView: SpaceView?
     var editorData: EditorPageObject?
     var isNotEmpty = false
+    var isProcessing = false
     var showSpacePicker = false
     var showClearDraftConfirmation = false
+    var pendingSpaceSwitch: SpaceView?
     var toastBarData: ToastBarData?
     var syncStatusData: SyncStatusData?
     var syncStatusSpaceId: StringIdentifiable?
@@ -49,12 +51,12 @@ final class QuickCaptureCoordinatorViewModel {
     var dismiss: DismissAction?
     @ObservationIgnored
     private let onCreated: (QuickCaptureCreatedBanner) -> Void
-
-    init(onCreated: @escaping (QuickCaptureCreatedBanner) -> Void) {
-        self.onCreated = onCreated
-    }
     @ObservationIgnored
     private var document: (any BaseDocumentProtocol)?
+    // Only the newest draft operation may write state - a slower predecessor must
+    // never land on top of the draft the user is looking at now
+    @ObservationIgnored
+    private var draftGeneration = 0
 
     @ObservationIgnored
     lazy var pageNavigation = PageNavigation(
@@ -67,6 +69,10 @@ final class QuickCaptureCoordinatorViewModel {
         replace: { _ in },
         replaceHome: { _, _ in }
     )
+
+    init(onCreated: @escaping (QuickCaptureCreatedBanner) -> Void) {
+        self.onCreated = onCreated
+    }
 
     var sortedEditableSpaces: [SpaceView] {
         let recency = spaceRecencyStorage.lastInteractionDates()
@@ -121,13 +127,15 @@ final class QuickCaptureCoordinatorViewModel {
     // MARK: - Actions
 
     func onTapSend() {
-        guard isNotEmpty, let spaceView, let document else { return }
+        guard !isProcessing, isNotEmpty, let spaceView, let document else { return }
         let spaceId = spaceView.targetSpaceId
         let objectId = document.objectId
         let analyticsType = document.details?.analyticsType ?? .custom
         let spaceName = spaceView.title
         let typeName = document.details?.objectType.displayName ?? Loc.PasteMenu.object
         Task {
+            isProcessing = true
+            defer { isProcessing = false }
             do {
                 try await quickCaptureService.commitDraft(spaceId: spaceId)
             } catch {
@@ -152,43 +160,136 @@ final class QuickCaptureCoordinatorViewModel {
     }
 
     func onTapClearDraft() {
+        guard !isProcessing else { return }
         showClearDraftConfirmation = true
     }
 
     func onConfirmClearDraft() {
-        guard let spaceId = spaceView?.targetSpaceId else { return }
+        guard !isProcessing, let spaceId = spaceView?.targetSpaceId else { return }
         Task {
-            resetDraftState()
-            try? await quickCaptureService.clearDraft(spaceId: spaceId)
+            isProcessing = true
+            defer { isProcessing = false }
+            do {
+                try await quickCaptureService.clearDraft(spaceId: spaceId)
+            } catch {
+                // The draft survived - keep showing it instead of pretending it is gone
+                toastBarData = ToastBarData(Loc.QuickCapture.clearDraftFailed, type: .failure)
+                return
+            }
             await openDraft(spaceId: spaceId)
         }
     }
 
     func onTapSpaceChip() {
+        guard !isProcessing else { return }
         showSpacePicker = true
     }
 
     func onSelectSpace(_ selected: SpaceView) {
         showSpacePicker = false
+        guard !isProcessing else { return }
         guard let currentSpaceId = spaceView?.targetSpaceId, selected.targetSpaceId != currentSpaceId else { return }
-        let moveContent = isNotEmpty
+
+        // Nothing typed yet - the user just wants that space's own draft
+        guard isNotEmpty else {
+            Task { await openDraft(spaceId: selected.targetSpaceId) }
+            return
+        }
+
         Task {
-            resetDraftState()
-            do {
-                if moveContent {
-                    let details = try await quickCaptureService.moveDraft(from: currentSpaceId, to: selected.targetSpaceId)
-                    setupDraft(details: details, spaceId: selected.targetSpaceId)
-                } else {
-                    await openDraft(spaceId: selected.targetSpaceId)
-                }
-            } catch {
-                toastBarData = ToastBarData(error.localizedDescription, type: .failure)
-                await openDraft(spaceId: selected.targetSpaceId)
+            isProcessing = true
+            let targetHoldsDraft = await quickCaptureService.hasDraftWithContent(spaceId: selected.targetSpaceId)
+            isProcessing = false
+            if targetHoldsDraft {
+                pendingSpaceSwitch = selected
+            } else {
+                await moveDraft(to: selected)
             }
         }
     }
 
+    func onConfirmReplaceDraft() {
+        guard let selected = pendingSpaceSwitch else { return }
+        pendingSpaceSwitch = nil
+        Task { await moveDraft(to: selected) }
+    }
+
+    func onCancelReplaceDraft() {
+        pendingSpaceSwitch = nil
+    }
+
     // MARK: - Private
+
+    private func moveDraft(to selected: SpaceView) async {
+        guard !isProcessing, let currentSpaceId = spaceView?.targetSpaceId, let document else { return }
+        let blocks = copyableBlocks(document: document)
+        let name = document.details?.name ?? ""
+        let generation = beginDraftOperation()
+        isProcessing = true
+        defer { isProcessing = false }
+        do {
+            let details = try await quickCaptureService.moveDraft(
+                from: currentSpaceId,
+                to: selected.targetSpaceId,
+                blocks: blocks,
+                name: name
+            )
+            guard isCurrentDraftOperation(generation) else { return }
+            setupDraft(details: details, spaceId: selected.targetSpaceId)
+        } catch {
+            guard isCurrentDraftOperation(generation) else { return }
+            // The source draft is untouched on failure - the user stays on their text
+            toastBarData = ToastBarData(Loc.QuickCapture.moveFailed, type: .failure)
+        }
+    }
+
+    // The document's own children list drops the contents of collapsed toggles, and
+    // carries the title and featured properties that the new draft recreates itself
+    private func copyableBlocks(document: any BaseDocumentProtocol) -> [BlockInformation] {
+        guard let root = document.infoContainer.get(id: document.objectId) else { return [] }
+        var result = [BlockInformation]()
+        appendCopyableBlocks(of: root, container: document.infoContainer, into: &result)
+        return result
+    }
+
+    private func appendCopyableBlocks(
+        of info: BlockInformation,
+        container: any InfoContainerProtocol,
+        into result: inout [BlockInformation]
+    ) {
+        for child in container.children(of: info.id) {
+            if child.kind == .block, !isObjectLevelBlock(child) {
+                result.append(child)
+            }
+            switch child.content {
+            case .tableRow, .tableColumn:
+                // Table internals travel with the table block itself
+                break
+            default:
+                appendCopyableBlocks(of: child, container: container, into: &result)
+            }
+        }
+    }
+
+    private func isObjectLevelBlock(_ info: BlockInformation) -> Bool {
+        switch info.content {
+        case .featuredRelations:
+            return true
+        case .text(let text):
+            return text.contentType == .title || text.contentType == .description
+        default:
+            return false
+        }
+    }
+
+    private func beginDraftOperation() -> Int {
+        draftGeneration += 1
+        return draftGeneration
+    }
+
+    private func isCurrentDraftOperation(_ generation: Int) -> Bool {
+        draftGeneration == generation
+    }
 
     private func subscribeOnDetails(document: any BaseDocumentProtocol) async {
         for await details in document.detailsPublisher.values {
@@ -208,24 +309,33 @@ final class QuickCaptureCoordinatorViewModel {
     }
 
     private func openDraft(spaceId: String) async {
+        let generation = beginDraftOperation()
         resetDraftState()
+        // Name the destination while it loads instead of showing an empty chip
+        spaceView = findSpaceView(spaceId: spaceId)
         do {
-            let draft = try await quickCaptureService.obtainDraft(spaceId: spaceId)
-            setupDraft(details: draft.details, spaceId: spaceId)
+            let details = try await quickCaptureService.obtainDraft(spaceId: spaceId)
+            guard isCurrentDraftOperation(generation) else { return }
+            setupDraft(details: details, spaceId: spaceId)
         } catch {
+            guard isCurrentDraftOperation(generation) else { return }
             toastBarData = ToastBarData(error.localizedDescription, type: .failure)
             dismiss?()
         }
     }
 
     private func setupDraft(details: ObjectDetails, spaceId: String) {
-        spaceView = participantSpacesStorage.activeParticipantSpaces
-            .first { $0.spaceView.targetSpaceId == spaceId }?.spaceView
+        spaceView = findSpaceView(spaceId: spaceId)
         document = openDocumentProvider.document(objectId: details.id, spaceId: spaceId)
         isNotEmpty = !details.internalFlagsValue.contains(.editorDeleteEmpty)
         // EditorPageObject directly, without EditorCoordinatorView/SpaceLoadingContainerView:
         // activating the space here would make SpaceHubCoordinator navigate under the sheet
         editorData = EditorPageObject(objectId: details.id, spaceId: spaceId, quickCapture: true)
+    }
+
+    private func findSpaceView(spaceId: String) -> SpaceView? {
+        participantSpacesStorage.activeParticipantSpaces
+            .first { $0.spaceView.targetSpaceId == spaceId }?.spaceView
     }
 
     private func resetDraftState() {

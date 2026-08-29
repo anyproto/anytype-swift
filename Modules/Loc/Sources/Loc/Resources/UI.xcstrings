@@ -75809,6 +75809,72 @@
         }
       }
     },
+    "QuickCapture.clearDraftFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't clear the draft. It's still here."
+          }
+        }
+      }
+    },
+    "QuickCapture.clearDraftTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this draft?"
+          }
+        }
+      }
+    },
+    "QuickCapture.moveFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't move the draft. Your note stayed where it was."
+          }
+        }
+      }
+    },
+    "QuickCapture.replaceDraft" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replace"
+          }
+        }
+      }
+    },
+    "QuickCapture.replaceDraftMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Its unsent draft will be deleted permanently."
+          }
+        }
+      }
+    },
+    "QuickCapture.replaceDraftTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replace draft in %@?"
+          }
+        }
+      }
+    },
     "QuickCapture.typeCreatedIn" : {
       "extractionState" : "manual",
       "localizations" : {

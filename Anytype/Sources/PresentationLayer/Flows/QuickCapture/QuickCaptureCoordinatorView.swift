@@ -93,11 +93,36 @@ struct QuickCaptureCoordinatorView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
-        .confirmationDialog("", isPresented: $model.showClearDraftConfirmation) {
+        .confirmationDialog(
+            Loc.QuickCapture.clearDraftTitle,
+            isPresented: $model.showClearDraftConfirmation,
+            titleVisibility: .visible
+        ) {
             Button(Loc.QuickCapture.clearDraft, role: .destructive) {
                 model.onConfirmClearDraft()
             }
         }
+        .confirmationDialog(
+            Loc.QuickCapture.replaceDraftTitle(model.pendingSpaceSwitch?.title ?? ""),
+            isPresented: replaceDraftConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button(Loc.QuickCapture.replaceDraft, role: .destructive) {
+                model.onConfirmReplaceDraft()
+            }
+            Button(Loc.cancel, role: .cancel) {
+                model.onCancelReplaceDraft()
+            }
+        } message: {
+            Text(Loc.QuickCapture.replaceDraftMessage)
+        }
+    }
+
+    private var replaceDraftConfirmation: Binding<Bool> {
+        Binding(
+            get: { model.pendingSpaceSwitch != nil },
+            set: { if !$0 { model.onCancelReplaceDraft() } }
+        )
     }
 
     private var spaceChip: some View {
@@ -116,6 +141,7 @@ struct QuickCaptureCoordinatorView: View {
             .padding(.horizontal, 12)
             .frame(height: 44)
         }
+        .disabled(model.isProcessing)
         .glassEffectInteractiveIOS26(in: Capsule())
     }
 
@@ -158,6 +184,7 @@ struct QuickCaptureCoordinatorView: View {
                 .foregroundStyle(Color.Control.primary)
         }
         .frame(width: 44, height: 44)
+        .disabled(model.isProcessing)
         .glassEffectInteractiveIOS26(in: Circle())
     }
 
@@ -165,15 +192,22 @@ struct QuickCaptureCoordinatorView: View {
         Button {
             model.onTapSend()
         } label: {
-            Image(systemName: "arrow.up")
-                .font(.system(size: 17, weight: .semibold))
-                .foregroundStyle(Color.Text.white)
-                .frame(width: 44, height: 44)
-                .background(Color.Control.accent100)
-                .clipShape(Circle())
-                .opacity(model.isNotEmpty ? 1 : 0.4)
+            Group {
+                if model.isProcessing {
+                    CircleLoadingView()
+                        .frame(width: 20, height: 20)
+                } else {
+                    Image(systemName: "arrow.up")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Color.Text.white)
+                }
+            }
+            .frame(width: 44, height: 44)
+            .background(Color.Control.accent100)
+            .clipShape(Circle())
+            .opacity(model.isNotEmpty ? 1 : 0.4)
         }
-        .disabled(!model.isNotEmpty)
+        .disabled(!model.isNotEmpty || model.isProcessing)
     }
 
 }

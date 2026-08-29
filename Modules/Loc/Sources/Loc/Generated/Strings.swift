@@ -1073,6 +1073,14 @@ public enum Loc {
   }
   public enum QuickCapture {
     public static let clearDraft = Loc.tr("UI", "QuickCapture.clearDraft", fallback: "Clear draft")
+    public static let clearDraftFailed = Loc.tr("UI", "QuickCapture.clearDraftFailed", fallback: "Couldn't clear the draft. It's still here.")
+    public static let clearDraftTitle = Loc.tr("UI", "QuickCapture.clearDraftTitle", fallback: "Delete this draft?")
+    public static let moveFailed = Loc.tr("UI", "QuickCapture.moveFailed", fallback: "Couldn't move the draft. Your note stayed where it was.")
+    public static let replaceDraft = Loc.tr("UI", "QuickCapture.replaceDraft", fallback: "Replace")
+    public static let replaceDraftMessage = Loc.tr("UI", "QuickCapture.replaceDraftMessage", fallback: "Its unsent draft will be deleted permanently.")
+    public static func replaceDraftTitle(_ p1: Any) -> String {
+      return Loc.tr("UI", "QuickCapture.replaceDraftTitle", String(describing: p1), fallback: "Replace draft in %@?")
+    }
     public static func typeCreatedIn(_ p1: Any, _ p2: Any) -> String {
       return Loc.tr("UI", "QuickCapture.typeCreatedIn", String(describing: p1), String(describing: p2), fallback: "%1$@ created in %2$@")
     }
