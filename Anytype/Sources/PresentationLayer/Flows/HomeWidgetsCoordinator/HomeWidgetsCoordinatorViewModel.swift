@@ -146,8 +146,13 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
 
 extension HomeWidgetsCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     func onSearchSelected() {
-        showGlobalSearchData = GlobalSearchModuleData(spaceId: spaceInfo.accountSpaceId) { [weak self] screenData in
-            self?.pageNavigation?.open(screenData)
+        if FeatureFlags.unifiedSearch {
+            // The hub coordinator owns the unified search overlay
+            pageNavigation?.openSearch()
+        } else {
+            showGlobalSearchData = GlobalSearchModuleData(spaceId: spaceInfo.accountSpaceId) { [weak self] screenData in
+                self?.pageNavigation?.open(screenData)
+            }
         }
     }
 

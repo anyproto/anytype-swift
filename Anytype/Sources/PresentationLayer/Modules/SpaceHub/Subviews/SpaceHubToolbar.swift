@@ -6,6 +6,9 @@ struct SpaceHubToolbar: ToolbarContent {
     let notificationsNotDetermined: Bool
     let hideCreateButton: Bool
     let quickCaptureEnabled: Bool
+    // With unified search, the bottom row (search + create) is a custom bar
+    // owned by SpaceHubView - the toolbar keeps only the profile item
+    let unifiedSearchEnabled: Bool
 
     let onTapCreatePersonalChannel: () -> Void
     let onTapCreateGroupChannel: () -> Void
@@ -46,7 +49,8 @@ struct SpaceHubToolbar: ToolbarContent {
                     onTapGroup: { onTapCreateGroupChannel() },
                     onTapJoinQR: { onTapJoinViaQrCode() }
                 )
-                if quickCaptureEnabled {
+                // With unified search the pencil lives in the bottom bar instead
+                if quickCaptureEnabled, !unifiedSearchEnabled {
                     quickCaptureButton
                 }
             }
@@ -88,7 +92,7 @@ struct SpaceHubToolbar: ToolbarContent {
         }
         .sharedBackgroundVisibility(.hidden)
 
-        if !hideCreateButton {
+        if !hideCreateButton, !unifiedSearchEnabled {
             DefaultToolbarItem(kind: .search, placement: .bottomBar)
 
             ToolbarSpacer(placement: .bottomBar)

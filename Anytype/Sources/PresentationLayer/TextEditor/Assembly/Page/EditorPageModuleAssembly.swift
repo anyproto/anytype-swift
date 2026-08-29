@@ -55,7 +55,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             configuration: EditorPageViewModelConfiguration(
                 blockId: data.blockId,
                 usecase: data.usecase,
-                quickCapture: data.quickCapture
+                quickCapture: data.quickCapture,
+                headerHint: data.headerHint
             ),
             output: output
         )

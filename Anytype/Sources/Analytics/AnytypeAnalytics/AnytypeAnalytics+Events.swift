@@ -716,6 +716,18 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logSearchToken(type: SearchTokenType, action: SearchTokenAction, source: SearchTokenSource, isGlobal: Bool) {
+        logEvent(
+            "SearchToken",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+                "action": action.rawValue,
+                "source": source.rawValue,
+                "isGlobal": isGlobal
+            ]
+        )
+    }
+
     func logSearchInput(route: SearchInputRoute? = nil) {
         logEvent(
             "SearchInput",

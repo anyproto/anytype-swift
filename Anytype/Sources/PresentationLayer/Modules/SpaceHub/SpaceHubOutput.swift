@@ -9,4 +9,5 @@ protocol SpaceHubModuleOutput: AnyObject {
     func onOpenSpaceSettings(spaceId: String)
     func onSelectAppSettings()
     func onSelectQuickCapture()
+    func onSelectSearch()
 }

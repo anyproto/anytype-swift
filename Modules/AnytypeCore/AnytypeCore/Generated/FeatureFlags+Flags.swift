@@ -70,6 +70,10 @@ public extension FeatureFlags {
         value(for: .matchedTransitionSource)
     }
 
+    static var unifiedSearch: Bool {
+        value(for: .unifiedSearch)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -156,6 +160,7 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .matchedTransitionSource,
+        .unifiedSearch,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

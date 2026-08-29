@@ -28,6 +28,22 @@ extension Container {
         self { ChatDetailsStorage() }.singleton
     }
 
+    var crossSpaceTypesStorage: Factory<any CrossSpaceTypesStorageProtocol> {
+        self { CrossSpaceTypesStorage() }.singleton
+    }
+
+    var crossSpaceTypesSubscriptionBuilder: Factory<any CrossSpaceTypesSubscriptionBuilderProtocol> {
+        self { CrossSpaceTypesSubscriptionBuilder() }.shared
+    }
+
+    var crossSpaceParticipantsStorage: Factory<any CrossSpaceParticipantsStorageProtocol> {
+        self { CrossSpaceParticipantsStorage() }.singleton
+    }
+
+    var crossSpaceParticipantsSubscriptionBuilder: Factory<any CrossSpaceParticipantsSubscriptionBuilderProtocol> {
+        self { CrossSpaceParticipantsSubscriptionBuilder() }.shared
+    }
+
     var objectsWithUnreadDiscussionsSubscription: Factory<any ObjectsWithUnreadDiscussionsSubscriptionProtocol> {
         self { ObjectsWithUnreadDiscussionsSubscription() }.singleton
     }
@@ -78,6 +94,10 @@ extension Container {
     
     var searchWithMetaService: Factory<any SearchWithMetaServiceProtocol> {
         self { SearchWithMetaService() }.shared
+    }
+
+    var crossSpaceSearchService: Factory<any CrossSpaceSearchServiceProtocol> {
+        self { CrossSpaceSearchService() }.shared
     }
     
     var subscriptionStorageProvider: Factory<any SubscriptionStorageProviderProtocol> {
@@ -402,6 +422,10 @@ extension Container {
 
     var quickCaptureTypeSuggestionService: Factory<any QuickCaptureTypeSuggestionServiceProtocol> {
         self { QuickCaptureTypeSuggestionService() }.shared
+    }
+
+    var unifiedSearchStateService: Factory<any UnifiedSearchStateServiceProtocol> {
+        self { UnifiedSearchStateService() }.shared
     }
     
     var userDefaultsStorage: Factory< any UserDefaultsStorageProtocol> {

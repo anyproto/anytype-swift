@@ -15,6 +15,11 @@ class EditorCollectionView: UICollectionView {
     
     private func setup() {
         alwaysBounceVertical = true
+        // The editor manages its insets itself (adjustedContentInset override pins
+        // top to 0, EditorContentInsetsHelper owns the bottom). Leaving automatic
+        // adjustment on makes UIKit seed contentOffset with -safeAreaTop on
+        // creation, which then visibly animates back to 0 after the screen settles.
+        contentInsetAdjustmentBehavior = .never
     }
     
     override var adjustedContentInset: UIEdgeInsets {

@@ -15,6 +15,7 @@ extension EditorPageObject {
         self.mode = mode
         self.blockId = blockId
         self.usecase = usecase
+        self.headerHint = ObjectHeaderExpectedLayout(details: details)
     }
 }
 
