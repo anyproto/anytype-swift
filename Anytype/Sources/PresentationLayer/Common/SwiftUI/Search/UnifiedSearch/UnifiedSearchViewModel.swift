@@ -582,7 +582,7 @@ final class UnifiedSearchViewModel {
 
         let sorts: [DataviewSort] = .builder {
             if state.searchText.isEmpty {
-                ObjectSort(relation: state.browseSort == .created ? .dateCreated : .dateUpdated).asDataviewSort()
+                browseDataviewSort()
             } else {
                 SearchHelper.sort(relation: BundledPropertyKey.lastOpenedDate, type: .desc)
             }
@@ -655,7 +655,7 @@ final class UnifiedSearchViewModel {
         // text queries trust the backend's relevance
         let sorts: [DataviewSort] = .builder {
             if browse {
-                SearchHelper.sort(relation: state.browseSort == .created ? .createdDate : .lastModifiedDate, type: .desc)
+                browseDataviewSort()
             }
         }
 
@@ -1262,6 +1262,19 @@ final class UnifiedSearchViewModel {
             rowSections = [ListSectionData(id: "single_section", data: nil, rows: rows)]
             return
         }
+        if state.browseSort == .name {
+            // The name order groups by first letter, mirroring the day buckets
+            // (and keeping the header that anchors the sort menu)
+            let grouped = OrderedDictionary(grouping: rows) { row in
+                let first = String(row.title.characters).trimmed.first
+                guard let first, first.isLetter else { return "#" }
+                return String(first).localizedUppercase
+            }
+            rowSections = grouped.map { (title, rows) in
+                ListSectionData(id: title, data: title, rows: rows)
+            }
+            return
+        }
         let today = Date()
         let calendar = Calendar.current
         // Paging regroups the whole accumulated list - memoize the bucket per
@@ -1280,6 +1293,17 @@ final class UnifiedSearchViewModel {
         )
         rowSections = grouped.map { (title, rows) in
             ListSectionData(id: title, data: title, rows: rows)
+        }
+    }
+
+    private func browseDataviewSort() -> DataviewSort {
+        switch state.browseSort {
+        case .edited:
+            SearchHelper.sort(relation: .lastModifiedDate, type: .desc)
+        case .created:
+            SearchHelper.sort(relation: .createdDate, type: .desc)
+        case .name:
+            SearchHelper.sort(relation: .name, type: .asc)
         }
     }
 

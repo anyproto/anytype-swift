@@ -4,11 +4,13 @@ import Foundation
 enum UnifiedSearchBrowseSort: String, Equatable, Hashable, Codable {
     case edited
     case created
+    case name
 
     var title: String {
         switch self {
         case .edited: Loc.UnifiedSearch.Sort.edited
         case .created: Loc.UnifiedSearch.Sort.created
+        case .name: Loc.name
         }
     }
 }

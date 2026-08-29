@@ -320,7 +320,7 @@ struct UnifiedSearchView: View {
 
     private var browseSortMenu: some View {
         Menu {
-            ForEach([UnifiedSearchBrowseSort.edited, .created], id: \.self) { sort in
+            ForEach([UnifiedSearchBrowseSort.edited, .created, .name], id: \.self) { sort in
                 Button {
                     model.onToggleBrowseSort(sort)
                 } label: {
