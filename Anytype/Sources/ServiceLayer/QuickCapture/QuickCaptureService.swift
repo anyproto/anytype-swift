@@ -49,8 +49,8 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
 
     func hasDraftWithContent(spaceId: String) async -> Bool {
         guard let details = await storedDraft(spaceId: spaceId) else { return false }
-        // The middleware clears editorDeleteEmpty once the object gets real content
-        return !details.internalFlagsValue.contains(.editorDeleteEmpty)
+        // Title and body preview - an untouched draft is not worth warning about
+        return details.name.isNotEmpty || details.snippet.isNotEmpty
     }
 
     // Until anytype-heart has a real unsynced-draft state, drafts live as isHidden
@@ -79,15 +79,24 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
             return try await obtainDraft(spaceId: targetSpaceId)
         }
 
-        let copyResult = try await pasteboardMiddleService.copy(
-            blockInformations: blocks,
-            objectId: sourceDraftId,
-            selectedTextRange: NSRange(location: 0, length: 0)
-        )
-        let copiedBlocks = copyResult?.blockSlot ?? []
-        guard blocks.isEmpty || copiedBlocks.isNotEmpty else {
-            // Refuse rather than carry on towards deleting the source
-            throw QuickCaptureError.contentCopyFailed
+        // An empty paragraph carries nothing - copying it yields an empty slot, which
+        // must not be mistaken for a failed copy
+        let carriesContent = blocks.contains { info in
+            if case let .text(text) = info.content { return text.text.isNotEmpty }
+            return true
+        }
+        var copiedBlocks = [String]()
+        if carriesContent {
+            let copyResult = try await pasteboardMiddleService.copy(
+                blockInformations: blocks,
+                objectId: sourceDraftId,
+                selectedTextRange: NSRange(location: 0, length: 0)
+            )
+            copiedBlocks = copyResult?.blockSlot ?? []
+            guard copiedBlocks.isNotEmpty else {
+                // Refuse rather than carry on towards deleting the source
+                throw QuickCaptureError.contentCopyFailed
+            }
         }
 
         await activeSpaceManager.prepareSpaceForPreview(spaceId: targetSpaceId)
@@ -142,6 +151,8 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
     // Callers prepare the space caches (prepareSpaceForPreview) before this
     private func createDraft(spaceId: String, name: String) async throws -> ObjectDetails {
         let type = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
+        // isHidden travels with the create request: a separate details write would
+        // clear editorDeleteEmpty, so the draft would look edited from the start
         let details = try await objectActionsService.createObject(
             name: name,
             typeUniqueKey: type.uniqueKey,
@@ -150,15 +161,9 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
             shouldSelectTemplate: false,
             spaceId: spaceId,
             origin: .none,
-            templateId: nil
+            templateId: nil,
+            additionalDetails: [.isHidden(true)]
         )
-        do {
-            try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.isHidden(true)])
-        } catch {
-            // A visible object nothing tracks is worse than no draft at all
-            try? await objectActionsService.delete(objectIds: [details.id])
-            throw error
-        }
         draftStorage.setDraftObjectId(details.id, spaceId: spaceId)
         return details
     }

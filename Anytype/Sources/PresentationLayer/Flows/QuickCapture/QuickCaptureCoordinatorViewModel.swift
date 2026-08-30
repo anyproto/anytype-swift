@@ -114,9 +114,9 @@ final class QuickCaptureCoordinatorViewModel {
 
     func subscribeOnDraft() async {
         guard let document else { return }
-        async let detailsSub: () = subscribeOnDetails(document: document)
+        async let contentSub: () = subscribeOnContent(document: document)
         async let syncSub: () = subscribeOnSyncStatus(document: document)
-        _ = await (detailsSub, syncSub)
+        _ = await (contentSub, syncSub)
     }
 
     func onTapSyncStatus() {
@@ -291,9 +291,19 @@ final class QuickCaptureCoordinatorViewModel {
         draftGeneration == generation
     }
 
-    private func subscribeOnDetails(document: any BaseDocumentProtocol) async {
-        for await details in document.detailsPublisher.values {
-            isNotEmpty = !details.internalFlagsValue.contains(.editorDeleteEmpty)
+    // Emptiness comes from what is actually written, not from the editorDeleteEmpty
+    // flag: that flag is one-way and any details write clears it
+    private func subscribeOnContent(document: any BaseDocumentProtocol) async {
+        for await _ in document.syncPublisher.values {
+            isNotEmpty = hasContent(document: document)
+        }
+    }
+
+    private func hasContent(document: any BaseDocumentProtocol) -> Bool {
+        if document.details?.name.isNotEmpty == true { return true }
+        return copyableBlocks(document: document).contains { info in
+            if case let .text(text) = info.content { return text.text.isNotEmpty }
+            return true
         }
     }
 
@@ -327,7 +337,9 @@ final class QuickCaptureCoordinatorViewModel {
     private func setupDraft(details: ObjectDetails, spaceId: String) {
         spaceView = findSpaceView(spaceId: spaceId)
         document = openDocumentProvider.document(objectId: details.id, spaceId: spaceId)
-        isNotEmpty = !details.internalFlagsValue.contains(.editorDeleteEmpty)
+        // First guess from the search details; the content subscription refines it
+        // once the document is open
+        isNotEmpty = details.name.isNotEmpty || details.snippet.isNotEmpty
         // EditorPageObject directly, without EditorCoordinatorView/SpaceLoadingContainerView:
         // activating the space here would make SpaceHubCoordinator navigate under the sheet
         editorData = EditorPageObject(objectId: details.id, spaceId: spaceId, quickCapture: true)
