@@ -7,6 +7,7 @@ enum QuickCaptureError: Error {
 }
 
 protocol QuickCaptureServiceProtocol: AnyObject, Sendable {
+    func lastCaptureSpaceId() -> String?
     func obtainDraft(spaceId: String) async throws -> ObjectDetails
     func hasDraftWithContent(spaceId: String) async -> Bool
     func commitDraft(spaceId: String) async throws
@@ -36,15 +37,25 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
     @Injected(\.pasteboardMiddleService)
     private var pasteboardMiddleService: any PasteboardMiddlewareServiceProtocol
 
+    func lastCaptureSpaceId() -> String? {
+        draftStorage.lastCaptureSpaceId()
+    }
+
     func obtainDraft(spaceId: String) async throws -> ObjectDetails {
         // Types + property details caches without workspaceOpen/setActiveSpace - the full
         // activation would make the space hub coordinator navigate under the capture sheet.
         // The document itself brings its dependencies in the objectShow response.
         await activeSpaceManager.prepareSpaceForPreview(spaceId: spaceId)
-        if let details = await storedDraft(spaceId: spaceId) {
-            return details
+        let details: ObjectDetails
+        if let restored = await storedDraft(spaceId: spaceId) {
+            details = restored
+        } else {
+            details = try await createDraft(spaceId: spaceId, name: "")
         }
-        return try await createDraft(spaceId: spaceId, name: "")
+        // Recorded only once the draft is in hand - reopening into a space that just
+        // failed to produce one would strand the user there every launch
+        draftStorage.setLastCaptureSpaceId(spaceId)
+        return details
     }
 
     func hasDraftWithContent(spaceId: String) async -> Bool {
@@ -126,6 +137,9 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
         // instead of becoming a hidden object nothing can ever open
         try? await deleteDraft(objectId: sourceDraftId, spaceId: sourceSpaceId)
 
+        // Only now is the target where the draft actually lives - a failed move above
+        // leaves the user on the source space, and reopening must agree with that
+        draftStorage.setLastCaptureSpaceId(targetSpaceId)
         return newDraft
     }
 

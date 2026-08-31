@@ -105,7 +105,8 @@ final class QuickCaptureCoordinatorViewModel {
     func onAppear() async {
         guard editorData.isNil else { return }
         typeSuggestionService.prewarm()
-        guard let targetSpace = sortedEditableSpaces.first else {
+        let spaces = sortedEditableSpaces
+        guard let targetSpace = lastCaptureSpace(in: spaces) ?? spaces.first else {
             dismiss?()
             return
         }
@@ -219,6 +220,13 @@ final class QuickCaptureCoordinatorViewModel {
     }
 
     // MARK: - Private
+
+    // Capture reopens where capture left off, even in a 1:1 channel: the rule against
+    // 1:1 is about never picking one for the user, not about forgetting one they picked
+    private func lastCaptureSpace(in spaces: [SpaceView]) -> SpaceView? {
+        guard let spaceId = quickCaptureService.lastCaptureSpaceId() else { return nil }
+        return spaces.first { $0.targetSpaceId == spaceId }
+    }
 
     private func moveDraft(to selected: SpaceView) async {
         guard !isProcessing, let currentSpaceId = spaceView?.targetSpaceId, let document else { return }
@@ -342,7 +350,17 @@ final class QuickCaptureCoordinatorViewModel {
         isNotEmpty = details.name.isNotEmpty || details.snippet.isNotEmpty
         // EditorPageObject directly, without EditorCoordinatorView/SpaceLoadingContainerView:
         // activating the space here would make SpaceHubCoordinator navigate under the sheet
-        editorData = EditorPageObject(objectId: details.id, spaceId: spaceId, quickCapture: true)
+        editorData = EditorPageObject(
+            objectId: details.id,
+            spaceId: spaceId,
+            // Clearance for the sheet's own glass bar rather than for a navigation bar
+            // the editor never draws here
+            usecase: .sheet,
+            quickCapture: true,
+            // Drafts carry no cover or icon, so without the hint the placeholder would
+            // shimmer a full-height cover and collapse the moment the document opens
+            headerHint: ObjectHeaderExpectedLayout(details: details)
+        )
     }
 
     private func findSpaceView(spaceId: String) -> SpaceView? {
