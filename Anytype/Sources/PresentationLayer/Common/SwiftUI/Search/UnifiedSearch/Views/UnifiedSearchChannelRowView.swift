@@ -40,9 +40,7 @@ struct UnifiedSearchChannelRowView: View {
                     )
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel(
-                    showsFilterResultsOnboarding ? Loc.UnifiedSearch.Onboarding.useAsFilter : Loc.search
-                )
+                .accessibilityLabel(Loc.UnifiedSearch.Accessibility.filterBy(row.title))
             }
             .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
             .fixTappableArea()

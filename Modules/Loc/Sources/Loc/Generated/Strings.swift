@@ -1343,6 +1343,11 @@ public enum Loc {
     public static func inSpacePlusOne(_ p1: Any) -> String {
       return Loc.tr("UI", "UnifiedSearch.inSpacePlusOne", String(describing: p1), fallback: "in %@ + 1 other Channel")
     }
+    public enum Accessibility {
+      public static func filterBy(_ p1: Any) -> String {
+        return Loc.tr("UI", "UnifiedSearch.Accessibility.filterBy", String(describing: p1), fallback: "Filter by %@")
+      }
+    }
     public enum Chip {
       public static func by(_ p1: Any) -> String {
         return Loc.tr("UI", "UnifiedSearch.Chip.by", String(describing: p1), fallback: "By %@")

@@ -105169,6 +105169,17 @@
         }
       }
     },
+    "UnifiedSearch.Accessibility.filterBy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter by %@"
+          }
+        }
+      }
+    },
     "UnifiedSearch.Chip.by" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -14,7 +14,8 @@ struct UnifiedSearchFilterResultsButtonLabel: View {
                     .offset(y: -2)
             }
 
-            Image(asset: .X18.search)
+            Image(systemName: "line.3.horizontal.decrease")
+                .font(.system(size: 18, weight: .medium))
         }
         .foregroundStyle(foregroundColor)
         .frame(minWidth: 44, minHeight: 44, alignment: .trailing)
