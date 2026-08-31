@@ -10,6 +10,7 @@ struct UnifiedSearchLeadRowView: View {
     let title: String
     let caption: String?
     var badged = false
+    var showsFilterResultsOnboarding = false
     let onTap: () -> Void
     let onDrill: () -> Void
 
@@ -36,12 +37,14 @@ struct UnifiedSearchLeadRowView: View {
                 Button {
                     onDrill()
                 } label: {
-                    Image(asset: .X18.search)
-                        .foregroundStyle(Color.Control.secondary)
-                        .fixTappableArea()
+                    UnifiedSearchFilterResultsButtonLabel(
+                        showsOnboarding: showsFilterResultsOnboarding
+                    )
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel(Loc.search)
+                .accessibilityLabel(
+                    showsFilterResultsOnboarding ? Loc.UnifiedSearch.Onboarding.useAsFilter : Loc.search
+                )
             }
             .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
             .fixTappableArea()

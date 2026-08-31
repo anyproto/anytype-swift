@@ -3,6 +3,7 @@ import SwiftUI
 struct UnifiedSearchChipModel: Identifiable, Hashable {
     enum Action: Hashable {
         case addToken(UnifiedSearchToken)
+        case openChannelsPicker
         case openPeoplePicker
         case openTypesPicker
     }
@@ -25,11 +26,18 @@ struct UnifiedSearchChipModel: Identifiable, Hashable {
         switch action {
         case .addToken(let token):
             token.id
+        case .openChannelsPicker:
+            "channels-picker"
         case .openPeoplePicker:
             "people-picker"
         case .openTypesPicker:
             "types-picker"
         }
+    }
+
+    static func channelScopePackage(individualChips: [Self]) -> [Self] {
+        guard individualChips.isNotEmpty else { return [] }
+        return individualChips + [Self(action: .openChannelsPicker, title: UnifiedSearchKindBucket.channels.title)]
     }
 }
 

@@ -1366,6 +1366,7 @@ public enum Loc {
     public enum Onboarding {
       public static let subtitle = Loc.tr("UI", "UnifiedSearch.Onboarding.subtitle", fallback: "Narrow results by type, person or Channel with the chips above the search field - or search everything at once.")
       public static let title = Loc.tr("UI", "UnifiedSearch.Onboarding.title", fallback: "Meet the new search")
+      public static let useAsFilter = Loc.tr("UI", "UnifiedSearch.Onboarding.useAsFilter", fallback: "Use as filter")
     }
     public enum Person {
       public static let createOneToOne = Loc.tr("UI", "UnifiedSearch.Person.createOneToOne", fallback: "Create 1-1 Channel")

@@ -96,14 +96,19 @@ final class UnifiedSearchViewModel {
     var rowSections = [ListSectionData<String?, SearchWithMetaModel>]()
     var messageRows = [UnifiedSearchMessageRow]()
     var selectedTokenId: String?
+    var showChannelsPicker = false
     var showPeoplePicker = false
     var showTypesPicker = false
     var showOnboarding = false
+    var showFilterResultsOnboarding = false
     var isInitial = true
 
     @ObservationIgnored
     @UserDefault("UserData.UnifiedSearchOnboardingSeen", defaultValue: false)
     private var onboardingSeen: Bool
+    @ObservationIgnored
+    @UserDefault("UserData.UnifiedSearchFilterResultsOnboardingSeen", defaultValue: false)
+    private var filterResultsOnboardingSeen: Bool
 
     private var participantCanEdit = false
     @ObservationIgnored
@@ -115,6 +120,8 @@ final class UnifiedSearchViewModel {
     private var typeCountByUniqueKey = [String: Int]()
     @ObservationIgnored
     private var sortedGlobalTypes = [ObjectDetails]()
+    @ObservationIgnored
+    private var sortedGlobalPickerTypes = [ObjectDetails]()
     @ObservationIgnored
     private var allParticipants = [Participant]()
     @ObservationIgnored
@@ -203,6 +210,7 @@ final class UnifiedSearchViewModel {
         self.updateTokenModels()
         self.rebuildChips()
         self.showOnboarding = data.purpose == .navigation && !onboardingSeen
+        self.showFilterResultsOnboarding = data.purpose == .navigation && !filterResultsOnboardingSeen
     }
 
     // Any tap or keypress counts as seen
@@ -210,6 +218,14 @@ final class UnifiedSearchViewModel {
         guard showOnboarding else { return }
         onboardingSeen = true
         showOnboarding = false
+    }
+
+    func onFilterResultsTap(_ action: () -> Void) {
+        if showFilterResultsOnboarding {
+            filterResultsOnboardingSeen = true
+            showFilterResultsOnboarding = false
+        }
+        action()
     }
 
     // The vault-wide types/participants/chats subscriptions live for the account
@@ -258,6 +274,11 @@ final class UnifiedSearchViewModel {
             .map { ($0.title, $0) }
             .sorted { $0.0.localizedCaseInsensitiveCompare($1.0) == .orderedAscending }
             .map(\.1)
+
+        sortedGlobalPickerTypes = UnifiedSearchTypeSorter.sorted(
+            typesById.values.filter { !$0.isHidden && !Constants.excludedTypeChipKeys.contains($0.uniqueKeyValue) },
+            deduplicateByUniqueKey: true
+        )
     }
 
     func observeMembers() async {
@@ -469,11 +490,27 @@ final class UnifiedSearchViewModel {
             state.addToken(token)
             updateTokenModels()
             rebuildChips()
+        case .openChannelsPicker:
+            showChannelsPicker = true
         case .openPeoplePicker:
             showPeoplePicker = true
         case .openTypesPicker:
             showTypesPicker = true
         }
+    }
+
+    var channelsPickerRows: [UnifiedSearchPickerRow] {
+        orderedSpaceViews.map { spaceView in
+            UnifiedSearchPickerRow(
+                id: spaceView.targetSpaceId,
+                title: spaceView.title,
+                icon: spaceView.objectIconImage
+            )
+        }
+    }
+
+    func onSelectChannelScope(_ channel: UnifiedSearchPickerRow) {
+        onScopeToSpace(channel.id, source: .chip)
     }
 
     var peoplePickerRows: [UnifiedSearchPickerRow] {
@@ -488,7 +525,17 @@ final class UnifiedSearchViewModel {
 
     var typesPickerRows: [UnifiedSearchPickerRow] {
         let scopeId = state.spaceScopeId
-        return typesBrowseList(scopeSpaceId: scopeId).map { type in
+        let types = if let scopeId {
+            UnifiedSearchTypeSorter.sorted(
+                typesById.values.filter {
+                    $0.spaceId == scopeId && !$0.isHidden && !Constants.excludedTypeChipKeys.contains($0.uniqueKeyValue)
+                },
+                deduplicateByUniqueKey: false
+            )
+        } else {
+            sortedGlobalPickerTypes
+        }
+        return types.map { type in
             UnifiedSearchPickerRow(
                 id: type.uniqueKey,
                 title: type.title,
@@ -898,8 +945,8 @@ final class UnifiedSearchViewModel {
 
     // MARK: - Channels & People
 
-    // Channel and person rows lead only a plain global text query: any filter
-    // token means the query is already about something narrower
+    // Channel, person and type rows lead only a plain global text query: any
+    // filter token means the query is already about something narrower.
     private var showsLeadRows: Bool {
         isGlobal
             && state.searchText.trimmed.isNotEmpty
@@ -1324,13 +1371,23 @@ final class UnifiedSearchViewModel {
         let scopeId = state.spaceScopeId
         let whatFilled = state.tokens.contains { $0.group == .what }
 
-        // Scope suggestion (global mode only): re-add the entry space.
-        // Hidden under the Channels bucket - scoping cannot answer there.
-        if scopeId == nil,
-           let currentSpaceId = moduleData.currentSpaceId,
-           state.whatBucket != .channels,
-           spaceViewsStorage.spaceView(spaceId: currentSpaceId) != nil {
-            result.append(UnifiedSearchChipModel(token: .space(spaceId: currentSpaceId), title: Loc.UnifiedSearch.Chip.inThisChannel))
+        if scopeId == nil, state.whatBucket != .channels {
+            // Scope suggestion (global mode only): re-add the entry space.
+            var channelChips = [UnifiedSearchChipModel]()
+            if let currentSpaceId = moduleData.currentSpaceId,
+               spaceViewsStorage.spaceView(spaceId: currentSpaceId) != nil {
+                channelChips.append(UnifiedSearchChipModel(
+                    token: .space(spaceId: currentSpaceId),
+                    title: Loc.UnifiedSearch.Chip.inThisChannel
+                ))
+            }
+
+            if supportsChannelScopeSuggestions {
+                channelChips.append(contentsOf: channelScopeChips(excluding: moduleData.currentSpaceId))
+                result.append(contentsOf: UnifiedSearchChipModel.channelScopePackage(individualChips: channelChips))
+            } else {
+                result.append(contentsOf: channelChips)
+            }
         }
 
         if scopeId == nil, !whatFilled {
@@ -1372,6 +1429,31 @@ final class UnifiedSearchViewModel {
         result.append(contentsOf: personChips(scopeSpaceId: scopeId, byMeOnly: false))
 
         chips = result
+    }
+
+    private func channelScopeChips(excluding excludedSpaceId: String?) -> [UnifiedSearchChipModel] {
+        orderedSpaceViews
+            .filter { $0.targetSpaceId != excludedSpaceId }
+            .map { spaceView in
+                UnifiedSearchChipModel(
+                    token: .space(spaceId: spaceView.targetSpaceId),
+                    title: spaceView.title,
+                    icon: spaceView.objectIconImage
+                )
+            }
+    }
+
+    private var supportsChannelScopeSuggestions: Bool {
+        state.tokens.contains { token in
+            switch token {
+            case .kind(let bucket):
+                bucket != .channels
+            case .type:
+                true
+            default:
+                false
+            }
+        }
     }
 
     private func typeChips(spaceId: String) -> [UnifiedSearchChipModel] {
