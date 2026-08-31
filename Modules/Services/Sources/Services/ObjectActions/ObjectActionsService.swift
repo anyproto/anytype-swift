@@ -18,12 +18,16 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         origin: ObjectOrigin,
         templateId: String? = nil,
         createdInContext: String = "",
-        createdInContextRef: String = ""
+        createdInContextRef: String = "",
+        additionalDetails: [BundledDetails] = []
     ) async throws -> ObjectDetails {
         var fields: [String: Google_Protobuf_Value] = [
             BundledPropertyKey.name.rawValue: name.protobufValue,
             BundledPropertyKey.origin.rawValue: origin.rawValue.protobufValue
         ]
+        // Details set at creation keep the object's internal flags intact - a follow-up
+        // details write counts as an edit and clears editorDeleteEmpty
+        additionalDetails.forEach { fields[$0.key] = $0.value }
         if !createdInContext.isEmpty {
             fields[BundledPropertyKey.createdInContext.rawValue] = createdInContext.protobufValue
         }

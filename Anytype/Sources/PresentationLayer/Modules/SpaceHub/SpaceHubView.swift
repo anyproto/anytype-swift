@@ -59,12 +59,18 @@ struct SpaceHubView: View {
                 .if(!isEmptyState && FeatureFlags.unifiedSearch) { view in
                     view.safeAreaBarIOS26(edge: .bottom, spacing: 0) {
                         VaultSearchBottomBar(
+                            quickCaptureEnabled: FeatureFlags.quickCapture,
                             onTapSearch: { model.onSearchTap() },
+                            onTapQuickCapture: { model.onTapQuickCapture() },
                             onTapCreatePersonalChannel: { model.onTapCreatePersonalChannel() },
                             onTapCreateGroupChannel: { model.onTapCreateGroupChannel() },
                             onTapJoinViaQrCode: { model.onTapJoinViaQrCode() }
                         )
                     }
+                    // The hub has no text input of its own, but a keyboard raised in a
+                    // presented sheet still insets this hierarchy - the bar would ride up
+                    // with it and drop back once the sheet is gone
+                    .ignoresSafeArea(.keyboard, edges: .bottom)
                 }
                 .onChange(of: model.searchText) {
                     model.searchTextUpdated()
@@ -77,6 +83,7 @@ struct SpaceHubView: View {
             profileIcon: model.profileIcon,
             notificationsNotDetermined: model.notificationsNotDetermined,
             hideCreateButton: isEmptyState,
+            quickCaptureEnabled: FeatureFlags.quickCapture,
             unifiedSearchEnabled: FeatureFlags.unifiedSearch,
             onTapCreatePersonalChannel: {
                 model.onTapCreatePersonalChannel()
@@ -89,6 +96,9 @@ struct SpaceHubView: View {
             },
             onTapSettings: {
                 model.onTapSettings()
+            },
+            onTapQuickCapture: {
+                model.onTapQuickCapture()
             }
         )
     }

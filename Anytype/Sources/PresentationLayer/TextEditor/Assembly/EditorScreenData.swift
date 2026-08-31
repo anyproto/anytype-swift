@@ -27,6 +27,7 @@ struct EditorPageObject: Hashable, Codable {
     let mode: DocumentMode
     var blockId: String?
     let usecase: ObjectHeaderEmptyUsecase
+    var quickCapture: Bool = false
     var headerHint: ObjectHeaderExpectedLayout?
 
     init(
@@ -35,6 +36,7 @@ struct EditorPageObject: Hashable, Codable {
         mode: DocumentMode = .handling,
         blockId: String? = nil,
         usecase: ObjectHeaderEmptyUsecase = .full,
+        quickCapture: Bool = false,
         headerHint: ObjectHeaderExpectedLayout? = nil
     ) {
         self.objectId = objectId
@@ -42,6 +44,7 @@ struct EditorPageObject: Hashable, Codable {
         self.mode = mode
         self.blockId = blockId
         self.usecase = usecase
+        self.quickCapture = quickCapture
         self.headerHint = headerHint
     }
 }

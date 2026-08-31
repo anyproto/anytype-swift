@@ -48,6 +48,8 @@ class ChangeTypeAccessoryView: UIView {
             $0.centerY.equal(to: topView.centerYAnchor)
             $0.width.lessThanOrEqual(to: Constants.doneButtonWidth)
         }
+        // Quick capture has its own send/close controls - Done would duplicate them
+        doneButton.isHidden = viewModel.quickCapture
 
         topView.layoutUsing.anchors {
             $0.height.equal(to: Constants.topViewHeight)

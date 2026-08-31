@@ -37,7 +37,9 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     @Injected(\.widgetsObjectsStorage)
     private var widgetsObjectsStorage: any WidgetsObjectsStorageProtocol
-    
+    @Injected(\.spaceRecencyStorage)
+    private var spaceRecencyStorage: any SpaceRecencyStorageProtocol
+
     init() {}
     
     nonisolated var workspaceInfoStream: AnyAsyncSequence<AccountInfo?> {
@@ -64,6 +66,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
                 do {
                     let info = try await workspaceService.workspaceOpen(spaceId: spaceId, withChat: true)
                     workspaceStorage.addSpaceInfo(spaceId: spaceId, info: info)
+                    spaceRecencyStorage.markInteraction(spaceId: spaceId)
                     // prepare spawns its own Task — placing it here lets the widget-doc
                     // open race with the two subscription startups below.
                     await widgetsObjectsStorage.prepare(info: info)

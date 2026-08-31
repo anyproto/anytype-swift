@@ -408,6 +408,22 @@ extension Container {
         self { GlobalSearchSavedStatesService() }.shared
     }
 
+    var spaceRecencyStorage: Factory<any SpaceRecencyStorageProtocol> {
+        self { SpaceRecencyStorage() }.singleton
+    }
+
+    var quickCaptureDraftStorage: Factory<any QuickCaptureDraftStorageProtocol> {
+        self { QuickCaptureDraftStorage() }.singleton
+    }
+
+    var quickCaptureService: Factory<any QuickCaptureServiceProtocol> {
+        self { QuickCaptureService() }.shared
+    }
+
+    var quickCaptureTypeSuggestionService: Factory<any QuickCaptureTypeSuggestionServiceProtocol> {
+        self { QuickCaptureTypeSuggestionService() }.shared
+    }
+
     var unifiedSearchStateService: Factory<any UnifiedSearchStateServiceProtocol> {
         self { UnifiedSearchStateService() }.shared
     }

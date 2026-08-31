@@ -7,7 +7,11 @@ import AnytypeCore
 // activating the native search UI mid-push wrecks the navigation transition.
 struct VaultSearchBottomBar: View {
 
+    // Quick capture takes the trailing slot here; creating a channel moves up
+    // to the profile row, since capture is the far more frequent action
+    let quickCaptureEnabled: Bool
     let onTapSearch: () -> Void
+    let onTapQuickCapture: () -> Void
     let onTapCreatePersonalChannel: () -> Void
     let onTapCreateGroupChannel: () -> Void
     let onTapJoinViaQrCode: () -> Void
@@ -16,7 +20,9 @@ struct VaultSearchBottomBar: View {
         GlassEffectContainerIOS26(spacing: 6) {
             HStack(spacing: 10) {
                 searchButton
-                if #available(iOS 26.0, *) {
+                if quickCaptureEnabled {
+                    quickCaptureButton
+                } else if #available(iOS 26.0, *) {
                     createMenu
                 }
             }
@@ -24,6 +30,19 @@ struct VaultSearchBottomBar: View {
             .padding(.vertical, 10)
         }
         .fitIPadToReadableContentGuide()
+    }
+
+    private var quickCaptureButton: some View {
+        Button {
+            onTapQuickCapture()
+        } label: {
+            Image(systemName: "square.and.pencil")
+                .foregroundStyle(Color.Control.primary)
+                .frame(width: 44, height: 44)
+                .barBackground
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("QuickCaptureButton")
     }
 
     private var searchButton: some View {

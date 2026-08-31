@@ -10,6 +10,8 @@ final class ObjectSettingsMenuViewModel {
 
     @ObservationIgnored
     let viewModel: ObjectSettingsViewModel
+    @ObservationIgnored
+    private let quickCapture: Bool
 
     var showConflictAlert: Binding<Bool> {
         Binding(
@@ -32,8 +34,9 @@ final class ObjectSettingsMenuViewModel {
         )
     }
 
-    init(viewModel: ObjectSettingsViewModel) {
+    init(viewModel: ObjectSettingsViewModel, quickCapture: Bool = false) {
         self.viewModel = viewModel
+        self.quickCapture = quickCapture
         setupSubscriptions()
     }
 
@@ -86,8 +89,8 @@ final class ObjectSettingsMenuViewModel {
 
     private func rebuildMenu() {
         menuConfig = ObjectMenuBuilder.buildMenu(
-            settings: viewModel.settings,
-            actions: viewModel.objectActions
+            settings: quickCapture ? viewModel.settings.filter(\.availableInQuickCapture) : viewModel.settings,
+            actions: quickCapture ? viewModel.objectActions.filter(\.availableInQuickCapture) : viewModel.objectActions
         )
     }
 

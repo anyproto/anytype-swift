@@ -121,7 +121,7 @@ final class EditorPageController: UIViewController {
         self.blocksSelectionOverlayView = blocksSelectionOverlayView
         self.bottomNavigationManager = bottomNavigationManager
         self.showHeader = showHeader
-        
+
         super.init(nibName: nil, bundle: nil)
     }
     

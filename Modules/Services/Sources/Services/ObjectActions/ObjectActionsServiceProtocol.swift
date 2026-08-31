@@ -13,9 +13,10 @@ public protocol ObjectActionsServiceProtocol: Sendable {
         origin: ObjectOrigin,
         templateId: String?,
         createdInContext: String,
-        createdInContextRef: String
+        createdInContextRef: String,
+        additionalDetails: [BundledDetails]
     ) async throws -> ObjectDetails
-    
+
     func delete(objectIds: [String]) async throws
     func setArchive(objectIds: [String], _ isArchived: Bool) async throws
     func setPin(objectIds: [String], _ isPinned: Bool) async throws
@@ -52,7 +53,8 @@ public extension ObjectActionsServiceProtocol {
         shouldSelectTemplate: Bool,
         spaceId: String,
         origin: ObjectOrigin,
-        templateId: String?
+        templateId: String?,
+        additionalDetails: [BundledDetails] = []
     ) async throws -> ObjectDetails {
         try await createObject(
             name: name,
@@ -64,7 +66,35 @@ public extension ObjectActionsServiceProtocol {
             origin: origin,
             templateId: templateId,
             createdInContext: "",
-            createdInContextRef: ""
+            createdInContextRef: "",
+            additionalDetails: additionalDetails
+        )
+    }
+
+    func createObject(
+        name: String,
+        typeUniqueKey: ObjectTypeUniqueKey,
+        shouldDeleteEmptyObject: Bool,
+        shouldSelectType: Bool,
+        shouldSelectTemplate: Bool,
+        spaceId: String,
+        origin: ObjectOrigin,
+        templateId: String?,
+        createdInContext: String,
+        createdInContextRef: String
+    ) async throws -> ObjectDetails {
+        try await createObject(
+            name: name,
+            typeUniqueKey: typeUniqueKey,
+            shouldDeleteEmptyObject: shouldDeleteEmptyObject,
+            shouldSelectType: shouldSelectType,
+            shouldSelectTemplate: shouldSelectTemplate,
+            spaceId: spaceId,
+            origin: origin,
+            templateId: templateId,
+            createdInContext: createdInContext,
+            createdInContextRef: createdInContextRef,
+            additionalDetails: []
         )
     }
 }

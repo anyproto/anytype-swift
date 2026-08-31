@@ -17,6 +17,12 @@ enum ObjectAction: Hashable, Identifiable {
     case inviteMembers
     case editInfo
 
+    // Quick capture keeps only undo/redo - the draft gets full actions once published
+    var availableInQuickCapture: Bool {
+        if case .undoRedo = self { return true }
+        return false
+    }
+
     static func buildActions(
         details: ObjectDetails,
         isLocked: Bool,

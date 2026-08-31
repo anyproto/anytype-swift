@@ -5,6 +5,7 @@ struct SpaceHubToolbar: ToolbarContent {
     let profileIcon: Icon?
     let notificationsNotDetermined: Bool
     let hideCreateButton: Bool
+    let quickCaptureEnabled: Bool
     // With unified search, the bottom row (search + create) is a custom bar
     // owned by SpaceHubView - the toolbar keeps only the profile item
     let unifiedSearchEnabled: Bool
@@ -13,6 +14,7 @@ struct SpaceHubToolbar: ToolbarContent {
     let onTapCreateGroupChannel: () -> Void
     let onTapJoinViaQrCode: () -> Void
     let onTapSettings: () -> Void
+    let onTapQuickCapture: () -> Void
 
     var body: some ToolbarContent {
         if #available(iOS 26.0, *) {
@@ -41,12 +43,16 @@ struct SpaceHubToolbar: ToolbarContent {
         }
 
         if !hideCreateButton {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
                 SpaceHubNewSpaceButton(
                     onTapPersonal: { onTapCreatePersonalChannel() },
                     onTapGroup: { onTapCreateGroupChannel() },
                     onTapJoinQR: { onTapJoinViaQrCode() }
                 )
+                // With unified search the pencil lives in the bottom bar instead
+                if quickCaptureEnabled, !unifiedSearchEnabled {
+                    quickCaptureButton
+                }
             }
         }
     }
@@ -54,6 +60,21 @@ struct SpaceHubToolbar: ToolbarContent {
     @available(iOS 26.0, *)
     @ToolbarContentBuilder
     private var ios26ToolbarItems: some ToolbarContent {
+        if quickCaptureEnabled && !hideCreateButton {
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+                    CreateChannelMenuItems(
+                        onTapPersonal: { onTapCreatePersonalChannel() },
+                        onTapGroup: { onTapCreateGroupChannel() },
+                        onTapJoinQR: { onTapJoinViaQrCode() }
+                    )
+                } label: {
+                    Image(systemName: "plus")
+                        .foregroundStyle(Color.Control.primary)
+                }
+            }
+        }
+
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 onTapSettings()
@@ -77,18 +98,32 @@ struct SpaceHubToolbar: ToolbarContent {
             ToolbarSpacer(placement: .bottomBar)
 
             ToolbarItem(placement: .bottomBar) {
-                Menu {
-                    CreateChannelMenuItems(
-                        onTapPersonal: { onTapCreatePersonalChannel() },
-                        onTapGroup: { onTapCreateGroupChannel() },
-                        onTapJoinQR: { onTapJoinViaQrCode() }
-                    )
-                } label: {
-                    Image(systemName: "plus")
-                        .foregroundStyle(Color.Control.primary)
+                if quickCaptureEnabled {
+                    quickCaptureButton
+                } else {
+                    Menu {
+                        CreateChannelMenuItems(
+                            onTapPersonal: { onTapCreatePersonalChannel() },
+                            onTapGroup: { onTapCreateGroupChannel() },
+                            onTapJoinQR: { onTapJoinViaQrCode() }
+                        )
+                    } label: {
+                        Image(systemName: "plus")
+                            .foregroundStyle(Color.Control.primary)
+                    }
                 }
             }
         }
+    }
+
+    private var quickCaptureButton: some View {
+        Button {
+            onTapQuickCapture()
+        } label: {
+            Image(systemName: "square.and.pencil")
+                .foregroundStyle(Color.Control.primary)
+        }
+        .accessibilityLabel("QuickCaptureButton")
     }
 
     private var attentionDotView: some View {
