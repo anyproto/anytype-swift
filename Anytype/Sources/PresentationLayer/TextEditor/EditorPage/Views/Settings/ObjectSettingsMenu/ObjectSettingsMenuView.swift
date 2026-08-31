@@ -16,7 +16,7 @@ struct ObjectSettingsMenuView<LabelView: View, AdditionalMenuItems: View>: View 
         @ViewBuilder labelView: () -> LabelView,
         @ViewBuilder additionalMenuItems: () -> AdditionalMenuItems
     ) {
-        let vm = ObjectSettingsViewModel(objectId: objectId, spaceId: spaceId, output: output)
+        let vm = ObjectSettingsViewModel(objectId: objectId, spaceId: spaceId, output: output, quickCapture: quickCapture)
         self._viewModel = State(wrappedValue: ObjectSettingsMenuViewModel(viewModel: vm, quickCapture: quickCapture))
         self.labelView = labelView()
         self.additionalMenuItems = additionalMenuItems()
