@@ -67,6 +67,10 @@ struct SpaceHubView: View {
                             onTapJoinViaQrCode: { model.onTapJoinViaQrCode() }
                         )
                     }
+                    // The hub has no text input of its own, but a keyboard raised in a
+                    // presented sheet still insets this hierarchy - the bar would ride up
+                    // with it and drop back once the sheet is gone
+                    .ignoresSafeArea(.keyboard, edges: .bottom)
                 }
                 .onChange(of: model.searchText) {
                     model.searchTextUpdated()
