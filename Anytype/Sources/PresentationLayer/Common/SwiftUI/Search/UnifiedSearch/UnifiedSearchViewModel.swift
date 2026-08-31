@@ -20,6 +20,7 @@ final class UnifiedSearchViewModel {
         static let personRowsFullQueryLength = 4
         static let typeChipsLimit = 8
         static let memberChipsLimit = 3
+        static let refinementSuggestionLimit = 5
         // Covered by other chips (Media) or never useful as a type filter
         static let excludedTypeChipKeys: Set<ObjectTypeUniqueKey> = [
             .template, .participant, .objectType, .file, .image, .video, .audio, .chatDerived, .discussion, .date
@@ -1371,6 +1372,16 @@ final class UnifiedSearchViewModel {
         let scopeId = state.spaceScopeId
         let whatFilled = state.tokens.contains { $0.group == .what }
 
+        if scopeId == nil, supportsCrossSpaceRefinementSuggestions {
+            result.append(contentsOf: UnifiedSearchChipModel.refinementPackage(
+                people: personSuggestionChips(scopeSpaceId: nil),
+                channels: channelScopeChips(),
+                individualLimit: Constants.refinementSuggestionLimit
+            ))
+            chips = result
+            return
+        }
+
         if scopeId == nil, state.whatBucket != .channels {
             // Scope suggestion (global mode only): re-add the entry space.
             var channelChips = [UnifiedSearchChipModel]()
@@ -1382,12 +1393,7 @@ final class UnifiedSearchViewModel {
                 ))
             }
 
-            if supportsChannelScopeSuggestions {
-                channelChips.append(contentsOf: channelScopeChips(excluding: moduleData.currentSpaceId))
-                result.append(contentsOf: UnifiedSearchChipModel.channelScopePackage(individualChips: channelChips))
-            } else {
-                result.append(contentsOf: channelChips)
-            }
+            result.append(contentsOf: channelChips)
         }
 
         if scopeId == nil, !whatFilled {
@@ -1431,19 +1437,20 @@ final class UnifiedSearchViewModel {
         chips = result
     }
 
-    private func channelScopeChips(excluding excludedSpaceId: String?) -> [UnifiedSearchChipModel] {
+    private func channelScopeChips() -> [UnifiedSearchChipModel] {
         orderedSpaceViews
-            .filter { $0.targetSpaceId != excludedSpaceId }
             .map { spaceView in
                 UnifiedSearchChipModel(
                     token: .space(spaceId: spaceView.targetSpaceId),
-                    title: spaceView.title,
+                    title: spaceView.targetSpaceId == moduleData.currentSpaceId
+                        ? Loc.UnifiedSearch.Chip.inThisChannel
+                        : spaceView.title,
                     icon: spaceView.objectIconImage
                 )
             }
     }
 
-    private var supportsChannelScopeSuggestions: Bool {
+    private var supportsCrossSpaceRefinementSuggestions: Bool {
         state.tokens.contains { token in
             switch token {
             case .kind(let bucket):
@@ -1516,6 +1523,35 @@ final class UnifiedSearchViewModel {
                     icon: participant.icon.map { Icon.object($0) } ?? .object(.profile(.placeholder))
                 )
             }
+    }
+
+    private func personSuggestionChips(scopeSpaceId: String?) -> [UnifiedSearchChipModel] {
+        guard whoFilterApplies,
+              state.creatorIdentity == nil,
+              state.focusedPersonIdentity == nil,
+              let ownIdentity else { return [] }
+
+        let people = personBrowseList(scopeSpaceId: scopeSpaceId)
+        guard people.count > 1 else { return [] }
+
+        var result = [UnifiedSearchChipModel]()
+        let own = people.first { $0.identity == ownIdentity }
+        result.append(UnifiedSearchChipModel(
+            token: .creator(identity: ownIdentity),
+            title: Loc.UnifiedSearch.Chip.byMe,
+            icon: own?.icon.map { Icon.object($0) }
+        ))
+        result.append(contentsOf: people
+            .filter { $0.identity != ownIdentity }
+            .map { participant in
+                UnifiedSearchChipModel(
+                    token: .creator(identity: participant.identity),
+                    title: Loc.UnifiedSearch.Chip.by(participant.title),
+                    icon: participant.icon.map { Icon.object($0) } ?? .object(.profile(.placeholder))
+                )
+            }
+        )
+        return result
     }
 
     // People deduped by identity in the vault's 1:1-first order: partners of 1:1

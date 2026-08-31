@@ -35,9 +35,34 @@ struct UnifiedSearchChipModel: Identifiable, Hashable {
         }
     }
 
-    static func channelScopePackage(individualChips: [Self]) -> [Self] {
-        guard individualChips.isNotEmpty else { return [] }
-        return individualChips + [Self(action: .openChannelsPicker, title: UnifiedSearchKindBucket.channels.title)]
+    static func refinementPackage(
+        people: [Self],
+        channels: [Self],
+        individualLimit: Int
+    ) -> [Self] {
+        guard individualLimit > 0 else { return [] }
+
+        let people = Array(people.prefix(individualLimit))
+        let channels = Array(channels.prefix(individualLimit))
+        var result = [Self]()
+
+        if channels.isNotEmpty {
+            result.append(Self(
+                action: .openChannelsPicker,
+                title: UnifiedSearchKindBucket.channels.title
+            ))
+        }
+        if people.isNotEmpty {
+            result.append(Self(
+                action: .openPeoplePicker,
+                title: Loc.UnifiedSearch.Chip.people,
+                icon: .asset(ImageAsset.CustomIcons.people)
+            ))
+        }
+
+        result.append(contentsOf: people)
+        result.append(contentsOf: channels)
+        return result
     }
 }
 
