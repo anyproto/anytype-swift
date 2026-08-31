@@ -12,14 +12,10 @@ enum ObjectHeader: Hashable {
 
     static func empty(
         usecase: ObjectHeaderEmptyUsecase,
-        showPublishingBanner: Bool,
-        onTap: @escaping () -> Void
+        showPublishingBanner: Bool
     ) -> Self {
         return .empty(
-            data: ObjectHeaderEmptyData(
-                presentationStyle: usecase,
-                onTap: onTap
-            ),
+            data: ObjectHeaderEmptyData(presentationStyle: usecase),
             showPublishingBanner: showPublishingBanner,
             isShimmering: false
         )

@@ -123,7 +123,7 @@ final class ObjectHeaderViewModel: ObservableObject {
             )
         case .empty:
             return .empty(
-                data: ObjectHeaderEmptyData(presentationStyle: configuration.usecase, onTap: {}),
+                data: ObjectHeaderEmptyData(presentationStyle: configuration.usecase),
                 showPublishingBanner: showPublishingBanner,
                 isShimmering: true
             )

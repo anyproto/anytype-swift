@@ -56,9 +56,7 @@ struct SetFullHeader: View {
         Group {
             switch model.headerModel.header {
             case .empty(let data, _, _):
-                Button(action: data.onTap) {
-                    emptyCover(presentationStyle: data.presentationStyle)
-                }
+                emptyCover(presentationStyle: data.presentationStyle)
             case let .filled(state, showPublishingBanner, _):
                 ObjectHeaderFilledContentSwitfUIView(
                     configuration: ObjectHeaderFilledConfiguration(
@@ -78,7 +76,7 @@ struct SetFullHeader: View {
     
     private func emptyCover(presentationStyle: ObjectHeaderEmptyUsecase) -> some View {
         Color.Background.primary
-            .frame(height: presentationStyle == .full ? ObjectHeaderConstants.emptyViewHeight : ObjectHeaderConstants.emptyViewHeightCompact)
+            .frame(height: presentationStyle.height)
     }
     
     private var typeButtons: some View {

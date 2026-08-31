@@ -12,7 +12,7 @@ enum HeaderBuilder {
         let layoutAlign = details.objectAlignValue
         
         if details.resolvedLayoutValue.isNote {
-            return .empty(usecase: presentationUsecase, showPublishingBanner: showPublishingBanner, onTap: {})
+            return .empty(usecase: presentationUsecase, showPublishingBanner: showPublishingBanner)
         }
         
         let icon = details.resolvedLayoutValue.haveIcon ? details.objectIcon : nil
@@ -60,10 +60,7 @@ enum HeaderBuilder {
         }
         
         return .empty(
-            data: ObjectHeaderEmptyData(
-                presentationStyle: presentationUsecase,
-                onTap: onCoverTap
-            ),
+            data: ObjectHeaderEmptyData(presentationStyle: presentationUsecase),
             showPublishingBanner: showPublishingBanner,
             isShimmering: false
         )
