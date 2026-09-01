@@ -2,7 +2,8 @@ import Foundation
 import Services
 
 // A row of a focused listing: the focused type's or person's instance in one
-// space. Type instances open; person instances filter (creator + that space).
+// space. A type instance's primary action opens it; its trailing action filters.
+// Person instances filter (creator + that space) from either action.
 struct UnifiedSearchFocusRow: Identifiable, Hashable {
     enum Kind: Hashable {
         case typeInstance

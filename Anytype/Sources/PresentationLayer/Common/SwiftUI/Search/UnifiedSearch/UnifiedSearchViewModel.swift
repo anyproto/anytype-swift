@@ -1187,7 +1187,7 @@ final class UnifiedSearchViewModel {
     func onSelectFocusRow(_ row: UnifiedSearchFocusRow) {
         switch row.kind {
         case .typeInstance:
-            // A type instance opens
+            // The primary action on a type instance opens it.
             AnytypeAnalytics.instance().logSearchResult()
             guard let details = typesById[row.objectId] else { return }
             moduleData.onSelect(ScreenData(details: details))
@@ -1209,6 +1209,30 @@ final class UnifiedSearchViewModel {
             logToken(scopeToken, action: .add, source: .focus)
             updateTokenModels()
             rebuildChips()
+        }
+    }
+
+    func onFilterByFocusRow(_ row: UnifiedSearchFocusRow) {
+        switch row.kind {
+        case .typeInstance:
+            // Keep the primary action as open, but make the trailing accessory
+            // filter by this type in this Channel. Adding a scope converts the
+            // type focus into the corresponding plain type token.
+            guard let uniqueKey = state.focusedTypeKey else { return }
+            UISelectionFeedbackGenerator().selectionChanged()
+            let typeToken = UnifiedSearchToken.type(uniqueKey: uniqueKey)
+            let scopeToken = UnifiedSearchToken.space(spaceId: row.spaceId)
+            pushSnapshot(ownerTokenId: scopeToken.id, gestureTokenIds: [scopeToken.id, typeToken.id])
+            skipDebounceOnce = true
+            selectedTokenId = nil
+            state.searchText = ""
+            state.setSpaceScope(row.spaceId)
+            pruneOrphanedSnapshots()
+            logToken(scopeToken, action: .add, source: .focus)
+            updateTokenModels()
+            rebuildChips()
+        case .personInstance, .oneToOneChannel:
+            onSelectFocusRow(row)
         }
     }
 

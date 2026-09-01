@@ -176,7 +176,7 @@ struct UnifiedSearchView: View {
                         onTap: { model.onSelectFocusRow(row) },
                         onDrill: {
                             model.onFilterResultsTap {
-                                model.onSelectFocusRow(row)
+                                model.onFilterByFocusRow(row)
                             }
                         }
                     )
