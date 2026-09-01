@@ -105323,6 +105323,17 @@
         }
       }
     },
+    "UnifiedSearch.Onboarding.useAsFilter" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use as filter"
+          }
+        }
+      }
+    },
     "UnifiedSearch.Onboarding.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {

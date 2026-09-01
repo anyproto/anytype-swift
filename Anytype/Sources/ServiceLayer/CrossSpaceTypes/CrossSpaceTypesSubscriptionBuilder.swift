@@ -36,7 +36,8 @@ final class CrossSpaceTypesSubscriptionBuilder: CrossSpaceTypesSubscriptionBuild
             // color - the icon builder needs both
             BundledPropertyKey.iconOption.rawValue,
             BundledPropertyKey.isHidden.rawValue,
-            BundledPropertyKey.isDeleted.rawValue
+            BundledPropertyKey.isDeleted.rawValue,
+            BundledPropertyKey.lastUsedDate.rawValue
         ]
 
         return .crossSpaceSearch(
