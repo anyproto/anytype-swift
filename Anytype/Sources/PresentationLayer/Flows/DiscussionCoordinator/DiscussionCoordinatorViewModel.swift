@@ -81,7 +81,6 @@ final class DiscussionCoordinatorViewModel: DiscussionModuleOutput {
                 onCreatePersonalChannel: { },
                 onCreateGroupChannel: { },
                 onJoinQrCode: { },
-                animatesBarExpansion: false,
                 purpose: .attachToMessage,
                 excludedObjectIds: data.excludedObjectIds,
                 onSelectDetails: { [weak self] details in

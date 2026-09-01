@@ -156,7 +156,6 @@ final class UnifiedSearchViewModel {
     var fieldFocusRequestId = 0
 
     var isGlobal: Bool { state.spaceScopeId == nil }
-    var animatesBarExpansion: Bool { moduleData.animatesBarExpansion }
     // Create Channel is the Channels bucket's one action
     var showsCreateChannelAction: Bool { isGlobal && state.whatBucket == .channels }
 

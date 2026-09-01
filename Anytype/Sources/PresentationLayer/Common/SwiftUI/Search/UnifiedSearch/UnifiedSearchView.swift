@@ -12,8 +12,6 @@ struct UnifiedSearchView: View {
 
     @State private var model: UnifiedSearchViewModel
     @Namespace private var glassNamespace
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var barExpanded = false
 
     init(data: UnifiedSearchModuleData) {
         self._model = State(initialValue: UnifiedSearchViewModel(data: data))
@@ -33,15 +31,6 @@ struct UnifiedSearchView: View {
         // app switcher snapshots without a keyboard, and the underlying screen
         // must not show through the gap
         .background(Color.Background.secondary.ignoresSafeArea())
-        .onAppear {
-            guard model.animatesBarExpansion, !reduceMotion else {
-                barExpanded = true
-                return
-            }
-            withAnimation(.spring(duration: 0.35, bounce: 0.15)) {
-                barExpanded = true
-            }
-        }
         .task {
             await model.observeTypes()
         }
@@ -118,9 +107,6 @@ struct UnifiedSearchView: View {
                 .padding(.vertical, 10)
             }
         }
-        // The bar springs open from the entry button's corner
-        .scaleEffect(model.animatesBarExpansion && !barExpanded ? 0.2 : 1, anchor: .bottomLeading)
-        .opacity(model.animatesBarExpansion && !barExpanded ? 0 : 1)
         .fitIPadToReadableContentGuide()
         if #available(iOS 26.0, *) {
             block

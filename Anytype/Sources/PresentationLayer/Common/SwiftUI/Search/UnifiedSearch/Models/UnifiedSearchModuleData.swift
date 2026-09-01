@@ -23,9 +23,6 @@ struct UnifiedSearchModuleData: Identifiable, Hashable {
     @EquatableNoop var onCreatePersonalChannel: () -> Void
     @EquatableNoop var onCreateGroupChannel: () -> Void
     @EquatableNoop var onJoinQrCode: () -> Void
-    // True when the entry control is a compact button: the bar springs open from
-    // it. The vault's entry is already bar-shaped, so it appears in place.
-    let animatesBarExpansion: Bool
     var purpose: UnifiedSearchPurpose = .navigation
     // Seeds a chat token on top of the space scope (in-chat search entry)
     var initialChatId: String? = nil

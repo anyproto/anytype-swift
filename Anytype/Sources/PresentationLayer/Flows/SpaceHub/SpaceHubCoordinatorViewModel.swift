@@ -331,12 +331,11 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             onClose: { [weak self] in
                 self?.searchOverlayData = nil
                 self?.searchOverlayOriginItem = nil
-            },
-            animatesBarExpansion: false
+            }
         )
     }
 
-    private func searchModuleData(currentSpaceId: String?, initialChatId: String? = nil, onClose: (() -> Void)?, animatesBarExpansion: Bool) -> UnifiedSearchModuleData {
+    private func searchModuleData(currentSpaceId: String?, initialChatId: String? = nil, onClose: (() -> Void)?) -> UnifiedSearchModuleData {
         UnifiedSearchModuleData(
             currentSpaceId: currentSpaceId,
             onSelect: { [weak self] screenData in
@@ -373,7 +372,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             onJoinQrCode: { [weak self] in
                 self?.onSelectQrCodeJoin()
             },
-            animatesBarExpansion: animatesBarExpansion,
             initialChatId: initialChatId
         )
     }
@@ -900,8 +898,7 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
                 onClose: { [weak self] in
                     self?.searchOverlayData = nil
                     self?.searchOverlayOriginItem = nil
-                },
-                animatesBarExpansion: true
+                }
             )
         } else {
             showGlobalSearchData = GlobalSearchModuleData(
@@ -924,8 +921,7 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
             onClose: { [weak self] in
                 self?.searchOverlayData = nil
                 self?.searchOverlayOriginItem = nil
-            },
-            animatesBarExpansion: true
+            }
         )
     }
 
