@@ -2,10 +2,10 @@ import Foundation
 import SwiftUI
 
 struct AnytypeNavigationView: View {
-    
+
     @Binding var path: [AnyHashable]
     @Binding var pathChanging: Bool
-    
+
     let moduleSetup: (_ builder: AnytypeDestinationBuilderHolder) -> Void
 
     var body: some View {
@@ -15,7 +15,7 @@ struct AnytypeNavigationView: View {
 }
 
 struct AnytypeNavigationViewRepresentable: UIViewControllerRepresentable {
-    
+
     @Binding var path: [AnyHashable]
     @Binding var pathChanging: Bool
     let moduleSetup: (_ builder: AnytypeDestinationBuilderHolder) -> Void

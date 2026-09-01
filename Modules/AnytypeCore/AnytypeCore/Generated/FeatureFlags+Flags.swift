@@ -46,6 +46,14 @@ public extension FeatureFlags {
         value(for: .forkEmptyBlockOnFill)
     }
 
+    static var quickCapture: Bool {
+        value(for: .quickCapture)
+    }
+
+    static var quickCaptureTypeSuggestions: Bool {
+        value(for: .quickCaptureTypeSuggestions)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -60,6 +68,10 @@ public extension FeatureFlags {
 
     static var matchedTransitionSource: Bool {
         value(for: .matchedTransitionSource)
+    }
+
+    static var unifiedSearch: Bool {
+        value(for: .unifiedSearch)
     }
 
     static var rainbowViews: Bool {
@@ -142,10 +154,13 @@ public extension FeatureFlags {
         .preferredSpaceOnColdStart,
         .virtualTrailingBlock,
         .forkEmptyBlockOnFill,
+        .quickCapture,
+        .quickCaptureTypeSuggestions,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .matchedTransitionSource,
+        .unifiedSearch,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

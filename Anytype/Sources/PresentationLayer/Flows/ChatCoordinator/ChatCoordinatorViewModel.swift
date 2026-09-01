@@ -32,6 +32,7 @@ final class ChatCoordinatorViewModel: ChatModuleOutput, ObjectSettingsCoordinato
     let useBlocksFormat: Bool
     
     var objectToMessageSearchData: ObjectSearchWithMetaModuleData?
+    var unifiedObjectPickerData: UnifiedSearchModuleData?
     var showEmojiData: MessageReactionPickerData?
     var showSyncStatusInfo = false
     var objectIconPickerData: ObjectIconPickerData?
@@ -69,7 +70,32 @@ final class ChatCoordinatorViewModel: ChatModuleOutput, ObjectSettingsCoordinato
     }
     
     func onLinkObjectSelected(data: ObjectSearchWithMetaModuleData) {
-        objectToMessageSearchData = data
+        if FeatureFlags.unifiedSearch {
+            unifiedObjectPickerData = UnifiedSearchModuleData(
+                currentSpaceId: data.spaceId,
+                onSelect: { _ in },
+                onOpenSpace: { _ in },
+                onOpenMessage: { _, _, _ in },
+                onClose: { [weak self] in
+                    self?.unifiedObjectPickerData = nil
+                },
+                onCreatePersonalChannel: { },
+                onCreateGroupChannel: { },
+                onJoinQrCode: { },
+                purpose: .attachToMessage,
+                excludedObjectIds: data.excludedObjectIds,
+                onSelectDetails: { [weak self] details in
+                    data.onSelect(details)
+                    self?.unifiedObjectPickerData = nil
+                }
+            )
+        } else {
+            objectToMessageSearchData = data
+        }
+    }
+
+    func onUnifiedSearchSelected() {
+        pageNavigation?.openChatSearch(chatId)
     }
     
     func didSelectAddReaction(messageId: String) {

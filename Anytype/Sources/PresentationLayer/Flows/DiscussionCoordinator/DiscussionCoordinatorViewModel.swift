@@ -36,6 +36,7 @@ final class DiscussionCoordinatorViewModel: DiscussionModuleOutput {
     let messageId: String?
 
     var objectToMessageSearchData: ObjectSearchWithMetaModuleData?
+    var unifiedObjectPickerData: UnifiedSearchModuleData?
     var showEmojiData: MessageReactionPickerData?
     var linkToObjectData: LinkToObjectSearchModuleData?
     var showFilesPicker = false
@@ -68,7 +69,28 @@ final class DiscussionCoordinatorViewModel: DiscussionModuleOutput {
     }
 
     func onLinkObjectSelected(data: ObjectSearchWithMetaModuleData) {
-        objectToMessageSearchData = data
+        if FeatureFlags.unifiedSearch {
+            unifiedObjectPickerData = UnifiedSearchModuleData(
+                currentSpaceId: data.spaceId,
+                onSelect: { _ in },
+                onOpenSpace: { _ in },
+                onOpenMessage: { _, _, _ in },
+                onClose: { [weak self] in
+                    self?.unifiedObjectPickerData = nil
+                },
+                onCreatePersonalChannel: { },
+                onCreateGroupChannel: { },
+                onJoinQrCode: { },
+                purpose: .attachToMessage,
+                excludedObjectIds: data.excludedObjectIds,
+                onSelectDetails: { [weak self] details in
+                    data.onSelect(details)
+                    self?.unifiedObjectPickerData = nil
+                }
+            )
+        } else {
+            objectToMessageSearchData = data
+        }
     }
 
     func didCreateDiscussion(discussionId: String) {

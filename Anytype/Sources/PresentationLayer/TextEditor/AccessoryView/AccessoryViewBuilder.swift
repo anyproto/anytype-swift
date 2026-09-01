@@ -7,7 +7,8 @@ struct AccessoryViewBuilder {
     static func accessoryState(
         actionHandler: some BlockActionHandlerProtocol,
         router: some EditorRouterProtocol,
-        document: some BaseDocumentProtocol
+        document: some BaseDocumentProtocol,
+        quickCapture: Bool = false
     ) -> (some AccessoryViewStateManager, some ChangeTypeAccessoryViewModel) {
         let mentionsModule = MentionAssembly().controller(document: document, router: router)
 
@@ -25,7 +26,8 @@ struct AccessoryViewBuilder {
         let changeTypeViewModel = ChangeTypeAccessoryViewModel(
             router: router,
             handler: actionHandler,
-            document: document
+            document: document,
+            quickCapture: quickCapture
         )
         let typeListViewModel = HorizonalTypeListViewModel(
             itemProvider: changeTypeViewModel, 

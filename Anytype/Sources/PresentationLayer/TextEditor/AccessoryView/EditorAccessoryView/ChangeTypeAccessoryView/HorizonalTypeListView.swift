@@ -17,7 +17,7 @@ struct HorizonalTypeListView: View {
                     Button {
                         item.action()
                     } label: {
-                        TypeView(icon: item.icon, title: item.title)
+                        TypeView(icon: item.icon, title: item.title, isSuggested: item.isSuggested)
                     }
                 }
             }
@@ -65,14 +65,20 @@ struct HorizonalTypeListView: View {
 private struct TypeView: View {
     let icon: Icon?
     let title: String
+    var isSuggested: Bool = false
 
     var body: some View {
         HStack(spacing: 5) {
+            if isSuggested {
+                Image(systemName: "sparkles")
+                    .font(.system(size: 12))
+                    .foregroundStyle(Color.Control.accent100)
+            }
             if let icon {
                 IconView(icon: icon)
                     .frame(width: 16, height: 16)
             }
-            
+
             AnytypeText(title, style: .caption1Medium)
                 .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)

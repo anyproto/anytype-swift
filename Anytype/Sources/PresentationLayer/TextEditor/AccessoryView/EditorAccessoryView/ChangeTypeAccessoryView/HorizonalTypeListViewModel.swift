@@ -8,6 +8,7 @@ struct HorizontalListItem: Identifiable, Hashable {
     let id: String
     let title: String
     let icon: Icon
+    var isSuggested: Bool = false
 
     @EquatableNoop var action: () -> Void
 }
@@ -62,11 +63,12 @@ final class HorizonalTypeListViewModel: ObservableObject {
 }
 
 extension HorizontalListItem {
-    init(from details: ObjectDetails, handler: @escaping () -> Void) {
+    init(from details: ObjectDetails, isSuggested: Bool = false, handler: @escaping () -> Void) {
         self.init(
             id: details.id,
             title: details.name,
             icon: details.objectIconImage,
+            isSuggested: isSuggested,
             action: handler
         )
     }

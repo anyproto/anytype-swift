@@ -65,6 +65,20 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
+    static let quickCapture = FeatureDescription(
+        title: "Quick Capture from Space Hub - IOS-6617",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "?"),
+        defaultValue: false,
+        debugValue: true
+    )
+
+    static let quickCaptureTypeSuggestions = FeatureDescription(
+        title: "Quick Capture - on-device AI type suggestions - IOS-6617",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "?"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(
@@ -89,6 +103,12 @@ public extension FeatureDescription {
         title: "iOS 26 - matchedTransitionSource (source view may disappear)",
         category: .productFeature(author: "vova@anytype.io", targetRelease: "?"),
         defaultValue: false
+    )
+
+    static let unifiedSearch = FeatureDescription(
+        title: "Unified search - cross-space + scope tokens - IOS-6619",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "0.50.0"),
+        defaultValue: true
     )
 
     // MARK: - Debug

@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct ChatHeaderView: View {
 
@@ -32,7 +33,7 @@ struct ChatHeaderView: View {
         ) {
             titleView
         } rightContent: {
-            moreButton
+            rightButtons
         }
         .task {
             await model.startSubscriptions()
@@ -101,6 +102,32 @@ struct ChatHeaderView: View {
         .frame(height: NavigationHeaderConstants.height)
     }
 
+    // A dedicated button instead of a menu item: the system menu presents over
+    // the header's glass controls and the item nearest the anchor loses taps
+    private var rightButtons: some View {
+        // Wider than the header glass container's spacing (12), or the two
+        // circles fuse into one blob at rest
+        HStack(spacing: 16) {
+            if FeatureFlags.unifiedSearch {
+                searchButton
+            }
+            moreButton
+        }
+    }
+
+    private var searchButton: some View {
+        Button {
+            model.tapOpenSearch()
+        } label: {
+            Image(asset: .X24.search)
+                .renderingMode(.template)
+                .foregroundStyle(Color.Control.primary)
+                .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+        }
+        .glassEffectInteractiveIOS26(in: Circle())
+        .accessibilityLabel(Loc.Chat.messageSearch)
+    }
+
     @ViewBuilder
     private var moreButton: some View {
         Group {
@@ -115,12 +142,16 @@ struct ChatHeaderView: View {
                             .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
                     },
                     additionalMenuItems: {
-                        searchMenuItem
+                        if !FeatureFlags.unifiedSearch {
+                            searchMenuItem
+                        }
                     }
                 )
             } else {
                 Menu {
-                    searchMenuItem
+                    if !FeatureFlags.unifiedSearch {
+                        searchMenuItem
+                    }
 
                     Button {
                         model.tapOpenSpaceSettings()

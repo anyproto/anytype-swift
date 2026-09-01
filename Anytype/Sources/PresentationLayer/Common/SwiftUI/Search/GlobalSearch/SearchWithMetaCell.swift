@@ -4,7 +4,7 @@ import Services
 
 
 struct SearchWithMetaCell: View {
-    
+
     let model: SearchWithMetaModel
 
     var body: some View {
@@ -37,12 +37,16 @@ struct SearchWithMetaCell: View {
             
             highlights
             
-            if model.objectTypeName.isNotEmpty {
+            if model.objectTypeName.isNotEmpty || model.spaceCaption.isNotNil {
                 HStack(spacing: 0) {
                     AnytypeText(model.objectTypeName, style: .relation2Regular)
                         .foregroundStyle(Color.Text.secondary)
                         .lineLimit(1)
-                    
+
+                    if let spaceCaption = model.spaceCaption {
+                        spaceCaptionView(spaceCaption)
+                    }
+
                     if FeatureFlags.showGlobalSearchScore, model.score.isNotEmpty {
                         Spacer()
                         AnytypeText(model.score, style: .relation2Regular)
@@ -56,6 +60,19 @@ struct SearchWithMetaCell: View {
         }
     }
     
+    private func spaceCaptionView(_ spaceCaption: SearchSpaceCaption) -> some View {
+        HStack(spacing: 4) {
+            if model.objectTypeName.isNotEmpty {
+                AnytypeText("·", style: .relation2Regular)
+                    .foregroundStyle(Color.Text.secondary)
+            }
+            AnytypeText(Loc.UnifiedSearch.inSpace(spaceCaption.name), style: .relation2Regular)
+                .foregroundStyle(Color.Text.secondary)
+                .lineLimit(1)
+        }
+        .padding(.leading, model.objectTypeName.isNotEmpty ? 4 : 0)
+    }
+
     private var highlights: some View {
         ForEach(model.highlights) { data in
             switch data {

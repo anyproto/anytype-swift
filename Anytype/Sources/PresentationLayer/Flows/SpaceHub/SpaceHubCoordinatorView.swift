@@ -92,6 +92,24 @@ struct SpaceHubCoordinatorView: View {
                 SettingsCoordinatorView()
                     .pageNavigation(model.pageNavigation)
             }
+            .sheet(isPresented: $model.showQuickCapture) {
+                QuickCaptureCoordinatorView(onCreated: { model.quickCaptureDidCreate($0) })
+            }
+            .overlay(alignment: .bottom) {
+                if let banner = model.quickCaptureCreated {
+                    QuickCaptureCreatedBannerView(banner: banner) {
+                        model.onTapQuickCaptureCreated()
+                    }
+                    .padding(.bottom, 56)
+                }
+            }
+            .task(item: model.quickCaptureCreated) { _ in
+                try? await Task.sleep(for: .seconds(6))
+                // A newer capture replaced this banner - its own timer is running now
+                guard !Task.isCancelled else { return }
+                await model.quickCaptureBannerTimeout()
+            }
+            .animation(.default, value: model.quickCaptureCreated)
         
             // load photos
             .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)
@@ -115,12 +133,21 @@ struct SpaceHubCoordinatorView: View {
 
             // widgets overlay
             .fullScreenCover(item: $model.overlayWidgetsData) { data in
-                HomeWidgetsCoordinatorView(data: data, context: .overlay)
+                SearchOverlayHost(model: model, item: AnyHashable(data), content: HomeWidgetsCoordinatorView(data: data, context: .overlay))
                     .pageNavigation(model.pageNavigation)
                     .navigationZoomTransition(sourceID: "widgetsOverlay", in: namespace)
             }
+            .onChange(of: model.overlayWidgetsData) { old, new in
+                if new == nil {
+                    model.onWidgetsOverlayDismissed(old)
+                }
+            }
     }
     
+    private func searchOverlayHost(for item: some Hashable, @ViewBuilder content: () -> some View) -> some View {
+        SearchOverlayHost(model: model, item: AnyHashable(item), content: content())
+    }
+
     private var content: some View {
         ZStack {
             Color.Background.primary
@@ -130,27 +157,39 @@ struct SpaceHubCoordinatorView: View {
                 content: {
                     AnytypeNavigationView(path: $model.navigationPath, pathChanging: $model.pathChanging) { builder in
                         builder.appendBuilder(for: HomeWidgetData.self) { data in
-                            HomeWidgetsCoordinatorView(data: data, context: .navigation)
+                            searchOverlayHost(for: data) {
+                                HomeWidgetsCoordinatorView(data: data, context: .navigation)
+                            }
                         }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
-                            EditorCoordinatorView(data: data)
+                            searchOverlayHost(for: data) {
+                                EditorCoordinatorView(data: data)
+                            }
                         }
-                        builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
-                            SpaceHubView(output: model)
+                        builder.appendBuilder(for: SpaceHubNavigationItem.self) { item in
+                            searchOverlayHost(for: item) {
+                                SpaceHubView(output: model)
+                            }
                         }
-                        builder.appendBuilder(for: SpaceChatCoordinatorData.self) {
-                            SpaceChatCoordinatorView(data: $0)
+                        builder.appendBuilder(for: SpaceChatCoordinatorData.self) { data in
+                            searchOverlayHost(for: data) {
+                                SpaceChatCoordinatorView(data: data)
+                            }
                         }
                         // Wrap here instead of inside ChatCoordinatorView to avoid nesting
                         // SpaceLoadingContainerView (see comment in SpaceLoadingContainerView.swift)
                         builder.appendBuilder(for: ChatCoordinatorData.self) { data in
-                            SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) { _ in
-                                ChatCoordinatorView(data: data)
+                            searchOverlayHost(for: data) {
+                                SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) { _ in
+                                    ChatCoordinatorView(data: data)
+                                }
                             }
                         }
                         builder.appendBuilder(for: DiscussionCoordinatorData.self) { data in
-                            SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) { _ in
-                                DiscussionCoordinatorView(data: data)
+                            searchOverlayHost(for: data) {
+                                SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) { _ in
+                                    DiscussionCoordinatorView(data: data)
+                                }
                             }
                         }
                         builder.appendBuilder(for: SpaceInfoScreenData.self) { data in
@@ -166,7 +205,7 @@ struct SpaceHubCoordinatorView: View {
                      }
                 },
                 bottomPanel: {
-                    if let spaceInfo = model.spaceInfo {
+                    if let spaceInfo = model.spaceInfo, !model.hidesBottomPanelForSearch {
                         HomeBottomNavigationPanelView(homePath: model.navigationPath, info: spaceInfo, output: model)
                     }
                 }
@@ -178,6 +217,37 @@ struct SpaceHubCoordinatorView: View {
         .animation(.easeInOut, value: model.spaceInfo)
         .pageNavigation(model.pageNavigation)
         .chatActionProvider($model.chatProvider)
+    }
+}
+
+// Hosts the search overlay inside the screen it was opened over, so pushed
+// results stack above it in the navigation hierarchy and an interactive pop
+// reveals the open search as part of that screen - state, scroll and field
+// intact, no transition of its own on return. Must be a View (not a builder
+// function) so the model reads in body are observation-tracked.
+private struct SearchOverlayHost<Content: View>: View {
+
+    let model: SpaceHubCoordinatorViewModel
+    let item: AnyHashable
+    let content: Content
+
+    private var searchIsOpenHere: Bool {
+        model.searchOverlayData != nil && model.searchOverlayOriginItem == item
+    }
+
+    var body: some View {
+        ZStack {
+            content
+            if let searchData = model.searchOverlayData, model.searchOverlayOriginItem == item {
+                UnifiedSearchView(data: searchData)
+                    .transition(.opacity)
+                    .zIndex(1)
+            }
+        }
+        .animation(.easeInOut(duration: 0.25), value: model.searchOverlayData.isNotNil)
+        // Restores the screen's own panel-hidden claim at close START - the
+        // search's fade-out reveals a panel already in place
+        .homeBottomPanelOverlayHidden(searchIsOpenHere)
     }
 }
 
