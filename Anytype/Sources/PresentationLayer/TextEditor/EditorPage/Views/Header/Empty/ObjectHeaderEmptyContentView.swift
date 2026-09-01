@@ -3,8 +3,7 @@ import UIKit
 final class ObjectHeaderEmptyContentView: UIView, BlockContentView {
     // MARK: - Private variables
     private let emptyView = UIView()
-    private let tapGesture = BindableGestureRecognizer()
-    
+
     private var heightConstraint: NSLayoutConstraint?
 
     override init(frame: CGRect) {
@@ -19,22 +18,9 @@ final class ObjectHeaderEmptyContentView: UIView, BlockContentView {
         setupView()
     }
 
-    func update(with state: UICellConfigurationState) {
-        tapGesture.isEnabled = !state.isLocked
-    }
-
     func update(with configuration: ObjectHeaderEmptyConfiguration) {
-        tapGesture.action = { _ in
-            configuration.data.onTap()
-        }
-        
-        switch configuration.data.presentationStyle {
-        case .full:
-            let bannerPadding = configuration.showPublishingBanner ? 40 : 0
-            heightConstraint?.constant = bannerPadding + ObjectHeaderConstants.emptyViewHeight
-        case .embedded:
-            heightConstraint?.constant = ObjectHeaderConstants.emptyViewHeightCompact
-        }
+        let bannerPadding: CGFloat = configuration.showPublishingBanner ? 40 : 0
+        heightConstraint?.constant = configuration.data.presentationStyle.height + bannerPadding
     }
 }
 
@@ -43,7 +29,6 @@ private extension ObjectHeaderEmptyContentView  {
     func setupView() {
         backgroundColor = .Background.primary
         setupLayout()
-        addGestureRecognizer(tapGesture)
     }
     
     func setupLayout() {

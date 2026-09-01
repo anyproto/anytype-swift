@@ -24,17 +24,25 @@ extension Anytype_Rpc.Chat {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
+        /// empty spaceId means all spaces (usually combined with empty chatId)
         public var spaceID: String = String()
 
+        /// empty chatId means all chats in spaceId; results carry chatId/spaceId per message
         public var chatID: String = String()
 
+        /// Note: ORDER_ID sort is only meaningful within a single chat
         public var sorts: [Anytype_Model_Search.Message.Sort] = []
 
+        /// empty fullText browses the latest messages in scope (default sort CREATED_AT desc);
+        /// non-empty fullText is a relevance search (default sort SCORE desc)
         public var fullText: String = String()
 
         public var offset: Int32 = 0
 
         public var limit: Int32 = 0
+
+        /// (optional) restrict to messages authored by these identities; empty = all authors
+        public var creators: [String] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -141,7 +149,7 @@ extension Anytype_Rpc.Chat.Search: SwiftProtobuf.Message, SwiftProtobuf._Message
 
 extension Anytype_Rpc.Chat.Search.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Chat.Search.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}chatId\0\u{1}sorts\0\u{1}fullText\0\u{1}offset\0\u{1}limit\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}chatId\0\u{1}sorts\0\u{1}fullText\0\u{1}offset\0\u{1}limit\0\u{1}creators\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -155,6 +163,7 @@ extension Anytype_Rpc.Chat.Search.Request: SwiftProtobuf.Message, SwiftProtobuf.
       case 4: try { try decoder.decodeSingularStringField(value: &self.fullText) }()
       case 5: try { try decoder.decodeSingularInt32Field(value: &self.offset) }()
       case 6: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
+      case 7: try { try decoder.decodeRepeatedStringField(value: &self.creators) }()
       default: break
       }
     }
@@ -179,6 +188,9 @@ extension Anytype_Rpc.Chat.Search.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if self.limit != 0 {
       try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 6)
     }
+    if !self.creators.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.creators, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -189,6 +201,7 @@ extension Anytype_Rpc.Chat.Search.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs.fullText != rhs.fullText {return false}
     if lhs.offset != rhs.offset {return false}
     if lhs.limit != rhs.limit {return false}
+    if lhs.creators != rhs.creators {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

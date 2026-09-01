@@ -45,10 +45,49 @@ private struct HomeBottomHiddenStateViewModifier: ViewModifier {
 }
 
 
+// A transient overlay's claim on the panel (the search overlay). The plain
+// modifier is a latch that would outlive the overlay - this one remembers the
+// screen's own latched value while `hidden` is on and hands it back when it
+// flips off. Instant both ways: the overlay's own fade is the only animation.
+private struct HomeBottomHiddenOverlayViewModifier: ViewModifier {
+
+    let hidden: Bool
+
+    @Environment(\.homeBottomPanelState) @Binding private var homeBottomPanelState
+    @Environment(\.anytypeNavigationItemData) private var itemData
+    @State private var previousHidden: Bool?
+
+    func body(content: Content) -> some View {
+        content
+            .onChange(of: hidden) { _, newValue in
+                guard let itemData else { return }
+                if newValue {
+                    // Open: the panel fades out under the appearing overlay
+                    previousHidden = homeBottomPanelState.hidden(for: itemData)
+                    withAnimation {
+                        homeBottomPanelState.setHidden(true, for: itemData)
+                    }
+                } else {
+                    // Close: back instantly - the overlay's fade-out reveals a
+                    // panel already in place, not one fading in after
+                    var transaction = Transaction()
+                    transaction.disablesAnimations = true
+                    withTransaction(transaction) {
+                        homeBottomPanelState.setHidden(previousHidden ?? false, for: itemData)
+                    }
+                }
+            }
+    }
+}
+
 extension View {
     
     func homeBottomPanelState(_ handler: Binding<HomeBottomPanelState>) -> some View {
         environment(\.homeBottomPanelState, handler)
+    }
+    
+    func homeBottomPanelOverlayHidden(_ hidden: Bool) -> some View {
+        modifier(HomeBottomHiddenOverlayViewModifier(hidden: hidden))
     }
     
     func homeBottomPanelHidden(_ hidden: Bool, animated: Bool = true) -> some View {

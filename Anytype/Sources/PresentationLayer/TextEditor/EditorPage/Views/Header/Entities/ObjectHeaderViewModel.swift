@@ -62,8 +62,13 @@ final class ObjectHeaderViewModel: ObservableObject {
         self.output = output
         
         setupSubscription()
-        
-        header = buildShimmeringHeader()
+
+        // Details already loaded (reopened document) - skip the placeholder
+        if let details = document.details {
+            header = buildHeader(details: details, showPublishingBanner: showPublishingBanner)
+        } else {
+            header = buildShimmeringHeader()
+        }
     }
     
     func updatePublishingBannerVisibility(_ isVisible: Bool) {
@@ -80,6 +85,9 @@ final class ObjectHeaderViewModel: ObservableObject {
         }
     }
 
+    // Sized to the layout the real header will have (when the opening flow knew
+    // the details) - a placeholder of a different height visibly collapses once
+    // data arrives, because the editor never compensates the reflow
     func buildShimmeringHeader() -> ObjectHeader {
         let usecase = ObjectIconImageUsecase.openedObject
         let imageSize = usecase.objectIconImageGuidelineSet.emojiImageGuideline?.size ?? .zero
@@ -90,27 +98,49 @@ final class ObjectHeaderViewModel: ObservableObject {
             foregroundColor: nil,
             backgroundColor: .Shape.tertiary
         )
-        return .filled(
-            state: .iconAndCover(
-                icon: .init(
-                    icon: .init(mode: .image(image), usecase: usecase),
-                    layoutAlignment: .left,
-                    onTap: {}
-                ),
-                cover: .init(
-                    coverType: .cover(.color(.Shape.tertiary)),
-                    onTap: {})
-            ),
-            showPublishingBanner: showPublishingBanner,
-            isShimmering: true
+        let shimmerIcon = ObjectHeaderIcon(
+            icon: .init(mode: .image(image), usecase: usecase),
+            layoutAlignment: .left,
+            onTap: {}
         )
+        let shimmerCover = ObjectHeaderCover(
+            coverType: .cover(.color(.Shape.tertiary)),
+            onTap: {}
+        )
+
+        switch configuration.headerHint {
+        case .iconOnly:
+            return .filled(
+                state: .iconOnly(ObjectHeaderIconOnlyState(icon: shimmerIcon, onCoverTap: {})),
+                showPublishingBanner: showPublishingBanner,
+                isShimmering: true
+            )
+        case .coverOnly:
+            return .filled(
+                state: .coverOnly(shimmerCover),
+                showPublishingBanner: showPublishingBanner,
+                isShimmering: true
+            )
+        case .empty:
+            return .empty(
+                data: ObjectHeaderEmptyData(presentationStyle: configuration.usecase),
+                showPublishingBanner: showPublishingBanner,
+                isShimmering: true
+            )
+        case .iconAndCover, nil:
+            return .filled(
+                state: .iconAndCover(icon: shimmerIcon, cover: shimmerCover),
+                showPublishingBanner: showPublishingBanner,
+                isShimmering: true
+            )
+        }
     }
     
     private func onUpdate(details: ObjectDetails?, showPublishingBanner: Bool) {
         guard let details else { return }
         
         let header = buildHeader(details: details, showPublishingBanner: showPublishingBanner)
-        
+
         if self.header != header {
             self.header = header
         }

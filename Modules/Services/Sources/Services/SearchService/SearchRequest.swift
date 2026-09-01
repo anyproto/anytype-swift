@@ -6,14 +6,16 @@ public struct SearchRequest: Sendable {
     public let sorts: [DataviewSort]
     public let fullText: String
     public let keys: [String]
+    public let offset: Int
     public let limit: Int
-    
-    public init(spaceId: String, filters: [DataviewFilter], sorts: [DataviewSort], fullText: String, keys: [String], limit: Int) {
+
+    public init(spaceId: String, filters: [DataviewFilter], sorts: [DataviewSort], fullText: String, keys: [String], offset: Int = 0, limit: Int) {
         self.spaceId = spaceId
         self.filters = filters
         self.sorts = sorts
         self.fullText = fullText
         self.keys = keys
+        self.offset = offset
         self.limit = limit
     }
 }

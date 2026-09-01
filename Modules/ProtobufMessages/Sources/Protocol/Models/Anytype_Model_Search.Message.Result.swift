@@ -38,6 +38,9 @@ extension Anytype_Model_Search.Message {
       /// Clears the value of `message`. Subsequent reads from it will return its default value.
       public mutating func clearMessage() {self._message = nil}
 
+      /// space the chat belongs to; set in all search scopes
+      public var spaceID: String = String()
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
@@ -48,7 +51,7 @@ extension Anytype_Model_Search.Message {
 
 extension Anytype_Model_Search.Message.Result: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Search.Message.protoMessageName + ".Result"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}chatId\0\u{1}messageId\0\u{1}score\0\u{1}highlight\0\u{1}highlightRanges\0\u{1}message\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}chatId\0\u{1}messageId\0\u{1}score\0\u{1}highlight\0\u{1}highlightRanges\0\u{1}message\0\u{1}spaceId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -62,6 +65,7 @@ extension Anytype_Model_Search.Message.Result: SwiftProtobuf.Message, SwiftProto
       case 4: try { try decoder.decodeSingularStringField(value: &self.highlight) }()
       case 5: try { try decoder.decodeRepeatedMessageField(value: &self.highlightRanges) }()
       case 6: try { try decoder.decodeSingularMessageField(value: &self._message) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       default: break
       }
     }
@@ -90,6 +94,9 @@ extension Anytype_Model_Search.Message.Result: SwiftProtobuf.Message, SwiftProto
     try { if let v = self._message {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
     } }()
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -100,6 +107,7 @@ extension Anytype_Model_Search.Message.Result: SwiftProtobuf.Message, SwiftProto
     if lhs.highlight != rhs.highlight {return false}
     if lhs.highlightRanges != rhs.highlightRanges {return false}
     if lhs._message != rhs._message {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

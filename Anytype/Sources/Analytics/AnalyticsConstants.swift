@@ -82,6 +82,7 @@ enum AnalyticsEventsRouteKind: String {
     case link = "Link"
     case slashMenu = "SlashMenu"
     case quickAction = "QuickAction"
+    case quickCapture = "QuickCapture"
 }
 
 enum AnalyticsEventsRelationType: String {
@@ -389,6 +390,33 @@ enum ScreenSearchType: String {
 
 enum SearchInputRoute: String {
     case library = "Library"
+    case vault = "Vault"
+    case space = "Space"
+}
+
+enum SearchTokenType: String {
+    case space = "Space"
+    case kind = "Kind"
+    case chat = "Chat"
+    case type = "Type"
+    case creator = "Creator"
+}
+
+enum SearchTokenAction: String {
+    case add = "Add"
+    case remove = "Remove"
+    case replace = "Replace"
+}
+
+enum SearchTokenSource: String {
+    case chip = "Chip"
+    case row = "Row"
+    case caption = "Caption"
+    case entry = "Entry"
+    case token = "Token"
+    case backspace = "Backspace"
+    case group = "Group"
+    case focus = "Focus"
 }
 
 enum StyleObjectType: String {

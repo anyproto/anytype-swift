@@ -74,8 +74,13 @@ final class ObjectSettingsViewModel {
         openDocumentsProvider.document(objectId: objectId, spaceId: spaceId)
     }()
 
+    // Both widget documents exist only to resolve the pin and favorite states, and both
+    // of those actions are filtered out of the quick capture menu. Quick capture also
+    // never activates the space, so its per-space `AccountInfo` is legitimately absent -
+    // opening them there would assert on every space switch to compute nothing.
     @ObservationIgnored
     private lazy var widgetObject: (any BaseDocumentProtocol)? = {
+        guard !quickCapture else { return nil }
         guard let info = workspaceStorage.spaceInfo(spaceId: spaceId) else {
             anytypeAssertionFailure("info not found")
             return nil
@@ -88,6 +93,7 @@ final class ObjectSettingsViewModel {
     // the global info can race app launch with `AccountData.empty`.
     @ObservationIgnored
     private lazy var personalWidgetsObject: (any BaseDocumentProtocol)? = {
+        guard !quickCapture else { return nil }
         guard let info = workspaceStorage.spaceInfo(spaceId: spaceId) else {
             anytypeAssertionFailure("info not found for personal widgets")
             return nil
@@ -102,6 +108,8 @@ final class ObjectSettingsViewModel {
     let objectId: String
     @ObservationIgnored
     let spaceId: String
+    @ObservationIgnored
+    private let quickCapture: Bool
 
     // MARK: - Settings State
 
@@ -123,11 +131,13 @@ final class ObjectSettingsViewModel {
     init(
         objectId: String,
         spaceId: String,
-        output: some ObjectSettingsModelOutput
+        output: some ObjectSettingsModelOutput,
+        quickCapture: Bool = false
     ) {
         self.objectId = objectId
         self.spaceId = spaceId
         self.output = output
+        self.quickCapture = quickCapture
 
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
         spaceType = spaceView?.spaceType

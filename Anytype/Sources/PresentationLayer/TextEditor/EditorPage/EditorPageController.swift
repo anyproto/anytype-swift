@@ -121,7 +121,7 @@ final class EditorPageController: UIViewController {
         self.blocksSelectionOverlayView = blocksSelectionOverlayView
         self.bottomNavigationManager = bottomNavigationManager
         self.showHeader = showHeader
-        
+
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -330,7 +330,7 @@ extension EditorPageController: EditorPageViewInput {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
         dataSource.apply(headerSnapshot, to: .header, animatingDifferences: false)
-        
+
         navigationBarHelper.configureNavigationBar(using: header)
     }
     
@@ -792,4 +792,3 @@ private extension EditorPageController {
 private enum Constants {
     static let shakeUndoTriggerDuration: CGFloat = 1
 }
-

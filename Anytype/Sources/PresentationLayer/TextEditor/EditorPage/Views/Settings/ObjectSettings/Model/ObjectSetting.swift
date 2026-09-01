@@ -25,7 +25,17 @@ enum ObjectSetting: Hashable {
 }
 
 extension ObjectSetting {
-    
+
+    // Quick capture keeps only the basics - the draft gets full options once published
+    var availableInQuickCapture: Bool {
+        switch self {
+        case .icon, .cover, .relations, .description:
+            return true
+        case .history, .resolveConflict, .webPublishing, .notifications, .prefillName:
+            return false
+        }
+    }
+
     var section: ObjectSettingsSectionType {
         switch self {
         case .icon, .cover, .description, .relations, .resolveConflict, .prefillName:

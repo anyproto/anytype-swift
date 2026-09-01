@@ -255,6 +255,10 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     // MARK: - Message Search
 
     func onTapOpenSearch() {
+        guard !FeatureFlags.unifiedSearch else {
+            output?.onUnifiedSearchSelected()
+            return
+        }
         inputFocused = false
         searchMode = .fullscreen
     }

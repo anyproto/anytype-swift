@@ -6,6 +6,10 @@ import AnytypeCore
 @MainActor
 protocol SearchWithMetaModelBuilderProtocol {
     func buildModel(with searchResult: SearchResultWithMeta, spaceId: String, participantCanEdit: Bool) -> SearchWithMetaModel
+    // Cross-space records carry no match meta and cannot resolve their type via the
+    // active-space ObjectTypeProvider - the caller resolves typeName from the
+    // vault-wide types storage.
+    func buildCrossSpaceModel(details: ObjectDetails, typeName: String, spaceCaption: SearchSpaceCaption?) -> SearchWithMetaModel
 }
 
 @MainActor
@@ -39,7 +43,26 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
             objectTypeName: details.objectType.displayName,
             editorScreenData: ScreenData(details: details, blockId: meta.first?.blockID),
             score: score,
-            canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive
+            canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive,
+            spaceCaption: nil,
+            lastModifiedDate: details.lastModifiedDate,
+            createdDate: details.createdDate
+        )
+    }
+
+    func buildCrossSpaceModel(details: ObjectDetails, typeName: String, spaceCaption: SearchSpaceCaption?) -> SearchWithMetaModel {
+        SearchWithMetaModel(
+            id: details.id,
+            iconImage: details.objectIconImage,
+            title: AttributedString(details.pluralTitle),
+            highlights: [],
+            objectTypeName: typeName,
+            editorScreenData: ScreenData(details: details, blockId: nil),
+            score: "",
+            canArchive: false,
+            spaceCaption: spaceCaption,
+            lastModifiedDate: details.lastModifiedDate,
+            createdDate: details.createdDate
         )
     }
     

@@ -10,6 +10,16 @@ struct SearchWithMetaModel: Identifiable, Hashable {
     let editorScreenData: ScreenData
     let score: String
     let canArchive: Bool
+    // Set for cross-space results in global search - "in <Space>" caption
+    let spaceCaption: SearchSpaceCaption?
+    // Group the empty-query browse by day on the active recency order
+    let lastModifiedDate: Date?
+    let createdDate: Date?
+}
+
+struct SearchSpaceCaption: Hashable {
+    let spaceId: String
+    let name: String
 }
 
 enum HighlightsData: Identifiable, Hashable {

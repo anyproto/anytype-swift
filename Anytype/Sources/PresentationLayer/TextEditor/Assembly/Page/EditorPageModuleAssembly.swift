@@ -54,7 +54,9 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             bottomNavigationManager: bottomNavigationManager,
             configuration: EditorPageViewModelConfiguration(
                 blockId: data.blockId,
-                usecase: data.usecase
+                usecase: data.usecase,
+                quickCapture: data.quickCapture,
+                headerHint: data.headerHint
             ),
             output: output
         )
@@ -84,7 +86,10 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let rowIdentityMap = BlockRowIdentityMap()
         let blockCollectionController = EditorBlockCollectionController(viewInput: viewInput)
 
-        let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
+        let cursorManager = EditorCursorManager(
+            focusSubjectHolder: focusSubjectHolder,
+            focusPolicy: configuration.quickCapture ? .continueWriting : .firstEmptyTextBlock
+        )
         let forkRebinder = BlockForkRebinder(
             modelsHolder: modelsHolder,
             rowIdentityMap: rowIdentityMap,
@@ -128,7 +133,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,
             router: router,
-            document: document
+            document: document,
+            quickCapture: configuration.quickCapture
         )
         
         let markdownListener = MarkdownListenerImpl(
