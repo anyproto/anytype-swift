@@ -1376,6 +1376,7 @@ final class UnifiedSearchViewModel {
             result.append(contentsOf: UnifiedSearchChipModel.refinementPackage(
                 people: personSuggestionChips(scopeSpaceId: nil),
                 channels: channelScopeChips(),
+                prioritizedChannelSpaceId: moduleData.currentSpaceId,
                 individualLimit: Constants.refinementSuggestionLimit
             ))
             chips = result

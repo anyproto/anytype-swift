@@ -38,12 +38,17 @@ struct UnifiedSearchChipModel: Identifiable, Hashable {
     static func refinementPackage(
         people: [Self],
         channels: [Self],
+        prioritizedChannelSpaceId: String? = nil,
         individualLimit: Int
     ) -> [Self] {
         guard individualLimit > 0 else { return [] }
 
         let people = Array(people.prefix(individualLimit))
-        let channels = Array(channels.prefix(individualLimit))
+        let channels = Array(
+            channels
+                .prioritizingSpace(prioritizedChannelSpaceId)
+                .prefix(individualLimit)
+        )
         var result = [Self]()
 
         if channels.isNotEmpty {
@@ -62,6 +67,23 @@ struct UnifiedSearchChipModel: Identifiable, Hashable {
 
         result.append(contentsOf: people)
         result.append(contentsOf: channels)
+        return result
+    }
+}
+
+private extension Array where Element == UnifiedSearchChipModel {
+    func prioritizingSpace(_ spaceId: String?) -> Self {
+        guard let spaceId,
+              let index = firstIndex(where: { chip in
+                  if case .addToken(.space(let candidateSpaceId)) = chip.action {
+                      return candidateSpaceId == spaceId
+                  }
+                  return false
+              }),
+              index != startIndex else { return self }
+
+        var result = self
+        result.insert(result.remove(at: index), at: startIndex)
         return result
     }
 }

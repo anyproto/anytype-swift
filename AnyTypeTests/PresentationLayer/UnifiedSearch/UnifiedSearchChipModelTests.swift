@@ -47,6 +47,29 @@ struct UnifiedSearchChipModelTests {
     }
 
     @Test
+    func refinementPackageKeepsCurrentChannelWithinLimit() {
+        let channels = (0..<6).map {
+            UnifiedSearchChipModel(token: .space(spaceId: "space-\($0)"), title: "Channel \($0)")
+        }
+
+        let package = UnifiedSearchChipModel.refinementPackage(
+            people: [],
+            channels: channels,
+            prioritizedChannelSpaceId: "space-5",
+            individualLimit: 5
+        )
+
+        #expect(package.map(\.action) == [
+            .openChannelsPicker,
+            channels[5].action,
+            channels[0].action,
+            channels[1].action,
+            channels[2].action,
+            channels[3].action
+        ])
+    }
+
+    @Test
     func refinementPackageOmitsSelectorForEmptyGroup() {
         let channel = UnifiedSearchChipModel(token: .space(spaceId: "space-1"), title: "Channel")
 
