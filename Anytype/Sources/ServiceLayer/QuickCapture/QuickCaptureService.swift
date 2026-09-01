@@ -70,6 +70,7 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
         guard let draftId = draftStorage.draftObjectId(spaceId: spaceId) else { return }
         try await objectActionsService.updateBundledDetails(contextID: draftId, details: [.isHidden(false)])
         draftStorage.setDraftObjectId(nil, spaceId: spaceId)
+        await markDraftTypeAsUsed(objectId: draftId, spaceId: spaceId)
     }
 
     func clearDraft(spaceId: String) async throws {
@@ -160,6 +161,15 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
     private func deleteDraft(objectId: String, spaceId: String) async throws {
         try await objectActionsService.delete(objectIds: [objectId])
         draftStorage.setDraftObjectId(nil, spaceId: spaceId)
+    }
+
+    private func markDraftTypeAsUsed(objectId: String, spaceId: String) async {
+        guard let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first,
+              details.type.isNotEmpty else { return }
+        try? await objectActionsService.updateBundledDetails(
+            contextID: details.type,
+            details: [.lastUsedDate(.now)]
+        )
     }
 
     // Callers prepare the space caches (prepareSpaceForPreview) before this
