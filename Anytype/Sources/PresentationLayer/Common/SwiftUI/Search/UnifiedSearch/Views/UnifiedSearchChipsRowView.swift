@@ -109,7 +109,6 @@ struct UnifiedSearchChipsRowView: View {
             .padding(.horizontal, 16)
             .padding(.top, 10)
         }
-        .animation(.default, value: chips)
     }
 
     private func chipView(_ chip: UnifiedSearchChipModel) -> some View {

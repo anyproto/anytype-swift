@@ -26,11 +26,22 @@ struct UnifiedSearchBar: View {
     let onBackspaceWhenEmpty: () -> Void
     let onSubmit: () -> Void
 
-    @State private var barWidth: CGFloat = 0
+    @State private var barWidth: CGFloat?
 
     var body: some View {
         barContent
-            .readSize { barWidth = $0.width }
+            // The overflow decision needs the assigned width. Keep the first,
+            // measuring layout invisible so oversized full labels never flash or
+            // animate across the bar before the settled layout is known.
+            .opacity(barWidth == nil ? 0 : 1)
+            .readSize { size in
+                guard size.width > 0, size.width != barWidth else { return }
+                var transaction = Transaction()
+                transaction.disablesAnimations = true
+                withTransaction(transaction) {
+                    barWidth = size.width
+                }
+            }
             .padding(.vertical, 9)
             .padding(.horizontal, 12)
             .glassCapsule
@@ -40,7 +51,7 @@ struct UnifiedSearchBar: View {
     // fit next to a usable field, every pill drops to its icon instead
     private var iconOnlyPills: Bool {
         if collapsesToIcons { return true }
-        guard barWidth > 0, tokens.isNotEmpty else { return false }
+        guard let barWidth, tokens.isNotEmpty else { return false }
         let font = UIKitFontBuilder.uiKitFont(font: .uxTitle2Medium)
         let pillsWidth = tokens.reduce(CGFloat.zero) { width, token in
             let text = (token.title as NSString).size(withAttributes: [.font: font]).width
@@ -108,7 +119,6 @@ struct UnifiedSearchBar: View {
             .fixTappableArea()
         }
         .buttonStyle(.plain)
-        .animation(.default, value: iconOnly)
         .accessibilityLabel(model.title)
         .accessibilityAction(named: Loc.remove) {
             onRemoveToken(model.token)

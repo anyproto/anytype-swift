@@ -82,7 +82,6 @@ final class ChatCoordinatorViewModel: ChatModuleOutput, ObjectSettingsCoordinato
                 onCreatePersonalChannel: { },
                 onCreateGroupChannel: { },
                 onJoinQrCode: { },
-                animatesBarExpansion: false,
                 purpose: .attachToMessage,
                 excludedObjectIds: data.excludedObjectIds,
                 onSelectDetails: { [weak self] details in
