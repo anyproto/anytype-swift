@@ -44,7 +44,10 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var shouldScanQrCode = false
     var showAppSettings = false
     var showQuickCapture = false
+    private(set) var quickCaptureModel: QuickCaptureCoordinatorViewModel?
     var quickCaptureCreated: QuickCaptureCreatedBanner?
+    @ObservationIgnored
+    private var quickCaptureCleanupTask: Task<Void, Never>?
     
     var photosItems: [PhotosPickerItem] = []
     var showPhotosPicker = false
@@ -389,7 +392,20 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
 
     func onSelectQuickCapture() {
-        showQuickCapture = true
+        Task {
+            await quickCaptureCleanupTask?.value
+            guard !showQuickCapture, quickCaptureModel == nil else { return }
+            quickCaptureModel = QuickCaptureCoordinatorViewModel { [weak self] in
+                self?.quickCaptureDidCreate($0)
+            }
+            showQuickCapture = true
+        }
+    }
+
+    func quickCaptureDidDismiss() {
+        guard let captureModel = quickCaptureModel else { return }
+        quickCaptureModel = nil
+        quickCaptureCleanupTask = Task { await captureModel.onDismiss() }
     }
 
     func quickCaptureDidCreate(_ banner: QuickCaptureCreatedBanner) {

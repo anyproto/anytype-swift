@@ -18,6 +18,7 @@ public enum BundledDetails: Sendable {
     case lastUsedDate(Date)
     case templateNamePrefillType(Int)
     case isHidden(Bool)
+    case isDraft(Bool)
 }
 
 extension BundledDetails {
@@ -38,6 +39,8 @@ extension BundledDetails {
         case .lastUsedDate: BundledPropertyKey.lastUsedDate.rawValue
         case .templateNamePrefillType: BundledPropertyKey.templateNamePrefillType.rawValue
         case .isHidden: BundledPropertyKey.isHidden.rawValue
+        // GO-7499: keep the wire key until it arrives in the bundled relation generator input.
+        case .isDraft: "isDraft"
         }
     }
 
@@ -57,6 +60,7 @@ extension BundledDetails {
         case .lastUsedDate(let date): date.protobufValue
         case .templateNamePrefillType(let int): int.protobufValue
         case .isHidden(let bool): bool.protobufValue
+        case .isDraft(let bool): bool.protobufValue
         }
     }
 

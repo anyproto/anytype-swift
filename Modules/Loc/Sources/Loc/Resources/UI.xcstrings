@@ -75842,37 +75842,61 @@
         }
       }
     },
-    "QuickCapture.replaceDraft" : {
+    "QuickCapture.discardMyDraft" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Replace"
+            "value" : "Discard my draft"
           }
         }
       }
     },
-    "QuickCapture.replaceDraftMessage" : {
+    "QuickCapture.switchDraftMessage" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Its unsent draft will be deleted permanently."
+            "value" : "Keep this draft in its space, or permanently discard it. The other space's draft will open."
           }
         }
       }
     },
-    "QuickCapture.replaceDraftTitle" : {
+    "QuickCapture.switchDraftTitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Replace draft in %@?"
+            "value" : "%@ already has a draft"
           }
         }
+      }
+    },
+    "QuickCapture.keepBoth" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Keep both" } }
+      }
+    },
+    "QuickCapture.operationFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't finish this action. Your drafts are safe. Please try again." } }
+      }
+    },
+    "QuickCapture.unsentDraft" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unsent draft" } }
+      }
+    },
+    "QuickCapture.draftsInOtherSpaces" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unsent drafts in other spaces" } }
       }
     },
     "QuickCapture.openObject" : {
@@ -105165,6 +105189,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "撤消/重做"
+          }
+        }
+      }
+    },
+    "UnifiedSearch.placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search and filter objects, messages"
           }
         }
       }
