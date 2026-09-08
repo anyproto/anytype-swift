@@ -47,6 +47,11 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
     private var pasteboardMiddleService: any PasteboardMiddlewareServiceProtocol
 
     private let discoveryStorage = AtomicStorage<QuickCaptureDraftDiscovery?>(nil)
+    // Object.ListDelete returns before the space index drops the object, so a search right
+    // after clearing a draft can hand the deleted draft back. Opening it then hangs on the
+    // editor placeholder or fails resolution once the index catches up. Anything this device
+    // deleted is never resolved again; the set only holds ids deleted in this session.
+    private let deletedDraftIds = AtomicStorage<Set<String>>([])
 
     func lastCaptureSpaceId() -> String? {
         draftStorage.lastCaptureSpaceId()
@@ -99,11 +104,15 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
     }
 
     func commitDraft(objectId: String, spaceId: String) async throws {
-        _ = try await requireDraft(objectId: objectId, spaceId: spaceId)
+        let details = try await requireDraft(objectId: objectId, spaceId: spaceId)
         // Both flags must change in the same write, or discovery can reopen a published note.
-        try await objectActionsService.updateBundledDetails(
-            contextID: objectId, details: [.isDraft(false), .isHidden(false)]
-        )
+        // A legacy draft was never created with isDraft, so its space has no such relation and
+        // Object.SetDetails would reject the key; isHidden alone un-drafts it.
+        var published: [BundledDetails] = [.isHidden(false)]
+        if QuickCaptureDraft.hasDraftFlag(details) {
+            published.append(.isDraft(false))
+        }
+        try await objectActionsService.updateBundledDetails(contextID: objectId, details: published)
         clearPointer(objectId: objectId, spaceId: spaceId)
         await markDraftTypeAsUsed(objectId: objectId, spaceId: spaceId)
     }
@@ -111,7 +120,7 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
     func clearDraft(objectId: String, spaceId: String) async throws {
         _ = try await requireDraft(objectId: objectId, spaceId: spaceId)
         try await objectActionsService.delete(objectIds: [objectId])
-        clearPointer(objectId: objectId, spaceId: spaceId)
+        forgetDeletedDraft(objectId: objectId, spaceId: spaceId)
     }
 
     func deleteDraftIfEmpty(objectId: String, spaceId: String) async throws -> Bool {
@@ -119,7 +128,7 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
         guard snapshot.details.isHidden, !snapshot.content.hasContent else { return false }
         try Task.checkCancellation()
         try await objectActionsService.delete(objectIds: [objectId])
-        clearPointer(objectId: objectId, spaceId: spaceId)
+        forgetDeletedDraft(objectId: objectId, spaceId: spaceId)
         return true
     }
 
@@ -158,9 +167,10 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
                 context: .focused(blockId: firstBlockId, range: NSRange(location: 0, length: 0))
             )
         }
+        // isDraft and isHidden were set when the target was created; only the copied metadata is written here.
         try await objectActionsService.updateBundledDetails(
             contextID: target.id,
-            details: [.name(source.content.name), .description(source.content.description), .isDraft(true), .isHidden(true)]
+            details: [.name(source.content.name), .description(source.content.description)]
         )
         let copied = try await draftContent(objectId: target.id, spaceId: targetSpaceId)
         guard copied.content.contains(source.content) else { throw QuickCaptureError.contentCopyFailed }
@@ -174,7 +184,7 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
         // but must never leave the only remaining copy without a pointer.
         draftStorage.setLastCaptureSpaceId(targetSpaceId)
         try await objectActionsService.delete(objectIds: [objectId])
-        clearPointer(objectId: objectId, spaceId: sourceSpaceId)
+        forgetDeletedDraft(objectId: objectId, spaceId: sourceSpaceId)
         return copied.details
     }
 
@@ -184,12 +194,11 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
         var localDraft: ObjectDetails?
         // Opening a known draft never waits for stores in other spaces to warm up.
         if let draftId = draftStorage.draftObjectId(spaceId: spaceId) {
-            var details = try await fetchDetails(objectId: draftId, spaceId: spaceId)
+            let details = try await fetchDetails(objectId: draftId, spaceId: spaceId)
             if isDraft(details, spaceId: spaceId) {
-                if QuickCaptureDraft.needsMigration(details) {
-                    try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.isDraft(true)])
-                    details = details.updated(by: [QuickCaptureDraft.relationKey: true.protobufValue])
-                }
+                // A legacy draft (hidden, no isDraft) is not stamped here: Object.SetDetails
+                // rejects isDraft in a space where no object was created with it. It stays
+                // reachable through the local pointer and is un-drafted on publish by isHidden.
                 localDraft = details
                 if preferLocalHint, let newer = discoveryStorage.value?.newestDraft(spaceId: spaceId), newer.id != details.id,
                    (newer.createdDate ?? .distantPast) > (details.createdDate ?? .distantPast) {
@@ -257,7 +266,13 @@ final class QuickCaptureService: QuickCaptureServiceProtocol, Sendable {
     }
 
     private func isDraft(_ details: ObjectDetails, spaceId: String) -> Bool {
-        QuickCaptureDraft.isDraft(details, participantId: participantsStorage.participants.first { $0.spaceId == spaceId }?.id)
+        guard !deletedDraftIds.value.contains(details.id) else { return false }
+        return QuickCaptureDraft.isDraft(details, participantId: participantsStorage.participants.first { $0.spaceId == spaceId }?.id)
+    }
+
+    private func forgetDeletedDraft(objectId: String, spaceId: String) {
+        _ = deletedDraftIds.access { $0.insert(objectId) }
+        clearPointer(objectId: objectId, spaceId: spaceId)
     }
 
     private func draftContent(objectId: String, spaceId: String) async throws -> (details: ObjectDetails, content: QuickCaptureDraftContent) {

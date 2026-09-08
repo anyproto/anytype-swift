@@ -46,7 +46,7 @@ struct QuickCaptureCoordinatorView: View {
             }
             .sheet(isPresented: $model.showSpacePicker) {
                 QuickCaptureSpacePickerView(
-                    spaces: model.sortedEditableSpaces,
+                    spaces: model.pickerSpaces,
                     selectedSpaceId: model.spaceView?.targetSpaceId,
                     draftSpaceIds: model.draftSpaceIds,
                     isProcessing: model.isInteractionLocked,

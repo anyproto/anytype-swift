@@ -26,10 +26,13 @@ enum QuickCaptureDraft {
         return details.isHidden
     }
 
-    static func needsMigration(_ details: ObjectDetails) -> Bool {
-        guard let kind = details.values[relationKey]?.kind else { return true }
-        if case .nullValue = kind { return true }
-        return false
+    /// Whether the object carries isDraft, which only objects created with it in
+    /// `additionalDetails` do. Object.SetDetails rejects the key otherwise, because the
+    /// relation is installed into a space only when an object is created with it.
+    static func hasDraftFlag(_ details: ObjectDetails) -> Bool {
+        guard let kind = details.values[relationKey]?.kind else { return false }
+        if case .nullValue = kind { return false }
+        return true
     }
 
     static func discoveryRequest(participantIds: [String], localDraftIds: [String] = [], offset: Int = 0) -> CrossSpaceSearchRequest {
@@ -65,7 +68,19 @@ struct QuickCaptureDraftDiscovery: Sendable {
         drafts.first { $0.spaceId == spaceId }
     }
 
-    var spaceIds: Set<String> { Set(drafts.map(\.spaceId)) }
+    /// Spaces whose draft holds something to come back to. The dot means "unsent text lives
+    /// here", so an abandoned empty draft, which stays in the store because a keystroke may
+    /// still be in flight when the sheet closes, must not mark its space. Emptiness is read
+    /// from the indexed details; an attachment-only draft has no text and is not marked.
+    var spaceIdsWithContent: Set<String> {
+        Set(drafts.filter(QuickCaptureDraft.hasIndexedContent).map(\.spaceId))
+    }
+}
+
+extension QuickCaptureDraft {
+    static func hasIndexedContent(_ details: ObjectDetails) -> Bool {
+        details.name.isNotEmpty || details.description.isNotEmpty || details.snippet.isNotEmpty
+    }
 }
 
 enum QuickCaptureSpaceSwitch: Equatable {

@@ -151,7 +151,9 @@ final class QuickCaptureServiceTests {
     }
 
     @Test(arguments: [true, false])
-    func legacyDraftIsMigratedBeforeReplacingPointer(preferLocalHint: Bool) async throws {
+    func legacyDraftIsResolvedWithoutWritingDraftFlag(preferLocalHint: Bool) async throws {
+        // Object.SetDetails rejects isDraft in a space where no object was created with it,
+        // so opening never stamps a legacy draft.
         let legacy = ObjectDetails(id: "draft", values: [
             "isHidden": true.protobufValue, "spaceId": "space".protobufValue,
             "creator": "me".protobufValue, "createdDate": 1.protobufValue,
@@ -164,25 +166,61 @@ final class QuickCaptureServiceTests {
         let resolved = try await service.storedDraft(spaceId: "space", preferLocalHint: preferLocalHint)
 
         #expect(resolved?.id == "newer")
-        #expect(await middleware.migratedIds == ["draft"])
+        #expect(await middleware.detailWrites.isEmpty)
         #expect(storage.draftObjectId(spaceId: "space") == "newer")
-        let discovery = try await service.discoverDrafts()
-        #expect(discovery.drafts.contains { $0.id == "draft" })
     }
 
-    @Test(arguments: [true, false])
-    func failedMigrationKeepsLegacyPointer(preferLocalHint: Bool) async throws {
+    @Test func clearedDraftIsNotResurrectedByStaleSearch() async throws {
+        // The stub keeps deleted records in search results, like the space index does for a
+        // moment after Object.ListDelete.
+        await middleware.setSearchRecords([draft()])
+
+        try await service.clearDraft(objectId: "draft", spaceId: "space")
+
+        #expect(await middleware.deletedIds == ["draft"])
+        #expect(storage.draftObjectId(spaceId: "space") == nil)
+        #expect(try await service.storedDraft(spaceId: "space") == nil)
+        #expect(try await service.discoverDrafts().drafts.isEmpty)
+    }
+
+    @Test func publishingLegacyDraftWritesOnlyHiddenFlag() async throws {
         let legacy = ObjectDetails(id: "draft", values: [
-            "isHidden": true.protobufValue, "spaceId": "space".protobufValue,
-            "creator": "me".protobufValue, "createdDate": 1.protobufValue
+            "isHidden": true.protobufValue, "spaceId": "space".protobufValue, "creator": "me".protobufValue
         ])
-        await middleware.setSearchRecords([legacy, draft(id: "newer").updated(by: ["createdDate": 2.protobufValue])])
-        _ = try await service.discoverDrafts()
-        await middleware.failMigration()
-        await #expect(throws: CaptureTestError.self) {
-            try await service.storedDraft(spaceId: "space", preferLocalHint: preferLocalHint)
+        await middleware.setSearchRecords([legacy])
+
+        try await service.commitDraft(objectId: "draft", spaceId: "space")
+
+        let writes = await middleware.detailWrites
+        #expect(writes.count == 1)
+        #expect(writes.first?.contextID == "draft")
+        let flags = writtenFlags(writes.first?.details)
+        #expect(flags.isHidden == false)
+        #expect(flags.isDraft == nil)
+    }
+
+    @Test func publishingFlaggedDraftClearsBothFlagsInOneWrite() async throws {
+        await middleware.setSearchRecords([draft()])
+
+        try await service.commitDraft(objectId: "draft", spaceId: "space")
+
+        let writes = await middleware.detailWrites
+        #expect(writes.count == 1)
+        let flags = writtenFlags(writes.first?.details)
+        #expect(flags.isDraft == false)
+        #expect(flags.isHidden == false)
+    }
+
+    private func writtenFlags(_ details: [BundledDetails]?) -> (isDraft: Bool?, isHidden: Bool?) {
+        var flags: (isDraft: Bool?, isHidden: Bool?) = (nil, nil)
+        for detail in details ?? [] {
+            switch detail {
+            case .isDraft(let value): flags.isDraft = value
+            case .isHidden(let value): flags.isHidden = value
+            default: break
+            }
         }
-        #expect(storage.draftObjectId(spaceId: "space") == "draft")
+        return flags
     }
 
     private func draft(id: String = "draft") -> ObjectDetails {
@@ -228,15 +266,13 @@ private actor CaptureMiddlewareStub: ObjectLifecycleServiceProtocol, ObjectActio
     private var snapshot: ObjectViewModel?
     private var records = [ObjectDetails]()
     private var deleteFails = false
-    private var migrationFails = false
     private(set) var deletedIds = [String]()
-    private(set) var migratedIds = [String]()
+    private(set) var detailWrites = [(contextID: String, details: [BundledDetails])]()
     private(set) var archiveCalls = 0
 
     func setView(_ view: ObjectViewModel) { snapshot = view }
     func setSearchRecords(_ records: [ObjectDetails]) { self.records = records }
     func failDelete() { deleteFails = true }
-    func failMigration() { migrationFails = true }
 
     func openForPreview(contextId: String, spaceId: String) async throws -> ObjectViewModel {
         guard let snapshot else { throw CaptureTestError.unavailable }
@@ -251,13 +287,7 @@ private actor CaptureMiddlewareStub: ObjectLifecycleServiceProtocol, ObjectActio
     }
 
     func updateBundledDetails(contextID: String, details: [BundledDetails]) async throws {
-        if migrationFails { throw CaptureTestError.unavailable }
-        for detail in details {
-            if case .isDraft(true) = detail {
-                migratedIds.append(contextID)
-                records = records.map { $0.id == contextID ? $0.updated(by: ["isDraft": true.protobufValue]) : $0 }
-            }
-        }
+        detailWrites.append((contextID, details))
     }
 
     func search(data: SearchRequest) async throws -> [ObjectDetails] {

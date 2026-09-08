@@ -48,8 +48,10 @@ struct QuickCaptureSpacePickerView: View {
             HStack(spacing: 12) {
                 IconView(icon: space.objectIconImage)
                     .frame(width: 48, height: 48)
-                QuickCaptureDraftDot()
-                    .opacity(draftSpaceIds.contains(space.targetSpaceId) ? 1 : 0)
+                // Drafts are grouped at the top, so the dot's gutter is only reserved where it shows
+                if draftSpaceIds.contains(space.targetSpaceId) {
+                    QuickCaptureDraftDot()
+                }
                 AnytypeText(space.title, style: .uxTitle2Regular)
                     .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)

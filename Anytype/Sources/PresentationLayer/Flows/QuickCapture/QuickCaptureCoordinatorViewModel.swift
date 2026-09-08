@@ -91,6 +91,15 @@ final class QuickCaptureCoordinatorViewModel {
         draftSpaceIds.contains { $0 != spaceView?.targetSpaceId }
     }
 
+    // Picker order only. Spaces holding unsent text come first so the dot is never buried;
+    // the opening space is still chosen from `sortedEditableSpaces`, because discovery must
+    // never decide where the sheet opens.
+    var pickerSpaces: [SpaceView] {
+        let spaces = sortedEditableSpaces
+        let withDrafts = spaces.filter { draftSpaceIds.contains($0.targetSpaceId) }
+        return withDrafts + spaces.filter { !draftSpaceIds.contains($0.targetSpaceId) }
+    }
+
     var sortedEditableSpaces: [SpaceView] {
         let recency = spaceRecencyStorage.lastInteractionDates()
         return participantSpacesStorage.activeParticipantSpaces
@@ -140,9 +149,9 @@ final class QuickCaptureCoordinatorViewModel {
                 let discovery = try await quickCaptureService.discoverDrafts()
                 guard !Task.isCancelled else { return }
                 if discovery.isComplete {
-                    draftSpaceIds = discovery.spaceIds
+                    draftSpaceIds = discovery.spaceIdsWithContent
                 } else {
-                    draftSpaceIds.formUnion(discovery.spaceIds)
+                    draftSpaceIds.formUnion(discovery.spaceIdsWithContent)
                 }
                 updateCurrentDraftIndicator()
             } catch is CancellationError {
@@ -176,14 +185,14 @@ final class QuickCaptureCoordinatorViewModel {
 
     // MARK: - Actions
 
-    func onTextEditingBegan(_ notification: Notification) {
+    func onTextEditingBegan(_ notification: Foundation.Notification) {
         guard !hasTypedThisSession, let textView = currentEditorTextView(notification) else { return }
         inputObserver.observe(textView) { [weak self] in
             self?.onUserInput()
         }
     }
 
-    func onTextChanged(_ notification: Notification) {
+    func onTextChanged(_ notification: Foundation.Notification) {
         guard !hasTypedThisSession, currentEditorTextView(notification) != nil else { return }
         onUserInput()
         inputObserver.stopObserving()
@@ -193,7 +202,7 @@ final class QuickCaptureCoordinatorViewModel {
         hasTypedThisSession = true
     }
 
-    private func currentEditorTextView(_ notification: Notification) -> UITextView? {
+    private func currentEditorTextView(_ notification: Foundation.Notification) -> UITextView? {
         guard let editorData, let textView = notification.object as? UITextView,
               textView.isFirstResponder else { return nil }
         var responder: UIResponder? = textView

@@ -39,12 +39,26 @@ struct QuickCaptureDraftTests {
         #expect(QuickCaptureDraft.isDraft(hiddenDraft().updated(by: [QuickCaptureDraft.relationKey: .init()]), participantId: nil))
     }
 
-    @Test func legacyMigrationIncludesNullButNotExplicitFlags() {
-        #expect(QuickCaptureDraft.needsMigration(hiddenDraft()))
-        #expect(QuickCaptureDraft.needsMigration(hiddenDraft().updated(by: [QuickCaptureDraft.relationKey: .with { $0.nullValue = .nullValue }])))
+    @Test func draftFlagRequiresExplicitValue() {
+        #expect(!QuickCaptureDraft.hasDraftFlag(hiddenDraft()))
+        #expect(!QuickCaptureDraft.hasDraftFlag(hiddenDraft().updated(by: [QuickCaptureDraft.relationKey: .with { $0.nullValue = .nullValue }])))
         for flag in [true, false] {
-            #expect(!QuickCaptureDraft.needsMigration(hiddenDraft().updated(by: [QuickCaptureDraft.relationKey: flag.protobufValue])))
+            #expect(QuickCaptureDraft.hasDraftFlag(hiddenDraft().updated(by: [QuickCaptureDraft.relationKey: flag.protobufValue])))
         }
+    }
+
+    @Test func onlyDraftsWithIndexedContentMarkTheirSpace() {
+        let empty = hiddenDraft()
+        let titled = hiddenDraft().updated(by: [
+            BundledPropertyKey.spaceId.rawValue: "space-b".protobufValue, BundledPropertyKey.name.rawValue: "Idea".protobufValue
+        ])
+        let bodyOnly = hiddenDraft().updated(by: [
+            BundledPropertyKey.spaceId.rawValue: "space-c".protobufValue, BundledPropertyKey.snippet.rawValue: "Some text".protobufValue
+        ])
+        let discovery = QuickCaptureDraftDiscovery(drafts: [empty, titled, bodyOnly], isComplete: true)
+
+        #expect(discovery.spaceIdsWithContent == ["space-b", "space-c"])
+        #expect(discovery.newestDraft(spaceId: "space-a")?.id == empty.id)
     }
 
     @Test func knownForeignCreatorIsRejectedButUnknownParticipantDoesNotHideDraft() {
