@@ -1,3 +1,4 @@
+import Foundation
 import Services
 import StoredHashMacro
 
@@ -5,6 +6,9 @@ import StoredHashMacro
 struct ParticipantSpaceViewDataWithPreview: Equatable, Identifiable, Hashable {
     let space: ParticipantSpaceViewData
     let latestPreview: ChatMessagePreview
+    /// Sort key: the latest message's date or, while this space's chat previews are still
+    /// loading, the date remembered from the previous launch. See `SpaceHubSpacesStorage`.
+    let lastMessageDate: Date?
     let totalUnreadCounter: Int
     let totalMentionCounter: Int
     let hasUnreadReactions: Bool
@@ -19,21 +23,4 @@ struct ParticipantSpaceViewDataWithPreview: Equatable, Identifiable, Hashable {
     var spaceView: SpaceView { space.spaceView }
 
     var hasCounters: Bool { totalUnreadCounter > 0 || totalMentionCounter > 0 || hasUnreadReactions }
-}
-
-extension ParticipantSpaceViewDataWithPreview {
-    init(space: ParticipantSpaceViewData) {
-        self.init(
-            space: space,
-            latestPreview: ChatMessagePreview(spaceId: space.id, chatId: space.spaceView.chatId),
-            totalUnreadCounter: 0,
-            totalMentionCounter: 0,
-            hasUnreadReactions: false,
-            unreadCounterStyle: .highlighted,
-            mentionCounterStyle: .highlighted,
-            reactionStyle: .highlighted,
-            unreadPreviews: [],
-            unreadDiscussionParents: []
-        )
-    }
 }
