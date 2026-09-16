@@ -40,6 +40,7 @@ public protocol BundledPropertiesValueProvider {
     var layoutAlign: Int? { get }
     var status: ObjectId? { get }
     var isHidden: Bool { get }
+    var isDraft: Bool { get }
     var isHiddenDiscovery: Bool { get }
     var mediaArtistName: String { get }
     var email: String? { get }
@@ -331,6 +332,10 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Specify if object is hidden
     var isHidden: Bool {
         return value(for: BundledPropertyKey.isHidden.rawValue)
+    }
+    /// Specify if object is a draft created by a client and not yet finalized
+    var isDraft: Bool {
+        return value(for: BundledPropertyKey.isDraft.rawValue)
     }
     /// Specify if object discovery is hidden
     var isHiddenDiscovery: Bool {

@@ -131,6 +131,15 @@ extension Anytype_Rpc.Object {
         /// Clears the value of `event`. Subsequent reads from it will return its default value.
         public mutating func clearEvent() {self._event = nil}
 
+        public var report: Anytype_Model_ExportReport {
+          get {return _report ?? Anytype_Model_ExportReport()}
+          set {_report = newValue}
+        }
+        /// Returns true if `report` has been explicitly set.
+        public var hasReport: Bool {return self._report != nil}
+        /// Clears the value of `report`. Subsequent reads from it will return its default value.
+        public mutating func clearReport() {self._report = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -191,6 +200,7 @@ extension Anytype_Rpc.Object {
 
         fileprivate var _error: Anytype_Rpc.Object.ListExport.Response.Error? = nil
         fileprivate var _event: Anytype_ResponseEvent? = nil
+        fileprivate var _report: Anytype_Model_ExportReport? = nil
       }
 
       public init() {}
@@ -387,7 +397,7 @@ extension Anytype_Rpc.Object.ListExport.RelationsWhiteList: SwiftProtobuf.Messag
 
 extension Anytype_Rpc.Object.ListExport.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.ListExport.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}path\0\u{1}event\0\u{1}succeed\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}path\0\u{1}event\0\u{1}succeed\0\u{1}report\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -399,6 +409,7 @@ extension Anytype_Rpc.Object.ListExport.Response: SwiftProtobuf.Message, SwiftPr
       case 2: try { try decoder.decodeSingularStringField(value: &self.path) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._event) }()
       case 4: try { try decoder.decodeSingularInt32Field(value: &self.succeed) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._report) }()
       default: break
       }
     }
@@ -421,6 +432,9 @@ extension Anytype_Rpc.Object.ListExport.Response: SwiftProtobuf.Message, SwiftPr
     if self.succeed != 0 {
       try visitor.visitSingularInt32Field(value: self.succeed, fieldNumber: 4)
     }
+    try { if let v = self._report {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -429,6 +443,7 @@ extension Anytype_Rpc.Object.ListExport.Response: SwiftProtobuf.Message, SwiftPr
     if lhs.path != rhs.path {return false}
     if lhs.succeed != rhs.succeed {return false}
     if lhs._event != rhs._event {return false}
+    if lhs._report != rhs._report {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -97,6 +97,9 @@ public enum BundledPropertyKey: String, Sendable {
     /// Specify if object is hidden
     case isHidden = "isHidden"
 
+    /// Specify if object is a draft created by a client and not yet finalized
+    case isDraft = "isDraft"
+
     /// Specify if object discovery is hidden
     case isHiddenDiscovery = "isHiddenDiscovery"
 

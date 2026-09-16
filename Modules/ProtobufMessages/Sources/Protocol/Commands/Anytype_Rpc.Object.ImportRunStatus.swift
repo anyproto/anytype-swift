@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.Object {
-    public struct CrossSpaceSearch: Sendable {
+    public struct ImportRunStatus: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -24,31 +24,42 @@ extension Anytype_Rpc.Object {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var filters: [Anytype_Model_Block.Content.Dataview.Filter] = []
-
-        /// empty sorts: fullText queries default to relevance order,
-        /// browse queries (empty fullText) to lastModifiedDate desc
-        public var sorts: [Anytype_Model_Block.Content.Dataview.Sort] = []
-
-        public var fullText: String = String()
-
-        /// offset and limit apply to the merged cross-space result.
-        /// Always set a limit: an unlimited request materializes every
-        /// space in full
-        public var offset: Int32 = 0
-
-        public var limit: Int32 = 0
-
-        /// keys to return in records; empty = all
-        public var keys: [String] = []
-
-        /// Optional allowlist applied before querying stores. Empty
-        /// means all user spaces; callers with no access must not query.
-        public var spaceIds: [String] = []
+        public var importID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
+      }
+
+      /// Run pairs the statistic payload with the durable lifecycle
+      /// state and liveness.
+      public struct Run: Sendable {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var status: Anytype_Event.Import.Statistic {
+          get {return _status ?? Anytype_Event.Import.Statistic()}
+          set {_status = newValue}
+        }
+        /// Returns true if `status` has been explicitly set.
+        public var hasStatus: Bool {return self._status != nil}
+        /// Clears the value of `status`. Subsequent reads from it will return its default value.
+        public mutating func clearStatus() {self._status = nil}
+
+        /// the manifest lifecycle state (running | fetched |
+        /// materializing | suspended | compensating | completed |
+        /// failed)
+        public var manifestState: String = String()
+
+        /// an engine in this process is running it right now
+        public var live: Bool = false
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+
+        fileprivate var _status: Anytype_Event.Import.Statistic? = nil
       }
 
       public struct Response: Sendable {
@@ -56,8 +67,8 @@ extension Anytype_Rpc.Object {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Object.CrossSpaceSearch.Response.Error {
-          get {return _error ?? Anytype_Rpc.Object.CrossSpaceSearch.Response.Error()}
+        public var error: Anytype_Rpc.Object.ImportRunStatus.Response.Error {
+          get {return _error ?? Anytype_Rpc.Object.ImportRunStatus.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -65,15 +76,14 @@ extension Anytype_Rpc.Object {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
 
-        public var records: [SwiftProtobuf.Google_Protobuf_Struct] = []
-
-        /// false = records are a partial view: the sequential
-        /// per-space store warm-up had not finished when the query
-        /// ran, or a space's store failed and was skipped. Retry
-        /// later for the complete view, or use
-        /// ObjectCrossSpaceSearchSubscribe, which streams
-        /// later-loading spaces as they open.
-        public var allStoresLoaded: Bool = false
+        public var run: Anytype_Rpc.Object.ImportRunStatus.Run {
+          get {return _run ?? Anytype_Rpc.Object.ImportRunStatus.Run()}
+          set {_run = newValue}
+        }
+        /// Returns true if `run` has been explicitly set.
+        public var hasRun: Bool {return self._run != nil}
+        /// Clears the value of `run`. Subsequent reads from it will return its default value.
+        public mutating func clearRun() {self._run = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -82,7 +92,7 @@ extension Anytype_Rpc.Object {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Object.CrossSpaceSearch.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Object.ImportRunStatus.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -92,9 +102,8 @@ extension Anytype_Rpc.Object {
             public typealias RawValue = Int
             case null // = 0
             case unknownError // = 1
-
-            /// ...
             case badInput // = 2
+            case notFound // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -106,6 +115,7 @@ extension Anytype_Rpc.Object {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 3: self = .notFound
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -115,15 +125,17 @@ extension Anytype_Rpc.Object {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .notFound: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Object.CrossSpaceSearch.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Object.ImportRunStatus.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
+              .notFound,
             ]
 
           }
@@ -133,15 +145,16 @@ extension Anytype_Rpc.Object {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Object.CrossSpaceSearch.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.Object.ImportRunStatus.Response.Error? = nil
+        fileprivate var _run: Anytype_Rpc.Object.ImportRunStatus.Run? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Object.CrossSpaceSearch: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".CrossSpaceSearch"
+extension Anytype_Rpc.Object.ImportRunStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".ImportRunStatus"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -153,15 +166,15 @@ extension Anytype_Rpc.Object.CrossSpaceSearch: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.CrossSpaceSearch, rhs: Anytype_Rpc.Object.CrossSpaceSearch) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.ImportRunStatus, rhs: Anytype_Rpc.Object.ImportRunStatus) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.CrossSpaceSearch.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.CrossSpaceSearch.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}filters\0\u{1}sorts\0\u{1}fullText\0\u{1}offset\0\u{1}limit\0\u{1}keys\0\u{1}spaceIds\0")
+extension Anytype_Rpc.Object.ImportRunStatus.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.ImportRunStatus.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}importId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -169,59 +182,73 @@ extension Anytype_Rpc.Object.CrossSpaceSearch.Request: SwiftProtobuf.Message, Sw
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.filters) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.sorts) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.fullText) }()
-      case 4: try { try decoder.decodeSingularInt32Field(value: &self.offset) }()
-      case 5: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
-      case 6: try { try decoder.decodeRepeatedStringField(value: &self.keys) }()
-      case 7: try { try decoder.decodeRepeatedStringField(value: &self.spaceIds) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.importID) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.filters.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.filters, fieldNumber: 1)
-    }
-    if !self.sorts.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.sorts, fieldNumber: 2)
-    }
-    if !self.fullText.isEmpty {
-      try visitor.visitSingularStringField(value: self.fullText, fieldNumber: 3)
-    }
-    if self.offset != 0 {
-      try visitor.visitSingularInt32Field(value: self.offset, fieldNumber: 4)
-    }
-    if self.limit != 0 {
-      try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 5)
-    }
-    if !self.keys.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.keys, fieldNumber: 6)
-    }
-    if !self.spaceIds.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.spaceIds, fieldNumber: 7)
+    if !self.importID.isEmpty {
+      try visitor.visitSingularStringField(value: self.importID, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.CrossSpaceSearch.Request, rhs: Anytype_Rpc.Object.CrossSpaceSearch.Request) -> Bool {
-    if lhs.filters != rhs.filters {return false}
-    if lhs.sorts != rhs.sorts {return false}
-    if lhs.fullText != rhs.fullText {return false}
-    if lhs.offset != rhs.offset {return false}
-    if lhs.limit != rhs.limit {return false}
-    if lhs.keys != rhs.keys {return false}
-    if lhs.spaceIds != rhs.spaceIds {return false}
+  public static func ==(lhs: Anytype_Rpc.Object.ImportRunStatus.Request, rhs: Anytype_Rpc.Object.ImportRunStatus.Request) -> Bool {
+    if lhs.importID != rhs.importID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.CrossSpaceSearch.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.CrossSpaceSearch.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}records\0\u{1}allStoresLoaded\0")
+extension Anytype_Rpc.Object.ImportRunStatus.Run: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.ImportRunStatus.protoMessageName + ".Run"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}status\0\u{1}manifestState\0\u{1}live\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._status) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.manifestState) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.live) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._status {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    if !self.manifestState.isEmpty {
+      try visitor.visitSingularStringField(value: self.manifestState, fieldNumber: 2)
+    }
+    if self.live != false {
+      try visitor.visitSingularBoolField(value: self.live, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Object.ImportRunStatus.Run, rhs: Anytype_Rpc.Object.ImportRunStatus.Run) -> Bool {
+    if lhs._status != rhs._status {return false}
+    if lhs.manifestState != rhs.manifestState {return false}
+    if lhs.live != rhs.live {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Object.ImportRunStatus.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.ImportRunStatus.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}run\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -230,8 +257,7 @@ extension Anytype_Rpc.Object.CrossSpaceSearch.Response: SwiftProtobuf.Message, S
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.records) }()
-      case 3: try { try decoder.decodeSingularBoolField(value: &self.allStoresLoaded) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._run) }()
       default: break
       }
     }
@@ -245,26 +271,22 @@ extension Anytype_Rpc.Object.CrossSpaceSearch.Response: SwiftProtobuf.Message, S
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.records.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.records, fieldNumber: 2)
-    }
-    if self.allStoresLoaded != false {
-      try visitor.visitSingularBoolField(value: self.allStoresLoaded, fieldNumber: 3)
-    }
+    try { if let v = self._run {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.CrossSpaceSearch.Response, rhs: Anytype_Rpc.Object.CrossSpaceSearch.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.ImportRunStatus.Response, rhs: Anytype_Rpc.Object.ImportRunStatus.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.records != rhs.records {return false}
-    if lhs.allStoresLoaded != rhs.allStoresLoaded {return false}
+    if lhs._run != rhs._run {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.CrossSpaceSearch.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.CrossSpaceSearch.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Object.ImportRunStatus.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.ImportRunStatus.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -290,7 +312,7 @@ extension Anytype_Rpc.Object.CrossSpaceSearch.Response.Error: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.CrossSpaceSearch.Response.Error, rhs: Anytype_Rpc.Object.CrossSpaceSearch.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.ImportRunStatus.Response.Error, rhs: Anytype_Rpc.Object.ImportRunStatus.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -298,8 +320,8 @@ extension Anytype_Rpc.Object.CrossSpaceSearch.Response.Error: SwiftProtobuf.Mess
   }
 }
 
-extension Anytype_Rpc.Object.CrossSpaceSearch.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
+extension Anytype_Rpc.Object.ImportRunStatus.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{1}NOT_FOUND\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

@@ -22,6 +22,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     @Injected(\.templatesService)
     private var templateService: any TemplatesServiceProtocol
 
+    private var waitingViewDismiss: AnytypeDismiss?
+
     init(
         viewController: UIViewController,
         document: some BaseDocumentProtocol,
@@ -244,11 +246,15 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     
     func showWaitingView(text: String) {
         let popup = PopupViewBuilder.createWaitingPopup(text: text)
-        navigationContext.present(popup)
+        waitingViewDismiss = navigationContext.present(popup)
     }
 
+    // Dismiss the popup we actually presented. The waiting view only appears for slow
+    // operations, so a blind dismissTopPresented would close whatever is on top when it
+    // never appeared - the quick capture sheet hosting the editor, for instance
     func hideWaitingView() {
-        navigationContext.dismissTopPresented()
+        waitingViewDismiss?()
+        waitingViewDismiss = nil
     }
     
     func closeEditor() {
