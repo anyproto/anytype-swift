@@ -637,11 +637,12 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
         pasteboardService.pasteInsideBlock(objectId: document.objectId, spaceId: document.spaceId, focusedBlockId: info.id, range: range) { [weak self] in
             self?.showWaitingView(Loc.pasteProcessing)
         } completion: { [weak textView, weak self] pasteResult in
-            guard let textView else { return }
-            
+            // Before any early exit - a torn down text view must not strand the waiting popup
             defer {
                 self?.hideWaitingView()
             }
+
+            guard let textView else { return }
 
             guard let pasteResult = pasteResult else { return }
 
