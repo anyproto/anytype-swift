@@ -1,6 +1,5 @@
 import WidgetKit
 import SwiftUI
-import Intents
 import DeepLinks
 import AppTarget
 import Loc
@@ -47,17 +46,17 @@ struct AnytypeWidgetEntryView : View {
     #endif
     
     var body: some View {
-        ZStack {
-            Circle()
-                .fill(Color.white)
-                .opacity(0.12)
-            Image(systemName: "plus")
-                .resizable()
-                .foregroundStyle(Color.white)
-                .frame(width: 24, height: 24)
-        }
-        .widgetAccentable()
-        .widgetURL(deepLinkParser.createUrl(deepLink: .createObjectFromWidget, scheme: .buildSpecific))
+        Image(systemName: "plus")
+            .resizable()
+            .foregroundStyle(Color.white)
+            .frame(width: 24, height: 24)
+            .widgetAccentable()
+            // The system-managed accessory background adapts to vibrant/accented rendering
+            // and can be stripped where the platform needs a bare glyph
+            .containerBackground(for: .widget) {
+                AccessoryWidgetBackground()
+            }
+            .widgetURL(deepLinkParser.createUrl(deepLink: .quickCapture, scheme: .buildSpecific))
     }
 }
 

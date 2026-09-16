@@ -684,6 +684,9 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
 
     // MARK: - App Actions
     private func handleAppAction(action: AppAction) async throws {
+        // A widget tap while the capture sheet is already up should leave the user where
+        // they are - dismissing it would throw away the draft they are looking at
+        if case .deepLink(.quickCapture, _) = action, showQuickCapture { return }
         keyboardDismiss?()
         await dismissAllPresented?()
         switch action {
@@ -696,8 +699,12 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         
     private func handleDeepLink(deepLink: DeepLink, source: DeepLinkSource) async throws {
         switch deepLink {
-        case .createObjectFromWidget:
-            createAndShowDefaultObject(route: .widget)
+        case .quickCapture:
+            if FeatureFlags.quickCapture {
+                onSelectQuickCapture()
+            } else {
+                createAndShowDefaultObject(route: .widget)
+            }
         case .showSharingExtension:
             showSharingExtension = true
         case let .galleryImport(type, source):

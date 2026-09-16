@@ -9,43 +9,43 @@ final class DeepLinkParserTests: XCTestCase {
     func testNormalOnProd() throws {
         let parser = DeepLinkParser(targetType: .releaseAnytype)
         
-        let url = URL(string: "anytype://create-object-widget")!
+        let url = URL(string: "anytype://quick-capture")!
         
         let deepLink = parser.parse(url: url)
-        XCTAssertEqual(deepLink, .createObjectFromWidget)
+        XCTAssertEqual(deepLink, .quickCapture)
     }
     
     func testNormalOnDev() throws {
         let parser = DeepLinkParser(targetType: .debug)
         
-        let url = URL(string: "anytype://create-object-widget")!
+        let url = URL(string: "anytype://quick-capture")!
         
         let deepLink = parser.parse(url: url)
-        XCTAssertEqual(deepLink, .createObjectFromWidget)
+        XCTAssertEqual(deepLink, .quickCapture)
     }
     
     func testNarmalWithSlash() throws {
         let parser = DeepLinkParser(targetType: .releaseAnytype)
         
-        let url = URL(string: "anytype://create-object-widget/")!
+        let url = URL(string: "anytype://quick-capture/")!
         
         let deepLink = parser.parse(url: url)
-        XCTAssertEqual(deepLink, .createObjectFromWidget)
+        XCTAssertEqual(deepLink, .quickCapture)
     }
     
     func testProdOnProd() throws {
         let parser = DeepLinkParser(targetType: .releaseAnytype)
         
-        let url = URL(string: "prod-anytype://create-object-widget")!
+        let url = URL(string: "prod-anytype://quick-capture")!
         
         let deepLink = parser.parse(url: url)
-        XCTAssertEqual(deepLink, .createObjectFromWidget)
+        XCTAssertEqual(deepLink, .quickCapture)
     }
 
     func testProdOnDev() throws {
         let parser = DeepLinkParser(targetType: .debug)
         
-        let url = URL(string: "prod-anytype://create-object-widget")!
+        let url = URL(string: "prod-anytype://quick-capture")!
         
         let deepLink = parser.parse(url: url)
         XCTAssertEqual(deepLink, nil)
@@ -54,16 +54,16 @@ final class DeepLinkParserTests: XCTestCase {
     func testDevOnDev() throws {
         let parser = DeepLinkParser(targetType: .debug)
         
-        let url = URL(string: "dev-anytype://create-object-widget")!
+        let url = URL(string: "dev-anytype://quick-capture")!
         
         let deepLink = parser.parse(url: url)
-        XCTAssertEqual(deepLink, .createObjectFromWidget)
+        XCTAssertEqual(deepLink, .quickCapture)
     }
     
     func testDevOnProd() throws {
         let parser = DeepLinkParser(targetType: .releaseAnytype)
         
-        let url = URL(string: "dev-anytype://create-object-widget")!
+        let url = URL(string: "dev-anytype://quick-capture")!
         
         let deepLink = parser.parse(url: url)
         XCTAssertEqual(deepLink, nil)
@@ -72,7 +72,7 @@ final class DeepLinkParserTests: XCTestCase {
     func testWrong() throws {
         let parser = DeepLinkParser(targetType: .releaseAnytype)
         
-        let url = URL(string: "anytype123://create-object-widget")!
+        let url = URL(string: "anytype123://quick-capture")!
         
         let deepLink = parser.parse(url: url)
         XCTAssertEqual(deepLink, nil)
@@ -99,29 +99,29 @@ final class DeepLinkParserTests: XCTestCase {
     func testDeepLinkToURLMainInProd() throws {
         let parser = DeepLinkParser(targetType: .releaseAnytype)
         
-        let url = parser.createUrl(deepLink: .createObjectFromWidget, scheme: .main)
-        XCTAssertEqual(url, URL(string: "anytype://create-object-widget"))
+        let url = parser.createUrl(deepLink: .quickCapture, scheme: .main)
+        XCTAssertEqual(url, URL(string: "anytype://quick-capture"))
     }
     
     func testDeepLinkToURLMainInDev() throws {
         let parser = DeepLinkParser(targetType: .debug)
         
-        let url = parser.createUrl(deepLink: .createObjectFromWidget, scheme: .main)
-        XCTAssertEqual(url, URL(string: "anytype://create-object-widget"))
+        let url = parser.createUrl(deepLink: .quickCapture, scheme: .main)
+        XCTAssertEqual(url, URL(string: "anytype://quick-capture"))
     }
     
     func testDeepLinkToURLSpecificInProd() throws {
         let parser = DeepLinkParser(targetType: .releaseAnytype)
         
-        let url = parser.createUrl(deepLink: .createObjectFromWidget, scheme: .buildSpecific)
-        XCTAssertEqual(url, URL(string: "prod-anytype://create-object-widget"))
+        let url = parser.createUrl(deepLink: .quickCapture, scheme: .buildSpecific)
+        XCTAssertEqual(url, URL(string: "prod-anytype://quick-capture"))
     }
     
     func testDeepLinkToURLSpecificInDev() throws {
         let parser = DeepLinkParser(targetType: .debug)
         
-        let url = parser.createUrl(deepLink: .createObjectFromWidget, scheme: .buildSpecific)
-        XCTAssertEqual(url, URL(string: "dev-anytype://create-object-widget"))
+        let url = parser.createUrl(deepLink: .quickCapture, scheme: .buildSpecific)
+        XCTAssertEqual(url, URL(string: "dev-anytype://quick-capture"))
     }
     
     func testDeepLinkWithArgs() throws {
