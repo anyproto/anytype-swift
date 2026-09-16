@@ -75,6 +75,7 @@ extension Anytype_Rpc.Account {
             case unknownError // = 1
             case badInput // = 2
             case differentAccount // = 3
+            case anotherAnytypeProcessIsRunning // = 108
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -87,6 +88,7 @@ extension Anytype_Rpc.Account {
               case 1: self = .unknownError
               case 2: self = .badInput
               case 3: self = .differentAccount
+              case 108: self = .anotherAnytypeProcessIsRunning
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -97,6 +99,7 @@ extension Anytype_Rpc.Account {
               case .unknownError: return 1
               case .badInput: return 2
               case .differentAccount: return 3
+              case .anotherAnytypeProcessIsRunning: return 108
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -107,6 +110,7 @@ extension Anytype_Rpc.Account {
               .unknownError,
               .badInput,
               .differentAccount,
+              .anotherAnytypeProcessIsRunning,
             ]
 
           }
@@ -267,7 +271,7 @@ extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error: SwiftProto
 }
 
 extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{1}DIFFERENT_ACCOUNT\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{1}DIFFERENT_ACCOUNT\0\u{2}i\u{1}ANOTHER_ANYTYPE_PROCESS_IS_RUNNING\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

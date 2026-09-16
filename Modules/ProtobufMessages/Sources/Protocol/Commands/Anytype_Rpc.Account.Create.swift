@@ -148,6 +148,7 @@ extension Anytype_Rpc.Account {
             case failedToWriteConfig // = 105
             case failedToCreateLocalRepo // = 106
             case accountCreationIsCanceled // = 107
+            case anotherAnytypeProcessIsRunning // = 108
             case configFileNotFound // = 200
             case configFileInvalid // = 201
             case configFileNetworkIDMismatch // = 202
@@ -168,6 +169,7 @@ extension Anytype_Rpc.Account {
               case 105: self = .failedToWriteConfig
               case 106: self = .failedToCreateLocalRepo
               case 107: self = .accountCreationIsCanceled
+              case 108: self = .anotherAnytypeProcessIsRunning
               case 200: self = .configFileNotFound
               case 201: self = .configFileInvalid
               case 202: self = .configFileNetworkIDMismatch
@@ -186,6 +188,7 @@ extension Anytype_Rpc.Account {
               case .failedToWriteConfig: return 105
               case .failedToCreateLocalRepo: return 106
               case .accountCreationIsCanceled: return 107
+              case .anotherAnytypeProcessIsRunning: return 108
               case .configFileNotFound: return 200
               case .configFileInvalid: return 201
               case .configFileNetworkIDMismatch: return 202
@@ -204,6 +207,7 @@ extension Anytype_Rpc.Account {
               .failedToWriteConfig,
               .failedToCreateLocalRepo,
               .accountCreationIsCanceled,
+              .anotherAnytypeProcessIsRunning,
               .configFileNotFound,
               .configFileInvalid,
               .configFileNetworkIDMismatch,
@@ -415,7 +419,7 @@ extension Anytype_Rpc.Account.Create.Response.Error: SwiftProtobuf.Message, Swif
 }
 
 extension Anytype_Rpc.Account.Create.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}ACCOUNT_CREATED_BUT_FAILED_TO_START_NODE\0\u{1}ACCOUNT_CREATED_BUT_FAILED_TO_SET_NAME\0\u{2}\u{2}FAILED_TO_STOP_RUNNING_NODE\0\u{1}FAILED_TO_WRITE_CONFIG\0\u{1}FAILED_TO_CREATE_LOCAL_REPO\0\u{1}ACCOUNT_CREATION_IS_CANCELED\0\u{2}]\u{1}CONFIG_FILE_NOT_FOUND\0\u{1}CONFIG_FILE_INVALID\0\u{1}CONFIG_FILE_NETWORK_ID_MISMATCH\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}ACCOUNT_CREATED_BUT_FAILED_TO_START_NODE\0\u{1}ACCOUNT_CREATED_BUT_FAILED_TO_SET_NAME\0\u{2}\u{2}FAILED_TO_STOP_RUNNING_NODE\0\u{1}FAILED_TO_WRITE_CONFIG\0\u{1}FAILED_TO_CREATE_LOCAL_REPO\0\u{1}ACCOUNT_CREATION_IS_CANCELED\0\u{1}ANOTHER_ANYTYPE_PROCESS_IS_RUNNING\0\u{2}\\\u{1}CONFIG_FILE_NOT_FOUND\0\u{1}CONFIG_FILE_INVALID\0\u{1}CONFIG_FILE_NETWORK_ID_MISMATCH\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

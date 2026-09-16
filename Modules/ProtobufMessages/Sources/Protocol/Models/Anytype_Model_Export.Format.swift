@@ -21,6 +21,12 @@ extension Anytype_Model_Export {
     case dot // = 3
     case svg // = 4
     case graphJson // = 5
+
+    /// AnyBlockV2 is the native AnyBlock v2 bundle (pkg/lib/anyblockjson
+    /// format/v2/SPEC.md): a directory of `<id>.anyblock.json` documents beside an
+    /// index.json and properties.json. Additive — existing values keep
+    /// their numbers, so a client that does not know it is unaffected.
+    case anyBlockV2 // = 6
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -35,6 +41,7 @@ extension Anytype_Model_Export {
       case 3: self = .dot
       case 4: self = .svg
       case 5: self = .graphJson
+      case 6: self = .anyBlockV2
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -47,6 +54,7 @@ extension Anytype_Model_Export {
       case .dot: return 3
       case .svg: return 4
       case .graphJson: return 5
+      case .anyBlockV2: return 6
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -59,12 +67,13 @@ extension Anytype_Model_Export {
       .dot,
       .svg,
       .graphJson,
+      .anyBlockV2,
     ]
 
   }}
 
 extension Anytype_Model_Export.Format: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Markdown\0\u{1}Protobuf\0\u{1}JSON\0\u{1}DOT\0\u{1}SVG\0\u{1}GRAPH_JSON\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Markdown\0\u{1}Protobuf\0\u{1}JSON\0\u{1}DOT\0\u{1}SVG\0\u{1}GRAPH_JSON\0\u{1}AnyBlockV2\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

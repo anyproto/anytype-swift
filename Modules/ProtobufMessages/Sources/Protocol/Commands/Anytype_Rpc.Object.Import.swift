@@ -19,86 +19,124 @@ extension Anytype_Rpc.Object {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public struct Request: Sendable {
+      public struct Request: @unchecked Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var spaceID: String = String()
+        public var spaceID: String {
+          get {return _storage._spaceID}
+          set {_uniqueStorage()._spaceID = newValue}
+        }
 
-        public var params: Anytype_Rpc.Object.Import.Request.OneOf_Params? = nil
+        public var params: OneOf_Params? {
+          get {return _storage._params}
+          set {_uniqueStorage()._params = newValue}
+        }
 
         public var notionParams: Anytype_Rpc.Object.Import.Request.NotionParams {
           get {
-            if case .notionParams(let v)? = params {return v}
+            if case .notionParams(let v)? = _storage._params {return v}
             return Anytype_Rpc.Object.Import.Request.NotionParams()
           }
-          set {params = .notionParams(newValue)}
+          set {_uniqueStorage()._params = .notionParams(newValue)}
         }
 
         ///for internal use
         public var bookmarksParams: Anytype_Rpc.Object.Import.Request.BookmarksParams {
           get {
-            if case .bookmarksParams(let v)? = params {return v}
+            if case .bookmarksParams(let v)? = _storage._params {return v}
             return Anytype_Rpc.Object.Import.Request.BookmarksParams()
           }
-          set {params = .bookmarksParams(newValue)}
+          set {_uniqueStorage()._params = .bookmarksParams(newValue)}
         }
 
         public var markdownParams: Anytype_Rpc.Object.Import.Request.MarkdownParams {
           get {
-            if case .markdownParams(let v)? = params {return v}
+            if case .markdownParams(let v)? = _storage._params {return v}
             return Anytype_Rpc.Object.Import.Request.MarkdownParams()
           }
-          set {params = .markdownParams(newValue)}
+          set {_uniqueStorage()._params = .markdownParams(newValue)}
         }
 
         public var htmlParams: Anytype_Rpc.Object.Import.Request.HtmlParams {
           get {
-            if case .htmlParams(let v)? = params {return v}
+            if case .htmlParams(let v)? = _storage._params {return v}
             return Anytype_Rpc.Object.Import.Request.HtmlParams()
           }
-          set {params = .htmlParams(newValue)}
+          set {_uniqueStorage()._params = .htmlParams(newValue)}
         }
 
         public var txtParams: Anytype_Rpc.Object.Import.Request.TxtParams {
           get {
-            if case .txtParams(let v)? = params {return v}
+            if case .txtParams(let v)? = _storage._params {return v}
             return Anytype_Rpc.Object.Import.Request.TxtParams()
           }
-          set {params = .txtParams(newValue)}
+          set {_uniqueStorage()._params = .txtParams(newValue)}
         }
 
         public var pbParams: Anytype_Rpc.Object.Import.Request.PbParams {
           get {
-            if case .pbParams(let v)? = params {return v}
+            if case .pbParams(let v)? = _storage._params {return v}
             return Anytype_Rpc.Object.Import.Request.PbParams()
           }
-          set {params = .pbParams(newValue)}
+          set {_uniqueStorage()._params = .pbParams(newValue)}
         }
 
         public var csvParams: Anytype_Rpc.Object.Import.Request.CsvParams {
           get {
-            if case .csvParams(let v)? = params {return v}
+            if case .csvParams(let v)? = _storage._params {return v}
             return Anytype_Rpc.Object.Import.Request.CsvParams()
           }
-          set {params = .csvParams(newValue)}
+          set {_uniqueStorage()._params = .csvParams(newValue)}
         }
 
         /// optional, for external developers usage
-        public var snapshots: [Anytype_Rpc.Object.Import.Request.Snapshot] = []
+        public var snapshots: [Anytype_Rpc.Object.Import.Request.Snapshot] {
+          get {return _storage._snapshots}
+          set {_uniqueStorage()._snapshots = newValue}
+        }
 
-        public var updateExistingObjects: Bool = false
+        public var updateExistingObjects: Bool {
+          get {return _storage._updateExistingObjects}
+          set {_uniqueStorage()._updateExistingObjects = newValue}
+        }
 
-        public var type: Anytype_Model_Import.TypeEnum = .notion
+        public var type: Anytype_Model_Import.TypeEnum {
+          get {return _storage._type}
+          set {_uniqueStorage()._type = newValue}
+        }
 
-        public var mode: Anytype_Rpc.Object.Import.Request.Mode = .allOrNothing
+        public var mode: Anytype_Rpc.Object.Import.Request.Mode {
+          get {return _storage._mode}
+          set {_uniqueStorage()._mode = newValue}
+        }
 
-        public var noProgress: Bool = false
+        public var noProgress: Bool {
+          get {return _storage._noProgress}
+          set {_uniqueStorage()._noProgress = newValue}
+        }
 
-        public var isMigration: Bool = false
+        public var isMigration: Bool {
+          get {return _storage._isMigration}
+          set {_uniqueStorage()._isMigration = newValue}
+        }
 
-        public var isNewSpace: Bool = false
+        public var isNewSpace: Bool {
+          get {return _storage._isNewSpace}
+          set {_uniqueStorage()._isNewSpace = newValue}
+        }
+
+        /// optional BYOK LLM enrichment of the imported structure (importv2);
+        /// absent = feature off, import runs with built-in rules only
+        public var aiParams: Anytype_Rpc.Object.Import.Request.AIParams {
+          get {return _storage._aiParams ?? Anytype_Rpc.Object.Import.Request.AIParams()}
+          set {_uniqueStorage()._aiParams = newValue}
+        }
+        /// Returns true if `aiParams` has been explicitly set.
+        public var hasAiParams: Bool {return _storage._aiParams != nil}
+        /// Clears the value of `aiParams`. Subsequent reads from it will return its default value.
+        public mutating func clearAiParams() {_uniqueStorage()._aiParams = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -146,6 +184,31 @@ extension Anytype_Rpc.Object {
             .ignoreErrors,
           ]
 
+        }
+
+        public struct AIParams: Sendable {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          /// OpenAI-compatible provider; feature is off when endpoint and model are empty
+          public var config: Anytype_Rpc.AI.ProviderConfig {
+            get {return _config ?? Anytype_Rpc.AI.ProviderConfig()}
+            set {_config = newValue}
+          }
+          /// Returns true if `config` has been explicitly set.
+          public var hasConfig: Bool {return self._config != nil}
+          /// Clears the value of `config`. Subsequent reads from it will return its default value.
+          public mutating func clearConfig() {self._config = nil}
+
+          /// allow sample property values and page titles in the analysis prompt (default: schema only)
+          public var includeContentSamples: Bool = false
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+
+          fileprivate var _config: Anytype_Rpc.AI.ProviderConfig? = nil
         }
 
         public struct NotionParams: Sendable {
@@ -344,6 +407,8 @@ extension Anytype_Rpc.Object {
         }
 
         public init() {}
+
+        fileprivate var _storage = _StorageClass.defaultInstance
       }
 
       public struct Response: Sendable {
@@ -600,7 +665,262 @@ extension Anytype_Rpc.Object.Import: SwiftProtobuf.Message, SwiftProtobuf._Messa
 
 extension Anytype_Rpc.Object.Import.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.Import.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}notionParams\0\u{1}bookmarksParams\0\u{1}markdownParams\0\u{1}htmlParams\0\u{1}txtParams\0\u{1}pbParams\0\u{1}csvParams\0\u{1}snapshots\0\u{1}updateExistingObjects\0\u{1}type\0\u{1}mode\0\u{1}noProgress\0\u{1}isMigration\0\u{1}spaceId\0\u{1}isNewSpace\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}notionParams\0\u{1}bookmarksParams\0\u{1}markdownParams\0\u{1}htmlParams\0\u{1}txtParams\0\u{1}pbParams\0\u{1}csvParams\0\u{1}snapshots\0\u{1}updateExistingObjects\0\u{1}type\0\u{1}mode\0\u{1}noProgress\0\u{1}isMigration\0\u{1}spaceId\0\u{1}isNewSpace\0\u{1}aiParams\0")
+
+  fileprivate class _StorageClass {
+    var _spaceID: String = String()
+    var _params: Anytype_Rpc.Object.Import.Request.OneOf_Params?
+    var _snapshots: [Anytype_Rpc.Object.Import.Request.Snapshot] = []
+    var _updateExistingObjects: Bool = false
+    var _type: Anytype_Model_Import.TypeEnum = .notion
+    var _mode: Anytype_Rpc.Object.Import.Request.Mode = .allOrNothing
+    var _noProgress: Bool = false
+    var _isMigration: Bool = false
+    var _isNewSpace: Bool = false
+    var _aiParams: Anytype_Rpc.Object.Import.Request.AIParams? = nil
+
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _spaceID = source._spaceID
+      _params = source._params
+      _snapshots = source._snapshots
+      _updateExistingObjects = source._updateExistingObjects
+      _type = source._type
+      _mode = source._mode
+      _noProgress = source._noProgress
+      _isMigration = source._isMigration
+      _isNewSpace = source._isNewSpace
+      _aiParams = source._aiParams
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try {
+          var v: Anytype_Rpc.Object.Import.Request.NotionParams?
+          var hadOneofValue = false
+          if let current = _storage._params {
+            hadOneofValue = true
+            if case .notionParams(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._params = .notionParams(v)
+          }
+        }()
+        case 2: try {
+          var v: Anytype_Rpc.Object.Import.Request.BookmarksParams?
+          var hadOneofValue = false
+          if let current = _storage._params {
+            hadOneofValue = true
+            if case .bookmarksParams(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._params = .bookmarksParams(v)
+          }
+        }()
+        case 3: try {
+          var v: Anytype_Rpc.Object.Import.Request.MarkdownParams?
+          var hadOneofValue = false
+          if let current = _storage._params {
+            hadOneofValue = true
+            if case .markdownParams(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._params = .markdownParams(v)
+          }
+        }()
+        case 4: try {
+          var v: Anytype_Rpc.Object.Import.Request.HtmlParams?
+          var hadOneofValue = false
+          if let current = _storage._params {
+            hadOneofValue = true
+            if case .htmlParams(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._params = .htmlParams(v)
+          }
+        }()
+        case 5: try {
+          var v: Anytype_Rpc.Object.Import.Request.TxtParams?
+          var hadOneofValue = false
+          if let current = _storage._params {
+            hadOneofValue = true
+            if case .txtParams(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._params = .txtParams(v)
+          }
+        }()
+        case 6: try {
+          var v: Anytype_Rpc.Object.Import.Request.PbParams?
+          var hadOneofValue = false
+          if let current = _storage._params {
+            hadOneofValue = true
+            if case .pbParams(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._params = .pbParams(v)
+          }
+        }()
+        case 7: try {
+          var v: Anytype_Rpc.Object.Import.Request.CsvParams?
+          var hadOneofValue = false
+          if let current = _storage._params {
+            hadOneofValue = true
+            if case .csvParams(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._params = .csvParams(v)
+          }
+        }()
+        case 8: try { try decoder.decodeRepeatedMessageField(value: &_storage._snapshots) }()
+        case 9: try { try decoder.decodeSingularBoolField(value: &_storage._updateExistingObjects) }()
+        case 10: try { try decoder.decodeSingularEnumField(value: &_storage._type) }()
+        case 11: try { try decoder.decodeSingularEnumField(value: &_storage._mode) }()
+        case 12: try { try decoder.decodeSingularBoolField(value: &_storage._noProgress) }()
+        case 13: try { try decoder.decodeSingularBoolField(value: &_storage._isMigration) }()
+        case 14: try { try decoder.decodeSingularStringField(value: &_storage._spaceID) }()
+        case 15: try { try decoder.decodeSingularBoolField(value: &_storage._isNewSpace) }()
+        case 16: try { try decoder.decodeSingularMessageField(value: &_storage._aiParams) }()
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      switch _storage._params {
+      case .notionParams?: try {
+        guard case .notionParams(let v)? = _storage._params else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }()
+      case .bookmarksParams?: try {
+        guard case .bookmarksParams(let v)? = _storage._params else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }()
+      case .markdownParams?: try {
+        guard case .markdownParams(let v)? = _storage._params else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }()
+      case .htmlParams?: try {
+        guard case .htmlParams(let v)? = _storage._params else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }()
+      case .txtParams?: try {
+        guard case .txtParams(let v)? = _storage._params else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }()
+      case .pbParams?: try {
+        guard case .pbParams(let v)? = _storage._params else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      }()
+      case .csvParams?: try {
+        guard case .csvParams(let v)? = _storage._params else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+      }()
+      case nil: break
+      }
+      if !_storage._snapshots.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._snapshots, fieldNumber: 8)
+      }
+      if _storage._updateExistingObjects != false {
+        try visitor.visitSingularBoolField(value: _storage._updateExistingObjects, fieldNumber: 9)
+      }
+      if _storage._type != .notion {
+        try visitor.visitSingularEnumField(value: _storage._type, fieldNumber: 10)
+      }
+      if _storage._mode != .allOrNothing {
+        try visitor.visitSingularEnumField(value: _storage._mode, fieldNumber: 11)
+      }
+      if _storage._noProgress != false {
+        try visitor.visitSingularBoolField(value: _storage._noProgress, fieldNumber: 12)
+      }
+      if _storage._isMigration != false {
+        try visitor.visitSingularBoolField(value: _storage._isMigration, fieldNumber: 13)
+      }
+      if !_storage._spaceID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._spaceID, fieldNumber: 14)
+      }
+      if _storage._isNewSpace != false {
+        try visitor.visitSingularBoolField(value: _storage._isNewSpace, fieldNumber: 15)
+      }
+      try { if let v = _storage._aiParams {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 16)
+      } }()
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Object.Import.Request, rhs: Anytype_Rpc.Object.Import.Request) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._spaceID != rhs_storage._spaceID {return false}
+        if _storage._params != rhs_storage._params {return false}
+        if _storage._snapshots != rhs_storage._snapshots {return false}
+        if _storage._updateExistingObjects != rhs_storage._updateExistingObjects {return false}
+        if _storage._type != rhs_storage._type {return false}
+        if _storage._mode != rhs_storage._mode {return false}
+        if _storage._noProgress != rhs_storage._noProgress {return false}
+        if _storage._isMigration != rhs_storage._isMigration {return false}
+        if _storage._isNewSpace != rhs_storage._isNewSpace {return false}
+        if _storage._aiParams != rhs_storage._aiParams {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Object.Import.Request.Mode: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0ALL_OR_NOTHING\0\u{1}IGNORE_ERRORS\0")
+}
+
+extension Anytype_Rpc.Object.Import.Request.AIParams: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.Import.Request.protoMessageName + ".AIParams"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}config\0\u{1}includeContentSamples\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -608,105 +928,8 @@ extension Anytype_Rpc.Object.Import.Request: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try {
-        var v: Anytype_Rpc.Object.Import.Request.NotionParams?
-        var hadOneofValue = false
-        if let current = self.params {
-          hadOneofValue = true
-          if case .notionParams(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.params = .notionParams(v)
-        }
-      }()
-      case 2: try {
-        var v: Anytype_Rpc.Object.Import.Request.BookmarksParams?
-        var hadOneofValue = false
-        if let current = self.params {
-          hadOneofValue = true
-          if case .bookmarksParams(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.params = .bookmarksParams(v)
-        }
-      }()
-      case 3: try {
-        var v: Anytype_Rpc.Object.Import.Request.MarkdownParams?
-        var hadOneofValue = false
-        if let current = self.params {
-          hadOneofValue = true
-          if case .markdownParams(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.params = .markdownParams(v)
-        }
-      }()
-      case 4: try {
-        var v: Anytype_Rpc.Object.Import.Request.HtmlParams?
-        var hadOneofValue = false
-        if let current = self.params {
-          hadOneofValue = true
-          if case .htmlParams(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.params = .htmlParams(v)
-        }
-      }()
-      case 5: try {
-        var v: Anytype_Rpc.Object.Import.Request.TxtParams?
-        var hadOneofValue = false
-        if let current = self.params {
-          hadOneofValue = true
-          if case .txtParams(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.params = .txtParams(v)
-        }
-      }()
-      case 6: try {
-        var v: Anytype_Rpc.Object.Import.Request.PbParams?
-        var hadOneofValue = false
-        if let current = self.params {
-          hadOneofValue = true
-          if case .pbParams(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.params = .pbParams(v)
-        }
-      }()
-      case 7: try {
-        var v: Anytype_Rpc.Object.Import.Request.CsvParams?
-        var hadOneofValue = false
-        if let current = self.params {
-          hadOneofValue = true
-          if case .csvParams(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.params = .csvParams(v)
-        }
-      }()
-      case 8: try { try decoder.decodeRepeatedMessageField(value: &self.snapshots) }()
-      case 9: try { try decoder.decodeSingularBoolField(value: &self.updateExistingObjects) }()
-      case 10: try { try decoder.decodeSingularEnumField(value: &self.type) }()
-      case 11: try { try decoder.decodeSingularEnumField(value: &self.mode) }()
-      case 12: try { try decoder.decodeSingularBoolField(value: &self.noProgress) }()
-      case 13: try { try decoder.decodeSingularBoolField(value: &self.isMigration) }()
-      case 14: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
-      case 15: try { try decoder.decodeSingularBoolField(value: &self.isNewSpace) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._config) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.includeContentSamples) }()
       default: break
       }
     }
@@ -717,81 +940,21 @@ extension Anytype_Rpc.Object.Import.Request: SwiftProtobuf.Message, SwiftProtobu
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    switch self.params {
-    case .notionParams?: try {
-      guard case .notionParams(let v)? = self.params else { preconditionFailure() }
+    try { if let v = self._config {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }()
-    case .bookmarksParams?: try {
-      guard case .bookmarksParams(let v)? = self.params else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }()
-    case .markdownParams?: try {
-      guard case .markdownParams(let v)? = self.params else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    }()
-    case .htmlParams?: try {
-      guard case .htmlParams(let v)? = self.params else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-    }()
-    case .txtParams?: try {
-      guard case .txtParams(let v)? = self.params else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    }()
-    case .pbParams?: try {
-      guard case .pbParams(let v)? = self.params else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-    }()
-    case .csvParams?: try {
-      guard case .csvParams(let v)? = self.params else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-    }()
-    case nil: break
-    }
-    if !self.snapshots.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.snapshots, fieldNumber: 8)
-    }
-    if self.updateExistingObjects != false {
-      try visitor.visitSingularBoolField(value: self.updateExistingObjects, fieldNumber: 9)
-    }
-    if self.type != .notion {
-      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 10)
-    }
-    if self.mode != .allOrNothing {
-      try visitor.visitSingularEnumField(value: self.mode, fieldNumber: 11)
-    }
-    if self.noProgress != false {
-      try visitor.visitSingularBoolField(value: self.noProgress, fieldNumber: 12)
-    }
-    if self.isMigration != false {
-      try visitor.visitSingularBoolField(value: self.isMigration, fieldNumber: 13)
-    }
-    if !self.spaceID.isEmpty {
-      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 14)
-    }
-    if self.isNewSpace != false {
-      try visitor.visitSingularBoolField(value: self.isNewSpace, fieldNumber: 15)
+    } }()
+    if self.includeContentSamples != false {
+      try visitor.visitSingularBoolField(value: self.includeContentSamples, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.Import.Request, rhs: Anytype_Rpc.Object.Import.Request) -> Bool {
-    if lhs.spaceID != rhs.spaceID {return false}
-    if lhs.params != rhs.params {return false}
-    if lhs.snapshots != rhs.snapshots {return false}
-    if lhs.updateExistingObjects != rhs.updateExistingObjects {return false}
-    if lhs.type != rhs.type {return false}
-    if lhs.mode != rhs.mode {return false}
-    if lhs.noProgress != rhs.noProgress {return false}
-    if lhs.isMigration != rhs.isMigration {return false}
-    if lhs.isNewSpace != rhs.isNewSpace {return false}
+  public static func ==(lhs: Anytype_Rpc.Object.Import.Request.AIParams, rhs: Anytype_Rpc.Object.Import.Request.AIParams) -> Bool {
+    if lhs._config != rhs._config {return false}
+    if lhs.includeContentSamples != rhs.includeContentSamples {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
-}
-
-extension Anytype_Rpc.Object.Import.Request.Mode: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0ALL_OR_NOTHING\0\u{1}IGNORE_ERRORS\0")
 }
 
 extension Anytype_Rpc.Object.Import.Request.NotionParams: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

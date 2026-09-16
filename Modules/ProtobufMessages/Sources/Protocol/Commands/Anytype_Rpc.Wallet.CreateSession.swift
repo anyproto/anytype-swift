@@ -101,6 +101,31 @@ extension Anytype_Rpc.Wallet {
         /// temp, should be replaced with AccountInfo message
         public var accountID: String = String()
 
+        /// scope of the session; for appKey auth it is the app link's scope
+        public var accountScope: Anytype_Model_Account.Auth.LocalApiScope = .limited
+
+        /// for appKey auth, the app name recorded when the app link was created
+        public var appName: String = String()
+
+        /// for appKey auth, the app link's expiration unix timestamp; 0 means the key never expires
+        public var appExpireAt: Int64 = 0
+
+        /// for appKey auth, the app link's grant; unset means an unscoped key
+        public var grant: Anytype_Model_Account.Auth.AppGrant {
+          get {return _grant ?? Anytype_Model_Account.Auth.AppGrant()}
+          set {_grant = newValue}
+        }
+        /// Returns true if `grant` has been explicitly set.
+        public var hasGrant: Bool {return self._grant != nil}
+        /// Clears the value of `grant`. Subsequent reads from it will return its default value.
+        public mutating func clearGrant() {self._grant = nil}
+
+        /// for appKey auth, the app link's identity (the hash ListApps and RevokeApp use)
+        public var appHash: String = String()
+
+        /// for appKey auth, the app link's creation unix timestamp; 0 means unknown (pre-hash-era link)
+        public var appCreatedAt: Int64 = 0
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -122,6 +147,9 @@ extension Anytype_Rpc.Wallet {
 
             /// means the client logged into another account or the account directory has been cleaned
             case appTokenNotFoundInTheCurrentAccount // = 101
+
+            /// the app link's expireAt has passed; the key must be re-issued
+            case appTokenExpired // = 102
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -134,6 +162,7 @@ extension Anytype_Rpc.Wallet {
               case 1: self = .unknownError
               case 2: self = .badInput
               case 101: self = .appTokenNotFoundInTheCurrentAccount
+              case 102: self = .appTokenExpired
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -144,6 +173,7 @@ extension Anytype_Rpc.Wallet {
               case .unknownError: return 1
               case .badInput: return 2
               case .appTokenNotFoundInTheCurrentAccount: return 101
+              case .appTokenExpired: return 102
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -154,6 +184,7 @@ extension Anytype_Rpc.Wallet {
               .unknownError,
               .badInput,
               .appTokenNotFoundInTheCurrentAccount,
+              .appTokenExpired,
             ]
 
           }
@@ -164,6 +195,7 @@ extension Anytype_Rpc.Wallet {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.Wallet.CreateSession.Response.Error? = nil
+        fileprivate var _grant: Anytype_Model_Account.Auth.AppGrant? = nil
       }
 
       public init() {}
@@ -272,7 +304,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Request: SwiftProtobuf.Message, Swift
 
 extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Wallet.CreateSession.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}token\0\u{1}appToken\0\u{1}accountId\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}token\0\u{1}appToken\0\u{1}accountId\0\u{1}accountScope\0\u{1}appName\0\u{1}appExpireAt\0\u{1}grant\0\u{1}appHash\0\u{1}appCreatedAt\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -284,6 +316,12 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
       case 2: try { try decoder.decodeSingularStringField(value: &self.token) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.appToken) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.accountID) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.accountScope) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.appName) }()
+      case 7: try { try decoder.decodeSingularInt64Field(value: &self.appExpireAt) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._grant) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.appHash) }()
+      case 10: try { try decoder.decodeSingularInt64Field(value: &self.appCreatedAt) }()
       default: break
       }
     }
@@ -306,6 +344,24 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
     if !self.accountID.isEmpty {
       try visitor.visitSingularStringField(value: self.accountID, fieldNumber: 4)
     }
+    if self.accountScope != .limited {
+      try visitor.visitSingularEnumField(value: self.accountScope, fieldNumber: 5)
+    }
+    if !self.appName.isEmpty {
+      try visitor.visitSingularStringField(value: self.appName, fieldNumber: 6)
+    }
+    if self.appExpireAt != 0 {
+      try visitor.visitSingularInt64Field(value: self.appExpireAt, fieldNumber: 7)
+    }
+    try { if let v = self._grant {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
+    if !self.appHash.isEmpty {
+      try visitor.visitSingularStringField(value: self.appHash, fieldNumber: 9)
+    }
+    if self.appCreatedAt != 0 {
+      try visitor.visitSingularInt64Field(value: self.appCreatedAt, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -314,6 +370,12 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
     if lhs.token != rhs.token {return false}
     if lhs.appToken != rhs.appToken {return false}
     if lhs.accountID != rhs.accountID {return false}
+    if lhs.accountScope != rhs.accountScope {return false}
+    if lhs.appName != rhs.appName {return false}
+    if lhs.appExpireAt != rhs.appExpireAt {return false}
+    if lhs._grant != rhs._grant {return false}
+    if lhs.appHash != rhs.appHash {return false}
+    if lhs.appCreatedAt != rhs.appCreatedAt {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -355,7 +417,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Response.Error: SwiftProtobuf.Message
 }
 
 extension Anytype_Rpc.Wallet.CreateSession.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}APP_TOKEN_NOT_FOUND_IN_THE_CURRENT_ACCOUNT\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}APP_TOKEN_NOT_FOUND_IN_THE_CURRENT_ACCOUNT\0\u{1}APP_TOKEN_EXPIRED\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

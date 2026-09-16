@@ -82,6 +82,7 @@ extension Anytype_Rpc.Account {
 
             /// TODO: [storage] Add specific error codes for migration problems
             case notEnoughFreeSpace // = 103
+            case anotherAnytypeProcessIsRunning // = 108
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -96,6 +97,7 @@ extension Anytype_Rpc.Account {
               case 101: self = .accountNotFound
               case 102: self = .canceled
               case 103: self = .notEnoughFreeSpace
+              case 108: self = .anotherAnytypeProcessIsRunning
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -108,6 +110,7 @@ extension Anytype_Rpc.Account {
               case .accountNotFound: return 101
               case .canceled: return 102
               case .notEnoughFreeSpace: return 103
+              case .anotherAnytypeProcessIsRunning: return 108
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -120,6 +123,7 @@ extension Anytype_Rpc.Account {
               .accountNotFound,
               .canceled,
               .notEnoughFreeSpace,
+              .anotherAnytypeProcessIsRunning,
             ]
 
           }
@@ -270,7 +274,7 @@ extension Anytype_Rpc.Account.Migrate.Response.Error: SwiftProtobuf.Message, Swi
 }
 
 extension Anytype_Rpc.Account.Migrate.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}ACCOUNT_NOT_FOUND\0\u{1}CANCELED\0\u{1}NOT_ENOUGH_FREE_SPACE\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}ACCOUNT_NOT_FOUND\0\u{1}CANCELED\0\u{1}NOT_ENOUGH_FREE_SPACE\0\u{2}\u{5}ANOTHER_ANYTYPE_PROCESS_IS_RUNNING\0")
 }
 
 // If the compiler emits an error on this type, it is because this file
