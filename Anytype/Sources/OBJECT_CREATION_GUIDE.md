@@ -97,9 +97,9 @@ This document lists all places in the app where objects can be created.
 
 **File:** `SpaceHubCoordinatorViewModel.swift`
 
-**Link:** `anytype://create-object-widget`
+**Link:** `anytype://quick-capture` (lock screen widget)
 
-**Creates:** Default object type
+**Creates:** Opens Quick Capture; falls back to the default object type when `FeatureFlags.quickCapture` is off
 
 ---
 
