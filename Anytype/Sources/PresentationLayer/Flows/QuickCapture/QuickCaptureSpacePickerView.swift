@@ -6,6 +6,8 @@ struct QuickCaptureSpacePickerView: View {
 
     let spaces: [SpaceView]
     let selectedSpaceId: String?
+    let draftSpaceIds: Set<String>
+    let isProcessing: Bool
     let onSelect: (SpaceView) -> Void
 
     @State private var searchText = ""
@@ -46,6 +48,10 @@ struct QuickCaptureSpacePickerView: View {
             HStack(spacing: 12) {
                 IconView(icon: space.objectIconImage)
                     .frame(width: 48, height: 48)
+                // Drafts are grouped at the top, so the dot's gutter is only reserved where it shows
+                if draftSpaceIds.contains(space.targetSpaceId) {
+                    QuickCaptureDraftDot()
+                }
                 AnytypeText(space.title, style: .uxTitle2Regular)
                     .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
@@ -57,5 +63,16 @@ struct QuickCaptureSpacePickerView: View {
             }
             .frame(height: 64)
         }
+        .disabled(isProcessing)
+        .accessibilityValue(draftSpaceIds.contains(space.targetSpaceId) ? Loc.QuickCapture.unsentDraft : "")
+    }
+}
+
+struct QuickCaptureDraftDot: View {
+    var body: some View {
+        Circle()
+            .fill(Color.Pure.orange)
+            .frame(width: 6, height: 6)
+            .accessibilityHidden(true)
     }
 }

@@ -3,13 +3,14 @@ import AnytypeCore
 
 protocol QuickCaptureDraftStorageProtocol: AnyObject, Sendable {
     func draftObjectId(spaceId: String) -> String?
+    func draftObjectIds() -> [String]
     func setDraftObjectId(_ objectId: String?, spaceId: String)
     func lastCaptureSpaceId() -> String?
     func setLastCaptureSpaceId(_ spaceId: String)
 }
 
 // Pointers to per-space quick capture draft objects on this device.
-// The draft content lives in the object itself; only the "which object is the draft" fact is local.
+// Draft content and isDraft sync. These ids only hint which draft this device resumes.
 final class QuickCaptureDraftStorage: QuickCaptureDraftStorageProtocol, Sendable {
 
     // [SpaceId: draft ObjectId]
@@ -18,6 +19,10 @@ final class QuickCaptureDraftStorage: QuickCaptureDraftStorageProtocol, Sendable
 
     func draftObjectId(spaceId: String) -> String? {
         storage.value[spaceId]
+    }
+
+    func draftObjectIds() -> [String] {
+        Array(storage.value.values)
     }
 
     func setDraftObjectId(_ objectId: String?, spaceId: String) {

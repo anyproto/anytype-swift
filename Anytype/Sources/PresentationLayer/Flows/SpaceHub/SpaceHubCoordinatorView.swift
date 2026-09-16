@@ -92,8 +92,10 @@ struct SpaceHubCoordinatorView: View {
                 SettingsCoordinatorView()
                     .pageNavigation(model.pageNavigation)
             }
-            .sheet(isPresented: $model.showQuickCapture) {
-                QuickCaptureCoordinatorView(onCreated: { model.quickCaptureDidCreate($0) })
+            .sheet(isPresented: $model.showQuickCapture, onDismiss: { model.quickCaptureDidDismiss() }) {
+                if let captureModel = model.quickCaptureModel {
+                    QuickCaptureCoordinatorView(model: captureModel)
+                }
             }
             .overlay(alignment: .bottom) {
                 if let banner = model.quickCaptureCreated {

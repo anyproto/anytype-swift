@@ -18,8 +18,8 @@ extension Array where Element == ParticipantSpaceViewDataWithPreview {
         case (false, true):
             return false
         case (false, false):
-            let lhsMessageDate = lhs.latestPreview.lastMessage?.createdAt
-            let rhsMessageDate = rhs.latestPreview.lastMessage?.createdAt
+            let lhsMessageDate = lhs.lastMessageDate
+            let rhsMessageDate = rhs.lastMessageDate
             let lhsJoinDate = lhs.spaceView.joinDate
             let rhsJoinDate = rhs.spaceView.joinDate
 

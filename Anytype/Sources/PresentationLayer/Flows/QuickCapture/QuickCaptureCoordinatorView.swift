@@ -9,8 +9,8 @@ struct QuickCaptureCoordinatorView: View {
 
     @State private var topInset: CGFloat = 0
 
-    init(onCreated: @escaping (QuickCaptureCreatedBanner) -> Void) {
-        _model = State(initialValue: QuickCaptureCoordinatorViewModel(onCreated: onCreated))
+    init(model: QuickCaptureCoordinatorViewModel) {
+        _model = State(initialValue: model)
     }
 
     var body: some View {
@@ -22,6 +22,10 @@ struct QuickCaptureCoordinatorView: View {
             .task {
                 await model.onAppear()
             }
+            .task {
+                await model.discoverDrafts()
+            }
+            .interactiveDismissDisabled(model.isProcessing)
             .task(id: model.editorData?.objectId) {
                 await model.subscribeOnDraft()
             }
@@ -42,8 +46,10 @@ struct QuickCaptureCoordinatorView: View {
             }
             .sheet(isPresented: $model.showSpacePicker) {
                 QuickCaptureSpacePickerView(
-                    spaces: model.sortedEditableSpaces,
+                    spaces: model.pickerSpaces,
                     selectedSpaceId: model.spaceView?.targetSpaceId,
+                    draftSpaceIds: model.draftSpaceIds,
+                    isProcessing: model.isInteractionLocked,
                     onSelect: { model.onSelectSpace($0) }
                 )
             }
@@ -55,11 +61,25 @@ struct QuickCaptureCoordinatorView: View {
         if let editorData = model.editorData {
             EditorPageCoordinatorView(data: editorData, showHeader: false)
                 .id(editorData.objectId)
+                .onReceive(NotificationCenter.default.publisher(for: UITextView.textDidBeginEditingNotification)) {
+                    model.onTextEditingBegan($0)
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UITextView.textDidChangeNotification)) {
+                    model.onTextChanged($0)
+                }
+                .disabled(model.isInteractionLocked)
+                .allowsHitTesting(!model.isInteractionLocked)
         } else {
             VStack {
                 Spacer()
-                CircleLoadingView()
-                    .frame(width: 24, height: 24)
+                if model.draftLoadFailed {
+                    Button(Loc.tryAgain) {
+                        Task { await model.onAppear() }
+                    }
+                } else {
+                    CircleLoadingView()
+                        .frame(width: 24, height: 24)
+                }
                 Spacer()
             }
             .frame(maxWidth: .infinity)
@@ -103,25 +123,29 @@ struct QuickCaptureCoordinatorView: View {
             }
         }
         .confirmationDialog(
-            Loc.QuickCapture.replaceDraftTitle(model.pendingSpaceSwitch?.title ?? ""),
-            isPresented: replaceDraftConfirmation,
-            titleVisibility: .visible
-        ) {
-            Button(Loc.QuickCapture.replaceDraft, role: .destructive) {
-                model.onConfirmReplaceDraft()
+            Loc.QuickCapture.switchDraftTitle(model.pendingSpaceSwitch?.title ?? ""),
+            isPresented: spaceSwitchConfirmation,
+            titleVisibility: .visible,
+            presenting: model.pendingSpaceSwitch
+        ) { selected in
+            Button(Loc.QuickCapture.keepBoth) {
+                Task { await model.onKeepBothDrafts(selected) }
+            }
+            Button(Loc.QuickCapture.discardMyDraft, role: .destructive) {
+                Task { await model.onDiscardCurrentDraft(selected) }
             }
             Button(Loc.cancel, role: .cancel) {
-                model.onCancelReplaceDraft()
+                model.onCancelSpaceSwitch()
             }
-        } message: {
-            Text(Loc.QuickCapture.replaceDraftMessage)
+        } message: { _ in
+            Text(Loc.QuickCapture.switchDraftMessage)
         }
     }
 
-    private var replaceDraftConfirmation: Binding<Bool> {
+    private var spaceSwitchConfirmation: Binding<Bool> {
         Binding(
             get: { model.pendingSpaceSwitch != nil },
-            set: { if !$0 { model.onCancelReplaceDraft() } }
+            set: { if !$0 { model.onCancelSpaceSwitch() } }
         )
     }
 
@@ -135,13 +159,20 @@ struct QuickCaptureCoordinatorView: View {
                 AnytypeText(model.spaceView?.title ?? "", style: .uxCalloutMedium)
                     .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
-                Image(asset: .X18.Disclosure.down)
-                    .foregroundStyle(Color.Control.secondary)
+                HStack(spacing: 4) {
+                    if model.hasDraftsInOtherSpaces {
+                        QuickCaptureDraftDot()
+                    }
+                    Image(asset: .X18.Disclosure.down)
+                        .foregroundStyle(Color.Control.secondary)
+                }
+                .padding(.leading, model.hasDraftsInOtherSpaces ? 4 : 0)
             }
             .padding(.horizontal, 12)
             .frame(height: 44)
         }
-        .disabled(model.isProcessing)
+        .disabled(model.isInteractionLocked)
+        .accessibilityValue(model.hasDraftsInOtherSpaces ? Loc.QuickCapture.draftsInOtherSpaces : "")
         .glassEffectInteractiveIOS26(in: Capsule())
     }
 
@@ -158,6 +189,7 @@ struct QuickCaptureCoordinatorView: View {
         }
         .frame(width: 44, height: 44)
         .glassEffectInteractiveIOS26(in: Circle())
+        .disabled(model.isInteractionLocked)
     }
 
     private func settingsMenu(_ editorData: EditorPageObject) -> some View {
@@ -173,6 +205,7 @@ struct QuickCaptureCoordinatorView: View {
                 .frame(width: 44, height: 44)
         }
         .glassEffectInteractiveIOS26(in: Circle())
+        .disabled(model.isInteractionLocked)
     }
 
     private var trashButton: some View {
@@ -184,7 +217,7 @@ struct QuickCaptureCoordinatorView: View {
                 .foregroundStyle(Color.Control.primary)
         }
         .frame(width: 44, height: 44)
-        .disabled(model.isProcessing)
+        .disabled(model.isInteractionLocked)
         .glassEffectInteractiveIOS26(in: Circle())
     }
 
@@ -207,7 +240,7 @@ struct QuickCaptureCoordinatorView: View {
             .clipShape(Circle())
             .opacity(model.isNotEmpty ? 1 : 0.4)
         }
-        .disabled(!model.isNotEmpty || model.isProcessing)
+        .disabled(!model.isNotEmpty || model.isInteractionLocked)
     }
 
 }

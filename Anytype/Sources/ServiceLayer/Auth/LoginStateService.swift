@@ -76,13 +76,14 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     }
     
     func cleanStateAfterLogout() async {
-        userDefaults.cleanStateAfterLogout()
         basicUserInfoStorage.cleanUserIdAfterLogout()
         expandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
         pushNotificationsPermissionService.unregisterForRemoteNotifications()
         spaceFileUploadService.cancelAllUploads()
         await stopSubscriptions()
+        // After the subscriptions stop nothing can write the old account's state back.
+        userDefaults.cleanStateAfterLogout()
     }
     
     func setupStateBeforeLoginOrAuth() async {

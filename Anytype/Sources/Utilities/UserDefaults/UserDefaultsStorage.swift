@@ -14,6 +14,7 @@ protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
     var userInterfaceStyle: UIUserInterfaceStyle { get set }
     var autoDownloadSizeLimitRawValue: Int { get set }
     var autoDownloadUseCellular: Bool { get set }
+    var spaceHubLastMessageDates: [String: Date] { get set }
 
     func wallpaperPublisher(spaceId: String) -> AnyPublisher<SpaceWallpaperType, Never>
     func wallpapersPublisher() -> AnyPublisher<[String: SpaceWallpaperType], Never>
@@ -55,6 +56,12 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
 
     @UserDefault("UserData.AutoDownloadUseCellular", defaultValue: false)
     var autoDownloadUseCellular: Bool
+
+    // MARK: - Space Hub
+    // Key - spaceId, value - date of the latest chat message the Space Hub last showed for it.
+    // Chat previews load slowly after launch; this keeps the hub in its last order until they land.
+    @UserDefault("UserData.SpaceHubLastMessageDates", defaultValue: [:])
+    var spaceHubLastMessageDates: [String: Date]
 
     // MARK: - UserInterfaceStyle
     @UserDefault("UserData.UserInterfaceStyle", defaultValue: UIUserInterfaceStyle.unspecified.rawValue)
@@ -102,6 +109,7 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
         showUnstableMiddlewareError = true
         autoDownloadSizeLimitRawValue = -1
         autoDownloadUseCellular = false
+        spaceHubLastMessageDates = [:]
     }
     
 }

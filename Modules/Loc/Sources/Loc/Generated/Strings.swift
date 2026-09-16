@@ -1075,16 +1075,20 @@ public enum Loc {
     public static let clearDraft = Loc.tr("UI", "QuickCapture.clearDraft", fallback: "Clear draft")
     public static let clearDraftFailed = Loc.tr("UI", "QuickCapture.clearDraftFailed", fallback: "Couldn't clear the draft. It's still here.")
     public static let clearDraftTitle = Loc.tr("UI", "QuickCapture.clearDraftTitle", fallback: "Delete this draft?")
+    public static let discardMyDraft = Loc.tr("UI", "QuickCapture.discardMyDraft", fallback: "Discard my draft")
+    public static let draftsInOtherSpaces = Loc.tr("UI", "QuickCapture.draftsInOtherSpaces", fallback: "Unsent drafts in other spaces")
+    public static let keepBoth = Loc.tr("UI", "QuickCapture.keepBoth", fallback: "Keep both")
     public static let moveFailed = Loc.tr("UI", "QuickCapture.moveFailed", fallback: "Couldn't move the draft. Your note stayed where it was.")
     public static let openObject = Loc.tr("UI", "QuickCapture.openObject", fallback: "Open")
-    public static let replaceDraft = Loc.tr("UI", "QuickCapture.replaceDraft", fallback: "Replace")
-    public static let replaceDraftMessage = Loc.tr("UI", "QuickCapture.replaceDraftMessage", fallback: "Its unsent draft will be deleted permanently.")
-    public static func replaceDraftTitle(_ p1: Any) -> String {
-      return Loc.tr("UI", "QuickCapture.replaceDraftTitle", String(describing: p1), fallback: "Replace draft in %@?")
+    public static let operationFailed = Loc.tr("UI", "QuickCapture.operationFailed", fallback: "Couldn't finish this action. Your drafts are safe. Please try again.")
+    public static let switchDraftMessage = Loc.tr("UI", "QuickCapture.switchDraftMessage", fallback: "Keep this draft in its space, or permanently discard it. The other space's draft will open.")
+    public static func switchDraftTitle(_ p1: Any) -> String {
+      return Loc.tr("UI", "QuickCapture.switchDraftTitle", String(describing: p1), fallback: "%@ already has a draft")
     }
     public static func typeCreatedIn(_ p1: Any, _ p2: Any) -> String {
       return Loc.tr("UI", "QuickCapture.typeCreatedIn", String(describing: p1), String(describing: p2), fallback: "%1$@ created in %2$@")
     }
+    public static let unsentDraft = Loc.tr("UI", "QuickCapture.unsentDraft", fallback: "Unsent draft")
   }
   public enum RedactedText {
     public static let pageTitle = Loc.tr("UI", "RedactedText.pageTitle", fallback: "Wake up, Neo")
@@ -1343,6 +1347,7 @@ public enum Loc {
     public static func inSpacePlusOne(_ p1: Any) -> String {
       return Loc.tr("UI", "UnifiedSearch.inSpacePlusOne", String(describing: p1), fallback: "in %@ + 1 other Channel")
     }
+    public static let placeholder = Loc.tr("UI", "UnifiedSearch.placeholder", fallback: "Search and filter objects, messages")
     public enum Accessibility {
       public static func filterBy(_ p1: Any) -> String {
         return Loc.tr("UI", "UnifiedSearch.Accessibility.filterBy", String(describing: p1), fallback: "Filter by %@")
