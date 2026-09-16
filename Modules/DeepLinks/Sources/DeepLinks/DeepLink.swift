@@ -1,5 +1,5 @@
 public enum DeepLink: Equatable, Sendable {
-    case createObjectFromWidget
+    case quickCapture
     case showSharingExtension
     case galleryImport(type: String, source: String)
     case invite(cid: String, key: String)
@@ -20,7 +20,7 @@ public extension DeepLink {
             return spaceId
         case let .chatMessage(_, spaceId, _):
             return spaceId
-        case .createObjectFromWidget, .showSharingExtension, .galleryImport, .invite, .hi, .membership, .networkConfig:
+        case .quickCapture, .showSharingExtension, .galleryImport, .invite, .hi, .membership, .networkConfig:
             return nil
         }
     }

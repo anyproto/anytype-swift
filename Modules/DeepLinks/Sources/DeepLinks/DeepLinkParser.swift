@@ -9,7 +9,7 @@ public protocol DeepLinkParserProtocol: AnyObject, Sendable {
 final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
 
     private enum LinkPaths {
-        static let createObjectWidget = "create-object-widget"
+        static let quickCapture = "quick-capture"
         static let sharingExtenstion = "sharing-extension"
         static let galleryImport = "main/import"
         static let invite = "invite"
@@ -52,8 +52,8 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
         // Parse path
         
         switch urlString {
-        case LinkPaths.createObjectWidget:
-            return .createObjectFromWidget
+        case LinkPaths.quickCapture:
+            return .quickCapture
         case LinkPaths.sharingExtenstion:
             return .showSharingExtension
         case LinkPaths.galleryImport:
@@ -95,8 +95,8 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
         let host = scheme.host(targetType: targetType)
         
         switch deepLink {
-        case .createObjectFromWidget:
-            return URL(string: host + LinkPaths.createObjectWidget)
+        case .quickCapture:
+            return URL(string: host + LinkPaths.quickCapture)
         case .showSharingExtension:
             return URL(string: host + LinkPaths.sharingExtenstion)
         case .galleryImport(let type, let source):
