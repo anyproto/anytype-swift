@@ -7095,6 +7095,56 @@ extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error: Locali
     }
 }
 
+extension Anytype_Rpc.ObjectType.Property.Add.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "ObjectType.Property.Add.badInput")
+            case .readonlyObjectType:
+                return LocHelper.tr(table: "LocalizableError", key: "ObjectType.Property.Add.readonlyObjectType")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.ObjectType.Property.Remove.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "ObjectType.Property.Remove.badInput")
+            case .readonlyObjectType:
+                return LocHelper.tr(table: "LocalizableError", key: "ObjectType.Property.Remove.readonlyObjectType")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -7139,56 +7189,6 @@ extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response.Error: Locali
                 return LocHelper.tr(table: "LocalizableError", key: "ObjectType.Recommended.RelationsSet.badInput")
             case .readonlyObjectType:
                 return LocHelper.tr(table: "LocalizableError", key: "ObjectType.Recommended.RelationsSet.readonlyObjectType")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
-extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if !localizeError.isEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return LocHelper.tr(table: "LocalizableError", key: "ObjectType.Relation.Add.badInput")
-            case .readonlyObjectType:
-                return LocHelper.tr(table: "LocalizableError", key: "ObjectType.Relation.Add.readonlyObjectType")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
-extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if !localizeError.isEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return LocHelper.tr(table: "LocalizableError", key: "ObjectType.Relation.Remove.badInput")
-            case .readonlyObjectType:
-                return LocHelper.tr(table: "LocalizableError", key: "ObjectType.Relation.Remove.readonlyObjectType")
             case .UNRECOGNIZED:
                 return ""
         }

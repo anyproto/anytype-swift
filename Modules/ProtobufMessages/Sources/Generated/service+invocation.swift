@@ -1364,23 +1364,23 @@ public struct ClientCommands {
         }
     }
 
-    public static func objectTypeRelationAdd(
-        _ request: Anytype_Rpc.ObjectType.Relation.Add.Request = .init()
-    ) -> Invocation<Anytype_Rpc.ObjectType.Relation.Add.Request, Anytype_Rpc.ObjectType.Relation.Add.Response> {
-        return Invocation(messageName: "ObjectTypeRelationAdd", request: request) { request in
+    public static func objectTypePropertyAdd(
+        _ request: Anytype_Rpc.ObjectType.Property.Add.Request = .init()
+    ) -> Invocation<Anytype_Rpc.ObjectType.Property.Add.Request, Anytype_Rpc.ObjectType.Property.Add.Response> {
+        return Invocation(messageName: "ObjectTypePropertyAdd", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServiceObjectTypeRelationAdd(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectType.Relation.Add.Response(serializedBytes: responseData)
+            let responseData = Lib.ServiceObjectTypePropertyAdd(requestData) ?? Data()
+            return try Anytype_Rpc.ObjectType.Property.Add.Response(serializedBytes: responseData)
         }
     }
 
-    public static func objectTypeRelationRemove(
-        _ request: Anytype_Rpc.ObjectType.Relation.Remove.Request = .init()
-    ) -> Invocation<Anytype_Rpc.ObjectType.Relation.Remove.Request, Anytype_Rpc.ObjectType.Relation.Remove.Response> {
-        return Invocation(messageName: "ObjectTypeRelationRemove", request: request) { request in
+    public static func objectTypePropertyRemove(
+        _ request: Anytype_Rpc.ObjectType.Property.Remove.Request = .init()
+    ) -> Invocation<Anytype_Rpc.ObjectType.Property.Remove.Request, Anytype_Rpc.ObjectType.Property.Remove.Response> {
+        return Invocation(messageName: "ObjectTypePropertyRemove", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServiceObjectTypeRelationRemove(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectType.Relation.Remove.Response(serializedBytes: responseData)
+            let responseData = Lib.ServiceObjectTypePropertyRemove(requestData) ?? Data()
+            return try Anytype_Rpc.ObjectType.Property.Remove.Response(serializedBytes: responseData)
         }
     }
 
