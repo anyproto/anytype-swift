@@ -1430,6 +1430,16 @@ extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error: Respon
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.ObjectType.Property.Add.Response: ResultWithError {}
+extension Anytype_Rpc.ObjectType.Property.Add.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.ObjectType.Property.Remove.Response: ResultWithError {}
+extension Anytype_Rpc.ObjectType.Property.Remove.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response: ResultWithError {}
 extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1437,16 +1447,6 @@ extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error
 
 extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response: ResultWithError {}
 extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
-extension Anytype_Rpc.ObjectType.Relation.Add.Response: ResultWithError {}
-extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
-extension Anytype_Rpc.ObjectType.Relation.Remove.Response: ResultWithError {}
-extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
