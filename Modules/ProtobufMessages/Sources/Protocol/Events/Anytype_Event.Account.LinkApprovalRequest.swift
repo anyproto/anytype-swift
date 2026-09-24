@@ -11,15 +11,13 @@
 import SwiftProtobuf
 
 extension Anytype_Event.Account {
-    public struct LinkChallenge: Sendable {
+    public struct LinkApprovalRequest: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
-      public var challenge: String = String()
-
-      public var clientInfo: Anytype_Event.Account.LinkChallenge.ClientInfo {
-        get {return _clientInfo ?? Anytype_Event.Account.LinkChallenge.ClientInfo()}
+      public var clientInfo: Anytype_Event.Account.LinkApprovalRequest.ClientInfo {
+        get {return _clientInfo ?? Anytype_Event.Account.LinkApprovalRequest.ClientInfo()}
         set {_clientInfo = newValue}
       }
       /// Returns true if `clientInfo` has been explicitly set.
@@ -28,6 +26,12 @@ extension Anytype_Event.Account {
       public mutating func clearClientInfo() {self._clientInfo = nil}
 
       public var scope: Anytype_Model_Account.Auth.LocalApiScope = .limited
+
+      /// the permission the app claims to need; pre-fills the prompt's
+      /// permission control. Untrusted like `name`, and never a ceiling — the
+      /// human approving decides. Read is the zero value, so a read claim is
+      /// indistinguishable from no claim (both render the safe default).
+      public var requestedPerm: Anytype_Model_Account.Auth.AppGrant.Perm = .read
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -44,6 +48,14 @@ extension Anytype_Event.Account {
 
         public var signatureVerified: Bool = false
 
+        /// origin of the browser caller that asked for the challenge, e.g.
+        /// "chrome-extension://<id>" or "http://localhost:3000". Empty for
+        /// native clients, which send no Origin header. Taken from the header
+        /// the browser sets, never from the request body, so it names the
+        /// caller even when `name` is arbitrary. Show it to the user: it is the
+        /// only attributable part of a pairing request.
+        public var origin: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -51,13 +63,13 @@ extension Anytype_Event.Account {
 
       public init() {}
 
-      fileprivate var _clientInfo: Anytype_Event.Account.LinkChallenge.ClientInfo? = nil
+      fileprivate var _clientInfo: Anytype_Event.Account.LinkApprovalRequest.ClientInfo? = nil
     }    
 }
 
-extension Anytype_Event.Account.LinkChallenge: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".LinkChallenge"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}challenge\0\u{1}clientInfo\0\u{1}scope\0")
+extension Anytype_Event.Account.LinkApprovalRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".LinkApprovalRequest"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\u{2}clientInfo\0\u{1}scope\0\u{2}\u{2}requestedPerm\0\u{b}challenge\0\u{b}requestedGrant\0\u{c}\u{1}\u{1}\u{c}\u{4}\u{1}")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -65,9 +77,9 @@ extension Anytype_Event.Account.LinkChallenge: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.challenge) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._clientInfo) }()
       case 3: try { try decoder.decodeSingularEnumField(value: &self.scope) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.requestedPerm) }()
       default: break
       }
     }
@@ -78,30 +90,30 @@ extension Anytype_Event.Account.LinkChallenge: SwiftProtobuf.Message, SwiftProto
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.challenge.isEmpty {
-      try visitor.visitSingularStringField(value: self.challenge, fieldNumber: 1)
-    }
     try { if let v = self._clientInfo {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
     if self.scope != .limited {
       try visitor.visitSingularEnumField(value: self.scope, fieldNumber: 3)
     }
+    if self.requestedPerm != .read {
+      try visitor.visitSingularEnumField(value: self.requestedPerm, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Event.Account.LinkChallenge, rhs: Anytype_Event.Account.LinkChallenge) -> Bool {
-    if lhs.challenge != rhs.challenge {return false}
+  public static func ==(lhs: Anytype_Event.Account.LinkApprovalRequest, rhs: Anytype_Event.Account.LinkApprovalRequest) -> Bool {
     if lhs._clientInfo != rhs._clientInfo {return false}
     if lhs.scope != rhs.scope {return false}
+    if lhs.requestedPerm != rhs.requestedPerm {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Event.Account.LinkChallenge.ClientInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Account.LinkChallenge.protoMessageName + ".ClientInfo"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}processName\0\u{1}processPath\0\u{1}signatureVerified\0\u{1}name\0")
+extension Anytype_Event.Account.LinkApprovalRequest.ClientInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Account.LinkApprovalRequest.protoMessageName + ".ClientInfo"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}processName\0\u{1}processPath\0\u{1}signatureVerified\0\u{1}name\0\u{1}origin\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -113,6 +125,7 @@ extension Anytype_Event.Account.LinkChallenge.ClientInfo: SwiftProtobuf.Message,
       case 2: try { try decoder.decodeSingularStringField(value: &self.processPath) }()
       case 3: try { try decoder.decodeSingularBoolField(value: &self.signatureVerified) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.origin) }()
       default: break
       }
     }
@@ -131,14 +144,18 @@ extension Anytype_Event.Account.LinkChallenge.ClientInfo: SwiftProtobuf.Message,
     if !self.name.isEmpty {
       try visitor.visitSingularStringField(value: self.name, fieldNumber: 4)
     }
+    if !self.origin.isEmpty {
+      try visitor.visitSingularStringField(value: self.origin, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Event.Account.LinkChallenge.ClientInfo, rhs: Anytype_Event.Account.LinkChallenge.ClientInfo) -> Bool {
+  public static func ==(lhs: Anytype_Event.Account.LinkApprovalRequest.ClientInfo, rhs: Anytype_Event.Account.LinkApprovalRequest.ClientInfo) -> Bool {
     if lhs.processName != rhs.processName {return false}
     if lhs.processPath != rhs.processPath {return false}
     if lhs.name != rhs.name {return false}
     if lhs.signatureVerified != rhs.signatureVerified {return false}
+    if lhs.origin != rhs.origin {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

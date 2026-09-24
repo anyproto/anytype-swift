@@ -29,6 +29,12 @@ extension Anytype_Model_Notification {
 
     public var spaceName: String = String()
 
+    /// id of the import report page listing per-object issues; empty when the run was clean (importv2)
+    public var reportObjectID: String = String()
+
+    /// number of issues recorded during the run, for "imported with N issues" UI (importv2)
+    public var issuesCount: Int64 = 0
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -37,7 +43,7 @@ extension Anytype_Model_Notification {
 
 extension Anytype_Model_Notification.Import: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".Import"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}processId\0\u{1}errorCode\0\u{1}importType\0\u{1}spaceId\0\u{1}name\0\u{1}spaceName\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}processId\0\u{1}errorCode\0\u{1}importType\0\u{1}spaceId\0\u{1}name\0\u{1}spaceName\0\u{1}reportObjectId\0\u{1}issuesCount\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -51,6 +57,8 @@ extension Anytype_Model_Notification.Import: SwiftProtobuf.Message, SwiftProtobu
       case 4: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.name) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.reportObjectID) }()
+      case 8: try { try decoder.decodeSingularInt64Field(value: &self.issuesCount) }()
       default: break
       }
     }
@@ -75,6 +83,12 @@ extension Anytype_Model_Notification.Import: SwiftProtobuf.Message, SwiftProtobu
     if !self.spaceName.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 6)
     }
+    if !self.reportObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.reportObjectID, fieldNumber: 7)
+    }
+    if self.issuesCount != 0 {
+      try visitor.visitSingularInt64Field(value: self.issuesCount, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -85,6 +99,8 @@ extension Anytype_Model_Notification.Import: SwiftProtobuf.Message, SwiftProtobu
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.name != rhs.name {return false}
     if lhs.spaceName != rhs.spaceName {return false}
+    if lhs.reportObjectID != rhs.reportObjectID {return false}
+    if lhs.issuesCount != rhs.issuesCount {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

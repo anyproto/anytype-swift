@@ -84,6 +84,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func accountLocalLinkApproveChallenge(
+        _ request: Anytype_Rpc.Account.LocalLink.ApproveChallenge.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.LocalLink.ApproveChallenge.Request, Anytype_Rpc.Account.LocalLink.ApproveChallenge.Response> {
+        return Invocation(messageName: "AccountLocalLinkApproveChallenge", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountLocalLinkApproveChallenge(requestData) ?? Data()
+            return try Anytype_Rpc.Account.LocalLink.ApproveChallenge.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func accountLocalLinkCreateApp(
         _ request: Anytype_Rpc.Account.LocalLink.CreateApp.Request = .init()
     ) -> Invocation<Anytype_Rpc.Account.LocalLink.CreateApp.Request, Anytype_Rpc.Account.LocalLink.CreateApp.Response> {
@@ -91,6 +101,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountLocalLinkCreateApp(requestData) ?? Data()
             return try Anytype_Rpc.Account.LocalLink.CreateApp.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func accountLocalLinkUpdateApp(
+        _ request: Anytype_Rpc.Account.LocalLink.UpdateApp.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.LocalLink.UpdateApp.Request, Anytype_Rpc.Account.LocalLink.UpdateApp.Response> {
+        return Invocation(messageName: "AccountLocalLinkUpdateApp", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountLocalLinkUpdateApp(requestData) ?? Data()
+            return try Anytype_Rpc.Account.LocalLink.UpdateApp.Response(serializedBytes: responseData)
         }
     }
 
@@ -301,6 +321,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountPreloadRemainingSpaces(requestData) ?? Data()
             return try Anytype_Rpc.Account.PreloadRemainingSpaces.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func accountRecoveryState(
+        _ request: Anytype_Rpc.Account.RecoveryState.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.RecoveryState.Request, Anytype_Rpc.Account.RecoveryState.Response> {
+        return Invocation(messageName: "AccountRecoveryState", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountRecoveryState(requestData) ?? Data()
+            return try Anytype_Rpc.Account.RecoveryState.Response(serializedBytes: responseData)
         }
     }
 
@@ -1134,6 +1164,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectImportRunStatus(
+        _ request: Anytype_Rpc.Object.ImportRunStatus.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.ImportRunStatus.Request, Anytype_Rpc.Object.ImportRunStatus.Response> {
+        return Invocation(messageName: "ObjectImportRunStatus", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectImportRunStatus(requestData) ?? Data()
+            return try Anytype_Rpc.Object.ImportRunStatus.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func objectImportRunList(
+        _ request: Anytype_Rpc.Object.ImportRunList.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.ImportRunList.Request, Anytype_Rpc.Object.ImportRunList.Response> {
+        return Invocation(messageName: "ObjectImportRunList", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectImportRunList(requestData) ?? Data()
+            return try Anytype_Rpc.Object.ImportRunList.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func objectImportUseCase(
         _ request: Anytype_Rpc.Object.ImportUseCase.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.ImportUseCase.Request, Anytype_Rpc.Object.ImportUseCase.Response> {
@@ -1314,23 +1364,23 @@ public struct ClientCommands {
         }
     }
 
-    public static func objectTypeRelationAdd(
-        _ request: Anytype_Rpc.ObjectType.Relation.Add.Request = .init()
-    ) -> Invocation<Anytype_Rpc.ObjectType.Relation.Add.Request, Anytype_Rpc.ObjectType.Relation.Add.Response> {
-        return Invocation(messageName: "ObjectTypeRelationAdd", request: request) { request in
+    public static func objectTypePropertyAdd(
+        _ request: Anytype_Rpc.ObjectType.Property.Add.Request = .init()
+    ) -> Invocation<Anytype_Rpc.ObjectType.Property.Add.Request, Anytype_Rpc.ObjectType.Property.Add.Response> {
+        return Invocation(messageName: "ObjectTypePropertyAdd", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServiceObjectTypeRelationAdd(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectType.Relation.Add.Response(serializedBytes: responseData)
+            let responseData = Lib.ServiceObjectTypePropertyAdd(requestData) ?? Data()
+            return try Anytype_Rpc.ObjectType.Property.Add.Response(serializedBytes: responseData)
         }
     }
 
-    public static func objectTypeRelationRemove(
-        _ request: Anytype_Rpc.ObjectType.Relation.Remove.Request = .init()
-    ) -> Invocation<Anytype_Rpc.ObjectType.Relation.Remove.Request, Anytype_Rpc.ObjectType.Relation.Remove.Response> {
-        return Invocation(messageName: "ObjectTypeRelationRemove", request: request) { request in
+    public static func objectTypePropertyRemove(
+        _ request: Anytype_Rpc.ObjectType.Property.Remove.Request = .init()
+    ) -> Invocation<Anytype_Rpc.ObjectType.Property.Remove.Request, Anytype_Rpc.ObjectType.Property.Remove.Response> {
+        return Invocation(messageName: "ObjectTypePropertyRemove", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServiceObjectTypeRelationRemove(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectType.Relation.Remove.Response(serializedBytes: responseData)
+            let responseData = Lib.ServiceObjectTypePropertyRemove(requestData) ?? Data()
+            return try Anytype_Rpc.ObjectType.Property.Remove.Response(serializedBytes: responseData)
         }
     }
 
@@ -3331,6 +3381,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAIObjectCreateFromUrl(requestData) ?? Data()
             return try Anytype_Rpc.AI.ObjectCreateFromUrl.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func aIListModels(
+        _ request: Anytype_Rpc.AI.ListModels.Request = .init()
+    ) -> Invocation<Anytype_Rpc.AI.ListModels.Request, Anytype_Rpc.AI.ListModels.Response> {
+        return Invocation(messageName: "AIListModels", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAIListModels(requestData) ?? Data()
+            return try Anytype_Rpc.AI.ListModels.Response(serializedBytes: responseData)
         }
     }
 

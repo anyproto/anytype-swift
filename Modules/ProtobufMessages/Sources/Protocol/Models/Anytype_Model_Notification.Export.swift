@@ -21,15 +21,29 @@ extension Anytype_Model_Notification {
 
     public var exportType: Anytype_Model_Export.Format = .markdown
 
+    public var report: Anytype_Model_ExportReport {
+      get {return _report ?? Anytype_Model_ExportReport()}
+      set {_report = newValue}
+    }
+    /// Returns true if `report` has been explicitly set.
+    public var hasReport: Bool {return self._report != nil}
+    /// Clears the value of `report`. Subsequent reads from it will return its default value.
+    public mutating func clearReport() {self._report = nil}
+
+    /// Selected destination directory for this local export.
+    public var path: String = String()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
+
+    fileprivate var _report: Anytype_Model_ExportReport? = nil
   }    
 }
 
 extension Anytype_Model_Notification.Export: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".Export"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\u{2}errorCode\0\u{1}exportType\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\u{2}errorCode\0\u{1}exportType\0\u{1}report\0\u{1}path\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -39,17 +53,29 @@ extension Anytype_Model_Notification.Export: SwiftProtobuf.Message, SwiftProtobu
       switch fieldNumber {
       case 2: try { try decoder.decodeSingularEnumField(value: &self.errorCode) }()
       case 3: try { try decoder.decodeSingularEnumField(value: &self.exportType) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._report) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.path) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if self.errorCode != .null {
       try visitor.visitSingularEnumField(value: self.errorCode, fieldNumber: 2)
     }
     if self.exportType != .markdown {
       try visitor.visitSingularEnumField(value: self.exportType, fieldNumber: 3)
+    }
+    try { if let v = self._report {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    if !self.path.isEmpty {
+      try visitor.visitSingularStringField(value: self.path, fieldNumber: 5)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -57,6 +83,8 @@ extension Anytype_Model_Notification.Export: SwiftProtobuf.Message, SwiftProtobu
   public static func ==(lhs: Anytype_Model_Notification.Export, rhs: Anytype_Model_Notification.Export) -> Bool {
     if lhs.errorCode != rhs.errorCode {return false}
     if lhs.exportType != rhs.exportType {return false}
+    if lhs._report != rhs._report {return false}
+    if lhs.path != rhs.path {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
