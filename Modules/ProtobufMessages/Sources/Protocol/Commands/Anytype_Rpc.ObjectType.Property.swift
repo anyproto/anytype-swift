@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.ObjectType {
-    public struct Relation: Sendable {
+    public struct Property: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -31,11 +31,66 @@ extension Anytype_Rpc.ObjectType {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var objectTypeURL: String = String()
+          public var objectTypeID: String = String()
 
-          public var relationKeys: [String] = []
+          /// an existing property key; empty means "mint one" from name + format
+          public var key: String = String()
+
+          /// required when key is empty
+          public var name: String = String()
+
+          /// required when key is empty
+          public var format: Anytype_Model_RelationFormat = .longtext
+
+          public var section: Anytype_Rpc.ObjectType.Property.Add.Request.Section = .recommended
+
+          /// the isVisible the new column gets in every view
+          public var enableInViews: Bool = false
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          /// Which of the type's recommended lists the property joins.
+          /// The fourth list, recommendedFileRelations, is absent by
+          /// design: it is derived from a fixed set of file-metadata
+          /// keys on the four file types, and a value written there is
+          /// overwritten the next time those types are revised.
+          public enum Section: SwiftProtobuf.Enum, Swift.CaseIterable {
+            public typealias RawValue = Int
+            case recommended // = 0
+            case featured // = 1
+            case hidden // = 2
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .recommended
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .recommended
+              case 1: self = .featured
+              case 2: self = .hidden
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .recommended: return 0
+              case .featured: return 1
+              case .hidden: return 2
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+            // The compiler won't synthesize support with the UNRECOGNIZED case.
+            public static let allCases: [Anytype_Rpc.ObjectType.Property.Add.Request.Section] = [
+              .recommended,
+              .featured,
+              .hidden,
+            ]
+
+          }
 
           public init() {}
         }
@@ -45,8 +100,8 @@ extension Anytype_Rpc.ObjectType {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var error: Anytype_Rpc.ObjectType.Relation.Add.Response.Error {
-            get {return _error ?? Anytype_Rpc.ObjectType.Relation.Add.Response.Error()}
+          public var error: Anytype_Rpc.ObjectType.Property.Add.Response.Error {
+            get {return _error ?? Anytype_Rpc.ObjectType.Property.Add.Response.Error()}
             set {_error = newValue}
           }
           /// Returns true if `error` has been explicitly set.
@@ -54,7 +109,14 @@ extension Anytype_Rpc.ObjectType {
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
           public mutating func clearError() {self._error = nil}
 
-          public var relations: [Anytype_Model_Relation] = []
+          /// the resolved-or-minted property key
+          public var key: String = String()
+
+          /// the relation object's id
+          public var propertyID: String = String()
+
+          /// the views that gained a column
+          public var viewIds: [String] = []
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -63,7 +125,7 @@ extension Anytype_Rpc.ObjectType {
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
 
-            public var code: Anytype_Rpc.ObjectType.Relation.Add.Response.Error.Code = .null
+            public var code: Anytype_Rpc.ObjectType.Property.Add.Response.Error.Code = .null
 
             public var description_p: String = String()
 
@@ -104,7 +166,7 @@ extension Anytype_Rpc.ObjectType {
               }
 
               // The compiler won't synthesize support with the UNRECOGNIZED case.
-              public static let allCases: [Anytype_Rpc.ObjectType.Relation.Add.Response.Error.Code] = [
+              public static let allCases: [Anytype_Rpc.ObjectType.Property.Add.Response.Error.Code] = [
                 .null,
                 .unknownError,
                 .badInput,
@@ -118,7 +180,7 @@ extension Anytype_Rpc.ObjectType {
 
           public init() {}
 
-          fileprivate var _error: Anytype_Rpc.ObjectType.Relation.Add.Response.Error? = nil
+          fileprivate var _error: Anytype_Rpc.ObjectType.Property.Add.Response.Error? = nil
         }
 
         public init() {}
@@ -136,9 +198,9 @@ extension Anytype_Rpc.ObjectType {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var objectTypeURL: String = String()
+          public var objectTypeID: String = String()
 
-          public var relationKeys: [String] = []
+          public var key: String = String()
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -150,14 +212,17 @@ extension Anytype_Rpc.ObjectType {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var error: Anytype_Rpc.ObjectType.Relation.Remove.Response.Error {
-            get {return _error ?? Anytype_Rpc.ObjectType.Relation.Remove.Response.Error()}
+          public var error: Anytype_Rpc.ObjectType.Property.Remove.Response.Error {
+            get {return _error ?? Anytype_Rpc.ObjectType.Property.Remove.Response.Error()}
             set {_error = newValue}
           }
           /// Returns true if `error` has been explicitly set.
           public var hasError: Bool {return self._error != nil}
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
           public mutating func clearError() {self._error = nil}
+
+          /// the views left untouched because they group, sort or filter by the property
+          public var inUseViewIds: [String] = []
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -166,7 +231,7 @@ extension Anytype_Rpc.ObjectType {
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
 
-            public var code: Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code = .null
+            public var code: Anytype_Rpc.ObjectType.Property.Remove.Response.Error.Code = .null
 
             public var description_p: String = String()
 
@@ -207,7 +272,7 @@ extension Anytype_Rpc.ObjectType {
               }
 
               // The compiler won't synthesize support with the UNRECOGNIZED case.
-              public static let allCases: [Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code] = [
+              public static let allCases: [Anytype_Rpc.ObjectType.Property.Remove.Response.Error.Code] = [
                 .null,
                 .unknownError,
                 .badInput,
@@ -221,7 +286,7 @@ extension Anytype_Rpc.ObjectType {
 
           public init() {}
 
-          fileprivate var _error: Anytype_Rpc.ObjectType.Relation.Remove.Response.Error? = nil
+          fileprivate var _error: Anytype_Rpc.ObjectType.Property.Remove.Response.Error? = nil
         }
 
         public init() {}
@@ -231,8 +296,8 @@ extension Anytype_Rpc.ObjectType {
     }    
 }
 
-extension Anytype_Rpc.ObjectType.Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.ObjectType.protoMessageName + ".Relation"
+extension Anytype_Rpc.ObjectType.Property: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.protoMessageName + ".Property"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -244,14 +309,14 @@ extension Anytype_Rpc.ObjectType.Relation: SwiftProtobuf.Message, SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.ObjectType.Relation, rhs: Anytype_Rpc.ObjectType.Relation) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.ObjectType.Property, rhs: Anytype_Rpc.ObjectType.Property) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Relation.protoMessageName + ".Add"
+extension Anytype_Rpc.ObjectType.Property.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Property.protoMessageName + ".Add"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -263,15 +328,15 @@ extension Anytype_Rpc.ObjectType.Relation.Add: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.ObjectType.Relation.Add, rhs: Anytype_Rpc.ObjectType.Relation.Add) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.ObjectType.Property.Add, rhs: Anytype_Rpc.ObjectType.Property.Add) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Add.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Relation.Add.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}objectTypeUrl\0\u{1}relationKeys\0")
+extension Anytype_Rpc.ObjectType.Property.Add.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Property.Add.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}objectTypeId\0\u{1}key\0\u{1}name\0\u{1}format\0\u{1}section\0\u{1}enableInViews\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -279,34 +344,58 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Request: SwiftProtobuf.Message, Sw
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.objectTypeURL) }()
-      case 2: try { try decoder.decodeRepeatedStringField(value: &self.relationKeys) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.objectTypeID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.format) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.section) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.enableInViews) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.objectTypeURL.isEmpty {
-      try visitor.visitSingularStringField(value: self.objectTypeURL, fieldNumber: 1)
+    if !self.objectTypeID.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectTypeID, fieldNumber: 1)
     }
-    if !self.relationKeys.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.relationKeys, fieldNumber: 2)
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 2)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 3)
+    }
+    if self.format != .longtext {
+      try visitor.visitSingularEnumField(value: self.format, fieldNumber: 4)
+    }
+    if self.section != .recommended {
+      try visitor.visitSingularEnumField(value: self.section, fieldNumber: 5)
+    }
+    if self.enableInViews != false {
+      try visitor.visitSingularBoolField(value: self.enableInViews, fieldNumber: 6)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.ObjectType.Relation.Add.Request, rhs: Anytype_Rpc.ObjectType.Relation.Add.Request) -> Bool {
-    if lhs.objectTypeURL != rhs.objectTypeURL {return false}
-    if lhs.relationKeys != rhs.relationKeys {return false}
+  public static func ==(lhs: Anytype_Rpc.ObjectType.Property.Add.Request, rhs: Anytype_Rpc.ObjectType.Property.Add.Request) -> Bool {
+    if lhs.objectTypeID != rhs.objectTypeID {return false}
+    if lhs.key != rhs.key {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.format != rhs.format {return false}
+    if lhs.section != rhs.section {return false}
+    if lhs.enableInViews != rhs.enableInViews {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Add.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Relation.Add.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}relations\0")
+extension Anytype_Rpc.ObjectType.Property.Add.Request.Section: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Recommended\0\u{1}Featured\0\u{1}Hidden\0")
+}
+
+extension Anytype_Rpc.ObjectType.Property.Add.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Property.Add.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}key\0\u{1}propertyId\0\u{1}viewIds\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -315,7 +404,9 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Response: SwiftProtobuf.Message, S
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.propertyID) }()
+      case 4: try { try decoder.decodeRepeatedStringField(value: &self.viewIds) }()
       default: break
       }
     }
@@ -329,22 +420,30 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Response: SwiftProtobuf.Message, S
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.relations.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.relations, fieldNumber: 2)
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 2)
+    }
+    if !self.propertyID.isEmpty {
+      try visitor.visitSingularStringField(value: self.propertyID, fieldNumber: 3)
+    }
+    if !self.viewIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.viewIds, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.ObjectType.Relation.Add.Response, rhs: Anytype_Rpc.ObjectType.Relation.Add.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.ObjectType.Property.Add.Response, rhs: Anytype_Rpc.ObjectType.Property.Add.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.relations != rhs.relations {return false}
+    if lhs.key != rhs.key {return false}
+    if lhs.propertyID != rhs.propertyID {return false}
+    if lhs.viewIds != rhs.viewIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Relation.Add.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.ObjectType.Property.Add.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Property.Add.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -370,7 +469,7 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.ObjectType.Relation.Add.Response.Error, rhs: Anytype_Rpc.ObjectType.Relation.Add.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.ObjectType.Property.Add.Response.Error, rhs: Anytype_Rpc.ObjectType.Property.Add.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -378,12 +477,12 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: SwiftProtobuf.Mess
   }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.ObjectType.Property.Add.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{1}READONLY_OBJECT_TYPE\0")
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Remove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Relation.protoMessageName + ".Remove"
+extension Anytype_Rpc.ObjectType.Property.Remove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Property.protoMessageName + ".Remove"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -395,15 +494,15 @@ extension Anytype_Rpc.ObjectType.Relation.Remove: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.ObjectType.Relation.Remove, rhs: Anytype_Rpc.ObjectType.Relation.Remove) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.ObjectType.Property.Remove, rhs: Anytype_Rpc.ObjectType.Property.Remove) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Remove.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Relation.Remove.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}objectTypeUrl\0\u{1}relationKeys\0")
+extension Anytype_Rpc.ObjectType.Property.Remove.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Property.Remove.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}objectTypeId\0\u{1}key\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -411,34 +510,34 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Request: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.objectTypeURL) }()
-      case 2: try { try decoder.decodeRepeatedStringField(value: &self.relationKeys) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.objectTypeID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.objectTypeURL.isEmpty {
-      try visitor.visitSingularStringField(value: self.objectTypeURL, fieldNumber: 1)
+    if !self.objectTypeID.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectTypeID, fieldNumber: 1)
     }
-    if !self.relationKeys.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.relationKeys, fieldNumber: 2)
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.ObjectType.Relation.Remove.Request, rhs: Anytype_Rpc.ObjectType.Relation.Remove.Request) -> Bool {
-    if lhs.objectTypeURL != rhs.objectTypeURL {return false}
-    if lhs.relationKeys != rhs.relationKeys {return false}
+  public static func ==(lhs: Anytype_Rpc.ObjectType.Property.Remove.Request, rhs: Anytype_Rpc.ObjectType.Property.Remove.Request) -> Bool {
+    if lhs.objectTypeID != rhs.objectTypeID {return false}
+    if lhs.key != rhs.key {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Remove.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Relation.Remove.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0")
+extension Anytype_Rpc.ObjectType.Property.Remove.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Property.Remove.protoMessageName + ".Response"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}inUseViewIds\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -447,6 +546,7 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response: SwiftProtobuf.Message
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.inUseViewIds) }()
       default: break
       }
     }
@@ -460,18 +560,22 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response: SwiftProtobuf.Message
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
+    if !self.inUseViewIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.inUseViewIds, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.ObjectType.Relation.Remove.Response, rhs: Anytype_Rpc.ObjectType.Relation.Remove.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.ObjectType.Property.Remove.Response, rhs: Anytype_Rpc.ObjectType.Property.Remove.Response) -> Bool {
     if lhs._error != rhs._error {return false}
+    if lhs.inUseViewIds != rhs.inUseViewIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Relation.Remove.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.ObjectType.Property.Remove.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.Property.Remove.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -497,7 +601,7 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.ObjectType.Relation.Remove.Response.Error, rhs: Anytype_Rpc.ObjectType.Relation.Remove.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.ObjectType.Property.Remove.Response.Error, rhs: Anytype_Rpc.ObjectType.Property.Remove.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -505,7 +609,7 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: SwiftProtobuf.M
   }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.ObjectType.Property.Remove.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{1}READONLY_OBJECT_TYPE\0")
 }
 

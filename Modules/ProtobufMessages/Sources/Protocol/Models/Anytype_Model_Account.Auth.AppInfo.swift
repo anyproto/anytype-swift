@@ -26,21 +26,34 @@ extension Anytype_Model_Account.Auth {
 
       public var createdAt: Int64 = 0
 
+      /// unix timestamp in seconds after which the key stops authenticating; 0 means the key never expires
       public var expireAt: Int64 = 0
 
       public var scope: Anytype_Model_Account.Auth.LocalApiScope = .limited
 
       public var isActive: Bool = false
 
+      /// unset means an unscoped (legacy) key; only JsonAPI-scope keys may carry one
+      public var grant: Anytype_Model_Account.Auth.AppGrant {
+        get {return _grant ?? Anytype_Model_Account.Auth.AppGrant()}
+        set {_grant = newValue}
+      }
+      /// Returns true if `grant` has been explicitly set.
+      public var hasGrant: Bool {return self._grant != nil}
+      /// Clears the value of `grant`. Subsequent reads from it will return its default value.
+      public mutating func clearGrant() {self._grant = nil}
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
+
+      fileprivate var _grant: Anytype_Model_Account.Auth.AppGrant? = nil
     }    
 }
 
 extension Anytype_Model_Account.Auth.AppInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Account.Auth.protoMessageName + ".AppInfo"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}appHash\0\u{1}appName\0\u{2}\u{2}appKey\0\u{1}createdAt\0\u{1}expireAt\0\u{1}scope\0\u{1}isActive\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}appHash\0\u{1}appName\0\u{2}\u{2}appKey\0\u{1}createdAt\0\u{1}expireAt\0\u{1}scope\0\u{1}isActive\0\u{1}grant\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -55,12 +68,17 @@ extension Anytype_Model_Account.Auth.AppInfo: SwiftProtobuf.Message, SwiftProtob
       case 6: try { try decoder.decodeSingularInt64Field(value: &self.expireAt) }()
       case 7: try { try decoder.decodeSingularEnumField(value: &self.scope) }()
       case 8: try { try decoder.decodeSingularBoolField(value: &self.isActive) }()
+      case 9: try { try decoder.decodeSingularMessageField(value: &self._grant) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.appHash.isEmpty {
       try visitor.visitSingularStringField(value: self.appHash, fieldNumber: 1)
     }
@@ -82,6 +100,9 @@ extension Anytype_Model_Account.Auth.AppInfo: SwiftProtobuf.Message, SwiftProtob
     if self.isActive != false {
       try visitor.visitSingularBoolField(value: self.isActive, fieldNumber: 8)
     }
+    try { if let v = self._grant {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -93,6 +114,7 @@ extension Anytype_Model_Account.Auth.AppInfo: SwiftProtobuf.Message, SwiftProtob
     if lhs.expireAt != rhs.expireAt {return false}
     if lhs.scope != rhs.scope {return false}
     if lhs.isActive != rhs.isActive {return false}
+    if lhs._grant != rhs._grant {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

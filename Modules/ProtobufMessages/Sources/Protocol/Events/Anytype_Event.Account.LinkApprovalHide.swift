@@ -11,23 +11,31 @@
 import SwiftProtobuf
 
 extension Anytype_Event.Account {
-    public struct LinkChallengeHide: Sendable {
+    public struct LinkApprovalHide: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
-      /// verify code before hiding to protect from MITM attacks
-      public var challenge: String = String()
+      public var clientInfo: Anytype_Event.Account.LinkApprovalRequest.ClientInfo {
+        get {return _clientInfo ?? Anytype_Event.Account.LinkApprovalRequest.ClientInfo()}
+        set {_clientInfo = newValue}
+      }
+      /// Returns true if `clientInfo` has been explicitly set.
+      public var hasClientInfo: Bool {return self._clientInfo != nil}
+      /// Clears the value of `clientInfo`. Subsequent reads from it will return its default value.
+      public mutating func clearClientInfo() {self._clientInfo = nil}
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
+
+      fileprivate var _clientInfo: Anytype_Event.Account.LinkApprovalRequest.ClientInfo? = nil
     }    
 }
 
-extension Anytype_Event.Account.LinkChallengeHide: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".LinkChallengeHide"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}challenge\0")
+extension Anytype_Event.Account.LinkApprovalHide: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".LinkApprovalHide"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\u{2}clientInfo\0\u{b}challenge\0\u{c}\u{1}\u{1}")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -35,21 +43,25 @@ extension Anytype_Event.Account.LinkChallengeHide: SwiftProtobuf.Message, SwiftP
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.challenge) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._clientInfo) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.challenge.isEmpty {
-      try visitor.visitSingularStringField(value: self.challenge, fieldNumber: 1)
-    }
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._clientInfo {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Event.Account.LinkChallengeHide, rhs: Anytype_Event.Account.LinkChallengeHide) -> Bool {
-    if lhs.challenge != rhs.challenge {return false}
+  public static func ==(lhs: Anytype_Event.Account.LinkApprovalHide, rhs: Anytype_Event.Account.LinkApprovalHide) -> Bool {
+    if lhs._clientInfo != rhs._clientInfo {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

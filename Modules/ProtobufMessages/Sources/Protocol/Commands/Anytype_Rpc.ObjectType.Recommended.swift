@@ -19,6 +19,12 @@ extension Anytype_Rpc.ObjectType {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
+      /// Deprecated: replaces the whole list and touches neither the
+      /// dataview relationLinks nor the views, so a caller must do its own
+      /// read-modify-write and the type is left half-consistent. Use
+      /// ObjectTypePropertyAdd / ObjectTypePropertyRemove instead.
+      ///
+      /// NOTE: This message was marked as deprecated in the .proto file.
       public struct RelationsSet: Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -122,6 +128,12 @@ extension Anytype_Rpc.ObjectType {
         public init() {}
       }
 
+      /// Deprecated: replaces the whole list and touches neither the
+      /// dataview relationLinks nor the views, so a caller must do its own
+      /// read-modify-write and the type is left half-consistent. Use
+      /// ObjectTypePropertyAdd / ObjectTypePropertyRemove instead.
+      ///
+      /// NOTE: This message was marked as deprecated in the .proto file.
       public struct FeaturedRelationsSet: Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for

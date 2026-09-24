@@ -22,6 +22,12 @@ extension Anytype_Event.Import {
 
       public var importType: Anytype_Model_Import.TypeEnum = .notion
 
+      /// id of the import report page listing per-object issues; empty when the run was clean (importv2)
+      public var reportObjectID: String = String()
+
+      /// number of issues recorded during the run (importv2)
+      public var issuesCount: Int64 = 0
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
@@ -30,7 +36,7 @@ extension Anytype_Event.Import {
 
 extension Anytype_Event.Import.Finish: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Import.protoMessageName + ".Finish"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}rootCollectionID\0\u{1}objectsCount\0\u{1}importType\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}rootCollectionID\0\u{1}objectsCount\0\u{1}importType\0\u{1}reportObjectId\0\u{1}issuesCount\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -41,6 +47,8 @@ extension Anytype_Event.Import.Finish: SwiftProtobuf.Message, SwiftProtobuf._Mes
       case 1: try { try decoder.decodeSingularStringField(value: &self.rootCollectionID) }()
       case 2: try { try decoder.decodeSingularInt64Field(value: &self.objectsCount) }()
       case 3: try { try decoder.decodeSingularEnumField(value: &self.importType) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.reportObjectID) }()
+      case 5: try { try decoder.decodeSingularInt64Field(value: &self.issuesCount) }()
       default: break
       }
     }
@@ -56,6 +64,12 @@ extension Anytype_Event.Import.Finish: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if self.importType != .notion {
       try visitor.visitSingularEnumField(value: self.importType, fieldNumber: 3)
     }
+    if !self.reportObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.reportObjectID, fieldNumber: 4)
+    }
+    if self.issuesCount != 0 {
+      try visitor.visitSingularInt64Field(value: self.issuesCount, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -63,6 +77,8 @@ extension Anytype_Event.Import.Finish: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if lhs.rootCollectionID != rhs.rootCollectionID {return false}
     if lhs.objectsCount != rhs.objectsCount {return false}
     if lhs.importType != rhs.importType {return false}
+    if lhs.reportObjectID != rhs.reportObjectID {return false}
+    if lhs.issuesCount != rhs.issuesCount {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -67,16 +67,14 @@ public extension FeatureDescription {
 
     static let quickCapture = FeatureDescription(
         title: "Quick Capture from Space Hub - IOS-6617",
-        category: .productFeature(author: "requilence@gmail.com", targetRelease: "?"),
-        defaultValue: false,
-        debugValue: true
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "0.49.0"),
+        defaultValue: true
     )
 
     static let quickCaptureTypeSuggestions = FeatureDescription(
         title: "Quick Capture - on-device AI type suggestions - IOS-6617",
-        category: .productFeature(author: "requilence@gmail.com", targetRelease: "?"),
-        defaultValue: false,
-        debugValue: true
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "0.49.1"),
+        defaultValue: true
     )
 
     // MARK: - Experemental

@@ -6,6 +6,11 @@ extension Anytype_Rpc.AI.Autofill.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.AI.ListModels.Response: ResultWithError {}
+extension Anytype_Rpc.AI.ListModels.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.AI.ListSummary.Response: ResultWithError {}
 extension Anytype_Rpc.AI.ListSummary.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -51,6 +56,11 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: ResponseErr
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Account.LocalLink.ApproveChallenge.Response: ResultWithError {}
+extension Anytype_Rpc.Account.LocalLink.ApproveChallenge.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Account.LocalLink.CreateApp.Response: ResultWithError {}
 extension Anytype_Rpc.Account.LocalLink.CreateApp.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -73,6 +83,11 @@ extension Anytype_Rpc.Account.LocalLink.RevokeApp.Response.Error: ResponseError 
 
 extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response: ResultWithError {}
 extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Account.LocalLink.UpdateApp.Response: ResultWithError {}
+extension Anytype_Rpc.Account.LocalLink.UpdateApp.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
@@ -103,6 +118,11 @@ extension Anytype_Rpc.Account.Recover.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response: ResultWithError {}
 extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Account.RecoveryState.Response: ResultWithError {}
+extension Anytype_Rpc.Account.RecoveryState.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
@@ -1200,6 +1220,16 @@ extension Anytype_Rpc.Object.ImportList.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Object.ImportRunList.Response: ResultWithError {}
+extension Anytype_Rpc.Object.ImportRunList.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Object.ImportRunStatus.Response: ResultWithError {}
+extension Anytype_Rpc.Object.ImportRunStatus.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Object.ImportUseCase.Response: ResultWithError {}
 extension Anytype_Rpc.Object.ImportUseCase.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1400,6 +1430,16 @@ extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error: Respon
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.ObjectType.Property.Add.Response: ResultWithError {}
+extension Anytype_Rpc.ObjectType.Property.Add.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.ObjectType.Property.Remove.Response: ResultWithError {}
+extension Anytype_Rpc.ObjectType.Property.Remove.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response: ResultWithError {}
 extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1407,16 +1447,6 @@ extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error
 
 extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response: ResultWithError {}
 extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
-extension Anytype_Rpc.ObjectType.Relation.Add.Response: ResultWithError {}
-extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
-extension Anytype_Rpc.ObjectType.Relation.Remove.Response: ResultWithError {}
-extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
