@@ -54,6 +54,10 @@ public extension FeatureFlags {
         value(for: .quickCaptureTypeSuggestions)
     }
 
+    static var nativeLocalDiscovery: Bool {
+        value(for: .nativeLocalDiscovery)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -156,6 +160,7 @@ public extension FeatureFlags {
         .forkEmptyBlockOnFill,
         .quickCapture,
         .quickCaptureTypeSuggestions,
+        .nativeLocalDiscovery,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

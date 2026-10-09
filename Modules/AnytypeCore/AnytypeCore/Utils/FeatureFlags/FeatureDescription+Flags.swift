@@ -77,6 +77,13 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
+    static let nativeLocalDiscovery = FeatureDescription(
+        title: "LAN discovery through system Bonjour (DNS-SD), applied on relaunch - GO-7576",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "?"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(
