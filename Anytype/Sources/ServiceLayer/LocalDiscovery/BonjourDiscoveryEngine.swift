@@ -24,6 +24,7 @@ final class BonjourDiscoveryEngine: @unchecked Sendable {
     private var isPolicyDenied = false
     private var session: BonjourDiscoverySession?
     private var sessionCounter = 0
+    private var activationCount = 0
     private var restartAttempt = 0
     private var pendingRestart: (any LocalDiscoveryCancellable)?
 
@@ -60,9 +61,11 @@ final class BonjourDiscoveryEngine: @unchecked Sendable {
         }
     }
 
-    /// The Local Network prompt may deny the first operations before the user answers it. The scene
-    /// becoming active again (the prompt dismissed) is when to find out what they chose.
-    func retryAfterPolicyDenial() {
+    /// The Local Network prompt deactivates the scene while it is shown and may deny operations before
+    /// the user answers it. The scene becoming active again (the prompt dismissed) is when to find out
+    /// what they chose; a denial arriving later for an earlier session is handled in `handleFatalError`.
+    func sceneDidActivate() {
+        activationCount += 1
         guard isPolicyDenied else { return }
         isPolicyDenied = false
         startIfNeeded()
@@ -73,7 +76,7 @@ final class BonjourDiscoveryEngine: @unchecked Sendable {
     private func startIfNeeded() {
         guard let observer, isForeground, !isPolicyDenied, session.isNil else { return }
         sessionCounter += 1
-        let session = BonjourDiscoverySession(id: sessionCounter, observer: observer)
+        let session = BonjourDiscoverySession(id: sessionCounter, activation: activationCount, observer: observer)
         self.session = session
         Self.log.info("Start: peer \(observer.peerId, privacy: .public), port \(observer.port)")
         startRegistration(session)
@@ -122,9 +125,15 @@ final class BonjourDiscoveryEngine: @unchecked Sendable {
         stopSession()
         switch code {
         case DNSServiceErrorCode.policyDenied:
-            // The user denied (or has not answered) the Local Network prompt: retrying would not
-            // help until they change it in Settings, which brings the app back to the foreground.
-            isPolicyDenied = true
+            if session.activation < activationCount {
+                // The scene activated since this session started: the denial may predate the
+                // user's answer to the prompt, so the answer gets one fresh attempt.
+                startIfNeeded()
+            } else {
+                // Denied (or not answered yet): wait for the next activation or foreground, which
+                // also covers the user changing it in Settings.
+                isPolicyDenied = true
+            }
         case DNSServiceErrorCode.serviceNotRunning, DNSServiceErrorCode.defunctConnection:
             scheduleRestart()
         default:

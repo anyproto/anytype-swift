@@ -7,6 +7,8 @@ import ProtobufMessages
 final class BonjourDiscoverySession {
 
     let id: Int
+    /// The engine's scene activation count when this session started.
+    let activation: Int
     let observer: any LocalDiscoveryObserver
 
     var registration: (any DNSServiceOperation)?
@@ -24,8 +26,9 @@ final class BonjourDiscoverySession {
 
     private var instanceCounter = 0
 
-    init(id: Int, observer: any LocalDiscoveryObserver) {
+    init(id: Int, activation: Int, observer: any LocalDiscoveryObserver) {
         self.id = id
+        self.activation = activation
         self.observer = observer
     }
 

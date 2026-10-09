@@ -117,6 +117,8 @@ final class FakeDNSServiceClient: DNSServiceClientProtocol {
 
     var registerStartError: DNSServiceError?
     var browseStartError: DNSServiceError?
+    var resolveStartError: DNSServiceError?
+    var lookupStartError: DNSServiceError?
 
     var activeRegistrations: [FakeRegistration] { registrations.filter { !$0.operation.isCancelled } }
     var activeBrowses: [FakeBrowse] { browses.filter { !$0.operation.isCancelled } }
@@ -164,6 +166,7 @@ final class FakeDNSServiceClient: DNSServiceClientProtocol {
         interfaceIndex: UInt32,
         handler: @escaping (Result<DNSServiceResolveEvent, DNSServiceError>) -> Void
     ) -> Result<any DNSServiceOperation, DNSServiceError> {
+        if let resolveStartError { return .failure(resolveStartError) }
         let operation = makeOperation("resolve")
         resolves.append(FakeResolve(name: name, interfaceIndex: interfaceIndex, handler: handler, operation: operation))
         return .success(operation)
@@ -174,6 +177,7 @@ final class FakeDNSServiceClient: DNSServiceClientProtocol {
         interfaceIndex: UInt32,
         handler: @escaping (Result<DNSServiceAddressEvent, DNSServiceError>) -> Void
     ) -> Result<any DNSServiceOperation, DNSServiceError> {
+        if let lookupStartError { return .failure(lookupStartError) }
         let operation = makeOperation("lookup")
         lookups.append(FakeLookup(hostname: hostname, interfaceIndex: interfaceIndex, handler: handler, operation: operation))
         return .success(operation)

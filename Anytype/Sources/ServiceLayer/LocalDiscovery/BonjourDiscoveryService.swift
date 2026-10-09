@@ -79,11 +79,11 @@ final class BonjourDiscoveryService: BonjourDiscoveryServiceProtocol {
     }
 
     /// The Local Network prompt deactivates the scene while it is shown: once it is dismissed,
-    /// retry a denial it raised before the user answered.
+    /// a denial it raised before the user answered gets retried.
     @objc @MainActor
     private func didActivate() {
         queue.async { [engine] in
-            engine.retryAfterPolicyDenial()
+            engine.sceneDidActivate()
         }
     }
 

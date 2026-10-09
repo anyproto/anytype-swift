@@ -214,9 +214,17 @@ struct BonjourDiscoveryEngineTests {
     @Test func backgroundCancelsAPendingRestart() throws {
         start()
         try #require(client.browse).fail(DNSServiceErrorCode.serviceNotRunning)
+        #expect(scheduler.pendingDelays == [1])
+
         engine.setForeground(false)
-        scheduler.advance(by: 60)
-        #expect(client.registrations.count == 1)
+        #expect(scheduler.pendingDelays.isEmpty)
+
+        engine.setForeground(true)
+        try #require(client.browse).fail(DNSServiceErrorCode.serviceNotRunning)
+        #expect(scheduler.pendingDelays == [1])
+        scheduler.advance(by: 1)
+        #expect(client.registrations.count == 3)
+        #expect(client.activeBrowses.count == 1)
     }
 
     // MARK: - Reports
@@ -411,7 +419,7 @@ struct BonjourDiscoveryEngineTests {
         start()
         try #require(client.browse).fail(DNSServiceErrorCode.policyDenied)
 
-        engine.retryAfterPolicyDenial()
+        engine.sceneDidActivate()
         #expect(client.registrations.count == 2)
         #expect(client.activeBrowses.count == 1)
 
@@ -420,10 +428,26 @@ struct BonjourDiscoveryEngineTests {
         #expect(observer.errors == [Int(DNSServiceErrorCode.policyDenied), Int(DNSServiceErrorCode.policyDenied)])
     }
 
+    @Test func denialArrivingAfterReactivationGetsOneRetry() throws {
+        start()
+        engine.sceneDidActivate()
+        try #require(client.browse).fail(DNSServiceErrorCode.policyDenied)
+        #expect(client.registrations.count == 2)
+        #expect(client.activeBrowses.count == 1)
+
+        try #require(client.browse).fail(DNSServiceErrorCode.policyDenied)
+        #expect(client.activeBrowses.isEmpty)
+        #expect(scheduler.pendingDelays.isEmpty)
+        #expect(observer.errors == [Int(DNSServiceErrorCode.policyDenied), Int(DNSServiceErrorCode.policyDenied)])
+
+        engine.sceneDidActivate()
+        #expect(client.registrations.count == 3)
+    }
+
     @Test func reactivationWithoutADenialLeavesTheRunningSessionAlone() throws {
         start()
         let registration = try #require(client.activeRegistrations.first)
-        engine.retryAfterPolicyDenial()
+        engine.sceneDidActivate()
         #expect(client.registrations.count == 1)
         #expect(!registration.operation.isCancelled)
     }
@@ -432,7 +456,7 @@ struct BonjourDiscoveryEngineTests {
         start()
         try #require(client.browse).fail(DNSServiceErrorCode.policyDenied)
         engine.setForeground(false)
-        engine.retryAfterPolicyDenial()
+        engine.sceneDidActivate()
         #expect(client.registrations.count == 1)
     }
 
@@ -456,6 +480,29 @@ struct BonjourDiscoveryEngineTests {
         #expect(observer.errors == [Int(DNSServiceErrorCode.policyDenied)])
         #expect(client.activeBrowses.isEmpty)
         #expect(scheduler.pendingDelays.isEmpty)
+    }
+
+    @Test func synchronousLookupDenialStopsWithoutAnOrphanReport() throws {
+        client.lookupStartError = DNSServiceError(code: DNSServiceErrorCode.policyDenied)
+        start()
+        try #require(client.browse).add("peer-a", interface: 4)
+        try #require(client.resolve("peer-a", interface: 4)).resolve(host: "a.local.", port: 62654)
+
+        #expect(observer.errors == [Int(DNSServiceErrorCode.policyDenied)])
+        #expect(client.activeRegistrations.isEmpty)
+        #expect(client.activeBrowses.isEmpty)
+        #expect(client.activeResolves.isEmpty)
+        #expect(scheduler.pendingDelays.isEmpty)
+    }
+
+    @Test func synchronousResolveDaemonErrorRestartsTheWholeEngine() throws {
+        client.resolveStartError = DNSServiceError(code: DNSServiceErrorCode.serviceNotRunning)
+        start()
+        try #require(client.browse).add("peer-a", interface: 4)
+
+        #expect(observer.errors == [Int(DNSServiceErrorCode.serviceNotRunning)])
+        #expect(client.activeBrowses.isEmpty)
+        #expect(scheduler.pendingDelays == [1])
     }
 
     @Test func lookupErrorDropsOnlyThatInstance() throws {
