@@ -58,6 +58,7 @@
 	</dict>
 	<key>NSBonjourServices</key>
 	<array>
+		<string>_anytype._tcp</string>
 		<string>_pulse._tcp</string>
 	</array>
 	<key>NSCameraUsageDescription</key>

@@ -1,6 +1,7 @@
 import Foundation
 import AnytypeCore
 import Services
+import ProtobufMessages
 
 final class GlobalServicesConfiguration: AppConfiguratorProtocol {
     
@@ -16,8 +17,16 @@ final class GlobalServicesConfiguration: AppConfiguratorProtocol {
     private var appVersionUpdateService: any AppVersionUpdateServiceProtocol
     @Injected(\.debugService)
     private var debugService: any DebugServiceProtocol
+    @Injected(\.bonjourDiscoveryService)
+    private var bonjourDiscoveryService: any BonjourDiscoveryServiceProtocol
 
     func configure() {
+        // Before any account starts: middleware picks native discovery or its zeroconf fallback at account start
+        if FeatureFlags.nativeLocalDiscovery {
+            DiscoveryProxyAdapter.shared.install(bonjourDiscoveryService)
+            bonjourDiscoveryService.start()
+        }
+
         // Global listeners
         eventListener.startListening()
         Task {
