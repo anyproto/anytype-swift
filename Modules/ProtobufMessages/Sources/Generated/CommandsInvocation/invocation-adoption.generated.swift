@@ -1500,6 +1500,21 @@ extension Anytype_Rpc.Publishing.ResolveUri.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Pubsub.Publish.Response: ResultWithError {}
+extension Anytype_Rpc.Pubsub.Publish.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Pubsub.Subscribe.Response: ResultWithError {}
+extension Anytype_Rpc.Pubsub.Subscribe.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Pubsub.Unsubscribe.Response: ResultWithError {}
+extension Anytype_Rpc.Pubsub.Unsubscribe.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.PushNotification.RegisterToken.Response: ResultWithError {}
 extension Anytype_Rpc.PushNotification.RegisterToken.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

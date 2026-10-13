@@ -28,6 +28,13 @@ extension Anytype_Rpc.MembershipV2 {
         /// by default this is false
         public var noCache: Bool = false
 
+        /// manual refresh (the Refresh button): if > 0, implies noCache and
+        /// then asks for a short forced poll of status and products, delivered
+        /// as MembershipV2Update / ProductsUpdate events. 0 = no forced poll. The window is
+        /// capped at 180s; at most one forced poll is admitted per 30s,
+        /// further requests only fetch. Negative values are BAD_INPUT.
+        public var forceRefreshSec: Int32 = 0
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -55,6 +62,16 @@ extension Anytype_Rpc.MembershipV2 {
         public var hasData: Bool {return self._data != nil}
         /// Clears the value of `data`. Subsequent reads from it will return its default value.
         public mutating func clearData() {self._data = nil}
+
+        /// always set, on errors too (NONE when nothing was ever fetched)
+        public var fetchState: Anytype_Model_MembershipV2.FetchState {
+          get {return _fetchState ?? Anytype_Model_MembershipV2.FetchState()}
+          set {_fetchState = newValue}
+        }
+        /// Returns true if `fetchState` has been explicitly set.
+        public var hasFetchState: Bool {return self._fetchState != nil}
+        /// Clears the value of `fetchState`. Subsequent reads from it will return its default value.
+        public mutating func clearFetchState() {self._fetchState = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -144,6 +161,7 @@ extension Anytype_Rpc.MembershipV2 {
 
         fileprivate var _error: Anytype_Rpc.MembershipV2.GetStatus.Response.Error? = nil
         fileprivate var _data: Anytype_Model_MembershipV2.DataMessage? = nil
+        fileprivate var _fetchState: Anytype_Model_MembershipV2.FetchState? = nil
       }
 
       public init() {}
@@ -171,7 +189,7 @@ extension Anytype_Rpc.MembershipV2.GetStatus: SwiftProtobuf.Message, SwiftProtob
 
 extension Anytype_Rpc.MembershipV2.GetStatus.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.MembershipV2.GetStatus.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}noCache\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}noCache\0\u{1}forceRefreshSec\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -180,6 +198,7 @@ extension Anytype_Rpc.MembershipV2.GetStatus.Request: SwiftProtobuf.Message, Swi
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularBoolField(value: &self.noCache) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.forceRefreshSec) }()
       default: break
       }
     }
@@ -189,11 +208,15 @@ extension Anytype_Rpc.MembershipV2.GetStatus.Request: SwiftProtobuf.Message, Swi
     if self.noCache != false {
       try visitor.visitSingularBoolField(value: self.noCache, fieldNumber: 1)
     }
+    if self.forceRefreshSec != 0 {
+      try visitor.visitSingularInt32Field(value: self.forceRefreshSec, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.MembershipV2.GetStatus.Request, rhs: Anytype_Rpc.MembershipV2.GetStatus.Request) -> Bool {
     if lhs.noCache != rhs.noCache {return false}
+    if lhs.forceRefreshSec != rhs.forceRefreshSec {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -201,7 +224,7 @@ extension Anytype_Rpc.MembershipV2.GetStatus.Request: SwiftProtobuf.Message, Swi
 
 extension Anytype_Rpc.MembershipV2.GetStatus.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.MembershipV2.GetStatus.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}data\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}data\0\u{1}fetchState\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -211,6 +234,7 @@ extension Anytype_Rpc.MembershipV2.GetStatus.Response: SwiftProtobuf.Message, Sw
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._data) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._fetchState) }()
       default: break
       }
     }
@@ -227,12 +251,16 @@ extension Anytype_Rpc.MembershipV2.GetStatus.Response: SwiftProtobuf.Message, Sw
     try { if let v = self._data {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
+    try { if let v = self._fetchState {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.MembershipV2.GetStatus.Response, rhs: Anytype_Rpc.MembershipV2.GetStatus.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs._data != rhs._data {return false}
+    if lhs._fetchState != rhs._fetchState {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

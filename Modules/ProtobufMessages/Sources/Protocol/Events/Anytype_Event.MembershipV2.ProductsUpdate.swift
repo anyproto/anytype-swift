@@ -8,6 +8,7 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
+import Foundation
 import SwiftProtobuf
 
 extension Anytype_Event.MembershipV2 {
@@ -18,15 +19,27 @@ extension Anytype_Event.MembershipV2 {
 
       public var products: [Anytype_Model_MembershipV2.Product] = []
 
+      /// freshness, last successful fetch, last error and revision of the products
+      public var fetchState: Anytype_Model_MembershipV2.FetchState {
+        get {return _fetchState ?? Anytype_Model_MembershipV2.FetchState()}
+        set {_fetchState = newValue}
+      }
+      /// Returns true if `fetchState` has been explicitly set.
+      public var hasFetchState: Bool {return self._fetchState != nil}
+      /// Clears the value of `fetchState`. Subsequent reads from it will return its default value.
+      public mutating func clearFetchState() {self._fetchState = nil}
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
+
+      fileprivate var _fetchState: Anytype_Model_MembershipV2.FetchState? = nil
     }    
 }
 
 extension Anytype_Event.MembershipV2.ProductsUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.MembershipV2.protoMessageName + ".ProductsUpdate"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}products\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}products\0\u{1}fetchState\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -35,20 +48,29 @@ extension Anytype_Event.MembershipV2.ProductsUpdate: SwiftProtobuf.Message, Swif
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedMessageField(value: &self.products) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._fetchState) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.products.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.products, fieldNumber: 1)
     }
+    try { if let v = self._fetchState {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.MembershipV2.ProductsUpdate, rhs: Anytype_Event.MembershipV2.ProductsUpdate) -> Bool {
     if lhs.products != rhs.products {return false}
+    if lhs._fetchState != rhs._fetchState {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

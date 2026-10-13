@@ -3394,6 +3394,36 @@ public struct ClientCommands {
         }
     }
 
+    public static func pubsubPublish(
+        _ request: Anytype_Rpc.Pubsub.Publish.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Pubsub.Publish.Request, Anytype_Rpc.Pubsub.Publish.Response> {
+        return Invocation(messageName: "PubsubPublish", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePubsubPublish(requestData) ?? Data()
+            return try Anytype_Rpc.Pubsub.Publish.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func pubsubSubscribe(
+        _ request: Anytype_Rpc.Pubsub.Subscribe.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Pubsub.Subscribe.Request, Anytype_Rpc.Pubsub.Subscribe.Response> {
+        return Invocation(messageName: "PubsubSubscribe", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePubsubSubscribe(requestData) ?? Data()
+            return try Anytype_Rpc.Pubsub.Subscribe.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func pubsubUnsubscribe(
+        _ request: Anytype_Rpc.Pubsub.Unsubscribe.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Pubsub.Unsubscribe.Request, Anytype_Rpc.Pubsub.Unsubscribe.Response> {
+        return Invocation(messageName: "PubsubUnsubscribe", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePubsubUnsubscribe(requestData) ?? Data()
+            return try Anytype_Rpc.Pubsub.Unsubscribe.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func pushNotificationRegisterToken(
         _ request: Anytype_Rpc.PushNotification.RegisterToken.Request = .init()
     ) -> Invocation<Anytype_Rpc.PushNotification.RegisterToken.Request, Anytype_Rpc.PushNotification.RegisterToken.Response> {

@@ -8,6 +8,7 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
+import Foundation
 import SwiftProtobuf
 public struct Anytype_Model: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
