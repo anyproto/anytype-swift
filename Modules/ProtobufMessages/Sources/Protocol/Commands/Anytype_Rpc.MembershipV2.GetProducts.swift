@@ -49,6 +49,16 @@ extension Anytype_Rpc.MembershipV2 {
 
         public var products: [Anytype_Model_MembershipV2.Product] = []
 
+        /// always set, on errors too (NONE when nothing was ever fetched)
+        public var fetchState: Anytype_Model_MembershipV2.FetchState {
+          get {return _fetchState ?? Anytype_Model_MembershipV2.FetchState()}
+          set {_fetchState = newValue}
+        }
+        /// Returns true if `fetchState` has been explicitly set.
+        public var hasFetchState: Bool {return self._fetchState != nil}
+        /// Clears the value of `fetchState`. Subsequent reads from it will return its default value.
+        public mutating func clearFetchState() {self._fetchState = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -132,6 +142,7 @@ extension Anytype_Rpc.MembershipV2 {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.MembershipV2.GetProducts.Response.Error? = nil
+        fileprivate var _fetchState: Anytype_Model_MembershipV2.FetchState? = nil
       }
 
       public init() {}
@@ -189,7 +200,7 @@ extension Anytype_Rpc.MembershipV2.GetProducts.Request: SwiftProtobuf.Message, S
 
 extension Anytype_Rpc.MembershipV2.GetProducts.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.MembershipV2.GetProducts.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}products\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}products\0\u{1}fetchState\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -199,6 +210,7 @@ extension Anytype_Rpc.MembershipV2.GetProducts.Response: SwiftProtobuf.Message, 
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.products) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._fetchState) }()
       default: break
       }
     }
@@ -215,12 +227,16 @@ extension Anytype_Rpc.MembershipV2.GetProducts.Response: SwiftProtobuf.Message, 
     if !self.products.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.products, fieldNumber: 2)
     }
+    try { if let v = self._fetchState {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.MembershipV2.GetProducts.Response, rhs: Anytype_Rpc.MembershipV2.GetProducts.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.products != rhs.products {return false}
+    if lhs._fetchState != rhs._fetchState {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

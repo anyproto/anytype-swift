@@ -39,6 +39,13 @@ struct DiscussionView: View {
         .task(id: model.photosItemsTask) {
             await model.updatePickerItems()
         }
+        .task(id: model.chatId) {
+            // The discussion exists only after the first comment; re-runs when it is created
+            await model.activity.run()
+        }
+        .sheet(item: activityRunSheet) {
+            ChatActivityRunSheetView(controller: model.activity, runId: $0.runId)
+        }
         .anytypeSheet(item: $model.deleteMessageConfirmation) {
             ChatDeleteMessageAlert(message: $0)
         }
@@ -134,11 +141,20 @@ struct DiscussionView: View {
         }
     }
 
-    @ViewBuilder
     private var bottomPanel: some View {
-        if model.canEdit {
-            inputPanel
+        VStack(spacing: 0) {
+            DiscussionActivityRootView(controller: model.activity)
+            if model.canEdit {
+                inputPanel
+            }
         }
+    }
+
+    private var activityRunSheet: Binding<ChatActivityRunSheetData?> {
+        Binding(
+            get: { model.activity.runSheet },
+            set: { model.activity.runSheet = $0 }
+        )
     }
 
     private var inputPanel: some View {
@@ -193,7 +209,10 @@ struct DiscussionView: View {
                 onTapCloseReply: {
                     model.onTapDeleteReply()
                 },
-                disableHeaderAndAttachments: model.sendMessageTaskInProgress
+                disableHeaderAndAttachments: model.sendMessageTaskInProgress,
+                onUserEdit: { isEmpty in
+                    model.onUserEditedMessage(isEmpty: isEmpty)
+                }
             )
             .overlay(alignment: .top) {
                 if let messageTextLimit = model.messageTextLimit {
@@ -215,6 +234,9 @@ struct DiscussionView: View {
         }
         .onChange(of: model.message) {
             model.messageDidChanged()
+        }
+        .onChange(of: model.inputFocused) {
+            model.onInputFocusChanged()
         }
     }
 
@@ -267,11 +289,13 @@ struct DiscussionView: View {
     private func cell(data: MessageSectionItem) -> some View {
         switch data {
         case .message(let data):
-            DiscussionMessageView(data: data, output: model)
-        case .unread:
+            DiscussionMessageView(data: data, output: model, activity: model.activity)
+        case .unread, .activityRun:
             EmptyView()
         case .discussionDivider:
             DiscussionMessageDividerView()
+        case .activityThread(let rootId):
+            DiscussionActivityThreadView(controller: model.activity, rootId: rootId)
         }
     }
 }

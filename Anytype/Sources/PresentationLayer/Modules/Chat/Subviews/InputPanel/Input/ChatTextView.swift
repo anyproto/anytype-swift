@@ -19,6 +19,7 @@ struct ChatTextView: UIViewRepresentable {
     let linkTo: (_ range: NSRange) -> Void
     let linkParsed: (_ url: URL) -> Void
     let pasteAttachmentsFromBuffer: ((_ items: [NSItemProvider]) -> Void)
+    var onUserEdit: ((_ isEmpty: Bool) -> Void)? = nil
     
     @State private var height: CGFloat = 0
     
@@ -68,6 +69,7 @@ struct ChatTextView: UIViewRepresentable {
         context.coordinator.linkTo = linkTo
         context.coordinator.linkParsed = linkParsed
         context.coordinator.pasteAttachmentsFromBuffer = pasteAttachmentsFromBuffer
+        context.coordinator.userDidEdit = onUserEdit
 
         if textView.textContainerInset.right != trailingInset {
             textView.textContainerInset.right = trailingInset

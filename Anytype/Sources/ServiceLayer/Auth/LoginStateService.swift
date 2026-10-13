@@ -81,6 +81,10 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         middlewareConfigurationProvider.removeCachedConfiguration()
         pushNotificationsPermissionService.unregisterForRemoteNotifications()
         spaceFileUploadService.cancelAllUploads()
+        // Live activity is memory-only and per account
+        await MainActor.run {
+            Container.shared.chatActivityStore().clearAll()
+        }
         await stopSubscriptions()
         // After the subscriptions stop nothing can write the old account's state back.
         userDefaults.cleanStateAfterLogout()

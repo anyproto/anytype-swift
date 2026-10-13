@@ -367,7 +367,7 @@ final class BonjourDiscoveryEngine: @unchecked Sendable {
     }
 
     private func report(peerId: String, session: BonjourDiscoverySession) {
-        guard let peer = session.peers[peerId], peer.instances.isNotEmpty else {
+        guard let peer = session.peers[peerId], !peer.instances.isEmpty else {
             session.peers[peerId] = nil
             session.lastReports[peerId] = nil
             if session.reportedPeers.remove(peerId).isNotNil {

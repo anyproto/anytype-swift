@@ -1550,6 +1550,52 @@ public enum Loc {
     public static func replyTo(_ p1: Any) -> String {
       return Loc.tr("Workspace", "Chat.ReplyTo", String(describing: p1), fallback: "Reply to %@")
     }
+    public enum Activity {
+      public static func activities(_ p1: Int) -> String {
+        return Loc.tr("Workspace", "Chat.Activity.Activities", p1, fallback: "Plural format key: Chat.Activity.Activities")
+      }
+      public static let copyAsJson = Loc.tr("Workspace", "Chat.Activity.CopyAsJson", fallback: "Copy as JSON")
+      public static let defaultText = Loc.tr("Workspace", "Chat.Activity.DefaultText", fallback: "Typing")
+      public static func failed(_ p1: Int) -> String {
+        return Loc.tr("Workspace", "Chat.Activity.Failed", p1, fallback: "Plural format key: Chat.Activity.Failed")
+      }
+      public static func running(_ p1: Int) -> String {
+        return Loc.tr("Workspace", "Chat.Activity.Running", p1, fallback: "Plural format key: Chat.Activity.Running")
+      }
+      public static let showDetails = Loc.tr("Workspace", "Chat.Activity.ShowDetails", fallback: "Show details")
+      public static let toolCall = Loc.tr("Workspace", "Chat.Activity.ToolCall", fallback: "Tool call")
+      public static func toolCalls(_ p1: Int) -> String {
+        return Loc.tr("Workspace", "Chat.Activity.ToolCalls", p1, fallback: "Plural format key: Chat.Activity.ToolCalls")
+      }
+      public enum Announcement {
+        public static func completed(_ p1: Any) -> String {
+          return Loc.tr("Workspace", "Chat.Activity.Announcement.Completed", String(describing: p1), fallback: "%@ finished")
+        }
+        public static func failed(_ p1: Any) -> String {
+          return Loc.tr("Workspace", "Chat.Activity.Announcement.Failed", String(describing: p1), fallback: "%@: a tool call failed")
+        }
+      }
+      public enum Settings {
+        public static let showTyping = Loc.tr("Workspace", "Chat.Activity.Settings.ShowTyping", fallback: "Show others when I'm typing")
+      }
+      public enum Status {
+        public static let completed = Loc.tr("Workspace", "Chat.Activity.Status.Completed", fallback: "Completed")
+        public static let failed = Loc.tr("Workspace", "Chat.Activity.Status.Failed", fallback: "Failed")
+        public static let noRecentUpdates = Loc.tr("Workspace", "Chat.Activity.Status.NoRecentUpdates", fallback: "No recent updates")
+        public static let running = Loc.tr("Workspace", "Chat.Activity.Status.Running", fallback: "Running")
+      }
+      public enum Typing {
+        public static func one(_ p1: Any) -> String {
+          return Loc.tr("Workspace", "Chat.Activity.Typing.One", String(describing: p1), fallback: "%@ is typing")
+        }
+        public static func others(_ p1: Int) -> String {
+          return Loc.tr("Workspace", "Chat.Activity.Typing.Others", p1, fallback: "Plural format key: Chat.Activity.Typing.Others")
+        }
+        public static func several(_ p1: Any, _ p2: Any) -> String {
+          return Loc.tr("Workspace", "Chat.Activity.Typing.Several", String(describing: p1), String(describing: p2), fallback: "%@ and %@ are typing")
+        }
+      }
+    }
     public enum AttachedObject {
       public static let attach = Loc.tr("Workspace", "Chat.AttachedObject.Attach", fallback: "Attach")
     }

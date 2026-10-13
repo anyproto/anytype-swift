@@ -16,6 +16,7 @@ protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
     var autoDownloadUseCellular: Bool { get set }
     var spaceHubLastMessageDates: [String: Date] { get set }
     var unifiedSearchDiscovered: Bool { get set }
+    var sendTypingIndicator: Bool { get set }
 
     func wallpaperPublisher(spaceId: String) -> AnyPublisher<SpaceWallpaperType, Never>
     func wallpapersPublisher() -> AnyPublisher<[String: SpaceWallpaperType], Never>
@@ -69,6 +70,11 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
     // fresh install. Until then the hub's search entry glimmers so upgraders notice the feature.
     @UserDefault("UserData.UnifiedSearchDiscovered", defaultValue: false)
     var unifiedSearchDiscovered: Bool
+
+    // MARK: - Chat Activity
+    // "Show others when I'm typing". Per device, kept across logout.
+    @UserDefault("UserData.SendTypingIndicator", defaultValue: true)
+    var sendTypingIndicator: Bool
 
     // MARK: - UserInterfaceStyle
     @UserDefault("UserData.UserInterfaceStyle", defaultValue: UIUserInterfaceStyle.unspecified.rawValue)

@@ -37,6 +37,17 @@ extension Anytype_Rpc.Account {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
+        /// the bind outcome, same type the accountJsonApiStatus event carries;
+        /// nil only when listenAddr == "" (disabling) or error.code != NULL
+        public var status: Anytype_Event.Account.JsonApiStatus {
+          get {return _status ?? Anytype_Event.Account.JsonApiStatus()}
+          set {_status = newValue}
+        }
+        /// Returns true if `status` has been explicitly set.
+        public var hasStatus: Bool {return self._status != nil}
+        /// Clears the value of `status`. Subsequent reads from it will return its default value.
+        public mutating func clearStatus() {self._status = nil}
+
         public var error: Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error {
           get {return _error ?? Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error()}
           set {_error = newValue}
@@ -106,6 +117,7 @@ extension Anytype_Rpc.Account {
 
         public init() {}
 
+        fileprivate var _status: Anytype_Event.Account.JsonApiStatus? = nil
         fileprivate var _error: Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error? = nil
       }
 
@@ -164,7 +176,7 @@ extension Anytype_Rpc.Account.ChangeJsonApiAddr.Request: SwiftProtobuf.Message, 
 
 extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.ChangeJsonApiAddr.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\u{2}error\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}status\0\u{1}error\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -172,6 +184,7 @@ extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._status) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       default: break
       }
@@ -183,6 +196,9 @@ extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response: SwiftProtobuf.Message,
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._status {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
@@ -190,6 +206,7 @@ extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response: SwiftProtobuf.Message,
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.ChangeJsonApiAddr.Response, rhs: Anytype_Rpc.Account.ChangeJsonApiAddr.Response) -> Bool {
+    if lhs._status != rhs._status {return false}
     if lhs._error != rhs._error {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

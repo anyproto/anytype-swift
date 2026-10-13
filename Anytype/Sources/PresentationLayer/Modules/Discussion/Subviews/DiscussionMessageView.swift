@@ -17,13 +17,16 @@ struct DiscussionMessageView: View {
 
     private let data: MessageViewData
     private weak var output: (any MessageModuleOutput)?
+    private let activity: ChatActivityController?
 
     init(
         data: MessageViewData,
-        output: (any MessageModuleOutput)? = nil
+        output: (any MessageModuleOutput)? = nil,
+        activity: ChatActivityController? = nil
     ) {
         self.data = data
         self.output = output
+        self.activity = activity
     }
 
     var body: some View {
@@ -72,6 +75,7 @@ struct DiscussionMessageView: View {
     private var bubble: some View {
         VStack(alignment: .leading, spacing: 0) {
             header
+            attachedActivity
             Spacer.fixedHeight(8)
             messageContent
         }
@@ -83,6 +87,15 @@ struct DiscussionMessageView: View {
         .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
         .contextMenu {
             contextMenu
+        }
+    }
+
+    /// Agent runs this comment closed, one compact line each, under the header. A child view,
+    /// so only it observes activity, not the whole comment.
+    @ViewBuilder
+    private var attachedActivity: some View {
+        if let activity {
+            DiscussionAttachedRunsView(controller: activity, messageId: data.id)
         }
     }
 

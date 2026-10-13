@@ -6,7 +6,9 @@ protocol ChatMessageBuilderProtocol: AnyObject, Sendable {
         messages: [FullChatMessage],
         participants: [Participant],
         firstUnreadMessageOrderId: String?,
-        limits: any ChatMessageLimitsProtocol
+        limits: any ChatMessageLimitsProtocol,
+        activityRuns: ChatActivityTimelineRuns,
+        windowAtTail: Bool
     ) async -> [MessageSectionData]
 }
 
@@ -35,7 +37,9 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         messages: [FullChatMessage],
         participants: [Participant],
         firstUnreadMessageOrderId: String?,
-        limits: any ChatMessageLimitsProtocol
+        limits: any ChatMessageLimitsProtocol,
+        activityRuns: ChatActivityTimelineRuns,
+        windowAtTail: Bool
     ) async -> [MessageSectionData] {
 
         let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
@@ -131,13 +135,35 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 sectionDateDay = createDateDay
             }
             
+            // A run closed by this message sits in the gap before it
+            for runId in activityRuns.beforeMessage[message.id] ?? [] {
+                currentSectionData?.items.append(.activityRun(runId: runId))
+            }
             if let unreadItem {
                 currentSectionData?.items.append(unreadItem)
             }
             currentSectionData?.items.append(.message(messageModel))
+            for runId in activityRuns.afterMessage[message.id] ?? [] {
+                currentSectionData?.items.append(.activityRun(runId: runId))
+            }
             
             prevCreator = message.creator
             prevDateInterval = message.createdAt
+        }
+
+        // The open run follows the newest message, only when it is loaded
+        if windowAtTail, activityRuns.atTail.isNotEmpty {
+            let tailItems = activityRuns.atTail.map { MessageSectionItem.activityRun(runId: $0) }
+            if currentSectionData != nil {
+                currentSectionData?.items.append(contentsOf: tailItems)
+            } else {
+                let today = dayDate(for: Date())
+                currentSectionData = MessageSectionData(
+                    header: dateFormatter.localizedDateString(for: today),
+                    id: today.hashValue,
+                    items: tailItems
+                )
+            }
         }
 
         if let currentSectionData {

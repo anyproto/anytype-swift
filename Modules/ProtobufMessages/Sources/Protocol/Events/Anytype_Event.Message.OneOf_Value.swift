@@ -8,6 +8,7 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
+import Foundation
 import SwiftProtobuf
 
 extension Anytype_Event.Message {
@@ -20,6 +21,7 @@ extension Anytype_Event.Message {
       case accountLinkApprovalRequest(Anytype_Event.Account.LinkApprovalRequest)
       case accountLinkApprovalHide(Anytype_Event.Account.LinkApprovalHide)
       case accountRecoveryUpdate(Anytype_Event.Account.Recovery.Update)
+      case accountJsonApiStatus(Anytype_Event.Account.JsonApiStatus)
       case objectDetailsSet(Anytype_Event.Object.Details.Set)
       case objectDetailsAmend(Anytype_Event.Object.Details.Amend)
       case objectDetailsUnset(Anytype_Event.Object.Details.Unset)
@@ -112,6 +114,7 @@ extension Anytype_Event.Message {
       case membershipV2Update(Anytype_Event.MembershipV2.Update)
       case membershipV2ProductsUpdate(Anytype_Event.MembershipV2.ProductsUpdate)
       case importStatistic(Anytype_Event.Import.Statistic)
+      case pubsubMessage(Anytype_Event.Pubsub.Message)
 
     }}
 

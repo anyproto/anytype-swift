@@ -118,6 +118,16 @@ public struct Anytype_Model_ChatMessage: @unchecked Sendable {
     set {_uniqueStorage()._blocks = newValue}
   }
 
+  /// deleted marks a soft-deleted discussion comment (a tombstone). It keeps id, orderId,
+  /// creator, createdAt and replyToMessageId, so replies keep their thread; message,
+  /// attachments, blocks and reactions are empty and modifiedAt is 0. Only discussions
+  /// produce it; a deleted space-chat message is removed and announced with Event.Chat.Delete.
+  /// A tombstone can't be edited, reacted to, pinned or replied to.
+  public var deleted: Bool {
+    get {return _storage._deleted}
+    set {_uniqueStorage()._deleted = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -127,7 +137,7 @@ public struct Anytype_Model_ChatMessage: @unchecked Sendable {
 
 extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ChatMessage"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}orderId\0\u{1}creator\0\u{1}createdAt\0\u{1}replyToMessageId\0\u{1}message\0\u{1}attachments\0\u{1}reactions\0\u{1}modifiedAt\0\u{1}read\0\u{1}stateId\0\u{1}mentionRead\0\u{1}synced\0\u{1}hasMention\0\u{1}pinned\0\u{1}unreadReaction\0\u{1}blocks\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}orderId\0\u{1}creator\0\u{1}createdAt\0\u{1}replyToMessageId\0\u{1}message\0\u{1}attachments\0\u{1}reactions\0\u{1}modifiedAt\0\u{1}read\0\u{1}stateId\0\u{1}mentionRead\0\u{1}synced\0\u{1}hasMention\0\u{1}pinned\0\u{1}unreadReaction\0\u{1}blocks\0\u{1}deleted\0")
 
   fileprivate class _StorageClass {
     var _id: String = String()
@@ -147,6 +157,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     var _pinned: Bool = false
     var _unreadReaction: Bool = false
     var _blocks: [Anytype_Model_ChatMessage.MessageBlock] = []
+    var _deleted: Bool = false
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -174,6 +185,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
       _pinned = source._pinned
       _unreadReaction = source._unreadReaction
       _blocks = source._blocks
+      _deleted = source._deleted
     }
   }
 
@@ -209,6 +221,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
         case 15: try { try decoder.decodeSingularBoolField(value: &_storage._pinned) }()
         case 16: try { try decoder.decodeSingularBoolField(value: &_storage._unreadReaction) }()
         case 17: try { try decoder.decodeRepeatedMessageField(value: &_storage._blocks) }()
+        case 18: try { try decoder.decodeSingularBoolField(value: &_storage._deleted) }()
         default: break
         }
       }
@@ -272,6 +285,9 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
       if !_storage._blocks.isEmpty {
         try visitor.visitRepeatedMessageField(value: _storage._blocks, fieldNumber: 17)
       }
+      if _storage._deleted != false {
+        try visitor.visitSingularBoolField(value: _storage._deleted, fieldNumber: 18)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -298,6 +314,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
         if _storage._pinned != rhs_storage._pinned {return false}
         if _storage._unreadReaction != rhs_storage._unreadReaction {return false}
         if _storage._blocks != rhs_storage._blocks {return false}
+        if _storage._deleted != rhs_storage._deleted {return false}
         return true
       }
       if !storagesAreEqual {return false}

@@ -5,8 +5,19 @@ protocol DiscussionMessageBuilderProtocol: AnyObject, Sendable {
     func makeMessage(
         messages: [FullChatMessage],
         participants: [Participant],
-        limits: any ChatMessageLimitsProtocol
+        limits: any ChatMessageLimitsProtocol,
+        activityThreadRootIds: Set<String>
     ) async -> [MessageSectionData]
+}
+
+extension DiscussionMessageBuilderProtocol {
+    func makeMessage(
+        messages: [FullChatMessage],
+        participants: [Participant],
+        limits: any ChatMessageLimitsProtocol
+    ) async -> [MessageSectionData] {
+        await makeMessage(messages: messages, participants: participants, limits: limits, activityThreadRootIds: [])
+    }
 }
 
 actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
@@ -30,7 +41,8 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
     func makeMessage(
         messages: [FullChatMessage],
         participants: [Participant],
-        limits: any ChatMessageLimitsProtocol
+        limits: any ChatMessageLimitsProtocol,
+        activityThreadRootIds: Set<String>
     ) async -> [MessageSectionData] {
 
         // Discussion always shows all authors equally, no left/right distinction
@@ -83,6 +95,11 @@ actor DiscussionMessageBuilder: DiscussionMessageBuilderProtocol, Sendable {
                     )
                     items.append(.message(replyModel))
                 }
+            }
+
+            // Live activity (typing, agent runs) at the end of the thread
+            if activityThreadRootIds.contains(root.message.id) {
+                items.append(.activityThread(rootId: root.message.id))
             }
         }
 

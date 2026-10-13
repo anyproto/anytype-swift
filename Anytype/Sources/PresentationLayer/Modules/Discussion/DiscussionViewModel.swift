@@ -70,6 +70,9 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private let threadGrouper = DiscussionThreadGrouper()
     private var chatObject: (any BaseDocumentProtocol)?
     private let initialMessageId: String?
+    let activity: ChatActivityController
+    @ObservationIgnored
+    private var builtActivityThreadRootIds: Set<String> = []
 
     // MARK: - State
 
@@ -174,6 +177,10 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             self.chatObject = nil
         }
         self.participantSubscription = Container.shared.participantSubscription(spaceId)
+        self.activity = ChatActivityController(spaceId: spaceId, chatId: chatId, mode: .discussion)
+        activity.onPlacementChange = { [weak self] in
+            self?.activityPlacementChanged()
+        }
     }
 
     func onAppear() {
@@ -323,6 +330,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
             sendMessageTaskInProgress = false
             return
         }
+        activity.typing.stop()
         let loadingTask = Task {
             try await Task.sleep(seconds: 0.3)
             try Task.checkCancellation()
@@ -507,6 +515,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         withAnimation {
             replyToMessage = nil
         }
+        activity.typing.setReplyTo(nil)
     }
 
     func onTapDeleteEdit() {
@@ -601,6 +610,16 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         messageTextLimit = discussionMessageLimits.textIsWarinig(text: message) ? "\(message.string.count) / \(discussionMessageLimits.textLimit)" : nil
     }
 
+    func onUserEditedMessage(isEmpty: Bool) {
+        activity.typing.userEditedText(isEmpty: isEmpty)
+    }
+
+    func onInputFocusChanged() {
+        if !inputFocused {
+            activity.typing.stop()
+        }
+    }
+
     func configureProvider(_ provider: Binding<ChatActionProvider>) {
         self.chatActionProviderBinding = provider
         guard let chatId else { return }
@@ -691,6 +710,8 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
                 icon: message.attachmentsDetails.first?.objectIconImage
             )
         }
+        // Reply typing shows at the end of this thread on other devices
+        activity.typing.setReplyTo(rootParentId)
     }
 
     private func resolveRootParentId(for message: ChatMessage) -> String {
@@ -710,6 +731,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         AnytypeAnalytics.instance().logClickMessageMenuEdit()
         clearInput()
         editMessage = messageToEdit.message
+        activity.typing.setEditingMessage(true)
         message = await chatInputConverter.convert(content: messageToEdit.message.combinedMessageContent(), spaceId: spaceId).value
         if let chatStorage {
             let attachments = await chatStorage.attachments(message: messageToEdit.message)
@@ -805,6 +827,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
     private func subscribeOnParticipants() async {
         for await participants in participantSubscription.participantsPublisher.values {
             self.participants = participants
+            activity.updateParticipants(participants)
             await updateMessages()
         }
     }
@@ -822,11 +845,13 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
             for await (canEditMessages, canEditChat) in combineLatest(permissionsSequence, deletedOrArchivedSequence) {
                 canEdit = canEditMessages && canEditChat
+                activity.typing.setCanEdit(canEdit)
                 await updateMessages()
             }
         } else {
             for await canEditMessages in permissionsSequence {
                 canEdit = canEditMessages
+                activity.typing.setCanEdit(canEdit)
             }
         }
     }
@@ -883,13 +908,38 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
     private func updateMessages() async {
         guard let discussionMessageBuilder else { return }
+        let placement = makeActivityPlacement()
+        activity.setDiscussionPlacement(placement)
+        builtActivityThreadRootIds = placement.threadRootIds
         let newMessageBlocks = await discussionMessageBuilder.makeMessage(
             messages: messages,
             participants: participants,
-            limits: discussionMessageLimits
+            limits: discussionMessageLimits,
+            activityThreadRootIds: placement.threadRootIds
         )
         guard newMessageBlocks != mesageBlocks else { return }
         mesageBlocks = newMessageBlocks
+    }
+
+    /// Typing or agent activity moved. Rows update in place; the list rebuilds only when a
+    /// thread gains or loses its activity row.
+    private func activityPlacementChanged() {
+        let placement = makeActivityPlacement()
+        activity.setDiscussionPlacement(placement)
+        guard placement.threadRootIds != builtActivityThreadRootIds else { return }
+        Task { await updateMessages() }
+    }
+
+    private func makeActivityPlacement() -> DiscussionActivityPlacement {
+        let loaded = messages
+        let messageById = Dictionary(loaded.map { ($0.message.id, $0.message) }, uniquingKeysWith: { _, last in last })
+        return activity.makeDiscussionPlacement(
+            // A soft-deleted comment (tombstone) hides the run it closed
+            isLoaded: { messageById[$0].map { !$0.deleted } ?? false },
+            threadRoot: { [threadGrouper] id in
+                messageById[id].flatMap { threadGrouper.findRootParent(of: $0, in: loaded) }
+            }
+        )
     }
 
     private func clearInput() {
@@ -897,6 +947,8 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
         attachmentHandler.clearState()
         replyToMessage = nil
         editMessage = nil
+        activity.typing.setReplyTo(nil)
+        activity.typing.setEditingMessage(false)
     }
 
     private func donateShareSuggestion() async {
@@ -945,6 +997,7 @@ final class DiscussionViewModel: MessageModuleOutput, ChatActionProviderHandler 
 
         // Initialize deferred dependencies
         self.chatId = newChatId
+        activity.setChatId(newChatId)
         self.chatStorage = Container.shared.discussionMessageStorage((spaceId, newChatId))
         self.discussionMessageBuilder = DiscussionMessageBuilder(spaceId: spaceId, chatId: newChatId)
         self.chatObject = openDocumentProvider.document(objectId: newChatId, spaceId: spaceId)

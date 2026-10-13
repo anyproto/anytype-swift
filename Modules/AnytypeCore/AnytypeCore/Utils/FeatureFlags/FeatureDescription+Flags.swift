@@ -84,6 +84,12 @@ public extension FeatureDescription {
         debugValue: true
     )
 
+    static let chatActivity = FeatureDescription(
+        title: "Live typing and agent tool-call activity in chats and discussions - IOS-6626",
+        category: .productFeature(author: "requilence@gmail.com", targetRelease: "?"),
+        defaultValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(

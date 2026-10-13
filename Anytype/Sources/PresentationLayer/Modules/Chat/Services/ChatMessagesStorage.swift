@@ -20,6 +20,8 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     var updateStream: AnyAsyncSequence<Set<ChatUpdate>> { get }
     var fullMessages: [FullChatMessage]? { get async }
     var chatState: ChatState? { get async }
+    /// The chat's newest message, also when the loaded window is elsewhere.
+    var lastMessage: ChatMessage? { get async }
 }
 
 actor ChatMessagesStorage: ChatMessagesStorageProtocol {
@@ -240,6 +242,10 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     func message(id: String) async -> ChatMessage? {
         return messages.message(id: id)
+    }
+
+    var lastMessage: ChatMessage? {
+        lastMessages.last
     }
     
     func markAsReadAll() async throws -> ChatMessage {
