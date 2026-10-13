@@ -71,6 +71,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     private let chatMessageBuilder: any ChatMessageBuilderProtocol
     private let chatObject: any BaseDocumentProtocol
     private let initialMessageId: String?
+    let activity: ChatActivityController
 
     // MARK: - State
     
@@ -168,6 +169,10 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         // Open object. Middleware will know that we are using the object and will be make a refresh after open from background
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
         self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId)
+        self.activity = ChatActivityController(spaceId: spaceId, chatId: chatId, mode: .chat)
+        activity.onPlacementChange = { [weak self] in
+            Task { await self?.updateMessages() }
+        }
     }
     
     func onAppear() {
@@ -390,6 +395,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             
             let chatState = await chatStorage.chatState
             let messages = await chatStorage.fullMessages
+            activity.observeTail(await chatStorage.lastMessage)
             
             if !showScreenLogged {
                 AnytypeAnalytics.instance().logScreenChat(
@@ -440,6 +446,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             sendMessageTaskInProgress = false
             return
         }
+        activity.typing.stop()
         let loadingTask = Task {
             try await Task.sleep(seconds: 0.3)
             try Task.checkCancellation()
@@ -620,7 +627,6 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     
     func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
         Task {
-            bottomVisibleOrderId = to.messageOrderId
             // updateActions() is normally triggered by .state middleware events,
             // but those arrive before forceHiddenActionPanel resets to false,
             // so action buttons (e.g. scroll-to-reaction) would never appear.
@@ -630,8 +636,25 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             if wasForceHidden {
                 updateActions()
             }
-            await chatStorage.updateVisibleRange(startMessageId: from.messageId, endMessageId: to.messageId)
+            // Activity rows at the viewport edges are not messages: read only what is visible
+            guard let range = trackedRange(from: from, to: to) else { return }
+            bottomVisibleOrderId = range.to.messageOrderId
+            await chatStorage.updateVisibleRange(startMessageId: range.from.messageId, endMessageId: range.to.messageId)
         }
+    }
+
+    private func trackedRange(from: MessageSectionItem, to: MessageSectionItem) -> (from: MessageSectionItem, to: MessageSectionItem)? {
+        if from.trackedMessageId != nil, to.trackedMessageId != nil {
+            return (from, to)
+        }
+        let allItems = mesageBlocks.flatMap(\.items)
+        guard let fromIndex = allItems.firstIndex(where: { $0.id == from.id }),
+              let toIndex = allItems.firstIndex(where: { $0.id == to.id }),
+              fromIndex <= toIndex else { return nil }
+        let visible = allItems[fromIndex...toIndex]
+        guard let first = visible.first(where: { $0.trackedMessageId != nil }),
+              let last = visible.last(where: { $0.trackedMessageId != nil }) else { return nil }
+        return (first, last)
     }
     
     func bigDistanceToTheBottomChanged(isBig: Bool) {
@@ -642,6 +665,16 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     func messageDidChanged() {
         textLimitReached = chatMessageLimits.textIsLimited(text: message)
         messageTextLimit = chatMessageLimits.textIsWarinig(text: message) ? "\(message.string.count) / \(chatMessageLimits.textLimit)" : nil
+    }
+
+    func onUserEditedMessage(isEmpty: Bool) {
+        activity.typing.userEditedText(isEmpty: isEmpty)
+    }
+
+    func onInputFocusChanged() {
+        if !inputFocused {
+            activity.typing.stop()
+        }
     }
     
     func configureProvider(_ provider: Binding<ChatActionProvider>) {
@@ -770,6 +803,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         AnytypeAnalytics.instance().logClickMessageMenuEdit()
         clearInput()
         editMessage = messageToEdit.message
+        activity.typing.setEditingMessage(true)
         message = await chatInputConverter.convert(content: messageToEdit.message.message, spaceId: spaceId).value
         let attachments = await chatStorage.attachments(message: messageToEdit.message)
         let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }
@@ -836,6 +870,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     private func subscribeOnParticipants() async {
         for await participants in participantSubscription.participantsPublisher.values {
             self.participants = participants
+            activity.updateParticipants(participants)
             await updateMessages()
         }
     }
@@ -852,6 +887,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
 
         for await (canEditMessages, canEditChat) in combineLatest(permissionsSequence, deletedOrArchivedSequence) {
             canEdit = canEditMessages && canEditChat
+            activity.typing.setCanEdit(canEdit)
             await updateMessages()
         }
     }
@@ -904,11 +940,14 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     private func updateMessages() async {
+        let newestMessageId = await chatStorage.lastMessage?.id
         let newMessageBlocks = await chatMessageBuilder.makeMessage(
             messages: messages,
             participants: participants,
             firstUnreadMessageOrderId: firstUnreadMessageOrderId,
-            limits: chatMessageLimits
+            limits: chatMessageLimits,
+            activityRuns: activity.chatTimelineRuns(),
+            windowAtTail: messages.last?.message.id == newestMessageId
         )
         guard newMessageBlocks != mesageBlocks else { return }
         mesageBlocks = newMessageBlocks
@@ -921,6 +960,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         attachmentHandler.clearState()
         replyToMessage = nil
         editMessage = nil
+        activity.typing.setEditingMessage(false)
     }
 
     private func donateShareSuggestion() async {

@@ -11,6 +11,9 @@ struct PushNotificationsSettingsView: View {
             if let mode = model.status {
                 content(with: mode)
             }
+            if model.showTypingSetting {
+                typingRow
+            }
             Spacer()
         }
         .onAppear() {
@@ -49,6 +52,18 @@ struct PushNotificationsSettingsView: View {
                 .buttonStyle(.plain)
             }
         }
+    }
+
+    private var typingRow: some View {
+        AnytypeToggle(
+            title: Loc.Chat.Activity.Settings.showTyping,
+            font: .previewTitle1Regular,
+            isOn: model.sendTypingIndicator
+        ) { model.onSendTypingToggled($0) }
+            .frame(height: 52)
+            .padding(.horizontal, 4)
+            .newDivider()
+            .padding(.horizontal, 12)
     }
 
     private func rowContent(enabled: Bool) -> some View {

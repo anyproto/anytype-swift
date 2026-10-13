@@ -60,11 +60,17 @@ struct ChatView: View {
         .task(id: model.photosItemsTask) {
             await model.updatePickerItems()
         }
+        .task {
+            await model.activity.run()
+        }
         .anytypeSheet(item: $model.deleteMessageConfirmation) {
             ChatDeleteMessageAlert(message: $0)
         }
         .anytypeSheet(isPresented: $model.showSendLimitAlert) {
             ChatSendLimitAlert()
+        }
+        .sheet(item: activityRunSheet) {
+            ChatActivityRunSheetView(controller: model.activity, runId: $0.runId)
         }
         .fullScreenCover(isPresented: Binding(
             get: { model.searchMode == .fullscreen },
@@ -80,17 +86,26 @@ struct ChatView: View {
         .homeBottomPanelHidden(true)
     }
     
-    @ViewBuilder
     private var bottomPanel: some View {
-        if model.searchMode == .inline {
-            ChatSearchInlineBar(
-                text: model.searchQuery,
-                onTap: { model.onTapInlineSearchBar() },
-                onTapClose: { model.onTapCloseSearch() }
-            )
-        } else if model.canEdit {
-            ChatInputPanel(model: model, actionState: $actionState)
+        VStack(spacing: 0) {
+            ChatActivityComposerRowsView(controller: model.activity)
+            if model.searchMode == .inline {
+                ChatSearchInlineBar(
+                    text: model.searchQuery,
+                    onTap: { model.onTapInlineSearchBar() },
+                    onTapClose: { model.onTapCloseSearch() }
+                )
+            } else if model.canEdit {
+                ChatInputPanel(model: model, actionState: $actionState)
+            }
         }
+    }
+
+    private var activityRunSheet: Binding<ChatActivityRunSheetData?> {
+        Binding(
+            get: { model.activity.runSheet },
+            set: { model.activity.runSheet = $0 }
+        )
     }
     
     private var emptyView: some View {
@@ -168,8 +183,12 @@ struct ChatView: View {
             MessageView(data: data, output: model)
         case .unread:
             ChatMessageUnreadView()
-        case .discussionDivider:
+        case .discussionDivider, .activityThread:
             EmptyView()
+        case .activityRun(let runId):
+            ChatActivityRunRowView(controller: model.activity, runId: runId)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 4)
         }
     }
 }

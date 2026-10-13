@@ -61,7 +61,10 @@ struct ChatInputPanel: View {
                 onTapCloseReply: {
                     model.onTapDeleteReply()
                 },
-                disableHeaderAndAttachments: model.sendMessageTaskInProgress
+                disableHeaderAndAttachments: model.sendMessageTaskInProgress,
+                onUserEdit: { isEmpty in
+                    model.onUserEditedMessage(isEmpty: isEmpty)
+                }
             )
             .overlay(alignment: .top) {
                 if let messageTextLimit = model.messageTextLimit {
@@ -83,6 +86,9 @@ struct ChatInputPanel: View {
         }
         .onChange(of: model.message) {
             model.messageDidChanged()
+        }
+        .onChange(of: model.inputFocused) {
+            model.onInputFocusChanged()
         }
     }
 }

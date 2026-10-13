@@ -4,6 +4,11 @@ enum MessageSectionItem: Equatable, Hashable, Identifiable {
     case message(_ data: MessageViewData)
     case unread(id: String, messageId: String, messageOrderId: String)
     case discussionDivider(id: String)
+    /// Chat: an agent run's compact line in the gap between messages. Not a message: read
+    /// tracking skips it.
+    case activityRun(runId: String)
+    /// Discussion: activity at the end of a thread.
+    case activityThread(rootId: String)
 
     var id: String {
         switch self {
@@ -13,6 +18,10 @@ enum MessageSectionItem: Equatable, Hashable, Identifiable {
             id
         case .discussionDivider(let id):
             id
+        case .activityRun(let runId):
+            "activity-\(runId)"
+        case .activityThread(let rootId):
+            "activity-thread-\(rootId)"
         }
     }
 }
@@ -26,6 +35,8 @@ extension MessageSectionItem {
             return messageId
         case .discussionDivider(let id):
             return id
+        case .activityRun, .activityThread:
+            return id
         }
     }
 
@@ -37,6 +48,8 @@ extension MessageSectionItem {
             return messageOrderId
         case .discussionDivider(let id):
             return id
+        case .activityRun, .activityThread:
+            return id
         }
     }
 
@@ -47,7 +60,7 @@ extension MessageSectionItem {
             return data.message.id
         case .unread(_, let messageId, _):
             return messageId
-        case .discussionDivider:
+        case .discussionDivider, .activityRun, .activityThread:
             return nil
         }
     }
@@ -59,7 +72,7 @@ extension MessageSectionItem {
             return data.message.orderID
         case .unread(_, _, let messageOrderId):
             return messageOrderId
-        case .discussionDivider:
+        case .discussionDivider, .activityRun, .activityThread:
             return nil
         }
     }

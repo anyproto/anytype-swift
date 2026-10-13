@@ -24,6 +24,8 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     var linkTo: ((_ range: NSRange) -> Void)?
     var linkParsed: ((_ url: URL) -> Void)?
     var pasteAttachmentsFromBuffer: ((_ items: [NSItemProvider]) -> Void)?
+    /// Text changed by the user. Programmatic updates (`updateTextIfNeeded`) never call it.
+    var userDidEdit: ((_ isEmpty: Bool) -> Void)?
     var defaultTypingAttributes: [NSAttributedString.Key : Any] = [:]
     
     // MARK: - State
@@ -159,6 +161,8 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
             cursorRect.origin.y += textView.textContainerInset.bottom
             textView.scrollRectToVisible(cursorRect, animated: true)
         }
+
+        userDidEdit?(textView.attributedText.length == 0)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

@@ -29,6 +29,8 @@ struct ChatInput: View {
     let replyToMessage: ChatInputReplyModel?
     let onTapCloseReply: () -> Void
     let disableHeaderAndAttachments: Bool
+    /// Text changed by the user, not by the app: drives the typing indicator.
+    var onUserEdit: ((_ isEmpty: Bool) -> Void)? = nil
     
     private let mainObjectTypeToCreateKey = ObjectTypeUniqueKey.page
     private let sendButtonSize: CGFloat = 32
@@ -146,7 +148,8 @@ struct ChatInput: View {
                     trailingInset: textTrailingInset,
                     linkTo: onTapLinkTo,
                     linkParsed: onLinkAdded,
-                    pasteAttachmentsFromBuffer: onPasteAttachmentsFromBuffer
+                    pasteAttachmentsFromBuffer: onPasteAttachmentsFromBuffer,
+                    onUserEdit: onUserEdit
                 )
             }
             .padding(.leading, 12)
