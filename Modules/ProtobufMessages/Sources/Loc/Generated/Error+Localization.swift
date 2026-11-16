@@ -788,6 +788,8 @@ extension Anytype_Rpc.Account.Select.Response.Error: LocalizedError {
                 return LocHelper.tr(table: "LocalizableError", key: "Account.Select.accountLoadIsCanceled")
             case .accountStoreNotMigrated:
                 return LocHelper.tr(table: "LocalizableError", key: "Account.Select.accountStoreNotMigrated")
+            case .notEnoughFreeSpace:
+                return LocHelper.tr(table: "LocalizableError", key: "Account.Select.notEnoughFreeSpace")
             case .configFileNotFound:
                 return LocHelper.tr(table: "LocalizableError", key: "Account.Select.configFileNotFound")
             case .configFileInvalid:
